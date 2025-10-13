@@ -1,0 +1,386 @@
+[
+  {
+    "input": "What is Catanduanes known for?",
+    "output": "Catanduanes is known for its beautiful beaches, mountains, and surfing spots."
+  },
+  {
+    "input": "Where is Catanduanes located?",
+    "output": "Catanduanes is an island province in the Bicol Region of the Philippines."
+  },
+  {
+    "input": "How do I get to Catanduanes?",
+    "output": "You can reach Catanduanes by plane or by ferry from mainland Bicol."
+  },
+  {
+    "input": "What are the best tourist spots in Catanduanes?",
+    "output": "Some top tourist spots include Puraran Beach, Binurong Point, Maribina Falls, and Balacay Point."
+  },
+  {
+    "input": "What is the capital of Catanduanes?",
+    "output": "The capital of Catanduanes is Virac."
+  },
+  {
+    "input": "Where can I surf in Catanduanes?",
+    "output": "Puraran Beach in Baras is the most popular surfing spot in Catanduanes."
+  },
+  {
+    "input": "When is the best time to visit Catanduanes?",
+    "output": "The best time to visit Catanduanes is from March to June when the weather is sunny."
+  },
+  {
+    "input": "Is Catanduanes safe for tourists?",
+    "output": "Yes, Catanduanes is generally safe and peaceful for tourists."
+  },
+  {
+    "input": "What is Binurong Point?",
+    "output": "Binurong Point is a scenic cliffside destination overlooking the ocean in Baras, Catanduanes."
+  },
+  {
+    "input": "What can I do at Binurong Point?",
+    "output": "You can hike, take pictures, and enjoy the panoramic sea view at Binurong Point."
+  },
+  {
+    "input": "Where is Binurong Point located?",
+    "output": "Binurong Point is located in Baras, Catanduanes."
+  },
+  {
+    "input": "What is Maribina Falls?",
+    "output": "Maribina Falls is a popular waterfall in Bato, Catanduanes known for its refreshing waters."
+  },
+  {
+    "input": "Can I swim in Maribina Falls?",
+    "output": "Yes, visitors can swim and relax at Maribina Falls."
+  },
+  {
+    "input": "Where can I find Maribina Falls?",
+    "output": "Maribina Falls is located in Barangay Marinawa, Bato, Catanduanes."
+  },
+  {
+    "input": "What is Balacay Point?",
+    "output": "Balacay Point is a scenic viewpoint in Baras offering views of the Pacific Ocean and nearby islands."
+  },
+  {
+    "input": "What activities can I do in Puraran Beach?",
+    "output": "You can surf, swim, sunbathe, and take photos at Puraran Beach."
+  },
+  {
+    "input": "Where can I stay in Catanduanes?",
+    "output": "You can stay in hotels and resorts in Virac, Baras, and San Andres."
+  },
+  {
+    "input": "Is there an airport in Catanduanes?",
+    "output": "Yes, the Virac Airport serves flights to and from Manila."
+  },
+  {
+    "input": "How long is the ferry ride to Catanduanes?",
+    "output": "The ferry ride from Tabaco Port to Virac or San Andres takes around 3 to 4 hours."
+  },
+  {
+    "input": "What food is Catanduanes famous for?",
+    "output": "Catanduanes is known for local dishes like linubak, latik, and fresh seafood."
+  },
+  {
+    "input": "Can I bring a car to Catanduanes?",
+    "output": "Yes, you can bring your car via roll-on/roll-off ferry from Tabaco Port."
+  },
+  {
+    "input": "Where can I rent a motorcycle in Catanduanes?",
+    "output": "You can rent motorcycles in Virac and Baras for local travel."
+  },
+  {
+    "input": "Are there ATMs in Catanduanes?",
+    "output": "Yes, ATMs are available mainly in Virac and nearby towns."
+  },
+  {
+    "input": "What language do people speak in Catanduanes?",
+    "output": "People speak Bicolano, Filipino, and English."
+  },
+  {
+    "input": "What is the weather like in Catanduanes?",
+    "output": "Catanduanes has tropical weather with sunny and rainy seasons."
+  },
+  {
+    "input": "Where is Mamangal Beach?",
+    "output": "Mamangal Beach is located in Virac, Catanduanes."
+  },
+  {
+    "input": "What is Mamangal Beach known for?",
+    "output": "Mamangal Beach is known for its wide sandy shore and calm waters."
+  },
+  {
+    "input": "What can I do in Mamangal Beach?",
+    "output": "You can picnic, swim, and enjoy the seaside view at Mamangal Beach."
+  },
+  {
+    "input": "Where is Talisoy Beach located?",
+    "output": "Talisoy Beach is located in Virac, near the airport area."
+  },
+  {
+    "input": "Is there nightlife in Catanduanes?",
+    "output": "Catanduanes is generally quiet, but there are bars and cafes in Virac."
+  },
+  {
+    "input": "What is Bato Church?",
+    "output": "Bato Church is one of the oldest stone churches in Bicol, located in Bato, Catanduanes."
+  },
+  {
+    "input": "When was Bato Church built?",
+    "output": "Bato Church was built in the 1800s and is made of coral stones."
+  },
+  {
+    "input": "What can I do in San Andres?",
+    "output": "In San Andres, you can visit beaches, mangrove parks, and local seafood restaurants."
+  },
+  {
+    "input": "Where is Twin Rock Beach Resort?",
+    "output": "Twin Rock Beach Resort is located in Igang, Virac, Catanduanes."
+  },
+  {
+    "input": "What activities are available at Twin Rock Resort?",
+    "output": "You can swim, zipline, and enjoy water sports at Twin Rock Resort."
+  },
+  {
+    "input": "Is there Wi-Fi in Catanduanes?",
+    "output": "Yes, most hotels and resorts in Catanduanes provide Wi-Fi access."
+  },
+  {
+    "input": "Where can I buy souvenirs in Catanduanes?",
+    "output": "You can buy souvenirs and local products at Virac Public Market."
+  },
+  {
+    "input": "What festivals are celebrated in Catanduanes?",
+    "output": "The Catandungan Festival in October celebrates the island’s culture and history."
+  },
+  {
+    "input": "What is the Abaca Festival?",
+    "output": "The Abaca Festival celebrates Catanduanes' abaca industry, featuring parades and exhibits."
+  },
+  {
+    "input": "What is abaca?",
+    "output": "Abaca is a natural fiber used for ropes and handicrafts, and Catanduanes is known for it."
+  },
+  {
+    "input": "Can I go island hopping in Catanduanes?",
+    "output": "Yes, you can visit nearby islands like Palumbanes and Panay Island."
+  },
+  {
+    "input": "Where is Palumbanes Island?",
+    "output": "Palumbanes Island is located off the coast of Caramoran, Catanduanes."
+  },
+  {
+    "input": "What can I see in Palumbanes Island?",
+    "output": "You can enjoy white sand beaches and coral reefs in Palumbanes Island."
+  },
+  {
+    "input": "What is Caramoran known for?",
+    "output": "Caramoran is known for its beaches and fishing villages."
+  },
+  {
+    "input": "How can I travel around Catanduanes?",
+    "output": "You can travel by tricycle, motorcycle, or rented car around Catanduanes."
+  },
+  {
+    "input": "Where can I find caves in Catanduanes?",
+    "output": "You can visit Luyang Cave in San Andres or Igang Cave in Virac."
+  },
+  {
+    "input": "What is Luyang Cave?",
+    "output": "Luyang Cave is a historic site in San Andres used as a refuge during pirate attacks."
+  },
+  {
+    "input": "Where is Igang Cave?",
+    "output": "Igang Cave is located near Twin Rock Resort in Virac."
+  },
+  {
+    "input": "Is there a mall in Catanduanes?",
+    "output": "Yes, there are small malls and grocery stores in Virac."
+  },
+  {
+    "input": "What transportation is available in Virac?",
+    "output": "You can ride tricycles and jeepneys for short trips around Virac."
+  },
+  {
+    "input": "Can I rent a car in Catanduanes?",
+    "output": "Yes, car rentals are available in Virac for tourists."
+  },
+  {
+    "input": "Where can I eat in Virac?",
+    "output": "There are local restaurants and cafes in downtown Virac."
+  },
+  {
+    "input": "Is Catanduanes a good place for hiking?",
+    "output": "Yes, there are scenic hiking spots like Binurong Point and Mount Cagmasoso."
+  },
+  {
+    "input": "Where is Mount Cagmasoso?",
+    "output": "Mount Cagmasoso is located in Viga, Catanduanes."
+  },
+  {
+    "input": "What can I see from Mount Cagmasoso?",
+    "output": "You can see panoramic views of the sea and nearby villages from Mount Cagmasoso."
+  },
+  {
+    "input": "Where is Hicming Falls?",
+    "output": "Hicming Falls is located in San Miguel, Catanduanes."
+  },
+  {
+    "input": "Is there camping in Catanduanes?",
+    "output": "Yes, you can camp at Binurong Point, Puraran Beach, or Balacay Point."
+  },
+  {
+    "input": "Can I bring pets to Catanduanes?",
+    "output": "Yes, but make sure to follow transport and accommodation pet policies."
+  },
+  {
+    "input": "Are there hospitals in Catanduanes?",
+    "output": "Yes, hospitals and clinics are available in Virac and major towns."
+  },
+  {
+    "input": "What is the time zone of Catanduanes?",
+    "output": "Catanduanes follows Philippine Standard Time, UTC+8."
+  },
+  {
+    "input": "Can I use mobile data in Catanduanes?",
+    "output": "Yes, major networks like Smart and Globe have signal coverage in most areas."
+  },
+  {
+    "input": "What is the main industry of Catanduanes?",
+    "output": "Catanduanes is known for abaca production, fishing, and agriculture."
+  },
+  {
+    "input": "Where is Viga located?",
+    "output": "Viga is a northern municipality of Catanduanes."
+  },
+  {
+    "input": "What is Pandan known for?",
+    "output": "Pandan is known for its beaches and traditional handwoven products."
+  },
+  {
+    "input": "Where is Pandan located?",
+    "output": "Pandan is located in the northern part of Catanduanes."
+  },
+  {
+    "input": "What is Baras known for?",
+    "output": "Baras is famous for Puraran Beach and Binurong Point."
+  },
+  {
+    "input": "What is San Miguel known for?",
+    "output": "San Miguel is known for its rivers, waterfalls, and agricultural scenery."
+  },
+  {
+    "input": "Can I ride a bicycle in Catanduanes?",
+    "output": "Yes, biking is a good way to explore scenic roads and small towns."
+  },
+  {
+    "input": "Are there banks in Catanduanes?",
+    "output": "Yes, major banks have branches in Virac."
+  },
+  {
+    "input": "What is the main religion in Catanduanes?",
+    "output": "Most people in Catanduanes are Roman Catholic."
+  },
+  {
+    "input": "What is the population of Catanduanes?",
+    "output": "Catanduanes has around 275,000 residents."
+  },
+  {
+    "input": "Is there public Wi-Fi in tourist spots?",
+    "output": "Some resorts and hotels provide Wi-Fi, but mobile data is more reliable."
+  },
+  {
+    "input": "What souvenirs can I buy in Catanduanes?",
+    "output": "You can buy abaca crafts, local delicacies, and shirts."
+  },
+  {
+    "input": "Can I use credit cards in Catanduanes?",
+    "output": "Some hotels accept credit cards, but cash is recommended for small stores."
+  },
+  {
+    "input": "What is the currency used in Catanduanes?",
+    "output": "The currency used is the Philippine Peso."
+  },
+  {
+    "input": "Is there an entrance fee at Binurong Point?",
+    "output": "Yes, a small entrance and guide fee is required at Binurong Point."
+  },
+  {
+    "input": "What should I wear in Catanduanes?",
+    "output": "Light clothing, slippers, and sunscreen are ideal for tropical weather."
+  },
+  {
+    "input": "Where can I see sunrise views?",
+    "output": "You can see stunning sunrises from Binurong Point or Balacay Point."
+  },
+  {
+    "input": "Where can I see sunset views?",
+    "output": "Twin Rock Resort and Mamangal Beach offer great sunset views."
+  },
+  {
+    "input": "Are there tour guides in Catanduanes?",
+    "output": "Yes, local guides are available for tours in Puraran, Binurong Point, and more."
+  },
+  {
+    "input": "Is there public transportation in Catanduanes?",
+    "output": "Yes, jeepneys, vans, and tricycles are available for public transport."
+  },
+  {
+    "input": "What is the meaning of Catandungan Festival?",
+    "output": "It celebrates the founding of Catanduanes Province and its rich culture."
+  },
+  {
+    "input": "Are there diving spots in Catanduanes?",
+    "output": "Yes, there are coral-rich areas near Palumbanes and Balacay for diving and snorkeling."
+  },
+  {
+    "input": "What are some local delicacies in Catanduanes?",
+    "output": "Try latik, kakanin, and local seafood dishes."
+  },
+  {
+    "input": "Can I bring drones to Catanduanes?",
+    "output": "Yes, but be mindful of local regulations and restricted areas."
+  },
+  {
+    "input": "What festivals are held in Baras?",
+    "output": "Baras celebrates local fiestas and surfing events at Puraran Beach."
+  },
+  {
+    "input": "What is the main transportation from the airport?",
+    "output": "You can take a tricycle or van from Virac Airport to nearby towns."
+  },
+  {
+    "input": "Is there a hospital near Puraran?",
+    "output": "The nearest hospital to Puraran is in Virac or Bato."
+  },
+  {
+    "input": "What should I bring when visiting Binurong Point?",
+    "output": "Bring water, comfortable shoes, and a camera for the hike."
+  },
+  {
+    "input": "Are there ATMs in Baras?",
+    "output": "Most ATMs are located in Virac, so withdraw cash before traveling to Baras."
+  },
+  {
+    "input": "Can I book hotels online in Catanduanes?",
+    "output": "Yes, many hotels are available through online booking platforms."
+  },
+  {
+    "input": "Is Catanduanes good for family trips?",
+    "output": "Yes, Catanduanes is a family-friendly destination with peaceful beaches and nature."
+  },
+  {
+    "input": "Can foreigners visit Catanduanes?",
+    "output": "Yes, foreign tourists are welcome to visit Catanduanes."
+  },
+  {
+    "input": "Are there restaurants in Baras?",
+    "output": "Yes, there are small eateries and beachside restaurants in Baras."
+  },
+  {
+    "input": "What is the main mode of transport in small towns?",
+    "output": "Tricycles are the most common mode of transport in small towns."
+  },
+  {
+    "input": "Where can I find information about Catanduanes tourism?",
+    "output": "You can visit the Catanduanes Tourism Office in Virac or check their official website."
+  }
+]
