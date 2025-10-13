@@ -10,6 +10,6 @@ model = AutoModelForCausalLM.from_pretrained(model_name)
 
 generate = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
-result = generate("Once upon a time,", max_length=50, num_return_sequences=1)
+result = generate("what are you called", max_length=10, num_return_sequences=1)
 
 print(result[0]["generated_text"])
