@@ -33,9 +33,7 @@ class RAGChatbot:
             print("Created new knowledge base")
     
     def _load_dataset(self, dataset_path):
-        """Load Q&A pairs into the database"""
         print(f"Loading dataset from {dataset_path}...")
-        
         with open(dataset_path, "r") as f:
             data = json.load(f)
         
@@ -53,6 +51,7 @@ class RAGChatbot:
                 "answer": item['output']
             })
             ids.append(str(idx))
+
         
         # Add to collection
         self.collection.add(
@@ -63,34 +62,25 @@ class RAGChatbot:
         print(f"Loaded {len(documents)} Q&A pairs into knowledge base")
     
     def ask(self, question, n_results=3):
-        """Ask a question and get answer from knowledge base"""
         # Search for similar questions
         results = self.collection.query(
             query_texts=[question],
             n_results=n_results
         )
-        
+
         if not results['documents'][0]:
             return "I don't have information about that in my knowledge base."
         
         # Get the best matching answer
         best_match = results['metadatas'][0][0]
         confidence = results['distances'][0][0] if 'distances' in results else None
-        
-        # Return the answer from metadata
-        answer = best_match['answer']
-        
-        # Add context from other results if available
-        if len(results['metadatas'][0]) > 1:
-            additional_info = []
-            for meta in results['metadatas'][0][1:]:
-                if meta['answer'] != answer:  # Don't repeat same answer
-                    additional_info.append(meta['answer'])
-            
-            if additional_info:
-                answer += f"\n\nRelated: {' '.join(additional_info[:2])}"
-        
-        return answer
+        if confidence < 75:
+            return "The query is out of context, please try again" 
+        else:
+            answer = best_match['answer']
+            return answer
+
+
     
     def chat(self):
         """Interactive chat loop"""
