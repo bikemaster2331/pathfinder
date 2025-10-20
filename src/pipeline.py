@@ -81,9 +81,6 @@ class Pipeline:
             return answer
 
 
-
-
-
     def guide_question(self):
         print("\nI am Katniss, your personal guide!")
         print("Type 'exit' or 'quit' to end conversation\n")
@@ -97,7 +94,8 @@ class Pipeline:
                 return
             
             answer = self.keywords(user_input)
-            print(f"Katniss: {answer}\n")
+            searched = self.search(answer)
+            print(f"Katniss: {searched}\n")
 
         pref = input("What activities do you prefer? (Hiking/Swimming/Surfing/etc...): ")
         response(pref)
