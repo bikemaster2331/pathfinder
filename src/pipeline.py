@@ -2,7 +2,6 @@ import chromadb
 from chromadb.utils import embedding_functions
 import json
 import torch
-from deep_translator import GoogleTranslator
 
 
 class Pipeline:
@@ -61,25 +60,7 @@ class Pipeline:
             if any(word in question.lower() for word in words):
                 found.append(topic)
         return found
-    
-    def search(self, topic, n_results=3):
-        translated = GoogleTranslator(source='auto', target='en').translate(topic)
-        results = self.collection.query(
-            query_texts=[translated],
-            n_results=n_results
-        )
-        if not results['documents'][0]:
-
-            return "I don't have information about that in my knowledge base."
-
-        best_match = results['metadatas'][0][0]
-        confidence = results['distances'][0][0] if 'distances' in results else None
-        if confidence > 0.6:
-            return "The query is out of context, please try again" 
-        else:
-            answer = best_match['answer']
-            return answer
-
+        
 
     def guide_question(self):
         print("\nI am Katniss, your personal guide!")
@@ -94,8 +75,7 @@ class Pipeline:
                 return
             
             answer = self.keywords(user_input)
-            searched = self.search(answer)
-            print(f"Katniss: {searched}\n")
+            print(f"Katniss: {answer}\n")
 
         pref = input("What activities do you prefer? (Hiking/Swimming/Surfing/etc...): ")
         response(pref)
