@@ -20,15 +20,13 @@ class Pipeline:
                 name="knowledge_base",
                 embedding_function=self.embedding
             )
-            print("✅ Loaded existing knowledge base")
         except:
             self.collection = self.client.create_collection(
                 name="knowledge_base",
                 embedding_function=self.embedding
             )
             self.load_dataset(dataset_path)
-            print("✅ Knowledge base created")
-    
+
     def load_dataset(self, dataset_path):
         with open(dataset_path, "r", encoding="utf-8") as f:
             data = json.load(f)
