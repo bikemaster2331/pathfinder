@@ -60,7 +60,6 @@ class Pipeline:
             if any(word in question.lower() for word in words):
                 found.append(topic)
         return found
-        
 
     def guide_question(self):
         print("\nI am Katniss, your personal guide!")
@@ -80,9 +79,6 @@ class Pipeline:
         pref = input("What activities do you prefer? (Hiking/Swimming/Surfing/etc...): ")
         response(pref)
 
-        while True:
-            qry = input("\nDo you have any questions?: ")
-            response(qry)
 
 if __name__ == '__main__':
     cbot = Pipeline(dataset_path="dataset/dataset.json")
