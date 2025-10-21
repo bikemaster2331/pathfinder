@@ -115,9 +115,7 @@ class Pipeline:
         
         best_match = results['metadatas'][0][0]
         confidence = results['distances'][0][0]
-        
-        print(f"[DEBUG] Best match distance: {confidence:.3f}")
-        
+                
         if confidence > 0.7:
             return "I'm not sure about that. Can you rephrase or ask about Catanduanes tourism?"
         
