@@ -55,7 +55,7 @@ class Pipeline:
         """Extract topic keywords from question"""
         keywords = {
             'surfing': ['surf', 'surfing', 'waves', 'board'],
-            'swimming': ['swim', 'swimming', 'beach'],
+            'swimming': ['swim', 'swimming', 'beach', 'bath'],
             'hiking': ['hike', 'hiking', 'trek', 'trail'],
             'food': ['eat', 'food', 'foodtrip', 'restaurant', 'dining'],
             'accommodation': ['stay', 'hotel', 'resort', 'lodge']
@@ -71,7 +71,6 @@ class Pipeline:
         return found if found else ['general']
     
     def search_multi_topic(self, topics, n_results=2):
-        """Search for multiple topics and combine results"""
         all_results = []
         
         for topic in topics:
@@ -89,7 +88,7 @@ class Pipeline:
             
             if results['documents'][0]:
                 for metadata, distance in zip(results['metadatas'][0], results['distances'][0]):
-                    if distance < 0.7:  # Good match
+                    if distance < 0.8:  # Good match
                         all_results.append(metadata['answer'])
         
         return all_results
@@ -125,7 +124,8 @@ class Pipeline:
     def ask(self, user_input):
         """Main ask function with multi-topic support"""
         # Extract keywords
-        topics = self.extract_keywords(user_input)
+        convert = GoogleTranslator(source='auto', target='en').translate(user_input)
+        topics = self.extract_keywords(convert)
         
         print(f"[DEBUG] Detected topics: {topics}")
         
@@ -142,6 +142,8 @@ class Pipeline:
         # Single topic or general question - use original search
         else:
             return self.search(user_input)
+        
+    # def checkint(self, )
 
     def guide_question(self):
         print("\nI am Katniss, your personal guide!")
@@ -162,8 +164,13 @@ class Pipeline:
 
         # Initial preference question
         pref = input("What activities do you prefer? (Hiking/Swimming/Surfing/etc...): ").strip()
+
+        try:
+            translate = GoogleTranslator(source='auto', target='en').translate(pref)
+        except:
+            translate = pref
         if pref:
-            response(pref)
+            response(translate)
 
         # Main loop
         while True:
