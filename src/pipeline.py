@@ -179,7 +179,7 @@ class Pipeline:
 Tourist asked: {question}
 Facts: {fact}
 
-Respond naturally and helpfully in 2-3 sentences:"""
+Respond naturally and helpfully in 1-2 sentences:"""
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
@@ -187,8 +187,8 @@ Respond naturally and helpfully in 2-3 sentences:"""
             except Exception as e:
                 print(f"[DEBUG] Gemini error: {e}")
         
-        # Offline fallback - use emoji + fact
-        return f"🏝️ {fact}"
+        # Offline fallback - fact
+        return f"{fact}"
 
     def ask(self, user_input):
         """Main ask function with multi-topic support and natural responses"""
