@@ -52,15 +52,7 @@ class Pipeline:
             
             genai.configure(api_key=api_key)
 
-            self.gemini = genai.GenerativeModel(
-                model_name='gemini-1.5-flash',
-                generation_config={
-                    'temperature': 0.7,
-                    'top_p': 1,
-                    'top_k': 1,
-                    'max_output_tokens': 2048,
-                }
-            )
+            self.gemini = genai.GenerativeModel('gemini-2.5-flash')
             self.has_gemini = True
         except Exception as e:
             print(f"⚠️ Gemini setup failed: {e}")
