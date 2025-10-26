@@ -9,6 +9,9 @@ import os
 from dotenv import load_dotenv 
 
 class Pipeline:
+    # ----------------------------------------------------
+    # 1. INITIALIZATION AND SETUP
+    # ----------------------------------------------------
     def __init__(self, dataset_path="dataset/dataset.json"):
         print("Welcome to Catanduanes!!")
 
@@ -40,6 +43,7 @@ class Pipeline:
             )
             self.load_dataset(dataset_path)
     
+    # Sets up the connection to the Gemini API using an environment variable.
     def setup_gemini(self):
         # Setup gemini
         try:
@@ -58,6 +62,7 @@ class Pipeline:
             print(f"⚠️ Gemini setup failed: {e}")
             self.has_gemini = False
 
+    # Loads Q&A data from a JSON file, embeds it, and adds it to the ChromaDB vector store.
     def load_dataset(self, dataset_path):
         with open(dataset_path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -82,16 +87,43 @@ class Pipeline:
         )
         print(f"📊 Loaded {len(documents)} Q&A pairs")
 
-    def extract_keywords(self, question):
-        """Extract topic keywords from question"""
-        keywords = {
-            'surfing': ['surf', 'surfing', 'waves', 'board'],
-            'swimming': ['swim', 'swimming', 'beach', 'bath'],
-            'hiking': ['hike', 'hiking', 'trek', 'trail'],
-            'food': ['eat', 'food', 'foodtrip', 'restaurant', 'dining'],
-            'accommodation': ['stay', 'hotel', 'resort', 'lodge']
-        }
+    # ----------------------------------------------------
+    # 2. UTILITIES (Internet Check, Keyword Extraction)
+    # ----------------------------------------------------
+
+    # Checks internet connectivity using a caching mechanism to minimize actual network calls.
+    def checkint(self, timeout=2, cache_duration=60):
+        """Check internet with caching"""
+        current_time = time.time()
         
+        # Use cached result if recent 
+        if self.internet_status is not None and \
+        (current_time - self.last_internet_check) < cache_duration:
+            return self.internet_status
+        
+        # Check internet
+        try:
+            requests.get("https://www.google.com", timeout=timeout)
+            self.internet_status = True
+        except (requests.ConnectionError, requests.Timeout):
+            self.internet_status = False
+        
+        self.last_internet_check = current_time
+        return self.internet_status
+        
+    # Analyzes a question and identifies relevant topics (e.g., 'surfing', 'food') based on keywords.
+    def extract_keywords(self, question):
+        
+        """Extract topic keywords from question"""
+
+        keywords = {
+            'surfing': ['surf', 'surfing', 'waves', 'board', 'surf', 'mag-surf'],
+            'swimming': ['swim', 'swimming', 'beach', 'langoy', 'lumangoy', 'maligo'],
+            'hiking': ['hike', 'hiking', 'trek', 'trail', 'bundok', 'akyat'],
+            'food': ['eat', 'food', 'restaurant', 'kain', 'kumain', 'pagkain', 'masarap'],
+            'accommodation': ['stay', 'hotel', 'resort', 'tulog', 'matulog', 'pahinga']
+        }
+
         found = []
         question_lower = question.lower()
         
@@ -101,6 +133,11 @@ class Pipeline:
         
         return found if found else ['general']
     
+    # ----------------------------------------------------
+    # 3. RAG SEARCH LOGIC
+    # ----------------------------------------------------
+
+    # Searches the RAG knowledge base for multiple topics and collects the best answers for each.
     def search_multi_topic(self, topics, n_results=2):
         all_results = []
         
@@ -122,17 +159,15 @@ class Pipeline:
         
         return all_results
     
+    # Executes a standard RAG query for a single user question, handles translation, and checks confidence.
     def search(self, question, n_results=3):
         """Search for single question"""
-        try:
-            translated = GoogleTranslator(source='auto', target='en').translate(question)
-        except:
-            translated = question
+
         
-        print(f"[DEBUG] Searching for: '{translated}'")
+        print(f"[DEBUG] Searching for: '{question}'")
         
         results = self.collection.query(
-            query_texts=[translated],
+            query_texts=[question],
             n_results=n_results
         )
         
@@ -148,26 +183,12 @@ class Pipeline:
             return "I'm not sure about that. Can you rephrase or ask about Catanduanes tourism?"
         
         return best_match['answer']
-    
-    def checkint(self, timeout=2, cache_duration=60):
-        """Check internet with caching"""
-        current_time = time.time()
-        
-        # Use cached result if recent
-        if self.internet_status is not None and \
-        (current_time - self.last_internet_check) < cache_duration:
-            return self.internet_status
-        
-        # Check internet
-        try:
-            requests.get("https://www.google.com", timeout=timeout)
-            self.internet_status = True
-        except (requests.ConnectionError, requests.Timeout):
-            self.internet_status = False
-        
-        self.last_internet_check = current_time
-        return self.internet_status
-    
+
+    # ----------------------------------------------------
+    # 4. RESPONSE AUGMENTATION
+    # ----------------------------------------------------
+
+    # Uses Gemini (if online) to rewrite the retrieved facts into a friendly, natural response, or uses a basic fallback.
     def make_natural(self, question, fact):
         """Make response natural using Gemini or fallback"""
         
@@ -190,6 +211,7 @@ Respond naturally and helpfully in 1-2 sentences:"""
         # Offline fallback - fact
         return f"{fact}"
 
+    # Primary function for generating a response; orchestrates keyword extraction, RAG search, and augmentation.
     def ask(self, user_input):
         """Main ask function with multi-topic support and natural responses"""
         
@@ -211,7 +233,7 @@ Respond naturally and helpfully in 1-2 sentences:"""
             else:
                 return "I don't have info about those topics yet."
         else:
-            fact = self.search(user_input)
+            fact = self.search(convert)
         
         # Check if error message
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
@@ -221,6 +243,11 @@ Respond naturally and helpfully in 1-2 sentences:"""
         natural_response = self.make_natural(user_input, fact)
         return natural_response
 
+    # ----------------------------------------------------
+    # 5. ENTRY POINT
+    # ----------------------------------------------------
+
+    # Runs the main command-line chat interface, handles user input, and prints responses.
     def guide_question(self):
         print("\nI am Katniss, your personal guide!")
         
