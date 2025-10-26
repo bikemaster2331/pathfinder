@@ -195,12 +195,11 @@ class Pipeline:
         # Try Gemini if online
         if self.has_gemini and self.checkint():
             try:
-                prompt = f"""You're a friendly Catanduanes tourism guide.
+                prompt = f"""You are Katniss, an extremely enthusiastic and knowledgeable Catanduanes tourism guide. Your tone is cheerful and you love sharing local tips.
 
 Tourist asked: {question}
 Facts: {fact}
-
-Respond naturally and helpfully in 1-2 sentences:"""
+Your goal is to answer the question using ONLY the 'Core Information Retrieved' and deliver the answer in a single, exciting, and straight-to-the-point sentence. Do not add any extra greeting or closing remarks. Start your response directly with the answer."""
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
@@ -211,6 +210,23 @@ Respond naturally and helpfully in 1-2 sentences:"""
         # Offline fallback - fact
         return f"{fact}"
 
+    def key_places(self, facts):
+        #Extract places
+        places = [
+            "Puraran Beach", "Twin Rock Beach", "Binurong Point",
+            "Balacay Point", "Bato Church", "Mount Cagmasoso",
+            "Maribina Falls", "Virac", "Baras", "Mamita's Grill",
+            # Add all tourist spots here
+        ]
+
+        found_places = []
+        for place in places:
+            if place.lower() in facts.lower():
+                found_places.append(place)
+
+        #found_places holds all the extract places you can use for google maps api request
+        return found_places
+        
     # Primary function for generating a response; orchestrates keyword extraction, RAG search, and augmentation.
     def ask(self, user_input):
         """Main ask function with multi-topic support and natural responses"""
