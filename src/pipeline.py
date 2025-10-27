@@ -6,7 +6,8 @@ from deep_translator import GoogleTranslator
 import requests
 import time
 import os
-from dotenv import load_dotenv 
+from dotenv import load_dotenv
+import re
 
 class Pipeline:
     # ----------------------------------------------------
@@ -209,6 +210,33 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
         
         # Offline fallback - fact
         return f"{fact}"
+    
+    def protect(self, user_input):
+
+        protected = ["Puraran Beach", "Twin Rock Beach", "Binurong Point", "Balacay Point",
+        "Bato Church", "Mount Cagmasoso", "Maribina Falls",
+        "Puraran", "Twin Rock", "Binurong", "Balacay", "Bato", 
+        "Cagmasoso", "Maribina", "Virac", "Baras", "Catanduanes"
+        ]
+
+        temp = user_input
+        markers = {}
+        for i, place_input in enumerate(protected):
+            if place_input.lower() in user_input.lower():
+                marker = f"__PLACE{i}__"
+                temp = re.sub(re.escape(place_input), marker, temp, flags=re.IGNORECASE)
+                markers[marker] = place_input
+
+        try:
+            temp = GoogleTranslator(source='auto', target='en').translate(temp)
+        except:
+            pass
+
+        for marker, place_input in markers.items():
+            temp = temp.replace(marker, place_input)
+
+        return temp
+    
 
     def key_places(self, facts):
         #Extract places
@@ -232,10 +260,8 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
         """Main ask function with multi-topic support and natural responses"""
         
         # Translate input
-        try:
-            convert = GoogleTranslator(source='auto', target='en').translate(user_input)
-        except:
-            convert = user_input
+        
+        convert = self.protect(user_input)
         
         # Extract keywords
         topics = self.extract_keywords(convert)
