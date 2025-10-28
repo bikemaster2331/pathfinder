@@ -1,0 +1,167 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cumagat Beach & Hilltop Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANGANIBAN, Catanduanes",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.35022267619804,
+          13.94963098536221
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Panyero Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in PANGANIBAN, Catanduanes",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2996761367774,
+          13.907878958291017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lolong Point Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANGANIBAN, Catanduanes",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.35430502227162,
+          13.950358787088991
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Enerking Garden Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANGANIBAN, Catanduanes",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30081900978871,
+          13.906841559179071
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ernest Eatery",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in PANGANIBAN, Catanduanes",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30351882198518,
+          13.906363558118793
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Banquerohan Bridge",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANGANIBAN, Catanduanes",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30837962465417,
+          13.89438097388749
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Angeles Homestay",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANGANIBAN, Catanduanes",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29556399563526,
+          13.907665802542967
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tarahid KTV Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in PANGANIBAN, Catanduanes",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30487585340553,
+          13.91212173717216
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Rezidence",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANGANIBAN, Catanduanes",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30441513824577,
+          13.910962045093433
+        ]
+      }
+    }
+  ]
+}

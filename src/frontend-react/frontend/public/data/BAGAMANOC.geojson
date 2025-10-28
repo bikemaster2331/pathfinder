@@ -1,0 +1,167 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bagamanoc Guest House",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BAGAMANOC, Catanduanes",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28692571592231,
+          13.941644487022801
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Paday Falls",
+        "type": "FALLS",
+        "description": "A falls destination in BAGAMANOC, Catanduanes",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.27293557115381,
+          13.961655521369819
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Boto Ni Korakog (Fertility Island)",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BAGAMANOC, Catanduanes",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2875854301705,
+          13.953737014066363
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "E-Lounge Resto Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in BAGAMANOC, Catanduanes",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28853571650649,
+          13.94152743708702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Palestina Rolling Hills",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BAGAMANOC, Catanduanes",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.328999,
+          13.978003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Villa Felina",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BAGAMANOC, Catanduanes",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28616998496803,
+          13.942121489713058
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Emmans Eatery",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in BAGAMANOC, Catanduanes",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28818189474178,
+          13.941215405901008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dayhagan Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BAGAMANOC, Catanduanes",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.33526422283471,
+          13.972487048309555
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Costa Marina",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BAGAMANOC, Catanduanes",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28401107910794,
+          13.954434403876908
+        ]
+      }
+    }
+  ]
+}

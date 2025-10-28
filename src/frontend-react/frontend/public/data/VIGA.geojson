@@ -1,0 +1,311 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cathy's Spring Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.26764279047497,
+          13.828328929168835
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Black Alley",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30991057127426,
+          13.87440986505987
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Summit View Park",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2699644422191,
+          13.79084220997509
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Our Lady of the Assumption Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "A religious sites destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30835694171724,
+          13.870935518647837
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "H20 Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30744043132205,
+          13.855342610612587
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Isla Bistro Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30883563610679,
+          13.872557403387635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cogon Hills",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.4067938419412,
+          13.870805941856277
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Our Lady of Mount Carmel Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "A religious sites destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.37173817132177,
+          13.893931145649418
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Manuria Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.36321167641226,
+          13.89992812418886
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jac's Eatery",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.31147248971916,
+          13.871750292208265
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Minaabat Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.41851218045034,
+          13.854510974160771
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tapsihan sa Ilaya",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30876720184392,
+          13.867210183769927
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Emerich Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30975236074532,
+          13.87190788627189
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sofeca Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.31609046329228,
+          13.872631201214197
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Torres Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.37185679687455,
+          13.894427912854093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Villa Amacepia Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30851490399891,
+          13.866419737445327
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kubo Suzara",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIGA, Catanduanes",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3519918151362,
+          13.887407737570227
+        ]
+      }
+    }
+  ]
+}

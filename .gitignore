@@ -1,1 +1,50 @@
+# Virtual Environments (7.7GB saved!)
 pathenv/
+venv/
+env/
+.venv/
+ENV/
+
+# Models (960MB saved!)
+models/
+src/models/
+*.bin
+*.pt
+*.pth
+*.h5
+*.onnx
+
+# ChromaDB (2.8MB saved!)
+chroma_storage/
+src/chroma_storage/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Deployment files
+*.zip
+pathfinder_deploy.zip
+
+# Environment variables (NEVER send!)
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+test/
+cache/

@@ -1,0 +1,1391 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Catanduanes Midtown Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23256205211081,
+          13.582963948330717
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Angel's Pizza",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2341718944488,
+          13.583990389845289
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hinagasan Falls",
+        "type": "FALLS",
+        "description": "A falls destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22421715095876,
+          13.600608583794113
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Museo De Catanduanes",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.24017941365666,
+          13.607198646951025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Casa Remedios Bed & Breakfast",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21667483492335,
+          13.579229296789006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Anika Food Corner",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2287243114437,
+          13.579040247054639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fleur de Lilies Glamping Farm",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20319514587996,
+          13.522814980924824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Appleberry",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23125085026427,
+          13.578876723518103
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hamapayo Pension House",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2083954979506,
+          13.58891972772742
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ARDCI Cafe",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23009272327565,
+          13.58145932101771
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Happy Island Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.26111675211118,
+          13.594221210744385
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blossoms Restaurant",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23228091542933,
+          13.581741965345147
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "JM Pension House",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22474125714392,
+          13.578996725549041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blue Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22824468638174,
+          13.581175578193937
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Marilima Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16804587161822,
+          13.538906979988818
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Buddy's Mami House",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21342438651737,
+          13.581306526011169
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Marem Pension House",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23616359366518,
+          13.585027658792676
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cafe De Au",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23238685211084,
+          13.581121990552765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Queen Maricel Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21637442753692,
+          13.578029967508437
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cafe Norte",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23851286560539,
+          13.586445787269987
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rakdell Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23250090566795,
+          13.583461583441721
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cafe Ubaldita",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20754195211089,
+          13.58417333027359
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Canapino Diner",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22841093861653,
+          13.58138852108624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Batag Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16374122931133,
+          13.540203971830607
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Carrie's Pizza, Pasta and More",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21429182327564,
+          13.58077624646006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sunset Coast Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15569366555616,
+          13.552637355513973
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cathy's Restaurant and Catering Services",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23717188404729,
+          13.585544780249219
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "LouCa Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15769502783087,
+          13.548539798350518
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "DAKILA' Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22758444046303,
+          13.57920899426178
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Regina's Beachfront Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16488424391362,
+          13.53976642609727
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Renel's Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22802496911423,
+          13.579801222500484
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fernando's Asian Cuisine",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2284358008955,
+          13.581024021555177
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rhaj Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22621632327555,
+          13.579034249718445
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fleur De Lilies Glamping Farm",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20319514587996,
+          13.522814980924824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Twin Rock Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20317528575912,
+          13.522906435245654
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gottsaa Milktea House",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21368576560516,
+          13.58163263436696
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tampad Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2059355539561,
+          13.519176854919204
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jillian's Kitchenette",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21364651691626,
+          13.581343446088963
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Villa Toledo Travel Lodge",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2337979614973,
+          13.584315171613417
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jollibee",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22824468638174,
+          13.581175578193937
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kasiram Grill and Restaurant",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20834340885116,
+          13.584004790641492
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Barefoot Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15447590238682,
+          13.551155461290714
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kemji Garden & Resto",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21505708798185,
+          13.58109037731797
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Virac Hometel",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22695947921794,
+          13.58179833090802
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mcdonald’s",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22830760441924,
+          13.57976473515069
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Island Homestay",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20375708955693,
+          13.570722658596491
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Monj Bistro",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23758206645816,
+          13.585892587436463
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Isla Be Back Staycation",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2164396295645,
+          13.585740419849598
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "On D’ Wings - Calatagan",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20816347114656,
+          13.591323543086718
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Moonwalk Villa Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22011962003668,
+          13.584791411940643
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "One Two Sawa Eatery",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2318788097814,
+          13.584357089503174
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kasa Inndustria Mountain Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.19121548423095,
+          13.580627725044849
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oyana Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23283705395751,
+          13.581512234467635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Queen Maricel Inn Ramen House",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21626513676992,
+          13.578005408414093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rojazz Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23471746745183,
+          13.584380431136946
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Saturday’s Restaurant",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2145987011342,
+          13.581020152106651
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sea Breeze 2001",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23278613841805,
+          13.581391183012842
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sizzling House",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22861573676987,
+          13.580889392708748
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tandu Coffee",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23250602142909,
+          13.582913575755228
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Taller’s Brew",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20498736560553,
+          13.595368163992209
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Teaholic",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23128159444029,
+          13.57863950521635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Hungry Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23812822997121,
+          13.585363997380046
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Prime Resto Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23135543325206,
+          13.578715324713569
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Thirstea - Virac Town Center",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22858500408107,
+          13.580913253521903
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Timo-Tea Milktea &Coffee Hub",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23222698978235,
+          13.580706648306267
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Twin Bar & Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2299290521109,
+          13.578752378869426
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Virac Hometel",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22699813697473,
+          13.58185832768708
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ARDCI Skydeck Lounge",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22987346487102,
+          13.581368173193223
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Niño Bistro",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22802865470325,
+          13.579295434170184
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Peymus Resto",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22762197909927,
+          13.579402204846764
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Miekoys Pizza",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2394488840288,
+          13.587613305309315
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "On D' Wings - Francia",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23853542327583,
+          13.586624201844174
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "2838 Tea & Cafe - Francia",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23804189685526,
+          13.585508339157613
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mizuna Restaurant",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21335317171304,
+          13.582915375540159
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Haring Manok - Calatagan",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20860121139492,
+          13.584063653051224
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Haring Manok - Rawis",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2376342850281,
+          13.585907954596866
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mayan Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in VIRAC, Catanduanes",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23418504723898,
+          13.583952428716442
+        ]
+      }
+    }
+  ]
+}

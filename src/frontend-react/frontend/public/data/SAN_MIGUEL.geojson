@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "San Miguel River Park",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN MIGUEL, Catanduanes",
+        "municipality": "SAN MIGUEL",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28110917976015,
+          13.705960845800394
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Solong Falls",
+        "type": "FALLS",
+        "description": "A falls destination in SAN MIGUEL, Catanduanes",
+        "municipality": "SAN MIGUEL",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29318572123779,
+          13.654843207001997
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "3s Pares Marias",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in SAN MIGUEL, Catanduanes",
+        "municipality": "SAN MIGUEL",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29963612327701,
+          13.64262420028011
+        ]
+      }
+    }
+  ]
+}

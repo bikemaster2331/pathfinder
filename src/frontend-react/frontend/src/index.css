@@ -1,0 +1,94 @@
+:root {
+  font-family: 'Inter', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.95);
+  background-color: #000000;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Force dark background for all select dropdowns */
+select option {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+  padding: 8px !important;
+}
+
+select option:hover {
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;
+}
+
+select option:checked,
+select option:focus {
+  background-color: #3a3a3a !important;
+  color: #ffffff !important;
+}
+
+/* Target specifically municipality select */
+select[class*="municipalitySelect"] {
+  background-color: rgba(30, 30, 30, 0.8) !important;
+  color: #ffffff !important;
+}
+
+select[class*="municipalitySelect"] option {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

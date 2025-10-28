@@ -1,0 +1,61 @@
+/* Sidebar Components */
+
+.sidebar {
+  position: fixed;
+  left: -450px;
+  top: 0;
+  width: 450px;
+  height: 100vh;
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 999;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.sidebarOpen {
+  left: 0;
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 12px;
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebarTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-white);
+  margin: 0 0 20px 0;
+}
+
+.cardsScrollContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.cardsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 45%;
+  max-width: 600px;
+}

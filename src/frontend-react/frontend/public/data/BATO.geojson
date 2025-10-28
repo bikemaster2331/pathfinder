@@ -1,0 +1,293 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Villa Andrea Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.33393918775872,
+          13.626112095688503
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kape't Tagpuan Sa Isla",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29981496225444,
+          13.607682886467666
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balongbong Falls",
+        "type": "FALLS",
+        "description": "A falls destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29485801735287,
+          13.621558812195497
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Batalay Mangrove Eco Park",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30880035575444,
+          13.59293699334864
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Diocesan Shrine of the Holy Cross",
+        "type": "RELIGIOUS SITES",
+        "description": "A religious sites destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.31519015172765,
+          13.588667855225093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Poseidon Cove Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.33224886190959,
+          13.563919705786883
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Little Bliss Cafe",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29861953643294,
+          13.607170580187129
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maribina Falls",
+        "type": "FALLS",
+        "description": "A falls destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.27074817719831,
+          13.60160439150023
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bote Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.32548666430874,
+          13.55980864586186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. John the Baptist  Church",
+        "type": "RELIGIOUS SITES",
+        "description": "A religious sites destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29703491581695,
+          13.610732662974675
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sakahon Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.32951300039434,
+          13.561646057470904
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mount Pinagkaayonan (Lantad)",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.27824218655604,
+          13.606679398378262
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bitaogan Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.31850376558778,
+          13.55833527320848
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cagraray Island",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3494816783378,
+          13.61714945492485
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Carorian Wonders",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.34231555615987,
+          13.58025643862461
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. Anthony of Padua Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "A religious sites destination in BATO, Catanduanes",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28389014002626,
+          13.596889143817018
+        ]
+      }
+    }
+  ]
+}

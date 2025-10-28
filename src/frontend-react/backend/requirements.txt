@@ -1,0 +1,31 @@
+# Core FastAPI stack
+fastapi==0.121.3
+starlette==0.50.0
+uvicorn==0.38.0
+
+# Authentication & Security
+python-jose[cryptography]==3.5.0
+bcrypt==5.0.0
+
+# Database
+SQLAlchemy==2.0.44
+psycopg2-binary==2.9.11
+
+# Data validation
+pydantic==2.12.4
+pydantic_core==2.41.5
+annotated-types==0.7.0
+email-validator==2.3.0
+
+# Form handling
+python-multipart==0.0.20
+
+# Environment
+python-dotenv==1.2.1
+
+# PDF & QR generation
+weasyprint==62.3
+segno==1.7.0
+
+# Firebase
+firebase-admin==6.5.0

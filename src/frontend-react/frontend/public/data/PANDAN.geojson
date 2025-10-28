@@ -1,0 +1,419 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Muraw Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12930324842857,
+          14.057362637200878
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Andercas",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16887783456134,
+          14.045417649184326
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hinik-Hinik Falls",
+        "type": "FALLS",
+        "description": "A falls destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.231355,
+          14.019267
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cagnipa Rolling Hills",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12870453862769,
+          14.058967828263247
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Saint Ignatius of Loyola Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "A religious sites destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16878323678067,
+          14.04460992198803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hiyop Highlands",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.19515607209418,
+          14.069834001868761
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tuwad-Tuwadan Blue Lagoon",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12664279629792,
+          14.058633006081989
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bhem's Kitchen",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.1691568239435,
+          14.04822784104875
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Linampawan Falls",
+        "type": "FALLS",
+        "description": "A falls destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.238823,
+          14.014603
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Paraiso ni Honesto",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.19383756087414,
+          14.083943574020907
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "La Prisa Campsite",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.24557100979199,
+          14.044124141098605
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sitio Concepcion",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21957776035022,
+          14.062874048095829
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Catanduanes Halfway Resort Hotel",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22564617010536,
+          14.067248666931913
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balay Victoria",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.17151978571643,
+          14.043967758271375
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maturin Rock Formation",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28345005313469,
+          14.112195035591208
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Carangyan Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15446928280349,
+          14.055886730928483
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pandan Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.17479976209289,
+          14.06538134011241
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North Travel Lodge",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.17084337640102,
+          14.042249909431563
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Yabu-Yabuhan",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.17692,
+          14.063824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cagnipa Cove",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12740634956491,
+          14.060299980132276
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pandan Seashore Park",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16753375572294,
+          14.052562896257582
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Campilan Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.175032,
+          14.06499
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mambang Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in PANDAN, Catanduanes",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16012018656308,
+          14.052390127026989
+        ]
+      }
+    }
+  ]
+}

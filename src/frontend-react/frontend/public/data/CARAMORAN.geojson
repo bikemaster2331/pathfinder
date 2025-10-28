@@ -1,0 +1,221 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Miguilas Inn and Resto Bar",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.1348645200423,
+          13.98755168209128
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Natotoo Falls",
+        "type": "FALLS",
+        "description": "A falls destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15298682487371,
+          13.879262767642187
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mt. Sadab",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16179072332014,
+          13.885858386503344
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. John the Baptist Church",
+        "type": "RELIGIOUS SITES",
+        "description": "A religious sites destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13504960530524,
+          13.983298993332824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Coco Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13097456746102,
+          13.981994139846373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Talahid Falls",
+        "type": "FALLS",
+        "description": "A falls destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14030596560987,
+          13.792830659039126
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Palumbanes Island",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.04335345796237,
+          14.024204879590119
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Toytoy Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13075649902726,
+          13.99610361623702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sugod Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13127081527215,
+          13.884837183543102
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Minabobo Creek Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13486478779596,
+          13.84708042893852
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tignob Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.02259826506386,
+          14.018106591467156
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bitaog Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in CARAMORAN, Catanduanes",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.03736114283674,
+          14.024435372457186
+        ]
+      }
+    }
+  ]
+}

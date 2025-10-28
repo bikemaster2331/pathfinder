@@ -1,0 +1,293 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Coast Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.34601783087594,
+          13.645130194241856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Macutal Falls",
+        "type": "FALLS",
+        "description": "A falls destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.36844252512445,
+          13.67996312734602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balacay Point",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39530656745467,
+          13.705434883642221
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Alon Stay",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39327067294845,
+          13.689745330816304
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Abihao Point",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39929844046483,
+          13.6552093470827
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dela Villa's Balacay Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.38796879884181,
+          13.703861778807893
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nyxx & Match Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3689383521126,
+          13.660708793380602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Binurong Point",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.41446622143107,
+          13.668953711260698
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jo Surf Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39591621513217,
+          13.688157832362895
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "2838 Tea and Cafe",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.37112167616075,
+          13.659533604564466
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stanza De Benedicto",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.40601723349695,
+          13.682383103603602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Majestic Puraran Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39482668554628,
+          13.689409886846915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "TasTea",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.37109158385094,
+          13.659490190945245
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Puraran Surf Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39430347202405,
+          13.689922738086013
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Titaay Surfers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39426625732916,
+          13.688946131910923
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "L'Astrolabe",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in BARAS, Catanduanes",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.38856451657799,
+          13.69095675710196
+        ]
+      }
+    }
+  ]
+}

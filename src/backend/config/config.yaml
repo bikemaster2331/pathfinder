@@ -1,0 +1,362 @@
+# Pathfinder Configuration File
+
+# System Settings
+system:
+  welcome_message: "Welcome to Catanduanes!!"
+  hash_file: "dataset_hash.txt"
+
+security:
+  rate_limit:
+    max_request: 6
+    period_seconds: 70
+
+# RAG Model Settings
+rag:
+  model_path: "paraphrase-multilingual-MiniLM-L12-v2"
+  collection_name: "knowledge_base"
+  confidence_threshold: 0.7
+  multi_topic_threshold: 0.8
+  search_results: 10
+  results_per_topic: 3
+  llm_model: "gemini-2.5-flash"
+
+
+cache:
+  similarity_threshold: 0.88
+  collection_name: "query_cache" 
+
+# Internet Check Settings
+internet:
+  timeout: 2
+  cache_duration: 300
+  test_url: "https://www.google.com"
+
+# Offline Warning
+offline:
+  off_message: "I am currently offline, and I apologize for the limited service. {fact}"
+  intent: "Falling back to structured offline RAG fact."
+  backup: "I cannot provide a conversational response right now, but here is the essential information I found for you:\n\n➡️ {fact}"
+
+# Gemini Settings
+gemini:
+  model_name: "models/gemini-2.5-flash"
+  prompt_template: |
+    You are Pathfinder — a calm, polite, helpful, always excited Catanduanes tourism assistant.
+    Your responses should sound gentle, clear, and factual, while maintaining a friendly tone.
+
+    Respond in a helpful way using only the information from the facts. 
+    If the facts partially match the query, answer as best as possible using the facts.
+    Do not make up information not in the facts.
+
+    Tourist asked: {question}
+    Facts: {fact}
+
+    Respond in the same language as the tourist's question.
+    Use only the information from the facts. Summarize the facts into a cohesive answer. Do not just list them one by one.
+    Give a single, concise, and natural-sounding sentence, include all the facts and the place mentioned.
+    Connect the ideas naturally (e.g., use "You can also try..." instead of just a comma).
+    Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks to sound excited.
+    If you detect any profanity in any language, return "I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism.
+    If the Facts are completely unrelated to the user question return "Please ask about Catanduanes Tourism"
+
+profanity:
+    - gago
+    - puta
+    - tangina
+    - putangina
+    - bobo
+    - puta
+    - tanga
+    - yawa
+# Offline Fallback Messages
+messages:
+  offline_error: "I am currently offline, and I apologize for the limited service. {fact}"
+  offline_fallback: "I cannot provide a conversational response right now, but here is the essential information I found for you:\n\n➡️ {fact}"
+  no_information: "I don't have information about that. Ask about beaches, food, or activities!"
+  not_sure: "I'm not sure about that. Can you rephrase or ask about Catanduanes tourism?"
+  no_info_topics: "I don't have info about those topics"
+  enjoy_stay: "Enjoy your stay!"
+  enter_something: "Please enter something.\n"
+  mode_online: "Online mode - Enhanced responses"
+  mode_offline: "Offline mode - Basic responses"
+  exit_commands: "Type 'exit' or 'quit' to end conversation\n"
+  map_hint: "💡 Type 'map' to see these locations on a map!"
+  map_saved: "🗺️  Map saved: {path}"
+  map_opening: "📱 Opening map in browser..."
+  map_error: "⚠️  Could not open browser: {error}"
+  map_manual: "   Manually open: {path}"
+  no_places_map: "⚠️ No places to display on map"
+  ask_place_first: "💡 Ask me about a place first, then I can show you the map!"
+  intro_message: "\nI am Pathfinder, your personal guide!"
+  initial_question: "What activities do you prefer? (Hiking/Swimming/Surfing/etc...): "
+
+# Topic Keywords for Extraction
+keywords:
+  surfing:
+    - surf
+    - surfing
+    - waves
+  
+  swimming:
+    - swim
+    - swimming
+    - langoy
+  
+  beaches:
+    - beach
+    - dalampasigan
+  
+  hiking:
+    - hike
+    - hiking
+    - trek
+  
+  food:
+    - eat
+    - food
+    - restaurant
+    - kain
+  
+  accommodation:  # ← Keep this name, matches dataset
+    - stay
+    - hotel
+    - hotels      # ← Add this
+    - resort
+    - inn
+    - guesthouse
+    - lodging
+  
+  sightseeing:
+    - visit
+    - see
+    - tour
+  
+  transport:
+    - how to get
+    - transportation
+    - tricycle
+    - van
+    - ferry
+    - commute
+    - directions
+    - airport
+  
+  facilities:
+    - wi-fi
+    - atm
+
+# Protected Place Names (for translation)
+protected_places:
+  - "Puraran Beach"
+  - "Twin Rock Beach"
+  - "Binurong Point"
+  - "Maribina Falls"
+  - "Tres Karas de Kristo/Face of Jesus Beach"
+  - "Nahulugan Falls"
+  - "Tuwad-Tuwadang Blue Lagoon"
+  - "St. John the Baptist Church"
+  - "Bato Church"
+  - "Mamangal Beach"
+  - "Ba-Haw Falls"
+  - "ARDCI Corporate Inn"
+  - "Rhaj Inn"
+  - "Majestic Puraran Beach Resort"
+  - "Pacific Surfers Paradise Resort"
+  - "Catanduanes Midtown Inn Resort"
+  - "Nitto Lodge"
+  - "Renel's Traveller's Inn"
+  - "Bagamanoc Guest House"
+  - "Pusgo Island Guest House"
+  - "Sonia's Island Stay"
+  - "The Lumber"
+  - "Ecrown Hotel and Resort"
+  - "Puraran"
+  - "Twin Rock"
+  - "Binurong"
+  - "Maribina"
+  - "Nahulugan"
+  - "Virac"
+  - "Baras"
+  - "Catanduanes"
+  - "Pandan"
+  - "Gigmoto"
+  - "San Andres"
+  - "Bagamanoc"
+  - "The Lumber Hotel and Resort"
+  - "Virac Town Center"
+  - "Virac Public Market"
+  - "Virac Airport"
+
+# Places with Coordinates (for mapping)
+places:
+  "Puraran Beach":
+    lat: 13.691803137745696
+    lng: 124.39882862882942
+    type: surfing
+
+  "Virac Public Market": 
+    lat: 13.578141390225673
+    lng: 124.22879470245454 
+    type: food
+  
+  "Virac Town Center": 
+    lat: 13.579957995200868
+    lng: 124.22855269682266
+    type: food
+
+  "Virac Airport":
+    lat: 13.579601473762152
+    lng: 124.21184297254652
+    type: transport
+  
+  "Twin Rock Beach":
+    lat: 13.522663495166062
+    lng: 124.21269059659129
+    type: swimming
+  
+  "Binurong Point":
+    lat: 13.668995411184893
+    lng: 124.41449841008455
+    type: hiking
+  
+  "Maribina Falls":
+    lat: 13.601708685295064
+    lng: 124.2706945272802
+    type: swimming
+  
+  "Tres Karas de Kristo/Face of Jesus Beach":
+    lat: 13.518763507546256
+    lng: 124.20595165635922
+    type: sightseeing
+  
+  "Nahulugan Falls":
+    lat: 13.788640961723846
+    lng: 124.36779102542982
+    type: swimming
+  
+  "Tuwad-Tuwadan Blue Lagoon":
+    lat: 14.058643378491052
+    lng: 124.12659986379072
+    type: surfing
+  
+  "St. John the Baptist Church":
+    lat: 13.983189671887365
+    lng: 124.1342556677599
+    type: sightseeing
+  
+  "Mamangal Beach":
+    lat: 13.555007904907587
+    lng: 124.14923064840366
+    type: swimming
+  
+  "Ba-Haw Falls":
+    lat: 13.753822522766649
+    lng: 124.3833036871097
+    type: swimming
+  
+  "ARDCI Corporate Inn":
+    lat: 13.5812552
+    lng: 124.2301155
+    type: accommodation
+  
+  "Rhaj Inn":
+    lat: 13.5791058
+    lng: 124.2262818
+    type: accommodation
+  
+  "Majestic Puraran Beach Resort":
+    lat: 13.6887766
+    lng: 124.3968770
+    type: accommodation
+  
+  "Pacific Surfers Paradise Resort":
+    lat: 13.6893856
+    lng: 124.3952103
+    type: accommodation
+  
+  "Catanduanes Midtown Inn Resort":
+    lat: 13.5403305
+    lng: 124.1638091
+    type: accommodation
+  
+  "Nitto Lodge":
+    lat: 13.5833005
+    lng: 124.2054489
+    type: accommodation
+  
+  "Renel's Traveller's Inn":
+    lat: 13.5795156
+    lng: 124.2280368
+    type: accommodation
+  
+  "Bagamanoc Guest House":
+    lat: 13.9415567
+    lng: 124.2869733
+    type: accommodation
+  
+  "Pusgo Island Guest House":
+    lat: 13.9699644
+    lng: 124.3236576
+    type: accommodation
+  
+  "Sonia's Island Stay":
+    lat: 13.58502856977906
+    lng: 124.23876468266461
+    type: accommodation
+  
+  "The Lumber":
+    lat: 13.592217696981342
+    lng: 124.24844932275295
+    type: accommodation
+  
+  "E-crown Hotel and Resort":
+    lat: 13.593886227522459
+    lng: 124.25617408469465
+    type: accommodation
+
+# Map Configuration
+map:
+  default_zoom: 11
+  tile_url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  attribution: "© OpenStreetMap contributors"
+  max_zoom: 19
+  
+  # Icon mapping for different place types
+  icons:
+    surfing: "🏄"
+    swimming: "🏊"
+    hiking: "🥾"
+    sightseeing: "👀"
+    accommodation: "🏨"
+    food: "🍽️"
+    transport: "✈️"  
+    general: "📍"
+  
+  # Filter button labels
+  filters:
+    - label: "🌴 Show All"
+      type: "all"
+    - label: "🏄 Surfing"
+      type: "surfing"
+    - label: "🏊 Swimming"
+      type: "swimming"
+    - label: "🥾 Hiking"
+      type: "hiking"
+    - label: "👀 Sightseeing"
+      type: "sightseeing"
+    - label: "🏨 Hotels"
+      type: "accommodation"
+
+# Map trigger words
+map_triggers:
+  - map
+  - show me
+  - mapa
+  - location
+  - where
+
+# Exit commands
+exit_commands:
+  - exit
+  - quit
+  - bye

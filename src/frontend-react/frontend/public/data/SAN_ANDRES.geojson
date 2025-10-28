@@ -1,0 +1,437 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Amenia Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13946144298322,
+          13.573293073630248
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Canapino Diner",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14044111946026,
+          13.572931099633045
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mount Cagmasoso",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13286350211467,
+          13.623480169988486
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Our Lady of Sorrows Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "A religious sites destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09348830280368,
+          13.611589791787962
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balin's Seaview Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13993686420447,
+          13.572623438011778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liz & Bel Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09564860978172,
+          13.599281935446907
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Luyang Cave",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13509013677053,
+          13.60572345866787
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nicole's Grill Resto Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.142135365605,
+          13.570704014196755
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Codon Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.02606030674717,
+          13.662910203798745
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Casa Dueña Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09595898058178,
+          13.599401731389687
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Emmalyn's Paradise Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.06048702747073,
+          13.600789202838738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liebe Max Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.08432027699324,
+          13.601924342216595
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liz & Bel Tourist Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09568675395776,
+          13.599278991548179
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wuppertaler Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.0989190144737,
+          13.598845133261927
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Camping Herold Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.05438592186414,
+          13.599400700827006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kibanggas Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.03760255562867,
+          13.645637469518293
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Monte Cielo",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14518862955885,
+          13.566109000530673
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ericsson Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.1428227093613,
+          13.569451079584018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bagasbas Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12497455931305,
+          13.579008198224741
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Talaga Pebble Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09648307885134,
+          13.70849707986902
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blue Horizon Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14563924065551,
+          13.564625399431703
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "La Playa Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14289013881685,
+          13.569200023674027
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mamangal Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14885591109632,
+          13.55636633190002
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oliver's Riff Mamangal  Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in SAN ANDRES, Catanduanes",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14868968279221,
+          13.555835876169589
+        ]
+      }
+    }
+  ]
+}

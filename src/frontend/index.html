@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder - Catanduanes Guide</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="container">
+        <!-- Left side: Chat -->
+        <div class="chat-section">
+            <h1>Pathfinder</h1>
+            
+            <!-- Itinerary Box at top -->
+            <div class="itinerary-box">
+                <h3> My Trip</h3>
+                <ul id="itineraryList">
+                    <li class="empty">No places added yet</li>
+                </ul>
+            </div>
+            
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="chat-messages">
+                <!-- Messages will be added here dynamically -->
+            </div>
+            
+            <!-- Chat Input at bottom -->
+            <div class="chat-input">
+                <input type="text" id="question" placeholder="Ask something...">
+                <button id="askBtn">Ask</button>
+            </div>
+        </div>
+
+        <!-- Right side: Map -->
+        <div class="map-section">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Your JS files -->
+    <script src="map.js"></script>
+    <script src="main.js"></script>
+    
+</body>
+</html>

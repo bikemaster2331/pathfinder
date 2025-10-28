@@ -1,0 +1,139 @@
+/* Itinerary Plan Components */
+
+.planTab {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #000000;
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.planTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-white);
+  margin: 0 0 24px 0;
+}
+
+.daySection {
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.dayHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  background: transparent;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.dayHeader:hover {
+  background: transparent;
+  border-color: transparent;
+}
+
+.dayHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.chevronIcon {
+  color: var(--color-white);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.chevronExpanded {
+  transform: rotate(90deg);
+}
+
+.dayTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-white);
+  letter-spacing: -0.5px;
+}
+
+.dayDate {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.dayContent {
+  position: relative;
+  padding: 24px 16px 16px 32px;
+  margin-top: 0;
+  animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+    max-height: 0;
+    margin-bottom: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 2000px;
+    margin-bottom: 16px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 2000px;
+    margin-bottom: 16px;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-15px);
+    max-height: 0;
+    margin-bottom: 0;
+  }
+}
+
+.dayContentCollapsing {
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.dayItineraryList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.availablePoiList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.verticalLine {
+  display: none;
+}
+
+.dayInstructions {
+  display: none;
+}
+
+.reviewsText {
+  font-size: 14px;
+  color: var(--color-white);
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+  text-align: justify;
+}

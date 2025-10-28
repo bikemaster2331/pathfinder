@@ -1,0 +1,203 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "CJ's Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3902858484338,
+          13.779610603924185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hot Palace",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39053261163247,
+          13.781121506344725
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ba-haw Falls",
+        "type": "FALLS",
+        "description": "A falls destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.38320715026808,
+          13.75387978940785
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bantayaw Point",
+        "type": "VIEWPOINTS",
+        "description": "A viewpoints destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.40960689786668,
+          13.831429593366844
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "San Pedro Calungsod Parish",
+        "type": "RELIGIOUS SITES",
+        "description": "A religious sites destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39999675568755,
+          13.83394417704535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Melfel Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "A hotels & resorts destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39075791718393,
+          13.779120861045081
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gigmoto Inasal",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3918824809052,
+          13.78079612966451
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nahulugan Falls",
+        "type": "FALLS",
+        "description": "A falls destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3677373791043,
+          13.788620122365284
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nupa Green Lagoon",
+        "type": "VIEWPOINTS",
+        "description": "A hotels & resorts destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.40409028095019,
+          13.75714325500738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bestea X E-fren Fries",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39129813987927,
+          13.779500510605716
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "DON N ' MALYN'S Carinderia",
+        "type": "RESTAURANTS & CAFES",
+        "description": "A restaurants & cafes destination in GIGMOTO, Catanduanes",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39144035716262,
+          13.780174269134601
+        ]
+      }
+    }
+  ]
+}
