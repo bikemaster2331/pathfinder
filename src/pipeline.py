@@ -287,7 +287,7 @@ Respond in the same language as the tourist's question. Answer using ONLY the fa
         if self.checkint():
             print("Online mode - Enhanced responses")
         else:
-            print("📴 Offline mode - Basic responses")
+            print("Offline mode - Basic responses")
         
         print("Type 'exit' or 'quit' to end conversation\n")
 
