@@ -8,7 +8,6 @@ import time
 import os
 from dotenv import load_dotenv
 import re
-from langdetect import detect
 
 class Pipeline:
     def __init__(self, dataset_path="dataset/dataset.json"):
@@ -118,18 +117,7 @@ class Pipeline:
         
         return found if found else ['general']
     
-    def detect_language(self, text):
-        """Detect if input is in Tagalog or English"""
-        try:
-            lang = detect(text)
-            return lang
-        except:
-            # Fallback: check for common Tagalog words
-            tagalog_indicators = ['sa', 'ang', 'ng', 'mga', 'saan', 'ano', 'san', 'naman', 'pwede', 'ba']
-            text_lower = text.lower()
-            if any(word in text_lower for word in tagalog_indicators):
-                return 'tl'
-            return 'en'
+
 
     def protect(self, user_input):
         """Protect place names during translation"""
@@ -213,23 +201,26 @@ class Pipeline:
         
         return best_match['answer']
 
-    def make_natural(self, original_question, fact, original_language):
-        """Make response natural using Gemini with language preservation"""
-        
-        # Determine response language
-        response_lang = "Tagalog" if original_language == 'tl' else "English"
+    def make_natural(self, question, fact):
+        """Make response natural using Gemini or fallback"""
         
         # Try Gemini if online
         if self.has_gemini and self.checkint():
             try:
-                prompt = f"""You are Katniss, an extremely enthusiastic and knowledgeable Catanduanes tourism guide.
+                # Detect if question is in Tagalog
+                tagalog_indicators = ['sa', 'ang', 'ng', 'mga', 'saan', 'ano', 'san', 'naman', 'pwede', 'ba', 'ko', 'mo']
+                is_tagalog = any(word in question.lower() for word in tagalog_indicators)
+                
+                lang_instruction = "CRITICAL: You MUST respond in Tagalog language since the tourist asked in Tagalog." if is_tagalog else ""
+                
+                prompt = f"""You are Katniss, an extremely enthusiastic and knowledgeable Catanduanes tourism guide. Your tone is cheerful and you love sharing local tips.
 
-Tourist asked (in {response_lang}): {original_question}
-Facts retrieved: {fact}
+Tourist asked: {question}
+Facts: {fact}
 
-IMPORTANT: Respond in {response_lang} language.
-Provide a single, exciting, straight-to-the-point sentence using ONLY the facts provided.
-Do not add greetings or closing remarks. Start directly with the answer."""
+{lang_instruction}
+
+Your goal is to answer the question using ONLY the 'Facts' provided and deliver the answer in a single, exciting, and straight-to-the-point sentence. Do not add any extra greeting or closing remarks. Start your response directly with the answer."""
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
@@ -237,14 +228,8 @@ Do not add greetings or closing remarks. Start directly with the answer."""
             except Exception as e:
                 print(f"[DEBUG] Gemini error: {e}")
         
-        # Offline fallback - translate fact if needed
-        if original_language == 'tl':
-            try:
-                return GoogleTranslator(source='en', target='tl').translate(fact)
-            except:
-                return fact
-        
-        return fact
+        # Offline fallback - return fact as-is
+        return f"{fact}"
     
     def key_places(self, facts):
         """Extract places from facts"""
@@ -262,42 +247,33 @@ Do not add greetings or closing remarks. Start directly with the answer."""
         return found_places
         
     def ask(self, user_input):
-        """Main ask function with proper language handling"""
+        """Main ask function with multi-topic support and natural responses"""
         
-        # 1. Detect original language
-        original_lang = self.detect_language(user_input)
-        print(f"[DEBUG] Detected language: {original_lang}")
+        # 1. Preprocess and Translate Input
+        convert = self.protect(user_input)
         
-        # 2. Translate to English (protecting place names)
-        translated_input = self.protect(user_input)
-        
-        # 3. Extract keywords from translated input
-        topics = self.extract_keywords(translated_input)
+        # 2. Extract keywords
+        topics = self.extract_keywords(convert)
         print(f"[DEBUG] Detected topics: {topics}")
         
-        # 4. Get facts from RAG (always in English)
+        # 3. Get facts from RAG
         if len(topics) > 1 and topics != ['general']:
-            answers = self.search_multi_topic(topics, translated_input)
+            answers = self.search_multi_topic(topics, convert)
             fact = " ".join(answers) if answers else "I don't have info about those topics"
         else:
-            fact = self.search(translated_input)
+            fact = self.search(convert)
 
-        # 5. Extract places
+        # 4. Extract places from the retrieved fact
         places = self.key_places(fact)
         
-        # 6. Check if error message
+        # 5. Check if error message
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
-            # Translate error message if needed
-            if original_lang == 'tl':
-                try:
-                    fact = GoogleTranslator(source='en', target='tl').translate(fact)
-                except:
-                    pass
             return (fact, [])
         
-        # 7. Make response natural in the ORIGINAL language
-        natural_response = self.make_natural(user_input, fact, original_lang)
+        # 6. Make it natural - pass ORIGINAL user_input, not translated
+        natural_response = self.make_natural(user_input, fact)
         
+        # 7. Return the processed response and the extracted places list
         return (natural_response, places)
 
     def guide_question(self):
