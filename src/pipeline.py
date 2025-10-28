@@ -213,20 +213,12 @@ class Pipeline:
         # Try Gemini if online
         if self.has_gemini and self.checkint():
             try:
-                # Detect if question is in Tagalog
-                tagalog_indicators = ['sa', 'ang', 'ng', 'mga', 'saan', 'ano', 'san', 'naman', 'pwede', 'ba', 'ko', 'mo']
-                is_tagalog = any(word in question.lower() for word in tagalog_indicators)
-                
-                lang_instruction = "CRITICAL: You MUST respond in Tagalog language since the tourist asked in Tagalog." if is_tagalog else ""
-                
-                prompt = f"""You are Katniss, an extremely enthusiastic and knowledgeable Catanduanes tourism guide. Your tone is cheerful and you love sharing local tips.
+                prompt = f"""You are Pathfiner, an extremely enthusiastic and knowledgeable Catanduanes tourism guide. Your tone is cheerful and you love sharing local tips.
 
 Tourist asked: {question}
 Facts: {fact}
 
-{lang_instruction}
-
-Your goal is to answer the question using ONLY the 'Facts' provided and deliver the answer in a single, exciting, and straight-to-the-point sentence. Do not add any extra greeting or closing remarks. Start your response directly with the answer."""
+Respond in the same language as the tourist's question. Answer using ONLY the facts provided, in a single exciting sentence. No greetings or closing remarks."""
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
@@ -290,10 +282,10 @@ Your goal is to answer the question using ONLY the 'Facts' provided and deliver 
         return (natural_response, places)
 
     def guide_question(self):
-        print("\nI am Katniss, your personal guide!")
+        print("\nI am Pathfinder, your personal guide!")
         
         if self.checkint():
-            print("🌐 Online mode - Enhanced responses")
+            print("Online mode - Enhanced responses")
         else:
             print("📴 Offline mode - Basic responses")
         
@@ -301,15 +293,15 @@ Your goal is to answer the question using ONLY the 'Facts' provided and deliver 
 
         def response(user_input):
             if user_input.lower() in ['exit', 'quit', 'bye']:
-                print("Katniss: Enjoy your stay!")
+                print("Pathfinder: Enjoy your stay!")
                 exit()
             
             if not user_input.strip():
-                print("Katniss: Please enter something.\n")
+                print("Pathfinder: Please enter something.\n")
                 return
             
             natural_response, places_list = self.ask(user_input) 
-            print(f"Katniss: {natural_response}\n")
+            print(f"Pathfinder: {natural_response}\n")
             
             if places_list:
                 print(f"[DEBUG] Found places: {places_list}")
