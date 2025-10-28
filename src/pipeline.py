@@ -12,6 +12,7 @@ import re
 class Pipeline:
     # ----------------------------------------------------
     # 1. INITIALIZATION AND SETUP
+    # ... (omitted for brevity) ...
     # ----------------------------------------------------
     def __init__(self, dataset_path="dataset/dataset.json"):
         print("Welcome to Catanduanes!!")
@@ -139,17 +140,30 @@ class Pipeline:
     # ----------------------------------------------------
 
     # Searches the RAG knowledge base for multiple topics and collects the best answers for each.
-    def search_multi_topic(self, topics, user_input, n_results=2):
+    def search_multi_topic(self, topics, user_input, n_results=2): # user_input is the original, untranslated input
 
         all_results = []
-
-        translated_sentence = self.protect(user_input)
-        print(f"[DEBUG] Searching for: '{translated_sentence}'")
+        
+        # We need the translated sentence for RAG query text. We should re-run the protect logic here
+        # or simplify the way we get the translated keyword, since the current approach is causing confusion.
+        
+        # FIX 1: We must use the original structure of the multi-topic search
+        # where the individual topic is translated and queried.
+        # This requires the topics list to contain the *translated* topics, not the original Tagalog ones.
+        
+        # Since 'topics' contains translated keywords from 'ask', we can simplify this function:
 
         for topic in topics:
+            # Re-translate the topic keyword here to ensure it's in English for the query
+            try:
+                translated_topic = GoogleTranslator(source='auto', target='en').translate(topic)
+            except:
+                translated_topic = topic
+                
+            print(f"[DEBUG] Searching RAG for topic: '{translated_topic}'")
 
             results = self.collection.query(
-                query_texts=[translated_sentence],
+                query_texts=[translated_topic], # FIX 2: Query using the single, translated topic keyword
                 n_results=n_results
             )
             
@@ -231,19 +245,15 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
         for i, place_input in enumerate(protected):
             if place_input.lower() in user_input.lower():
                 marker = f"__PLACE{i}__"
-                temp = re.sub(re.escape(place_input), marker, temp, flags=re.IGNORECASE)
+                temp = re.sub(re.escape(place_input), marker, temp, flags=re.IGNORECASE, count=1)
                 markers[marker] = place_input
 
         try:
             temp = GoogleTranslator(source='auto', target='en').translate(temp)
         except Exception as e:
-            print(f"[DEBUG] Translation failed: {e}")
-
-            try:
-                time.sleep(0.5)
-                temp = GoogleTranslator(ssource='auto', target='en').translate(temp)
-            except:
-                pass
+            # FIX 3: Removed buggy time.sleep retry logic and cleaned up print statement
+            print(f"[DEBUG] Translation attempt failed: {e}")
+            pass # Keep the marked text if translation fails
 
         for marker, place_input in markers.items():
             temp = temp.replace(marker, place_input)
@@ -272,29 +282,34 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
     def ask(self, user_input):
         """Main ask function with multi-topic support and natural responses"""
         
-        # Translate input
-        
+        # 1. Preprocess and Translate Input
         convert = self.protect(user_input)
         
-        # Extract keywords
+        # 2. Extract keywords
         topics = self.extract_keywords(convert)
         print(f"[DEBUG] Detected topics: {topics}")
         
-        # Get facts from RAG
+        # 3. Get facts from RAG
         if len(topics) > 1 and topics != ['general']:
+            # Call multi-topic search, passing the original user_input for the full context translation
             answers = self.search_multi_topic(topics, user_input)
-            fact = " ".join(answers) if answers else "I dont have info about those topics"
+            fact = " ".join(answers) if answers else "I don't have info about those topics"
         else:
+            # Use the translated input for single-topic RAG search
             fact = self.search(convert)
 
+        # 4. Extract places from the retrieved fact
         places = self.key_places(fact)
         
-        # Check if error message
+        # 5. Check if error message
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
-            return fact
+            # If RAG failed, return the error message string and an empty list of places
+            return (fact, [])
         
-        # Make it natural
+        # 6. Make it natural
         natural_response = self.make_natural(user_input, fact)
+        
+        # 7. Return the processed response and the extracted places list
         return (natural_response, places)
         
 
@@ -323,8 +338,10 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
                 print("Katniss: Please enter something.\n")
                 return
             
-            natural_response, places_list = self.ask(user_input)
-            # Get answer
+            # Unpack the two returned values
+            natural_response, places_list = self.ask(user_input) 
+            
+            # Print only the response
             print(f"Katniss: {natural_response}\n")
 
         # Initial preference question
@@ -345,6 +362,3 @@ if __name__ == '__main__':
     
     cbot = Pipeline(dataset_path="dataset/dataset.json")
     cbot.guide_question()
-
-
-print(cbot.protect("san located ang puraran beach?"))
