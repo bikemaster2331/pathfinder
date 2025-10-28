@@ -140,30 +140,42 @@ class Pipeline:
 
     # Searches the RAG knowledge base for multiple topics and collects the best answers for each.
     def search_multi_topic(self, topics, n_results=2):
+
         all_results = []
-        
+
         for topic in topics:
-            try:
-                translated = GoogleTranslator(source='auto', target='en').translate(topic)
-            except:
-                translated = topic
+            converted = self.protect(topic)
+            print(f"[DEBUG] Searching for: '{converted}'")
+            # try:
+            #     translated = GoogleTranslator(source='auto', target='en').translate(topic)
+            # except:
+            #     translated = topic
             
             results = self.collection.query(
-                query_texts=[translated],
+                query_texts=[converted],
                 n_results=n_results
             )
             
-            if results['documents'][0]:
-                for metadata, distance in zip(results['metadatas'][0], results['distances'][0]):
-                    if distance < 0.8:
-                        all_results.append(metadata['answer'])
+            if not results['documents'][0]:
+                print(f"[DEBUG] No results found for topic: {topic}")
+                continue
+            
+            best_match = results['metadatas'][0][0]
+            confidence = results['distances'][0][0]
+            print(f"[DEBUG] Best match distance: {confidence:.3f}")
+
+            if confidence > 0.7:
+                print(f"[DEBUG] Low confidence for topic: {topic}")
+                continue
+
+            all_results.append
         
         return all_results
     
     # Executes a standard RAG query for a single user question, handles translation, and checks confidence.
     def search(self, question, n_results=3):
         """Search for single question"""
-
+        
         
         print(f"[DEBUG] Searching for: '{question}'")
         
