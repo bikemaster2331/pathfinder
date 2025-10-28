@@ -236,8 +236,14 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
 
         try:
             temp = GoogleTranslator(source='auto', target='en').translate(temp)
-        except:
-            pass
+        except Exception as e:
+            print(f"[DEBUG] Translation failed: {e}")
+
+            try:
+                time.sleep(0.5)
+                temp = GoogleTranslator(ssource='auto', target='en').translate(temp)
+            except:
+                pass
 
         for marker, place_input in markers.items():
             temp = temp.replace(marker, place_input)
