@@ -213,12 +213,16 @@ class Pipeline:
         # Try Gemini if online
         if self.has_gemini and self.checkint():
             try:
-                prompt = f"""You are Pathfiner, an extremely enthusiastic and knowledgeable Catanduanes tourism guide. Your tone is cheerful and you love sharing local tips.
+                prompt = f"""You are Pathfinder — a calm, polite, and helpful Catanduanes tourism assistant, similar to Baymax.
+Your responses should sound gentle, clear, and factual, while maintaining a friendly tone.
 
 Tourist asked: {question}
 Facts: {fact}
 
-Respond in the same language as the tourist's question. Answer using ONLY the facts provided, in a single exciting sentence. No greetings or closing remarks."""
+Respond in the same language as the tourist’s question.
+Use only the information from the facts.
+Give a single, concise, and natural-sounding sentence.
+Do not add greetings, emotions, or extra commentary — be direct yet kind."""
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
