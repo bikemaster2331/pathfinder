@@ -142,15 +142,14 @@ class Pipeline:
     def search_multi_topic(self, topics, user_input, n_results=2):
 
         all_results = []
-        print(f"[DEBUG] Detected topics: {topics}")
 
         translated_sentence = self.protect(user_input)
-        print(f"[DEBUG] Translated sentence: '{translated_sentence}'")
+        print(f"[DEBUG] Searching for: '{translated_sentence}'")
 
         for topic in topics:
-            
+
             results = self.collection.query(
-                query_texts=[converted],
+                query_texts=[translated_sentence],
                 n_results=n_results
             )
             
@@ -160,7 +159,6 @@ class Pipeline:
             
             best_match = results['metadatas'][0][0]
             confidence = results['distances'][0][0]
-            print(f"[DEBUG] Best match distance: {confidence:.3f}")
 
             if confidence > 0.7:
                 print(f"[DEBUG] Low confidence for topic: {topic}")
@@ -187,9 +185,7 @@ class Pipeline:
         
         best_match = results['metadatas'][0][0]
         confidence = results['distances'][0][0]
-        
-        print(f"[DEBUG] Best match distance: {confidence:.3f}")
-        
+                
         if confidence > 0.7:
             return "I'm not sure about that. Can you rephrase or ask about Catanduanes tourism?"
         
@@ -280,7 +276,7 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
         
         # Get facts from RAG
         if len(topics) > 1 and topics != ['general']:
-            answers = self.search_multi_topic(topics)
+            answers = self.search_multi_topic(topics, user_input)
             fact = " ".join(answers) if answers else "I dont have info about those topics"
         else:
             fact = self.search(convert)
@@ -343,3 +339,6 @@ if __name__ == '__main__':
     
     cbot = Pipeline(dataset_path="dataset/dataset.json")
     cbot.guide_question()
+
+
+print(cbot.protect("san located ang puraran beach?"))
