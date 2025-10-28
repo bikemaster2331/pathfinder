@@ -139,17 +139,15 @@ class Pipeline:
     # ----------------------------------------------------
 
     # Searches the RAG knowledge base for multiple topics and collects the best answers for each.
-    def search_multi_topic(self, topics, n_results=2):
+    def search_multi_topic(self, topics, user_input, n_results=2):
 
         all_results = []
+        print(f"[DEBUG] Detected topics: {topics}")
+
+        translated_sentence = self.protect(user_input)
+        print(f"[DEBUG] Translated sentence: '{translated_sentence}'")
 
         for topic in topics:
-            converted = self.protect(topic)
-            print(f"[DEBUG] Searching for: '{converted}'")
-            # try:
-            #     translated = GoogleTranslator(source='auto', target='en').translate(topic)
-            # except:
-            #     translated = topic
             
             results = self.collection.query(
                 query_texts=[converted],
@@ -168,7 +166,7 @@ class Pipeline:
                 print(f"[DEBUG] Low confidence for topic: {topic}")
                 continue
 
-            all_results.append
+            all_results.append(best_match['answer'])
         
         return all_results
     
