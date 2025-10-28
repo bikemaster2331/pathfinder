@@ -102,10 +102,12 @@ class Pipeline:
         """Extract topic keywords from question"""
         keywords = {
             'surfing': ['surf', 'surfing', 'waves', 'board', 'mag-surf'],
-            'swimming': ['swim', 'swimming', 'beach', 'langoy', 'lumangoy', 'maligo'],
+            'swimming': ['swim', 'swimming', 'langoy', 'lumangoy', 'maligo'],  # Removed 'beach'
+            'beaches': ['beach', 'dalampasigan'],  # Separate beaches category
             'hiking': ['hike', 'hiking', 'trek', 'trail', 'bundok', 'akyat'],
             'food': ['eat', 'food', 'restaurant', 'kain', 'kumain', 'pagkain', 'masarap'],
-            'accommodation': ['stay', 'hotel', 'resort', 'tulog', 'matulog', 'pahinga']
+            'accommodation': ['stay', 'hotel', 'resort', 'tulog', 'matulog', 'pahinga'],
+            'sightseeing': ['visit', 'see', 'tour', 'bisita', 'tingnan', 'puntahan', 'activity', 'activities', 'gawing']
         }
 
         found = []
@@ -151,8 +153,8 @@ class Pipeline:
 
         return temp
 
-    def search_multi_topic(self, topics, translated_query, n_results=2):
-        """Search RAG for multiple topics"""
+    def search_multi_topic(self, topics, translated_query, n_results=3):
+        """Search RAG for multiple topics - increased to 3 results per topic"""
         all_results = []
         
         for topic in topics:
@@ -170,19 +172,17 @@ class Pipeline:
                 print(f"[DEBUG] No results found for topic: {topic}")
                 continue
             
-            best_match = results['metadatas'][0][0]
-            confidence = results['distances'][0][0]
-
-            if confidence > 0.7:
-                print(f"[DEBUG] Low confidence for topic: {topic}")
-                continue
-
-            all_results.append(best_match['answer'])
+            # Get all results with good confidence
+            for i, metadata in enumerate(results['metadatas'][0]):
+                confidence = results['distances'][0][i]
+                if confidence <= 0.7:  # Only include good matches
+                    all_results.append(metadata['answer'])
+                    print(f"[DEBUG] Added result with confidence: {confidence:.3f}")
         
         return all_results
     
-    def search(self, question, n_results=3):
-        """Search for single question"""
+    def search(self, question, n_results=5):
+        """Search for single question - increased results"""
         print(f"[DEBUG] Searching for: '{question}'")
         
         results = self.collection.query(
@@ -193,13 +193,19 @@ class Pipeline:
         if not results['documents'][0]:
             return "I don't have information about that. Ask about beaches, food, or activities!"
         
-        best_match = results['metadatas'][0][0]
-        confidence = results['distances'][0][0]
-                
-        if confidence > 0.7:
+        # Collect all good matches
+        good_answers = []
+        for i, metadata in enumerate(results['metadatas'][0]):
+            confidence = results['distances'][0][i]
+            if confidence <= 0.7:
+                good_answers.append(metadata['answer'])
+                print(f"[DEBUG] Match {i+1} confidence: {confidence:.3f}")
+        
+        if not good_answers:
             return "I'm not sure about that. Can you rephrase or ask about Catanduanes tourism?"
         
-        return best_match['answer']
+        # Return all good answers combined
+        return " ".join(good_answers)
 
     def make_natural(self, question, fact):
         """Make response natural using Gemini or fallback"""
@@ -232,16 +238,23 @@ Your goal is to answer the question using ONLY the 'Facts' provided and deliver 
         return f"{fact}"
     
     def key_places(self, facts):
-        """Extract places from facts"""
+        """Extract places from facts - now includes partial matches"""
         places = [
             "Puraran Beach", "Twin Rock Beach", "Binurong Point",
             "Balacay Point", "Bato Church", "Mount Cagmasoso",
             "Maribina Falls", "Virac", "Baras", "Mamita's Grill",
+            "Bato",  # Added standalone Bato
+            "Puraran", "Twin Rock", "Binurong", "Balacay",  # Added short names
         ]
 
         found_places = []
-        for place in places:
-            if place.lower() in facts.lower():
+        facts_lower = facts.lower()
+        
+        # Sort by length (longest first) to match "Bato Church" before "Bato"
+        sorted_places = sorted(places, key=len, reverse=True)
+        
+        for place in sorted_places:
+            if place.lower() in facts_lower and place not in found_places:
                 found_places.append(place)
 
         return found_places
