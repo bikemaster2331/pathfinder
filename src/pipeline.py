@@ -211,6 +211,7 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
         # Offline fallback - fact
         return f"{fact}"
     
+    
     def protect(self, user_input):
 
         protected = ["Puraran Beach", "Twin Rock Beach", "Binurong Point", "Balacay Point",
@@ -270,12 +271,11 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
         # Get facts from RAG
         if len(topics) > 1 and topics != ['general']:
             answers = self.search_multi_topic(topics)
-            if answers:
-                fact = " ".join(answers)
-            else:
-                return "I don't have info about those topics yet."
+            fact = " ".join(answers) if answers else "I dont have info about those topics"
         else:
             fact = self.search(convert)
+
+        places = self.key_places(fact)
         
         # Check if error message
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
@@ -283,7 +283,8 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
         
         # Make it natural
         natural_response = self.make_natural(user_input, fact)
-        return natural_response
+        return (natural_response, places)
+        
 
     # ----------------------------------------------------
     # 5. ENTRY POINT
@@ -310,9 +311,9 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
                 print("Katniss: Please enter something.\n")
                 return
             
+            natural_response, places_list = self.ask(user_input)
             # Get answer
-            answer = self.ask(user_input)
-            print(f"Katniss: {answer}\n")
+            print(f"Katniss: {natural_response}\n")
 
         # Initial preference question
         pref = input("What activities do you prefer? (Hiking/Swimming/Surfing/etc...): ").strip()
@@ -324,6 +325,8 @@ Your goal is to answer the question using ONLY the 'Core Information Retrieved' 
             qry = input("You: ").strip()
             response(qry)
 
+    def maps(self, places):
+        pass
 
 if __name__ == '__main__':
 
