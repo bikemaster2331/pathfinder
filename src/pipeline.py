@@ -181,7 +181,7 @@ class Pipeline:
             for i, metadata in enumerate(results['metadatas'][0]):
                 confidence = results['distances'][0][i]
                 if confidence <= 0.7:  # Only include good matches
-                    all_results.append(metadata['answer'])
+                    all_results.append(metadata['summary_offline'])
                     print(f"[DEBUG] Added result with confidence: {confidence:.3f}")
         
         return all_results
@@ -233,10 +233,11 @@ Do not add greetings, emotions, or extra commentary — be direct yet kind."""
                 return response.text
                 
             except Exception as e:
-                print(f"[DEBUG] Gemini error: {e}")
-        
-        # Offline fallback - return fact as-is
-        return f"{fact}"
+                print(f"⚠️ Gemini request failed: {e}")
+                if fact and isinstance(fact, list):
+                    clean_facts = "\n- ".join(fact)
+                    return f"The most relevant information I have:\n- {clean_facts}"
+                return f"I am currently in **Offline Mode**. I found this information for you: {fact}"
     
     def key_places(self, facts):
         """Extract places from facts - now includes partial matches"""
