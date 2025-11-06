@@ -46,7 +46,8 @@ class Pipeline:
                 self.load_dataset(dataset_path) 
                 print("✅ Created and loaded knowledge_base with data.")
             except Exception as create_error:
-                print:
+                print(f"Can not create: {create_error}")
+                exit(1)
     
     def setup_gemini(self):
         try:
