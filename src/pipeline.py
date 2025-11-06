@@ -71,10 +71,7 @@ class Pipeline:
             documents.append(doc)
             metadatas.append({
                 "question": item['input'],
-                "answer": item['output'],
-                "title": item.get('title', 'General Info'),
-                "topic": item.get('topic', 'General'),
-                "summary_offline": item.get('summary_offline', item['output'])
+                "answer": item['output']
             })
             ids.append(str(idx))
         
@@ -169,8 +166,7 @@ class Pipeline:
             
             results = self.collection.query(
                 query_texts=[search_query],
-                n_results=n_results,
-                where = {"topic": topic}
+                n_results=n_results
             )
             
             if not results['documents'][0]:
@@ -181,12 +177,12 @@ class Pipeline:
             for i, metadata in enumerate(results['metadatas'][0]):
                 confidence = results['distances'][0][i]
                 if confidence <= 0.7:  # Only include good matches
-                    all_results.append(metadata['summary_offline'])
+                    all_results.append(metadata['answer'])
                     print(f"[DEBUG] Added result with confidence: {confidence:.3f}")
         
         return all_results
     
-    def search(self, question, n_results=3):
+    def search(self, question, n_results=5):
         """Search for single question - increased results"""
         print(f"[DEBUG] Searching for: '{question}'")
         
@@ -233,11 +229,10 @@ Do not add greetings, emotions, or extra commentary — be direct yet kind."""
                 return response.text
                 
             except Exception as e:
-                print(f"⚠️ Gemini request failed: {e}")
-                if fact and isinstance(fact, list):
-                    clean_facts = "\n- ".join(fact)
-                    return f"The most relevant information I have:\n- {clean_facts}"
-                return f"I am currently in **Offline Mode**. I found this information for you: {fact}"
+                print(f"[DEBUG] Gemini error: {e}")
+        
+        # Offline fallback - return fact as-is
+        return f"{fact}"
     
     def key_places(self, facts):
         """Extract places from facts - now includes partial matches"""
