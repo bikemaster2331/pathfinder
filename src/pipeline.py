@@ -38,7 +38,7 @@ class Pipeline:
             )
         except Exception as e:
             print(f"❌ Failed to load knowledge base, creating new collection: {e}")
-
+            try:
             self.collection = self.client.create_collection(
                 name="knowledge_base",
                 embedding_function=self.embedding
