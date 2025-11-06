@@ -23,10 +23,11 @@ class Pipeline:
         self.setup_gemini()
         
         # Setup RAG
+        RAG_MODEL = os.path.join(os.path.dirname(__file__), "..", "models", "multilingual-MiniLM-L12-v2")
         self.client = chromadb.Client()
         self.embedding = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
-            device="cuda" if torch.cuda.is_available() else "cpu"
+            model_name=RAG_MODEL,
+            device="cpu"                     
         )
 
         try:
@@ -70,7 +71,10 @@ class Pipeline:
             documents.append(doc)
             metadatas.append({
                 "question": item['input'],
-                "answer": item['output']
+                "answer": item['output'],
+                "title": item.get('title', 'General Info'),
+                "topic": item.get('topic', 'General'),
+                "summary_offline": item.get('summary_offline', item['output'])
             })
             ids.append(str(idx))
         
@@ -165,7 +169,8 @@ class Pipeline:
             
             results = self.collection.query(
                 query_texts=[search_query],
-                n_results=n_results
+                n_results=n_results,
+                where = {"topic": topic}
             )
             
             if not results['documents'][0]:
@@ -181,7 +186,7 @@ class Pipeline:
         
         return all_results
     
-    def search(self, question, n_results=5):
+    def search(self, question, n_results=3):
         """Search for single question - increased results"""
         print(f"[DEBUG] Searching for: '{question}'")
         
