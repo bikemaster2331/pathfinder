@@ -39,12 +39,14 @@ class Pipeline:
         except Exception as e:
             print(f"❌ Failed to load knowledge base, creating new collection: {e}")
             try:
-            self.collection = self.client.create_collection(
-                name="knowledge_base",
-                embedding_function=self.embedding
-            )
-            self.load_dataset(dataset_path) 
-            print("✅ Created and loaded knowledge_base with data.")
+                self.collection = self.client.create_collection(
+                    name="knowledge_base",
+                    embedding_function=self.embedding
+                )
+                self.load_dataset(dataset_path) 
+                print("✅ Created and loaded knowledge_base with data.")
+            except Exception as create_error:
+                print:
     
     def setup_gemini(self):
         try:
