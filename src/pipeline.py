@@ -8,9 +8,10 @@ import time
 import os
 from dotenv import load_dotenv
 import re
+import uuid
 
 class Pipeline:
-    def __init__(self, dataset_path="dataset/dataset.json"):
+    def __init__(self, dataset_path="dataset/dataset.json", db_path ="./chroma_storage"):
         print("Welcome to Catanduanes!!")
 
         load_dotenv()
@@ -24,7 +25,7 @@ class Pipeline:
         
         # Setup RAG
         RAG_MODEL = os.path.join(os.path.dirname(__file__), "..", "models", "multilingual-MiniLM-L12-v2")
-        self.client = chromadb.Client()
+        self.client = chromadb.PersistentClient(path=db_path)
         self.embedding = embedding_functions.SentenceTransformerEmbeddingFunction(
             model_name=RAG_MODEL,
             device="cpu"                     
@@ -35,12 +36,15 @@ class Pipeline:
                 name="knowledge_base",
                 embedding_function=self.embedding
             )
-        except:
+        except Exception as e:
+            print(f"❌ Failed to load knowledge base, creating new: {e}")
+            print("Creating new collection")
             self.collection = self.client.create_collection(
                 name="knowledge_base",
                 embedding_function=self.embedding
             )
-            self.load_dataset(dataset_path)
+            self.load_dataset(dataset_path) 
+            print("✅ Created and loaded knowledge_base with data.")
     
     def setup_gemini(self):
         try:
@@ -59,8 +63,21 @@ class Pipeline:
             self.has_gemini = False
 
     def load_dataset(self, dataset_path):
-        with open(dataset_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
+
+        try:
+            with open(dataset_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except FileNotFoundError:
+            print(f"❌ Dataset not found: {dataset_path}")
+            exit(1)
+        except json.JSONDecodeError as e:
+            print(f"❌ Invalid JSON in dataset: {e}")
+            exit(1)
+
+        for idx, item in enumerate(data):
+            if 'input' not in item or 'output' not in item:
+                print(f"⚠️ Skipping invalid entry at index {idx}")
+                continue
 
         documents = []
         metadatas = []
@@ -71,7 +88,10 @@ class Pipeline:
             documents.append(doc)
             metadatas.append({
                 "question": item['input'],
-                "answer": item['output']
+                "answer": item['output'],
+                "title": item.get('title', 'General Info'),
+                "topic": item.get('topic', 'General'),
+                "summary_offline": item.get('summary_offline', item['output'])
             })
             ids.append(str(idx))
         
@@ -133,7 +153,20 @@ class Pipeline:
 
         temp = user_input
         markers = {}
-        
+
+        for place_name in protected:
+            if place_name.lower() in temp.lower():
+                # Use UUID to avoid collision
+                marker = f"__PLACE_{uuid.uuid4().hex[:8]}__"
+                temp = re.sub(
+                    re.escape(place_name), 
+                    marker, 
+                    temp, 
+                    flags=re.IGNORECASE, 
+                    count=1
+                )
+                markers[marker] = place_name
+
         # Mark all protected place names
         for i, place_input in enumerate(protected):
             if place_input.lower() in user_input.lower():
@@ -177,10 +210,16 @@ class Pipeline:
             for i, metadata in enumerate(results['metadatas'][0]):
                 confidence = results['distances'][0][i]
                 if confidence <= 0.7:  # Only include good matches
-                    all_results.append(metadata['answer'])
-                    print(f"[DEBUG] Added result with confidence: {confidence:.3f}")
+                    all_results.append({
+                        'text': metadata['summary_offline'],
+                        'confidence': confidence,
+                        'topic': topic
+                    })
+        all_results.sort(key=lambda x: x['confidence'])
+        print(f"[DEBUG] Added result with confidence: {confidence:.3f}")
         
-        return all_results
+        return [r['text'] for r in all_results[:5]]
+
     
     def search(self, question, n_results=5):
         """Search for single question - increased results"""
