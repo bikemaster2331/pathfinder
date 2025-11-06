@@ -221,10 +221,10 @@ class Pipeline:
         all_results.sort(key=lambda x: x['confidence'])
         print(f"[DEBUG] Added result with confidence: {confidence:.3f}")
         
-        return [r['text'] for r in all_results[:5]]
+        return [r['text'] for r in all_results[:3]]
 
     
-    def search(self, question, n_results=5):
+    def search(self, question, n_results=3):
         """Search for single question - increased results"""
         print(f"[DEBUG] Searching for: '{question}'")
         
@@ -262,10 +262,10 @@ Your responses should sound gentle, clear, and factual, while maintaining a frie
 Tourist asked: {question}
 Facts: {fact}
 
-Respond in the same language as the tourist’s question.
+Respond in the same language as the tourist's question.
 Use only the information from the facts.
 Give a single, concise, and natural-sounding sentence.
-Do not add greetings, emotions, or extra commentary — be direct yet kind."""
+Do not add greetings, emotions, or extra commentary be direct yet kind."""
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
