@@ -48,7 +48,58 @@ class Pipeline:
             except Exception as create_error:
                 print(f"Can not create: {create_error}")
                 exit(1)
+        self.history = []
+        self.max_history = 5
+        self.last_place = []
+        self.last_topic = None
+
+
+    def convo_history(self, user_input, bot_response, places):
+        self.history.append({
+            'user': user_input,
+            'bot': bot_response,
+            'places': places,
+            'timestamp': time.time()
+        })
+        if len(self.history) > self.max_history:
+            self.history.pop(0)
+
+        if places:
+            self.last_place = places
+            
     
+    def get_context(self):
+        if not self.history:
+            return ""
+        
+        context_parts = []
+        for turn in self.history[-3:]:
+            context_parts.append(f"User asked: {turn['user']}")
+            context_parts.append(f"Bot said: {turn['bot']}")
+
+        return " ".join(context_parts)
+    
+    def resolve(self, user_input):
+        pronouns = ['there', 'it', 'that place', 'doon', 'dito', 'iyan']
+        user_lower = user_input.lower()
+
+        if any (pronoun in user_lower for pronoun in pronouns):
+            if self.last_place:
+                place = self.last_place[0]  # Most recent
+                for pronoun in pronouns:
+                    user_input = re.sub(
+                        r'\b' + pronoun + r'\b', 
+                        place, 
+                        user_input, 
+                        flags=re.IGNORECASE
+                    )
+                print(f"[DEBUG] Resolved pronoun: '{user_input}'")
+        
+        return user_input
+
+
+
+
     def setup_gemini(self):
         try:
             import google.generativeai as genai
