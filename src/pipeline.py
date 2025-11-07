@@ -66,7 +66,6 @@ class Pipeline:
             self.has_gemini = False
 
     def load_dataset(self, dataset_path):
-
         try:
             with open(dataset_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -92,6 +91,7 @@ class Pipeline:
             metadatas.append({
                 "question": item['input'],
                 "answer": item['output'],
+                # 🛑 FIX: Use .get() method instead of callable ()
                 "title": item.get('title', 'General Info'),
                 "topic": item.get('topic', 'General'),
                 "summary_offline": item.get('summary_offline', item['output'])
@@ -126,8 +126,8 @@ class Pipeline:
         """Extract topic keywords from question"""
         keywords = {
             'surfing': ['surf', 'surfing', 'waves', 'board', 'mag-surf'],
-            'swimming': ['swim', 'swimming', 'langoy', 'lumangoy', 'maligo'],  # Removed 'beach'
-            'beaches': ['beach', 'dalampasigan'],  # Separate beaches category
+            'swimming': ['swim', 'swimming', 'langoy', 'lumangoy', 'maligo'],  
+            'beaches': ['beach', 'dalampasigan'],  
             'hiking': ['hike', 'hiking', 'trek', 'trail', 'bundok', 'akyat'],
             'food': ['eat', 'food', 'restaurant', 'kain', 'kumain', 'pagkain', 'masarap'],
             'accommodation': ['stay', 'hotel', 'resort', 'tulog', 'matulog', 'pahinga'],
@@ -143,8 +143,6 @@ class Pipeline:
         
         return found if found else ['general']
     
-
-
     def protect(self, user_input):
         """Protect place names during translation"""
         protected = [
@@ -169,13 +167,6 @@ class Pipeline:
                     count=1
                 )
                 markers[marker] = place_name
-
-        # Mark all protected place names
-        for i, place_input in enumerate(protected):
-            if place_input.lower() in user_input.lower():
-                marker = f"__PLACE{i}__"
-                temp = re.sub(re.escape(place_input), marker, temp, flags=re.IGNORECASE, count=1)
-                markers[marker] = place_input
 
         # Translate the rest
         try:
@@ -219,7 +210,7 @@ class Pipeline:
                         'topic': topic
                     })
         all_results.sort(key=lambda x: x['confidence'])
-        print(f"[DEBUG] Added result with confidence: {confidence:.3f}")
+        print(f"[DEBUG] Added result with confidence: {all_results[-1]['confidence']:.3f}") # Print highest confidence result added
         
         return [r['text'] for r in all_results[:3]]
 
@@ -240,7 +231,7 @@ class Pipeline:
         good_answers = []
         for i, metadata in enumerate(results['metadatas'][0]):
             confidence = results['distances'][0][i]
-            if confidence <= 0.7:
+            if confidence <= 0.473:
                 good_answers.append(metadata['answer'])
                 print(f"[DEBUG] Match {i+1} confidence: {confidence:.3f}")
         
@@ -253,11 +244,11 @@ class Pipeline:
     def make_natural(self, question, fact):
         """Make response natural using Gemini or fallback"""
         
-        # Try Gemini if online
+        # 1. Try Gemini if online
         if self.has_gemini and self.checkint():
             try:
-                prompt = f"""You are Pathfinder — a calm, polite, and helpful Catanduanes tourism assistant, similar to Baymax.
-Your responses should sound gentle, clear, and factual, while maintaining a friendly tone.
+                prompt = f"""You are Pathfinder — a calm, polite, helpful, always excited Catanduanes tourism assistant, similar to Baymax.
+Your responses should sound gentle, clear, and factual, while maintaining a friendly tone. 
 
 Tourist asked: {question}
 Facts: {fact}
@@ -265,16 +256,27 @@ Facts: {fact}
 Respond in the same language as the tourist's question.
 Use only the information from the facts.
 Give a single, concise, and natural-sounding sentence.
-Do not add greetings, emotions, or extra commentary be direct yet kind."""
+Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks at the end to sound excited."""
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
                 
             except Exception as e:
                 print(f"[DEBUG] Gemini error: {e}")
+                # Fall through to the OFFLINE FALLBACK
         
-        # Offline fallback - return fact as-is
-        return f"{fact}"
+        # 2. 🛑 FIX: STRUCTURED OFFLINE FALLBACK (Always returns a clean, templated response)
+
+        # Check if the RAG search found an error message string (from step 5 of ask)
+        if "don't have information" in fact.lower() or "not sure" in fact.lower():
+            return f"I am currently offline, and I apologize for the limited service. {fact}"
+        
+        print("[DEBUG] Falling back to structured offline RAG fact.")
+        
+        return (
+            f" I cannot provide a conversational response right now, but here is the essential information I found for you:\n\n"
+            f"➡️ {fact}"
+        )
     
     def key_places(self, facts):
         """Extract places from facts - now includes partial matches"""
@@ -282,8 +284,8 @@ Do not add greetings, emotions, or extra commentary be direct yet kind."""
             "Puraran Beach", "Twin Rock Beach", "Binurong Point",
             "Balacay Point", "Bato Church", "Mount Cagmasoso",
             "Maribina Falls", "Virac", "Baras", "Mamita's Grill",
-            "Bato",  # Added standalone Bato
-            "Puraran", "Twin Rock", "Binurong", "Balacay",  # Added short names
+            "Bato",
+            "Puraran", "Twin Rock", "Binurong", "Balacay", 
         ]
 
         found_places = []
