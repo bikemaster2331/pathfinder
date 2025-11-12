@@ -9,6 +9,7 @@ import os
 from dotenv import load_dotenv
 import re
 import uuid
+import webbrowser
 
 class Pipeline:
     def __init__(self, dataset_path="dataset/dataset.json", db_path ="./chroma_storage"):
@@ -48,58 +49,7 @@ class Pipeline:
             except Exception as create_error:
                 print(f"Can not create: {create_error}")
                 exit(1)
-        self.history = []
-        self.max_history = 5
-        self.last_place = []
-        self.last_topic = None
-
-
-    def convo_history(self, user_input, bot_response, places):
-        self.history.append({
-            'user': user_input,
-            'bot': bot_response,
-            'places': places,
-            'timestamp': time.time()
-        })
-        if len(self.history) > self.max_history:
-            self.history.pop(0)
-
-        if places:
-            self.last_place = places
-            
     
-    def get_context(self):
-        if not self.history:
-            return ""
-        
-        context_parts = []
-        for turn in self.history[-3:]:
-            context_parts.append(f"User asked: {turn['user']}")
-            context_parts.append(f"Bot said: {turn['bot']}")
-
-        return " ".join(context_parts)
-    
-    def resolve(self, user_input):
-        pronouns = ['there', 'it', 'that place', 'doon', 'dito', 'iyan']
-        user_lower = user_input.lower()
-
-        if any (pronoun in user_lower for pronoun in pronouns):
-            if self.last_place:
-                place = self.last_place[0]  # Most recent
-                for pronoun in pronouns:
-                    user_input = re.sub(
-                        r'\b' + pronoun + r'\b', 
-                        place, 
-                        user_input, 
-                        flags=re.IGNORECASE
-                    )
-                print(f"[DEBUG] Resolved pronoun: '{user_input}'")
-        
-        return user_input
-
-
-
-
     def setup_gemini(self):
         try:
             import google.generativeai as genai
@@ -121,10 +71,10 @@ class Pipeline:
             with open(dataset_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except FileNotFoundError:
-            print(f"❌ Dataset not found: {dataset_path}")
+            print(f"Dataset not found: {dataset_path}")
             exit(1)
         except json.JSONDecodeError as e:
-            print(f"❌ Invalid JSON in dataset: {e}")
+            print(f"Invalid JSON in dataset: {e}")
             exit(1)
 
         for idx, item in enumerate(data):
@@ -307,16 +257,13 @@ Facts: {fact}
 Respond in the same language as the tourist's question.
 Use only the information from the facts.
 Give a single, concise, and natural-sounding sentence.
-Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks at the end to sound excited."""
+Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks to sound excited."""
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
                 
             except Exception as e:
                 print(f"[DEBUG] Gemini error: {e}")
-                # Fall through to the OFFLINE FALLBACK
-        
-        # 2. 🛑 FIX: STRUCTURED OFFLINE FALLBACK (Always returns a clean, templated response)
 
         # Check if the RAG search found an error message string (from step 5 of ask)
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
@@ -331,13 +278,18 @@ Do not add greetings or extra commentary be direct yet kind. You may include exc
     
     def key_places(self, facts):
         """Extract places from facts - now includes partial matches"""
-        places = [
-            "Puraran Beach", "Twin Rock Beach", "Binurong Point",
-            "Balacay Point", "Bato Church", "Mount Cagmasoso",
-            "Maribina Falls", "Virac", "Baras", "Mamita's Grill",
-            "Bato",
-            "Puraran", "Twin Rock", "Binurong", "Balacay", 
-        ]
+        places = {
+        "Puraran Beach": {"lat": 13.6918, "lng": 124.3988, "type": "surfing"},
+        "Twin Rock Beach": {"lat": 13.5226, "lng": 124.2226, "type": "swimming"},
+        "Binurong Point": {"lat": 13.6689, "lng": 124.4144, "type": "hiking"},
+        "Maribina Falls": {"lat": 13.6017, "lng": 124.2706, "type": "swimming"},
+        "Face of Jesus Beach": {"lat": 13.5187, "lng": 124.2059, "type": "general"},
+        "Nahulugan Falls": {"lat": 13.7886, "lng": 124.3677, "type": "swimming"},
+        "Tuwad-Tuwadan Blue Lagoon": {"lat": 13.0586, "lng": 124.1265, "type": "surfing"},
+        "St. John the Baptist Church": {"lat": 13.9831, "lng": 124.1342, "type": "sightseeing"},
+        "Mamangal Beach": {"lat": 13.5550, "lng": 124.1492, "type": "swimming"},
+        "Ba-Haw Falls": {"lat": 13.7538, "lng": 124.3833, "type": "swimming"},
+    }
 
         found_places = []
         facts_lower = facts.lower()
@@ -400,11 +352,12 @@ Do not add greetings or extra commentary be direct yet kind. You may include exc
                 print("Pathfinder: Please enter something.\n")
                 return
             
-            natural_response, places_list = self.ask(user_input) 
+            natural_response, places = self.ask(user_input) 
             print(f"Pathfinder: {natural_response}\n")
             
-            if places_list:
-                print(f"[DEBUG] Found places: {places_list}")
+            if places:
+                
+                print(f"[DEBUG] Found places: {places}")
 
         # Initial preference question
         pref = input("What activities do you prefer? (Hiking/Swimming/Surfing/etc...): ").strip()
@@ -415,9 +368,6 @@ Do not add greetings or extra commentary be direct yet kind. You may include exc
         while True:
             qry = input("You: ").strip()
             response(qry)
-
-    def maps(self, places):
-        pass
 
 if __name__ == '__main__':
     cbot = Pipeline(dataset_path="dataset/dataset.json")
