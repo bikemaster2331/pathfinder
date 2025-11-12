@@ -1,1 +1,20 @@
+# 1. Python environment/builds
 pathenv/
+__pycache__/
+*.pyc
+
+# 2. Local Database & Cache (CRITICAL for RAG/ChromaDB)
+chroma_storage/
+chromadb_data/
+chroma/
+cache/
+*.html
+
+# 3. Downloaded Models (Large binary files)
+models/
+chatbot_model/
+my_chatbot/
+katniss/
+
+# 4. Local config
+.env
