@@ -43,6 +43,8 @@ class Pipeline:
             with open(hash_file_path, 'r') as f:
                 stored_hash = f.read().strip()
 
+        rebuild_required = (current_data_hash is None)
+
         try:
             self.collection = self.client.get_collection(
                 name="knowledge_base",
