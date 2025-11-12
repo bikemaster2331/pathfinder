@@ -1,15 +1,38 @@
-from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
+# src/main.py
+from transformers import pipeline
 
-model_name = "gpt2"
+# Load your trained model
+print("Loading Katniss...")
+chatbot = pipeline("text-generation", model="./katniss", device=0)  # device=0 uses GPU
 
-# Load tokenizer (this turns words into tokens the model understands)
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+print("Katniss ready! Type 'exit' to quit.\n")
 
-# Load the actual GPT-2 model
-model = AutoModelForCausalLM.from_pretrained(model_name)
-
-generate = pipeline("text-generation", model=model, tokenizer=tokenizer)
-
-result = generate("what are you called", max_length=10, num_return_sequences=1)
-
-print(result[0]["generated_text"])
+while True:
+    question = input("You: ")
+    if question.lower() in ['exit', 'quit', 'bye']:
+        print("Thank you, please come again!")
+        break
+    
+    # Format as training data format
+    prompt = f"Q: {question} A (Answer in one sentence):"
+    
+    # Generate response - FIX: Use only max_new_tokens OR max_length, not both
+    response = chatbot(
+        prompt, 
+        max_new_tokens=20,          # Generate up to 50 new tokens
+        num_return_sequences=1,
+        truncation=True,            # Fix truncation warning
+        pad_token_id=chatbot.tokenizer.eos_token_id,  # Avoid warnings
+        do_sample=True,             # More natural responses
+        temperature=0.7            # Randomness (0.1=focused, 1.0=creative)
+    )
+    
+    # Extract just the answer part
+    full_response = response[0]["generated_text"]
+    answer = full_response.replace(prompt, "").strip()
+    
+    # Clean up if it generates multiple Q&As
+    if "Q:" in answer:
+        answer = answer.split("Q:")[0].strip()
+    
+    print(f"Bot: {answer}\n")
