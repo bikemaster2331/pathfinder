@@ -50,6 +50,9 @@ class Pipeline:
                 name="knowledge_base",
                 embedding_function=self.embedding
             )
+            if stored_hash == current_data_hash and current_data_hash is not None:
+                rebuild_required = False
+            
         except Exception as e:
             print(f"❌ Failed to load knowledge base, creating new collection: {e}")
             try:
