@@ -10,6 +10,9 @@ from dotenv import load_dotenv
 import re
 import uuid
 import webbrowser
+import hashlib
+
+HASH_FILE = "dataset_hash.txt"
 
 class Pipeline:
     def __init__(self, dataset_path="dataset/dataset.json", db_path ="./chroma_storage"):
@@ -32,6 +35,14 @@ class Pipeline:
             device="cpu"                     
         )
 
+        current_data_hash = self.dataset_hash(dataset_path)
+        stored_hash = None
+
+        hash_file_path = os.path.join(db_path, HASH_FILE)
+        if os.path.exists(hash_file_path):
+            with open(hash_file_path, 'r') as f:
+                stored_hash = f.read().strip()
+
         try:
             self.collection = self.client.get_collection(
                 name="knowledge_base",
@@ -49,6 +60,16 @@ class Pipeline:
             except Exception as create_error:
                 print(f"Can not create: {create_error}")
                 exit(1)
+
+    def dataset_hash(self, dataset_path):
+        hasher = hashlib.md5()
+        try:
+            with open(dataset_path, 'rb') as f:
+                buf = f.read()
+                hasher.update(buf)
+            return hasher.hexdigest()
+        except FileNotFoundError:
+            return None
     
     def setup_gemini(self):
         try:
