@@ -51,17 +51,35 @@ class Pipeline:
                 embedding_function=self.embedding
             )
             if stored_hash == current_data_hash and current_data_hash is not None:
+                print("no rebuild required")
                 rebuild_required = False
+            else:
+                print("rebuilding")
+                rebuild_required = True
+
+        except Exception:
+            rebuild_required = True
+        
+        if rebuild_required:
+            # If the collection exists but has old data, we must delete it first.
+            try:
+                self.client.delete_collection(name="knowledge_base")
+            except:
+                pass # Ignore if it didn't exist
             
-        except Exception as e:
-            print(f"❌ Failed to load knowledge base, creating new collection: {e}")
             try:
                 self.collection = self.client.create_collection(
                     name="knowledge_base",
                     embedding_function=self.embedding
                 )
                 self.load_dataset(dataset_path) 
-                print("✅ Created and loaded knowledge_base with data.")
+                print("✅ Created and loaded NEW knowledge_base with data.")
+                
+                # 4. Save the new hash to disk
+                os.makedirs(db_path, exist_ok=True)
+                with open(hash_file_path, 'w') as f:
+                    f.write(current_data_hash)
+                    
             except Exception as create_error:
                 print(f"Can not create: {create_error}")
                 exit(1)
