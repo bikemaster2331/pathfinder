@@ -323,17 +323,29 @@ Do not add greetings or extra commentary be direct yet kind. You may include exc
     def key_places(self, facts):
         """Extract places from facts - now includes partial matches"""
         places = {
-        "Puraran Beach": {"lat": 13.6918, "lng": 124.3988, "type": "surfing"},
-        "Twin Rock Beach": {"lat": 13.5226, "lng": 124.2226, "type": "swimming"},
-        "Binurong Point": {"lat": 13.6689, "lng": 124.4144, "type": "hiking"},
-        "Maribina Falls": {"lat": 13.6017, "lng": 124.2706, "type": "swimming"},
-        "Face of Jesus Beach": {"lat": 13.5187, "lng": 124.2059, "type": "general"},
-        "Nahulugan Falls": {"lat": 13.7886, "lng": 124.3677, "type": "swimming"},
-        "Tuwad-Tuwadan Blue Lagoon": {"lat": 13.0586, "lng": 124.1265, "type": "surfing"},
-        "St. John the Baptist Church": {"lat": 13.9831, "lng": 124.1342, "type": "sightseeing"},
-        "Mamangal Beach": {"lat": 13.5550, "lng": 124.1492, "type": "swimming"},
-        "Ba-Haw Falls": {"lat": 13.7538, "lng": 124.3833, "type": "swimming"},
-    }
+    "Puraran Beach": {"lat": 13.6918, "lng": 124.3988, "type": "surfing"},
+    "Twin Rock Beach": {"lat": 13.5227, "lng": 124.2226, "type": "swimming"},
+    "Binurong Point": {"lat": 13.6690, "lng": 124.4145, "type": "hiking"},
+    "Maribina Falls": {"lat": 13.6017, "lng": 124.2707, "type": "swimming"},
+    "Face of Jesus Beach": {"lat": 13.5188, "lng": 124.2060, "type": "general"},
+    "Nahulugan Falls": {"lat": 13.7886, "lng": 124.3678, "type": "swimming"},
+    "Tuwad-Tuwadan Blue Lagoon": {"lat": 14.0586, "lng": 124.1266, "type": "surfing"},
+    "St. John the Baptist Church": {"lat": 13.9832, "lng": 124.1343, "type": "sightseeing"},
+    "Mamangal Beach": {"lat": 13.5550, "lng": 124.1492, "type": "swimming"},
+    "Ba-Haw Falls": {"lat": 13.7538, "lng": 124.3833, "type": "swimming"},
+    "ARDCI Corporate Inn": {"lat": 13.5813, "lng": 124.2301, "type": "accommodation"},
+    "Rhaj Inn": {"lat": 13.5791, "lng": 124.2263, "type": "accommodation"},
+    "Majestic Puraran Beach Resort": {"lat": 13.6888, "lng": 124.3969, "type": "accommodation"},
+    "Pacific Surfers Paradise Resort": {"lat": 13.6894, "lng": 124.3952, "type": "accommodation"},
+    "Catanduanes Midtown Inn Resort": {"lat": 13.5403, "lng": 124.1638, "type": "accommodation"},
+    "Nitto Lodge": {"lat": 13.5833, "lng": 124.2054, "type": "accommodation"},
+    "Renel's Traveller's Inn": {"lat": 13.5795, "lng": 124.2280, "type": "accommodation"},
+    "Bagamanoc Guest House": {"lat": 13.9416, "lng": 124.2870, "type": "accommodation"},
+    "Pusgo Island Guest House": {"lat": 13.9700, "lng": 124.3237, "type": "accommodation"},
+    "Sonia's Island Stay": {"lat": 13.5850, "lng": 124.2388, "type": "accommodation"},
+    "The Lumber": {"lat": 13.5922, "lng": 124.2484, "type": "accommodation"},
+    "Ecrown Hotel and Resort": {"lat": 13.5939, "lng": 124.2562, "type": "accommodation"},
+}
 
         found_places = []
         facts_lower = facts.lower()
