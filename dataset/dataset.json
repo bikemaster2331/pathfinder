@@ -1,386 +1,792 @@
 [
   {
     "input": "What is Catanduanes known for?",
-    "output": "Catanduanes is known for its beautiful beaches, mountains, and surfing spots."
+    "output": "Catanduanes is known for its beautiful beaches, mountains, and surfing spots.",
+    "title": "Catanduanes Overview",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The province of Catanduanes is known for its beautiful beaches, mountains, and world-class surfing spots."
+  },
+  {
+    "input": "Tell me about the main attractions in Catanduanes.",
+    "output": "Catanduanes is known for its beautiful beaches, mountains, and surfing spots.",
+    "title": "Catanduanes Overview",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The province of Catanduanes is known for its beautiful beaches, mountains, and world-class surfing spots."
+  },
+  {
+    "input": "Why should I visit Catanduanes?",
+    "output": "Catanduanes is known for its beautiful beaches, mountains, and surfing spots.",
+    "title": "Catanduanes Overview",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The province of Catanduanes is known for its beautiful beaches, mountains, and world-class surfing spots."
   },
   {
     "input": "Where is Catanduanes located?",
-    "output": "Catanduanes is an island province in the Bicol Region of the Philippines."
+    "output": "Catanduanes is an island province in the Bicol Region of the Philippines.",
+    "title": "Catanduanes Location",
+    "topic": "Geography",
+    "location": "Bicol Region",
+    "summary_offline": "Catanduanes is an island province situated in the Bicol Region of the Philippines."
   },
   {
-    "input": "How do I get to Catanduanes?",
-    "output": "You can reach Catanduanes by plane or by ferry from mainland Bicol."
-  },
-  {
-    "input": "What are the best tourist spots in Catanduanes?",
-    "output": "Some top tourist spots include Puraran Beach, Binurong Point, Maribina Falls, and Balacay Point."
+    "input": "What region is Catanduanes in?",
+    "output": "Catanduanes is an island province in the Bicol Region of the Philippines.",
+    "title": "Catanduanes Location",
+    "topic": "Geography",
+    "location": "Bicol Region",
+    "summary_offline": "Catanduanes is an island province situated in the Bicol Region of the Philippines."
   },
   {
     "input": "What is the capital of Catanduanes?",
-    "output": "The capital of Catanduanes is Virac."
+    "output": "The capital of Catanduanes is Virac.",
+    "title": "Capital of Catanduanes",
+    "topic": "Geography",
+    "location": "Virac",
+    "summary_offline": "The capital of Catanduanes is the municipality of Virac."
   },
   {
-    "input": "Where can I surf in Catanduanes?",
-    "output": "Puraran Beach in Baras is the most popular surfing spot in Catanduanes."
-  },
-  {
-    "input": "When is the best time to visit Catanduanes?",
-    "output": "The best time to visit Catanduanes is from March to June when the weather is sunny."
+    "input": "What is the capital town?",
+    "output": "The capital of Catanduanes is Virac.",
+    "title": "Capital of Catanduanes",
+    "topic": "Geography",
+    "location": "Virac",
+    "summary_offline": "The capital of Catanduanes is the municipality of Virac."
   },
   {
     "input": "Is Catanduanes safe for tourists?",
-    "output": "Yes, Catanduanes is generally safe and peaceful for tourists."
+    "output": "Yes, Catanduanes is generally safe and peaceful for tourists.",
+    "title": "Safety for Tourists",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Catanduanes is considered a safe and peaceful destination for tourists."
   },
   {
-    "input": "What is Binurong Point?",
-    "output": "Binurong Point is a scenic cliffside destination overlooking the ocean in Baras, Catanduanes."
-  },
-  {
-    "input": "What can I do at Binurong Point?",
-    "output": "You can hike, take pictures, and enjoy the panoramic sea view at Binurong Point."
-  },
-  {
-    "input": "Where is Binurong Point located?",
-    "output": "Binurong Point is located in Baras, Catanduanes."
-  },
-  {
-    "input": "What is Maribina Falls?",
-    "output": "Maribina Falls is a popular waterfall in Bato, Catanduanes known for its refreshing waters."
-  },
-  {
-    "input": "Can I swim in Maribina Falls?",
-    "output": "Yes, visitors can swim and relax at Maribina Falls."
-  },
-  {
-    "input": "Where can I find Maribina Falls?",
-    "output": "Maribina Falls is located in Barangay Marinawa, Bato, Catanduanes."
-  },
-  {
-    "input": "What is Balacay Point?",
-    "output": "Balacay Point is a scenic viewpoint in Baras offering views of the Pacific Ocean and nearby islands."
-  },
-  {
-    "input": "What activities can I do in Puraran Beach?",
-    "output": "You can surf, swim, sunbathe, and take photos at Puraran Beach."
-  },
-  {
-    "input": "Where can I stay in Catanduanes?",
-    "output": "You can stay in hotels and resorts in Virac, Baras, and San Andres."
-  },
-  {
-    "input": "Is there an airport in Catanduanes?",
-    "output": "Yes, the Virac Airport serves flights to and from Manila."
-  },
-  {
-    "input": "How long is the ferry ride to Catanduanes?",
-    "output": "The ferry ride from Tabaco Port to Virac or San Andres takes around 3 to 4 hours."
-  },
-  {
-    "input": "What food is Catanduanes famous for?",
-    "output": "Catanduanes is known for local dishes like linubak, latik, and fresh seafood."
-  },
-  {
-    "input": "Can I bring a car to Catanduanes?",
-    "output": "Yes, you can bring your car via roll-on/roll-off ferry from Tabaco Port."
-  },
-  {
-    "input": "Where can I rent a motorcycle in Catanduanes?",
-    "output": "You can rent motorcycles in Virac and Baras for local travel."
-  },
-  {
-    "input": "Are there ATMs in Catanduanes?",
-    "output": "Yes, ATMs are available mainly in Virac and nearby towns."
-  },
-  {
-    "input": "What language do people speak in Catanduanes?",
-    "output": "People speak Bicolano, Filipino, and English."
+    "input": "Is it dangerous to travel to Catanduanes?",
+    "output": "Yes, Catanduanes is generally safe and peaceful for tourists.",
+    "title": "Safety for Tourists",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Catanduanes is considered a safe and peaceful destination for tourists."
   },
   {
     "input": "What is the weather like in Catanduanes?",
-    "output": "Catanduanes has tropical weather with sunny and rainy seasons."
+    "output": "Catanduanes has tropical weather with sunny and rainy seasons.",
+    "title": "Weather",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The province experiences typical tropical weather, alternating between sunny and rainy seasons."
   },
   {
-    "input": "Where is Mamangal Beach?",
-    "output": "Mamangal Beach is located in Virac, Catanduanes."
+    "input": "What is the climate like?",
+    "output": "Catanduanes has tropical weather with sunny and rainy seasons.",
+    "title": "Weather",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The province experiences typical tropical weather, alternating between sunny and rainy seasons."
   },
   {
-    "input": "What is Mamangal Beach known for?",
-    "output": "Mamangal Beach is known for its wide sandy shore and calm waters."
+    "input": "What language do people speak in Catanduanes?",
+    "output": "People speak Bicolano, Filipino, and English.",
+    "title": "Local Language",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The languages spoken are Bicolano, Filipino, and English."
   },
   {
-    "input": "What can I do in Mamangal Beach?",
-    "output": "You can picnic, swim, and enjoy the seaside view at Mamangal Beach."
-  },
-  {
-    "input": "Where is Talisoy Beach located?",
-    "output": "Talisoy Beach is located in Virac, near the airport area."
-  },
-  {
-    "input": "Is there nightlife in Catanduanes?",
-    "output": "Catanduanes is generally quiet, but there are bars and cafes in Virac."
-  },
-  {
-    "input": "What is Bato Church?",
-    "output": "Bato Church is one of the oldest stone churches in Bicol, located in Bato, Catanduanes."
-  },
-  {
-    "input": "When was Bato Church built?",
-    "output": "Bato Church was built in the 1800s and is made of coral stones."
-  },
-  {
-    "input": "What can I do in San Andres?",
-    "output": "In San Andres, you can visit beaches, mangrove parks, and local seafood restaurants."
-  },
-  {
-    "input": "Where is Twin Rock Beach Resort?",
-    "output": "Twin Rock Beach Resort is located in Igang, Virac, Catanduanes."
-  },
-  {
-    "input": "What activities are available at Twin Rock Resort?",
-    "output": "You can swim, zipline, and enjoy water sports at Twin Rock Resort."
-  },
-  {
-    "input": "Is there Wi-Fi in Catanduanes?",
-    "output": "Yes, most hotels and resorts in Catanduanes provide Wi-Fi access."
-  },
-  {
-    "input": "Where can I buy souvenirs in Catanduanes?",
-    "output": "You can buy souvenirs and local products at Virac Public Market."
-  },
-  {
-    "input": "What festivals are celebrated in Catanduanes?",
-    "output": "The Catandungan Festival in October celebrates the island’s culture and history."
-  },
-  {
-    "input": "What is the Abaca Festival?",
-    "output": "The Abaca Festival celebrates Catanduanes' abaca industry, featuring parades and exhibits."
-  },
-  {
-    "input": "What is abaca?",
-    "output": "Abaca is a natural fiber used for ropes and handicrafts, and Catanduanes is known for it."
-  },
-  {
-    "input": "Can I go island hopping in Catanduanes?",
-    "output": "Yes, you can visit nearby islands like Palumbanes and Panay Island."
-  },
-  {
-    "input": "Where is Palumbanes Island?",
-    "output": "Palumbanes Island is located off the coast of Caramoran, Catanduanes."
-  },
-  {
-    "input": "What can I see in Palumbanes Island?",
-    "output": "You can enjoy white sand beaches and coral reefs in Palumbanes Island."
-  },
-  {
-    "input": "What is Caramoran known for?",
-    "output": "Caramoran is known for its beaches and fishing villages."
-  },
-  {
-    "input": "How can I travel around Catanduanes?",
-    "output": "You can travel by tricycle, motorcycle, or rented car around Catanduanes."
-  },
-  {
-    "input": "Where can I find caves in Catanduanes?",
-    "output": "You can visit Luyang Cave in San Andres or Igang Cave in Virac."
-  },
-  {
-    "input": "What is Luyang Cave?",
-    "output": "Luyang Cave is a historic site in San Andres used as a refuge during pirate attacks."
-  },
-  {
-    "input": "Where is Igang Cave?",
-    "output": "Igang Cave is located near Twin Rock Resort in Virac."
-  },
-  {
-    "input": "Is there a mall in Catanduanes?",
-    "output": "Yes, there are small malls and grocery stores in Virac."
-  },
-  {
-    "input": "What transportation is available in Virac?",
-    "output": "You can ride tricycles and jeepneys for short trips around Virac."
-  },
-  {
-    "input": "Can I rent a car in Catanduanes?",
-    "output": "Yes, car rentals are available in Virac for tourists."
-  },
-  {
-    "input": "Where can I eat in Virac?",
-    "output": "There are local restaurants and cafes in downtown Virac."
-  },
-  {
-    "input": "Is Catanduanes a good place for hiking?",
-    "output": "Yes, there are scenic hiking spots like Binurong Point and Mount Cagmasoso."
-  },
-  {
-    "input": "Where is Mount Cagmasoso?",
-    "output": "Mount Cagmasoso is located in Viga, Catanduanes."
-  },
-  {
-    "input": "What can I see from Mount Cagmasoso?",
-    "output": "You can see panoramic views of the sea and nearby villages from Mount Cagmasoso."
-  },
-  {
-    "input": "Where is Hicming Falls?",
-    "output": "Hicming Falls is located in San Miguel, Catanduanes."
-  },
-  {
-    "input": "Is there camping in Catanduanes?",
-    "output": "Yes, you can camp at Binurong Point, Puraran Beach, or Balacay Point."
-  },
-  {
-    "input": "Can I bring pets to Catanduanes?",
-    "output": "Yes, but make sure to follow transport and accommodation pet policies."
-  },
-  {
-    "input": "Are there hospitals in Catanduanes?",
-    "output": "Yes, hospitals and clinics are available in Virac and major towns."
-  },
-  {
-    "input": "What is the time zone of Catanduanes?",
-    "output": "Catanduanes follows Philippine Standard Time, UTC+8."
-  },
-  {
-    "input": "Can I use mobile data in Catanduanes?",
-    "output": "Yes, major networks like Smart and Globe have signal coverage in most areas."
-  },
-  {
-    "input": "What is the main industry of Catanduanes?",
-    "output": "Catanduanes is known for abaca production, fishing, and agriculture."
-  },
-  {
-    "input": "Where is Viga located?",
-    "output": "Viga is a northern municipality of Catanduanes."
-  },
-  {
-    "input": "What is Pandan known for?",
-    "output": "Pandan is known for its beaches and traditional handwoven products."
-  },
-  {
-    "input": "Where is Pandan located?",
-    "output": "Pandan is located in the northern part of Catanduanes."
-  },
-  {
-    "input": "What is Baras known for?",
-    "output": "Baras is famous for Puraran Beach and Binurong Point."
-  },
-  {
-    "input": "What is San Miguel known for?",
-    "output": "San Miguel is known for its rivers, waterfalls, and agricultural scenery."
-  },
-  {
-    "input": "Can I ride a bicycle in Catanduanes?",
-    "output": "Yes, biking is a good way to explore scenic roads and small towns."
-  },
-  {
-    "input": "Are there banks in Catanduanes?",
-    "output": "Yes, major banks have branches in Virac."
+    "input": "What dialect do they use in Catanduanes?",
+    "output": "People speak Bicolano, Filipino, and English.",
+    "title": "Local Language",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The languages spoken are Bicolano, Filipino, and English."
   },
   {
     "input": "What is the main religion in Catanduanes?",
-    "output": "Most people in Catanduanes are Roman Catholic."
+    "output": "Most people in Catanduanes are Roman Catholic.",
+    "title": "Main Religion",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The dominant religion in Catanduanes is Roman Catholicism."
   },
   {
-    "input": "What is the population of Catanduanes?",
-    "output": "Catanduanes has around 275,000 residents."
-  },
-  {
-    "input": "Is there public Wi-Fi in tourist spots?",
-    "output": "Some resorts and hotels provide Wi-Fi, but mobile data is more reliable."
-  },
-  {
-    "input": "What souvenirs can I buy in Catanduanes?",
-    "output": "You can buy abaca crafts, local delicacies, and shirts."
-  },
-  {
-    "input": "Can I use credit cards in Catanduanes?",
-    "output": "Some hotels accept credit cards, but cash is recommended for small stores."
-  },
-  {
-    "input": "What is the currency used in Catanduanes?",
-    "output": "The currency used is the Philippine Peso."
-  },
-  {
-    "input": "Is there an entrance fee at Binurong Point?",
-    "output": "Yes, a small entrance and guide fee is required at Binurong Point."
+    "input": "What is the time zone of Catanduanes?",
+    "output": "Catanduanes follows Philippine Standard Time, UTC+8.",
+    "title": "Time Zone",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Catanduanes observes Philippine Standard Time (PST), which is UTC+8."
   },
   {
     "input": "What should I wear in Catanduanes?",
-    "output": "Light clothing, slippers, and sunscreen are ideal for tropical weather."
+    "output": "Light clothing, slippers, and sunscreen are ideal for tropical weather.",
+    "title": "Attire/Clothing",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Recommended attire includes light clothing, slippers, and sunscreen due to the tropical climate."
   },
   {
-    "input": "Where can I see sunrise views?",
-    "output": "You can see stunning sunrises from Binurong Point or Balacay Point."
+    "input": "What is the population of Catanduanes?",
+    "output": "Catanduanes has around 275,000 residents.",
+    "title": "Population",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The province has a population of approximately 275,000 residents."
   },
   {
-    "input": "Where can I see sunset views?",
-    "output": "Twin Rock Resort and Mamangal Beach offer great sunset views."
+    "input": "What is the main industry of Catanduanes?",
+    "output": "Catanduanes is known for abaca production, fishing, and agriculture.",
+    "title": "Main Industry",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "The main industries are abaca production, fishing, and agriculture."
   },
   {
-    "input": "Are there tour guides in Catanduanes?",
-    "output": "Yes, local guides are available for tours in Puraran, Binurong Point, and more."
+    "input": "What is abaca?",
+    "output": "Abaca is a natural fiber used for ropes and handicrafts, and Catanduanes is known for it.",
+    "title": "Abaca Fiber",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Abaca is a natural fiber, commonly used for ropes and handicrafts, which the island is famous for producing."
   },
   {
-    "input": "Is there public transportation in Catanduanes?",
-    "output": "Yes, jeepneys, vans, and tricycles are available for public transport."
-  },
-  {
-    "input": "What is the meaning of Catandungan Festival?",
-    "output": "It celebrates the founding of Catanduanes Province and its rich culture."
-  },
-  {
-    "input": "Are there diving spots in Catanduanes?",
-    "output": "Yes, there are coral-rich areas near Palumbanes and Balacay for diving and snorkeling."
-  },
-  {
-    "input": "What are some local delicacies in Catanduanes?",
-    "output": "Try latik, kakanin, and local seafood dishes."
-  },
-  {
-    "input": "Can I bring drones to Catanduanes?",
-    "output": "Yes, but be mindful of local regulations and restricted areas."
-  },
-  {
-    "input": "What festivals are held in Baras?",
-    "output": "Baras celebrates local fiestas and surfing events at Puraran Beach."
-  },
-  {
-    "input": "What is the main transportation from the airport?",
-    "output": "You can take a tricycle or van from Virac Airport to nearby towns."
-  },
-  {
-    "input": "Is there a hospital near Puraran?",
-    "output": "The nearest hospital to Puraran is in Virac or Bato."
-  },
-  {
-    "input": "What should I bring when visiting Binurong Point?",
-    "output": "Bring water, comfortable shoes, and a camera for the hike."
-  },
-  {
-    "input": "Are there ATMs in Baras?",
-    "output": "Most ATMs are located in Virac, so withdraw cash before traveling to Baras."
-  },
-  {
-    "input": "Can I book hotels online in Catanduanes?",
-    "output": "Yes, many hotels are available through online booking platforms."
-  },
-  {
-    "input": "Is Catanduanes good for family trips?",
-    "output": "Yes, Catanduanes is a family-friendly destination with peaceful beaches and nature."
+    "input": "Is Catanduanes a good place for family trips?",
+    "output": "Yes, Catanduanes is a family-friendly destination with peaceful beaches and nature.",
+    "title": "Family Travel Suitability",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Catanduanes is a family-friendly destination known for its peaceful environment, beaches, and nature sites."
   },
   {
     "input": "Can foreigners visit Catanduanes?",
-    "output": "Yes, foreign tourists are welcome to visit Catanduanes."
+    "output": "Yes, foreign tourists are welcome to visit Catanduanes.",
+    "title": "Foreign Tourist Welcome",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Foreign tourists are welcome to visit and explore the province."
   },
   {
-    "input": "Are there restaurants in Baras?",
-    "output": "Yes, there are small eateries and beachside restaurants in Baras."
+    "input": "What are the major challenges for tourism in Catanduanes?",
+    "output": "The major challenges are the province's vulnerability to natural calamities (typhoons), which discourages visitors, and the resulting diversion of funding to rehabilitation instead of promotion.",
+    "title": "Major Tourism Challenges",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Major challenges include the province's vulnerability to natural calamities (typhoons) and the diversion of funds from promotion to rehabilitation."
   },
   {
-    "input": "What is the main mode of transport in small towns?",
-    "output": "Tricycles are the most common mode of transport in small towns."
+    "input": "What are the biggest problems facing Catanduanes tourism?",
+    "output": "The major challenges are the province's vulnerability to natural calamities (typhoons), which discourages visitors, and the resulting diversion of funding to rehabilitation instead of promotion.",
+    "title": "Major Tourism Challenges",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Major challenges include the province's vulnerability to natural calamities (typhoons) and the diversion of funds from promotion to rehabilitation."
   },
   {
-    "input": "Where can I find information about Catanduanes tourism?",
-    "output": "You can visit the Catanduanes Tourism Office in Virac or check their official website."
+    "input": "How does poor internet connectivity affect tourism?",
+    "output": "Poor internet connection prevents smooth access to the Facebook page, limits promotional posts, and can lead to failed online bookings, giving the impression of confirmed bookings when they are not.",
+    "title": "Internet Connectivity Issues",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Poor internet affects promotional posts, guest access to information, and can disrupt online booking reliability."
+  },
+  {
+    "input": "What are the problems with Wi-Fi and mobile data in Catanduanes?",
+    "output": "Poor internet connection prevents smooth access to the Facebook page, limits promotional posts, and can lead to failed online bookings, giving the impression of confirmed bookings when they are not.",
+    "title": "Internet Connectivity Issues",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "summary_offline": "Poor internet affects promotional posts, guest access to information, and can disrupt online booking reliability."
+  },
+  {
+    "input": "Is the tourism office open to collaboration with researchers or startups?",
+    "output": "Yes, the Provincial Tourism Office welcomes support and collaborations with universities, startups, or technical teams to help develop solutions.",
+    "title": "Office Collaboration Policy",
+    "topic": "General",
+    "location": "Virac",
+    "summary_offline": "The Provincial Tourism Office is open to collaborations with outside technical teams, universities, or startups to develop tourism solutions."
+  },
+  {
+    "input": "Can researchers work with the tourism office?",
+    "output": "Yes, the Provincial Tourism Office welcomes support and collaborations with universities, startups, or technical teams to help develop solutions.",
+    "title": "Office Collaboration Policy",
+    "topic": "General",
+    "location": "Virac",
+    "summary_offline": "The Provincial Tourism Office is open to collaborations with outside technical teams, universities, or startups to develop tourism solutions."
+  },
+  {
+    "input": "What are the best tourist spots in Catanduanes?",
+    "output": "The top tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls.",
+    "title": "Top Tourist Spots",
+    "topic": "Sightseeing",
+    "location": "Various",
+    "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls."
+  },
+  {
+    "input": "Which places should I see in Catanduanes?",
+    "output": "The top tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls.",
+    "title": "Top Tourist Spots",
+    "topic": "Sightseeing",
+    "location": "Various",
+    "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls."
+  },
+  {
+    "input": "What is Binurong Point?",
+    "output": "Binurong Point is a scenic cliffside destination overlooking the ocean in Baras, Catanduanes.",
+    "title": "Binurong Point Overview",
+    "topic": "Sightseeing",
+    "location": "Baras",
+    "summary_offline": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
+    "coordinates": {"lat": 13.66900, "lng": 124.41450},
+    "place_name": "Binurong Point"
+  },
+  {
+    "input": "Tell me about Binurong Point.",
+    "output": "Binurong Point is a scenic cliffside destination overlooking the ocean in Baras, Catanduanes.",
+    "title": "Binurong Point Overview",
+    "topic": "Sightseeing",
+    "location": "Baras",
+    "summary_offline": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
+    "coordinates": {"lat": 13.66900, "lng": 124.41450},
+    "place_name": "Binurong Point"
+  },
+  {
+    "input": "Where is Binurong Point located?",
+    "output": "Binurong Point is located in Baras, Catanduanes.",
+    "title": "Binurong Point Location",
+    "topic": "Geography",
+    "location": "Baras",
+    "summary_offline": "Binurong Point is located in the municipality of Baras, Catanduanes.",
+    "coordinates": {"lat": 13.66900, "lng": 124.41450},
+    "place_name": "Binurong Point"
+  },
+  {
+    "input": "What is Maribina Falls?",
+    "output": "Maribina Falls is a popular waterfall in Bato, Catanduanes known for its refreshing waters.",
+    "title": "Maribina Falls Overview",
+    "topic": "Sightseeing",
+    "location": "Bato",
+    "summary_offline": "Maribina Falls is a popular attraction in Bato known for its refreshing waters.",
+    "coordinates": {"lat": 13.60171, "lng": 124.27069},
+    "place_name": "Maribina Falls"
+  },
+  {
+    "input": "Where can I find Maribina Falls?",
+    "output": "Maribina Falls is located in Barangay Marinawa, Bato, Catanduanes.",
+    "title": "Maribina Falls Location",
+    "topic": "Geography",
+    "location": "Bato",
+    "summary_offline": "Maribina Falls is located in Barangay Marinawa, Bato.",
+    "coordinates": {"lat": 13.60171, "lng": 124.27069},
+    "place_name": "Maribina Falls"
+  },
+  {
+    "input": "Where is Mamangal Beach?",
+    "output": "Mamangal Beach is located in Virac, Catanduanes.",
+    "title": "Mamangal Beach Location",
+    "topic": "Geography",
+    "location": "Virac",
+    "summary_offline": "Mamangal Beach is located within the capital municipality of Virac.",
+    "coordinates": {"lat": 13.55501, "lng": 124.14923},
+    "place_name": "Mamangal Beach"
+  },
+  {
+    "input": "What is Mamangal Beach known for?",
+    "output": "Mamangal Beach is known for its wide sandy shore and calm waters.",
+    "title": "Mamangal Beach Overview",
+    "topic": "Swimming",
+    "location": "Virac",
+    "summary_offline": "Mamangal Beach is known for its wide sandy shoreline and calm, swimming-friendly waters.",
+    "coordinates": {"lat": 13.55501, "lng": 124.14923},
+    "place_name": "Mamangal Beach"
+  },
+  {
+    "input": "What is Bato Church?",
+    "output": "Bato Church (St. John the Baptist Church) is one of the oldest stone churches in Bicol, located in Bato, Catanduanes.",
+    "title": "Bato Church Overview",
+    "topic": "Sightseeing",
+    "location": "Bato",
+    "summary_offline": "Bato Church (St. John the Baptist Church) is one of the oldest stone churches in the Bicol Region.",
+    "coordinates": {"lat": 13.98319, "lng": 124.13426},
+    "place_name": "Bato Church"
+  },
+  {
+    "input": "When was Bato Church built?",
+    "output": "Bato Church was built in the 1800s and is made of coral stones.",
+    "title": "Bato Church History",
+    "topic": "Sightseeing",
+    "location": "Bato",
+    "summary_offline": "The church was built in the 1800s using coral stones.",
+    "coordinates": {"lat": 13.98319, "lng": 124.13426},
+    "place_name": "Bato Church"
+  },
+  {
+    "input": "Where is Twin Rock Beach Resort?",
+    "output": "Twin Rock Beach Resort is located in Igang, Virac, Catanduanes.",
+    "title": "Twin Rock Resort Location",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "Twin Rock Beach Resort is located in Virac.",
+    "coordinates": {"lat": 13.52266, "lng": 124.21269},
+    "place_name": "Twin Rock Beach Resort"
+  },
+  {
+    "input": "What is Tuwad-Tuwadang Blue Lagoon?",
+    "output": "Tuwad-Tuwadang Blue Lagoon is a scenic spot in Pandan.",
+    "title": "Tuwad-Tuwadang Blue Lagoon Overview",
+    "topic": "Sightseeing",
+    "location": "Pandan",
+    "summary_offline": "Tuwad-Tuwadang Blue Lagoon is a scenic spot located in Pandan.",
+    "coordinates": {"lat": 14.05864, "lng": 124.12660},
+    "place_name": "Tuwad-Tuwadang Blue Lagoon"
+  },
+  {
+    "input": "Where is Nahulugan Falls?",
+    "output": "Nahulugan Falls is a waterfall located in Gigmoto.",
+    "title": "Nahulugan Falls Overview",
+    "topic": "Sightseeing",
+    "location": "Gigmoto",
+    "summary_offline": "Nahulugan Falls is a waterfall located in Gigmoto.",
+    "coordinates": {"lat": 13.78864, "lng": 124.36779},
+    "place_name": "Nahulugan Falls"
+  },
+  {
+    "input": "Where is Tres Karas de Kristo (Face of Jesus Beach)?",
+    "output": "Tres Karas de Kristo (Face of Jesus Beach) is located in Virac.",
+    "title": "Tres Karas de Kristo Overview",
+    "topic": "Sightseeing",
+    "location": "Virac",
+    "summary_offline": "Tres Karas de Kristo (Face of Jesus Beach) is a scenic spot located in Virac.",
+    "coordinates": {"lat": 13.51876, "lng": 124.20595},
+    "place_name": "Tres Karas de Kristo/Face of Jesus Beach"
+  },
+  {
+    "input": "Where is Ba-haw Falls?",
+    "output": "Ba-haw Falls is a waterfall located in San Andres.",
+    "title": "Ba-haw Falls Overview",
+    "topic": "Sightseeing",
+    "location": "San Andres",
+    "summary_offline": "Ba-haw Falls is a waterfall located in San Andres.",
+    "coordinates": {"lat": 13.75382, "lng": 124.38330},
+    "place_name": "Ba-haw Falls"
+  },
+  {
+    "input": "What activities are available at Twin Rock Resort?",
+    "output": "You can swim, zipline, and enjoy water sports at Twin Rock Resort.",
+    "title": "Twin Rock Resort Activities",
+    "topic": "Swimming",
+    "location": "Virac",
+    "summary_offline": "The resort offers activities like swimming, ziplining, and various water sports.",
+    "coordinates": {"lat": 13.52266, "lng": 124.21269},
+    "place_name": "Twin Rock Beach Resort"
+  },
+  {
+    "input": "What can I do in Mamangal Beach?",
+    "output": "You can picnic, swim, and enjoy the seaside view at Mamangal Beach.",
+    "title": "Activities at Mamangal Beach",
+    "topic": "Swimming",
+    "location": "Virac",
+    "summary_offline": "Activities include swimming, picnicking, and enjoying the seaside scenery.",
+    "coordinates": {"lat": 13.55501, "lng": 124.14923},
+    "place_name": "Mamangal Beach"
+  },
+  {
+    "input": "Can I swim in Maribina Falls?",
+    "output": "visitors can swim and relax at Maribina Falls.",
+    "title": "Swimming at Maribina Falls",
+    "topic": "Swimming",
+    "location": "Bato",
+    "summary_offline": "Yes, visitors are welcome to swim and relax in the waters of Maribina Falls.",
+    "coordinates": {"lat": 13.60171, "lng": 124.27069},
+    "place_name": "Maribina Falls"
+  },
+  {
+    "input": "What activities can I do in Puraran Beach?",
+    "output": "You can surf, swim, sunbathe, and take photos at Puraran Beach.",
+    "title": "Activities at Puraran Beach",
+    "topic": "Surfing",
+    "location": "Baras",
+    "summary_offline": "Activities available at Puraran Beach include surfing, swimming, sunbathing, and photography.",
+    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "place_name": "Puraran Beach"
+  },
+  {
+    "input": "Where can I surf in Catanduanes?",
+    "output": "Puraran Beach in Baras is the most popular surfing spot in Catanduanes.",
+    "title": "Puraran Beach Surfing",
+    "topic": "Surfing",
+    "location": "Baras",
+    "summary_offline": "The top surfing destination in Catanduanes is Puraran Beach in Baras.",
+    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "place_name": "Puraran Beach"
+  },
+  {
+    "input": "I want to surf, where should I go?",
+    "output": "Puraran Beach in Baras is the most popular surfing spot in Catanduanes.",
+    "title": "Puraran Beach Surfing",
+    "topic": "Surfing",
+    "location": "Baras",
+    "summary_offline": "The top surfing destination in Catanduanes is Puraran Beach in Baras.",
+    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "place_name": "Puraran Beach"
+  },
+  {
+    "input": "What activities are available at Puraran Surf Beach Resort?",
+    "output": "Puraran Surf Beach Resort is ideal for surfing, surfing lessons, and other wave-related activities.",
+    "title": "Puraran Beach Surf Activities",
+    "topic": "Surfing",
+    "location": "Baras",
+    "summary_offline": "Puraran Beach is ideal for surfing and surfing lessons.",
+    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "place_name": "Puraran Beach"
+  },
+  {
+    "input": "Can I learn to surf in Puraran?",
+    "output": "Puraran Surf Beach Resort is ideal for surfing, surfing lessons, and other wave-related activities.",
+    "title": "Puraran Beach Surf Activities",
+    "topic": "Surfing",
+    "location": "Baras",
+    "summary_offline": "Puraran Beach is ideal for surfing and surfing lessons.",
+    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "place_name": "Puraran Beach"
+  },
+  {
+    "input": "Where is Twin Rock Beach Resort?",
+    "output": "Twin Rock Beach Resort is located in Igang, Virac, Catanduanes.",
+    "title": "Twin Rock Resort Location",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "Twin Rock Beach Resort is located in Virac.",
+    "coordinates": {"lat": 13.52266, "lng": 124.21269},
+    "place_name": "Twin Rock Beach Resort"
+  },
+  {
+    "input": "Is there camping in Catanduanes?",
+    "output": "Yes, you can camp at Binurong Point or Puraran Beach.",
+    "title": "Camping Spots",
+    "topic": "Accommodation",
+    "location": "Various",
+    "summary_offline": "Camping is permitted at various scenic sites including Binurong Point and Puraran Beach."
+  },
+  {
+    "input": "What are the room rates at ARDCI Corporate Inn?",
+    "output": "ARDCI Corporate Inn offers generally affordable room rates for travelers staying in Virac.",
+    "title": "ARDCI Corporate Inn Rates",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "ARDCI Corporate Inn offers affordable rooms in Virac.",
+    "coordinates": {"lat": 13.58126, "lng": 124.23012},
+    "place_name": "ARDCI Corporate Inn"
+  },
+  {
+    "input": "Is ARDCI Corporate Inn budget-friendly?",
+    "output": "ARDCI Corporate Inn offers generally affordable room rates for travelers staying in Virac.",
+    "title": "ARDCI Corporate Inn Rates",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "ARDCI Corporate Inn offers affordable rooms in Virac.",
+    "coordinates": {"lat": 13.58126, "lng": 124.23012},
+    "place_name": "ARDCI Corporate Inn"
+  },
+  {
+    "input": "Does ARDCI Corporate Inn serve breakfast?",
+    "output": "Yes, ARDCI Corporate Inn provides breakfast, often included in the room package.",
+    "title": "ARDCI Corporate Inn Breakfast",
+    "topic": "Food",
+    "location": "Virac",
+    "summary_offline": "Breakfast is available for guests staying at ARDCI Corporate Inn.",
+    "coordinates": {"lat": 13.58126, "lng": 124.23012},
+    "place_name": "ARDCI Corporate Inn"
+  },
+  {
+    "input": "What facilities does ARDCI Corporate Inn have?",
+    "output": "ARDCI Corporate Inn provides breakfast and comfortable rooms.",
+    "title": "ARDCI Corporate Inn Breakfast",
+    "topic": "Facilities",
+    "location": "Virac",
+    "summary_offline": "ARDCI Corporate Inn offers necessary facilities like breakfast and comfortable lodging.",
+    "coordinates": {"lat": 13.58126, "lng": 124.23012},
+    "place_name": "ARDCI Corporate Inn"
+  },
+  {
+    "input": "What activities are available at Majestic Puraran Beach Resort?",
+    "output": "Guests can enjoy surfing, swimming, beach walks, and scenic ocean views at Majestic Puraran Beach Resort.",
+    "title": "Majestic Puraran Activities",
+    "topic": "Activities",
+    "location": "Baras",
+    "summary_offline": "Majestic Puraran Beach Resort offers surfing, swimming, and beach activities.",
+    "coordinates": {"lat": 13.68878, "lng": 124.39688},
+    "place_name": "Majestic Puraran Beach Resort"
+  },
+  {
+    "input": "Is Majestic Puraran Beach Resort near the beach?",
+    "output": "Yes, Majestic Puraran Beach Resort is located right on the Puraran beach in Baras.",
+    "title": "Majestic Puraran Beach Access",
+    "topic": "Accommodation",
+    "location": "Baras",
+    "summary_offline": "The resort sits directly along the Puraran beachfront.",
+    "coordinates": {"lat": 13.68878, "lng": 124.39688},
+    "place_name": "Majestic Puraran Beach Resort"
+  },
+  {
+    "input": "How close is Majestic Puraran Beach Resort to the water?",
+    "output": "Yes, Majestic Puraran Beach Resort is located right on the Puraran beach in Baras.",
+    "title": "Majestic Puraran Beach Access",
+    "topic": "Accommodation",
+    "location": "Baras",
+    "summary_offline": "The resort sits directly along the Puraran beachfront.",
+    "coordinates": {"lat": 13.68878, "lng": 124.39688},
+    "place_name": "Majestic Puraran Beach Resort"
+  },
+  {
+    "input": "How far is Pacific Surfers Paradise Resort from Virac Airport?",
+    "output": "Pacific Surfers Paradise Resort in Puraran, Baras is about 30 to 35 minutes from Virac Airport by car.",
+    "title": "Pacific Surfers Distance from Airport",
+    "topic": "Travel",
+    "location": "Baras",
+    "summary_offline": "The resort is around 35 minutes away from Virac Airport.",
+    "coordinates": {"lat": 13.68939, "lng": 124.39521},
+    "place_name": "Pacific Surfers Paradise Resort"
+  },
+  {
+    "input": "What is the travel time to Pacific Surfers Paradise Resort from the airport?",
+    "output": "Pacific Surfers Paradise Resort in Puraran, Baras is about 30 to 35 minutes from Virac Airport by car.",
+    "title": "Pacific Surfers Distance from Airport",
+    "topic": "Travel",
+    "location": "Baras",
+    "summary_offline": "The resort is around 35 minutes away from Virac Airport.",
+    "coordinates": {"lat": 13.68939, "lng": 124.39521},
+    "place_name": "Pacific Surfers Paradise Resort"
+  },
+  {
+    "input": "Can I get WiFi at Pacific Surfers Paradise Resort?",
+    "output": "Yes, Pacific Surfers Paradise Resort provides WiFi access in select areas for guests.",
+    "title": "Pacific Surfers WiFi",
+    "topic": "Facilities",
+    "location": "Baras",
+    "summary_offline": "WiFi is available in common areas at Pacific Surfers Paradise Resort.",
+    "coordinates": {"lat": 13.68939, "lng": 124.39521},
+    "place_name": "Pacific Surfers Paradise Resort"
+  },
+    {
+    "input": "Does Pacific Surfers Paradise Resort offer WiFi?",
+    "output": "Yes, Pacific Surfers Paradise Resort provides WiFi access in select areas for guests.",
+    "title": "Pacific Surfers WiFi",
+    "topic": "Facilities",
+    "location": "Baras",
+    "summary_offline": "WiFi is available in common areas at Pacific Surfers Paradise Resort.",
+    "coordinates": {"lat": 13.68939, "lng": 124.39521},
+    "place_name": "Pacific Surfers Paradise Resort"
+  },
+  {
+    "input": "Is Catanduanes Midtown Inn near Virac town center?",
+    "output": "Yes, Catanduanes Midtown Inn is centrally located in Virac, within walking distance of stores and restaurants.",
+    "title": "Midtown Inn Location",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "Catanduanes Midtown Inn is near Virac's main establishments.",
+    "coordinates": {"lat": 13.54033, "lng": 124.16381},
+    "place_name": "Catanduanes Midtown Inn Resort"
+  },
+  {
+    "input": "Does Catanduanes Midtown Inn have parking space?",
+    "output": "Yes, Catanduanes Midtown Inn offers free on-site parking for guests.",
+    "title": "Midtown Inn Parking",
+    "topic": "Facilities",
+    "location": "Virac",
+    "summary_offline": "Free parking is available at Catanduanes Midtown Inn.",
+    "coordinates": {"lat": 13.54033, "lng": 124.16381},
+    "place_name": "Catanduanes Midtown Inn Resort"
+  },
+  {
+    "input": "Is there free parking at Catanduanes Midtown Inn?",
+    "output": "Yes, Catanduanes Midtown Inn offers free on-site parking for guests.",
+    "title": "Midtown Inn Parking",
+    "topic": "Facilities",
+    "location": "Virac",
+    "summary_offline": "Free parking is available at Catanduanes Midtown Inn.",
+    "coordinates": {"lat": 13.54033, "lng": 124.16381},
+    "place_name": "Catanduanes Midtown Inn Resort"
+  },
+  {
+    "input": "Where is Nitto Lodge located in Virac?",
+    "output": "Nitto Lodge is situated in the town proper of Virac, close to shops and local dining spots.",
+    "title": "Nitto Lodge Location",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "Nitto Lodge is located in Virac town proper near amenities.",
+    "coordinates": {"lat": 13.58330, "lng": 124.20545},
+    "place_name": "Nitto Lodge"
+  },
+  {
+    "input": "Is Nitto Lodge centrally located?",
+    "output": "Nitto Lodge is situated in the town proper of Virac, close to shops and local dining spots.",
+    "title": "Nitto Lodge Location",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "Nitto Lodge is located in Virac town proper near amenities.",
+    "coordinates": {"lat": 13.58330, "lng": 124.20545},
+    "place_name": "Nitto Lodge"
+  },
+  {
+    "input": "Does Renel's Traveller's Inn have air-conditioned rooms?",
+    "output": "Yes, Renel's Traveller's Inn offers both air-conditioned and fan rooms for guests.",
+    "title": "Renel's Traveller's Inn Rooms",
+    "topic": "Facilities",
+    "location": "Virac",
+    "summary_offline": "Renel's Traveller's Inn provides both air-conditioned and fan rooms.",
+    "coordinates": {"lat": 13.57952, "lng": 124.22804},
+    "place_name": "Renel's Traveller's Inn"
+  },
+  {
+    "input": "What kind of rooms does Renel's Traveller's Inn offer?",
+    "output": "Yes, Renel's Traveller's Inn offers both air-conditioned and fan rooms for guests.",
+    "title": "Renel's Traveller's Inn Rooms",
+    "topic": "Facilities",
+    "location": "Virac",
+    "summary_offline": "Renel's Traveller's Inn provides both air-conditioned and fan rooms.",
+    "coordinates": {"lat": 13.57952, "lng": 124.22804},
+    "place_name": "Renel's Traveller's Inn"
+  },
+  {
+    "input": "Is Bagamanoc Guest House near the town center?",
+    "output": "Yes, Bagamanoc Guest House is located in Poblacion, Bagamanoc, right in the center of town.",
+    "title": "Bagamanoc Guest House Location",
+    "topic": "Accommodation",
+    "location": "Bagamanoc",
+    "summary_offline": "Bagamanoc Guest House is located in the Poblacion area.",
+    "coordinates": {"lat": 13.94156, "lng": 124.28697},
+    "place_name": "Bagamanoc Guest House"
+  },
+  {
+    "input": "Where is Bagamanoc Guest House located?",
+    "output": "Yes, Bagamanoc Guest House is located in Poblacion, Bagamanoc, right in the center of town.",
+    "title": "Bagamanoc Guest House Location",
+    "topic": "Accommodation",
+    "location": "Bagamanoc",
+    "summary_offline": "Bagamanoc Guest House is located in the Poblacion area.",
+    "coordinates": {"lat": 13.94156, "lng": 124.28697},
+    "place_name": "Bagamanoc Guest House"
+  },
+  {
+    "input": "How close is Sonia's Island Stay to Virac Airport?",
+    "output": "Sonia's Island Stay is only around five minutes from Virac Airport, making it ideal for travelers with early or late flights.",
+    "title": "Sonia's Island Stay Proximity to Airport",
+    "topic": "Travel",
+    "location": "Virac",
+    "summary_offline": "Sonia's Island Stay is about five minutes from Virac Airport.",
+    "coordinates": {"lat": 13.58503, "lng": 124.23876},
+    "place_name": "Sonia's Island Stay"
+  },
+  {
+    "input": "Is Sonia's Island Stay near the airport?",
+    "output": "Sonia's Island Stay is only around five minutes from Virac Airport, making it ideal for travelers with early or late flights.",
+    "title": "Sonia's Island Stay Proximity to Airport",
+    "topic": "Travel",
+    "location": "Virac",
+    "summary_offline": "Sonia's Island Stay is about five minutes from Virac Airport.",
+    "coordinates": {"lat": 13.58503, "lng": 124.23876},
+    "place_name": "Sonia's Island Stay"
+  },
+  {
+    "input": "What amenities does The Lumber Hotel and Resort offer?",
+    "output": "The Lumber Hotel and Resort in Virac features a swimming pool, restaurant, and function rooms suitable for events and gatherings.",
+    "title": "The Lumber Amenities",
+    "topic": "Facilities",
+    "location": "Virac",
+    "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces.",
+    "coordinates": {"lat": 13.59222, "lng": 124.24845},
+    "place_name": "The Lumber Hotel and Resort"
+  },
+  {
+    "input": "Does The Lumber Hotel and Resort have a pool?",
+    "output": "The Lumber Hotel and Resort in Virac features a swimming pool, restaurant, and function rooms suitable for events and gatherings.",
+    "title": "The Lumber Amenities",
+    "topic": "Facilities",
+    "location": "Virac",
+    "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces.",
+    "coordinates": {"lat": 13.59222, "lng": 124.24845},
+    "place_name": "The Lumber Hotel and Resort"
+  },
+  {
+    "input": "Where is E-Crown Hotel and Resort located?",
+    "output": "E-Crown Hotel and Resort is located in Virac, near Maribina Falls.",
+    "title": "E-Crown Hotel Location",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "E-Crown Hotel and Resort is in Virac, close to Maribina Falls.",
+    "coordinates": {"lat": 13.59389, "lng": 124.25617},
+    "place_name": "E-Crown Hotel and Resort"
+  },
+  {
+    "input": "Does E-Crown Hotel and Resort have a restaurant?",
+    "output": "Yes, E-Crown Hotel and Resort has an in-house restaurant serving local and international dishes.",
+    "title": "E-Crown Hotel Restaurant",
+    "topic": "Food",
+    "location": "Virac",
+    "summary_offline": "E-Crown Hotel and Resort has its own restaurant for guests.",
+    "coordinates": {"lat": 13.59389, "lng": 124.25617},
+    "place_name": "E-Crown Hotel and Resort"
+  },
+  {
+    "input": "Is E-Crown Hotel and Resort a luxury option?",
+    "output": "E-Crown Hotel and Resort is considered a luxury accommodation located in Virac.",
+    "title": "E-Crown Hotel Location",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "E-Crown Hotel and Resort is a luxury accommodation located in Virac.",
+    "coordinates": {"lat": 13.59389, "lng": 124.25617},
+    "place_name": "E-Crown Hotel and Resort"
+  },
+  {
+    "input": "What are the room rates at Rhaj Inn?",
+    "output": "Rhaj Inn offers budget-friendly rooms in Virac.",
+    "title": "Rhaj Inn Rates",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "Rhaj Inn offers budget-friendly rooms in Virac.",
+    "coordinates": {"lat": 13.57911, "lng": 124.22628},
+    "place_name": "Rhaj Inn"
+  },
+  {
+    "input": "Is Rhaj Inn affordable?",
+    "output": "Rhaj Inn offers budget-friendly rooms in Virac.",
+    "title": "Rhaj Inn Rates",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "Rhaj Inn offers budget-friendly rooms in Virac.",
+    "coordinates": {"lat": 13.57911, "lng": 124.22628},
+    "place_name": "Rhaj Inn"
+  },
+  {
+    "input": "Where is Rhaj Inn located?",
+    "output": "Rhaj Inn is located in the municipality of Virac.",
+    "title": "Rhaj Inn Location",
+    "topic": "Accommodation",
+    "location": "Virac",
+    "summary_offline": "Rhaj Inn is located in Virac.",
+    "coordinates": {"lat": 13.57911, "lng": 124.22628},
+    "place_name": "Rhaj Inn"
+  },
+  {
+    "input": "Where is Pusgo Island Guest House?",
+    "output": "Pusgo Island Guest House is located in Pandan.",
+    "title": "Pusgo Island Guest House Location",
+    "topic": "Accommodation",
+    "location": "Pandan",
+    "summary_offline": "Pusgo Island Guest House is located in Pandan.",
+    "coordinates": {"lat": 13.96996, "lng": 124.32366},
+    "place_name": "Pusgo Island Guest House"
+  },
+  {
+    "input": "Does Pusgo Island Guest House offer tours?",
+    "output": "Pusgo Island Guest House offers convenient access to island activities and tours in Pandan.",
+    "title": "Pusgo Island Guest House Activities",
+    "topic": "Activities",
+    "location": "Pandan",
+    "summary_offline": "Pusgo Island Guest House provides access to island activities and tours.",
+    "coordinates": {"lat": 13.96996, "lng": 124.32366},
+    "place_name": "Pusgo Island Guest House"
   }
 ]

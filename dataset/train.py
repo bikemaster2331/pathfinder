@@ -1,4 +1,3 @@
-# train_chatbot.py
 import json
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from datasets import Dataset
