@@ -170,13 +170,17 @@ class Pipeline:
     def extract_keywords(self, question):
         """Extract topic keywords from question"""
         keywords = {
-            'surfing': ['surf', 'surfing', 'waves', 'board', 'mag-surf'],
-            'swimming': ['swim', 'swimming', 'langoy', 'lumangoy', 'maligo'],  
-            'beaches': ['beach', 'dalampasigan'],  
-            'hiking': ['hike', 'hiking', 'trek', 'trail', 'bundok', 'akyat'],
-            'food': ['eat', 'food', 'restaurant', 'kain', 'kumain', 'pagkain', 'masarap'],
-            'accommodation': ['stay', 'hotel', 'resort', 'tulog', 'matulog', 'pahinga'],
-            'sightseeing': ['visit', 'see', 'tour', 'bisita', 'tingnan', 'puntahan', 'activity', 'activities', 'gawing']
+            'surfing': ['surf', 'surfing', 'waves', 'board', 'mag-surf', 'ocean waves', 'wave spot', 'tidal'],
+            'swimming': ['swim', 'swimming', 'langoy', 'lumangoy', 'maligo', 'dip', 'waterfall', 'falls', 'pool', 'lagoons', 'snorkeling', 'diving', 'dive'],
+            'beaches': ['beach', 'dalampasigan', 'sandy', 'shore', 'coast', 'seaside'],
+            'hiking': ['hike', 'hiking', 'trek', 'trail', 'bundok', 'akyat', 'mountain', 'hill', 'climb', 'viewpoint', 'scenic point'],
+            'food': ['eat', 'food', 'restaurant', 'kain', 'kumain', 'pagkain', 'masarap', 'delicacies', 'local dishes', 'where to dine', 'cafe', 'seafood'],
+            'accommodation': ['stay', 'hotel', 'resort', 'tulog', 'matulog', 'pahinga', 'inn', 'guesthouse', 'lodging', 'rooms', 'where to sleep', 'where can i book'],
+            'sightseeing': ['visit', 'see', 'tour', 'bisita', 'tingnan', 'puntahan', 'activity', 'activities', 'gawing', 'landmark', 'sights', 'spot', 'church', 'historical', 'scenic'],
+            # NEW CATEGORY: Transport/Travel (Crucial for directions)
+            'transport': ['how to get', 'where is the way', 'transportation', 'tricycle', 'van', 'ferry', 'go to', 'commute', 'travel time', 'directions', 'drive', 'by car', 'airport'],
+            # NEW CATEGORY: Facilities/General Services
+            'facilities': ['wi-fi', 'wifi', 'internet', 'mobile data', 'atm', 'bank', 'parking', 'restroom', 'hospital', 'medical', 'security', 'safe']
         }
 
         found = []
