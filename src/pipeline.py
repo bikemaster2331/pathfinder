@@ -310,7 +310,7 @@ class Pipeline:
         good_answers = []
         for i, metadata in enumerate(results['metadatas'][0]):
             confidence = results['distances'][0][i]
-            if confidence <= 0.7:
+            if confidence <= 0.5:
                 good_answers.append(metadata['answer'])
                 print(f"[DEBUG] Match {i+1} confidence: {confidence:.3f}")
         
@@ -327,13 +327,14 @@ class Pipeline:
         if self.has_gemini and self.checkint():
             try:
                 prompt = f"""You are Pathfinder — a calm, polite, helpful, always excited Catanduanes tourism assistant, similar to Baymax.
-Your responses should sound gentle, clear, and factual, while maintaining a friendly tone. 
+Your responses should sound gentle, clear, and factual, while maintaining a friendly tone.
+
+[CRITICAL RULE]: Analyze the 'Tourist asked' query and the 'Facts' provided. If the user's request is nonsensical, completely unrelated to Catanduanes tourism, or if the 'Facts' collected do not provide a basis for a reasonable response (e.g., query is gibberish or asks about impossible items), you MUST return this exact phrase: "I apologize, but I do not have information about that. I can only assist with topics related to Catanduanes tourism, landmarks, and accommodations!"
 
 Tourist asked: {question}
 Facts: {fact}
 
 Respond in the same language as the tourist's question.
-If the user query is gibberish and unrelated to the facts collected, return 
 Use only the information from the facts.
 Give a single, concise, and natural-sounding sentence.
 Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks to sound excited."""
