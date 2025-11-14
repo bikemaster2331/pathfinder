@@ -75,7 +75,7 @@ class Pipeline:
                     embedding_function=self.embedding
                 )
                 self.load_dataset(dataset_path) 
-                print("✅ Created and loaded NEW knowledge_base with data.")
+                print("Created and loaded NEW knowledge_base with data.")
                 
                 # 4. Save the new hash to disk
                 os.makedirs(db_path, exist_ok=True)
@@ -85,6 +85,17 @@ class Pipeline:
             except Exception as create_error:
                 print(f"Can not create: {create_error}")
                 exit(1)
+
+    def load_config(self, config_path):
+        try:
+            with open(config_path, 'r', encoding='utf-8') as f:
+                return yaml.safe_load(f)
+        except FileNotFoundError:
+            print(f"Config file not found {config_path}")
+            exit(1)
+        except yaml.YAMLError as e:
+            print(f"Invalid YAML in config {e}")
+            exit(1)
 
     def dataset_hash(self, dataset_path):
         hasher = hashlib.md5()
@@ -106,7 +117,7 @@ class Pipeline:
                 return
             
             genai.configure(api_key=api_key)
-            self.gemini = genai.GenerativeModel('gemini-2.5-flash')
+            self.gemini = genai.GenerativeModel(self.config(['gemini']['model_name']))
             self.has_gemini = True
         except Exception as e:
             print(f"⚠️ Gemini setup failed: {e}")
@@ -133,35 +144,41 @@ class Pipeline:
         ids = []
 
         for idx, item in enumerate(data):
-            doc = item['input']
-            documents.append(doc)
+            if 'input' not in item or 'output' not in item:
+                print(f"⚠️ Skipping invalid entry at index {idx}")
+                continue
+                
+            documents.append(item['input'])
             metadatas.append({
                 "question": item['input'],
                 "answer": item['output'],
-                # 🛑 FIX: Use .get() method instead of callable ()
                 "title": item.get('title', 'General Info'),
                 "topic": item.get('topic', 'General'),
                 "summary_offline": item.get('summary_offline', item['output'])
             })
             ids.append(str(idx))
+
         
         self.collection.add(
             documents=documents,
             metadatas=metadatas,
             ids=ids
         )
-        print(f"📊 Loaded {len(documents)} Q&A pairs")
+        print(f"Loaded {len(documents)} Q&A pairs")
 
-    def checkint(self, timeout=2, cache_duration=60):
+    def checkint(self):
         """Check internet with caching"""
         current_time = time.time()
         
         if self.internet_status is not None and \
-        (current_time - self.last_internet_check) < cache_duration:
+        (current_time - self.last_internet_check) < self.config['internet']['cache_duration']:
             return self.internet_status
         
         try:
-            requests.get("https://www.google.com", timeout=timeout)
+            requests.get(
+                self.config['internet']['test_url'], 
+                timeout=self.config['internet']['timeout']
+                )
             self.internet_status = True
         except (requests.ConnectionError, requests.Timeout):
             self.internet_status = False
@@ -171,22 +188,10 @@ class Pipeline:
         
     def extract_keywords(self, question):
         """Extract topic keywords from question"""
-        keywords = {
-            'surfing': ['surf', 'surfing', 'waves', 'board', 'mag-surf', 'ocean waves', 'wave spot', 'tidal'],
-            'swimming': ['swim', 'swimming', 'langoy', 'lumangoy', 'maligo', 'dip', 'waterfall', 'falls', 'pool', 'lagoons', 'snorkeling', 'diving', 'dive'],
-            'beaches': ['beach', 'dalampasigan', 'sandy', 'shore', 'coast', 'seaside'],
-            'hiking': ['hike', 'hiking', 'trek', 'trail', 'bundok', 'akyat', 'mountain', 'hill', 'climb', 'viewpoint', 'scenic point'],
-            'food': ['eat', 'food', 'restaurant', 'kain', 'kumain', 'pagkain', 'masarap', 'delicacies', 'local dishes', 'where to dine', 'cafe', 'seafood'],
-            'accommodation': ['stay', 'hotel', 'resort', 'tulog', 'matulog', 'pahinga', 'inn', 'guesthouse', 'lodging', 'rooms', 'where to sleep', 'where can i book'],
-            'sightseeing': ['visit', 'see', 'tour', 'bisita', 'tingnan', 'puntahan', 'activity', 'activities', 'gawing', 'landmark', 'sights', 'spot', 'church', 'historical', 'scenic'],
-            'transport': ['how to get', 'where is the way', 'transportation', 'tricycle', 'van', 'ferry', 'go to', 'commute', 'travel time', 'directions', 'drive', 'by car', 'airport'],
-            'facilities': ['wi-fi', 'wifi', 'internet', 'mobile data', 'atm', 'bank', 'parking', 'restroom', 'hospital', 'medical', 'security', 'safe']
-        }
-
         found = []
-        question_lower = question.lower()
+        question_lower = question_lower()
         
-        for topic, words in keywords.items():
+        for topic, words in self.config['keywords'].items():
             if any(word in question_lower for word in words):
                 found.append(topic)
         
