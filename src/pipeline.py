@@ -371,7 +371,7 @@ class Pipeline:
     def guide_question(self):
 
         messages = self.config['messages']
-        
+
         print(messages['intro_message'])
         if self.checkint():
             print(messages['mode_online'])
@@ -380,23 +380,22 @@ class Pipeline:
         print(messages['exit_commands'])
 
         def response(user_input):
-            if user_input.lower() in ['exit', 'quit', 'bye']:
-                print("Pathfinder: Enjoy your stay!")
+            if user_input.lower() in self.config['exit_commands']:
+                print(messages['enjoy_stay'])
                 exit()
             
             if not user_input.strip():
-                print("Pathfinder: Please enter something.\n")
+                print(f"Pathfinder: {messages['enter_something']}")
                 return
             
             natural_response, places = self.ask(user_input) 
             print(f"Pathfinder: {natural_response}\n")
             
             if places:
-                
                 print(f"[DEBUG] Found places: {places}")
 
         # Initial preference question
-        pref = input("What activities do you prefer? (Hiking/Swimming/Surfing/etc...): ").strip()
+        pref = input(messages['initial_question']).strip()
         if pref:
             response(pref)
 
