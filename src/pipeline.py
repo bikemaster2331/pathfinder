@@ -177,9 +177,7 @@ class Pipeline:
             'food': ['eat', 'food', 'restaurant', 'kain', 'kumain', 'pagkain', 'masarap', 'delicacies', 'local dishes', 'where to dine', 'cafe', 'seafood'],
             'accommodation': ['stay', 'hotel', 'resort', 'tulog', 'matulog', 'pahinga', 'inn', 'guesthouse', 'lodging', 'rooms', 'where to sleep', 'where can i book'],
             'sightseeing': ['visit', 'see', 'tour', 'bisita', 'tingnan', 'puntahan', 'activity', 'activities', 'gawing', 'landmark', 'sights', 'spot', 'church', 'historical', 'scenic'],
-            # NEW CATEGORY: Transport/Travel (Crucial for directions)
             'transport': ['how to get', 'where is the way', 'transportation', 'tricycle', 'van', 'ferry', 'go to', 'commute', 'travel time', 'directions', 'drive', 'by car', 'airport'],
-            # NEW CATEGORY: Facilities/General Services
             'facilities': ['wi-fi', 'wifi', 'internet', 'mobile data', 'atm', 'bank', 'parking', 'restroom', 'hospital', 'medical', 'security', 'safe']
         }
 
@@ -195,10 +193,47 @@ class Pipeline:
     def protect(self, user_input):
         """Protect place names during translation"""
         protected = [
-            "Puraran Beach", "Twin Rock Beach", "Binurong Point", "Balacay Point",
-            "Bato Church", "Mount Cagmasoso", "Maribina Falls",
-            "Puraran", "Twin Rock", "Binurong", "Balacay", "Bato", 
-            "Cagmasoso", "Maribina", "Virac", "Baras", "Catanduanes"
+            # --- Tourist Spots ---
+            "Puraran Beach", 
+            "Twin Rock Beach", 
+            "Binurong Point", 
+            "Maribina Falls",
+            "Tres Karas de Kristo/Face of Jesus Beach", # Added full name
+            "Nahulugan Falls",
+            "Tuwad-Tuwadang Blue Lagoon",
+            "St. John the Baptist Church",
+            "Bato Church", # Synonyms
+            "Mamangal Beach",
+            "Ba-Haw Falls",
+
+            # --- Accommodation ---
+            "ARDCI Corporate Inn",
+            "Rhaj Inn",
+            "Majestic Puraran Beach Resort",
+            "Pacific Surfers Paradise Resort",
+            "Catanduanes Midtown Inn Resort",
+            "Nitto Lodge",
+            "Renel's Traveller's Inn",
+            "Bagamanoc Guest House",
+            "Pusgo Island Guest House",
+            "Sonia's Island Stay",
+            "The Lumber",
+            "Ecrown Hotel and Resort",
+
+            # --- Shorter/Common Names (for robust matching) ---
+            "Puraran", 
+            "Twin Rock", 
+            "Binurong", 
+            "Maribina", 
+            "Nahulugan",
+            "Virac", 
+            "Baras", 
+            "Catanduanes",
+            "Pandan", # Added other municipalities
+            "Gigmoto",
+            "San Andres",
+            "Bagamanoc",
+            "The Lumber Hotel and Resort" # Synonyms
         ]
 
         temp = user_input
