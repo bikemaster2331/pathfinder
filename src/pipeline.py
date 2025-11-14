@@ -193,20 +193,17 @@ class Pipeline:
     def protect(self, user_input):
         """Protect place names during translation"""
         protected = [
-            # --- Tourist Spots ---
             "Puraran Beach", 
             "Twin Rock Beach", 
             "Binurong Point", 
             "Maribina Falls",
-            "Tres Karas de Kristo/Face of Jesus Beach", # Added full name
+            "Tres Karas de Kristo/Face of Jesus Beach",
             "Nahulugan Falls",
             "Tuwad-Tuwadang Blue Lagoon",
             "St. John the Baptist Church",
-            "Bato Church", # Synonyms
+            "Bato Church", 
             "Mamangal Beach",
             "Ba-Haw Falls",
-
-            # --- Accommodation ---
             "ARDCI Corporate Inn",
             "Rhaj Inn",
             "Majestic Puraran Beach Resort",
