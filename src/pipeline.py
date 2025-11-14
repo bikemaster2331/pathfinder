@@ -11,12 +11,15 @@ import re
 import uuid
 import webbrowser
 import hashlib
+import yaml
 
-HASH_FILE = "dataset_hash.txt"
 
 class Pipeline:
-    def __init__(self, dataset_path="dataset/dataset.json", db_path ="./chroma_storage"):
-        print("Welcome to Catanduanes!!")
+    def __init__(self, dataset_path="dataset/dataset.json", db_path ="./chroma_storage", config_path="config_yaml"):
+
+        self.config = self.load_config(config_path)
+
+        print(self.config['system']['welcome message'])
 
         load_dotenv()
 
@@ -38,7 +41,7 @@ class Pipeline:
         current_data_hash = self.dataset_hash(dataset_path)
         stored_hash = None
 
-        hash_file_path = os.path.join(db_path, HASH_FILE)
+        hash_file_path = os.path.join(db_path, self.config['system']['hash_file'])
         if os.path.exists(hash_file_path):
             with open(hash_file_path, 'r') as f:
                 stored_hash = f.read().strip()
@@ -47,29 +50,28 @@ class Pipeline:
 
         try:
             self.collection = self.client.get_collection(
-                name="knowledge_base",
+                name=self.config(['rag']['collection_name']),
                 embedding_function=self.embedding
             )
             if stored_hash == current_data_hash and current_data_hash is not None:
-                print("no rebuild required")
+                print("No rebuild required")
                 rebuild_required = False
             else:
-                print("rebuilding")
+                print("Rebuilding database...")
                 rebuild_required = True
 
         except Exception:
             rebuild_required = True
         
         if rebuild_required:
-            # If the collection exists but has old data, we must delete it first.
             try:
-                self.client.delete_collection(name="knowledge_base")
+                self.client.delete_collection(name=self.config(['rag']['collection_name']))
             except:
-                pass # Ignore if it didn't exist
+                pass
             
             try:
                 self.collection = self.client.create_collection(
-                    name="knowledge_base",
+                    name=self.config(['rag']['collection_name']),
                     embedding_function=self.embedding
                 )
                 self.load_dataset(dataset_path) 
