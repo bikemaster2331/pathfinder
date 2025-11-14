@@ -19,7 +19,7 @@ class Pipeline:
 
         self.config = self.load_config(config_path)
 
-        print(self.config['system']['welcome message'])
+        print(self.config['system']['welcome_message'])
 
         load_dotenv()
 
@@ -31,7 +31,7 @@ class Pipeline:
         self.setup_gemini()
         
         # Setup RAG
-        RAG_MODEL = os.path.join(os.path.dirname(__file__), "..", "models", "multilingual-MiniLM-L12-v2")
+        RAG_MODEL = os.path.join(os.path.dirname(__file__), "..", "models", self.config['rag']['model_path'])
         self.client = chromadb.PersistentClient(path=db_path)
         self.embedding = embedding_functions.SentenceTransformerEmbeddingFunction(
             model_name=RAG_MODEL,
@@ -50,7 +50,7 @@ class Pipeline:
 
         try:
             self.collection = self.client.get_collection(
-                name=self.config(['rag']['collection_name']),
+                name=self.config['rag']['collection_name'],
                 embedding_function=self.embedding
             )
             if stored_hash == current_data_hash and current_data_hash is not None:
@@ -65,13 +65,13 @@ class Pipeline:
         
         if rebuild_required:
             try:
-                self.client.delete_collection(name=self.config(['rag']['collection_name']))
+                self.client.delete_collection(name=self.config['rag']['collection_name'])
             except:
                 pass
             
             try:
                 self.collection = self.client.create_collection(
-                    name=self.config(['rag']['collection_name']),
+                    name=self.config['rag']['collection_name'],
                     embedding_function=self.embedding
                 )
                 self.load_dataset(dataset_path) 
@@ -117,7 +117,7 @@ class Pipeline:
                 return
             
             genai.configure(api_key=api_key)
-            self.gemini = genai.GenerativeModel(self.config(['gemini']['model_name']))
+            self.gemini = genai.GenerativeModel(self.config['gemini']['model_name'])
             self.has_gemini = True
         except Exception as e:
             print(f"⚠️ Gemini setup failed: {e}")
@@ -189,7 +189,7 @@ class Pipeline:
     def extract_keywords(self, question):
         """Extract topic keywords from question"""
         found = []
-        question_lower = question_lower()
+        question_lower = question.lower()
         
         for topic, words in self.config['keywords'].items():
             if any(word in question_lower for word in words):
@@ -199,49 +199,11 @@ class Pipeline:
     
     def protect(self, user_input):
         """Protect place names during translation"""
-        protected = [
-            "Puraran Beach", 
-            "Twin Rock Beach", 
-            "Binurong Point", 
-            "Maribina Falls",
-            "Tres Karas de Kristo/Face of Jesus Beach",
-            "Nahulugan Falls",
-            "Tuwad-Tuwadang Blue Lagoon",
-            "St. John the Baptist Church",
-            "Bato Church", 
-            "Mamangal Beach",
-            "Ba-Haw Falls",
-            "ARDCI Corporate Inn",
-            "Rhaj Inn",
-            "Majestic Puraran Beach Resort",
-            "Pacific Surfers Paradise Resort",
-            "Catanduanes Midtown Inn Resort",
-            "Nitto Lodge",
-            "Renel's Traveller's Inn",
-            "Bagamanoc Guest House",
-            "Pusgo Island Guest House",
-            "Sonia's Island Stay",
-            "The Lumber",
-            "Ecrown Hotel and Resort",
-            "Puraran", 
-            "Twin Rock", 
-            "Binurong", 
-            "Maribina", 
-            "Nahulugan",
-            "Virac", 
-            "Baras", 
-            "Catanduanes",
-            "Pandan", 
-            "Gigmoto",
-            "San Andres",
-            "Bagamanoc",
-            "The Lumber Hotel and Resort" 
-        ]
 
         temp = user_input
         markers = {}
 
-        for place_name in protected:
+        for place_name in self.config['protected_places']:
             if place_name.lower() in temp.lower():
                 # Use UUID to avoid collision
                 marker = f"__PLACE_{uuid.uuid4().hex[:8]}__"
@@ -267,9 +229,10 @@ class Pipeline:
 
         return temp
 
-    def search_multi_topic(self, topics, translated_query, n_results=3):
+    def search_multi_topic(self, topics, translated_query):
         """Search RAG for multiple topics - increased to 3 results per topic"""
         all_results = []
+        n_results = self.config['rag']['search_results']
         
         for topic in topics:
             print(f"[DEBUG] Searching RAG for topic: '{topic}'")
@@ -289,7 +252,7 @@ class Pipeline:
             # Get all results with good confidence
             for i, metadata in enumerate(results['metadatas'][0]):
                 confidence = results['distances'][0][i]
-                if confidence <= 0.7:  # Only include good matches
+                if confidence <= self.config['rag']['confidence_threshold']:  # Only include good matches
                     all_results.append({
                         'text': metadata['summary_offline'],
                         'confidence': confidence,
@@ -301,13 +264,13 @@ class Pipeline:
         return [r['text'] for r in all_results[:3]]
 
     
-    def search(self, question, n_results=3):
+    def search(self, question):
         """Search for single question - increased results"""
         print(f"[DEBUG] Searching for: '{question}'")
         
         results = self.collection.query(
             query_texts=[question],
-            n_results=n_results
+            n_results=self.config['rag']['search_results']
         )
         
         if not results['documents'][0]:
@@ -317,7 +280,7 @@ class Pipeline:
         good_answers = []
         for i, metadata in enumerate(results['metadatas'][0]):
             confidence = results['distances'][0][i]
-            if confidence <= 0.5:
+            if confidence <= self.config['rag']['confidence_threshold']:
                 good_answers.append(metadata['answer'])
                 print(f"[DEBUG] Match {i+1} confidence: {confidence:.3f}")
         
@@ -333,18 +296,10 @@ class Pipeline:
         # 1. Try Gemini if online
         if self.has_gemini and self.checkint():
             try:
-                prompt = f"""You are Pathfinder — a calm, polite, helpful, always excited Catanduanes tourism assistant.
-Your responses should sound gentle, clear, and factual, while maintaining a friendly tone.
-
-[CRITICAL RULE]: Analyze the 'Tourist asked' query and the 'Facts' provided. If the user's request is nonsensical, completely unrelated to Catanduanes tourism, or if the 'Facts' collected do not provide a basis for a reasonable response (e.g., query is gibberish or asks about impossible items), you MUST return this exact phrase: "I apologize, but I do not have information about that. I can only assist with topics related to Catanduanes tourism, landmarks, and accommodations!"
-
-Tourist asked: {question}
-Facts: {fact}
-
-Respond in the same language as the tourist's question.
-Use only the information from the facts.
-Give a single, concise, and natural-sounding sentence.
-Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks to sound excited."""
+                prompt = self.config['gemini']['prompt_template'].format(
+                    question=question,
+                    fact=fact
+                )
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
@@ -354,42 +309,23 @@ Do not add greetings or extra commentary be direct yet kind. You may include exc
 
         # Check if the RAG search found an error message string (from step 5 of ask)
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
-            return f"I am currently offline, and I apologize for the limited service. {fact}"
+            off_msg = self.config['offline']['off_message']
+            return off_msg.format(
+                fact=fact
+            )
         
-        print("[DEBUG] Falling back to structured offline RAG fact.")
+        print(self.config['offline']['intent'])
+        backup = self.config['offline']['backup']
         
         return (
-            f" I cannot provide a conversational response right now, but here is the essential information I found for you:\n\n"
-            f"➡️ {fact}"
+            backup.format(
+                fact=fact
+            )
         )
     
     def key_places(self, facts):
         """Extract places from facts - now includes partial matches"""
-        places = {
-            "Puraran Beach": {"lat": 13.691803137745696, "lng": 124.39882862882942, "type": "surfing"},
-            "Twin Rock Beach": {"lat": 13.522663495166062, "lng": 124.21269059659129, "type": "swimming"},
-            "Binurong Point": {"lat": 13.668995411184893, "lng": 124.41449841008455, "type": "hiking"},
-            "Maribina Falls": {"lat": 13.601708685295064, "lng": 124.2706945272802, "type": "swimming"},
-            "Tres Karas de Kristo/Face of Jesus Beach": {"lat": 13.518763507546256, "lng": 124.20595165635922, "type": "sightseeing"},
-            "Nahulugan Falls": {"lat": 13.788640961723846, "lng": 124.36779102542982, "type": "swimming"},
-            "Tuwad-Tuwadan Blue Lagoon": {"lat": 14.058643378491052, "lng": 124.12659986379072, "type": "surfing"},
-            "St. John the Baptist Church": {"lat": 13.983189671887365, "lng": 124.1342556677599, "type": "sightseeing"},
-            "Mamangal Beach": {"lat": 13.555007904907587, "lng": 124.14923064840366, "type": "swimming"},
-            "Ba-Haw Falls": {"lat": 13.753822522766649, "lng": 124.3833036871097, "type": "swimming"},
-            "ARDCI Corporate Inn": {"lat": 13.5812552, "lng": 124.2301155, "type": "accommodation"},
-            "Rhaj Inn": {"lat": 13.5791058, "lng": 124.2262818, "type": "accommodation"},
-            "Majestic Puraran Beach Resort": {"lat": 13.6887766, "lng": 124.3968770, "type": "accommodation"},
-            "Pacific Surfers Paradise Resort": {"lat": 13.6893856, "lng": 124.3952103, "type": "accommodation"},
-            "Catanduanes Midtown Inn Resort": {"lat": 13.5403305, "lng": 124.1638091, "type": "accommodation"},
-            "Nitto Lodge": {"lat": 13.5833005, "lng": 124.2054489, "type": "accommodation"},
-            "Renel's Traveller's Inn": {"lat": 13.5795156, "lng": 124.2280368, "type": "accommodation"},
-            "Bagamanoc Guest House": {"lat": 13.9415567, "lng": 124.2869733, "type": "accommodation"},
-            "Pusgo Island Guest House": {"lat": 13.9699644, "lng": 124.3236576, "type": "accommodation"},
-            "Sonia's Island Stay": {"lat": 13.58502856977906, "lng": 124.23876468266461, "type": "accommodation"},
-            "The Lumber": {"lat": 13.592217696981342, "lng": 124.24844932275295, "type": "accommodation"},
-            "Ecrown Hotel and Resort": {"lat": 13.593886227522459, "lng": 124.25617408469465, "type": "accommodation"},
-        }
-
+        places = self.config['places']
         found_places = []
         facts_lower = facts.lower()
         
@@ -433,14 +369,15 @@ Do not add greetings or extra commentary be direct yet kind. You may include exc
         return (natural_response, places)
 
     def guide_question(self):
-        print("\nI am Pathfinder, your personal guide!")
+
+        messages = self.config['messages']
         
+        print(messages['intro_message'])
         if self.checkint():
-            print("Online mode - Enhanced responses")
+            print(messages['mode_online'])
         else:
-            print("Offline mode - Basic responses")
-        
-        print("Type 'exit' or 'quit' to end conversation\n")
+            print(messages['mode_offline'])
+        print(messages['exit_commands'])
 
         def response(user_input):
             if user_input.lower() in ['exit', 'quit', 'bye']:
@@ -469,5 +406,5 @@ Do not add greetings or extra commentary be direct yet kind. You may include exc
             response(qry)
 
 if __name__ == '__main__':
-    cbot = Pipeline(dataset_path="dataset/dataset.json")
+    cbot = Pipeline(dataset_path="dataset/dataset.json", config_path="config/config.yaml")
     cbot.guide_question()
