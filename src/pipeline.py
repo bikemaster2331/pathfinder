@@ -219,8 +219,6 @@ class Pipeline:
             "Sonia's Island Stay",
             "The Lumber",
             "Ecrown Hotel and Resort",
-
-            # --- Shorter/Common Names (for robust matching) ---
             "Puraran", 
             "Twin Rock", 
             "Binurong", 
@@ -229,11 +227,11 @@ class Pipeline:
             "Virac", 
             "Baras", 
             "Catanduanes",
-            "Pandan", # Added other municipalities
+            "Pandan", 
             "Gigmoto",
             "San Andres",
             "Bagamanoc",
-            "The Lumber Hotel and Resort" # Synonyms
+            "The Lumber Hotel and Resort" 
         ]
 
         temp = user_input
