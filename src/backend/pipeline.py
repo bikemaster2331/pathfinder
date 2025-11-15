@@ -154,9 +154,7 @@ class Pipeline:
                 "answer": item['output'],
                 "title": item.get('title', 'General Info'),
                 "topic": item.get('topic', 'General'),
-                "summary_offline": item.get('summary_offline', item['output']),
-                "coordinates": item.get('coordinates', None),
-                "place_name": item.get('place_name', None)
+                "summary_offline": item.get('summary_offline', item['output'])
             })
             ids.append(str(idx))
 
@@ -231,7 +229,7 @@ class Pipeline:
 
         return temp
 
-    def search_multi_topic(self, topics, translated_query):
+    def search_multi_topic(self, topics, translated_query,):
         """Search RAG for multiple topics - increased to 3 results per topic"""
         all_results = []
         n_results = self.config['rag']['search_results']
@@ -254,16 +252,17 @@ class Pipeline:
             # Get all results with good confidence
             for i, metadata in enumerate(results['metadatas'][0]):
                 confidence = results['distances'][0][i]
-                if confidence <= self.config['rag']['confidence_threshold']:  # Only include good matches
+                if confidence <= self.config['rag']['multi_topic_threshold']:  # Only include good matches
                     all_results.append({
                         'text': metadata['summary_offline'],
                         'confidence': confidence,
                         'topic': topic
                     })
         all_results.sort(key=lambda x: x['confidence'])
-        print(f"[DEBUG] Added result with confidence: {all_results[-1]['confidence']:.3f}") # Print highest confidence result added
+        if all_results: 
+            print(f"[DEBUG] Added result with confidence: {all_results[0]['confidence']:.3f}")
         
-        return [r['text'] for r in all_results[:3]]
+        return [r['text'] for r in all_results[:n_results]]
 
     
     def search(self, question):
@@ -301,7 +300,9 @@ class Pipeline:
                 prompt = self.config['gemini']['prompt_template'].format(
                     question=question,
                     fact=fact
+                    
                 )
+                print(f"[DEBUG] Facts being sent to Gemini: {fact}")
                 
                 response = self.gemini.generate_content(prompt)
                 return response.text
@@ -407,5 +408,5 @@ class Pipeline:
             response(qry)
 
 if __name__ == '__main__':
-    cbot = Pipeline(dataset_path="dataset/dataset.json", config_path="config/config.yaml")
+    cbot = Pipeline(dataset_path="src/backend/dataset/dataset.json", config_path="src/backend/config/config.yaml")
     cbot.guide_question()
