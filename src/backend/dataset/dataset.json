@@ -238,7 +238,7 @@
     "topic": "Sightseeing",
     "location": "Baras",
     "summary_offline": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
-    "coordinates": {"lat": 13.66900, "lng": 124.41450},
+    "coordinates": {"lat": 13.668995411184893, "lng": 124.41449841008455},
     "place_name": "Binurong Point"
   },
   {
@@ -248,7 +248,7 @@
     "topic": "Sightseeing",
     "location": "Baras",
     "summary_offline": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
-    "coordinates": {"lat": 13.66900, "lng": 124.41450},
+    "coordinates": {"lat": 13.668995411184893, "lng": 124.41449841008455},
     "place_name": "Binurong Point"
   },
   {
@@ -258,7 +258,7 @@
     "topic": "Geography",
     "location": "Baras",
     "summary_offline": "Binurong Point is located in the municipality of Baras, Catanduanes.",
-    "coordinates": {"lat": 13.66900, "lng": 124.41450},
+    "coordinates": {"lat": 13.668995411184893, "lng": 124.41449841008455},
     "place_name": "Binurong Point"
   },
   {
@@ -268,7 +268,7 @@
     "topic": "Sightseeing",
     "location": "Bato",
     "summary_offline": "Maribina Falls is a popular attraction in Bato known for its refreshing waters.",
-    "coordinates": {"lat": 13.60171, "lng": 124.27069},
+    "coordinates": {"lat": 13.601708685295064, "lng": 124.2706945272802},
     "place_name": "Maribina Falls"
   },
   {
@@ -278,7 +278,7 @@
     "topic": "Geography",
     "location": "Bato",
     "summary_offline": "Maribina Falls is located in Barangay Marinawa, Bato.",
-    "coordinates": {"lat": 13.60171, "lng": 124.27069},
+    "coordinates": {"lat": 13.601708685295064, "lng": 124.2706945272802},
     "place_name": "Maribina Falls"
   },
   {
@@ -288,7 +288,7 @@
     "topic": "Geography",
     "location": "Virac",
     "summary_offline": "Mamangal Beach is located within the capital municipality of Virac.",
-    "coordinates": {"lat": 13.55501, "lng": 124.14923},
+    "coordinates": {"lat": 13.555007904907587, "lng": 124.14923064840366},
     "place_name": "Mamangal Beach"
   },
   {
@@ -298,7 +298,7 @@
     "topic": "Swimming",
     "location": "Virac",
     "summary_offline": "Mamangal Beach is known for its wide sandy shoreline and calm, swimming-friendly waters.",
-    "coordinates": {"lat": 13.55501, "lng": 124.14923},
+    "coordinates": {"lat": 13.555007904907587, "lng": 124.14923064840366},
     "place_name": "Mamangal Beach"
   },
   {
@@ -308,7 +308,7 @@
     "topic": "Sightseeing",
     "location": "Bato",
     "summary_offline": "Bato Church (St. John the Baptist Church) is one of the oldest stone churches in the Bicol Region.",
-    "coordinates": {"lat": 13.98319, "lng": 124.13426},
+    "coordinates": {"lat": 13.983189671887365, "lng": 124.1342556677599},
     "place_name": "Bato Church"
   },
   {
@@ -318,7 +318,7 @@
     "topic": "Sightseeing",
     "location": "Bato",
     "summary_offline": "The church was built in the 1800s using coral stones.",
-    "coordinates": {"lat": 13.98319, "lng": 124.13426},
+    "coordinates": {"lat": 13.983189671887365, "lng": 124.1342556677599},
     "place_name": "Bato Church"
   },
   {
@@ -328,7 +328,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "Twin Rock Beach Resort is located in Virac.",
-    "coordinates": {"lat": 13.52266, "lng": 124.21269},
+    "coordinates": {"lat": 13.522663495166062, "lng": 124.21269059659129},
     "place_name": "Twin Rock Beach Resort"
   },
   {
@@ -338,7 +338,7 @@
     "topic": "Sightseeing",
     "location": "Pandan",
     "summary_offline": "Tuwad-Tuwadang Blue Lagoon is a scenic spot located in Pandan.",
-    "coordinates": {"lat": 14.05864, "lng": 124.12660},
+    "coordinates": {"lat": 14.058643378491052, "lng": 124.12659986379072},
     "place_name": "Tuwad-Tuwadang Blue Lagoon"
   },
   {
@@ -348,7 +348,7 @@
     "topic": "Sightseeing",
     "location": "Gigmoto",
     "summary_offline": "Nahulugan Falls is a waterfall located in Gigmoto.",
-    "coordinates": {"lat": 13.78864, "lng": 124.36779},
+    "coordinates": {"lat": 13.788640961723846, "lng": 124.36779102542982},
     "place_name": "Nahulugan Falls"
   },
   {
@@ -358,7 +358,7 @@
     "topic": "Sightseeing",
     "location": "Virac",
     "summary_offline": "Tres Karas de Kristo (Face of Jesus Beach) is a scenic spot located in Virac.",
-    "coordinates": {"lat": 13.51876, "lng": 124.20595},
+    "coordinates": {"lat": 13.518763507546256, "lng": 124.20595165635922},
     "place_name": "Tres Karas de Kristo/Face of Jesus Beach"
   },
   {
@@ -368,7 +368,7 @@
     "topic": "Sightseeing",
     "location": "San Andres",
     "summary_offline": "Ba-haw Falls is a waterfall located in San Andres.",
-    "coordinates": {"lat": 13.75382, "lng": 124.38330},
+    "coordinates": {"lat": 13.753822522766649, "lng": 124.3833036871097},
     "place_name": "Ba-haw Falls"
   },
   {
@@ -378,7 +378,7 @@
     "topic": "Swimming",
     "location": "Virac",
     "summary_offline": "The resort offers activities like swimming, ziplining, and various water sports.",
-    "coordinates": {"lat": 13.52266, "lng": 124.21269},
+    "coordinates": {"lat": 13.522663495166062, "lng": 124.21269059659129},
     "place_name": "Twin Rock Beach Resort"
   },
   {
@@ -388,7 +388,7 @@
     "topic": "Swimming",
     "location": "Virac",
     "summary_offline": "Activities include swimming, picnicking, and enjoying the seaside scenery.",
-    "coordinates": {"lat": 13.55501, "lng": 124.14923},
+    "coordinates": {"lat": 13.555007904907587, "lng": 124.14923064840366},
     "place_name": "Mamangal Beach"
   },
   {
@@ -398,7 +398,7 @@
     "topic": "Swimming",
     "location": "Bato",
     "summary_offline": "Yes, visitors are welcome to swim and relax in the waters of Maribina Falls.",
-    "coordinates": {"lat": 13.60171, "lng": 124.27069},
+    "coordinates": {"lat": 13.601708685295064, "lng": 124.2706945272802},
     "place_name": "Maribina Falls"
   },
   {
@@ -408,7 +408,7 @@
     "topic": "Surfing",
     "location": "Baras",
     "summary_offline": "Activities available at Puraran Beach include surfing, swimming, sunbathing, and photography.",
-    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "coordinates": {"lat": 13.691803137745696, "lng": 124.39882862882942},
     "place_name": "Puraran Beach"
   },
   {
@@ -418,7 +418,7 @@
     "topic": "Surfing",
     "location": "Baras",
     "summary_offline": "The top surfing destination in Catanduanes is Puraran Beach in Baras.",
-    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "coordinates": {"lat": 13.691803137745696, "lng": 124.39882862882942},
     "place_name": "Puraran Beach"
   },
   {
@@ -428,7 +428,7 @@
     "topic": "Surfing",
     "location": "Baras",
     "summary_offline": "The top surfing destination in Catanduanes is Puraran Beach in Baras.",
-    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "coordinates": {"lat": 13.691803137745696, "lng": 124.39882862882942},
     "place_name": "Puraran Beach"
   },
   {
@@ -438,7 +438,7 @@
     "topic": "Surfing",
     "location": "Baras",
     "summary_offline": "Puraran Beach is ideal for surfing and surfing lessons.",
-    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "coordinates": {"lat": 13.691803137745696, "lng": 124.39882862882942},
     "place_name": "Puraran Beach"
   },
   {
@@ -448,7 +448,7 @@
     "topic": "Surfing",
     "location": "Baras",
     "summary_offline": "Puraran Beach is ideal for surfing and surfing lessons.",
-    "coordinates": {"lat": 13.69180, "lng": 124.39883},
+    "coordinates": {"lat": 13.691803137745696, "lng": 124.39882862882942},
     "place_name": "Puraran Beach"
   },
   {
@@ -458,7 +458,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "Twin Rock Beach Resort is located in Virac.",
-    "coordinates": {"lat": 13.52266, "lng": 124.21269},
+    "coordinates": {"lat": 13.522663495166062, "lng": 124.21269059659129},
     "place_name": "Twin Rock Beach Resort"
   },
   {
@@ -476,7 +476,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "ARDCI Corporate Inn offers affordable rooms in Virac.",
-    "coordinates": {"lat": 13.58126, "lng": 124.23012},
+    "coordinates": {"lat": 13.5812552, "lng": 124.2301155},
     "place_name": "ARDCI Corporate Inn"
   },
   {
@@ -486,7 +486,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "ARDCI Corporate Inn offers affordable rooms in Virac.",
-    "coordinates": {"lat": 13.58126, "lng": 124.23012},
+    "coordinates": {"lat": 13.5812552, "lng": 124.2301155},
     "place_name": "ARDCI Corporate Inn"
   },
   {
@@ -496,7 +496,7 @@
     "topic": "Food",
     "location": "Virac",
     "summary_offline": "Breakfast is available for guests staying at ARDCI Corporate Inn.",
-    "coordinates": {"lat": 13.58126, "lng": 124.23012},
+    "coordinates": {"lat": 13.5812552, "lng": 124.2301155},
     "place_name": "ARDCI Corporate Inn"
   },
   {
@@ -506,7 +506,7 @@
     "topic": "Facilities",
     "location": "Virac",
     "summary_offline": "ARDCI Corporate Inn offers necessary facilities like breakfast and comfortable lodging.",
-    "coordinates": {"lat": 13.58126, "lng": 124.23012},
+    "coordinates": {"lat": 13.5812552, "lng": 124.2301155},
     "place_name": "ARDCI Corporate Inn"
   },
   {
@@ -516,7 +516,7 @@
     "topic": "Activities",
     "location": "Baras",
     "summary_offline": "Majestic Puraran Beach Resort offers surfing, swimming, and beach activities.",
-    "coordinates": {"lat": 13.68878, "lng": 124.39688},
+    "coordinates": {"lat": 13.6887766, "lng": 124.3968770},
     "place_name": "Majestic Puraran Beach Resort"
   },
   {
@@ -526,7 +526,7 @@
     "topic": "Accommodation",
     "location": "Baras",
     "summary_offline": "The resort sits directly along the Puraran beachfront.",
-    "coordinates": {"lat": 13.68878, "lng": 124.39688},
+    "coordinates": {"lat": 13.6887766, "lng": 124.3968770},
     "place_name": "Majestic Puraran Beach Resort"
   },
   {
@@ -536,9 +536,10 @@
     "topic": "Accommodation",
     "location": "Baras",
     "summary_offline": "The resort sits directly along the Puraran beachfront.",
-    "coordinates": {"lat": 13.68878, "lng": 124.39688},
+    "coordinates": {"lat": 13.6887766, "lng": 124.3968770},
     "place_name": "Majestic Puraran Beach Resort"
   },
+  
   {
     "input": "How far is Pacific Surfers Paradise Resort from Virac Airport?",
     "output": "Pacific Surfers Paradise Resort in Puraran, Baras is about 30 to 35 minutes from Virac Airport by car.",
@@ -546,8 +547,88 @@
     "topic": "Travel",
     "location": "Baras",
     "summary_offline": "The resort is around 35 minutes away from Virac Airport.",
-    "coordinates": {"lat": 13.68939, "lng": 124.39521},
+    "coordinates": {"lat": 13.6893856, "lng": 124.3952103},
     "place_name": "Pacific Surfers Paradise Resort"
+  },
+  {
+    "input": "Where can I eat in Catanduanes?",
+    "output": "There are local restaurants and cafes in downtown Virac serving Filipino and seafood dishes.",
+    "title": "Dining in Virac",
+    "topic": "Food",
+    "location": "Virac",
+    "summary_offline": "Local restaurants and cafes in downtown Virac serve Filipino cuisine and fresh seafood."
+  },
+  {
+    "input": "What are the best restaurants in Catanduanes?",
+    "output": "Popular dining spots include restaurants in Virac town center and beachside eateries near Puraran.",
+    "title": "Restaurant Recommendations",
+    "topic": "Food",
+    "location": "Various",
+    "summary_offline": "Popular restaurants are found in Virac town center and near Puraran Beach."
+  },
+  {
+    "input": "Where can I find local food in Catanduanes?",
+    "output": "Try local delicacies like linubak and fresh seafood at Virac Public Market and nearby eateries.",
+    "title": "Local Cuisine",
+    "topic": "Food",
+    "location": "Virac",
+    "summary_offline": "Local delicacies like linubak and fresh seafood are available at Virac Public Market."
+  },
+  {
+    "input": "Are there cafes in Catanduanes?",
+    "output": "Yes, there are several cafes in Virac offering coffee, snacks, and light meals.",
+    "title": "Cafes in Catanduanes",
+    "topic": "Food",
+    "location": "Virac",
+    "summary_offline": "Several cafes in Virac offer coffee, snacks, and light meals."
+  },
+  {
+    "input": "Can I find seafood restaurants?",
+    "output": "Yes, many restaurants in Catanduanes specialize in fresh seafood, especially in coastal areas.",
+    "title": "Seafood Dining",
+    "topic": "Food",
+    "location": "Various Coastal Areas",
+    "summary_offline": "Fresh seafood is widely available at restaurants in coastal areas of Catanduanes."
+  },
+  {
+    "input": "What Filipino dishes can I try?",
+    "output": "You can try traditional Bicolano dishes, fresh seafood, and local specialties like latik and kakanin.",
+    "title": "Filipino Cuisine",
+    "topic": "Food",
+    "location": "Catanduanes Province",
+    "summary_offline": "Traditional Bicolano dishes, fresh seafood, and local specialties like latik are must-try foods."
+  },
+  {
+    "input": "Where can I have breakfast?",
+    "output": "Hotels like ARDCI Corporate Inn serve breakfast, and there are local eateries in Virac serving morning meals.",
+    "title": "Breakfast Options",
+    "topic": "Food",
+    "location": "Virac",
+    "summary_offline": "Breakfast is available at hotels and local eateries in Virac."
+  },
+  {
+    "input": "Are there dining options near the beach?",
+    "output": "Yes, beachside restaurants and eateries can be found near Puraran Beach and other coastal areas.",
+    "title": "Beachside Dining",
+    "topic": "Food",
+    "location": "Coastal Areas",
+    "summary_offline": "Beachside restaurants are available near Puraran Beach and other coastal areas."
+  },
+  {
+    "input": "What street food is available?",
+    "output": "Street food and local snacks are available at Virac Public Market and town centers.",
+    "title": "Street Food",
+    "topic": "Food",
+    "location": "Virac",
+    "summary_offline": "Street food and snacks can be found at Virac Public Market and town centers."
+  },
+  {
+    "input": "Where can I eat after swimming?",
+    "output": "After swimming, you can dine at nearby beachside eateries or head to restaurants in Virac town.",
+    "title": "Post-Activity Dining",
+    "topic": "Food",
+    "location": "Various",
+    "summary_offline": "Beachside eateries and Virac restaurants are convenient for meals after swimming."
   },
   {
     "input": "What is the travel time to Pacific Surfers Paradise Resort from the airport?",
@@ -556,7 +637,7 @@
     "topic": "Travel",
     "location": "Baras",
     "summary_offline": "The resort is around 35 minutes away from Virac Airport.",
-    "coordinates": {"lat": 13.68939, "lng": 124.39521},
+    "coordinates": {"lat": 13.6893856, "lng": 124.3952103},
     "place_name": "Pacific Surfers Paradise Resort"
   },
   {
@@ -566,7 +647,7 @@
     "topic": "Facilities",
     "location": "Baras",
     "summary_offline": "WiFi is available in common areas at Pacific Surfers Paradise Resort.",
-    "coordinates": {"lat": 13.68939, "lng": 124.39521},
+    "coordinates": {"lat": 13.6893856, "lng": 124.3952103},
     "place_name": "Pacific Surfers Paradise Resort"
   },
     {
@@ -576,7 +657,7 @@
     "topic": "Facilities",
     "location": "Baras",
     "summary_offline": "WiFi is available in common areas at Pacific Surfers Paradise Resort.",
-    "coordinates": {"lat": 13.68939, "lng": 124.39521},
+    "coordinates": {"lat": 13.6893856, "lng": 124.3952103},
     "place_name": "Pacific Surfers Paradise Resort"
   },
   {
@@ -586,7 +667,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "Catanduanes Midtown Inn is near Virac's main establishments.",
-    "coordinates": {"lat": 13.54033, "lng": 124.16381},
+    "coordinates": {"lat": 13.5403305, "lng": 124.1638091},
     "place_name": "Catanduanes Midtown Inn Resort"
   },
   {
@@ -596,7 +677,7 @@
     "topic": "Facilities",
     "location": "Virac",
     "summary_offline": "Free parking is available at Catanduanes Midtown Inn.",
-    "coordinates": {"lat": 13.54033, "lng": 124.16381},
+    "coordinates": {"lat": 13.5403305, "lng": 124.1638091},
     "place_name": "Catanduanes Midtown Inn Resort"
   },
   {
@@ -606,7 +687,7 @@
     "topic": "Facilities",
     "location": "Virac",
     "summary_offline": "Free parking is available at Catanduanes Midtown Inn.",
-    "coordinates": {"lat": 13.54033, "lng": 124.16381},
+    "coordinates": {"lat": 13.5403305, "lng": 124.1638091},
     "place_name": "Catanduanes Midtown Inn Resort"
   },
   {
@@ -616,7 +697,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "Nitto Lodge is located in Virac town proper near amenities.",
-    "coordinates": {"lat": 13.58330, "lng": 124.20545},
+    "coordinates": {"lat": 13.5833005, "lng": 124.2054489},
     "place_name": "Nitto Lodge"
   },
   {
@@ -626,7 +707,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "Nitto Lodge is located in Virac town proper near amenities.",
-    "coordinates": {"lat": 13.58330, "lng": 124.20545},
+    "coordinates": {"lat": 13.5833005, "lng": 124.2054489},
     "place_name": "Nitto Lodge"
   },
   {
@@ -636,7 +717,7 @@
     "topic": "Facilities",
     "location": "Virac",
     "summary_offline": "Renel's Traveller's Inn provides both air-conditioned and fan rooms.",
-    "coordinates": {"lat": 13.57952, "lng": 124.22804},
+    "coordinates": {"lat": 13.5795156, "lng": 124.2280368},
     "place_name": "Renel's Traveller's Inn"
   },
   {
@@ -646,7 +727,7 @@
     "topic": "Facilities",
     "location": "Virac",
     "summary_offline": "Renel's Traveller's Inn provides both air-conditioned and fan rooms.",
-    "coordinates": {"lat": 13.57952, "lng": 124.22804},
+    "coordinates": {"lat": 13.5795156, "lng": 124.2280368},
     "place_name": "Renel's Traveller's Inn"
   },
   {
@@ -656,7 +737,7 @@
     "topic": "Accommodation",
     "location": "Bagamanoc",
     "summary_offline": "Bagamanoc Guest House is located in the Poblacion area.",
-    "coordinates": {"lat": 13.94156, "lng": 124.28697},
+    "coordinates": {"lat": 13.9415567, "lng": 124.2869733},
     "place_name": "Bagamanoc Guest House"
   },
   {
@@ -666,7 +747,7 @@
     "topic": "Accommodation",
     "location": "Bagamanoc",
     "summary_offline": "Bagamanoc Guest House is located in the Poblacion area.",
-    "coordinates": {"lat": 13.94156, "lng": 124.28697},
+    "coordinates": {"lat": 13.9415567, "lng": 124.2869733},
     "place_name": "Bagamanoc Guest House"
   },
   {
@@ -676,7 +757,7 @@
     "topic": "Travel",
     "location": "Virac",
     "summary_offline": "Sonia's Island Stay is about five minutes from Virac Airport.",
-    "coordinates": {"lat": 13.58503, "lng": 124.23876},
+    "coordinates": {"lat": 13.58502856977906, "lng": 124.23876468266461},
     "place_name": "Sonia's Island Stay"
   },
   {
@@ -686,7 +767,7 @@
     "topic": "Travel",
     "location": "Virac",
     "summary_offline": "Sonia's Island Stay is about five minutes from Virac Airport.",
-    "coordinates": {"lat": 13.58503, "lng": 124.23876},
+    "coordinates": {"lat": 13.58502856977906, "lng": 124.23876468266461},
     "place_name": "Sonia's Island Stay"
   },
   {
@@ -696,7 +777,7 @@
     "topic": "Facilities",
     "location": "Virac",
     "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces.",
-    "coordinates": {"lat": 13.59222, "lng": 124.24845},
+    "coordinates": {"lat": 13.592217696981342, "lng": 124.24844932275295},
     "place_name": "The Lumber Hotel and Resort"
   },
   {
@@ -706,7 +787,7 @@
     "topic": "Facilities",
     "location": "Virac",
     "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces.",
-    "coordinates": {"lat": 13.59222, "lng": 124.24845},
+    "coordinates": {"lat": 13.592217696981342, "lng": 124.24844932275295},
     "place_name": "The Lumber Hotel and Resort"
   },
   {
@@ -716,7 +797,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "E-Crown Hotel and Resort is in Virac, close to Maribina Falls.",
-    "coordinates": {"lat": 13.59389, "lng": 124.25617},
+    "coordinates": {"lat": 13.593886227522459, "lng": 124.25617408469465},
     "place_name": "E-Crown Hotel and Resort"
   },
   {
@@ -726,7 +807,7 @@
     "topic": "Food",
     "location": "Virac",
     "summary_offline": "E-Crown Hotel and Resort has its own restaurant for guests.",
-    "coordinates": {"lat": 13.59389, "lng": 124.25617},
+    "coordinates": {"lat": 13.593886227522459, "lng": 124.25617408469465},
     "place_name": "E-Crown Hotel and Resort"
   },
   {
@@ -736,7 +817,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "E-Crown Hotel and Resort is a luxury accommodation located in Virac.",
-    "coordinates": {"lat": 13.59389, "lng": 124.25617},
+    "coordinates": {"lat": 13.593886227522459, "lng": 124.25617408469465},
     "place_name": "E-Crown Hotel and Resort"
   },
   {
@@ -746,7 +827,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "Rhaj Inn offers budget-friendly rooms in Virac.",
-    "coordinates": {"lat": 13.57911, "lng": 124.22628},
+    "coordinates": {"lat": 13.5791058, "lng": 124.2262818},
     "place_name": "Rhaj Inn"
   },
   {
@@ -756,7 +837,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "Rhaj Inn offers budget-friendly rooms in Virac.",
-    "coordinates": {"lat": 13.57911, "lng": 124.22628},
+    "coordinates": {"lat": 13.5791058, "lng": 124.2262818},
     "place_name": "Rhaj Inn"
   },
   {
@@ -766,7 +847,7 @@
     "topic": "Accommodation",
     "location": "Virac",
     "summary_offline": "Rhaj Inn is located in Virac.",
-    "coordinates": {"lat": 13.57911, "lng": 124.22628},
+    "coordinates": {"lat": 13.5791058, "lng": 124.2262818},
     "place_name": "Rhaj Inn"
   },
   {

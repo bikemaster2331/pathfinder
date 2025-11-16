@@ -147,7 +147,7 @@ class Pipeline:
             return any(re.search(r'\b' + pronoun + r'\b', user_lower, re.IGNORECASE) for pronoun in pronouns)
         
         return False
-    # --- MEMORY FUNCTIONS END ---
+    # --- MEMORY FUNCTIONguS END ---
 
 
     def setup_gemini(self):
@@ -333,7 +333,7 @@ class Pipeline:
         good_answers = []
         for i, metadata in enumerate(results['metadatas'][0]):
             confidence = results['distances'][0][i]
-            if confidence <= 0.7: # Changed confidence limit back to 0.7 for stable testing
+            if confidence <= 0.7:
                 good_answers.append(metadata['answer'])
                 print(f"[DEBUG] Match {i+1} confidence: {confidence:.3f}")
         

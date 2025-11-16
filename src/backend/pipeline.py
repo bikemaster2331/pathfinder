@@ -16,13 +16,12 @@ import yaml
 
 class Pipeline:
     def __init__(self, dataset_path="dataset/dataset.json", db_path ="./chroma_storage", config_path="config_yaml"):
-
+        
+        
         self.config = self.load_config(config_path)
-
+        print(f"[DEBUG] Loaded thresholds:")
         print(self.config['system']['welcome_message'])
-
         load_dotenv()
-
         # Internet tracking
         self.internet_status = None
         self.last_internet_check = 0
@@ -192,8 +191,11 @@ class Pipeline:
         question_lower = question.lower()
         
         for topic, words in self.config['keywords'].items():
-            if any(word in question_lower for word in words):
-                found.append(topic)
+            for word in words:
+                pattern = r'\b' + re.escape(word) + r'\b'
+                if re.search(pattern, question_lower):
+                    found.append(topic)
+                    break
         
         return found if found else ['general']
     
@@ -229,41 +231,53 @@ class Pipeline:
 
         return temp
 
-    def search_multi_topic(self, topics, translated_query,):
-        """Search RAG for multiple topics - increased to 3 results per topic"""
+    def search_multi_topic(self, topics, translated_query, results_per_topic=1):
         all_results = []
         n_results = self.config['rag']['search_results']
-        
+
         for topic in topics:
             print(f"[DEBUG] Searching RAG for topic: '{topic}'")
-            
-            # Combine topic with translated query for better context
-            search_query = f"{topic} {translated_query}"
-            
+
+            search_query = f"{topic}"
+
             results = self.collection.query(
                 query_texts=[search_query],
                 n_results=n_results
             )
-            
+
             if not results['documents'][0]:
                 print(f"[DEBUG] No results found for topic: {topic}")
                 continue
             
-            # Get all results with good confidence
+            # Collect results for this topic
+            topic_results = []
             for i, metadata in enumerate(results['metadatas'][0]):
                 confidence = results['distances'][0][i]
-                if confidence <= self.config['rag']['multi_topic_threshold']:  # Only include good matches
-                    all_results.append({
-                        'text': metadata['summary_offline'],
+                print(f"[DEBUG]   Result {i+1} for '{topic}': confidence={confidence:.3f}")
+
+                if confidence <= self.config['rag']['multi_topic_threshold']:
+                    topic_results.append({
+                        'text': metadata.get('summary_offline', metadata['answer']),
                         'confidence': confidence,
                         'topic': topic
                     })
-        all_results.sort(key=lambda x: x['confidence'])
-        if all_results: 
-            print(f"[DEBUG] Added result with confidence: {all_results[0]['confidence']:.3f}")
-        
-        return [r['text'] for r in all_results[:n_results]]
+                    print(f"[DEBUG]   ✅ Added (passed threshold)")
+                else:
+                    print(f"[DEBUG]   ❌ Rejected (> {self.config['rag']['multi_topic_threshold']})")
 
+            # Sort by confidence and take top N for this topic
+            topic_results.sort(key=lambda x: x['confidence'])
+            selected = topic_results[:results_per_topic]
+            all_results.extend(selected)
+
+            print(f"[DEBUG] Selected {len(selected)} result(s) for '{topic}'")
+
+        if all_results:
+            print(f"[DEBUG] Total results: {len(all_results)} from {len(topics)} topics")
+        else:
+            print(f"[DEBUG] ⚠️ No results passed threshold for any topic!")
+
+        return [r['text'] for r in all_results]
     
     def search(self, question):
         """Search for single question - increased results"""
@@ -353,7 +367,8 @@ class Pipeline:
         
         # 3. Get facts from RAG
         if len(topics) > 1 and topics != ['general']:
-            answers = self.search_multi_topic(topics, convert)
+            results_per_topic = self.config['rag'].get('results_per_topic', 1)
+            answers = self.search_multi_topic(topics, convert, results_per_topic)
             fact = " ".join(answers) if answers else "I don't have info about those topics"
         else:
             fact = self.search(convert)

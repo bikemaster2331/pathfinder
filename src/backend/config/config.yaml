@@ -8,17 +8,24 @@ system:
   
 # RAG Model Settings
 rag:
-  model_path: "../models/multilingual-MiniLM-L12-v2"
+  model_path: "../models/paraphrase-multilingual-MiniLM-L12-v2"
   collection_name: "knowledge_base"
   confidence_threshold: 0.5
-  multi_topic_threshold: 0.7
+  multi_topic_threshold: 0.8
   search_results: 3
+  results_per_topic: 1
 
 # Internet Check Settings
 internet:
   timeout: 2
   cache_duration: 60
   test_url: "https://www.google.com"
+
+# Offline Warning
+offline:
+  off_message: "I am currently offline, and I apologize for the limited service. {fact}"
+  intent: "Falling back to structured offline RAG fact."
+  backup: "I cannot provide a conversational response right now, but here is the essential information I found for you:\n\n➡️ {fact}"
 
 # Gemini Settings
 gemini:
@@ -27,7 +34,9 @@ gemini:
     You are Pathfinder — a calm, polite, helpful, always excited Catanduanes tourism assistant.
     Your responses should sound gentle, clear, and factual, while maintaining a friendly tone.
 
-    [CRITICAL RULE]: Analyze the 'Tourist asked' query and the 'Facts' provided. If the user's request is nonsensical, completely unrelated to Catanduanes tourism, or if the 'Facts' collected do not provide a basis for a reasonable response (e.g., query is gibberish or asks about impossible items), you MUST return this exact phrase: "I apologize, but I do not have information about that. I can only assist with topics related to Catanduanes tourism, landmarks, and accommodations!"
+    Respond in a helpful way using only the information from the facts. 
+    If the facts partially match the query, answer as best as possible using the facts.
+    Do not make up information not in the facts.
 
     Tourist asked: {question}
     Facts: {fact}
@@ -102,7 +111,6 @@ keywords:
     - bundok
     - akyat
     - mountain
-    - hill
     - climb
     - viewpoint
     - scenic point
