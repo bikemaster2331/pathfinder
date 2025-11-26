@@ -6,6 +6,8 @@ import os
 
 app = FastAPI(title="Pathfinder API", version="1.0.0")
 
+itinerary_list = []
+
 # CORS config
 app.add_middleware(
     CORSMiddleware,
@@ -27,6 +29,9 @@ except Exception as e:
 class AskRequest(BaseModel):
     question: str
 
+class ItineraryItem(BaseModel):
+    place_name: (str)
+
 class PlaceInfo(BaseModel):
     name: str
     lat: float
@@ -36,8 +41,29 @@ class PlaceInfo(BaseModel):
 class AskResponse(BaseModel):
     answer: str
     places: list[PlaceInfo]
+    
+
+@app.post("/itinerary_add")
+
+def itinerary_add(item: ItineraryItem):
+    if item.place_name not in itinerary_list:
+        itinerary_list.append(item.place_name)
+        print(f"📝 Added to itinerary: {item.place_name}")
+    return {
+        "message": f"Added {item.place_name}",
+        "total_items": len(itinerary_list)
+    }
+
+@app.get("/itinerary")
+
+def get_itinerary():
+    """Get the current list of saved places"""
+    return {"itinerary": itinerary_list}
+
 
 @app.post("/ask", response_model=AskResponse)
+
+
 def ask_endpoint(request: AskRequest):
     """Ask Pathfinder a question about Catanduanes tourism"""
     try:
