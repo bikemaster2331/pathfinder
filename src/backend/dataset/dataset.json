@@ -216,12 +216,62 @@
     "summary_offline": "The Provincial Tourism Office is open to collaborations with outside technical teams, universities, or startups to develop tourism solutions."
   },
   {
+    "input": "Where is Virac Public Market?",
+    "output": "Virac Public Market is located in the town proper near the port. It is the best place to buy local souvenirs, fresh seafood, and native delicacies.",
+    "title": "Virac Public Market Location",
+    "topic": "Shopping",
+    "location": "Virac",
+    "summary_offline": "Virac Public Market is in the town center and is the go-to spot for souvenirs and local food.",
+    "coordinates": {"lat": 13.578141390225673, "lng": 124.22879470245454},
+    "place_name": "Virac Public Market"
+  },
+  {
+    "input": "What is Virac Town Center?",
+    "output": "Virac Town Center (VTC) is the largest mall in Catanduanes, offering a wide range of retail stores, restaurants, cafes, and a supermarket.",
+    "title": "Virac Town Center Mall",
+    "topic": "Shopping",
+    "location": "Virac",
+    "summary_offline": "Virac Town Center is the main mall in the province, featuring dining, groceries, and shopping.",
+    "coordinates": {"lat": 13.579957995200868, "lng": 124.22855269682266},
+    "place_name": "Virac Town Center"
+  },
+  {
     "input": "What are the best tourist spots in Catanduanes?",
     "output": "The top tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls.",
     "title": "Top Tourist Spots",
     "topic": "Sightseeing",
     "location": "Various",
     "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls."
+  },
+  {
+    "input": "Where is Virac Airport?",
+    "output": "Virac Airport is located in the capital town of Virac, serving as the main gateway to the province.",
+    "title": "Virac Airport Location",
+    "topic": "Transport",
+    "location": "Virac",
+    "summary_offline": "Virac Airport is the main airport located in the capital town of Virac.",
+    "coordinates": {"lat": 13.579601473762152, "lng": 124.21184297254652},
+    "place_name": "Virac Airport"
+  },
+  {
+    "input": "Is there an airport in Catanduanes?",
+    "output": "Yes, Virac Airport serves the province with flights to and from Manila.",
+    "title": "Virac Airport",
+    "topic": "Transport",
+    "location": "Virac",
+    "summary_offline": "Yes, Virac Airport serves flights between Manila and Catanduanes.",
+    "coordinates": {"lat": 13.579601473762152, "lng": 124.21184297254652},
+    "place_name": "Virac Airport"
+  },
+  {
+    "input": "How do I get to the airport?",
+    "output": "Virac Airport is accessible by tricycle or van from the town center of Virac.",
+    "title": "Transport to Airport",
+    "topic": "Transport",
+    "location": "Virac",
+    "summary_offline": "You can reach Virac Airport by tricycle or van from the town center.",
+    "coordinates": {"lat": 13.579601473762152, "lng": 124.21184297254652},
+    "place_name": "Virac Airport"
   },
   {
     "input": "Which places should I see in Catanduanes?",
