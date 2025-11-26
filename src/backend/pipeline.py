@@ -111,7 +111,7 @@ class Pipeline:
             import google.generativeai as genai
             api_key = os.getenv("GEMINI_API_KEY")  
             if not api_key:
-                print("⚠️ GEMINI_API_KEY not found in environment")
+                print("GEMINI_API_KEY not found in environment")
                 self.has_gemini = False
                 return
             
@@ -119,7 +119,7 @@ class Pipeline:
             self.gemini = genai.GenerativeModel(self.config['gemini']['model_name'])
             self.has_gemini = True
         except Exception as e:
-            print(f"⚠️ Gemini setup failed: {e}")
+            print(f"Gemini setup failed: {e}")
             self.has_gemini = False
 
     def load_dataset(self, dataset_path):
@@ -135,7 +135,7 @@ class Pipeline:
 
         for idx, item in enumerate(data):
             if 'input' not in item or 'output' not in item:
-                print(f"⚠️ Skipping invalid entry at index {idx}")
+                print(f"Skipping invalid entry at index {idx}")
                 continue
 
         documents = []
@@ -144,7 +144,7 @@ class Pipeline:
 
         for idx, item in enumerate(data):
             if 'input' not in item or 'output' not in item:
-                print(f"⚠️ Skipping invalid entry at index {idx}")
+                print(f"Skipping invalid entry at index {idx}")
                 continue
                 
             documents.append(item['input'])
@@ -198,6 +198,7 @@ class Pipeline:
                     break
         
         return found if found else ['general']
+    
     
     def protect(self, user_input):
         """Protect place names during translation"""
@@ -261,9 +262,9 @@ class Pipeline:
                         'confidence': confidence,
                         'topic': topic
                     })
-                    print(f"[DEBUG]   ✅ Added (passed threshold)")
+                    print(f"[DEBUG]   Added (passed threshold)")
                 else:
-                    print(f"[DEBUG]   ❌ Rejected (> {self.config['rag']['multi_topic_threshold']})")
+                    print(f"[DEBUG]   Rejected (> {self.config['rag']['multi_topic_threshold']})")
 
             # Sort by confidence and take top N for this topic
             topic_results.sort(key=lambda x: x['confidence'])
@@ -275,7 +276,7 @@ class Pipeline:
         if all_results:
             print(f"[DEBUG] Total results: {len(all_results)} from {len(topics)} topics")
         else:
-            print(f"[DEBUG] ⚠️ No results passed threshold for any topic!")
+            print(f"[DEBUG] No results passed threshold for any topic!")
 
         return [r['text'] for r in all_results]
     
@@ -354,6 +355,20 @@ class Pipeline:
                 found_places.append(place)
 
         return found_places
+    
+    def get_place_data(self, found_places):
+        places_data = []
+
+        for place_name in found_places:
+            if place_name in self.config['places']:
+                place_info = self.config['places'][place_name]
+                places_data.append({
+                    "name": place_name,
+                    "lat": place_info['lat'],
+                    "lng": place_info['lng'],
+                    "type": place_info['type']
+                })
+        return places_data
         
     def ask(self, user_input):
         """Main ask function with multi-topic support and natural responses"""
