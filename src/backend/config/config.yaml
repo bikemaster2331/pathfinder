@@ -239,6 +239,9 @@ protected_places:
   - "San Andres"
   - "Bagamanoc"
   - "The Lumber Hotel and Resort"
+  - "Virac Town Center"
+  - "Virac Public Market"
+  - "Virac Airport"
 
 # Places with Coordinates (for mapping)
 places:
@@ -246,6 +249,21 @@ places:
     lat: 13.691803137745696
     lng: 124.39882862882942
     type: surfing
+
+  "Virac Public Market": 
+    lat: 13.578141390225673
+    lng: 124.22879470245454 
+    type: food
+  
+  "Virac Town Center": 
+    lat: 13.579957995200868
+    lng: 124.22855269682266
+    type: food
+
+  "Virac Airport":
+    lat: 13.579601473762152
+    lng: 124.21184297254652
+    type: transport
   
   "Twin Rock Beach":
     lat: 13.522663495166062
@@ -367,6 +385,7 @@ map:
     sightseeing: "👀"
     accommodation: "🏨"
     food: "🍽️"
+    transport: "✈️"  
     general: "📍"
   
   # Filter button labels
