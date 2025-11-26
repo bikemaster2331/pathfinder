@@ -28,6 +28,27 @@ askBtn.addEventListener("click", async () => {
     questionInput.value = "";
 });
 
+async function refreshItinerary() {
+    try {
+        const res = await fetch("http://127.0.0.1:8000/itinerary");
+        const data = await res.json();
+        
+        const listElement = document.getElementById("itineraryList");
+        listElement.innerHTML = ""; // Clear current list
+        
+        data.itinerary.forEach(place => {
+            const li = document.createElement("li");
+            li.textContent = place;
+            // Optional: Add a remove button for each item later!
+            listElement.appendChild(li);
+        });
+        
+    } catch (error) {
+        console.error("Failed to load itinerary:", error);
+    }
+}
+
+
 // Allow Enter key to submit
 questionInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
