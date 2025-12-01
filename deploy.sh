@@ -5,7 +5,7 @@ RPI_IP="192.168.1.14"
 
 RPI_USER="pi"
 
-GITHUB_REPO="edgelord808/pathfinder"
+GITHUB_REPO="bikemaster2331/pathfinder"
 
 RED='\033[0;31m'
 
