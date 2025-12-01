@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pipeline import Pipeline
 from fastapi.middleware.cors import CORSMiddleware
-import os
 
 app = FastAPI(title="Pathfinder API", version="1.0.0")
 
