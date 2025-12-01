@@ -42,8 +42,9 @@ gemini:
     Facts: {fact}
 
     Respond in the same language as the tourist's question.
-    Use only the information from the facts.
-    Give a single, concise, and natural-sounding sentence.
+    Use only the information from the facts. Summarize the facts into a cohesive answer. Do not just list them one by one.
+    Give a single, concise, and natural-sounding sentence, include all the facts and the place mentioned.
+    Connect the ideas naturally (e.g., use "You can also try..." instead of just a comma).
     Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks to sound excited.
 
 # Offline Fallback Messages
@@ -79,6 +80,7 @@ keywords:
     - ocean waves
     - wave spot
     - tidal
+    - alon
   
   swimming:
     - swim
@@ -131,6 +133,8 @@ keywords:
     - seafood
     - dining
     - breakfast
+    - karinderya    
+    - lutuin        
   
   accommodation:
     - stay
@@ -148,6 +152,7 @@ keywords:
     - homestays
     - B&B
     - camping
+    - overnight
   
   sightseeing:
     - visit

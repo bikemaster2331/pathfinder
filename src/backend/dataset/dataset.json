@@ -253,6 +253,40 @@
     "coordinates": {"lat": 13.579601473762152, "lng": 124.21184297254652},
     "place_name": "Virac Airport"
   },
+    {
+    "input": "Which are the most visited beaches in Catanduanes?",
+    "output": "The most visited beaches in Catanduanes are Puraran Beach, Tuwad-Tuwadang Blue Lagoon, and Nahulugan Falls.",
+    "title": "Top Beaches",
+    "topic": "Swimming",
+    "location": "Catanduanes Province",
+    "summary_offline": "The most visited beaches in Catanduanes are Puraran Beach, Tuwad-Tuwadang Blue Lagoon, and Nahulugan Falls.",
+    "coordinates": null,
+    "place_name": "Catanduanes Province"
+  },
+  {
+  "input": "Which are the most visited beaches in Catanduanes?",
+  "output": "Puraran Beach is one of the most visited beaches in Catanduanes, famous for surfing.",
+  "title": "Top Beach - Puraran",
+  "topic": "Swimming",
+  "place_name": "Puraran Beach",
+  "coordinates": {"lat": 13.6887766, "lng": 124.3968770}
+  },
+  {
+    "input": "Which are the most visited beaches in Catanduanes?",
+    "output": "Tuwad-Tuwadang Blue Lagoon is another popular beach in Catanduanes.",
+    "title": "Top Beach - Tuwad-Tuwadang",
+    "topic": "Swimming",
+    "place_name": "Tuwad-Tuwadang Blue Lagoon",
+    "coordinates": {"lat": 14.058643378491052, "lng": 124.12659986379072}
+  },
+  {
+    "input": "Which are the most visited beaches in Catanduanes?",
+    "output": "Nahulugan Falls is a must-visit swimming spot in Catanduanes.",
+    "title": "Top Beach - Nahulugan",
+    "topic": "Swimming",
+    "place_name": "Nahulugan Falls",
+    "coordinates": {"lat": 13.788640961723846, "lng": 124.36779102542982}
+  },
   {
     "input": "Is there an airport in Catanduanes?",
     "output": "Yes, Virac Airport serves the province with flights to and from Manila.",
@@ -1265,6 +1299,34 @@
     "summary_offline": "The Provincial Tourism Office is open to collaborations with outside technical teams, universities, or startups to develop tourism solutions."
   },
   {
+  "input": "Saan ako pwedeng lumangoy sa Catanduanes?",
+  "output": "Pwede kang lumangoy sa Puraran Beach, Twin Rock Beach, Balite Beach, at Mamangal Beach. Lahat ng ito ay may kristal na tubig at magagandang tanawin.",
+  "title": "Swimming Spots (Tagalog)",
+  "topic": "swimming",
+  "summary_offline": "Swimming spots: Puraran Beach, Twin Rock Beach, Balite Beach, Mamangal Beach"
+  },
+  {
+    "input": "Where can I swim in Catanduanes?",
+    "output": "You can swim at Puraran Beach, Twin Rock Beach, Balite Beach, and Mamangal Beach. All feature crystal-clear waters and beautiful scenery.",
+    "title": "Swimming Spots",
+    "topic": "swimming",
+    "summary_offline": "Swimming spots: Puraran Beach, Twin Rock Beach, Balite Beach, Mamangal Beach"
+  },
+  {
+    "input": "gusto ko lumangoy",
+    "output": "Para sa swimming, maganda ang Puraran Beach kung gusto mo ng waves, o Twin Rock Beach para sa mas kalmadong tubig. May Balite Beach din na malapit sa town proper.",
+    "title": "Swimming Recommendation (Casual Tagalog)",
+    "topic": "swimming",
+    "summary_offline": "Recommended swimming beaches based on preference"
+  },
+  {
+    "input": "May magandang beach ba para sa snorkeling?",
+    "output": "Oo! Puraran Beach at Mamangal Beach ay maganda para sa snorkeling. May makikita kang colorful fish at coral formations.",
+    "title": "Snorkeling Beaches",
+    "topic": "swimming",
+    "summary_offline": "Puraran and Mamangal beaches are good for snorkeling"
+  },
+  {
     "input": "Can researchers work with the tourism office?",
     "output": "Yes, the Provincial Tourism Office welcomes support and collaborations with universities, startups, or technical teams to help develop solutions.",
     "title": "Office Collaboration Policy",
@@ -1281,12 +1343,180 @@
     "summary_offline": "The Provincial Tourism Office is open to collaborations with outside technical teams, universities, or startups to develop tourism solutions."
   },
   {
+  "input": "Saan pwedeng mag-surf sa Catanduanes?",
+  "output": "Ang Puraran Beach ay sikat na surf spot at tinawag na 'Majestic.' May international surfing competitions dito tuwing October-March. Baguhan at expert surfers ay welcome!",
+  "title": "Surfing Locations (Tagalog)",
+  "topic": "surfing",
+  "summary_offline": "Puraran Beach (Majestic) - world-class surfing, Oct-Mar season"
+  },
+  {
+    "input": "Where can I surf in Catanduanes?",
+    "output": "Puraran Beach, known as 'Majestic,' is a world-class surf spot. It hosts international competitions during October-March. Perfect for both beginners and experts!",
+    "title": "Surfing Locations",
+    "topic": "surfing",
+    "summary_offline": "Puraran Beach (Majestic) - world-class surfing, Oct-Mar season"
+  },
+  {
+    "input": "beginner ba pwede mag-surf dito?",
+    "output": "Oo! Maraming surf schools sa Puraran Beach na nag-aalok ng lessons para sa beginners. May board rentals din at mga instructor na tutulong sa'yo.",
+    "title": "Beginner Surfing",
+    "topic": "surfing",
+    "summary_offline": "Beginner-friendly surf lessons available at Puraran Beach"
+  },
+  {
+    "input": "Kailan best time para mag-surf?",
+    "output": "Best time ay October hanggang March, peak ng Pacific swell season. Mas mataas ang alon during these months. April-September ay mas kalma ang dagat.",
+    "title": "Best Surfing Season",
+    "topic": "surfing",
+    "summary_offline": "Best surfing: October-March (Pacific swell season)"
+  },
+  {
     "input": "What are the best tourist spots in Catanduanes?",
     "output": "The top tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls.",
     "title": "Top Tourist Spots",
     "topic": "Sightseeing",
     "location": "Various",
     "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls."
+  },
+  {
+  "input": "Ano ang masarap kainin sa Catanduanes?",
+  "output": "Subukan mo ang Vurong (native taro), Pansit Catandungan, fresh seafood, at Sihi (razor clams). May local delicacies din tulad ng Pilipit at Toasted Siopao.",
+  "title": "Local Food (Tagalog)",
+  "topic": "food",
+  "summary_offline": "Local specialties: Vurong, Pansit Catandungan, seafood, Sihi, Pilipit, Toasted Siopao"
+  },
+  {
+    "input": "What are the best local foods in Catanduanes?",
+    "output": "Try Vurong (native taro), Pansit Catandungan, fresh seafood, and Sihi (razor clams). Local delicacies include Pilipit and Toasted Siopao.",
+    "title": "Local Food",
+    "topic": "food",
+    "summary_offline": "Local specialties: Vurong, Pansit Catandungan, seafood, Sihi, Pilipit, Toasted Siopao"
+  },
+  {
+    "input": "saan pwedeng kumain ng masarap?",
+    "output": "Sa Virac, subukan ang Cris Snack Inn, Mamita's Garden Cafe, at Yellow Hauz. Para sa seafood, pumunta sa Puraran area. May mga karinderya din na mura pero masarap.",
+    "title": "Where to Eat (Casual Tagalog)",
+    "topic": "food",
+    "summary_offline": "Recommended restaurants: Cris Snack Inn, Mamita's Garden Cafe, Yellow Hauz, Puraran area for seafood"
+  },
+  {
+    "input": "May vegetarian food ba?",
+    "output": "Oo, maraming resto ang may vegetarian options. Ang Vurong ay vegetable-based. May fresh veggies din sa local market na pwede mong ipagawa.",
+    "title": "Vegetarian Food",
+    "topic": "food",
+    "summary_offline": "Vegetarian options available, Vurong is vegetable-based"
+  },
+  {
+  "input": "Saan ako pwedeng matulog sa Catanduanes?",
+  "output": "May mga resort sa Puraran tulad ng Majestic Puraran Beach Resort at Puraran Surf Beach Resort. Sa Virac town proper, may Hotel Balai Mariyat at Rakdell Pension House.",
+  "title": "Accommodation (Tagalog)",
+  "topic": "accommodation",
+  "summary_offline": "Puraran: Majestic Resort, Puraran Surf Resort. Virac: Hotel Balai Mariyat, Rakdell Pension"
+  },
+  {
+    "input": "Where can I stay in Catanduanes?",
+    "output": "In Puraran, try Majestic Puraran Beach Resort or Puraran Surf Beach Resort. In Virac town, there's Hotel Balai Mariyat and Rakdell Pension House.",
+    "title": "Accommodation",
+    "topic": "accommodation",
+    "summary_offline": "Puraran: Majestic Resort, Puraran Surf Resort. Virac: Hotel Balai Mariyat, Rakdell Pension"
+  },
+  {
+    "input": "Magkano ang hotel dito?",
+    "output": "Php 500-1,500 para sa budget pension houses. Php 2,000-5,000 para sa beach resorts. May mga homestays din na mas mura, around Php 300-800 per night.",
+    "title": "Hotel Prices",
+    "topic": "accommodation",
+    "summary_offline": "Budget: 500-1500. Resorts: 2000-5000. Homestays: 300-800 per night"
+  },
+  {
+    "input": "May camping ba dito?",
+    "output": "Oo! Pwede mag-camp sa Puraran Beach at iba pang beaches. May camping fee na around Php 100-200. Magdala ng sariling tent o pwede rin mag-rent.",
+    "title": "Camping",
+    "topic": "accommodation",
+    "summary_offline": "Camping available at beaches, 100-200 fee, bring tent or rent"
+  },
+  {
+  "input": "Paano pumunta ng Catanduanes?",
+  "output": "Sakay ng flight mula Manila to Virac Airport (1 hour) via Philippine Airlines or Cebu Pacific. O kaya by ferry from Tabaco Port, Albay (2-3 hours).",
+  "title": "How to Get There (Tagalog)",
+  "topic": "transport",
+  "summary_offline": "By air: Manila to Virac (1hr). By sea: Tabaco to San Andres port (2-3hrs)"
+  },
+  {
+    "input": "How do I get to Catanduanes?",
+    "output": "Fly from Manila to Virac Airport (1 hour) via Philippine Airlines or Cebu Pacific. Or take a ferry from Tabaco Port, Albay (2-3 hours).",
+    "title": "How to Get There",
+    "topic": "transport",
+    "summary_offline": "By air: Manila to Virac (1hr). By sea: Tabaco to San Andres port (2-3hrs)"
+  },
+  {
+    "input": "Paano pumunta sa Puraran Beach from Virac?",
+    "output": "Mag-van ka sa terminal (Php 80-100), 1-1.5 hours ang byahe. Pwede rin mag-habal-habal (motorcycle) o mag-rent ng tricycle for Php 800-1,200.",
+    "title": "Virac to Puraran",
+    "topic": "transport",
+    "summary_offline": "Van: 80-100 (1-1.5hrs). Habal-habal or tricycle: 800-1200"
+  },
+  {
+    "input": "May public transportation ba dito?",
+    "output": "Oo, may vans, jeepneys, at tricycles. Vans ay regular routes between towns. Tricycles para sa short trips. Habal-habal (motorcycle taxi) para sa remote areas.",
+    "title": "Public Transport",
+    "topic": "transport",
+    "summary_offline": "Available: vans (inter-town), tricycles (short trips), habal-habal (remote areas)"
+  },
+  {
+  "input": "Ano ang dapat kong bisitahin sa Catanduanes?",
+  "output": "Bisitahin ang Bato Church, Binurong Point, Maribina Falls, Twin Rock Beach, at Balite Falls. Lahat ng ito ay Instagram-worthy at may magandang view!",
+  "title": "Must-Visit Places (Tagalog)",
+  "topic": "sightseeing",
+  "summary_offline": "Must-visit: Bato Church, Binurong Point, Maribina Falls, Twin Rock Beach, Balite Falls"
+  },
+  {
+    "input": "What should I visit in Catanduanes?",
+    "output": "Visit Bato Church, Binurong Point, Maribina Falls, Twin Rock Beach, and Balite Falls. All are Instagram-worthy with stunning views!",
+    "title": "Must-Visit Places",
+    "topic": "sightseeing",
+    "summary_offline": "Must-visit: Bato Church, Binurong Point, Maribina Falls, Twin Rock Beach, Balite Falls"
+  },
+  {
+    "input": "may waterfalls ba dito?",
+    "output": "Oo! May Maribina Falls, Balite Falls, Tuwad Tuwadan Falls, at marami pang iba. Maribina ay pinaka-sikat - may natural pool na pwedeng lagusan.",
+    "title": "Waterfalls",
+    "topic": "sightseeing",
+    "summary_offline": "Waterfalls: Maribina (most popular), Balite, Tuwad Tuwadan, and more"
+  },
+  {
+    "input": "San yung Instagram spots?",
+    "output": "Binurong Point (lighthouse + cliffs), Twin Rock Beach (rock formations), Bato Church (Spanish architecture), at Maribina Falls. Lahat ay photo-worthy!",
+    "title": "Instagram Spots",
+    "topic": "sightseeing",
+    "summary_offline": "Photo spots: Binurong Point, Twin Rock Beach, Bato Church, Maribina Falls"
+  },
+  {
+  "input": "first time ko dito, ano dapat gawin?",
+  "output": "Welcome! Day 1: Mag-surf sa Puraran. Day 2: Bisitahin ang Bato Church at Binurong Point. Day 3: Pumunta sa Maribina Falls. Subukan din ang local food!",
+  "title": "First Timer Itinerary",
+  "topic": "general",
+  "summary_offline": "3-day suggested itinerary for first-timers"
+  },
+  {
+    "input": "budget travel tips?",
+    "output": "Mag-stay sa homestays (Php 300-500). Kumain sa karinderya (Php 50-100/meal). Sumakay ng public van instead of rent. Budget mo: Php 1,500-2,000 per day all-in.",
+    "title": "Budget Travel Tips",
+    "topic": "general",
+    "summary_offline": "Budget: 1500-2000/day. Stay homestays, eat karinderya, use public transport"
+  },
+  {
+    "input": "safe ba dito para sa solo travelers?",
+    "output": "Oo, safe naman! Friendly ang locals. Just usual precautions: wag mag-isa sa gabi, inform others kung saan ka pupunta, at keep valuables secure.",
+    "title": "Safety for Solo Travelers",
+    "topic": "general",
+    "summary_offline": "Safe for solo travelers, locals are friendly, practice usual precautions"
+  },
+  {
+    "input": "May signal ba dito?",
+    "output": "May signal sa Virac town at major beaches (Smart, Globe, DITO). Sa remote areas medyo weak. Maraming resorts may WiFi. Buy local SIM para sa data.",
+    "title": "Internet/Signal",
+    "topic": "facilities",
+    "summary_offline": "Signal available in town and major beaches, weak in remote areas, buy local SIM"
   },
   {
     "input": "Which places should I see in Catanduanes?",

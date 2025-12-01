@@ -706,5 +706,5 @@ Do not add greetings or extra commentary be direct yet kind. You may include exc
             response(qry)
 
 if __name__ == '__main__':
-    cbot = Pipeline(dataset_path="dataset/dataset.json")
-    cbot.guide_question()
+    cbot = Pipeline(dataset_path="src/backend/dataset/dataset.json")
+    cbot.guide_question()  

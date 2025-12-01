@@ -220,7 +220,7 @@ class Pipeline:
                 markers[marker] = place_name
 
         # Translate the rest
-        try:
+        try:    
             temp = GoogleTranslator(source='auto', target='en').translate(temp)
             print(f"[DEBUG] Translated: '{user_input}' → '{temp}'")
         except Exception as e:
@@ -382,7 +382,7 @@ class Pipeline:
         
         # 3. Get facts from RAG
         if len(topics) > 1 and topics != ['general']:
-            results_per_topic = self.config['rag'].get('results_per_topic', 1)
+            results_per_topic = self.config['rag'].get('results_per_topic', 3)
             answers = self.search_multi_topic(topics, convert, results_per_topic)
             fact = " ".join(answers) if answers else "I don't have info about those topics"
         else:

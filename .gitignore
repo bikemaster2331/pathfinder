@@ -1,20 +1,50 @@
-# 1. Python environment/builds
+# Virtual Environments (7.7GB saved!)
 pathenv/
-__pycache__/
-*.pyc
+venv/
+env/
+.venv/
+ENV/
 
-# 2. Local Database & Cache (CRITICAL for RAG/ChromaDB)
-chroma_storage/
-chromadb_data/
-chroma/
-cache/
-*.html
-
-# 3. Downloaded Models (Large binary files)
+# Models (960MB saved!)
 models/
-chatbot_model/
-my_chatbot/
-katniss/
+src/models/
+*.bin
+*.pt
+*.pth
+*.h5
+*.onnx
 
-# 4. Local config
+# ChromaDB (2.8MB saved!)
+chroma_storage/
+src/chroma_storage/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Deployment files
+*.zip
+pathfinder_deploy.zip
+
+# Environment variables (NEVER send!)
 .env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+test/
+cache/
