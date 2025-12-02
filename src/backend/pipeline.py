@@ -9,9 +9,10 @@ import os
 from dotenv import load_dotenv
 import re
 import uuid
-import webbrowser
+from better_profanity import profanity
 import hashlib
 import yaml
+import re
 
 
 class Pipeline:
@@ -36,6 +37,9 @@ class Pipeline:
             model_name=RAG_MODEL,
             device="cpu"                     
         )
+
+        profanity.load_censor_words()
+        profanity.add_censor_words(self.config['profanity'])
 
         current_data_hash = self.dataset_hash(dataset_path)
         stored_hash = None
@@ -198,8 +202,7 @@ class Pipeline:
                     break
         
         return found if found else ['general']
-    
-    
+        
     def protect(self, user_input):
         """Protect place names during translation"""
 
@@ -369,9 +372,15 @@ class Pipeline:
                     "type": place_info['type']
                 })
         return places_data
+    
+    def check_profanity(self, text):
+        return profanity.contains_profanity(text)
         
     def ask(self, user_input):
         """Main ask function with multi-topic support and natural responses"""
+        
+        if self.check_profanity(user_input):
+            return ("I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism", [])
         
         # 1. Preprocess and Translate Input
         convert = self.protect(user_input)
