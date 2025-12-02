@@ -10,7 +10,7 @@ system:
 rag:
   model_path: "../models/paraphrase-multilingual-MiniLM-L12-v2"
   collection_name: "knowledge_base"
-  confidence_threshold: 0.5
+  confidence_threshold: 0.8
   multi_topic_threshold: 0.8
   search_results: 3
   results_per_topic: 1
@@ -46,7 +46,17 @@ gemini:
     Give a single, concise, and natural-sounding sentence, include all the facts and the place mentioned.
     Connect the ideas naturally (e.g., use "You can also try..." instead of just a comma).
     Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks to sound excited.
+    If you detect any profanity in any language, return "I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism."
 
+profanity:
+    - gago
+    - puta
+    - tangina
+    - putangina
+    - bobo
+    - puta
+    - tanga
+    - yawa
 # Offline Fallback Messages
 messages:
   offline_error: "I am currently offline, and I apologize for the limited service. {fact}"
