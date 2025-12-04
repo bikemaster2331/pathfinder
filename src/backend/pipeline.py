@@ -13,10 +13,15 @@ from better_profanity import profanity
 import hashlib
 import yaml
 import re
+from pathlib import Path
 
+BASE_DIR = Path(__file__).parent 
+DATASET = BASE_DIR / "dataset" / "dataset.json"
+CONFIG = BASE_DIR / "config" / "config.yaml"
+CHROMA_STORAGE = BASE_DIR / "chroma_storage" 
 
 class Pipeline:
-    def __init__(self, dataset_path="dataset/dataset.json", db_path ="./chroma_storage", config_path="config_yaml"):
+    def __init__(self, dataset_path=str(DATASET), db_path = str(CHROMA_STORAGE), config_path=str(CONFIG)):
         
         
         self.config = self.load_config(config_path)
@@ -447,5 +452,5 @@ class Pipeline:
             response(qry)
 
 if __name__ == '__main__':
-    cbot = Pipeline(dataset_path="src/backend/dataset/dataset.json", config_path="src/backend/config/config.yaml")
+    cbot = Pipeline(dataset_path=str(DATASET), config_path=str(CONFIG))
     cbot.guide_question()
