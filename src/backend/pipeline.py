@@ -14,6 +14,8 @@ import hashlib
 import yaml
 import re
 from pathlib import Path
+import asyncio
+import aiohttp
 
 BASE_DIR = Path(__file__).parent 
 DATASET = BASE_DIR / "dataset" / "dataset.json"
@@ -126,7 +128,7 @@ class Pipeline:
             
             genai.configure(api_key=api_key)
             self.gemini = genai.GenerativeModel(self.config['gemini']['model_name'])
-            self.has_gemini = True
+            self.has_gemini = False
         except Exception as e:
             print(f"Gemini setup failed: {e}")
             self.has_gemini = False
@@ -318,20 +320,20 @@ class Pipeline:
         """Make response natural using Gemini or fallback"""
         
         # 1. Try Gemini if online
-        if self.has_gemini and self.checkint():
-            try:
-                prompt = self.config['gemini']['prompt_template'].format(
-                    question=question,
-                    fact=fact
+        # if self.has_gemini and self.checkint():
+        #     try:
+        #         prompt = self.config['gemini']['prompt_template'].format(
+        #             question=question,
+        #             fact=fact
                     
-                )
-                print(f"[DEBUG] Facts being sent to Gemini: {fact}")
+        #         )
+        #         print(f"[DEBUG] Facts being sent to Gemini: {fact}")
                 
-                response = self.gemini.generate_content(prompt)
-                return response.text
+        #         response = self.gemini.generate_content(prompt)
+        #         return response.text
                 
-            except Exception as e:
-                print(f"[DEBUG] Gemini error: {e}")
+        #     except Exception as e:
+        #         print(f"[DEBUG] Gemini error: {e}")
 
         # Check if the RAG search found an error message string (from step 5 of ask)
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
@@ -343,11 +345,7 @@ class Pipeline:
         print(self.config['offline']['intent'])
         backup = self.config['offline']['backup']
         
-        return (
-            backup.format(
-                fact=fact
-            )
-        )
+        return f"Here's what I found: {fact}"
     
     def key_places(self, facts):
         """Extract places from facts - now includes partial matches"""
@@ -450,6 +448,8 @@ class Pipeline:
         while True:
             qry = input("You: ").strip()
             response(qry)
+
+
 
 if __name__ == '__main__':
     cbot = Pipeline(dataset_path=str(DATASET), config_path=str(CONFIG))
