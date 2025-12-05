@@ -4,8 +4,33 @@ from pipeline import Pipeline
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 import hashlib
+from contextlib import asynccontextmanager
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+import time 
 
-app = FastAPI(title="Pathfinder API", version="1.0.0")
+executor = ThreadPoolExecutor(max_workers=3)
+
+pipeline = None
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global pipeline
+
+    print("Initializing Pathfinder...")
+    try:
+        pipeline = Pipeline(
+            dataset_path=str(DATASET),
+            config_path=str(CONFIG)
+        )
+        print("Initialized successfully!")
+    except Exception as e:
+        print("Failed to initialize: {e}")
+        pipeline = None
+
+    yield
+
+app = FastAPI(title="Pathfinder API", version="1.0.0", lifespan=lifespan)
 
 BASE_DIR = Path(__file__).parent 
 DATASET = BASE_DIR / "dataset" / "dataset.json"
@@ -22,20 +47,13 @@ app.add_middleware(
 )
 
 # Initialize pipeline with error handling
-try:
-    pipeline = Pipeline(
-        dataset_path=str(DATASET),
-        config_path=str(CONFIG)
-    )
-except Exception as e:
-    print(f"❌ Failed to initialize pipeline: {e}")
-    raise
+
 
 class AskRequest(BaseModel):
     question: str
 
 class ItineraryItem(BaseModel):
-    place_name: (str)
+    place_name: str
 
 class PlaceInfo(BaseModel):
     name: str
@@ -50,9 +68,12 @@ class AskResponse(BaseModel):
 
 # Admin endpoint
 
+
 @app.get("/admin/status")
 def admin_status():
     """Check if everything is working - for you to monitor"""
+    if pipeline is None:
+        return{"status": "starting", "ready": False}, 503
     try:
         return {
             "status": "healthy",
@@ -77,9 +98,11 @@ def admin_rebuild():
         pipeline.load_dataset(str(DATASET))
         with open(str(DATASET), 'rb') as f:
             current_hash = hashlib.md5(f.read()).hexdigest()
-
+            hash_file = BASE_DIR / "chroma_storage" / pipeline.config['system']['hash_file']
+            hash_file.parent.mkdir(exist_ok=True)
+            with open(hash_file, 'w') as f:
+                f.write(current_hash)   
             
-
         return{
             "message": "Database rebuilt successfully",
             "new_count": pipeline.collection.count()
@@ -106,18 +129,27 @@ def get_itinerary():
 
 
 @app.post("/ask", response_model=AskResponse)
-def ask_endpoint(request: AskRequest):
+async def ask_endpoint(request: AskRequest):
     """Ask Pathfinder a question about Catanduanes tourism"""
+    if pipeline is None:
+        raise HTTPException(
+            status_code=503, 
+            detail="Service is starting up, please try again in a few seconds"
+        )
     try:
-        user_question = request.question
-        answer, place_names = pipeline.ask(user_question)
+        loop = asyncio.get_event_loop()
+        answer, place_names = await loop.run_in_executor(
+            executor,
+            pipeline.ask,
+            request.question
+        )
         
         # Get full place data with coordinates
         places_data = pipeline.get_place_data(place_names)
         
         return {
             "answer": answer,
-            "places": places_data  # Already has name, lat, lng, type
+            "places": places_data  
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
