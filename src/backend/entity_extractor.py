@@ -1,3 +1,5 @@
+import re
+
 class EntityExtractor:
     """Extract structured entities from user queries"""
     
@@ -7,30 +9,30 @@ class EntityExtractor:
         
         # Entity patterns
         self.budget_indicators = {
-            'cheap': ['cheap', 'budget', 'affordable', 'mura', 'murang', 'tipid', 'low cost', 'libreng'],
-            'mid': ['mid-range', 'moderate', 'medium', 'standard', 'average', 'kasya'],
-            'expensive': ['luxury', 'expensive', 'high-end', 'mahal', 'premium', 'sosyal', 'magastos', 'deluxe']
+            'cheap': ['cheap', 'budget', 'affordable', 'mura', 'murang'],
+            'mid': ['mid-range', 'moderate', 'medium'],
+            'expensive': ['luxury', 'expensive', 'high-end', 'mahal', 'premium']
         }
         
         self.skill_levels = {
-            'beginner': ['beginner', 'first time', 'new', 'starter', 'baguhan', 'walang alam', 'kailangan matuto'],
-            'intermediate': ['intermediate', 'some experience', 'medyo marunong', 'kaswal', 'regular'],
-            'expert': ['expert', 'advanced', 'pro', 'professional', 'experienced', 'guro', 'matindi', 'bihasa']
+            'beginner': ['beginner', 'first time', 'new', 'starter', 'baguhan'],
+            'intermediate': ['intermediate', 'some experience'],
+            'expert': ['expert', 'advanced', 'pro', 'professional', 'experienced']
         }
         
         self.group_types = {
-            'solo': ['solo', 'alone', 'myself', 'ako lang', 'mag-isa', 'sarili ko'],
-            'couple': ['couple', 'two', 'date', 'romantic', 'dalawa', 'mag-jowa', 'magkasintahan'],
-            'family': ['family', 'kids', 'children', 'pamilya', 'bata', 'magulang', 'anak', 'kamag-anak'],
-            'group': ['group', 'friends', 'barkada', 'grupo', 'kasmahan', 'marami', 'team']
+            'solo': ['solo', 'alone', 'myself', 'ako lang'],
+            'couple': ['couple', 'two', 'date', 'romantic', 'dalawa'],
+            'family': ['family', 'kids', 'children', 'pamilya', 'bata'],
+            'group': ['group', 'friends', 'barkada', 'grupo']
         }
         
         self.time_periods = {
-            'morning': ['morning', 'am', 'umaga', 'early', 'pagka gising', 'alas-siyete', 'hapon'],
-            'afternoon': ['afternoon', 'pm', 'hapon', 'tanghali', 'bandang hapon'],
-            'evening': ['evening', 'night', 'gabi', 'sunset', 'madilim', 'pagsikat', 'hatinggabi'],
-            'weekend': ['weekend', 'saturday', 'sunday', 'sabado', 'linggo', 'katapusan ng linggo'],
-            'weekday': ['weekday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'lunes', 'martes', 'miyercu', 'huwebes', 'biyernes']
+            'morning': ['morning', 'umaga', 'early'],
+            'afternoon': ['afternoon', 'hapon'],
+            'evening': ['evening', 'night', 'gabi', 'sunset'],
+            'weekend': ['weekend', 'saturday', 'sunday'],
+            'weekday': ['weekday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday']
         }
     
     def extract(self, user_input):
@@ -53,66 +55,79 @@ class EntityExtractor:
         return entities
     
     def _extract_places(self, query_lower):
-        """Extract place names mentioned in query"""
+        """Extract place names mentioned in query using word boundaries"""
         found = []
         
-        # Sort by length to match longer names first
         sorted_places = sorted(self.places.keys(), key=len, reverse=True)
         
         for place in sorted_places:
-            if place.lower() in query_lower:
+            # Use word boundaries for better matching
+            pattern = r'\b' + re.escape(place.lower()) + r'\b'
+            if re.search(pattern, query_lower):
                 found.append(place)
         
         return found
     
     def _extract_activities(self, query_lower):
-        """Extract activity types from query"""
+        """Extract activity types from query using word boundaries"""
         found = []
         
         for topic, keywords in self.config['keywords'].items():
-            if any(kw in query_lower for kw in keywords):
+            # Build pattern with word boundaries
+            pattern = r'\b(' + '|'.join(map(re.escape, keywords)) + r')\b'
+            if re.search(pattern, query_lower):
                 found.append(topic)
         
         return found
     
     def _extract_budget(self, query_lower):
-        """Extract budget preference"""
+        """Extract budget preference using word boundaries"""
         for budget, indicators in self.budget_indicators.items():
-            if any(ind in query_lower for ind in indicators):
+            # Build pattern: \b(cheap|budget|affordable|mura|murang)\b
+            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')\b'
+            
+            if re.search(pattern, query_lower):
                 return budget
         return None
     
     def _extract_skill_level(self, query_lower):
-        """Extract skill level (for activities)"""
+        """Extract skill level using word boundaries"""
         for level, indicators in self.skill_levels.items():
-            if any(ind in query_lower for ind in indicators):
+            # Escape special regex characters and add word boundaries
+            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')\b'
+            
+            if re.search(pattern, query_lower):
                 return level
         return None
     
     def _extract_group_type(self, query_lower):
-        """Extract group type"""
+        """Extract group type using word boundaries"""
         for group, indicators in self.group_types.items():
-            if any(ind in query_lower for ind in indicators):
+            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')\b'
+            
+            if re.search(pattern, query_lower):
                 return group
         return None
     
     def _extract_time_period(self, query_lower):
-        """Extract time period"""
+        """Extract time period using word boundaries"""
         for period, indicators in self.time_periods.items():
-            if any(ind in query_lower for ind in indicators):
+            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')\b'
+            
+            if re.search(pattern, query_lower):
                 return period
         return None
     
     def _extract_proximity(self, query_lower):
-        """Extract proximity indicators"""
-        proximity_words = {
-            'near': ['near', 'close to', 'around', 'malapit'],
-            'in': ['in', 'at', 'sa'],
-            'from': ['from']
+        """Extract proximity indicators using word boundaries"""
+        proximity_patterns = {
+            'near': r'\b(near|close to|around|malapit)\b',
+            'in': r'\b(in|at|sa)\b',
+            'from': r'\bfrom\b'
         }
         
-        for prox_type, words in proximity_words.items():
-            if any(word in query_lower for word in words):
+        for prox_type, pattern in proximity_patterns.items():
+            if re.search(pattern, query_lower):
                 return prox_type
         
         return None
