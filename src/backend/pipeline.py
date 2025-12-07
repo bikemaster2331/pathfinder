@@ -14,8 +14,9 @@ import hashlib
 import yaml
 import re
 from pathlib import Path
-import asyncio
-import aiohttp
+from controller import Controller
+from entity_extractor import EntityExtractor
+from sentence_transformers import SentenceTransformer
 
 BASE_DIR = Path(__file__).parent 
 DATASET = BASE_DIR / "dataset" / "dataset.json"
@@ -24,8 +25,7 @@ CHROMA_STORAGE = BASE_DIR / "chroma_storage"
 
 class Pipeline:
     def __init__(self, dataset_path=str(DATASET), db_path = str(CHROMA_STORAGE), config_path=str(CONFIG)):
-        
-        
+
         self.config = self.load_config(config_path)
         print(f"[DEBUG] Loaded thresholds:")
         print(self.config['system']['welcome_message'])
@@ -34,16 +34,20 @@ class Pipeline:
         self.internet_status = None
         self.last_internet_check = 0
         
-        # Setup Gemini
-        self.setup_gemini()
-        
         # Setup RAG
         RAG_MODEL = os.path.join(os.path.dirname(__file__), "..", "models", self.config['rag']['model_path'])
+        self.raw_model = SentenceTransformer(RAG_MODEL, device="cpu")
         self.client = chromadb.PersistentClient(path=db_path)
         self.embedding = embedding_functions.SentenceTransformerEmbeddingFunction(
             model_name=RAG_MODEL,
             device="cpu"                     
         )
+        
+
+        self.controller = Controller(self.config, self.raw_model)
+        print("[INFO] Rule-based controller initialized")
+        self.entity_extractor = EntityExtractor(self.config)
+        print("[INFO] Entity extractor initialized")
 
         profanity.load_censor_words()
         profanity.add_censor_words(self.config['profanity'])
@@ -116,22 +120,6 @@ class Pipeline:
             return hasher.hexdigest()
         except FileNotFoundError:
             return None
-    
-    def setup_gemini(self):
-        try:
-            import google.generativeai as genai
-            api_key = os.getenv("GEMINI_API_KEY")  
-            if not api_key:
-                print("GEMINI_API_KEY not found in environment")
-                self.has_gemini = False
-                return
-            
-            genai.configure(api_key=api_key)
-            self.gemini = genai.GenerativeModel(self.config['gemini']['model_name'])
-            self.has_gemini = False
-        except Exception as e:
-            print(f"Gemini setup failed: {e}")
-            self.has_gemini = False
 
     def load_dataset(self, dataset_path):
         try:
@@ -212,6 +200,8 @@ class Pipeline:
         
     def protect(self, user_input):
         """Protect place names during translation"""
+        if not user_input or not user_input.strip():
+            return user_input or ""
 
         temp = user_input
         markers = {}
@@ -283,6 +273,11 @@ class Pipeline:
 
             print(f"[DEBUG] Selected {len(selected)} result(s) for '{topic}'")
 
+        # Limit total results to prevent spam
+        max_total_results = 3
+        all_results.sort(key=lambda x: x['confidence'])
+        all_results = all_results[:max_total_results]
+
         if all_results:
             print(f"[DEBUG] Total results: {len(all_results)} from {len(topics)} topics")
         else:
@@ -291,64 +286,77 @@ class Pipeline:
         return [r['text'] for r in all_results]
     
     def search(self, question):
-        """Search for single question - increased results"""
+        """Search with multiple results and deduplication - NO Gemini"""
         print(f"[DEBUG] Searching for: '{question}'")
+
+        if len(question) < 3:
+            return "Please ask a question."
+        
+        # Detect listing queries for more results
+        listing_words = ['all', 'top', 'best', 'list', 'recommend', 'show me', 'what are', 'multiple']
+        is_listing = any(word in question.lower() for word in listing_words)
+        
+        # Get more results for listing queries
+        n_results = 20 if is_listing else 10
+        print(f"[DEBUG] Listing query: {is_listing}, fetching {n_results} results")
         
         results = self.collection.query(
             query_texts=[question],
-            n_results=self.config['rag']['search_results']
+            n_results=n_results
         )
         
         if not results['documents'][0]:
             return "I don't have information about that. Ask about beaches, food, or activities!"
         
-        # Collect all good matches
+        # Collect multiple good matches with deduplication
         good_answers = []
+        seen_places = set()
+        
         for i, metadata in enumerate(results['metadatas'][0]):
             confidence = results['distances'][0][i]
+            
             if confidence <= self.config['rag']['confidence_threshold']:
-                good_answers.append(metadata['answer'])
-                print(f"[DEBUG] Match {i+1} confidence: {confidence:.3f}")
+                answer = metadata['answer']
+                
+                # Extract places to avoid duplicates
+                places_in_answer = self.key_places(answer)
+                
+                # Skip if we already covered this place
+                if places_in_answer and places_in_answer[0] in seen_places:
+                    print(f"[DEBUG] Match {i+1} skipped (duplicate: {places_in_answer[0]})")
+                    continue
+                
+                good_answers.append(answer)
+                seen_places.update(places_in_answer)
+                print(f"[DEBUG] Match {i+1} confidence: {confidence:.3f} - Added")
+                
+                # More results for listing queries
+                max_results = 10 if is_listing else 3
+                if len(good_answers) >= max_results:
+                    print(f"[DEBUG] Reached max {max_results} results")
+                    break
         
         if not good_answers:
             return "I'm not sure about that. Can you rephrase or ask about Catanduanes tourism?"
         
-        # Return all good answers combined
+        print(f"[DEBUG] Returning {len(good_answers)} unique answers")
+        
+        # Return all answers concatenated
         return " ".join(good_answers)
 
     def make_natural(self, question, fact):
-        """Make response natural using Gemini or fallback"""
+        """Simple wrapper - NO Gemini processing"""
         
-        # 1. Try Gemini if online
-        # if self.has_gemini and self.checkint():
-        #     try:
-        #         prompt = self.config['gemini']['prompt_template'].format(
-        #             question=question,
-        #             fact=fact
-                    
-        #         )
-        #         print(f"[DEBUG] Facts being sent to Gemini: {fact}")
-                
-        #         response = self.gemini.generate_content(prompt)
-        #         return response.text
-                
-        #     except Exception as e:
-        #         print(f"[DEBUG] Gemini error: {e}")
-
-        # Check if the RAG search found an error message string (from step 5 of ask)
+        # Check if the RAG search found an error message
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
-            off_msg = self.config['offline']['off_message']
-            return off_msg.format(
-                fact=fact
-            )
+            return fact  # Return error as-is
         
+        # Just return the raw RAG facts
         print(self.config['offline']['intent'])
-        backup = self.config['offline']['backup']
-        
-        return f"Here's what I found: {fact}"
+        return f"{fact}"
     
     def key_places(self, facts):
-        """Extract places from facts - now includes partial matches"""
+        """Extract places with word boundaries for better matching"""
         places = self.config['places']
         found_places = []
         facts_lower = facts.lower()
@@ -357,7 +365,16 @@ class Pipeline:
         sorted_places = sorted(places, key=len, reverse=True)
         
         for place in sorted_places:
-            if place.lower() in facts_lower and place not in found_places:
+            place_lower = place.lower()
+            
+            # Try word boundary match first (more precise)
+            pattern = r'\b' + re.escape(place_lower) + r'\b'
+            if re.search(pattern, facts_lower) and place not in found_places:
+                found_places.append(place)
+                continue
+            
+            # Fallback: substring match (catches "near Puraran" for "Puraran Beach")
+            if place_lower in facts_lower and place not in found_places:
                 found_places.append(place)
 
         return found_places
@@ -380,34 +397,67 @@ class Pipeline:
         return profanity.contains_profanity(text)
         
     def ask(self, user_input):
-        """Main ask function with multi-topic support and natural responses"""
         
         if self.check_profanity(user_input):
             return ("I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism", [])
         
-        # 1. Preprocess and Translate Input
-        convert = self.protect(user_input)
+        analysis = self.controller.analyze_query(user_input)
+        print(f"[DEBUG] Controller: {analysis['intent']} (confidence: {analysis['confidence']})")
+
+        if analysis['intent'] == 'greeting':
+            return (self.controller.get_greeting_response(), [])
+        if analysis.get('has_greeting', False):
+            print("[DEBUG] Greeting detected, but also has question - processing...")
         
-        # 2. Extract keywords
+        if analysis['intent'] == 'nonsense':
+            return (self.controller.get_nonsense_response(), [])
+        
+        if analysis['confidence'] < 0.5:
+            print(f"[WARN] Low confidence query: {analysis['reason']}")
+            if analysis['confidence'] < 0.4:
+                suggestions = [
+                    "Try: 'Where can I surf?'",
+                    "Or: 'What food should I try?'",
+                    "Or: 'Where can I stay?'"
+                ]
+                return (
+                    f"I'm not sure what you're asking about. {' '.join(suggestions)}", 
+                    []
+                )
+            
+        entities = self.entity_extractor.extract(user_input)
+        print(f"[DEBUG] Extracted entities: {entities}")
+
+        if any(entities.values()):
+            enhanced_query = self.entity_extractor.build_enhanced_query(entities)
+            print(f"[DEBUG] Enhanced query: '{enhanced_query}'")
+            if not enhanced_query or len(enhanced_query.strip()) < 2:
+                print("[DEBUG] Enhanced query too short, using original input")
+                convert = self.protect(user_input)
+            else:
+                convert = self.protect(enhanced_query)
+        else:
+            convert = self.protect(user_input)
+        
         topics = self.extract_keywords(convert)
         print(f"[DEBUG] Detected topics: {topics}")
         
-        # 3. Get facts from RAG
         if len(topics) > 1 and topics != ['general']:
             results_per_topic = self.config['rag'].get('results_per_topic', 3)
             answers = self.search_multi_topic(topics, convert, results_per_topic)
             fact = " ".join(answers) if answers else "I don't have info about those topics"
         else:
-            fact = self.search(convert)
+            fact = self.search(convert)  # Now returns multiple deduplicated results
 
-        # 4. Extract places from the retrieved fact
+        # 4. Extract places from the retrieved facts
         places = self.key_places(fact)
+        places = places[:5]
         
         # 5. Check if error message
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
             return (fact, [])
         
-        # 6. Make it natural - pass ORIGINAL user_input, not translated
+        # 6. Simple wrapper (no Gemini)
         natural_response = self.make_natural(user_input, fact)
         
         # 7. Return the processed response and the extracted places list
@@ -448,8 +498,6 @@ class Pipeline:
         while True:
             qry = input("You: ").strip()
             response(qry)
-
-
 
 if __name__ == '__main__':
     cbot = Pipeline(dataset_path=str(DATASET), config_path=str(CONFIG))
