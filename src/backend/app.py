@@ -6,10 +6,8 @@ from pathlib import Path
 import hashlib
 from contextlib import asynccontextmanager
 import asyncio
-from concurrent.futures import ThreadPoolExecutor
 import time 
-
-executor = ThreadPoolExecutor(max_workers=3)
+from fastapi.concurrency import run_in_threadpool  # ✅ Keep this
 
 pipeline = None
 
@@ -25,7 +23,7 @@ async def lifespan(app: FastAPI):
         )
         print("Initialized successfully!")
     except Exception as e:
-        print("Failed to initialize: {e}")
+        print(f"Failed to initialize: {e}")  # ✅ Fixed f-string
         pipeline = None
 
     yield
@@ -46,9 +44,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize pipeline with error handling
-
-
 class AskRequest(BaseModel):
     question: str
 
@@ -67,11 +62,8 @@ class AskResponse(BaseModel):
     
 
 # Admin endpoint
-
-
 @app.get("/admin/status")
 def admin_status():
-    """Check if everything is working - for you to monitor"""
     if pipeline is None:
         return{"status": "starting", "ready": False}, 503
     try:
@@ -79,7 +71,6 @@ def admin_status():
             "status": "healthy",
             "collection_count": pipeline.collection.count(),
             "internet_available": pipeline.checkint(),
-            "gemini_available": pipeline.has_gemini,
             "message": "Pathfinder is running"
         }
     except Exception as e:
@@ -122,7 +113,6 @@ def itinerary_add(item: ItineraryItem):
     }
 
 @app.get("/itinerary")
-
 def get_itinerary():
     """Get the current list of saved places"""
     return {"itinerary": itinerary_list}
@@ -131,15 +121,18 @@ def get_itinerary():
 @app.post("/ask", response_model=AskResponse)
 async def ask_endpoint(request: AskRequest):
     """Ask Pathfinder a question about Catanduanes tourism"""
+    start_time = time.time()  # ✅ Added logging
+    
     if pipeline is None:
+        print(f"[ERROR] Pipeline not initialized")
         raise HTTPException(
             status_code=503, 
             detail="Service is starting up, please try again in a few seconds"
         )
+    
     try:
-        loop = asyncio.get_event_loop()
-        answer, place_names = await loop.run_in_executor(
-            executor,
+        # ✅ CHANGED: Use run_in_threadpool instead of run_in_executor
+        answer, place_names = await run_in_threadpool(
             pipeline.ask,
             request.question
         )
@@ -147,11 +140,18 @@ async def ask_endpoint(request: AskRequest):
         # Get full place data with coordinates
         places_data = pipeline.get_place_data(place_names)
         
+        # ✅ Added logging
+        duration = time.time() - start_time
+        print(f"[METRIC] /ask completed in {duration:.2f}s for: '{request.question[:30]}...'")
+        
         return {
             "answer": answer,
             "places": places_data  
         }
     except Exception as e:
+        # ✅ Added error logging
+        duration = time.time() - start_time
+        print(f"[ERROR] /ask failed after {duration:.2f}s: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/")
