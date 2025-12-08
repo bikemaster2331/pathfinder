@@ -5,13 +5,17 @@ system:
   welcome_message: "Welcome to Catanduanes!!"
   hash_file: "dataset_hash.txt"
   map_output: "pathfinder_map.html"
-  
+
+rewriter:
+  enabled: true
+  model_file: "qwen2.5-0.5b-instruct-q4_k_m.gguf"
+
 # RAG Model Settings
 rag:
   model_path: "../models/paraphrase-multilingual-MiniLM-L12-v2"
   collection_name: "knowledge_base"
-  confidence_threshold: 0.8
-  multi_topic_threshold: 0.8
+  confidence_threshold: 0.5
+  multi_topic_threshold: 0.5
   search_results: 3
   results_per_topic: 1
 
@@ -46,7 +50,8 @@ gemini:
     Give a single, concise, and natural-sounding sentence, include all the facts and the place mentioned.
     Connect the ideas naturally (e.g., use "You can also try..." instead of just a comma).
     Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks to sound excited.
-    If you detect any profanity in any language, return "I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism."
+    If you detect any profanity in any language, return "I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism.
+    If the Facts are completely unrelated to the user question return "Please ask about Catanduanes Tourism"
 
 profanity:
     - gago
@@ -91,6 +96,7 @@ keywords:
     - wave spot
     - tidal
     - alon
+    - wave
   
   swimming:
     - swim
@@ -163,6 +169,10 @@ keywords:
     - B&B
     - camping
     - overnight
+    - accommodate     
+    - accommodation
+    - sleep           
+    - rest  
   
   sightseeing:
     - visit
@@ -380,7 +390,7 @@ places:
     lng: 124.24844932275295
     type: accommodation
   
-  "Ecrown Hotel and Resort":
+  "E-crown Hotel and Resort":
     lat: 13.593886227522459
     lng: 124.25617408469465
     type: accommodation
