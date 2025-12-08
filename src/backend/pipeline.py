@@ -17,6 +17,7 @@ from pathlib import Path
 from controller import Controller
 from entity_extractor import EntityExtractor
 from sentence_transformers import SentenceTransformer
+from rewriter import Rewriter
 
 BASE_DIR = Path(__file__).parent 
 DATASET = BASE_DIR / "dataset" / "dataset.json"
@@ -48,6 +49,17 @@ class Pipeline:
         print("[INFO] Rule-based controller initialized")
         self.entity_extractor = EntityExtractor(self.config)
         print("[INFO] Entity extractor initialized")
+        rewriter_config = self.config.get('rewriter', {})
+        rewriter_enabled = rewriter_config.get('enabled', False)
+
+        if rewriter_enabled:
+            model_file = rewriter_config.get('model_file', 'qwen2.5-0.5b-instruct-q4_k_m.gguf')
+            REWRITER_MODEL_PATH = os.path.join(
+                os.path.dirname(__file__), "..", "models", model_file
+            )
+            self.rewriter = Rewriter(REWRITER_MODEL_PATH, enabled=True)
+        else:
+            self.rewriter = Rewriter(None, enabled=False)
 
         profanity.load_censor_words()
         profanity.add_censor_words(self.config['profanity'])
@@ -132,11 +144,6 @@ class Pipeline:
             print(f"Invalid JSON in dataset: {e}")
             exit(1)
 
-        for idx, item in enumerate(data):
-            if 'input' not in item or 'output' not in item:
-                print(f"Skipping invalid entry at index {idx}")
-                continue
-
         documents = []
         metadatas = []
         ids = []
@@ -147,22 +154,37 @@ class Pipeline:
                 continue
                 
             documents.append(item['input'])
-            metadatas.append({
+            
+            # 🛑 CRITICAL UPDATE: Ingest the new tags 🛑
+            meta = {
                 "question": item['input'],
                 "answer": item['output'],
                 "title": item.get('title', 'General Info'),
                 "topic": item.get('topic', 'General'),
                 "summary_offline": item.get('summary_offline', item['output'])
-            })
+            }
+            
+            # Add optional filter fields if they exist in the JSON
+            if 'budget' in item:
+                meta['budget'] = item['budget']
+            if 'location' in item:
+                meta['location'] = item['location']
+            if 'activities' in item:
+                meta['activities'] = item['activities']
+            if 'group_type' in item:
+                meta['group_type'] = item['group_type']
+            if 'skill_level' in item:
+                meta['skill_level'] = item['skill_level']
+
+            metadatas.append(meta)
             ids.append(str(idx))
 
-        
         self.collection.add(
             documents=documents,
             metadatas=metadatas,
             ids=ids
         )
-        print(f"Loaded {len(documents)} Q&A pairs")
+        print(f"Loaded {len(documents)} Q&A pairs with new metadata tags.")
 
     def checkint(self):
         """Check internet with caching"""
@@ -285,10 +307,11 @@ class Pipeline:
 
         return [r['text'] for r in all_results]
     
-    def search(self, question):
+    def search(self, question, where_filter=None):
         """Search with multiple results and deduplication - NO Gemini"""
         print(f"[DEBUG] Searching for: '{question}'")
-
+        if where_filter:
+            print(f"[DEBUG] Applying Hard Filter: {where_filter}")
         if len(question) < 3:
             return "Please ask a question."
         
@@ -302,7 +325,8 @@ class Pipeline:
         
         results = self.collection.query(
             query_texts=[question],
-            n_results=n_results
+            n_results=n_results,
+            where=where_filter
         )
         
         if not results['documents'][0]:
@@ -401,44 +425,58 @@ class Pipeline:
         if self.check_profanity(user_input):
             return ("I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism", [])
         
-        analysis = self.controller.analyze_query(user_input)
+        # 1. REWRITE
+        processed_input = user_input
+        if hasattr(self, 'rewriter') and self.rewriter.enabled:
+            rewritten = self.rewriter.rewrite(user_input)
+            if rewritten and len(rewritten) > 2:
+                processed_input = rewritten
+        
+        # 2. INTENT ANALYSIS
+        analysis = self.controller.analyze_query(processed_input)
         print(f"[DEBUG] Controller: {analysis['intent']} (confidence: {analysis['confidence']})")
 
         if analysis['intent'] == 'greeting':
             return (self.controller.get_greeting_response(), [])
-        if analysis.get('has_greeting', False):
-            print("[DEBUG] Greeting detected, but also has question - processing...")
-        
         if analysis['intent'] == 'nonsense':
             return (self.controller.get_nonsense_response(), [])
         
-        if analysis['confidence'] < 0.5:
-            print(f"[WARN] Low confidence query: {analysis['reason']}")
-            if analysis['confidence'] < 0.4:
-                suggestions = [
-                    "Try: 'Where can I surf?'",
-                    "Or: 'What food should I try?'",
-                    "Or: 'Where can I stay?'"
-                ]
-                return (
-                    f"I'm not sure what you're asking about. {' '.join(suggestions)}", 
-                    []
-                )
-            
-        entities = self.entity_extractor.extract(user_input)
+        # 3. ENTITY EXTRACTION
+        entities = self.entity_extractor.extract(processed_input)
         print(f"[DEBUG] Extracted entities: {entities}")
 
-        if any(entities.values()):
-            enhanced_query = self.entity_extractor.build_enhanced_query(entities)
-            print(f"[DEBUG] Enhanced query: '{enhanced_query}'")
-            if not enhanced_query or len(enhanced_query.strip()) < 2:
-                print("[DEBUG] Enhanced query too short, using original input")
-                convert = self.protect(user_input)
-            else:
-                convert = self.protect(enhanced_query)
-        else:
-            convert = self.protect(user_input)
+        # 🛑 4. BUILD ROBUST FILTER (THE FIX) 🛑
+        constraints = []
+
+        # Location (Note: match the key in your dataset.json, usually 'location')
+        if entities.get('places'):
+            constraints.append({"location": entities['places'][0]})
+
+        # Budget
+        if entities.get('budget'):
+            constraints.append({"budget": entities['budget']})
+
+        # Activities (CRITICAL: Take the first item [0], Chroma can't filter by a list)
+        if entities.get('activities') and len(entities['activities']) > 0:
+             constraints.append({"activities": entities['activities'][0]})
+
+        # Group Type
+        if entities.get('group_type'):
+            constraints.append({"group_type": entities['group_type']})
+
+        # Skill Level
+        if entities.get('skill_level'):
+            constraints.append({"skill_level": entities['skill_level']})
+
+        # Construct the final where_filter structure
+        where_filter = None
+        if len(constraints) > 1:
+            where_filter = {"$and": constraints} # Multiple conditions require $and
+        elif len(constraints) == 1:
+            where_filter = constraints[0] # Single condition
         
+        # 5. PREPARE SEARCH
+        convert = self.protect(processed_input)
         topics = self.extract_keywords(convert)
         print(f"[DEBUG] Detected topics: {topics}")
         
@@ -447,20 +485,17 @@ class Pipeline:
             answers = self.search_multi_topic(topics, convert, results_per_topic)
             fact = " ".join(answers) if answers else "I don't have info about those topics"
         else:
-            fact = self.search(convert)  # Now returns multiple deduplicated results
+            # Pass the constructed filter
+            fact = self.search(convert, where_filter=where_filter) 
 
-        # 4. Extract places from the retrieved facts
+        # 6. FINAL PROCESSING
         places = self.key_places(fact)
         places = places[:5]
         
-        # 5. Check if error message
         if "don't have information" in fact.lower() or "not sure" in fact.lower():
             return (fact, [])
         
-        # 6. Simple wrapper (no Gemini)
         natural_response = self.make_natural(user_input, fact)
-        
-        # 7. Return the processed response and the extracted places list
         return (natural_response, places)
 
     def guide_question(self):
