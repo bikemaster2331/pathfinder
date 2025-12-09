@@ -18,11 +18,24 @@ from controller import Controller
 from entity_extractor import EntityExtractor
 from sentence_transformers import SentenceTransformer
 from rewriter import Rewriter
+from collections import deque
 
 BASE_DIR = Path(__file__).parent 
 DATASET = BASE_DIR / "dataset" / "dataset.json"
 CONFIG = BASE_DIR / "config" / "config.yaml"
 CHROMA_STORAGE = BASE_DIR / "chroma_storage" 
+
+class RateLimiter:
+    def __init__(self, max_request, period_seconds):
+        self.max_request = max_request
+        self.period_seconds = period_seconds
+        self.timestamps = deque()
+
+    def is_allowed(self):
+        now = time.time()
+
+        while self.timestamps and self.timestamps[0] < now - self.period_seconds:
+            self.timestamps.popleft()
 
 class Pipeline:
     def __init__(self, dataset_path=str(DATASET), db_path = str(CHROMA_STORAGE), config_path=str(CONFIG)):
