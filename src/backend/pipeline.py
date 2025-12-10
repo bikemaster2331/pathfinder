@@ -37,6 +37,18 @@ class RateLimiter:
         while self.timestamps and self.timestamps[0] < now - self.period_seconds:
             self.timestamps.popleft()
 
+        if len(self.timestamps) < self.max_request:
+            self.timestamps.append(now)
+            return True
+        return False
+    
+    def get_remaining_time(self):
+        if not self.timestamps:
+            return 0
+        now = time.time()
+        expiry = self.timestamps[0] + self.period_seconds
+        return max(0, int(expiry - now))
+
 class Pipeline:
     def __init__(self, dataset_path=str(DATASET), db_path = str(CHROMA_STORAGE), config_path=str(CONFIG)):
 
@@ -47,6 +59,28 @@ class Pipeline:
         # Internet tracking
         self.internet_status = None
         self.last_internet_check = 0
+
+        sec_conf = self.config.get('security', {})
+
+        if not isinstance(sec_conf, dict):
+            print("[WARN] 'security' in config is broken. Using defaults.")
+            sec_conf = {}
+
+        rate_limit_conf = sec_conf.get('rate_limit', {})
+
+        if not isinstance(rate_limit_conf, dict):
+            print("[WARN] 'rate_limit' in config is broken. Using defaults.")
+            rate_limit_conf = {}
+
+        # 3. Set defaults if missing or broken
+        max_req = rate_limit_conf.get('max_request', 5)
+        period = rate_limit_conf.get('period_seconds', 60)
+
+        self.limiter = RateLimiter(
+            max_request=max_req,
+            period_seconds=period
+        )
+        print(f"[INFO] Rate limiter initialized: {max_req}/{period}s")
         
         # Setup RAG
         RAG_MODEL = os.path.join(os.path.dirname(__file__), "..", "models", self.config['rag']['model_path'])
@@ -434,6 +468,10 @@ class Pipeline:
         return profanity.contains_profanity(text)
         
     def ask(self, user_input):
+
+        if not self.limiter.is_allowed():
+            wait_time = self.limiter.get_remaining_time()
+            return (f"You are sending messages too fast! Please wait {wait_time} seconds.", [])
         
         if self.check_profanity(user_input):
             return ("I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism", [])
