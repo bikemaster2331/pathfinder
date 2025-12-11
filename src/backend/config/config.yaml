@@ -6,9 +6,12 @@ system:
   hash_file: "dataset_hash.txt"
   map_output: "pathfinder_map.html"
 
-rewriter:
-  enabled: true
-  model_file: "qwen2.5-0.5b-instruct-q4_k_m.gguf"
+security:
+  rate_limit:
+    max_request: 6
+    period_seconds: 70
+    block_duration: 30
+
 
 # RAG Model Settings
 rag:
@@ -18,6 +21,12 @@ rag:
   multi_topic_threshold: 0.5
   search_results: 3
   results_per_topic: 1
+  llm_model: "gemini-2.5-flash"
+
+
+cache:
+  similarity_threshold: 0.88
+  collection_name: "query_cache" 
 
 # Internet Check Settings
 internet:
@@ -33,7 +42,7 @@ offline:
 
 # Gemini Settings
 gemini:
-  model_name: "gemini-2.5-flash"
+  model_name: "models/gemini-2.5-flash"
   prompt_template: |
     You are Pathfinder — a calm, polite, helpful, always excited Catanduanes tourism assistant.
     Your responses should sound gentle, clear, and factual, while maintaining a friendly tone.
@@ -172,7 +181,7 @@ keywords:
     - accommodate     
     - accommodation
     - sleep           
-    - rest  
+    - rest 
   
   sightseeing:
     - visit
