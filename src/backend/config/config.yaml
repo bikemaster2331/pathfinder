@@ -9,13 +9,14 @@ security:
   rate_limit:
     max_request: 6
     period_seconds: 70
+    gibberish_threshold: 0.95
 
 # RAG Model Settings
 rag:
   model_path: "paraphrase-multilingual-MiniLM-L12-v2"
   collection_name: "knowledge_base"
-  confidence_threshold: 0.7
-  multi_topic_threshold: 0.8
+  confidence_threshold: 0.45
+  multi_topic_threshold: 0.5
   search_results: 10
   results_per_topic: 3
   llm_model: "gemini-2.5-flash"
@@ -274,7 +275,7 @@ places:
     lng: 124.3952103
     type: accommodation
   
-  "Catanduanes Midtown Inn Resort":
+  "Catanduanes Midtown Inn":
     lat: 13.5403305
     lng: 124.1638091
     type: accommodation

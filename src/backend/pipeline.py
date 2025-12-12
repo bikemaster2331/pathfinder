@@ -633,25 +633,28 @@ class Pipeline:
         return places_data
 
     # ========================================================================
-    # MAIN ASK METHOD - REFACTORED FOR SPEED
+    # MAIN ASK METHOD - CORRECTED FLOW
     # ========================================================================
     def ask(self, user_input):
-
         start_time = time.time()
         
-        # GATEKEEPER 1: Rate limiting
+        # 1. Rate limiting (Fastest check)
         if not self.limiter.is_allowed():
             wait_time = self.limiter.get_remaining_time()
             return (f"You are sending messages too fast! Please wait {wait_time} seconds.", [])
         
-        # GATEKEEPER 2: Profanity check
+        # 2. Profanity check (Fast string check)
         if self.check_profanity(user_input):
             return ("I am unable to process that language. Please ask politely about Catanduanes tourism.", [])
         
-        # Normalize input
+        # 3. Normalize input
         normalized = self.normalize_query(user_input)
+
+        if self.controller._is_gibberish(normalized):
+            print(f"[BLOCK] Gibberish detected in raw input: '{normalized}'")
+            return (self.controller.get_nonsense_response(), [])
         
-        # GATEKEEPER 3: Semantic cache check
+        # 5. Semantic cache check (Now safe to check)
         cached = self.semantic_cache.get(normalized)
         if cached:
             answer, places, version = cached
@@ -663,11 +666,11 @@ class Pipeline:
             print(f"[RESPONSE TIME] {elapsed:.3f}s (CACHE HIT)")
             return (answer, places)
         
-        # Protect place names and translate to English
+        # 6. Protect place names and translate (Expensive API call)
         translated_query = self.protect(user_input)
         print(f"[QUERY] Original: '{user_input}' → Translated: '{translated_query}'")
         
-        # Intent analysis (very fast, rule-based)
+        # 7. Intent analysis (Full check)
         analysis = self.controller.analyze_query(translated_query)
         print(f"[INTENT] {analysis['intent']} (confidence: {analysis['confidence']:.2f})")
         
@@ -679,7 +682,11 @@ class Pipeline:
             response = self.controller.get_nonsense_response()
             return (response, [])
         
-        # Entity extraction (fast, regex-based)
+        if analysis['intent'] == 'unclear' or analysis['confidence'] < 0.5:
+            print(f"[BLOCK] Low confidence ({analysis['confidence']:.2f}). Blocking RAG.")
+            return (self.controller.get_nonsense_response(), [])
+        
+        # 8. Entity extraction
         entities = self.entity_extractor.extract(translated_query)
         print(f"[ENTITIES] {entities}")
         
@@ -702,7 +709,7 @@ class Pipeline:
         elif len(constraints) == 1:
             where_filter = constraints[0]
         
-        # RAG retrieval (fast, vector search)
+        # 9. RAG retrieval
         raw_facts = self.search(translated_query, where_filter=where_filter)
         
         # Extract places
@@ -712,13 +719,13 @@ class Pipeline:
         if "don't have information" in raw_facts.lower() or "not sure" in raw_facts.lower():
             return (raw_facts, [])
         
-        # Construct raw answer (no LLM, just facts)
+        # Construct raw answer
         raw_answer = f"{raw_facts}"
         
-        # Store in cache (RAW version)
+        # Store in cache
         self.semantic_cache.set(normalized, raw_answer, places)
         
-        # Enqueue background enhancement job
+        # Enqueue background enhancement
         self.enhancer.enqueue(normalized, raw_facts, raw_answer)
         
         elapsed = time.time() - start_time

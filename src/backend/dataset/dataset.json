@@ -974,5 +974,14 @@
     "topic": "General",
     "location": "Catanduanes Province",
     "summary_offline": "You can ask for locations to see them on the map, or use the filter buttons to explore categories."
+  },
+  {
+    "input": "Where is Baras located?",
+    "output": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines.",
+    "title": "Baras Location",
+    "topic": "General",
+    "location": "Catanduanes Province",
+    "coordinates": {"lat": 13.699707877194335, "lng": 124.3637075239967},
+    "summary_offline": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines."
   }
 ]
