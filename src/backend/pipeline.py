@@ -206,105 +206,63 @@ class BackgroundEnhancer:
         print(f"[ENHANCER] Job queued: '{query[:50]}...'")
     
     def _worker_loop(self):
-        """Main worker loop - processes jobs"""
+        """Fixed loop with better error visibility"""
         print("[ENHANCER] Worker loop started")
         while self.running:
             try:
-                # Wait for job (timeout to check running flag)
-                job = self.job_queue.get(timeout=1)
+                # Use a block with timeout
+                job = self.job_queue.get(timeout=2)
+                print(f"[ENHANCER] Processing job for: {job['query'][:30]}")
                 
-                print(f"[ENHANCER] Processing: '{job['query'][:50]}...'")
+                enhanced = self._enhance_with_gemini(job)
                 
-                try:
-                    enhanced = self._enhance_with_gemini(job)
-                    
-                    if enhanced:
-                        # Update cache with enhanced version
-                        success = self.cache.update(job['query'], enhanced)
-                        if success:
-                            print(f"[ENHANCER] ✓ Job completed and cached")
-                        else:
-                            print(f"[ENHANCER] ⚠ Enhanced but cache update failed")
-                    else:
-                        print(f"[ENHANCER] ✗ Enhancement failed, keeping raw answer")
-                except Exception as job_error:
-                    print(f"[ENHANCER] Job processing error: {job_error}")
-                    import traceback
-                    traceback.print_exc()
+                if enhanced:
+                    success = self.cache.update(job['query'], enhanced)
+                    print(f"[ENHANCER] ✓ Success: {success}")
+                else:
+                    # If this prints, the API call actually happened but failed
+                    print(f"[ENHANCER] ✗ Job failed at the API level")
+                    time.sleep(60)
                 
                 self.job_queue.task_done()
-                
             except Exception as e:
-                # Handle queue.Empty gracefully
+                # This ignores empty queue timeouts
                 if "Empty" not in str(type(e).__name__):
-                    print(f"[ENHANCER] Loop error: {type(e).__name__}: {e}")
+                    print(f"[ENHANCER ERROR] Loop crashed: {e}")
                 continue
-        
-        print("[ENHANCER] Worker loop stopped")
+
     
     def _enhance_with_gemini(self, job):
-        """Final Robust Version: Handles Safety Refusals & Empty Responses"""
+        """Industry standard request logic with mandatory headers"""
         if not self.api_key:
             return None
         
-        # Use the alias that always points to the current stable model
-        model_name = "gemini-flash-latest"
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={self.api_key}"
-
-        prompt = f"""You are Pathfinder — a calm, polite, helpful, always excited Catanduanes tourism assistant. Your responses should sound gentle, clear, and factual, while maintaining a friendly tone.
-
-USER QUESTION: {job['query']}
-FACTUAL INFO: {job['raw_facts']}
-
-Respond in a helpful way using only the information from the facts. 
-If the facts partially match the query, answer as best as possible using the facts.
-Do not make up information not in the facts.
-Respond in the same language as the tourist's question.
-
-Use only the information from the facts. Summarize the facts into a cohesive answer. Do not just list them one by one.
-Give a single, concise, and natural-sounding sentence, include all the facts and the place mentioned.
-Connect the ideas naturally (e.g., use "You can also try..." instead of just a comma).
-Do not add greetings or extra commentary be direct yet kind. You may include exclamation marks to sound excited.
-If you detect any profanity in any language, return "I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism."""
+        # This is the alias that actually works
+        model_alias = "gemini-2.5-flash-lite"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_alias}:generateContent?key={self.api_key}"
+        
+        # Mandatory Header for Google API
+        headers = {'Content-Type': 'application/json'}
+        prompt = f"Summarize these facts into one sentence: {job['raw_facts']}"
         
         payload = {
             'contents': [{'parts': [{'text': prompt}]}],
-            'generationConfig': {'temperature': 0.7, 'maxOutputTokens': 600}
+            'generationConfig': {'temperature': 0.1}
         }
         
         try:
-            response = requests.post(url, json=payload, timeout=10)
+            # We must use headers or the request 'won't get through'
+            response = requests.post(url, json=payload, headers=headers, timeout=15)
             
             if response.status_code == 200:
                 result = response.json()
-                
-                # Check if we have candidates
-                if 'candidates' not in result or not result['candidates']:
-                    return None
-                
-                candidate = result['candidates'][0]
-                
-                # CHECK 1: Did the model finish successfully?
-                if 'content' not in candidate:
-                    return None
-                    
-                # CHECK 2: Does the content have parts?
-                content = candidate['content']
-                if 'parts' not in content or not content['parts']:
-                    return None
-                    
-                # Success
-                return content['parts'][0]['text'].strip()
-
-            elif response.status_code == 503:
-                # print("[ENHANCER] Server Busy")
-                return None
+                return result['candidates'][0]['content']['parts'][0]['text'].strip()
             else:
-                # print(f"[ENHANCER] API Error {response.status_code}")
+                # THIS IS THE KEY: We need to see the actual error message
+                print(f"[ENHANCER ERROR] Status {response.status_code}: {response.text}")
                 return None
-
         except Exception as e:
-            # print(f"[ENHANCER] Error: {e}")
+            print(f"[ENHANCER ERROR] Network failure: {e}")
             return None
 
 # ============================================================================
@@ -540,7 +498,7 @@ class Pipeline:
             temp = temp.replace(marker, place_input)
 
         return temp
-
+    
     def extract_keywords(self, question):
         """Extract topic keywords from question"""
         found = []
@@ -555,18 +513,20 @@ class Pipeline:
         
         return found if found else ['general']
 
-    def search(self, question, where_filter=None):
-        """Core RAG search - returns raw facts"""
+
+    def search(self, question, where_filter=None, entities=None):
         print(f"[RAG SEARCH] Query: '{question[:50]}...'")
-        
+
         if len(question) < 3:
             return "Please ask a complete question."
-        
+
         # Detect listing queries
-        listing_words = ['all', 'top', 'best', 'list', 'recommend', 'show me', 'what are', 'multiple']
+        listing_words = ['all', 'top', 'best', 'list', 'recommend', 'show me', 'what are', 'beaches', 'places', 'hotels']
         is_listing = any(word in question.lower() for word in listing_words)
-        n_results = 20 if is_listing else 10
-        
+
+        # Get more candidates
+        n_results = 20 if is_listing else 15
+
         results = self.collection.query(
             query_texts=[question],
             n_results=n_results,
@@ -575,33 +535,70 @@ class Pipeline:
         
         if not results['documents'][0]:
             return "I don't have information about that. Ask about beaches, food, or activities in Catanduanes!"
-        
-        # Collect good matches with deduplication
+
+        # Extract target location
+        target_location = None
+        if entities and entities.get('places'):
+            target_location = entities['places'][0].lower()
+            print(f"[LOCATION FILTER] Target: '{target_location}'")
+
+        # Collect quality matches
         good_answers = []
         seen_places = set()
-        
+
+        # Stricter threshold for focused queries
+        base_threshold = self.config['rag']['confidence_threshold']
+        # strict_threshold = base_threshold * 0.80  # 20% stricter
+        threshold = base_threshold
+
+        print(f"[THRESHOLD] Using {threshold:.3f} (base: {base_threshold})")
+
         for i, metadata in enumerate(results['metadatas'][0]):
             confidence = results['distances'][0][i]
+
+            # Skip low confidence
+            if confidence > threshold:
+                print(f"[SKIP] Conf={confidence:.3f} > {threshold:.3f}")
+                continue
             
-            if confidence <= self.config['rag']['confidence_threshold']:
-                answer = metadata.get('summary_offline', metadata['answer'])
-                
-                # Extract places for deduplication
-                places_in_answer = self.key_places(answer)
-                if places_in_answer and places_in_answer[0] in seen_places:
+            answer = metadata.get('summary_offline', metadata['answer'])
+            answer_lower = answer.lower()
+            metadata_location = metadata.get('location', '').lower()
+
+            # CRITICAL: Location validation
+            if target_location:
+                location_in_answer = target_location in answer_lower
+                location_in_metadata = target_location in metadata_location
+
+                if not (location_in_answer or location_in_metadata):
+                    print(f"[SKIP] Location mismatch - want '{target_location}', got '{metadata_location}': {answer[:50]}...")
                     continue
                 
-                good_answers.append(answer)
-                seen_places.update(places_in_answer)
-                
-                max_results = 10 if is_listing else 3
-                if len(good_answers) >= max_results:
-                    break
-        
+            # Deduplicate by place name
+            places_in_answer = self.key_places(answer)
+            if places_in_answer and places_in_answer[0] in seen_places:
+                print(f"[SKIP] Duplicate: {places_in_answer[0]}")
+                continue
+            
+            # Good result!
+            good_answers.append(answer)
+            seen_places.update(places_in_answer)
+            print(f"[MATCH] Conf={confidence:.3f}, Loc='{metadata_location}': {answer[:60]}...")
+
+            # Stop when enough
+            max_results = 10 if is_listing else 3
+            if len(good_answers) >= max_results:
+                break
+            
+        # Handle no results
         if not good_answers:
+            if target_location:
+                return f"I don't have specific information about that in {target_location.title()}. Try asking about other activities or places in Catanduanes!"
             return "I'm not sure about that. Can you rephrase or ask about Catanduanes tourism?"
-        print(f"[RAG DEBUG] Retrieved {len(good_answers)} facts from database.")
+
+        print(f"[RAG RESULT] {len(good_answers)} quality results (from {n_results} candidates)")
         return " ".join(good_answers)
+
 
     def key_places(self, text):
         """Extract place names from text"""
@@ -631,69 +628,127 @@ class Pipeline:
                     "type": place_info['type']
                 })
         return places_data
+    
+    def extract_location_fallback(self, query):
+
+        query_lower = query.lower()
+
+        # Check all known municipalities
+        municipalities = ['virac', 'baras', 'pandan', 'bato', 'gigmoto', 
+                        'san andres', 'bagamanoc', 'viga', 'caramoran']
+
+        for place in municipalities:
+            # Check for common patterns
+            patterns = [
+                f" in {place}",
+                f" at {place}",
+                f" near {place}",
+                f"{place} ",
+                f" {place}"
+            ]
+
+            for pattern in patterns:
+                if pattern in query_lower:
+                    print(f"[LOCATION FALLBACK] Detected '{place}'")
+                    return place.title()
+
+        return None
+
 
     # ========================================================================
     # MAIN ASK METHOD - CORRECTED FLOW
     # ========================================================================
     def ask(self, user_input):
         start_time = time.time()
-        
-        # 1. Rate limiting (Fastest check)
+
+        # 1. Rate limiting
         if not self.limiter.is_allowed():
             wait_time = self.limiter.get_remaining_time()
             return (f"You are sending messages too fast! Please wait {wait_time} seconds.", [])
-        
-        # 2. Profanity check (Fast string check)
+
+        # 2. Profanity check (on original)
         if self.check_profanity(user_input):
             return ("I am unable to process that language. Please ask politely about Catanduanes tourism.", [])
-        
-        # 3. Normalize input
+
+        # 3. Normalize
         normalized = self.normalize_query(user_input)
 
-        if self.controller._is_gibberish(normalized):
-            print(f"[BLOCK] Gibberish detected in raw input: '{normalized}'")
+        # 4. Gibberish check (on original)
+        if self.controller._is_gibberish(user_input):
+            print(f"[BLOCK] Gibberish detected: '{user_input}'")
             return (self.controller.get_nonsense_response(), [])
-        
-        # 5. Semantic cache check (Now safe to check)
+
+        # 5. Cache check
         cached = self.semantic_cache.get(normalized)
         if cached:
             answer, places, version = cached
             if version == 'raw':
-                print("[CACHE] Entry is RAW. Retrying background enhancement...")
+                print("[CACHE] Entry is RAW. Re-queueing enhancement...")
                 self.enhancer.enqueue(normalized, answer, answer)
-                
+
             elapsed = time.time() - start_time
             print(f"[RESPONSE TIME] {elapsed:.3f}s (CACHE HIT)")
             return (answer, places)
-        
-        # 6. Protect place names and translate (Expensive API call)
+
+        # ========================================================================
+        # 6. ENTITY EXTRACTION **BEFORE** TRANSLATION
+        # This allows the extractor to see the original place names
+        # ========================================================================
+        entities_from_original = self.entity_extractor.extract(user_input.lower())
+        print(f"[ENTITIES PRE-TRANSLATION] {entities_from_original}")
+
+        # 7. Protect places and translate
         translated_query = self.protect(user_input)
-        print(f"[QUERY] Original: '{user_input}' → Translated: '{translated_query}'")
-        
-        # 7. Intent analysis (Full check)
+        print(f"[QUERY] '{user_input}' → '{translated_query}'")
+
+        # 8. Intent analysis (on translated query)
         analysis = self.controller.analyze_query(translated_query)
-        print(f"[INTENT] {analysis['intent']} (confidence: {analysis['confidence']:.2f})")
-        
+        print(f"[INTENT] {analysis['intent']} (conf: {analysis['confidence']:.2f})")
+
         if analysis['intent'] == 'greeting':
             response = self.controller.get_greeting_response()
             return (response, [])
-        
+
         if analysis['intent'] == 'nonsense':
             response = self.controller.get_nonsense_response()
             return (response, [])
-        
+
         if analysis['intent'] == 'unclear' or analysis['confidence'] < 0.5:
-            print(f"[BLOCK] Low confidence ({analysis['confidence']:.2f}). Blocking RAG.")
+            print(f"[BLOCK] Low intent confidence: {analysis['confidence']:.2f}")
             return (self.controller.get_nonsense_response(), [])
-        
-        # 8. Entity extraction
-        entities = self.entity_extractor.extract(translated_query)
-        print(f"[ENTITIES] {entities}")
-        
-        # Build ChromaDB filter
+
+        # ========================================================================
+        # 9. MERGE ENTITIES from both original and translated queries
+        # This handles cases where translation might change entity detection
+        # ========================================================================
+        entities_from_translated = self.entity_extractor.extract(translated_query)
+        print(f"[ENTITIES POST-TRANSLATION] {entities_from_translated}")
+
+        # Merge: Prioritize original entities but combine unique values
+        entities = {
+            'places': list(set(entities_from_original.get('places', []) + 
+                            entities_from_translated.get('places', []))),
+            'activities': list(set(entities_from_original.get('activities', []) + 
+                                entities_from_translated.get('activities', []))),
+            'budget': entities_from_original.get('budget') or entities_from_translated.get('budget'),
+            'skill_level': entities_from_original.get('skill_level') or entities_from_translated.get('skill_level'),
+            'group_type': entities_from_original.get('group_type') or entities_from_translated.get('group_type'),
+            'time_period': entities_from_original.get('time_period') or entities_from_translated.get('time_period'),
+            'proximity': entities_from_original.get('proximity') or entities_from_translated.get('proximity')
+        }
+
+        print(f"[ENTITIES MERGED] {entities}")
+
+        # 10. Fallback location detection (if still no places found)
+        if not entities.get('places'):
+            fallback_location = self.extract_location_fallback(translated_query)
+            if fallback_location:
+                entities['places'] = [fallback_location]
+                print(f"[ENTITIES FALLBACK] Added: {fallback_location}")
+
+        # 11. Build ChromaDB pre-filter (non-location constraints)
         constraints = []
-        if entities.get('places'):
-            constraints.append({"location": entities['places'][0]})
+
         if entities.get('budget'):
             constraints.append({"budget": entities['budget']})
         if entities.get('activities') and len(entities['activities']) > 0:
@@ -702,37 +757,38 @@ class Pipeline:
             constraints.append({"group_type": entities['group_type']})
         if entities.get('skill_level'):
             constraints.append({"skill_level": entities['skill_level']})
-        
+
         where_filter = None
         if len(constraints) > 1:
             where_filter = {"$and": constraints}
         elif len(constraints) == 1:
             where_filter = constraints[0]
-        
-        # 9. RAG retrieval
-        raw_facts = self.search(translated_query, where_filter=where_filter)
-        
-        # Extract places
+
+        # 12. RAG search with location validation
+        raw_facts = self.search(translated_query, where_filter=where_filter, entities=entities)
+
+        # Extract places from results
         places = self.key_places(raw_facts)[:5]
-        
+        place_data = self.get_place_data(places)
+
         # Check if error response
-        if "don't have information" in raw_facts.lower() or "not sure" in raw_facts.lower():
-            return (raw_facts, [])
-        
-        # Construct raw answer
+        if any(phrase in raw_facts.lower() for phrase in ["don't have information", "not sure", "differently"]):
+            return (raw_facts, place_data)
+
+        # Construct answer
         raw_answer = f"{raw_facts}"
-        
+
         # Store in cache
-        self.semantic_cache.set(normalized, raw_answer, places)
-        
-        # Enqueue background enhancement
-        self.enhancer.enqueue(normalized, raw_facts, raw_answer)
-        
+        self.semantic_cache.set(normalized, raw_answer, place_data)
+        if "don't have information" not in raw_facts.lower() and "not sure" not in raw_facts.lower():
+            self.enhancer.enqueue(normalized, raw_facts, raw_answer)
+        else:
+            print("[INFO] Skipping enhancement for empty/error result to save quota.")
+
         elapsed = time.time() - start_time
         print(f"[RESPONSE TIME] {elapsed:.3f}s (RAW + QUEUED)")
-        
-        # Return RAW answer immediately
-        return (raw_answer, places)
+
+        return (raw_answer, place_data)
 
     def guide_question(self):
         """Interactive CLI"""

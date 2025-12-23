@@ -34,6 +34,11 @@ class EntityExtractor:
             'weekend': ['weekend', 'saturday', 'sunday'],
             'weekday': ['weekday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday']
         }
+        self.municipalities = [
+            'virac', 'baras', 'pandan', 'bato', 'gigmoto',
+            'san andres', 'bagamanoc', 'viga', 'caramoran',
+            'panganiban', 'san miguel'
+        ]
     
     def extract(self, user_input):
         """
@@ -55,17 +60,22 @@ class EntityExtractor:
         return entities
     
     def _extract_places(self, query_lower):
-        """Extract place names mentioned in query using word boundaries"""
+        """Extract place names mentioned in query"""
         found = []
-        
+
+        # Check specific places first (longer matches)
         sorted_places = sorted(self.places.keys(), key=len, reverse=True)
-        
         for place in sorted_places:
-            # Use word boundaries for better matching
             pattern = r'\b' + re.escape(place.lower()) + r'\b'
             if re.search(pattern, query_lower):
                 found.append(place)
-        
+
+        # NEW: Also check for standalone municipality names
+        for municipality in self.municipalities:
+            pattern = r'\b' + re.escape(municipality) + r'\b'
+            if re.search(pattern, query_lower) and municipality.title() not in found:
+                found.append(municipality.title())
+
         return found
     
     def _extract_activities(self, query_lower):
@@ -74,7 +84,7 @@ class EntityExtractor:
         
         for topic, keywords in self.config['keywords'].items():
             # Build pattern with word boundaries
-            pattern = r'\b(' + '|'.join(map(re.escape, keywords)) + r')\b'
+            pattern = r'\b(' + '|'.join(map(re.escape, keywords)) + r')s?\b'
             if re.search(pattern, query_lower):
                 found.append(topic)
         
@@ -84,7 +94,7 @@ class EntityExtractor:
         """Extract budget preference using word boundaries"""
         for budget, indicators in self.budget_indicators.items():
             # Build pattern: \b(cheap|budget|affordable|mura|murang)\b
-            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')\b'
+            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')s?\b'
             
             if re.search(pattern, query_lower):
                 return budget
@@ -94,7 +104,7 @@ class EntityExtractor:
         """Extract skill level using word boundaries"""
         for level, indicators in self.skill_levels.items():
             # Escape special regex characters and add word boundaries
-            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')\b'
+            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')s?\b'
             
             if re.search(pattern, query_lower):
                 return level
@@ -103,7 +113,7 @@ class EntityExtractor:
     def _extract_group_type(self, query_lower):
         """Extract group type using word boundaries"""
         for group, indicators in self.group_types.items():
-            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')\b'
+            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')s?\b'
             
             if re.search(pattern, query_lower):
                 return group
@@ -112,7 +122,7 @@ class EntityExtractor:
     def _extract_time_period(self, query_lower):
         """Extract time period using word boundaries"""
         for period, indicators in self.time_periods.items():
-            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')\b'
+            pattern = r'\b(' + '|'.join(map(re.escape, indicators)) + r')s?\b'
             
             if re.search(pattern, query_lower):
                 return period

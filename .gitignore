@@ -28,7 +28,7 @@ __pycache__/
 *.zip
 pathfinder_deploy.zip
 
-# Environment variables (NEVER send!)
+# Environment variables (NEVER fsend!)
 .env
 *.env
 
@@ -46,5 +46,4 @@ logs/
 Thumbs.db
 
 # Test files
-test/
 cache/

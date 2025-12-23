@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://10.172.111.28:8000',
+  baseURL: 'http://127.0.0.1:8000',
   timeout: 30000, // 30 second timeout for slow Gemini responses
   headers: {
     'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
+  
 // Response interceptor for error handling
 api.interceptors.response.use(
   (response) => {
