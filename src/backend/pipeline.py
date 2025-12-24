@@ -245,7 +245,7 @@ class BackgroundEnhancer:
         headers = {'Content-Type': 'application/json'}
         raw_template = self.config['gemini']['prompt_template']
         prompt = raw_template.format(
-            question=job['text'], 
+            question=job['query'], 
             fact=job['raw_facts']
         )
         
