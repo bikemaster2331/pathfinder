@@ -1,9 +1,11 @@
 #!/bin/bash
 
-RPI_IP="192.168.1.14"
+# --- CONFIGURATION ---
+RPI_IP="192.168.100.73"       # <--- CHECK THIS IP ADDRESS!
 RPI_USER="pi"
 GITHUB_USER="bikemaster2331"
 REPO_NAME="pathfinder"
+# ---------------------
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -11,124 +13,74 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-echo -e "${BLUE}Pathfinder Auto-Deploy${NC}"
+echo -e "${BLUE}Pathfinder Ultimate Deploy${NC}"
 echo "================================"
-echo ""
 
-echo -e "${YELLOW}Committing local changes...${NC}"
+# 1. GIT SYNC (Source Code)
+echo -e "${YELLOW}1. Syncing Source Code...${NC}"
 git add .
-if git diff-index --quiet HEAD --; then
-    echo -e "${GREEN}  No changes to commit${NC}"
-else
-    read -p "Commit message (or Enter for auto): " commit_msg
-    if [ -z "$commit_msg" ]; then
-        commit_msg="Auto-deploy: $(date '+%Y-%m-%d %H:%M:%S')"
-    fi
-    git commit -m "$commit_msg"
-    echo -e "${GREEN}  Changes committed${NC}"
+if ! git diff-index --quiet HEAD --; then
+    git commit -m "Auto-deploy: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo -e "${GREEN}   Changes committed${NC}"
 fi
+git push origin main
+echo -e "${GREEN}   Git Push Complete${NC}"
 
-echo ""
-echo -e "${YELLOW}Pushing to GitHub...${NC}"
-if git push origin main; then
-    echo -e "${GREEN}  Pushed successfully${NC}"
-else
-    echo -e "${RED}  Push failed${NC}"
-    exit 1
-fi
+# 2. FRONTEND TRANSFER (The Cake)
+echo -e "${YELLOW}2. Teleporting Frontend (dist)...${NC}"
+# We assume the user has already run 'npm run build' locally
+ssh ${RPI_USER}@${RPI_IP} "mkdir -p ~/pathfinder/src/react-app"
+scp -r ~/Documents/Marthan/pathfinder/src/react-app/dist ${RPI_USER}@${RPI_IP}:~/pathfinder/src/react-app/
+echo -e "${GREEN}   Frontend files transferred${NC}"
 
-echo ""
-echo -e "${YELLOW}Deploying to RPi (${RPI_IP})...${NC}"
+# 3. REMOTE EXECUTION (The Pi takes over)
+echo -e "${YELLOW}3. Configuring Raspberry Pi...${NC}"
 
 ssh ${RPI_USER}@${RPI_IP} << ENDSSH
+    # Stop on error
+    set -e
+    
+    GREEN='\033[0;32m'
+    YELLOW='\033[1;33m'
+    NC='\033[0m'
 
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m'
+    # Pull latest code
+    if [ ! -d ~/pathfinder ]; then
+        git clone https://github.com/${GITHUB_USER}/${REPO_NAME}.git pathfinder
+    else
+        cd ~/pathfinder
+        git pull origin main
+    fi
 
-echo -e "\${BLUE}RPi Deployment Starting...\${NC}"
-echo ""
-
-if [ ! -d ~/pathfinder ]; then
-    echo -e "\${YELLOW}  First-time setup detected\${NC}"
-    cd ~
-    git clone https://github.com/${GITHUB_USER}/${REPO_NAME}.git pathfinder
-    cd pathfinder
-    echo -e "\${GREEN}  Repository cloned\${NC}"
-else
-    echo -e "\${YELLOW}  Updating existing installation\${NC}"
+    # Setup Python (The Backend)
     cd ~/pathfinder
-    git pull origin main
-    echo -e "\${GREEN}  Code updated\${NC}"
-fi
+    if [ ! -d pathenv ]; then
+        echo -e "\${YELLOW}   Creating Python Environment...\${NC}"
+        python3 -m venv pathenv
+    fi
+    
+    source pathenv/bin/activate
+    echo -e "\${YELLOW}   Updating Dependencies...\${NC}"
+    pip install -r requirements.txt --quiet --upgrade
+    pip install fastapi uvicorn --quiet
 
-if [ ! -d venv ]; then
-    echo ""
-    echo -e "\${YELLOW}  Creating Python virtual environment...\${NC}"
-    python3 -m venv venv
-    echo -e "\${GREEN}  Virtual environment created\${NC}"
-fi
+    # Restart the Backend (PM2)
+    echo -e "\${YELLOW}   Restarting AI Brain (PM2)...\${NC}"
+    
+    # Check if process exists, restart it. If not, start it.
+    if pm2 list | grep -q "pathfinder-backend"; then
+        pm2 restart pathfinder-backend
+    else
+        pm2 start "/home/pi/pathfinder/pathenv/bin/python" \\
+        --name pathfinder-backend \\
+        --cwd "/home/pi/pathfinder/src/backend" \\
+        -- -m uvicorn app:app --host 0.0.0.0 --port 8000
+        pm2 save
+    fi
 
-source venv/bin/activate
-
-echo ""
-echo -e "\${YELLOW}  Installing Python packages...\${NC}"
-pip install -r requirements.txt --quiet --upgrade
-echo -e "\${GREEN}  Dependencies installed\${NC}"
-
-if [ ! -d models/paraphrase-multilingual-MiniLM-L12-v2 ]; then
-    echo ""
-    echo -e "\${YELLOW}  Downloading ML model...\${NC}"
-    python3 << 'PYEOF'
-from sentence_transformers import SentenceTransformer
-import os
-os.makedirs('models', exist_ok=True)
-model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
-model.save('models/paraphrase-multilingual-MiniLM-L12-v2')
-print("Model downloaded")
-PYEOF
-    echo -e "\${GREEN}  Model ready\${NC}"
-else
-    echo -e "\${GREEN}  ML model already exists\${NC}"
-fi
-
-if [ ! -f .env ]; then
-    echo ""
-    echo -e "\${YELLOW}  Creating .env file...\${NC}"
-    echo "GEMINI_API_KEY=your_gemini_api_key_here" > .env
-    echo -e "\${YELLOW}  Edit ~/pathfinder/.env and set your key.\${NC}"
-else
-    echo -e "\${GREEN}  .env file exists\${NC}"
-fi
-
-if systemctl is-active --quiet pathfinder; then
-    echo ""
-    echo -e "\${YELLOW}  Restarting service...\${NC}"
-    sudo systemctl restart pathfinder
-    echo -e "\${GREEN}  Service restarted\${NC}"
-else
-    echo ""
-    echo -e "\${YELLOW}  Run manually:\${NC}"
-    echo "     cd ~/pathfinder && source venv/bin/activate"
-    echo "     uvicorn src.backend.app:app --host 0.0.0.0 --port 8000"
-fi
-
-echo ""
-echo -e "\${BLUE}System Status:\${NC}"
-echo -e "   Memory: \$(free -h | grep Mem | awk '{print \$3 \" / \" \$2}')"
-echo -e "   Disk:   \$(df -h ~ | tail -1 | awk '{print \$3 \" / \" \$2}')"
-
-echo ""
-echo -e "\${GREEN}Deployment complete\${NC}"
-
+    echo -e "\${GREEN}   Backend is Online!\${NC}"
 ENDSSH
 
-if [ $? -eq 0 ]; then
-    echo ""
-    echo -e "${GREEN}Deployment successful${NC}"
-    echo -e "${BLUE}Access: http://${RPI_IP}:8000/${NC}"
-else
-    echo -e "${RED}Deployment failed${NC}"
-    exit 1
-fi
+echo ""
+echo -e "${GREEN}Deployment Successful!${NC}"
+echo -e "Access your Pi at: http://${RPI_IP}"

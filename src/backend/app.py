@@ -62,6 +62,12 @@ class AskResponse(BaseModel):
 
 # --- ENDPOINTS ---
 
+
+# --- HEARTBEAT ENDPOINT ---
+@app.get("/health")
+async def health_check():
+    return {"status": "alive", "location": "rpi-edge"}
+
 @app.get("/admin/status")
 def admin_status(response: Response):
     # FIX: Handle 503 correctly for FastAPI
