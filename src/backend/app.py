@@ -135,12 +135,11 @@ async def ask_endpoint(request: AskRequest):
         )
     
     try:
-        answer, place_names = await run_in_threadpool(
+        answer, places_data = await run_in_threadpool(
             pipeline.ask,
             request.question
         )
         
-        places_data = pipeline.get_place_data(place_names)
         
         duration = time.time() - start_time
         print(f"[METRIC] /ask completed in {duration:.2f}s for: '{request.question[:30]}...'")
