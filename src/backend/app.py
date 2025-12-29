@@ -62,6 +62,12 @@ class AskResponse(BaseModel):
 
 # --- ENDPOINTS ---
 
+
+# --- HEARTBEAT ENDPOINT ---
+@app.get("/health")
+async def health_check():
+    return {"status": "alive", "location": "rpi-edge"}
+
 @app.get("/admin/status")
 def admin_status(response: Response):
     # FIX: Handle 503 correctly for FastAPI
@@ -129,12 +135,11 @@ async def ask_endpoint(request: AskRequest):
         )
     
     try:
-        answer, place_names = await run_in_threadpool(
+        answer, places_data = await run_in_threadpool(
             pipeline.ask,
             request.question
         )
         
-        places_data = pipeline.get_place_data(place_names)
         
         duration = time.time() - start_time
         print(f"[METRIC] /ask completed in {duration:.2f}s for: '{request.question[:30]}...'")

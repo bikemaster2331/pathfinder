@@ -7,6 +7,10 @@ export default defineConfig({
     host: 'localhost',
     port: 5173,
     strictPort: false,
+    // THIS IS THE FIX FOR THE CRASH
+    watch: {
+      ignored: ['**/pathenv/**', '**/node_modules/**']
+    }
   },
   build: {
     target: 'es2015',

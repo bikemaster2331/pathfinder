@@ -243,7 +243,11 @@ class BackgroundEnhancer:
         
         # Mandatory Header for Google API
         headers = {'Content-Type': 'application/json'}
-        prompt = f"Summarize these facts into one sentence: {job['raw_facts']}"
+        raw_template = self.config['gemini']['prompt_template']
+        prompt = raw_template.format(
+            question=job['query'], 
+            fact=job['raw_facts']
+        )
         
         payload = {
             'contents': [{'parts': [{'text': prompt}]}],
@@ -311,7 +315,7 @@ class Pipeline:
         print(f"[INFO] Rate limiter: {max_req}/{period}s")
         
         # Setup RAG model
-        RAG_MODEL = os.path.join(os.path.dirname(__file__), "..", "models", self.config['rag']['model_path'])
+        RAG_MODEL = "sentence-transformers/" + self.config['rag']['model_path']
         self.raw_model = SentenceTransformer(RAG_MODEL, device="cpu")
         self.client = chromadb.PersistentClient(path=db_path)
         self.embedding = embedding_functions.SentenceTransformerEmbeddingFunction(

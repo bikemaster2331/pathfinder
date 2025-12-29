@@ -47,3 +47,7 @@ Thumbs.db
 
 # Test files
 cache/
+dist/
+node_modules/
+__pycache__/
+pathenv/
