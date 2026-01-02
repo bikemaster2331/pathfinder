@@ -13,7 +13,7 @@ const ACTIVITY_MAPPING = {
     Accommodation: ['HOTELS & RESORTS'] 
 };
 
-export default function Map({ selectedActivities }) {
+export default function Map({ selectedActivities, onMarkerClick }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
@@ -28,9 +28,11 @@ export default function Map({ selectedActivities }) {
         console.log("Active Activities:", activeActivities);
         console.log("Filtering Map for Types:", allowedTypes);
 
-        // 3. Apply the filter
+        // Apply the filter
         try {
             if (allowedTypes.length === 0) {
+                // If nothing selected, maybe show everything? Or show nothing? 
+                // Currently set to show everything (standard behavior for empty filters)
                 map.current.setFilter('tourist-points', ['==', '$type', 'Point']);
             } else {
                 map.current.setFilter('tourist-points', [
@@ -43,7 +45,7 @@ export default function Map({ selectedActivities }) {
             console.error("Filter error:", error);
         }
 
-    }, [selectedActivities]); // Re-run this effect when selectedActivities changes
+    }, [selectedActivities]); 
 
     // --- 2. MAP INITIALIZATION (Run once) ---
     useEffect(() => {
@@ -64,7 +66,7 @@ export default function Map({ selectedActivities }) {
                 // Source
                 map.current.addSource('catanduanes-data', {
                     type: 'geojson',
-                    data: '/catanduanes_full.geojson' 
+                    data: '/test_map.geojson' 
                 });
 
                 // Layers
@@ -115,7 +117,7 @@ export default function Map({ selectedActivities }) {
                     source: 'catanduanes-data',
                     filter: ['==', '$type', 'Point'],
                     paint: {
-                        'circle-radius': 8, // Made slightly bigger to see easily
+                        'circle-radius': 8, 
                         'circle-color': [
                             'match',
                             ['get', 'type'],
@@ -142,11 +144,13 @@ export default function Map({ selectedActivities }) {
                     map.current.fitBounds(bounds, { padding: 80, maxZoom: 14 });
                 });
 
+                // --- UPDATED CLICK HANDLER ---
                 map.current.on('click', 'tourist-points', (e) => {
-                    e.preventDefault(); // Stop map zoom on double click if any
+                    e.preventDefault(); 
                     const feature = e.features[0];
                     const coordinates = feature.geometry.coordinates.slice();
                     
+                    // Show Popup
                     new maplibregl.Popup()
                         .setLngLat(coordinates)
                         .setHTML(`
@@ -154,6 +158,12 @@ export default function Map({ selectedActivities }) {
                             <span style="font-size:11px; color:#666;">${feature.properties.type}</span>
                         `)
                         .addTo(map.current);
+
+                    // TRIGGER PARENT UPDATE
+                    if (onMarkerClick) {
+                        // Pass the properties (name, type, etc.) back to the parent
+                        onMarkerClick(feature.properties);
+                    }
                 });
 
                 // Cursor pointer
@@ -166,7 +176,7 @@ export default function Map({ selectedActivities }) {
         } catch (error) {
             console.error('Map init failed:', error);
         }
-    }, []);
+    }, []); // Removed dependency array logic regarding callback to avoid map re-initialization
 
     return (
         <div 
