@@ -1,7 +1,7 @@
 .PreferenceCard {
-    background-color: #000000;
+    background-color: #555555;
     border-radius: 16px;
-    box-shadow: 0 10px 500px rgb(87, 87, 87);
+    box-shadow: 0 10px 500px rgba(51, 43, 27, 0.808);
     padding: 24px;
     width: 90%;
     max-width: 900px;
