@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import styles from '../styles/itinerary_page/ItineraryCard.module.css';
 
 const PreferenceCard = ({ 
@@ -8,12 +8,22 @@ const PreferenceCard = ({
     setSelectedLocation,
     addedSpots,   
     onAddSpot,
-    onRemoveSpot 
+    onRemoveSpot,
+    onHubChange,
+    activeHubName // Receive the prop from parent
 }) => {
-    // Local state for dates and budget
+    // --- STATE MANAGEMENT ---
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
     const [budget, setBudget] = useState(50);
     
+    // Initialize destination with the prop if it exists
+    const [destination, setDestination] = useState(activeHubName || ''); 
+
+    // Sync local state if parent changes (e.g. resets)
+    useEffect(() => {
+        setDestination(activeHubName || '');
+    }, [activeHubName]);
+
     // Get today's date for validation
     const today = new Date().toISOString().split('T')[0];
 
@@ -34,28 +44,15 @@ const PreferenceCard = ({
         return 'High';
     };
 
-    // --- NEW LOGIC: Calculate raw Day Count for the quirky text ---
+    // Calculate raw Day Count for the summary stats
     const dayCount = useMemo(() => {
         if (!dateRange.start || !dateRange.end) return 0;
         const start = new Date(dateRange.start);
         const end = new Date(dateRange.end);
         const diffTime = end - start;
-        // Calculate days including the start date
         const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
         return days > 0 ? days : 0;
     }, [dateRange]);
-
-    // --- NEW LOGIC: Generate the comment based on days ---
-    const getTripComment = (days) => {
-        if (!days || days <= 0) return "Pick your dates to start the adventure.";
-        if (days === 1) return "Speedrunning the island? Go fast go fast!";
-        if (days <= 3) return "Short but sweet. A perfect weekend getaway.";
-        if (days <= 7) return "The sweet spot! Enough time to see the gems.";
-        if (days <= 14) return "Wow... i'm jealous, can i join your trip?";
-        if (days > 14) return "Hah you might as well apply for residency now!";
-        return "";
-    };
-
 
     const durationString = dayCount > 0 ? `${dayCount} Days` : "0 Days";
 
@@ -78,7 +75,6 @@ const PreferenceCard = ({
                                 : "Click a pin on the map to see details here."}
                         </p>
 
-                        {/* SMART BUTTON LOGIC */}
                         {selectedLocation && (
                             isAlreadyAdded ? (
                                 <button 
@@ -139,7 +135,27 @@ const PreferenceCard = ({
                 {/* --- RIGHT COLUMN --- */}
                 <div className={styles.rightColumn}>
                     <div className={styles.journeyDatesBox}>
-                        <h3 className={styles.boxTitle}>Journey Dates</h3>
+                        <h3 className={styles.boxTitle}>Trip Details</h3>
+                        
+                        {/* --- DESTINATION DROPDOWN --- */}
+                        <select className={styles.locField} 
+                            value={destination} 
+                            onChange={(e) => {
+                                const val = e.target.value;
+                                setDestination(val);
+                                if (onHubChange) onHubChange(val);
+                            }}
+                            style={{ width: '100%', marginBottom: '1rem', color: destination === "" ? "gray" : "white" }} 
+                        >
+                            <option value="" disabled hidden>Select your location</option>
+                            <option value="Virac" style={{ color: "white", backgroundColor: "#333" }}>
+                                Virac
+                            </option>
+                            <option value="San Andres" style={{ color: "white", backgroundColor: "#333" }}>
+                                San Andres
+                            </option>
+                        </select>
+
                         <div className={styles.dateInputRow}>
                             <input
                                 type='date'
@@ -167,13 +183,6 @@ const PreferenceCard = ({
                                 className={styles.dateField}
                             />
                         </div>
-
-                        {/* --- ADDED: THE QUIRKY COMMENT LINE --- */}
-                        <p className={styles.durationComment}>
-                            {dateRange.start && dateRange.end 
-                                ? getTripComment(dayCount) 
-                                : "Select dates to see your trip duration."}
-                        </p>
                     </div>
 
                     <div className={styles.bottomRightSection}>
