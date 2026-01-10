@@ -9,10 +9,8 @@ export default function ItineraryPage() {
     const [allSpots, setAllSpots] = useState(null);
     const [addedSpots, setAddedSpots] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState(null);
-    
-    // --- 1. NEW STATE: Track the Active Hub (Default to Virac) ---
     const [activeHub, setActiveHub] = useState(null);
-
+    const [budgetFilter, setBudgetFilter] = useState(['low', 'medium', 'high']);
     const [selectedActivities, setSelectedActivities] = useState({
         Accommodation: false, Dining: false, Sightseeing: false,
         Shopping: false, Swimming: false, Hiking: false, Photography: false
@@ -29,6 +27,32 @@ export default function ItineraryPage() {
         if (newHub) {
                 setActiveHub(newHub);
         }
+    };
+
+    const handleToggleLock = (spotName) => {
+        setAddedSpots(prevSpots => prevSpots.map(spot => {
+            if (spot.name === spotName) {
+                return { ...spot, locked: !spot.locked }; // Toggle lock
+            }
+            return spot;
+        }));
+    };
+
+    const handleMoveSpot = (index, direction) => {
+        setAddedSpots(prev => {
+            const newSpots = [...prev];
+            const targetIndex = index + direction;
+
+            // Boundary Check: prevent moving past start or end
+            if (targetIndex < 0 || targetIndex >= newSpots.length) return prev;
+
+            // Swap Logic
+            const temp = newSpots[index];
+            newSpots[index] = newSpots[targetIndex];
+            newSpots[targetIndex] = temp;
+
+            return newSpots;
+        });
     };
 
     const handleAddSpot = (spot) => {
@@ -58,10 +82,14 @@ export default function ItineraryPage() {
                     selectedLocation={selectedLocation}
                     setSelectedLocation={setSelectedLocation}
                     addedSpots={addedSpots}
+                    setAddedSpots={setAddedSpots}
                     onAddSpot={handleAddSpot}
                     onRemoveSpot={handleRemoveSpot}
                     activeHubName={activeHub ? activeHub.name : ""} 
                     onHubChange={handleHubChange} 
+                    onToggleLock={handleToggleLock}
+                    onMoveSpot={handleMoveSpot}
+                    onBudgetChange={setBudgetFilter}
                 />
             </div>
 
@@ -73,6 +101,7 @@ export default function ItineraryPage() {
                     onMarkerClick={setSelectedLocation} 
                     selectedHub={activeHub}
                     addedSpots={addedSpots}
+                    budgetFilter={budgetFilter}
                 />
             </div>
         </div>

@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // <--- ADDED THIS
 import { TRAVEL_HUBS } from '../constants/location';
 import styles from '../styles/itinerary_page/ItineraryCard.module.css';
 import { calculateDistance, calculateTotalRoute, calculateDriveTimes, calculateTimeUsage } from '../utils/distance'; 
@@ -27,25 +28,33 @@ const PreferenceCard = ({
     onMoveSpot,
     onBudgetChange 
 }) => {
+    // --- HOOKS ---
+    const navigate = useNavigate(); // <--- INITIALIZED THIS
+
+    // --- STATE ---
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
-    
-    // Slider state 0-100 for smooth dragging
     const [budget, setBudget] = useState(50); 
-    
     const [destination, setDestination] = useState(activeHubName || ''); 
+
+    // --- MULTI-DAY STATE ---
+    const [currentDay, setCurrentDay] = useState(1);
+    const [storedDays, setStoredDays] = useState({});
+    
+    // --- WARNING MODAL STATE ---
+    const [showOverloadWarning, setShowOverloadWarning] = useState(false);
+    const [warningDismissed, setWarningDismissed] = useState(false); 
 
     useEffect(() => {
         setDestination(activeHubName || '');
     }, [activeHubName]);
 
-    // Helper to map 0-100 slider to 1-3 step for the MAP FILTER only
+    // Budget Slider
     const getBudgetStep = (value) => {
         if (value <= 33) return 1;
         if (value <= 66) return 2;
         return 3;
     };
 
-    // Effect: Updates the map filter when slider stops, but doesn't touch UI text
     useEffect(() => {
         if (onBudgetChange) {
             const step = getBudgetStep(budget);
@@ -55,8 +64,6 @@ const PreferenceCard = ({
 
     const today = new Date().toISOString().split('T')[0];
     const isAlreadyAdded = selectedLocation && addedSpots.some(spot => spot.name === selectedLocation.name);
-    
-    // [PRO FIX] Check if a Hub is selected
     const isHubSelected = Boolean(activeHubName && activeHubName !== "");
 
     const handleActivityChange = (activityName) => {
@@ -66,16 +73,26 @@ const PreferenceCard = ({
         }));
     };
 
+    // --- CALCULATIONS ---
+
     const dayCount = useMemo(() => {
-        if (!dateRange.start || !dateRange.end) return 0;
+        if (!dateRange.start || !dateRange.end) return 1;
         const start = new Date(dateRange.start);
         const end = new Date(dateRange.end);
         const diffTime = end - start;
         const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-        return days > 0 ? days : 0;
+        return days > 0 ? days : 1;
     }, [dateRange]);
 
-    const durationString = dayCount > 0 ? `${dayCount} Days` : "0 Days";
+    useEffect(() => {
+        if (dayCount < currentDay) {
+            setCurrentDay(1);
+            setStoredDays({});
+            setAddedSpots([]);
+        }
+    }, [dayCount, setAddedSpots]);
+
+    const durationString = dayCount > 0 ? `${dayCount} Days` : "1 Day";
 
     const distanceFromHub = useMemo(() => {
         if (!selectedLocation || !activeHubName) return null;
@@ -84,6 +101,7 @@ const PreferenceCard = ({
         return calculateDistance(hub.coordinates, selectedLocation.geometry.coordinates);
     }, [selectedLocation, activeHubName]);
 
+    // Current Day Calculations
     const totalDistance = useMemo(() => {
         const hub = TRAVEL_HUBS[activeHubName];
         if (!hub || !addedSpots || addedSpots.length === 0) return 0;
@@ -109,10 +127,8 @@ const PreferenceCard = ({
         };
 
         const DAILY_CAPACITY = 540; 
-        
         const usage = calculateTimeUsage(hub, addedSpots);
         const usedAmount = Number(usage?.totalUsed) || 0; 
-
         const remaining = DAILY_CAPACITY - usedAmount;
         
         let percent = (usedAmount / DAILY_CAPACITY) * 100;
@@ -124,12 +140,12 @@ const PreferenceCard = ({
         
         if (remaining < 0) {
             color = '#EF4444'; 
-            label = 'Not realistic in one day';
-            subtext = 'Remove a stop or split into another day (Start 6-7 AM)';
+            label = 'Day Overloaded';
+            subtext = 'Not realistic in one day';
         } else if (remaining < 120) { 
             color = '#F59E0B'; 
             label = 'Tight but doable';
-            subtext = 'Early start or minimal delays required (Start 3-5 AM)';
+            subtext = 'Early start required';
         } 
 
         return {
@@ -142,44 +158,159 @@ const PreferenceCard = ({
         };
     }, [addedSpots, activeHubName]);
 
-    const formatMins = (mins) => {
-        const safeMins = Number(mins);
-        if (isNaN(safeMins)) return "0h 0m";
+    // --- OVERLOAD WATCHER ---
+    useEffect(() => {
+        if (timeWallet.remaining < 0 && !warningDismissed && !showOverloadWarning) {
+            setShowOverloadWarning(true);
+        }
+        if (timeWallet.remaining >= 0) {
+            setWarningDismissed(false);
+            setShowOverloadWarning(false);
+        }
+    }, [timeWallet.remaining, warningDismissed, showOverloadWarning]);
 
-        const m = Math.abs(safeMins);
-        const h = Math.floor(m / 60);
-        const min = Math.round(m % 60);
-        return `${h}h ${min}m`;
-    };
+
+    // --- HANDLERS ---
 
     const handleOptimize = () => {
         if (!activeHubName || !addedSpots || addedSpots.length < 2) return;
-        
         const hub = TRAVEL_HUBS[activeHubName];
         const newOrder = optimizeRoute(hub, addedSpots);
-        
-        if (setAddedSpots) {
-            setAddedSpots(newOrder);
-        }
+        if (setAddedSpots) setAddedSpots(newOrder);
     };
 
+    const handleSliceAndNext = () => {
+        setStoredDays(prev => ({
+            ...prev,
+            [currentDay]: [...addedSpots]
+        }));
+        
+        setAddedSpots([]); 
+        setCurrentDay(prev => prev + 1); 
+        
+        setShowOverloadWarning(false);
+        setWarningDismissed(false);
+    };
+
+    const handleKeepGoing = () => {
+        setShowOverloadWarning(false);
+        setWarningDismissed(true); 
+    };
+
+    // --- FIXED SAVE FUNCTION ---
     const handleSaveItinerary = () => {
-        if (!activeHubName || addedSpots.length === 0) {
-            alert("Please select a Base Location and add at least one spot.");
+        
+        // 1. Construct the complete object
+        const finalItinerary = {
+            ...storedDays,
+            [currentDay]: addedSpots
+        };
+
+        // 2. Validate - Check if empty
+        const allSpotsFlat = [];
+        Object.keys(finalItinerary).sort().forEach(day => {
+            allSpotsFlat.push(...finalItinerary[day]);
+        });
+
+        if (!activeHubName || allSpotsFlat.length === 0) {
+            alert("Please add at least one spot before saving.");
             return;
         }
+
+        console.log("Saving itinerary...", finalItinerary);
+
+        // 3. PERSIST DATA: Save to LocalStorage so 'Last.jsx' can read it
+        localStorage.setItem('finalItinerary', JSON.stringify(finalItinerary));
+        localStorage.setItem('activeHubName', activeHubName);
+
+        // 4. Generate PDF (Optional: Keep this if you want the download to start immediately)
+        const hub = TRAVEL_HUBS[activeHubName];
+        const fullTripDistance = calculateTotalRoute(hub, allSpotsFlat);
+        const fullTripDriveData = calculateDriveTimes(hub, allSpotsFlat);
 
         generateItineraryPDF({
             activeHubName,
             dateRange,
-            addedSpots,
-            totalDistance,
-            driveData
+            addedSpots: finalItinerary, 
+            totalDistance: fullTripDistance,
+            driveData: fullTripDriveData
         });
+
+        // 5. Navigate to the Thank You Page (Last step!)
+        navigate('/last');
     };
+
+    const isLastDay = currentDay >= dayCount;
 
     return (
         <div className={styles.PreferenceCard}>
+            
+            {/* --- OVERLOAD MODAL --- */}
+            {showOverloadWarning && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.85)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 9999
+                }}>
+                    <div style={{
+                        backgroundColor: '#1F2937',
+                        padding: '24px',
+                        borderRadius: '12px',
+                        border: '1px solid #EF4444',
+                        maxWidth: '400px',
+                        textAlign: 'center',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
+                    }}>
+                        <div style={{ fontSize: '40px', marginBottom: '16px' }}>✂️</div>
+                        <h3 style={{ color: '#EF4444', fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>
+                            Day {currentDay} is Full
+                        </h3>
+                        <p style={{ color: '#E5E7EB', fontSize: '14px', marginBottom: '24px', lineHeight: '1.5' }}>
+                            You have exceeded the time wallet for Day {currentDay}.<br/>
+                            Do you want to slice this day here and start planning <b>Day {currentDay + 1}</b>?
+                        </p>
+                        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                            <button 
+                                onClick={handleKeepGoing}
+                                style={{
+                                    padding: '8px 16px',
+                                    borderRadius: '6px',
+                                    border: '1px solid #4B5563',
+                                    background: 'transparent',
+                                    color: '#E5E7EB',
+                                    cursor: 'pointer',
+                                    fontSize: '12px'
+                                }}
+                            >
+                                No, Keep Packing Day {currentDay}
+                            </button>
+                            
+                            {!isLastDay && (
+                                <button 
+                                    onClick={handleSliceAndNext}
+                                    style={{
+                                        padding: '8px 16px',
+                                        borderRadius: '6px',
+                                        border: 'none',
+                                        background: '#EF4444',
+                                        color: 'white',
+                                        cursor: 'pointer',
+                                        fontWeight: 'bold',
+                                        fontSize: '12px'
+                                    }}
+                                >
+                                    Yes, Slice & Start Day {currentDay + 1}
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className={styles.secondCard}>
                 
                 {/* --- LEFT COLUMN --- */}
@@ -208,7 +339,6 @@ const PreferenceCard = ({
                                 : "Click a pin on the map to see details here."}
                         </p>
 
-                        {/* [PRO FIX START]: Updated Add Button Logic */}
                         {selectedLocation && (
                             isAlreadyAdded ? (
                                 <button 
@@ -219,24 +349,15 @@ const PreferenceCard = ({
                                 </button>
                             ) : (
                                 <button 
-                                    // Switches class if hub is missing
                                     className={isHubSelected ? styles.addSpot : styles.addSpotDisabled}
-                                    
-                                    // Only allow add if hub is selected
                                     onClick={() => isHubSelected && onAddSpot(selectedLocation)}
-                                    
-                                    // Disable the button to block interaction
                                     disabled={!isHubSelected}
-                                    
-                                    // Helpful tooltip
                                     title={isHubSelected ? "Add tourist spot" : "Select a starting point first"}
                                 >
-                                    {/* Change text to guide user */}
                                     {isHubSelected ? "Add" : "Set Start Point"}
                                 </button>
                             )
                         )}
-                        {/* [PRO FIX END] */}
                     </div>
 
                     <div className={styles.activitiesBox}>
@@ -259,7 +380,6 @@ const PreferenceCard = ({
                     <div className={styles.budgetBox}>
                         <h3 className={styles.boxTitle}>Budget</h3>
                         <div className={styles.budgetSlider}>
-                            {/* Smooth Slider 0-100 */}
                             <input
                                 type="range"
                                 min="0"
@@ -268,7 +388,6 @@ const PreferenceCard = ({
                                 onChange={(e) => setBudget(Number(e.target.value))}
                                 className={styles.slider}
                             />
-                            {/* STATIC LABELS - No logic here */}
                             <div className={styles.budgetLabels}>
                                 <span>≤ ₱200</span>
                                 <span className={styles.currentBudget}>₱200 - ₱600</span>
@@ -332,9 +451,19 @@ const PreferenceCard = ({
 
                     <div className={styles.bottomRightSection}>
                         <div className={styles.itineraryPreview}>
-                            <h3 className={styles.boxTitle}>Trip Summary</h3>
+                            
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                                <h3 className={styles.boxTitle} style={{ margin: 0 }}>
+                                    Day {currentDay} of {dayCount}
+                                </h3>
+                                
+                                {currentDay > 1 && (
+                                    <span style={{ fontSize: '10px', color: '#9CA3AF' }}>
+                                        (Days 1-{currentDay-1} Saved)
+                                    </span>
+                                )}
+                            </div>
 
-                            {/* Optimization Button */}
                             <button 
                                 onClick={handleOptimize}
                                 style={{
@@ -354,7 +483,7 @@ const PreferenceCard = ({
                                     gap: '6px'
                                 }}
                             >
-                                <span>✨</span> Optimize Route
+                                <span>✨</span> Optimize Day {currentDay}
                             </button>
 
                             <div style={{
@@ -366,7 +495,7 @@ const PreferenceCard = ({
                                 border: '1px solid #374151'
                             }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                                    <span style={{ fontSize: '12px', color: '#E5E7EB', marginTop: '2px' }}>Time Wallet</span>
+                                    <span style={{ fontSize: '12px', color: '#E5E7EB', marginTop: '2px' }}>Day {currentDay} Wallet</span>
                                     
                                     <div style={{ textAlign: 'right' }}>
                                         <div style={{ fontWeight: 'bold', fontSize: '12px', color: timeWallet.color }}>
@@ -388,10 +517,10 @@ const PreferenceCard = ({
                                 </div>
 
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '11px', color: '#9CA3AF' }}>
-                                    <span>Your Day Meter</span>
+                                    <span>Schedule Load</span>
                                     <span style={{ color: addedSpots.length > 0 ? timeWallet.color : '#6B7280', fontWeight: 'bold' }}>
                                         {(() => {
-                                            if (addedSpots.length === 0) return "Ready to start";
+                                            if (addedSpots.length === 0) return "Ready";
                                             if (timeWallet.remaining < 0) return "Overloaded";
                                             if (timeWallet.remaining < 120) return "Packed";
                                             return "Relaxed";
@@ -401,7 +530,6 @@ const PreferenceCard = ({
                             </div>
                             
                             <div className={styles.statsRow}>
-                                <span className={styles.statBadge}>{durationString}</span>
                                 <span className={styles.statBadge}>{addedSpots?.length || 0} Stops</span>
                                 <span className={styles.statBadge}>{totalDistance} km</span>
                             </div>
@@ -522,16 +650,41 @@ const PreferenceCard = ({
                                     ))
                                 ) : (
                                     <p className={styles.previewContent}>
-                                        No spots added yet. Select a pin and click Add.
+                                        Day {currentDay} jar is empty. Select a pin to add.
                                     </p>
                                 )}
                             </div>
                         </div>
                         
-                        <button className={styles.saveButton}
-                        onClick={handleSaveItinerary}>
-                            Save Itinerary
+                        <button 
+                            className={styles.saveButton} 
+                            onClick={isLastDay ? handleSaveItinerary : handleSliceAndNext}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px',
+                                backgroundColor: isLastDay ? '#10B981' : undefined
+                            }}
+                        >
+                            {isLastDay ? "💾 Save Full Itinerary" : `Complete Day ${currentDay} & Next ➜`}
                         </button>
+
+                        {!isLastDay && (
+                            <div 
+                                onClick={handleSaveItinerary}
+                                style={{
+                                    marginTop: '8px',
+                                    textAlign: 'center',
+                                    fontSize: '11px',
+                                    color: '#9CA3AF',
+                                    cursor: 'pointer',
+                                    textDecoration: 'underline'
+                                }}
+                            >
+                                (Or finish and save itinerary now)
+                            </div>
+                        )}
                     </div>
                 </div>
 
