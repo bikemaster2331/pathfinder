@@ -1,0 +1,31 @@
+.itineraryContainer {
+    display: grid;
+    grid-template-columns: 600px 1fr;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+/* Optional: Ensure the card container fills its slot */
+.preferenceCardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 2;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.preferenceCardContainer>* {
+    pointer-events: auto;
+}
+
+/* Optional: Ensure the map container fills its slot */
+.mapContainer {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
