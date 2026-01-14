@@ -7,19 +7,20 @@ This README documents the architecture, quick start, developer guidance for trac
 ---
 
 ## Table of contents
-- Features
-- Architecture & system flow
-- Repo layout (where to look)
-- Quick start (development)
-- Environment variables
-- Common API endpoints & examples
-- Frontend ↔ Backend mapping — how to find callers
-- Admin / rebuild flow
-- Docker & deployment notes
-- Troubleshooting
-- Contributing
-- License & contact
-- Related projects
+- [Features](#features)
+- [Architecture & system flow](#architecture--system-flow)
+- [Repo layout (where to look)](#repo-layout-where-to-look)
+- [Quick start (development)](#quick-start-development)
+- [Environment variables](#environment-variables)
+- [Common API endpoints & examples](#common-api-endpoints--examples)
+- [Frontend - Backend mapping (how to find callers)](#frontend---backend-mapping-how-to-find-callers)
+- [Admin / rebuild flow](#admin--rebuild-flow)
+- [Docker & deployment notes](#docker--deployment-notes)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact / Maintainer](#contact--maintainer)
+- [Related projects](#related-projects)
 
 ---
 
@@ -33,7 +34,7 @@ This README documents the architecture, quick start, developer guidance for trac
 
 ---
 
-## Architecture & system flow (high level)
+## Architecture & system flow
 - Client (React): UI components — Search, MapView, Results, Itinerary, Admin UI
 - API client: centralized module invoking backend endpoints (e.g. `/ask`, `/places`, `/admin/*`)
 - Backend (FastAPI): HTTP routes wrapping the pipeline, auth, and data access
@@ -102,7 +103,7 @@ curl -s -X POST "http://localhost:8000/ask" \
 
 ---
 
-## Environment variables (common)
+## Environment variables
 Backend (.env):
 - FASTAPI_HOST=0.0.0.0
 - FASTAPI_PORT=8000
@@ -148,7 +149,7 @@ Adjust variable names/paths to match the actual repo implementation.
 
 ---
 
-## Frontend ↔ Backend mapping — how to find which frontend files call the backend
+## Frontend - Backend mapping (how to find callers)
 If you're unsure which files call backend endpoints, run these commands from the repo root and inspect the results. Paste outputs if you want help mapping them.
 
 1) Find any package.json (locate React app):
@@ -247,3 +248,4 @@ If you want, I can:
 - Generate a visual diagram (Mermaid) and add it to this README.
 
 Tell me which you'd like next.
+```
