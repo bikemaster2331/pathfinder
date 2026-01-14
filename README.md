@@ -1,237 +1,249 @@
-# Pathfinder
+# Pathfinder — AI-powered IoT Map Board
 
-> A powerful and intuitive tool designed to help you navigate, discover, and explore your digital journey.
+Pathfinder is an AI-powered interactive map board that provides tourist information, smart itineraries, and location-aware answers. It combines a React frontend (kiosk / browser), a FastAPI backend, and a retrieval-augmented generation (RAG) pipeline (ChromaDB + embeddings + LLM) to answer natural-language queries and display results on maps for kiosks or web clients.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub Issues](https://img.shields.io/github/issues/bikemaster2331/pathfinder)](https://github.com/bikemaster2331/pathfinder/issues)
-[![GitHub Forks](https://img.shields.io/github/forks/bikemaster2331/pathfinder)](https://github.com/bikemaster2331/pathfinder/network/members)
-
-## 📋 Table of Contents
-
-- [About](#about)
-- [Features](#features)
-- [Why Pathfinder?](#why-pathfinder)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Basic Usage](#basic-usage)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [Getting Help](#getting-help)
-- [Maintainers](#maintainers)
-- [License](#license)
-
-## About
-
-Pathfinder is a comprehensive solution for [describe what your project does]. It simplifies complex navigation tasks and provides an intuitive interface for users of all skill levels.
-
-### Key Capabilities
-
-- **Intelligent Navigation**: Smart algorithms to find the most efficient paths
-- **User-Friendly Interface**: Clean and intuitive design for seamless experience
-- **Flexible Configuration**: Highly customizable to meet your specific needs
-- **Robust Performance**: Optimized for speed and reliability
-- **Extensive Integration**: Works seamlessly with popular tools and services
-
-## Features
-
-- ✅ Fast and efficient pathfinding algorithms
-- ✅ Real-time updates and monitoring
-- ✅ Comprehensive error handling
-- ✅ Detailed logging and debugging tools
-- ✅ Multi-platform support
-- ✅ Lightweight and minimal dependencies
-- ✅ Fully tested and production-ready
-
-## Why Pathfinder?
-
-There are many tools available, but Pathfinder stands out because:
-
-1. **Simplicity**: Easy to understand and implement, even for beginners
-2. **Reliability**: Thoroughly tested with high code coverage
-3. **Performance**: Optimized algorithms ensure fast execution
-4. **Community**: Active maintenance and responsive support
-5. **Flexibility**: Adaptable to various use cases and requirements
-6. **Documentation**: Comprehensive guides and examples included
-
-## Getting Started
-
-### Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- **Node.js** (v14.0.0 or higher) - [Download](https://nodejs.org/)
-- **npm** (v6.0.0 or higher) - Comes with Node.js
-- **Git** - [Download](https://git-scm.com/)
-- Any other relevant tools or services needed for your project
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/bikemaster2331/pathfinder.git
-   cd pathfinder
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure your environment**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration settings
-   ```
-
-4. **Verify installation**
-   ```bash
-   npm run test
-   ```
-
-### Basic Usage
-
-```javascript
-// Import the module
-const Pathfinder = require('pathfinder');
-
-// Create a new instance
-const pathfinder = new Pathfinder(options);
-
-// Use pathfinder
-pathfinder.findPath(start, end).then(path => {
-  console.log('Path found:', path);
-});
-```
-
-For more detailed examples, see the [Documentation](#documentation) section.
-
-## Documentation
-
-Comprehensive documentation is available in the following locations:
-
-- **[API Reference](./docs/api.md)** - Complete API documentation with all methods and properties
-- **[User Guide](./docs/guide.md)** - Step-by-step guide for common use cases
-- **[Examples](./examples/)** - Working code examples for various scenarios
-- **[FAQ](./docs/faq.md)** - Frequently asked questions and troubleshooting
-- **[Contributing Guide](./CONTRIBUTING.md)** - Guidelines for contributors
-
-## Contributing
-
-We welcome contributions from the community! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
-
-### How to Contribute
-
-1. **Fork the repository** on GitHub
-2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
-3. **Make your changes** and test thoroughly
-4. **Commit your changes** (`git commit -m 'Add amazing feature'`)
-5. **Push to the branch** (`git push origin feature/amazing-feature`)
-6. **Open a Pull Request** with a clear description of your changes
-
-### Development Setup
-
-```bash
-# Clone your fork
-git clone https://github.com/YOUR_USERNAME/pathfinder.git
-cd pathfinder
-
-# Install dependencies
-npm install
-
-# Run tests
-npm test
-
-# Run linter
-npm run lint
-
-# Build the project
-npm run build
-```
-
-### Code Standards
-
-- Follow the existing code style
-- Write clear, descriptive commit messages
-- Add tests for new features
-- Update documentation as needed
-- Ensure all tests pass before submitting
-
-For detailed guidelines, please see [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## Getting Help
-
-We're here to help! If you encounter any issues or have questions:
-
-### 📧 Contact Options
-
-1. **GitHub Issues** - [Report a bug or request a feature](https://github.com/bikemaster2331/pathfinder/issues)
-   - Use clear, descriptive titles
-   - Include steps to reproduce for bugs
-   - Describe the expected vs. actual behavior
-
-2. **Discussions** - [Ask questions and discuss ideas](https://github.com/bikemaster2331/pathfinder/discussions)
-   - General questions
-   - Implementation advice
-   - Best practices
-
-3. **Email** - Direct correspondence for sensitive matters
-   - Please allow 24-48 hours for a response
-
-### Resources
-
-- **[Troubleshooting Guide](./docs/troubleshooting.md)** - Solutions to common issues
-- **[FAQ](./docs/faq.md)** - Quick answers to frequent questions
-- **[Stack Overflow](https://stackoverflow.com/questions/tagged/pathfinder)** - Community answers with the `pathfinder` tag
-
-### Response Time
-
-- **Bugs**: 24-48 hours
-- **Feature Requests**: 3-5 business days
-- **General Questions**: 1-2 business days
-
-## Maintainers
-
-Pathfinder is actively maintained by:
-
-- **[bikemaster2331](https://github.com/bikemaster2331)** - Project Lead & Primary Maintainer
-  - Responsibilities: Architecture, code review, release management
-  - Contact: Available on GitHub Issues and Discussions
-
-### Contribution Team
-
-We also acknowledge the contributions of:
-- All our [contributors](https://github.com/bikemaster2331/pathfinder/graphs/contributors)
-- Community members who submit issues and feature requests
-
-### Maintenance Commitment
-
-- **Active Development**: Regular updates and improvements
-- **Bug Fixes**: Critical issues addressed within 48 hours
-- **Support**: Community support through issues and discussions
-- **Release Cycle**: New versions released quarterly or as needed
-
-## License
-
-This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE) file for details.
-
-The MIT License allows you to:
-- ✅ Use commercially
-- ✅ Modify the code
-- ✅ Distribute copies
-- ✅ Use privately
-
-With the condition that:
-- ⚠️ Include a copy of the license
-
-## Acknowledgments
-
-- Special thanks to all our [contributors](https://github.com/bikemaster2331/pathfinder/graphs/contributors)
-- Inspired by [mention any inspirations if applicable]
-- Built with amazing open-source libraries
+This README documents the architecture, quick start, developer guidance for tracing frontend ↔ backend calls, and maintenance tips.
 
 ---
 
-**Last Updated**: January 14, 2026
+## Table of contents
+- Features
+- Architecture & system flow
+- Repo layout (where to look)
+- Quick start (development)
+- Environment variables
+- Common API endpoints & examples
+- Frontend ↔ Backend mapping — how to find callers
+- Admin / rebuild flow
+- Docker & deployment notes
+- Troubleshooting
+- Contributing
+- License & contact
+- Related projects
 
-**Questions?** Don't hesitate to [open an issue](https://github.com/bikemaster2331/pathfinder/issues) or [start a discussion](https://github.com/bikemaster2331/pathfinder/discussions)!
+---
+
+## Features
+- Natural-language Q&A powered by RAG (ChromaDB + embeddings + an LLM)
+- Interactive map rendering (Leaflet / react-leaflet)
+- Place details and itinerary support
+- Admin endpoints to rebuild dataset/index
+- Background / async support for long-running LLM tasks
+- Health and status endpoints for monitoring
+
+---
+
+## Architecture & system flow (high level)
+- Client (React): UI components — Search, MapView, Results, Itinerary, Admin UI
+- API client: centralized module invoking backend endpoints (e.g. `/ask`, `/places`, `/admin/*`)
+- Backend (FastAPI): HTTP routes wrapping the pipeline, auth, and data access
+- Pipeline: ingestion, Chroma collections, embeddings, LLM calls, dataset hash/versioning
+- Storage & services: Chroma DB persistence directory, LLM provider (OpenAI/GCP), optional Redis/Sentry
+
+Minimal request flow:
+User -> React UI -> API client -> FastAPI POST /ask -> RAG (Chroma + embeddings + LLM) -> Response (answer + places) -> React UI -> Map (Leaflet) renders markers / routes
+
+---
+
+## Repo layout (where to look)
+Typical locations (actual paths may vary in this repo — search commands below will locate exact folders):
+- backend/ or server/
+  - app/main.py or main.py (FastAPI entry)
+  - api/ or routes/ (route definitions)
+  - pipeline/ (ingest, RAG logic, rebuild)
+  - models/, schemas/
+- frontend/ or react-app/ or web/
+  - package.json
+  - src/
+    - api.ts / api.js (central API client)
+    - components/, pages/, App.tsx, index.tsx
+- data/
+  - dataset.json
+- docker/ or deployment/
+  - Dockerfiles, docker-compose.yml
+- README.md, LICENSE, .env.example
+
+---
+
+## Quick start (development)
+Prereqs:
+- Node 18+ (npm or yarn)
+- Python 3.10+
+- Virtualenv / venv
+- (Optional) Docker & docker-compose
+- LLM credentials (OPENAI_API_KEY or GCP credentials depending on config)
+
+1) Backend
+```bash
+# from repo root (adjust if backend is inside subfolder)
+cd backend || cd server || cd .
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env      # edit .env with values below
+uvicorn app.main:app --reload --port 8000
+```
+
+2) Frontend
+```bash
+# find the frontend folder first if unknown (see mapping section)
+cd frontend || cd web || cd react-app
+cp .env.example .env      # set REACT_APP_API_BASE_URL=http://localhost:8000
+npm install
+npm start
+```
+
+Quick test:
+```bash
+curl -s -X POST "http://localhost:8000/ask" \
+  -H "Content-Type: application/json" \
+  -d '{"question":"best cafes near the river"}'
+```
+
+---
+
+## Environment variables (common)
+Backend (.env):
+- FASTAPI_HOST=0.0.0.0
+- FASTAPI_PORT=8000
+- CHROMA_PERSIST_DIR=./chroma_db
+- DATASET_JSON=./data/dataset.json
+- LLM_PROVIDER=openai|gcp
+- OPENAI_API_KEY=your_openai_key
+- GOOGLE_APPLICATION_CREDENTIALS=/path/to/gcp-creds.json
+- ADMIN_API_KEY=secret_admin_key
+- LOG_LEVEL=info
+
+Frontend (.env):
+- REACT_APP_API_BASE_URL=http://localhost:8000
+- REACT_APP_ADMIN_UI=true
+
+Adjust variable names/paths to match the actual repo implementation.
+
+---
+
+## Common API endpoints & examples
+(Confirm exact paths in backend code. These are typical endpoints used by the frontend.)
+
+- POST /ask
+  - Request: { "question": "..." }
+  - Response: { "answer": "...", "places": [{ id, name, lat, lng, categories }] }
+
+- GET /places
+  - Query: ?near=lat,lng&radius=500 or ?ids=1,2,3
+  - Response: array of place objects
+
+- GET /places/{id}
+  - Response: full place detail object
+
+- POST /admin/rebuild
+  - Header: x-api-key: ADMIN_API_KEY
+  - Response: { "status": "rebuild_started", "job_id": "..." }
+
+- GET /admin/hash or GET /admin/status
+  - Response: dataset hash or rebuild status
+
+- GET /health
+  - Response: { "status": "ok" }
+
+---
+
+## Frontend ↔ Backend mapping — how to find which frontend files call the backend
+If you're unsure which files call backend endpoints, run these commands from the repo root and inspect the results. Paste outputs if you want help mapping them.
+
+1) Find any package.json (locate React app):
+```bash
+find . -type f -name package.json -print
+```
+
+2) Search frontend for endpoint strings:
+```bash
+# replace 'frontend' with the actual frontend folder if different
+grep -R --line-number "/ask\|/admin\|/places\|/health" frontend || true
+grep -R --line-number "axios\|fetch(" frontend || true
+```
+
+3) Find centralized API client files:
+```bash
+grep -R --line-number "axios.create\|export .*api\|const api" frontend/src || true
+```
+
+4) Detect map integration (Leaflet / react-leaflet):
+```bash
+grep -R --line-number "leaflet\|react-leaflet\|L.map" frontend || true
+# or check package.json dependencies for 'leaflet' / 'react-leaflet'
+```
+
+5) Search for auth usage (admin or token):
+```bash
+grep -R --line-number "x-api-key\|Authorization\|localStorage.getItem('token')" frontend || true
+```
+
+How to map after locating api client:
+- Open the API client file (e.g., `src/api.ts`) — it usually defines baseURL and functions like `ask()`, `getPlaces()`, `rebuild()`.
+- Use grep to find each exported function's callers:
+```bash
+grep -R --line-number "ask(" frontend/src || true
+```
+- Open those components/pages to see how responses are used (e.g., render map, list).
+
+---
+
+## Admin / rebuild flow
+- Admin UI calls POST /admin/rebuild with `x-api-key`.
+- Backend validates key and starts an async rebuild (BackgroundTasks or job queue).
+- Rebuild re-ingests `DATASET_JSON`, recomputes embeddings, recreates Chroma collection, and updates dataset hash.
+- Admin UI polls GET /admin/status or GET /admin/hash for completion.
+
+Protect admin endpoints (API key + network controls) for kiosk deployments.
+
+---
+
+## Docker & deployment notes
+- Persist Chroma DB storage to a Docker volume (CHROMA_PERSIST_DIR).
+- Run backend and frontend in separate containers behind NGINX (TLS).
+- Avoid public exposure of admin endpoints — place behind VPN or internal network.
+- Scale LLM calls using background workers and caching for heavy traffic.
+
+---
+
+## Troubleshooting
+- Frontend cannot reach backend: check REACT_APP_API_BASE_URL and FastAPI CORS settings.
+- Stale search/index results: trigger POST /admin/rebuild.
+- High LLM latency or cost: use background tasks, cache results, or configure cheaper models.
+- Chroma persistence issues: verify CHROMA_PERSIST_DIR exists and is writable.
+
+---
+
+## Contributing
+- Fork → branch → PR
+- Follow style & tests:
+  - Frontend: eslint / prettier
+  - Backend: ruff / black / pytest
+- Add unit / integration tests for new features and document API changes.
+- When opening PRs, include screenshots for UI changes and request review for data pipeline changes.
+
+---
+
+## License
+This repository is licensed under the Apache-2.0 License. See LICENSE.
+
+---
+
+## Contact / Maintainer
+Repo owner: bikemaster2331 — https://github.com/bikemaster2331  
+Open issues on this repo for bugs, feature requests, or deployment questions.
+
+---
+
+## Related projects
+- med-id — a related repository by the same maintainer: https://github.com/bikemaster2331/med-id
+
+---
+
+If you want, I can:
+- Commit this README.md into the repository for you,
+- Scan the repo and update this README with exact file paths, example code snippets, and sample frontend components that call backend endpoints,
+- Generate a visual diagram (Mermaid) and add it to this README.
+
+Tell me which you'd like next.
