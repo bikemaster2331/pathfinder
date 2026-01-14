@@ -229,23 +229,4 @@ Protect admin endpoints (API key + network controls) for kiosk deployments.
 ## License
 This repository is licensed under the Apache-2.0 License. See LICENSE.
 
----
 
-## Contact / Maintainer
-Repo owner: bikemaster2331 — https://github.com/bikemaster2331  
-Open issues on this repo for bugs, feature requests, or deployment questions.
-
----
-
-## Related projects
-- med-id — a related repository by the same maintainer: https://github.com/bikemaster2331/med-id
-
----
-
-If you want, I can:
-- Commit this README.md into the repository for you,
-- Scan the repo and update this README with exact file paths, example code snippets, and sample frontend components that call backend endpoints,
-- Generate a visual diagram (Mermaid) and add it to this README.
-
-Tell me which you'd like next.
-```
