@@ -2,8 +2,9 @@ const fs = require('fs');
 const path = require('path');
 
 // ADJUST PATHS IF NEEDED
-const INPUT_FILE = path.join(__dirname, 'src/backend/dataset/dataset.json'); 
-const OUTPUT_FILE = path.join(__dirname, 'public/test_map.geojson');
+// The '../..' moves up two folders to the project root
+const INPUT_FILE = path.join(__dirname, '../../src/backend/dataset/dataset.json');
+const OUTPUT_FILE = path.join(__dirname, 'public/test_map2.geojson');
 
 // This aligns your Chatbot topics to the Map's expected Types
 const TOPIC_TO_TYPE = {

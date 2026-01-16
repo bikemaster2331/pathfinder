@@ -25793,31 +25793,6 @@
   {
     "type": "Feature",
     "properties": {
-      "name": "Puraran Beach",
-      "type": "HOTELS & RESORTS",
-      "description": "The Pacific swells here are unrelenting, making it a surfer's paradise for the 'Majestic' wave.",
-      "municipality": "BARAS",
-      "visit_time_minutes": 180,
-      "category": "beach",
-      "outdoor_exposure": "open",
-      "opening_hours": "24/7",
-      "best_time_of_day": "morning",
-      "min_budget": "low",
-      "size": 0.15,
-      "showAtZoom": 10,
-      "id": 11
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [
-        124.396877,
-        13.6887766
-      ]
-    }
-  },
-  {
-    "type": "Feature",
-    "properties": {
       "name": "Binurong Point",
       "type": "VIEWPOINTS",
       "description": "Requires an early morning trek to beat the heat, rewarding hikers with a Batanes-like panorama of rolling grassy hills.",
@@ -26518,6 +26493,556 @@
   {
     "type": "Feature",
     "properties": {
+      "name": "Hiyop Highlands",
+      "type": "VIEWPOINTS",
+      "description": "A breathtaking rolling hill landscape offering panoramic views of the ocean and lush greenery, often compared to the Batanes scenery.",
+      "municipality": "PANDAN",
+      "visit_time_minutes": 60,
+      "category": "nature",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "06:00-18:00",
+      "best_time_of_day": "morning",
+      "min_budget": "low",
+      "size": 0.5,
+      "showAtZoom": 10,
+      "id": 401
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.19515607209418,
+        14.069834001868761
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Ba-haw Falls",
+      "type": "FALLS",
+      "description": "A secluded and serene waterfall tucked in Gigmoto, offering cool waters perfect for a refreshing dip away from the crowds.",
+      "municipality": "GIGMOTO",
+      "visit_time_minutes": 90,
+      "category": "nature",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "08:00-17:00",
+      "best_time_of_day": "morning",
+      "min_budget": "low",
+      "size": 0.2,
+      "showAtZoom": 11,
+      "id": 402
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.38320715026808,
+        13.75387978940785
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Nupa Green Lagoon",
+      "type": "VIEWPOINTS",
+      "description": "A hidden gem featuring emerald green waters surrounded by rock formations, ideal for adventurous swimming and nature photography.",
+      "municipality": "GIGMOTO",
+      "visit_time_minutes": 60,
+      "category": "nature",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "08:00-16:00",
+      "best_time_of_day": "noon",
+      "min_budget": "low",
+      "size": 0.1,
+      "showAtZoom": 11,
+      "id": 403
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.40409028095019,
+        13.75714325500738
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Miguilas Inn and Resto Bar",
+      "type": "HOTELS & RESORTS",
+      "description": "A convenient stopover in the northern loop offering accommodation and hearty local meals for travelers exploring Caramoran.",
+      "municipality": "CARAMORAN",
+      "visit_time_minutes": 60,
+      "category": "accommodation",
+      "outdoor_exposure": "indoor",
+      "opening_hours": "07:00-21:00",
+      "best_time_of_day": "dinner",
+      "min_budget": "medium",
+      "size": 0.1,
+      "showAtZoom": 12,
+      "id": 404
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.1348645200423,
+        13.98755168209128
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Palumbanes Island",
+      "type": "VIEWPOINTS",
+      "description": "A stunning group of islands known as 'Parompong', famous for pristine waters and the beautiful Bitaog Beach.",
+      "municipality": "CARAMORAN",
+      "visit_time_minutes": 180,
+      "category": "nature",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "06:00-17:00",
+      "best_time_of_day": "morning",
+      "min_budget": "medium",
+      "size": 0.5,
+      "showAtZoom": 10,
+      "id": 405
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.04335345796237,
+        14.024204879590119
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Toytoy Beach",
+      "type": "VIEWPOINTS",
+      "description": "A long stretch of cream-colored sand in Caramoran known for its coral formations and quiet, laid-back atmosphere.",
+      "municipality": "CARAMORAN",
+      "visit_time_minutes": 60,
+      "category": "nature",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "24 hours",
+      "best_time_of_day": "sunset",
+      "min_budget": "low",
+      "size": 0.3,
+      "showAtZoom": 11,
+      "id": 406
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.13075649902726,
+        13.99610361623702
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Bote Lighthouse",
+      "type": "VIEWPOINTS",
+      "description": "A renovated lighthouse atop a hill offering a commanding 360-degree view of the Pacific Ocean and Bato's coastline.",
+      "municipality": "BATO",
+      "visit_time_minutes": 45,
+      "category": "history",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "06:00-18:00",
+      "best_time_of_day": "afternoon",
+      "min_budget": "low",
+      "size": 0.1,
+      "showAtZoom": 11,
+      "id": 407
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.32548666430874,
+        13.55980864586186
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Sakahon Beach",
+      "type": "VIEWPOINTS",
+      "description": "A rugged and scenic beach in Bato known for its unique rock formations and powerful waves, great for sightseeing.",
+      "municipality": "BATO",
+      "visit_time_minutes": 60,
+      "category": "nature",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "06:00-18:00",
+      "best_time_of_day": "morning",
+      "min_budget": "low",
+      "size": 0.2,
+      "showAtZoom": 11,
+      "id": 408
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.32951300039434,
+        13.561646057470904
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Diocesan Shrine of the Holy Cross",
+      "type": "RELIGIOUS SITES",
+      "description": "The burial site of the Augustinian Recollect Fray Diego de Herrera, marking the introduction of Christianity to the island.",
+      "municipality": "BATO",
+      "visit_time_minutes": 30,
+      "category": "culture",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "08:00-17:00",
+      "best_time_of_day": "morning",
+      "min_budget": "free",
+      "size": 0.05,
+      "showAtZoom": 12,
+      "id": 409
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.31519015172765,
+        13.588667855225093
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "East Coast Beach Resort",
+      "type": "HOTELS & RESORTS",
+      "description": "A relaxing beachside resort located along the eastern coast, offering comfortable accommodations and ocean breezes.",
+      "municipality": "BARAS",
+      "visit_time_minutes": 120,
+      "category": "accommodation",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "08:00-20:00",
+      "best_time_of_day": "afternoon",
+      "min_budget": "medium",
+      "size": 0.2,
+      "showAtZoom": 11,
+      "id": 410
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.34601783087594,
+        13.645130194241856
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Macutal Falls",
+      "type": "FALLS",
+      "description": "A hidden waterfall in Baras surrounded by dense foliage, offering a raw and natural trekking experience.",
+      "municipality": "BARAS",
+      "visit_time_minutes": 90,
+      "category": "nature",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "08:00-16:00",
+      "best_time_of_day": "morning",
+      "min_budget": "low",
+      "size": 0.2,
+      "showAtZoom": 11,
+      "id": 411
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.36844252512445,
+        13.67996312734602
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Balacay Point",
+      "type": "VIEWPOINTS",
+      "description": "Also known as the 'Purple Hills', this viewpoint offers a majestic grassy landscape and endless views of the Pacific.",
+      "municipality": "BARAS",
+      "visit_time_minutes": 45,
+      "category": "nature",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "06:00-18:00",
+      "best_time_of_day": "sunrise",
+      "min_budget": "low",
+      "size": 0.4,
+      "showAtZoom": 10,
+      "id": 412
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.39530656745467,
+        13.705434883642221
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Puraran Beach",
+      "type": "HOTELS & RESORTS",
+      "description": "Home to the famous 'Majestic' wave, this resort is the prime spot for surfers and beach lovers in Catanduanes.",
+      "municipality": "BARAS",
+      "visit_time_minutes": 180,
+      "category": "accommodation",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "24 hours",
+      "best_time_of_day": "morning",
+      "min_budget": "medium",
+      "size": 0.3,
+      "showAtZoom": 10,
+      "id": 413
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.39881786785304,
+        13.691946453490571
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Nyxx & Match Café",
+      "type": "RESTAURANTS & CAFES",
+      "description": "A cozy roadside café in Baras serving coffee and snacks, perfect for a quick stop during an east coast road trip.",
+      "municipality": "BARAS",
+      "visit_time_minutes": 45,
+      "category": "food",
+      "outdoor_exposure": "indoor",
+      "opening_hours": "09:00-19:00",
+      "best_time_of_day": "snack",
+      "min_budget": "low",
+      "size": 0.1,
+      "showAtZoom": 11,
+      "id": 414
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.3689383521126,
+        13.660708793380602
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Cafe Ubaldita",
+      "type": "RESTAURANTS & CAFES",
+      "description": "A charming café in Virac known for its homey ambiance and delicious selection of pastries and brewed coffee.",
+      "municipality": "VIRAC",
+      "visit_time_minutes": 60,
+      "category": "food",
+      "outdoor_exposure": "indoor",
+      "opening_hours": "09:00-21:00",
+      "best_time_of_day": "snack",
+      "min_budget": "medium",
+      "size": 0.1,
+      "showAtZoom": 12,
+      "id": 415
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.20754195211089,
+        13.58417333027359
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Carrie's Pizza, Pasta and More",
+      "type": "RESTAURANTS & CAFES",
+      "description": "A popular local spot in Virac serving hearty Italian-inspired dishes like pizza and pasta at affordable prices.",
+      "municipality": "VIRAC",
+      "visit_time_minutes": 60,
+      "category": "food",
+      "outdoor_exposure": "indoor",
+      "opening_hours": "10:00-21:00",
+      "best_time_of_day": "lunch",
+      "min_budget": "medium",
+      "size": 0.1,
+      "showAtZoom": 12,
+      "id": 416
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.21429182327564,
+        13.58077624646006
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "LouCa Beach Resort",
+      "type": "HOTELS & RESORTS",
+      "description": "A beachfront resort in Virac offering a peaceful seaside escape with cottages and easy access to the water.",
+      "municipality": "VIRAC",
+      "visit_time_minutes": 120,
+      "category": "accommodation",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "24 hours",
+      "best_time_of_day": "afternoon",
+      "min_budget": "medium",
+      "size": 0.2,
+      "showAtZoom": 11,
+      "id": 417
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.15769502783087,
+        13.548539798350518
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Regina's Beachfront Resort",
+      "type": "HOTELS & RESORTS",
+      "description": "Located along the southern coast of Virac, this resort is ideal for family gatherings and beach outings.",
+      "municipality": "VIRAC",
+      "visit_time_minutes": 120,
+      "category": "accommodation",
+      "outdoor_exposure": "outdoor",
+      "opening_hours": "08:00-20:00",
+      "best_time_of_day": "morning",
+      "min_budget": "medium",
+      "size": 0.2,
+      "showAtZoom": 11,
+      "id": 418
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.16488424391362,
+        13.53976642609727
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Isla Be Back Staycation",
+      "type": "HOTELS & RESORTS",
+      "description": "A modern staycation spot in Virac offering comfortable amenities for travelers looking for a home away from home.",
+      "municipality": "VIRAC",
+      "visit_time_minutes": 0,
+      "category": "accommodation",
+      "outdoor_exposure": "indoor",
+      "opening_hours": "24 hours",
+      "best_time_of_day": "evening",
+      "min_budget": "medium",
+      "size": 0.1,
+      "showAtZoom": 12,
+      "id": 419
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.2164396295645,
+        13.585740419849598
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "On D’ Wings - Calatagan",
+      "type": "RESTAURANTS & CAFES",
+      "description": "The Calatagan branch of the famous wings joint, serving spicy and savory chicken wings to students and locals.",
+      "municipality": "VIRAC",
+      "visit_time_minutes": 60,
+      "category": "food",
+      "outdoor_exposure": "indoor",
+      "opening_hours": "10:00-21:00",
+      "best_time_of_day": "lunch",
+      "min_budget": "low",
+      "size": 0.1,
+      "showAtZoom": 12,
+      "id": 420
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.20816347114656,
+        13.591323543086718
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Rojazz Café",
+      "type": "RESTAURANTS & CAFES",
+      "description": "A relaxed café setting in Virac, great for casual meetups and enjoying local coffee blends.",
+      "municipality": "VIRAC",
+      "visit_time_minutes": 45,
+      "category": "food",
+      "outdoor_exposure": "indoor",
+      "opening_hours": "09:00-20:00",
+      "best_time_of_day": "snack",
+      "min_budget": "low",
+      "size": 0.1,
+      "showAtZoom": 12,
+      "id": 421
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.23471746745183,
+        13.584380431136946
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "Taller’s Brew",
+      "type": "RESTAURANTS & CAFES",
+      "description": "A coffee shop in Virac that takes pride in its brewing methods, offering a fix for serious coffee lovers.",
+      "municipality": "VIRAC",
+      "visit_time_minutes": 45,
+      "category": "food",
+      "outdoor_exposure": "indoor",
+      "opening_hours": "08:00-20:00",
+      "best_time_of_day": "morning",
+      "min_budget": "medium",
+      "size": 0.1,
+      "showAtZoom": 12,
+      "id": 422
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        124.20498736560553,
+        13.595368163992209
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
       "name": "Anika Food Corner",
       "type": "RESTAURANTS & CAFES",
       "description": "A no-frills, open-air canteen favored by locals for its affordable, home-cooked Bicolano staples.",
@@ -26668,10 +27193,10 @@
   {
     "type": "Feature",
     "properties": {
-      "name": "Pusgo Island Guest House",
+      "name": "Pusgo Island",
       "type": "HOTELS & RESORTS",
       "description": "An off-grid escape in Pandan requiring a boat ride, where electricity is scarce but the luxury comes from having an entire island cove almost to yourself.",
-      "municipality": "PANDAN",
+      "municipality": "BAGAMANOC",
       "visit_time_minutes": 0,
       "category": "accommodation",
       "outdoor_exposure": "shaded",
@@ -26685,8 +27210,8 @@
     "geometry": {
       "type": "Point",
       "coordinates": [
-        124.32366,
-        13.96996
+        124.3236727113077,
+        13.978580903089881
       ]
     }
   },
@@ -28136,31 +28661,6 @@
   {
     "type": "Feature",
     "properties": {
-      "name": "Puraran Surf Beach Resort",
-      "type": "HOTELS & RESORTS",
-      "description": "One of the 'Big Three' resorts featuring rustic wooden cottages.",
-      "municipality": "BARAS",
-      "visit_time_minutes": 0,
-      "category": "accommodation",
-      "outdoor_exposure": "shaded",
-      "opening_hours": "06:00-22:00",
-      "best_time_of_day": "any",
-      "min_budget": "medium",
-      "size": 0.15,
-      "showAtZoom": 10,
-      "id": 173
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [
-        124.39430347202405,
-        13.689922738086013
-      ]
-    }
-  },
-  {
-    "type": "Feature",
-    "properties": {
       "name": "Titaay Surfers Inn",
       "type": "HOTELS & RESORTS",
       "description": "A homely establishment offering a quiet, residential feel.",
@@ -28188,10 +28688,10 @@
     "properties": {
       "name": "L'Astrolabe",
       "type": "HOTELS & RESORTS",
-      "description": "A fusion of local materials and European culinary influence.",
+      "description": "A fusion of local materials and European culinary influence L'Astrolabe is also a beach resort.",
       "municipality": "BARAS",
       "visit_time_minutes": 90,
-      "category": "food",
+      "category": "accommodation",
       "outdoor_exposure": "shaded",
       "opening_hours": "08:00-21:00",
       "best_time_of_day": "sunset",
@@ -30069,35 +30569,10 @@
   {
     "type": "Feature",
     "properties": {
-      "name": "Mamangal Beach Resort",
-      "type": "HOTELS & RESORTS",
-      "description": "Known for its long stretch of light sand and shallow waters, making it one of the safest swimming spots for children in San Andres.",
-      "municipality": "SAN ANDRES",
-      "visit_time_minutes": 120,
-      "category": "beach",
-      "outdoor_exposure": "open",
-      "opening_hours": "24/7",
-      "best_time_of_day": "midday",
-      "min_budget": "low",
-      "size": 0.15,
-      "showAtZoom": 10,
-      "id": 269
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [
-        124.14885591109632,
-        13.55636633190002
-      ]
-    }
-  },
-  {
-    "type": "Feature",
-    "properties": {
       "name": "Oliver's Riff Mamangal Beach Resort",
       "type": "HOTELS & RESORTS",
       "description": "Adjacent to the main Mamangal strip, this resort offers a slightly quieter section of the beach for those wanting to avoid the crowds.",
-      "municipality": "SAN ANDRES",
+      "municipality": "VIRAC",
       "visit_time_minutes": 120,
       "category": "beach",
       "outdoor_exposure": "open",
