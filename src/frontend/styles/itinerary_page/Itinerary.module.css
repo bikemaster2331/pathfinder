@@ -1,31 +1,82 @@
 .itineraryContainer {
     display: grid;
-    grid-template-columns: 600px 1fr;
+    grid-template-columns: 60fr 40fr;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
     background-color: #000000;
+    gap: 20px;
+    padding: 20px;
 }
 
-/* Optional: Ensure the card container fills its slot */
+/* Map Container - Left Side (70%) */
+.mapContainer {
+    height: 90%;
+    width: 90%;
+    position: relative;
+    top: 5vh;
+    left: 2vw;
+    overflow: hidden;
+    background-color: #141414;
+    border-radius: 16px;
+    border: 2px solid #2a2a2a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Card Container - Right Side (30%) */
 .preferenceCardContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100%;
     overflow-y: auto;
-    z-index: 2;
-    background-color: transparent;
-    pointer-events: none;
+    padding: 20px;
+    background-color: #141414;
+    border-radius: 16px;
+    border: 2px solid #2a2a2a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-.preferenceCardContainer>* {
-    pointer-events: auto;
+.preferenceCardContainer::-webkit-scrollbar {
+    width: 8px;
 }
 
-/* Optional: Ensure the map container fills its slot */
-.mapContainer {
-    height: 100%;
-    width: 100%;
-    position: relative;
+.preferenceCardContainer::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 4px;
+}
+
+.preferenceCardContainer::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
+    border-radius: 4px;
+}
+
+.preferenceCardContainer::-webkit-scrollbar-thumb:hover {
+    background: #4a4a4a;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+    .itineraryContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 50% 50%;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .mapContainer {
+        border-radius: 12px;
+    }
+
+    .preferenceCardContainer {
+        border-radius: 12px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .itineraryContainer {
+        padding: 5px;
+        gap: 5px;
+    }
 }
