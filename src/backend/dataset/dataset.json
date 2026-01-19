@@ -1633,5 +1633,2826 @@
     "location": "Catanduanes Province",
     "coordinates": {"lat": 13.699707877194335, "lng": 124.3637075239967},
     "summary_offline": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines."
+  },
+  {
+    "input": "Where is Bagamanoc Guest House?",
+    "output": "Bagamanoc Guest House is a hotels and resorts located in Bagamanoc.",
+    "title": "Bagamanoc Guest House Location",
+    "topic": "Accommodation",
+    "location": "BAGAMANOC",
+    "summary_offline": "Bagamanoc Guest House is a hotels and resorts located in Bagamanoc.",
+    "place_name": "Bagamanoc Guest House",
+    "coordinates": {
+      "lat": 13.941644487022801,
+      "lng": 124.28692571592231
+    }
+  },
+  {
+    "input": "Where is Paday Falls?",
+    "output": "Paday Falls is a falls located in Bagamanoc.",
+    "title": "Paday Falls Location",
+    "topic": "Nature",
+    "location": "BAGAMANOC",
+    "summary_offline": "Paday Falls is a falls located in Bagamanoc.",
+    "place_name": "Paday Falls",
+    "coordinates": {
+      "lat": 13.961655521369819,
+      "lng": 124.27293557115381
+    }
+  },
+  {
+    "input": "Where is Boto Ni Korakog (Fertility Island)?",
+    "output": "Boto Ni Korakog (Fertility Island) is a viewpoint located in Bagamanoc.",
+    "title": "Boto Ni Korakog (Fertility Island) Location",
+    "topic": "Sightseeing",
+    "location": "BAGAMANOC",
+    "summary_offline": "Boto Ni Korakog (Fertility Island) is a viewpoint located in Bagamanoc.",
+    "place_name": "Boto Ni Korakog (Fertility Island)",
+    "coordinates": {
+      "lat": 13.953737014066363,
+      "lng": 124.2875854301705
+    }
+  },
+  {
+    "input": "Where is E-Lounge Resto Bar?",
+    "output": "E-Lounge Resto Bar is a restaurants and cafes located in Bagamanoc.",
+    "title": "E-Lounge Resto Bar Location",
+    "topic": "Food",
+    "location": "BAGAMANOC",
+    "summary_offline": "E-Lounge Resto Bar is a restaurants and cafes located in Bagamanoc.",
+    "place_name": "E-Lounge Resto Bar",
+    "coordinates": {
+      "lat": 13.94152743708702,
+      "lng": 124.28853571650649
+    }
+  },
+  {
+    "input": "Where is Palestina Rolling Hills?",
+    "output": "Palestina Rolling Hills is a viewpoints located in Bagamanoc.",
+    "title": "Palestina Rolling Hills Location",
+    "topic": "Sightseeing",
+    "location": "BAGAMANOC",
+    "summary_offline": "Palestina Rolling Hills is a viewpoints located in Bagamanoc.",
+    "place_name": "Palestina Rolling Hills",
+    "coordinates": {
+      "lat": 13.978003,
+      "lng": 124.328999
+    }
+  },
+  {
+    "input": "Where is Villa Felina?",
+    "output": "Villa Felina is a hotels and resorts located in Bagamanoc.",
+    "title": "Villa Felina Location",
+    "topic": "Accommodation",
+    "location": "BAGAMANOC",
+    "summary_offline": "Villa Felina is a hotels and resorts located in Bagamanoc.",
+    "place_name": "Villa Felina",
+    "coordinates": {
+      "lat": 13.942121489713058,
+      "lng": 124.28616998496803
+    }
+  },
+  {
+    "input": "Where is Emmans Eatery?",
+    "output": "Emmans Eatery is a restaurants and cafes located in Bagamanoc.",
+    "title": "Emmans Eatery Location",
+    "topic": "Food",
+    "location": "BAGAMANOC",
+    "summary_offline": "Emmans Eatery is a restaurants and cafes located in Bagamanoc.",
+    "place_name": "Emmans Eatery",
+    "coordinates": {
+      "lat": 13.941215405901008,
+      "lng": 124.28818189474178
+    }
+  },
+  {
+    "input": "Where is Dayhagan Beach Resort?",
+    "output": "Dayhagan Beach Resort is a hotels and resorts located in Bagamanoc.",
+    "title": "Dayhagan Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "BAGAMANOC",
+    "summary_offline": "Dayhagan Beach Resort is a hotels and resorts located in Bagamanoc.",
+    "place_name": "Dayhagan Beach Resort",
+    "coordinates": {
+      "lat": 13.972487048309555,
+      "lng": 124.33526422283471
+    }
+  },
+  {
+    "input": "Where is Costa Marina?",
+    "output": "Costa Marina is a hotels and resorts located in Bagamanoc.",
+    "title": "Costa Marina Location",
+    "topic": "Accommodation",
+    "location": "BAGAMANOC",
+    "summary_offline": "Costa Marina is a hotels and resorts located in Bagamanoc.",
+    "place_name": "Costa Marina",
+    "coordinates": {
+      "lat": 13.954434403876908,
+      "lng": 124.28401107910794
+    }
+  },
+  {
+    "input": "Where is East Coast Beach Resort?",
+    "output": "East Coast Beach Resort is a hotels and resorts located in Baras.",
+    "title": "East Coast Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "BARAS",
+    "summary_offline": "East Coast Beach Resort is a hotels and resorts located in Baras.",
+    "place_name": "East Coast Beach Resort",
+    "coordinates": {
+      "lat": 13.645130194241856,
+      "lng": 124.34601783087594
+    }
+  },
+  {
+    "input": "Where is Macutal Falls?",
+    "output": "Macutal Falls is a falls located in Baras.",
+    "title": "Macutal Falls Location",
+    "topic": "Nature",
+    "location": "BARAS",
+    "summary_offline": "Macutal Falls is a falls located in Baras.",
+    "place_name": "Macutal Falls",
+    "coordinates": {
+      "lat": 13.67996312734602,
+      "lng": 124.36844252512445
+    }
+  },
+  {
+    "input": "Where is Balacay Point?",
+    "output": "Balacay Point is a viewpoints located in Baras.",
+    "title": "Balacay Point Location",
+    "topic": "Sightseeing",
+    "location": "BARAS",
+    "summary_offline": "Balacay Point is a viewpoints located in Baras.",
+    "place_name": "Balacay Point",
+    "coordinates": {
+      "lat": 13.705434883642221,
+      "lng": 124.39530656745467
+    }
+  },
+  {
+    "input": "Where is Alon Stay?",
+    "output": "Alon Stay is a hotels and resorts located in Baras.",
+    "title": "Alon Stay Location",
+    "topic": "Accommodation",
+    "location": "BARAS",
+    "summary_offline": "Alon Stay is a hotels and resorts located in Baras.",
+    "place_name": "Alon Stay",
+    "coordinates": {
+      "lat": 13.689745330816304,
+      "lng": 124.39327067294845
+    }
+  },
+  {
+    "input": "Where is Abihao Point?",
+    "output": "Abihao Point is a viewpoints located in Baras.",
+    "title": "Abihao Point Location",
+    "topic": "Sightseeing",
+    "location": "BARAS",
+    "summary_offline": "Abihao Point is a viewpoints located in Baras.",
+    "place_name": "Abihao Point",
+    "coordinates": {
+      "lat": 13.6552093470827,
+      "lng": 124.39929844046483
+    }
+  },
+  {
+    "input": "Where is Dela Villa's Balacay Inn?",
+    "output": "Dela Villa's Balacay Inn is a hotels and resorts located in Baras.",
+    "title": "Dela Villa's Balacay Inn Location",
+    "topic": "Accommodation",
+    "location": "BARAS",
+    "summary_offline": "Dela Villa's Balacay Inn is a hotels and resorts located in Baras.",
+    "place_name": "Dela Villa's Balacay Inn",
+    "coordinates": {
+      "lat": 13.703861778807893,
+      "lng": 124.38796879884181
+    }
+  },
+  {
+    "input": "Where is Nyxx & Match Café?",
+    "output": "Nyxx & Match Café is a restaurants and cafes located in Baras.",
+    "title": "Nyxx & Match Café Location",
+    "topic": "Food",
+    "location": "BARAS",
+    "summary_offline": "Nyxx & Match Café is a restaurants and cafes located in Baras.",
+    "place_name": "Nyxx & Match Café",
+    "coordinates": {
+      "lat": 13.660708793380602,
+      "lng": 124.3689383521126
+    }
+  },
+  {
+    "input": "Where is Binurong Point?",
+    "output": "Binurong Point is a viewpoints located in Baras.",
+    "title": "Binurong Point Location",
+    "topic": "Sightseeing",
+    "location": "BARAS",
+    "summary_offline": "Binurong Point is a viewpoints located in Baras.",
+    "place_name": "Binurong Point",
+    "coordinates": {
+      "lat": 13.668953711260698,
+      "lng": 124.41446622143107
+    }
+  },
+  {
+    "input": "Where is Jo Surf Inn?",
+    "output": "Jo Surf Inn is a hotels and resorts located in Baras.",
+    "title": "Jo Surf Inn Location",
+    "topic": "Accommodation",
+    "location": "BARAS",
+    "summary_offline": "Jo Surf Inn is a hotels and resorts located in Baras.",
+    "place_name": "Jo Surf Inn",
+    "coordinates": {
+      "lat": 13.688157832362895,
+      "lng": 124.39591621513217
+    }
+  },
+  {
+    "input": "Where is 2838 Tea and Cafe?",
+    "output": "2838 Tea and Cafe is a restaurants and cafes located in Baras.",
+    "title": "2838 Tea and Cafe Location",
+    "topic": "Food",
+    "location": "BARAS",
+    "summary_offline": "2838 Tea and Cafe is a restaurants and cafes located in Baras.",
+    "place_name": "2838 Tea and Cafe",
+    "coordinates": {
+      "lat": 13.659533604564466,
+      "lng": 124.37112167616075
+    }
+  },
+  {
+    "input": "Where is Stanza De Benedicto?",
+    "output": "Stanza De Benedicto is a viewpoints located in Baras.",
+    "title": "Stanza De Benedicto Location",
+    "topic": "Sightseeing",
+    "location": "BARAS",
+    "summary_offline": "Stanza De Benedicto is a viewpoints located in Baras.",
+    "place_name": "Stanza De Benedicto",
+    "coordinates": {
+      "lat": 13.682383103603602,
+      "lng": 124.40601723349695
+    }
+  },
+  {
+    "input": "Where is Majestic Puraran Beach Resort?",
+    "output": "Majestic Puraran Beach Resort is a hotels and resorts located in Baras.",
+    "title": "Majestic Puraran Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "BARAS",
+    "summary_offline": "Majestic Puraran Beach Resort is a hotels and resorts located in Baras.",
+    "place_name": "Majestic Puraran Beach Resort",
+    "coordinates": {
+      "lat": 13.689409886846915,
+      "lng": 124.39482668554628
+    }
+  },
+  {
+    "input": "Where is TasTea?",
+    "output": "TasTea is a restaurants and cafes located in Baras.",
+    "title": "TasTea Location",
+    "topic": "Food",
+    "location": "BARAS",
+    "summary_offline": "TasTea is a restaurants and cafes located in Baras.",
+    "place_name": "TasTea",
+    "coordinates": {
+      "lat": 13.659490190945245,
+      "lng": 124.37109158385094
+    }
+  },
+  {
+    "input": "Where is Puraran Surf Resort?",
+    "output": "Puraran Surf Resort is a hotels and resorts located in Baras.",
+    "title": "Puraran Surf Resort Location",
+    "topic": "Accommodation",
+    "location": "BARAS",
+    "summary_offline": "Puraran Surf Resort is a hotels and resorts located in Baras.",
+    "place_name": "Puraran Surf Resort",
+    "coordinates": {
+      "lat": 13.689922738086013,
+      "lng": 124.39430347202405
+    }
+  },
+  {
+    "input": "Where is Titaay Surfers Inn?",
+    "output": "Titaay Surfers Inn is a hotels and resorts located in Baras.",
+    "title": "Titaay Surfers Inn Location",
+    "topic": "Accommodation",
+    "location": "BARAS",
+    "summary_offline": "Titaay Surfers Inn is a hotels and resorts located in Baras.",
+    "place_name": "Titaay Surfers Inn",
+    "coordinates": {
+      "lat": 13.688946131910923,
+      "lng": 124.39426625732916
+    }
+  },
+  {
+    "input": "Where is L'Astrolabe?",
+    "output": "L'Astrolabe is a hotels and resorts located in Baras.",
+    "title": "L'Astrolabe Location",
+    "topic": "Accommodation",
+    "location": "BARAS",
+    "summary_offline": "L'Astrolabe is a hotels and resorts located in Baras.",
+    "place_name": "L'Astrolabe",
+    "coordinates": {
+      "lat": 13.69095675710196,
+      "lng": 124.38856451657799
+    }
+  },
+  {
+    "input": "Where is Villa Andrea Inn?",
+    "output": "Villa Andrea Inn is a hotels and resorts located in Bato.",
+    "title": "Villa Andrea Inn Location",
+    "topic": "Accommodation",
+    "location": "BATO",
+    "summary_offline": "Villa Andrea Inn is a hotels and resorts located in Bato.",
+    "place_name": "Villa Andrea Inn",
+    "coordinates": {
+      "lat": 13.626112095688503,
+      "lng": 124.33393918775872
+    }
+  },
+  {
+    "input": "Where is Kape't Tagpuan Sa Isla?",
+    "output": "Kape't Tagpuan Sa Isla is a restaurants and cafes located in Bato.",
+    "title": "Kape't Tagpuan Sa Isla Location",
+    "topic": "Food",
+    "location": "BATO",
+    "summary_offline": "Kape't Tagpuan Sa Isla is a restaurants and cafes located in Bato.",
+    "place_name": "Kape't Tagpuan Sa Isla",
+    "coordinates": {
+      "lat": 13.607682886467666,
+      "lng": 124.29981496225444
+    }
+  },
+  {
+    "input": "Where is Balongbong Falls?",
+    "output": "Balongbong Falls is a falls located in Bato.",
+    "title": "Balongbong Falls Location",
+    "topic": "Nature",
+    "location": "BATO",
+    "summary_offline": "Balongbong Falls is a falls located in Bato.",
+    "place_name": "Balongbong Falls",
+    "coordinates": {
+      "lat": 13.621558812195497,
+      "lng": 124.29485801735287
+    }
+  },
+  {
+    "input": "Where is Batalay Mangrove Eco Park?",
+    "output": "Batalay Mangrove Eco Park is a viewpoints located in Bato.",
+    "title": "Batalay Mangrove Eco Park Location",
+    "topic": "Sightseeing",
+    "location": "BATO",
+    "summary_offline": "Batalay Mangrove Eco Park is a viewpoints located in Bato.",
+    "place_name": "Batalay Mangrove Eco Park",
+    "coordinates": {
+      "lat": 13.59293699334864,
+      "lng": 124.30880035575444
+    }
+  },
+  {
+    "input": "Where is Diocesan Shrine of the Holy Cross?",
+    "output": "Diocesan Shrine of the Holy Cross is a religious sites located in Bato.",
+    "title": "Diocesan Shrine of the Holy Cross Location",
+    "topic": "Culture",
+    "location": "BATO",
+    "summary_offline": "Diocesan Shrine of the Holy Cross is a religious sites located in Bato.",
+    "place_name": "Diocesan Shrine of the Holy Cross",
+    "coordinates": {
+      "lat": 13.588667855225093,
+      "lng": 124.31519015172765
+    }
+  },
+  {
+    "input": "Where is Poseidon Cove Beach Resort?",
+    "output": "Poseidon Cove Beach Resort is a hotels and resorts located in Bato.",
+    "title": "Poseidon Cove Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "BATO",
+    "summary_offline": "Poseidon Cove Beach Resort is a hotels and resorts located in Bato.",
+    "place_name": "Poseidon Cove Beach Resort",
+    "coordinates": {
+      "lat": 13.563919705786883,
+      "lng": 124.33224886190959
+    }
+  },
+  {
+    "input": "Where is Little Bliss Cafe?",
+    "output": "Little Bliss Cafe is a restaurants and cafes located in Bato.",
+    "title": "Little Bliss Cafe Location",
+    "topic": "Food",
+    "location": "BATO",
+    "summary_offline": "Little Bliss Cafe is a restaurants and cafes located in Bato.",
+    "place_name": "Little Bliss Cafe",
+    "coordinates": {
+      "lat": 13.607170580187129,
+      "lng": 124.29861953643294
+    }
+  },
+  {
+    "input": "Where is Maribina Falls?",
+    "output": "Maribina Falls is a falls located in Bato.",
+    "title": "Maribina Falls Location",
+    "topic": "Nature",
+    "location": "BATO",
+    "summary_offline": "Maribina Falls is a falls located in Bato.",
+    "place_name": "Maribina Falls",
+    "coordinates": {
+      "lat": 13.60160439150023,
+      "lng": 124.27074817719831
+    }
+  },
+  {
+    "input": "Where is Bote Lighthouse?",
+    "output": "Bote Lighthouse is a viewpoints located in Bato.",
+    "title": "Bote Lighthouse Location",
+    "topic": "Sightseeing",
+    "location": "BATO",
+    "summary_offline": "Bote Lighthouse is a viewpoints located in Bato.",
+    "place_name": "Bote Lighthouse",
+    "coordinates": {
+      "lat": 13.55980864586186,
+      "lng": 124.32548666430874
+    }
+  },
+  {
+    "input": "Where is St. John the Baptist  Church?",
+    "output": "St. John the Baptist  Church is a religious sites located in Bato.",
+    "title": "St. John the Baptist  Church Location",
+    "topic": "Culture",
+    "location": "BATO",
+    "summary_offline": "St. John the Baptist  Church is a religious sites located in Bato.",
+    "place_name": "St. John the Baptist  Church",
+    "coordinates": {
+      "lat": 13.610732662974675,
+      "lng": 124.29703491581695
+    }
+  },
+  {
+    "input": "Where is Sakahon Beach?",
+    "output": "Sakahon Beach is a hotels and resorts located in Bato.",
+    "title": "Sakahon Beach Location",
+    "topic": "Accommodation",
+    "location": "BATO",
+    "summary_offline": "Sakahon Beach is a hotels and resorts located in Bato.",
+    "place_name": "Sakahon Beach",
+    "coordinates": {
+      "lat": 13.561646057470904,
+      "lng": 124.32951300039434
+    }
+  },
+  {
+    "input": "Where is Mount Pinagkaayonan (Lantad)?",
+    "output": "Mount Pinagkaayonan (Lantad) is a viewpoints located in Bato.",
+    "title": "Mount Pinagkaayonan (Lantad) Location",
+    "topic": "Sightseeing",
+    "location": "BATO",
+    "summary_offline": "Mount Pinagkaayonan (Lantad) is a viewpoints located in Bato.",
+    "place_name": "Mount Pinagkaayonan (Lantad)",
+    "coordinates": {
+      "lat": 13.606679398378262,
+      "lng": 124.27824218655604
+    }
+  },
+  {
+    "input": "Where is Bitaogan Beach?",
+    "output": "Bitaogan Beach is a hotels and resorts located in Bato.",
+    "title": "Bitaogan Beach Location",
+    "topic": "Accommodation",
+    "location": "BATO",
+    "summary_offline": "Bitaogan Beach is a hotels and resorts located in Bato.",
+    "place_name": "Bitaogan Beach",
+    "coordinates": {
+      "lat": 13.55833527320848,
+      "lng": 124.31850376558778
+    }
+  },
+  {
+    "input": "Where is Cagraray Island?",
+    "output": "Cagraray Island is a viewpoints located in Bato.",
+    "title": "Cagraray Island Location",
+    "topic": "Sightseeing",
+    "location": "BATO",
+    "summary_offline": "Cagraray Island is a viewpoints located in Bato.",
+    "place_name": "Cagraray Island",
+    "coordinates": {
+      "lat": 13.61714945492485,
+      "lng": 124.3494816783378
+    }
+  },
+  {
+    "input": "Where is Carorian Wonders?",
+    "output": "Carorian Wonders is a hotels and resorts located in Bato.",
+    "title": "Carorian Wonders Location",
+    "topic": "Accommodation",
+    "location": "BATO",
+    "summary_offline": "Carorian Wonders is a hotels and resorts located in Bato.",
+    "place_name": "Carorian Wonders",
+    "coordinates": {
+      "lat": 13.58025643862461,
+      "lng": 124.34231555615987
+    }
+  },
+  {
+    "input": "Where is St. Anthony of Padua Parish Church?",
+    "output": "St. Anthony of Padua Parish Church is a religious sites located in Bato.",
+    "title": "St. Anthony of Padua Parish Church Location",
+    "topic": "Culture",
+    "location": "BATO",
+    "summary_offline": "St. Anthony of Padua Parish Church is a religious sites located in Bato.",
+    "place_name": "St. Anthony of Padua Parish Church",
+    "coordinates": {
+      "lat": 13.596889143817018,
+      "lng": 124.28389014002626
+    }
+  },
+  {
+    "input": "Where is Miguilas Inn and Resto Bar?",
+    "output": "Miguilas Inn and Resto Bar is a hotels and resorts located in Caramoran.",
+    "title": "Miguilas Inn and Resto Bar Location",
+    "topic": "Accommodation",
+    "location": "CARAMORAN",
+    "summary_offline": "Miguilas Inn and Resto Bar is a hotels and resorts located in Caramoran.",
+    "place_name": "Miguilas Inn and Resto Bar",
+    "coordinates": {
+      "lat": 13.98755168209128,
+      "lng": 124.1348645200423
+    }
+  },
+  {
+    "input": "Where is Natotoo Falls?",
+    "output": "Natotoo Falls is a falls located in Caramoran.",
+    "title": "Natotoo Falls Location",
+    "topic": "Nature",
+    "location": "CARAMORAN",
+    "summary_offline": "Natotoo Falls is a falls located in Caramoran.",
+    "place_name": "Natotoo Falls",
+    "coordinates": {
+      "lat": 13.879262767642187,
+      "lng": 124.15298682487371
+    }
+  },
+  {
+    "input": "Where is Mt. Sadab?",
+    "output": "Mt. Sadab is a viewpoints located in Caramoran.",
+    "title": "Mt. Sadab Location",
+    "topic": "Sightseeing",
+    "location": "CARAMORAN",
+    "summary_offline": "Mt. Sadab is a viewpoints located in Caramoran.",
+    "place_name": "Mt. Sadab",
+    "coordinates": {
+      "lat": 13.885858386503344,
+      "lng": 124.16179072332014
+    }
+  },
+  {
+    "input": "Where is St. John the Baptist Church?",
+    "output": "St. John the Baptist Church is a religious sites located in Caramoran.",
+    "title": "St. John the Baptist Church Location",
+    "topic": "Culture",
+    "location": "CARAMORAN",
+    "summary_offline": "St. John the Baptist Church is a religious sites located in Caramoran.",
+    "place_name": "St. John the Baptist Church",
+    "coordinates": {
+      "lat": 13.983298993332824,
+      "lng": 124.13504960530524
+    }
+  },
+  {
+    "input": "Where is Coco Beach Resort?",
+    "output": "Coco Beach Resort is a hotels and resorts located in Caramoran.",
+    "title": "Coco Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "CARAMORAN",
+    "summary_offline": "Coco Beach Resort is a hotels and resorts located in Caramoran.",
+    "place_name": "Coco Beach Resort",
+    "coordinates": {
+      "lat": 13.981994139846373,
+      "lng": 124.13097456746102
+    }
+  },
+  {
+    "input": "Where is Talahid Falls?",
+    "output": "Talahid Falls is a falls located in Caramoran.",
+    "title": "Talahid Falls Location",
+    "topic": "Nature",
+    "location": "CARAMORAN",
+    "summary_offline": "Talahid Falls is a falls located in Caramoran.",
+    "place_name": "Talahid Falls",
+    "coordinates": {
+      "lat": 13.792830659039126,
+      "lng": 124.14030596560987
+    }
+  },
+  {
+    "input": "Where is Palumbanes Island?",
+    "output": "Palumbanes Island is a viewpoints located in Caramoran.",
+    "title": "Palumbanes Island Location",
+    "topic": "Sightseeing",
+    "location": "CARAMORAN",
+    "summary_offline": "Palumbanes Island is a viewpoints located in Caramoran.",
+    "place_name": "Palumbanes Island",
+    "coordinates": {
+      "lat": 14.024204879590119,
+      "lng": 124.04335345796237
+    }
+  },
+  {
+    "input": "Where is Toytoy Beach?",
+    "output": "Toytoy Beach is a hotels and resorts located in Caramoran.",
+    "title": "Toytoy Beach Location",
+    "topic": "Accommodation",
+    "location": "CARAMORAN",
+    "summary_offline": "Toytoy Beach is a hotels and resorts located in Caramoran.",
+    "place_name": "Toytoy Beach",
+    "coordinates": {
+      "lat": 13.99610361623702,
+      "lng": 124.13075649902726
+    }
+  },
+  {
+    "input": "Where is Sugod Beach?",
+    "output": "Sugod Beach is a hotels and resorts located in Caramoran.",
+    "title": "Sugod Beach Location",
+    "topic": "Accommodation",
+    "location": "CARAMORAN",
+    "summary_offline": "Sugod Beach is a hotels and resorts located in Caramoran.",
+    "place_name": "Sugod Beach",
+    "coordinates": {
+      "lat": 13.884837183543102,
+      "lng": 124.13127081527215
+    }
+  },
+  {
+    "input": "Where is Minabobo Creek Resort?",
+    "output": "Minabobo Creek Resort is a hotels and resorts located in Caramoran.",
+    "title": "Minabobo Creek Resort Location",
+    "topic": "Accommodation",
+    "location": "CARAMORAN",
+    "summary_offline": "Minabobo Creek Resort is a hotels and resorts located in Caramoran.",
+    "place_name": "Minabobo Creek Resort",
+    "coordinates": {
+      "lat": 13.84708042893852,
+      "lng": 124.13486478779596
+    }
+  },
+  {
+    "input": "Where is Tignob Beach?",
+    "output": "Tignob Beach is a hotels and resorts located in Caramoran.",
+    "title": "Tignob Beach Location",
+    "topic": "Accommodation",
+    "location": "CARAMORAN",
+    "summary_offline": "Tignob Beach is a hotels and resorts located in Caramoran.",
+    "place_name": "Tignob Beach",
+    "coordinates": {
+      "lat": 14.018106591467156,
+      "lng": 124.02259826506386
+    }
+  },
+  {
+    "input": "Where is Bitaog Beach?",
+    "output": "Bitaog Beach is a hotels and resorts located in Caramoran.",
+    "title": "Bitaog Beach Location",
+    "topic": "Accommodation",
+    "location": "CARAMORAN",
+    "summary_offline": "Bitaog Beach is a hotels and resorts located in Caramoran.",
+    "place_name": "Bitaog Beach",
+    "coordinates": {
+      "lat": 14.024435372457186,
+      "lng": 124.03736114283674
+    }
+  },
+  {
+    "input": "Where is CJ's Travellers Inn?",
+    "output": "CJ's Travellers Inn is a hotels and resorts located in Gigmoto.",
+    "title": "CJ's Travellers Inn Location",
+    "topic": "Accommodation",
+    "location": "GIGMOTO",
+    "summary_offline": "CJ's Travellers Inn is a hotels and resorts located in Gigmoto.",
+    "place_name": "CJ's Travellers Inn",
+    "coordinates": {
+      "lat": 13.779610603924185,
+      "lng": 124.3902858484338
+    }
+  },
+  {
+    "input": "Where is Hot Palace?",
+    "output": "Hot Palace is a restaurants and cafes located in Gigmoto.",
+    "title": "Hot Palace Location",
+    "topic": "Food",
+    "location": "GIGMOTO",
+    "summary_offline": "Hot Palace is a restaurants and cafes located in Gigmoto.",
+    "place_name": "Hot Palace",
+    "coordinates": {
+      "lat": 13.781121506344725,
+      "lng": 124.39053261163247
+    }
+  },
+  {
+    "input": "Where is Ba-haw Falls?",
+    "output": "Ba-haw Falls is a falls located in Gigmoto.",
+    "title": "Ba-haw Falls Location",
+    "topic": "Nature",
+    "location": "GIGMOTO",
+    "summary_offline": "Ba-haw Falls is a falls located in Gigmoto.",
+    "place_name": "Ba-haw Falls",
+    "coordinates": {
+      "lat": 13.75387978940785,
+      "lng": 124.38320715026808
+    }
+  },
+  {
+    "input": "Where is Bantayaw Point?",
+    "output": "Bantayaw Point is a viewpoints located in Gigmoto.",
+    "title": "Bantayaw Point Location",
+    "topic": "Sightseeing",
+    "location": "GIGMOTO",
+    "summary_offline": "Bantayaw Point is a viewpoints located in Gigmoto.",
+    "place_name": "Bantayaw Point",
+    "coordinates": {
+      "lat": 13.831429593366844,
+      "lng": 124.40960689786668
+    }
+  },
+  {
+    "input": "Where is San Pedro Calungsod Parish?",
+    "output": "San Pedro Calungsod Parish is a religious sites located in Gigmoto.",
+    "title": "San Pedro Calungsod Parish Location",
+    "topic": "Culture",
+    "location": "GIGMOTO",
+    "summary_offline": "San Pedro Calungsod Parish is a religious sites located in Gigmoto.",
+    "place_name": "San Pedro Calungsod Parish",
+    "coordinates": {
+      "lat": 13.83394417704535,
+      "lng": 124.39999675568755
+    }
+  },
+  {
+    "input": "Where is Melfel Inn?",
+    "output": "Melfel Inn is a hotels and resorts located in Gigmoto.",
+    "title": "Melfel Inn Location",
+    "topic": "Accommodation",
+    "location": "GIGMOTO",
+    "summary_offline": "Melfel Inn is a hotels and resorts located in Gigmoto.",
+    "place_name": "Melfel Inn",
+    "coordinates": {
+      "lat": 13.779120861045081,
+      "lng": 124.39075791718393
+    }
+  },
+  {
+    "input": "Where is Gigmoto Inasal?",
+    "output": "Gigmoto Inasal is a restaurants and cafes located in Gigmoto.",
+    "title": "Gigmoto Inasal Location",
+    "topic": "Food",
+    "location": "GIGMOTO",
+    "summary_offline": "Gigmoto Inasal is a restaurants and cafes located in Gigmoto.",
+    "place_name": "Gigmoto Inasal",
+    "coordinates": {
+      "lat": 13.78079612966451,
+      "lng": 124.3918824809052
+    }
+  },
+  {
+    "input": "Where is Nahulugan Falls?",
+    "output": "Nahulugan Falls is a falls located in Gigmoto.",
+    "title": "Nahulugan Falls Location",
+    "topic": "Nature",
+    "location": "GIGMOTO",
+    "summary_offline": "Nahulugan Falls is a falls located in Gigmoto.",
+    "place_name": "Nahulugan Falls",
+    "coordinates": {
+      "lat": 13.788620122365284,
+      "lng": 124.3677373791043
+    }
+  },
+  {
+    "input": "Where is Nupa Green Lagoon?",
+    "output": "Nupa Green Lagoon is a viewpoints located in Gigmoto.",
+    "title": "Nupa Green Lagoon Location",
+    "topic": "Sightseeing",
+    "location": "GIGMOTO",
+    "summary_offline": "Nupa Green Lagoon is a viewpoints located in Gigmoto.",
+    "place_name": "Nupa Green Lagoon",
+    "coordinates": {
+      "lat": 13.75714325500738,
+      "lng": 124.40409028095019
+    }
+  },
+  {
+    "input": "Where is Bestea X E-fren Fries?",
+    "output": "Bestea X E-fren Fries is a restaurants and cafes located in Gigmoto.",
+    "title": "Bestea X E-fren Fries Location",
+    "topic": "Food",
+    "location": "GIGMOTO",
+    "summary_offline": "Bestea X E-fren Fries is a restaurants and cafes located in Gigmoto.",
+    "place_name": "Bestea X E-fren Fries",
+    "coordinates": {
+      "lat": 13.779500510605716,
+      "lng": 124.39129813987927
+    }
+  },
+  {
+    "input": "Where is DON N ' MALYN'S Carinderia?",
+    "output": "DON N ' MALYN'S Carinderia is a restaurants and cafes located in Gigmoto.",
+    "title": "DON N ' MALYN'S Carinderia Location",
+    "topic": "Food",
+    "location": "GIGMOTO",
+    "summary_offline": "DON N ' MALYN'S Carinderia is a restaurants and cafes located in Gigmoto.",
+    "place_name": "DON N ' MALYN'S Carinderia",
+    "coordinates": {
+      "lat": 13.780174269134601,
+      "lng": 124.39144035716262
+    }
+  },
+  {
+    "input": "Where is Muraw Beach?",
+    "output": "Muraw Beach is a hotels and resorts located in Pandan.",
+    "title": "Muraw Beach Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "Muraw Beach is a hotels and resorts located in Pandan.",
+    "place_name": "Muraw Beach",
+    "coordinates": {
+      "lat": 14.057362637200878,
+      "lng": 124.12930324842857
+    }
+  },
+  {
+    "input": "Where is Andercas?",
+    "output": "Andercas is a restaurants and cafes located in Pandan.",
+    "title": "Andercas Location",
+    "topic": "Food",
+    "location": "PANDAN",
+    "summary_offline": "Andercas is a restaurants and cafes located in Pandan.",
+    "place_name": "Andercas",
+    "coordinates": {
+      "lat": 14.045417649184326,
+      "lng": 124.16887783456134
+    }
+  },
+  {
+    "input": "Where is Hinik-Hinik Falls?",
+    "output": "Hinik-Hinik Falls is a falls located in Pandan.",
+    "title": "Hinik-Hinik Falls Location",
+    "topic": "Nature",
+    "location": "PANDAN",
+    "summary_offline": "Hinik-Hinik Falls is a falls located in Pandan.",
+    "place_name": "Hinik-Hinik Falls",
+    "coordinates": {
+      "lat": 14.019267,
+      "lng": 124.231355
+    }
+  },
+  {
+    "input": "Where is Cagnipa Rolling Hills?",
+    "output": "Cagnipa Rolling Hills is a viewpoints located in Pandan.",
+    "title": "Cagnipa Rolling Hills Location",
+    "topic": "Sightseeing",
+    "location": "PANDAN",
+    "summary_offline": "Cagnipa Rolling Hills is a viewpoints located in Pandan.",
+    "place_name": "Cagnipa Rolling Hills",
+    "coordinates": {
+      "lat": 14.058967828263247,
+      "lng": 124.12870453862769
+    }
+  },
+  {
+    "input": "Where is Saint Ignatius of Loyola Parish Church?",
+    "output": "Saint Ignatius of Loyola Parish Church is a religious sites located in Pandan.",
+    "title": "Saint Ignatius of Loyola Parish Church Location",
+    "topic": "Culture",
+    "location": "PANDAN",
+    "summary_offline": "Saint Ignatius of Loyola Parish Church is a religious sites located in Pandan.",
+    "place_name": "Saint Ignatius of Loyola Parish Church",
+    "coordinates": {
+      "lat": 14.04460992198803,
+      "lng": 124.16878323678067
+    }
+  },
+  {
+    "input": "Where is Hiyop Highlands?",
+    "output": "Hiyop Highlands is a viewpoints located in Pandan.",
+    "title": "Hiyop Highlands Location",
+    "topic": "Sightseeing",
+    "location": "PANDAN",
+    "summary_offline": "Hiyop Highlands is a viewpoints located in Pandan.",
+    "place_name": "Hiyop Highlands",
+    "coordinates": {
+      "lat": 14.069834001868761,
+      "lng": 124.19515607209418
+    }
+  },
+  {
+    "input": "Where is Tuwad-Tuwadan Blue Lagoon?",
+    "output": "Tuwad-Tuwadan Blue Lagoon is a hotels and resorts located in Pandan.",
+    "title": "Tuwad-Tuwadan Blue Lagoon Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "Tuwad-Tuwadan Blue Lagoon is a hotels and resorts located in Pandan.",
+    "place_name": "Tuwad-Tuwadan Blue Lagoon",
+    "coordinates": {
+      "lat": 14.058633006081989,
+      "lng": 124.12664279629792
+    }
+  },
+  {
+    "input": "Where is Bhem's Kitchen?",
+    "output": "Bhem's Kitchen is a restaurants and cafes located in Pandan.",
+    "title": "Bhem's Kitchen Location",
+    "topic": "Food",
+    "location": "PANDAN",
+    "summary_offline": "Bhem's Kitchen is a restaurants and cafes located in Pandan.",
+    "place_name": "Bhem's Kitchen",
+    "coordinates": {
+      "lat": 14.04822784104875,
+      "lng": 124.1691568239435
+    }
+  },
+  {
+    "input": "Where is Linampawan Falls?",
+    "output": "Linampawan Falls is a falls located in Pandan.",
+    "title": "Linampawan Falls Location",
+    "topic": "Nature",
+    "location": "PANDAN",
+    "summary_offline": "Linampawan Falls is a falls located in Pandan.",
+    "place_name": "Linampawan Falls",
+    "coordinates": {
+      "lat": 14.014603,
+      "lng": 124.238823
+    }
+  },
+  {
+    "input": "Where is Paraiso ni Honesto?",
+    "output": "Paraiso ni Honesto is a viewpoints located in Pandan.",
+    "title": "Paraiso ni Honesto Location",
+    "topic": "Sightseeing",
+    "location": "PANDAN",
+    "summary_offline": "Paraiso ni Honesto is a viewpoints located in Pandan.",
+    "place_name": "Paraiso ni Honesto",
+    "coordinates": {
+      "lat": 14.083943574020907,
+      "lng": 124.19383756087414
+    }
+  },
+  {
+    "input": "Where is La Prisa Campsite?",
+    "output": "La Prisa Campsite is a viewpoints located in Pandan.",
+    "title": "La Prisa Campsite Location",
+    "topic": "Sightseeing",
+    "location": "PANDAN",
+    "summary_offline": "La Prisa Campsite is a viewpoints located in Pandan.",
+    "place_name": "La Prisa Campsite",
+    "coordinates": {
+      "lat": 14.044124141098605,
+      "lng": 124.24557100979199
+    }
+  },
+  {
+    "input": "Where is Sitio Concepcion?",
+    "output": "Sitio Concepcion is a hotels and resorts located in Pandan.",
+    "title": "Sitio Concepcion Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "Sitio Concepcion is a hotels and resorts located in Pandan.",
+    "place_name": "Sitio Concepcion",
+    "coordinates": {
+      "lat": 14.062874048095829,
+      "lng": 124.21957776035022
+    }
+  },
+  {
+    "input": "Where is Catanduanes Halfway Resort Hotel?",
+    "output": "Catanduanes Halfway Resort Hotel is a viewpoints located in Pandan.",
+    "title": "Catanduanes Halfway Resort Hotel Location",
+    "topic": "Sightseeing",
+    "location": "PANDAN",
+    "summary_offline": "Catanduanes Halfway Resort Hotel is a viewpoints located in Pandan.",
+    "place_name": "Catanduanes Halfway Resort Hotel",
+    "coordinates": {
+      "lat": 14.067248666931913,
+      "lng": 124.22564617010536
+    }
+  },
+  {
+    "input": "Where is Balay Victoria?",
+    "output": "Balay Victoria is a hotels and resorts located in Pandan.",
+    "title": "Balay Victoria Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "Balay Victoria is a hotels and resorts located in Pandan.",
+    "place_name": "Balay Victoria",
+    "coordinates": {
+      "lat": 14.043967758271375,
+      "lng": 124.17151978571643
+    }
+  },
+  {
+    "input": "Where is Maturin Rock Formation?",
+    "output": "Maturin Rock Formation is a viewpoints located in Pandan.",
+    "title": "Maturin Rock Formation Location",
+    "topic": "Sightseeing",
+    "location": "PANDAN",
+    "summary_offline": "Maturin Rock Formation is a viewpoints located in Pandan.",
+    "place_name": "Maturin Rock Formation",
+    "coordinates": {
+      "lat": 14.112195035591208,
+      "lng": 124.28345005313469
+    }
+  },
+  {
+    "input": "Where is Carangyan Beach Resort?",
+    "output": "Carangyan Beach Resort is a hotels and resorts located in Pandan.",
+    "title": "Carangyan Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "Carangyan Beach Resort is a hotels and resorts located in Pandan.",
+    "place_name": "Carangyan Beach Resort",
+    "coordinates": {
+      "lat": 14.055886730928483,
+      "lng": 124.15446928280349
+    }
+  },
+  {
+    "input": "Where is Pandan Lighthouse?",
+    "output": "Pandan Lighthouse is a viewpoints located in Pandan.",
+    "title": "Pandan Lighthouse Location",
+    "topic": "Sightseeing",
+    "location": "PANDAN",
+    "summary_offline": "Pandan Lighthouse is a viewpoints located in Pandan.",
+    "place_name": "Pandan Lighthouse",
+    "coordinates": {
+      "lat": 14.06538134011241,
+      "lng": 124.17479976209289
+    }
+  },
+  {
+    "input": "Where is North Travel Lodge?",
+    "output": "North Travel Lodge is a hotels and resorts located in Pandan.",
+    "title": "North Travel Lodge Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "North Travel Lodge is a hotels and resorts located in Pandan.",
+    "place_name": "North Travel Lodge",
+    "coordinates": {
+      "lat": 14.042249909431563,
+      "lng": 124.17084337640102
+    }
+  },
+  {
+    "input": "Where is Yabu-Yabuhan?",
+    "output": "Yabu-Yabuhan is a viewpoints located in Pandan.",
+    "title": "Yabu-Yabuhan Location",
+    "topic": "Sightseeing",
+    "location": "PANDAN",
+    "summary_offline": "Yabu-Yabuhan is a viewpoints located in Pandan.",
+    "place_name": "Yabu-Yabuhan",
+    "coordinates": {
+      "lat": 14.063824,
+      "lng": 124.17692
+    }
+  },
+  {
+    "input": "Where is Cagnipa Cove?",
+    "output": "Cagnipa Cove is a hotels and resorts located in Pandan.",
+    "title": "Cagnipa Cove Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "Cagnipa Cove is a hotels and resorts located in Pandan.",
+    "place_name": "Cagnipa Cove",
+    "coordinates": {
+      "lat": 14.060299980132276,
+      "lng": 124.12740634956491
+    }
+  },
+  {
+    "input": "Where is Pandan Seashore Park?",
+    "output": "Pandan Seashore Park is a hotels and resorts located in Pandan.",
+    "title": "Pandan Seashore Park Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "Pandan Seashore Park is a hotels and resorts located in Pandan.",
+    "place_name": "Pandan Seashore Park",
+    "coordinates": {
+      "lat": 14.052562896257582,
+      "lng": 124.16753375572294
+    }
+  },
+  {
+    "input": "Where is Campilan Beach?",
+    "output": "Campilan Beach is a hotels and resorts located in Pandan.",
+    "title": "Campilan Beach Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "Campilan Beach is a hotels and resorts located in Pandan.",
+    "place_name": "Campilan Beach",
+    "coordinates": {
+      "lat": 14.06499,
+      "lng": 124.175032
+    }
+  },
+  {
+    "input": "Where is Mambang Beach?",
+    "output": "Mambang Beach is a hotels and resorts located in Pandan.",
+    "title": "Mambang Beach Location",
+    "topic": "Accommodation",
+    "location": "PANDAN",
+    "summary_offline": "Mambang Beach is a hotels and resorts located in Pandan.",
+    "place_name": "Mambang Beach",
+    "coordinates": {
+      "lat": 14.052390127026989,
+      "lng": 124.16012018656308
+    }
+  },
+  {
+    "input": "Where is Cumagat Beach & Hilltop Resort?",
+    "output": "Cumagat Beach & Hilltop Resort is a hotels and resorts located in Panganiban.",
+    "title": "Cumagat Beach & Hilltop Resort Location",
+    "topic": "Accommodation",
+    "location": "PANGANIBAN",
+    "summary_offline": "Cumagat Beach & Hilltop Resort is a hotels and resorts located in Panganiban.",
+    "place_name": "Cumagat Beach & Hilltop Resort",
+    "coordinates": {
+      "lat": 13.94963098536221,
+      "lng": 124.35022267619804
+    }
+  },
+  {
+    "input": "Where is Panyero Café?",
+    "output": "Panyero Café is a restaurants and cafes located in Panganiban.",
+    "title": "Panyero Café Location",
+    "topic": "Food",
+    "location": "PANGANIBAN",
+    "summary_offline": "Panyero Café is a restaurants and cafes located in Panganiban.",
+    "place_name": "Panyero Café",
+    "coordinates": {
+      "lat": 13.907878958291017,
+      "lng": 124.2996761367774
+    }
+  },
+  {
+    "input": "Where is Lolong Point Lighthouse?",
+    "output": "Lolong Point Lighthouse is a viewpoints located in Panganiban.",
+    "title": "Lolong Point Lighthouse Location",
+    "topic": "Sightseeing",
+    "location": "PANGANIBAN",
+    "summary_offline": "Lolong Point Lighthouse is a viewpoints located in Panganiban.",
+    "place_name": "Lolong Point Lighthouse",
+    "coordinates": {
+      "lat": 13.950358787088991,
+      "lng": 124.35430502227162
+    }
+  },
+  {
+    "input": "Where is Enerking Garden Resort?",
+    "output": "Enerking Garden Resort is a hotels and resorts located in Panganiban.",
+    "title": "Enerking Garden Resort Location",
+    "topic": "Accommodation",
+    "location": "PANGANIBAN",
+    "summary_offline": "Enerking Garden Resort is a hotels and resorts located in Panganiban.",
+    "place_name": "Enerking Garden Resort",
+    "coordinates": {
+      "lat": 13.906841559179071,
+      "lng": 124.30081900978871
+    }
+  },
+  {
+    "input": "Where is Ernest Eatery?",
+    "output": "Ernest Eatery is a restaurants and cafes located in Panganiban.",
+    "title": "Ernest Eatery Location",
+    "topic": "Food",
+    "location": "PANGANIBAN",
+    "summary_offline": "Ernest Eatery is a restaurants and cafes located in Panganiban.",
+    "place_name": "Ernest Eatery",
+    "coordinates": {
+      "lat": 13.906363558118793,
+      "lng": 124.30351882198518
+    }
+  },
+  {
+    "input": "Where is Banquerohan Bridge?",
+    "output": "Banquerohan Bridge is a viewpoints located in Panganiban.",
+    "title": "Banquerohan Bridge Location",
+    "topic": "Sightseeing",
+    "location": "PANGANIBAN",
+    "summary_offline": "Banquerohan Bridge is a viewpoints located in Panganiban.",
+    "place_name": "Banquerohan Bridge",
+    "coordinates": {
+      "lat": 13.89438097388749,
+      "lng": 124.30837962465417
+    }
+  },
+  {
+    "input": "Where is Angeles Homestay?",
+    "output": "Angeles Homestay is a hotels and resorts located in Panganiban.",
+    "title": "Angeles Homestay Location",
+    "topic": "Accommodation",
+    "location": "PANGANIBAN",
+    "summary_offline": "Angeles Homestay is a hotels and resorts located in Panganiban.",
+    "place_name": "Angeles Homestay",
+    "coordinates": {
+      "lat": 13.907665802542967,
+      "lng": 124.29556399563526
+    }
+  },
+  {
+    "input": "Where is Tarahid KTV Bar?",
+    "output": "Tarahid KTV Bar is a restaurants and cafes located in Panganiban.",
+    "title": "Tarahid KTV Bar Location",
+    "topic": "Food",
+    "location": "PANGANIBAN",
+    "summary_offline": "Tarahid KTV Bar is a restaurants and cafes located in Panganiban.",
+    "place_name": "Tarahid KTV Bar",
+    "coordinates": {
+      "lat": 13.91212173717216,
+      "lng": 124.30487585340553
+    }
+  },
+  {
+    "input": "Where is The Rezidence?",
+    "output": "The Rezidence is a hotels and resorts located in Panganiban.",
+    "title": "The Rezidence Location",
+    "topic": "Accommodation",
+    "location": "PANGANIBAN",
+    "summary_offline": "The Rezidence is a hotels and resorts located in Panganiban.",
+    "place_name": "The Rezidence",
+    "coordinates": {
+      "lat": 13.910962045093433,
+      "lng": 124.30441513824577
+    }
+  },
+  {
+    "input": "Where is Amenia Beach Resort?",
+    "output": "Amenia Beach Resort is a hotels and resorts located in San andres.",
+    "title": "Amenia Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Amenia Beach Resort is a hotels and resorts located in San andres.",
+    "place_name": "Amenia Beach Resort",
+    "coordinates": {
+      "lat": 13.573293073630248,
+      "lng": 124.13946144298322
+    }
+  },
+  {
+    "input": "Where is Canapino Diner?",
+    "output": "Canapino Diner is a restaurants and cafes located in San andres.",
+    "title": "Canapino Diner Location",
+    "topic": "Food",
+    "location": "SAN ANDRES",
+    "summary_offline": "Canapino Diner is a restaurants and cafes located in San andres.",
+    "place_name": "Canapino Diner",
+    "coordinates": {
+      "lat": 13.572931099633045,
+      "lng": 124.14044111946026
+    }
+  },
+  {
+    "input": "Where is Mount Cagmasoso?",
+    "output": "Mount Cagmasoso is a viewpoints located in San andres.",
+    "title": "Mount Cagmasoso Location",
+    "topic": "Sightseeing",
+    "location": "SAN ANDRES",
+    "summary_offline": "Mount Cagmasoso is a viewpoints located in San andres.",
+    "place_name": "Mount Cagmasoso",
+    "coordinates": {
+      "lat": 13.623480169988486,
+      "lng": 124.13286350211467
+    }
+  },
+  {
+    "input": "Where is Our Lady of Sorrows Parish Church?",
+    "output": "Our Lady of Sorrows Parish Church is a religious sites located in San andres.",
+    "title": "Our Lady of Sorrows Parish Church Location",
+    "topic": "Culture",
+    "location": "SAN ANDRES",
+    "summary_offline": "Our Lady of Sorrows Parish Church is a religious sites located in San andres.",
+    "place_name": "Our Lady of Sorrows Parish Church",
+    "coordinates": {
+      "lat": 13.611589791787962,
+      "lng": 124.09348830280368
+    }
+  },
+  {
+    "input": "Where is Balin's Seaview Beach Resort?",
+    "output": "Balin's Seaview Beach Resort is a hotels and resorts located in San andres.",
+    "title": "Balin's Seaview Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Balin's Seaview Beach Resort is a hotels and resorts located in San andres.",
+    "place_name": "Balin's Seaview Beach Resort",
+    "coordinates": {
+      "lat": 13.572623438011778,
+      "lng": 124.13993686420447
+    }
+  },
+  {
+    "input": "Where is Liz & Bel Café?",
+    "output": "Liz & Bel Café is a restaurants and cafes located in San andres.",
+    "title": "Liz & Bel Café Location",
+    "topic": "Food",
+    "location": "SAN ANDRES",
+    "summary_offline": "Liz & Bel Café is a restaurants and cafes located in San andres.",
+    "place_name": "Liz & Bel Café",
+    "coordinates": {
+      "lat": 13.599281935446907,
+      "lng": 124.09564860978172
+    }
+  },
+  {
+    "input": "Where is Luyang Cave?",
+    "output": "Luyang Cave is a viewpoints located in San andres.",
+    "title": "Luyang Cave Location",
+    "topic": "Sightseeing",
+    "location": "SAN ANDRES",
+    "summary_offline": "Luyang Cave is a viewpoints located in San andres.",
+    "place_name": "Luyang Cave",
+    "coordinates": {
+      "lat": 13.60572345866787,
+      "lng": 124.13509013677053
+    }
+  },
+  {
+    "input": "Where is Nicole's Grill Resto Bar?",
+    "output": "Nicole's Grill Resto Bar is a restaurants and cafes located in San andres.",
+    "title": "Nicole's Grill Resto Bar Location",
+    "topic": "Food",
+    "location": "SAN ANDRES",
+    "summary_offline": "Nicole's Grill Resto Bar is a restaurants and cafes located in San andres.",
+    "place_name": "Nicole's Grill Resto Bar",
+    "coordinates": {
+      "lat": 13.570704014196755,
+      "lng": 124.142135365605
+    }
+  },
+  {
+    "input": "Where is Codon Lighthouse?",
+    "output": "Codon Lighthouse is a viewpoints located in San andres.",
+    "title": "Codon Lighthouse Location",
+    "topic": "Sightseeing",
+    "location": "SAN ANDRES",
+    "summary_offline": "Codon Lighthouse is a viewpoints located in San andres.",
+    "place_name": "Codon Lighthouse",
+    "coordinates": {
+      "lat": 13.662910203798745,
+      "lng": 124.02606030674717
+    }
+  },
+  {
+    "input": "Where is Casa Dueña Travellers Inn?",
+    "output": "Casa Dueña Travellers Inn is a hotels and resorts located in San andres.",
+    "title": "Casa Dueña Travellers Inn Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Casa Dueña Travellers Inn is a hotels and resorts located in San andres.",
+    "place_name": "Casa Dueña Travellers Inn",
+    "coordinates": {
+      "lat": 13.599401731389687,
+      "lng": 124.09595898058178
+    }
+  },
+  {
+    "input": "Where is Emmalyn's Paradise Resort?",
+    "output": "Emmalyn's Paradise Resort is a hotels and resorts located in San andres.",
+    "title": "Emmalyn's Paradise Resort Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Emmalyn's Paradise Resort is a hotels and resorts located in San andres.",
+    "place_name": "Emmalyn's Paradise Resort",
+    "coordinates": {
+      "lat": 13.600789202838738,
+      "lng": 124.06048702747073
+    }
+  },
+  {
+    "input": "Where is Liebe Max Beach Resort?",
+    "output": "Liebe Max Beach Resort is a hotels and resorts located in San andres.",
+    "title": "Liebe Max Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Liebe Max Beach Resort is a hotels and resorts located in San andres.",
+    "place_name": "Liebe Max Beach Resort",
+    "coordinates": {
+      "lat": 13.601924342216595,
+      "lng": 124.08432027699324
+    }
+  },
+  {
+    "input": "Where is Liz & Bel Tourist Inn?",
+    "output": "Liz & Bel Tourist Inn is a hotels and resorts located in San andres.",
+    "title": "Liz & Bel Tourist Inn Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Liz & Bel Tourist Inn is a hotels and resorts located in San andres.",
+    "place_name": "Liz & Bel Tourist Inn",
+    "coordinates": {
+      "lat": 13.599278991548179,
+      "lng": 124.09568675395776
+    }
+  },
+  {
+    "input": "Where is Wuppertaler Travellers Inn?",
+    "output": "Wuppertaler Travellers Inn is a hotels and resorts located in San andres.",
+    "title": "Wuppertaler Travellers Inn Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Wuppertaler Travellers Inn is a hotels and resorts located in San andres.",
+    "place_name": "Wuppertaler Travellers Inn",
+    "coordinates": {
+      "lat": 13.598845133261927,
+      "lng": 124.0989190144737
+    }
+  },
+  {
+    "input": "Where is Camping Herold Beach?",
+    "output": "Camping Herold Beach is a hotels and resorts located in San andres.",
+    "title": "Camping Herold Beach Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Camping Herold Beach is a hotels and resorts located in San andres.",
+    "place_name": "Camping Herold Beach",
+    "coordinates": {
+      "lat": 13.599400700827006,
+      "lng": 124.05438592186414
+    }
+  },
+  {
+    "input": "Where is Kibanggas Beach?",
+    "output": "Kibanggas Beach is a hotels and resorts located in San andres.",
+    "title": "Kibanggas Beach Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Kibanggas Beach is a hotels and resorts located in San andres.",
+    "place_name": "Kibanggas Beach",
+    "coordinates": {
+      "lat": 13.645637469518293,
+      "lng": 124.03760255562867
+    }
+  },
+  {
+    "input": "Where is Monte Cielo?",
+    "output": "Monte Cielo is a hotels and resorts located in San andres.",
+    "title": "Monte Cielo Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Monte Cielo is a hotels and resorts located in San andres.",
+    "place_name": "Monte Cielo",
+    "coordinates": {
+      "lat": 13.566109000530673,
+      "lng": 124.14518862955885
+    }
+  },
+  {
+    "input": "Where is Ericsson Beach?",
+    "output": "Ericsson Beach is a hotels and resorts located in San andres.",
+    "title": "Ericsson Beach Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Ericsson Beach is a hotels and resorts located in San andres.",
+    "place_name": "Ericsson Beach",
+    "coordinates": {
+      "lat": 13.569451079584018,
+      "lng": 124.1428227093613
+    }
+  },
+  {
+    "input": "Where is Bagasbas Beach Resort?",
+    "output": "Bagasbas Beach Resort is a hotels and resorts located in San andres.",
+    "title": "Bagasbas Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Bagasbas Beach Resort is a hotels and resorts located in San andres.",
+    "place_name": "Bagasbas Beach Resort",
+    "coordinates": {
+      "lat": 13.579008198224741,
+      "lng": 124.12497455931305
+    }
+  },
+  {
+    "input": "Where is Talaga Pebble Beach?",
+    "output": "Talaga Pebble Beach is a hotels and resorts located in San andres.",
+    "title": "Talaga Pebble Beach Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Talaga Pebble Beach is a hotels and resorts located in San andres.",
+    "place_name": "Talaga Pebble Beach",
+    "coordinates": {
+      "lat": 13.70849707986902,
+      "lng": 124.09648307885134
+    }
+  },
+  {
+    "input": "Where is Blue Horizon Beach?",
+    "output": "Blue Horizon Beach is a hotels and resorts located in San andres.",
+    "title": "Blue Horizon Beach Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Blue Horizon Beach is a hotels and resorts located in San andres.",
+    "place_name": "Blue Horizon Beach",
+    "coordinates": {
+      "lat": 13.564625399431703,
+      "lng": 124.14563924065551
+    }
+  },
+  {
+    "input": "Where is La Playa Resort?",
+    "output": "La Playa Resort is a hotels and resorts located in San andres.",
+    "title": "La Playa Resort Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "La Playa Resort is a hotels and resorts located in San andres.",
+    "place_name": "La Playa Resort",
+    "coordinates": {
+      "lat": 13.569200023674027,
+      "lng": 124.14289013881685
+    }
+  },
+  {
+    "input": "Where is Mamangal Beach Resort?",
+    "output": "Mamangal Beach Resort is a hotels and resorts located in San andres.",
+    "title": "Mamangal Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Mamangal Beach Resort is a hotels and resorts located in San andres.",
+    "place_name": "Mamangal Beach Resort",
+    "coordinates": {
+      "lat": 13.55636633190002,
+      "lng": 124.14885591109632
+    }
+  },
+  {
+    "input": "Where is Oliver's Riff Mamangal Beach Resort?",
+    "output": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in San andres.",
+    "title": "Oliver's Riff Mamangal Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "SAN ANDRES",
+    "summary_offline": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in San andres.",
+    "place_name": "Oliver's Riff Mamangal Beach Resort",
+    "coordinates": {
+      "lat": 13.555835876169589,
+      "lng": 124.14868968279221
+    }
+  },
+  {
+    "input": "Where is San Miguel River Park?",
+    "output": "San Miguel River Park is a hotels and resorts located in San miguel.",
+    "title": "San Miguel River Park Location",
+    "topic": "Accommodation",
+    "location": "SAN MIGUEL",
+    "summary_offline": "San Miguel River Park is a hotels and resorts located in San miguel.",
+    "place_name": "San Miguel River Park",
+    "coordinates": {
+      "lat": 13.705960845800394,
+      "lng": 124.28110917976015
+    }
+  },
+  {
+    "input": "Where is Solong Falls?",
+    "output": "Solong Falls is a falls located in San miguel.",
+    "title": "Solong Falls Location",
+    "topic": "Nature",
+    "location": "SAN MIGUEL",
+    "summary_offline": "Solong Falls is a falls located in San miguel.",
+    "place_name": "Solong Falls",
+    "coordinates": {
+      "lat": 13.654843207001997,
+      "lng": 124.29318572123779
+    }
+  },
+  {
+    "input": "Where is 3s Pares Marias?",
+    "output": "3s Pares Marias is a restaurants and cafes located in San miguel.",
+    "title": "3s Pares Marias Location",
+    "topic": "Food",
+    "location": "SAN MIGUEL",
+    "summary_offline": "3s Pares Marias is a restaurants and cafes located in San miguel.",
+    "place_name": "3s Pares Marias",
+    "coordinates": {
+      "lat": 13.64262420028011,
+      "lng": 124.29963612327701
+    }
+  },
+  {
+    "input": "Where is Cathy's Spring Resort?",
+    "output": "Cathy's Spring Resort is a hotels and resorts located in Viga.",
+    "title": "Cathy's Spring Resort Location",
+    "topic": "Accommodation",
+    "location": "VIGA",
+    "summary_offline": "Cathy's Spring Resort is a hotels and resorts located in Viga.",
+    "place_name": "Cathy's Spring Resort",
+    "coordinates": {
+      "lat": 13.828328929168835,
+      "lng": 124.26764279047497
+    }
+  },
+  {
+    "input": "Where is Black Alley?",
+    "output": "Black Alley is a restaurants and cafes located in Viga.",
+    "title": "Black Alley Location",
+    "topic": "Food",
+    "location": "VIGA",
+    "summary_offline": "Black Alley is a restaurants and cafes located in Viga.",
+    "place_name": "Black Alley",
+    "coordinates": {
+      "lat": 13.87440986505987,
+      "lng": 124.30991057127426
+    }
+  },
+  {
+    "input": "Where is Summit View Park?",
+    "output": "Summit View Park is a viewpoints located in Viga.",
+    "title": "Summit View Park Location",
+    "topic": "Sightseeing",
+    "location": "VIGA",
+    "summary_offline": "Summit View Park is a viewpoints located in Viga.",
+    "place_name": "Summit View Park",
+    "coordinates": {
+      "lat": 13.79084220997509,
+      "lng": 124.2699644422191
+    }
+  },
+  {
+    "input": "Where is Our Lady of the Assumption Parish Church?",
+    "output": "Our Lady of the Assumption Parish Church is a religious sites located in Viga.",
+    "title": "Our Lady of the Assumption Parish Church Location",
+    "topic": "Culture",
+    "location": "VIGA",
+    "summary_offline": "Our Lady of the Assumption Parish Church is a religious sites located in Viga.",
+    "place_name": "Our Lady of the Assumption Parish Church",
+    "coordinates": {
+      "lat": 13.870935518647837,
+      "lng": 124.30835694171724
+    }
+  },
+  {
+    "input": "Where is H20 Resort?",
+    "output": "H20 Resort is a hotels and resorts located in Viga.",
+    "title": "H20 Resort Location",
+    "topic": "Accommodation",
+    "location": "VIGA",
+    "summary_offline": "H20 Resort is a hotels and resorts located in Viga.",
+    "place_name": "H20 Resort",
+    "coordinates": {
+      "lat": 13.855342610612587,
+      "lng": 124.30744043132205
+    }
+  },
+  {
+    "input": "Where is Isla Bistro Café?",
+    "output": "Isla Bistro Café is a restaurants and cafes located in Viga.",
+    "title": "Isla Bistro Café Location",
+    "topic": "Food",
+    "location": "VIGA",
+    "summary_offline": "Isla Bistro Café is a restaurants and cafes located in Viga.",
+    "place_name": "Isla Bistro Café",
+    "coordinates": {
+      "lat": 13.872557403387635,
+      "lng": 124.30883563610679
+    }
+  },
+  {
+    "input": "Where is Cogon Hills?",
+    "output": "Cogon Hills is a viewpoints located in Viga.",
+    "title": "Cogon Hills Location",
+    "topic": "Sightseeing",
+    "location": "VIGA",
+    "summary_offline": "Cogon Hills is a viewpoints located in Viga.",
+    "place_name": "Cogon Hills",
+    "coordinates": {
+      "lat": 13.870805941856277,
+      "lng": 124.4067938419412
+    }
+  },
+  {
+    "input": "Where is Our Lady of Mount Carmel Parish Church?",
+    "output": "Our Lady of Mount Carmel Parish Church is a religious sites located in Viga.",
+    "title": "Our Lady of Mount Carmel Parish Church Location",
+    "topic": "Culture",
+    "location": "VIGA",
+    "summary_offline": "Our Lady of Mount Carmel Parish Church is a religious sites located in Viga.",
+    "place_name": "Our Lady of Mount Carmel Parish Church",
+    "coordinates": {
+      "lat": 13.893931145649418,
+      "lng": 124.37173817132177
+    }
+  },
+  {
+    "input": "Where is Manuria Beach Resort?",
+    "output": "Manuria Beach Resort is a hotels and resorts located in Viga.",
+    "title": "Manuria Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "VIGA",
+    "summary_offline": "Manuria Beach Resort is a hotels and resorts located in Viga.",
+    "place_name": "Manuria Beach Resort",
+    "coordinates": {
+      "lat": 13.89992812418886,
+      "lng": 124.36321167641226
+    }
+  },
+  {
+    "input": "Where is Jac's Eatery?",
+    "output": "Jac's Eatery is a restaurants and cafes located in Viga.",
+    "title": "Jac's Eatery Location",
+    "topic": "Food",
+    "location": "VIGA",
+    "summary_offline": "Jac's Eatery is a restaurants and cafes located in Viga.",
+    "place_name": "Jac's Eatery",
+    "coordinates": {
+      "lat": 13.871750292208265,
+      "lng": 124.31147248971916
+    }
+  },
+  {
+    "input": "Where is Minaabat Beach?",
+    "output": "Minaabat Beach is a hotels and resorts located in Viga.",
+    "title": "Minaabat Beach Location",
+    "topic": "Accommodation",
+    "location": "VIGA",
+    "summary_offline": "Minaabat Beach is a hotels and resorts located in Viga.",
+    "place_name": "Minaabat Beach",
+    "coordinates": {
+      "lat": 13.854510974160771,
+      "lng": 124.41851218045034
+    }
+  },
+  {
+    "input": "Where is Tapsihan sa Ilaya?",
+    "output": "Tapsihan sa Ilaya is a restaurants and cafes located in Viga.",
+    "title": "Tapsihan sa Ilaya Location",
+    "topic": "Food",
+    "location": "VIGA",
+    "summary_offline": "Tapsihan sa Ilaya is a restaurants and cafes located in Viga.",
+    "place_name": "Tapsihan sa Ilaya",
+    "coordinates": {
+      "lat": 13.867210183769927,
+      "lng": 124.30876720184392
+    }
+  },
+  {
+    "input": "Where is Emerich Inn?",
+    "output": "Emerich Inn is a hotels and resorts located in Viga.",
+    "title": "Emerich Inn Location",
+    "topic": "Accommodation",
+    "location": "VIGA",
+    "summary_offline": "Emerich Inn is a hotels and resorts located in Viga.",
+    "place_name": "Emerich Inn",
+    "coordinates": {
+      "lat": 13.87190788627189,
+      "lng": 124.30975236074532
+    }
+  },
+  {
+    "input": "Where is Sofeca Travellers Inn?",
+    "output": "Sofeca Travellers Inn is a hotels and resorts located in Viga.",
+    "title": "Sofeca Travellers Inn Location",
+    "topic": "Accommodation",
+    "location": "VIGA",
+    "summary_offline": "Sofeca Travellers Inn is a hotels and resorts located in Viga.",
+    "place_name": "Sofeca Travellers Inn",
+    "coordinates": {
+      "lat": 13.872631201214197,
+      "lng": 124.31609046329228
+    }
+  },
+  {
+    "input": "Where is Torres Inn?",
+    "output": "Torres Inn is a hotels and resorts located in Viga.",
+    "title": "Torres Inn Location",
+    "topic": "Accommodation",
+    "location": "VIGA",
+    "summary_offline": "Torres Inn is a hotels and resorts located in Viga.",
+    "place_name": "Torres Inn",
+    "coordinates": {
+      "lat": 13.894427912854093,
+      "lng": 124.37185679687455
+    }
+  },
+  {
+    "input": "Where is Villa Amacepia Resort?",
+    "output": "Villa Amacepia Resort is a hotels and resorts located in Viga.",
+    "title": "Villa Amacepia Resort Location",
+    "topic": "Accommodation",
+    "location": "VIGA",
+    "summary_offline": "Villa Amacepia Resort is a hotels and resorts located in Viga.",
+    "place_name": "Villa Amacepia Resort",
+    "coordinates": {
+      "lat": 13.866419737445327,
+      "lng": 124.30851490399891
+    }
+  },
+  {
+    "input": "Where is Kubo Suzara?",
+    "output": "Kubo Suzara is a hotels and resorts located in Viga.",
+    "title": "Kubo Suzara Location",
+    "topic": "Accommodation",
+    "location": "VIGA",
+    "summary_offline": "Kubo Suzara is a hotels and resorts located in Viga.",
+    "place_name": "Kubo Suzara",
+    "coordinates": {
+      "lat": 13.887407737570227,
+      "lng": 124.3519918151362
+    }
+  },
+  {
+    "input": "Where is Catanduanes Midtown Inn?",
+    "output": "Catanduanes Midtown Inn is a hotels and resorts located in Virac.",
+    "title": "Catanduanes Midtown Inn Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Catanduanes Midtown Inn is a hotels and resorts located in Virac.",
+    "place_name": "Catanduanes Midtown Inn",
+    "coordinates": {
+      "lat": 13.582963948330717,
+      "lng": 124.23256205211081
+    }
+  },
+  {
+    "input": "Where is Angel's Pizza?",
+    "output": "Angel's Pizza is a restaurants and cafes located in Virac.",
+    "title": "Angel's Pizza Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Angel's Pizza is a restaurants and cafes located in Virac.",
+    "place_name": "Angel's Pizza",
+    "coordinates": {
+      "lat": 13.583990389845289,
+      "lng": 124.2341718944488
+    }
+  },
+  {
+    "input": "Where is Hinagasan Falls?",
+    "output": "Hinagasan Falls is a falls located in Virac.",
+    "title": "Hinagasan Falls Location",
+    "topic": "Nature",
+    "location": "VIRAC",
+    "summary_offline": "Hinagasan Falls is a falls located in Virac.",
+    "place_name": "Hinagasan Falls",
+    "coordinates": {
+      "lat": 13.600608583794113,
+      "lng": 124.22421715095876
+    }
+  },
+  {
+    "input": "Where is Museo De Catanduanes?",
+    "output": "Museo De Catanduanes is a photography located in Virac.",
+    "title": "Museo De Catanduanes Location",
+    "topic": "General",
+    "location": "VIRAC",
+    "summary_offline": "Museo De Catanduanes is a photography located in Virac.",
+    "place_name": "Museo De Catanduanes",
+    "coordinates": {
+      "lat": 13.607198646951025,
+      "lng": 124.24017941365666
+    }
+  },
+  {
+    "input": "Where is Casa Remedios Bed & Breakfast?",
+    "output": "Casa Remedios Bed & Breakfast is a hotels and resorts located in Virac.",
+    "title": "Casa Remedios Bed & Breakfast Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Casa Remedios Bed & Breakfast is a hotels and resorts located in Virac.",
+    "place_name": "Casa Remedios Bed & Breakfast",
+    "coordinates": {
+      "lat": 13.579229296789006,
+      "lng": 124.21667483492335
+    }
+  },
+  {
+    "input": "Where is Anika Food Corner?",
+    "output": "Anika Food Corner is a restaurants and cafes located in Virac.",
+    "title": "Anika Food Corner Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Anika Food Corner is a restaurants and cafes located in Virac.",
+    "place_name": "Anika Food Corner",
+    "coordinates": {
+      "lat": 13.579040247054639,
+      "lng": 124.2287243114437
+    }
+  },
+  {
+    "input": "Where is Fleur de Lilies Glamping Farm?",
+    "output": "Fleur de Lilies Glamping Farm is a hotels and resorts located in Virac.",
+    "title": "Fleur de Lilies Glamping Farm Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Fleur de Lilies Glamping Farm is a hotels and resorts located in Virac.",
+    "place_name": "Fleur de Lilies Glamping Farm",
+    "coordinates": {
+      "lat": 13.522814980924824,
+      "lng": 124.20319514587996
+    }
+  },
+  {
+    "input": "Where is Appleberry?",
+    "output": "Appleberry is a restaurants and cafes located in Virac.",
+    "title": "Appleberry Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Appleberry is a restaurants and cafes located in Virac.",
+    "place_name": "Appleberry",
+    "coordinates": {
+      "lat": 13.578876723518103,
+      "lng": 124.23125085026427
+    }
+  },
+  {
+    "input": "Where is Hamapayo Pension House?",
+    "output": "Hamapayo Pension House is a hotels and resorts located in Virac.",
+    "title": "Hamapayo Pension House Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Hamapayo Pension House is a hotels and resorts located in Virac.",
+    "place_name": "Hamapayo Pension House",
+    "coordinates": {
+      "lat": 13.58891972772742,
+      "lng": 124.2083954979506
+    }
+  },
+  {
+    "input": "Where is ARDCI Cafe?",
+    "output": "ARDCI Cafe is a restaurants and cafes located in Virac.",
+    "title": "ARDCI Cafe Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "ARDCI Cafe is a restaurants and cafes located in Virac.",
+    "place_name": "ARDCI Cafe",
+    "coordinates": {
+      "lat": 13.58145932101771,
+      "lng": 124.23009272327565
+    }
+  },
+  {
+    "input": "Where is Happy Island Inn?",
+    "output": "Happy Island Inn is a hotels and resorts located in Virac.",
+    "title": "Happy Island Inn Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Happy Island Inn is a hotels and resorts located in Virac.",
+    "place_name": "Happy Island Inn",
+    "coordinates": {
+      "lat": 13.594221210744385,
+      "lng": 124.26111675211118
+    }
+  },
+  {
+    "input": "Where is Blossoms Restaurant?",
+    "output": "Blossoms Restaurant is a restaurants and cafes located in Virac.",
+    "title": "Blossoms Restaurant Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Blossoms Restaurant is a restaurants and cafes located in Virac.",
+    "place_name": "Blossoms Restaurant",
+    "coordinates": {
+      "lat": 13.581741965345147,
+      "lng": 124.23228091542933
+    }
+  },
+  {
+    "input": "Where is JM Pension House?",
+    "output": "JM Pension House is a hotels and resorts located in Virac.",
+    "title": "JM Pension House Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "JM Pension House is a hotels and resorts located in Virac.",
+    "place_name": "JM Pension House",
+    "coordinates": {
+      "lat": 13.578996725549041,
+      "lng": 124.22474125714392
+    }
+  },
+  {
+    "input": "Where is Blue Café?",
+    "output": "Blue Café is a restaurants and cafes located in Virac.",
+    "title": "Blue Café Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Blue Café is a restaurants and cafes located in Virac.",
+    "place_name": "Blue Café",
+    "coordinates": {
+      "lat": 13.581175578193937,
+      "lng": 124.22824468638174
+    }
+  },
+  {
+    "input": "Where is Marilima Beach?",
+    "output": "Marilima Beach is a hotels and resorts located in Virac.",
+    "title": "Marilima Beach Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Marilima Beach is a hotels and resorts located in Virac.",
+    "place_name": "Marilima Beach",
+    "coordinates": {
+      "lat": 13.538906979988818,
+      "lng": 124.16804587161822
+    }
+  },
+  {
+    "input": "Where is Buddy's Mami House?",
+    "output": "Buddy's Mami House is a restaurants and cafes located in Virac.",
+    "title": "Buddy's Mami House Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Buddy's Mami House is a restaurants and cafes located in Virac.",
+    "place_name": "Buddy's Mami House",
+    "coordinates": {
+      "lat": 13.581306526011169,
+      "lng": 124.21342438651737
+    }
+  },
+  {
+    "input": "Where is Marem Pension House?",
+    "output": "Marem Pension House is a hotels and resorts located in Virac.",
+    "title": "Marem Pension House Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Marem Pension House is a hotels and resorts located in Virac.",
+    "place_name": "Marem Pension House",
+    "coordinates": {
+      "lat": 13.585027658792676,
+      "lng": 124.23616359366518
+    }
+  },
+  {
+    "input": "Where is Cafe De Au?",
+    "output": "Cafe De Au is a restaurants and cafes located in Virac.",
+    "title": "Cafe De Au Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Cafe De Au is a restaurants and cafes located in Virac.",
+    "place_name": "Cafe De Au",
+    "coordinates": {
+      "lat": 13.581121990552765,
+      "lng": 124.23238685211084
+    }
+  },
+  {
+    "input": "Where is Queen Maricel Inn?",
+    "output": "Queen Maricel Inn is a hotels and resorts located in Virac.",
+    "title": "Queen Maricel Inn Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Queen Maricel Inn is a hotels and resorts located in Virac.",
+    "place_name": "Queen Maricel Inn",
+    "coordinates": {
+      "lat": 13.578029967508437,
+      "lng": 124.21637442753692
+    }
+  },
+  {
+    "input": "Where is Cafe Norte?",
+    "output": "Cafe Norte is a restaurants and cafes located in Virac.",
+    "title": "Cafe Norte Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Cafe Norte is a restaurants and cafes located in Virac.",
+    "place_name": "Cafe Norte",
+    "coordinates": {
+      "lat": 13.586445787269987,
+      "lng": 124.23851286560539
+    }
+  },
+  {
+    "input": "Where is Rakdell Inn?",
+    "output": "Rakdell Inn is a hotels and resorts located in Virac.",
+    "title": "Rakdell Inn Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Rakdell Inn is a hotels and resorts located in Virac.",
+    "place_name": "Rakdell Inn",
+    "coordinates": {
+      "lat": 13.583461583441721,
+      "lng": 124.23250090566795
+    }
+  },
+  {
+    "input": "Where is Cafe Ubaldita?",
+    "output": "Cafe Ubaldita is a restaurants and cafes located in Virac.",
+    "title": "Cafe Ubaldita Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Cafe Ubaldita is a restaurants and cafes located in Virac.",
+    "place_name": "Cafe Ubaldita",
+    "coordinates": {
+      "lat": 13.58417333027359,
+      "lng": 124.20754195211089
+    }
+  },
+  {
+    "input": "Where is Canapino Diner?",
+    "output": "Canapino Diner is a restaurants and cafes located in Virac.",
+    "title": "Canapino Diner Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Canapino Diner is a restaurants and cafes located in Virac.",
+    "place_name": "Canapino Diner",
+    "coordinates": {
+      "lat": 13.58138852108624,
+      "lng": 124.22841093861653
+    }
+  },
+  {
+    "input": "Where is Batag Beach Resort?",
+    "output": "Batag Beach Resort is a hotels and resorts located in Virac.",
+    "title": "Batag Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Batag Beach Resort is a hotels and resorts located in Virac.",
+    "place_name": "Batag Beach Resort",
+    "coordinates": {
+      "lat": 13.540203971830607,
+      "lng": 124.16374122931133
+    }
+  },
+  {
+    "input": "Where is Carrie's Pizza, Pasta and More?",
+    "output": "Carrie's Pizza, Pasta and More is a restaurants and cafes located in Virac.",
+    "title": "Carrie's Pizza, Pasta and More Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Carrie's Pizza, Pasta and More is a restaurants and cafes located in Virac.",
+    "place_name": "Carrie's Pizza, Pasta and More",
+    "coordinates": {
+      "lat": 13.58077624646006,
+      "lng": 124.21429182327564
+    }
+  },
+  {
+    "input": "Where is Sunset Coast Beach Resort?",
+    "output": "Sunset Coast Beach Resort is a hotels and resorts located in Virac.",
+    "title": "Sunset Coast Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Sunset Coast Beach Resort is a hotels and resorts located in Virac.",
+    "place_name": "Sunset Coast Beach Resort",
+    "coordinates": {
+      "lat": 13.552637355513973,
+      "lng": 124.15569366555616
+    }
+  },
+  {
+    "input": "Where is Cathy's Restaurant and Catering Services?",
+    "output": "Cathy's Restaurant and Catering Services is a restaurants and cafes located in Virac.",
+    "title": "Cathy's Restaurant and Catering Services Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Cathy's Restaurant and Catering Services is a restaurants and cafes located in Virac.",
+    "place_name": "Cathy's Restaurant and Catering Services",
+    "coordinates": {
+      "lat": 13.585544780249219,
+      "lng": 124.23717188404729
+    }
+  },
+  {
+    "input": "Where is LouCa Beach Resort?",
+    "output": "LouCa Beach Resort is a hotels and resorts located in Virac.",
+    "title": "LouCa Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "LouCa Beach Resort is a hotels and resorts located in Virac.",
+    "place_name": "LouCa Beach Resort",
+    "coordinates": {
+      "lat": 13.548539798350518,
+      "lng": 124.15769502783087
+    }
+  },
+  {
+    "input": "Where is DAKILA' Café?",
+    "output": "DAKILA' Café is a restaurants and cafes located in Virac.",
+    "title": "DAKILA' Café Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "DAKILA' Café is a restaurants and cafes located in Virac.",
+    "place_name": "DAKILA' Café",
+    "coordinates": {
+      "lat": 13.57920899426178,
+      "lng": 124.22758444046303
+    }
+  },
+  {
+    "input": "Where is Regina's Beachfront Resort?",
+    "output": "Regina's Beachfront Resort is a hotels and resorts located in Virac.",
+    "title": "Regina's Beachfront Resort Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Regina's Beachfront Resort is a hotels and resorts located in Virac.",
+    "place_name": "Regina's Beachfront Resort",
+    "coordinates": {
+      "lat": 13.53976642609727,
+      "lng": 124.16488424391362
+    }
+  },
+  {
+    "input": "Where is Renel's Travellers Inn?",
+    "output": "Renel's Travellers Inn is a hotels and resorts located in Virac.",
+    "title": "Renel's Travellers Inn Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Renel's Travellers Inn is a hotels and resorts located in Virac.",
+    "place_name": "Renel's Travellers Inn",
+    "coordinates": {
+      "lat": 13.579801222500484,
+      "lng": 124.22802496911423
+    }
+  },
+  {
+    "input": "Where is Fernando's Asian Cuisine?",
+    "output": "Fernando's Asian Cuisine is a restaurants and cafes located in Virac.",
+    "title": "Fernando's Asian Cuisine Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Fernando's Asian Cuisine is a restaurants and cafes located in Virac.",
+    "place_name": "Fernando's Asian Cuisine",
+    "coordinates": {
+      "lat": 13.581024021555177,
+      "lng": 124.2284358008955
+    }
+  },
+  {
+    "input": "Where is Rhaj Inn?",
+    "output": "Rhaj Inn is a hotels and resorts located in Virac.",
+    "title": "Rhaj Inn Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Rhaj Inn is a hotels and resorts located in Virac.",
+    "place_name": "Rhaj Inn",
+    "coordinates": {
+      "lat": 13.579034249718445,
+      "lng": 124.22621632327555
+    }
+  },
+  {
+    "input": "Where is Fleur De Lilies Glamping Farm?",
+    "output": "Fleur De Lilies Glamping Farm is a restaurants and cafes located in Virac.",
+    "title": "Fleur De Lilies Glamping Farm Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Fleur De Lilies Glamping Farm is a restaurants and cafes located in Virac.",
+    "place_name": "Fleur De Lilies Glamping Farm",
+    "coordinates": {
+      "lat": 13.522814980924824,
+      "lng": 124.20319514587996
+    }
+  },
+  {
+    "input": "Where is Twin Rock Beach Resort?",
+    "output": "Twin Rock Beach Resort is a hotels and resorts located in Virac.",
+    "title": "Twin Rock Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Twin Rock Beach Resort is a hotels and resorts located in Virac.",
+    "place_name": "Twin Rock Beach Resort",
+    "coordinates": {
+      "lat": 13.522906435245654,
+      "lng": 124.20317528575912
+    }
+  },
+  {
+    "input": "Where is Gottsaa Milktea House?",
+    "output": "Gottsaa Milktea House is a restaurants and cafes located in Virac.",
+    "title": "Gottsaa Milktea House Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Gottsaa Milktea House is a restaurants and cafes located in Virac.",
+    "place_name": "Gottsaa Milktea House",
+    "coordinates": {
+      "lat": 13.58163263436696,
+      "lng": 124.21368576560516
+    }
+  },
+  {
+    "input": "Where is Tampad Beach Resort?",
+    "output": "Tampad Beach Resort is a hotels and resorts located in Virac.",
+    "title": "Tampad Beach Resort Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Tampad Beach Resort is a hotels and resorts located in Virac.",
+    "place_name": "Tampad Beach Resort",
+    "coordinates": {
+      "lat": 13.519176854919204,
+      "lng": 124.2059355539561
+    }
+  },
+  {
+    "input": "Where is Jillian's Kitchenette?",
+    "output": "Jillian's Kitchenette is a restaurants and cafes located in Virac.",
+    "title": "Jillian's Kitchenette Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Jillian's Kitchenette is a restaurants and cafes located in Virac.",
+    "place_name": "Jillian's Kitchenette",
+    "coordinates": {
+      "lat": 13.581343446088963,
+      "lng": 124.21364651691626
+    }
+  },
+  {
+    "input": "Where is Villa Toledo Travel Lodge?",
+    "output": "Villa Toledo Travel Lodge is a hotels and resorts located in Virac.",
+    "title": "Villa Toledo Travel Lodge Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Villa Toledo Travel Lodge is a hotels and resorts located in Virac.",
+    "place_name": "Villa Toledo Travel Lodge",
+    "coordinates": {
+      "lat": 13.584315171613417,
+      "lng": 124.2337979614973
+    }
+  },
+  {
+    "input": "Where is Jollibee?",
+    "output": "Jollibee is a restaurants and cafes located in Virac.",
+    "title": "Jollibee Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Jollibee is a restaurants and cafes located in Virac.",
+    "place_name": "Jollibee",
+    "coordinates": {
+      "lat": 13.581175578193937,
+      "lng": 124.22824468638174
+    }
+  },
+  {
+    "input": "Where is Kasiram Grill and Restaurant?",
+    "output": "Kasiram Grill and Restaurant is a restaurants and cafes located in Virac.",
+    "title": "Kasiram Grill and Restaurant Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Kasiram Grill and Restaurant is a restaurants and cafes located in Virac.",
+    "place_name": "Kasiram Grill and Restaurant",
+    "coordinates": {
+      "lat": 13.584004790641492,
+      "lng": 124.20834340885116
+    }
+  },
+  {
+    "input": "Where is Barefoot Beach?",
+    "output": "Barefoot Beach is a hotels and resorts located in Virac.",
+    "title": "Barefoot Beach Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Barefoot Beach is a hotels and resorts located in Virac.",
+    "place_name": "Barefoot Beach",
+    "coordinates": {
+      "lat": 13.551155461290714,
+      "lng": 124.15447590238682
+    }
+  },
+  {
+    "input": "Where is Kemji Garden & Resto?",
+    "output": "Kemji Garden & Resto is a restaurants and cafes located in Virac.",
+    "title": "Kemji Garden & Resto Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Kemji Garden & Resto is a restaurants and cafes located in Virac.",
+    "place_name": "Kemji Garden & Resto",
+    "coordinates": {
+      "lat": 13.58109037731797,
+      "lng": 124.21505708798185
+    }
+  },
+  {
+    "input": "Where is Virac Hometel?",
+    "output": "Virac Hometel is a hotels and resorts located in Virac.",
+    "title": "Virac Hometel Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Virac Hometel is a hotels and resorts located in Virac.",
+    "place_name": "Virac Hometel",
+    "coordinates": {
+      "lat": 13.58179833090802,
+      "lng": 124.22695947921794
+    }
+  },
+  {
+    "input": "Where is Mcdonald’s?",
+    "output": "Mcdonald’s is a restaurants and cafes located in Virac.",
+    "title": "Mcdonald’s Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Mcdonald’s is a restaurants and cafes located in Virac.",
+    "place_name": "Mcdonald’s",
+    "coordinates": {
+      "lat": 13.57976473515069,
+      "lng": 124.22830760441924
+    }
+  },
+  {
+    "input": "Where is Island Homestay?",
+    "output": "Island Homestay is a hotels and resorts located in Virac.",
+    "title": "Island Homestay Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Island Homestay is a hotels and resorts located in Virac.",
+    "place_name": "Island Homestay",
+    "coordinates": {
+      "lat": 13.570722658596491,
+      "lng": 124.20375708955693
+    }
+  },
+  {
+    "input": "Where is Monj Bistro?",
+    "output": "Monj Bistro is a restaurants and cafes located in Virac.",
+    "title": "Monj Bistro Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Monj Bistro is a restaurants and cafes located in Virac.",
+    "place_name": "Monj Bistro",
+    "coordinates": {
+      "lat": 13.585892587436463,
+      "lng": 124.23758206645816
+    }
+  },
+  {
+    "input": "Where is Isla Be Back Staycation?",
+    "output": "Isla Be Back Staycation is a hotels and resorts located in Virac.",
+    "title": "Isla Be Back Staycation Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Isla Be Back Staycation is a hotels and resorts located in Virac.",
+    "place_name": "Isla Be Back Staycation",
+    "coordinates": {
+      "lat": 13.585740419849598,
+      "lng": 124.2164396295645
+    }
+  },
+  {
+    "input": "Where is On D’ Wings - Calatagan?",
+    "output": "On D’ Wings - Calatagan is a restaurants and cafes located in Virac.",
+    "title": "On D’ Wings - Calatagan Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "On D’ Wings - Calatagan is a restaurants and cafes located in Virac.",
+    "place_name": "On D’ Wings - Calatagan",
+    "coordinates": {
+      "lat": 13.591323543086718,
+      "lng": 124.20816347114656
+    }
+  },
+  {
+    "input": "Where is Moonwalk Villa Resort?",
+    "output": "Moonwalk Villa Resort is a hotels and resorts located in Virac.",
+    "title": "Moonwalk Villa Resort Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Moonwalk Villa Resort is a hotels and resorts located in Virac.",
+    "place_name": "Moonwalk Villa Resort",
+    "coordinates": {
+      "lat": 13.584791411940643,
+      "lng": 124.22011962003668
+    }
+  },
+  {
+    "input": "Where is One Two Sawa Eatery?",
+    "output": "One Two Sawa Eatery is a restaurants and cafes located in Virac.",
+    "title": "One Two Sawa Eatery Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "One Two Sawa Eatery is a restaurants and cafes located in Virac.",
+    "place_name": "One Two Sawa Eatery",
+    "coordinates": {
+      "lat": 13.584357089503174,
+      "lng": 124.2318788097814
+    }
+  },
+  {
+    "input": "Where is Kasa Inndustria Mountain Resort?",
+    "output": "Kasa Inndustria Mountain Resort is a hotels and resorts located in Virac.",
+    "title": "Kasa Inndustria Mountain Resort Location",
+    "topic": "Accommodation",
+    "location": "VIRAC",
+    "summary_offline": "Kasa Inndustria Mountain Resort is a hotels and resorts located in Virac.",
+    "place_name": "Kasa Inndustria Mountain Resort",
+    "coordinates": {
+      "lat": 13.580627725044849,
+      "lng": 124.19121548423095
+    }
+  },
+  {
+    "input": "Where is Oyana Café?",
+    "output": "Oyana Café is a restaurants and cafes located in Virac.",
+    "title": "Oyana Café Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Oyana Café is a restaurants and cafes located in Virac.",
+    "place_name": "Oyana Café",
+    "coordinates": {
+      "lat": 13.581512234467635,
+      "lng": 124.23283705395751
+    }
+  },
+  {
+    "input": "Where is Queen Maricel Inn Ramen House?",
+    "output": "Queen Maricel Inn Ramen House is a restaurants and cafes located in Virac.",
+    "title": "Queen Maricel Inn Ramen House Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Queen Maricel Inn Ramen House is a restaurants and cafes located in Virac.",
+    "place_name": "Queen Maricel Inn Ramen House",
+    "coordinates": {
+      "lat": 13.578005408414093,
+      "lng": 124.21626513676992
+    }
+  },
+  {
+    "input": "Where is Rojazz Café?",
+    "output": "Rojazz Café is a restaurants and cafes located in Virac.",
+    "title": "Rojazz Café Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Rojazz Café is a restaurants and cafes located in Virac.",
+    "place_name": "Rojazz Café",
+    "coordinates": {
+      "lat": 13.584380431136946,
+      "lng": 124.23471746745183
+    }
+  },
+  {
+    "input": "Where is Saturday’s Restaurant?",
+    "output": "Saturday’s Restaurant is a restaurants and cafes located in Virac.",
+    "title": "Saturday’s Restaurant Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Saturday’s Restaurant is a restaurants and cafes located in Virac.",
+    "place_name": "Saturday’s Restaurant",
+    "coordinates": {
+      "lat": 13.581020152106651,
+      "lng": 124.2145987011342
+    }
+  },
+  {
+    "input": "Where is Sea Breeze 2001?",
+    "output": "Sea Breeze 2001 is a restaurants and cafes located in Virac.",
+    "title": "Sea Breeze 2001 Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Sea Breeze 2001 is a restaurants and cafes located in Virac.",
+    "place_name": "Sea Breeze 2001",
+    "coordinates": {
+      "lat": 13.581391183012842,
+      "lng": 124.23278613841805
+    }
+  },
+  {
+    "input": "Where is Sizzling House?",
+    "output": "Sizzling House is a restaurants and cafes located in Virac.",
+    "title": "Sizzling House Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Sizzling House is a restaurants and cafes located in Virac.",
+    "place_name": "Sizzling House",
+    "coordinates": {
+      "lat": 13.580889392708748,
+      "lng": 124.22861573676987
+    }
+  },
+  {
+    "input": "Where is Tandu Coffee?",
+    "output": "Tandu Coffee is a restaurants and cafes located in Virac.",
+    "title": "Tandu Coffee Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Tandu Coffee is a restaurants and cafes located in Virac.",
+    "place_name": "Tandu Coffee",
+    "coordinates": {
+      "lat": 13.582913575755228,
+      "lng": 124.23250602142909
+    }
+  },
+  {
+    "input": "Where is Taller’s Brew?",
+    "output": "Taller’s Brew is a restaurants and cafes located in Virac.",
+    "title": "Taller’s Brew Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Taller’s Brew is a restaurants and cafes located in Virac.",
+    "place_name": "Taller’s Brew",
+    "coordinates": {
+      "lat": 13.595368163992209,
+      "lng": 124.20498736560553
+    }
+  },
+  {
+    "input": "Where is Teaholic?",
+    "output": "Teaholic is a restaurants and cafes located in Virac.",
+    "title": "Teaholic Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Teaholic is a restaurants and cafes located in Virac.",
+    "place_name": "Teaholic",
+    "coordinates": {
+      "lat": 13.57863950521635,
+      "lng": 124.23128159444029
+    }
+  },
+  {
+    "input": "Where is The Hungry Bar?",
+    "output": "The Hungry Bar is a restaurants and cafes located in Virac.",
+    "title": "The Hungry Bar Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "The Hungry Bar is a restaurants and cafes located in Virac.",
+    "place_name": "The Hungry Bar",
+    "coordinates": {
+      "lat": 13.585363997380046,
+      "lng": 124.23812822997121
+    }
+  },
+  {
+    "input": "Where is The Prime Resto Bar?",
+    "output": "The Prime Resto Bar is a restaurants and cafes located in Virac.",
+    "title": "The Prime Resto Bar Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "The Prime Resto Bar is a restaurants and cafes located in Virac.",
+    "place_name": "The Prime Resto Bar",
+    "coordinates": {
+      "lat": 13.578715324713569,
+      "lng": 124.23135543325206
+    }
+  },
+  {
+    "input": "Where is Thirstea - Virac Town Center?",
+    "output": "Thirstea - Virac Town Center is a restaurants and cafes located in Virac.",
+    "title": "Thirstea - Virac Town Center Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Thirstea - Virac Town Center is a restaurants and cafes located in Virac.",
+    "place_name": "Thirstea - Virac Town Center",
+    "coordinates": {
+      "lat": 13.580913253521903,
+      "lng": 124.22858500408107
+    }
+  },
+  {
+    "input": "Where is Timo-Tea Milktea &Coffee Hub?",
+    "output": "Timo-Tea Milktea &Coffee Hub is a restaurants and cafes located in Virac.",
+    "title": "Timo-Tea Milktea &Coffee Hub Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Timo-Tea Milktea &Coffee Hub is a restaurants and cafes located in Virac.",
+    "place_name": "Timo-Tea Milktea &Coffee Hub",
+    "coordinates": {
+      "lat": 13.580706648306267,
+      "lng": 124.23222698978235
+    }
+  },
+  {
+    "input": "Where is Twin Bar & Café?",
+    "output": "Twin Bar & Café is a restaurants and cafes located in Virac.",
+    "title": "Twin Bar & Café Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Twin Bar & Café is a restaurants and cafes located in Virac.",
+    "place_name": "Twin Bar & Café",
+    "coordinates": {
+      "lat": 13.578752378869426,
+      "lng": 124.2299290521109
+    }
+  },
+  {
+    "input": "Where is Virac Hometel?",
+    "output": "Virac Hometel is a restaurants and cafes located in Virac.",
+    "title": "Virac Hometel Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Virac Hometel is a restaurants and cafes located in Virac.",
+    "place_name": "Virac Hometel",
+    "coordinates": {
+      "lat": 13.58185832768708,
+      "lng": 124.22699813697473
+    }
+  },
+  {
+    "input": "Where is ARDCI Skydeck Lounge?",
+    "output": "ARDCI Skydeck Lounge is a restaurants and cafes located in Virac.",
+    "title": "ARDCI Skydeck Lounge Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "ARDCI Skydeck Lounge is a restaurants and cafes located in Virac.",
+    "place_name": "ARDCI Skydeck Lounge",
+    "coordinates": {
+      "lat": 13.581368173193223,
+      "lng": 124.22987346487102
+    }
+  },
+  {
+    "input": "Where is Niño Bistro?",
+    "output": "Niño Bistro is a restaurants and cafes located in Virac.",
+    "title": "Niño Bistro Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Niño Bistro is a restaurants and cafes located in Virac.",
+    "place_name": "Niño Bistro",
+    "coordinates": {
+      "lat": 13.579295434170184,
+      "lng": 124.22802865470325
+    }
+  },
+  {
+    "input": "Where is Peymus Resto?",
+    "output": "Peymus Resto is a restaurants and cafes located in Virac.",
+    "title": "Peymus Resto Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Peymus Resto is a restaurants and cafes located in Virac.",
+    "place_name": "Peymus Resto",
+    "coordinates": {
+      "lat": 13.579402204846764,
+      "lng": 124.22762197909927
+    }
+  },
+  {
+    "input": "Where is Miekoys Pizza?",
+    "output": "Miekoys Pizza is a restaurants and cafes located in Virac.",
+    "title": "Miekoys Pizza Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Miekoys Pizza is a restaurants and cafes located in Virac.",
+    "place_name": "Miekoys Pizza",
+    "coordinates": {
+      "lat": 13.587613305309315,
+      "lng": 124.2394488840288
+    }
+  },
+  {
+    "input": "Where is On D' Wings - Francia?",
+    "output": "On D' Wings - Francia is a restaurants and cafes located in Virac.",
+    "title": "On D' Wings - Francia Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "On D' Wings - Francia is a restaurants and cafes located in Virac.",
+    "place_name": "On D' Wings - Francia",
+    "coordinates": {
+      "lat": 13.586624201844174,
+      "lng": 124.23853542327583
+    }
+  },
+  {
+    "input": "Where is 2838 Tea & Cafe - Francia?",
+    "output": "2838 Tea & Cafe - Francia is a restaurants and cafes located in Virac.",
+    "title": "2838 Tea & Cafe - Francia Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "2838 Tea & Cafe - Francia is a restaurants and cafes located in Virac.",
+    "place_name": "2838 Tea & Cafe - Francia",
+    "coordinates": {
+      "lat": 13.585508339157613,
+      "lng": 124.23804189685526
+    }
+  },
+  {
+    "input": "Where is Mizuna Restaurant?",
+    "output": "Mizuna Restaurant is a restaurants and cafes located in Virac.",
+    "title": "Mizuna Restaurant Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Mizuna Restaurant is a restaurants and cafes located in Virac.",
+    "place_name": "Mizuna Restaurant",
+    "coordinates": {
+      "lat": 13.582915375540159,
+      "lng": 124.21335317171304
+    }
+  },
+  {
+    "input": "Where is Haring Manok - Calatagan?",
+    "output": "Haring Manok - Calatagan is a restaurants and cafes located in Virac.",
+    "title": "Haring Manok - Calatagan Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Haring Manok - Calatagan is a restaurants and cafes located in Virac.",
+    "place_name": "Haring Manok - Calatagan",
+    "coordinates": {
+      "lat": 13.584063653051224,
+      "lng": 124.20860121139492
+    }
+  },
+  {
+    "input": "Where is Haring Manok - Rawis?",
+    "output": "Haring Manok - Rawis is a restaurants and cafes located in Virac.",
+    "title": "Haring Manok - Rawis Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Haring Manok - Rawis is a restaurants and cafes located in Virac.",
+    "place_name": "Haring Manok - Rawis",
+    "coordinates": {
+      "lat": 13.585907954596866,
+      "lng": 124.2376342850281
+    }
+  },
+  {
+    "input": "Where is Mayan Café?",
+    "output": "Mayan Café is a restaurants and cafes located in Virac.",
+    "title": "Mayan Café Location",
+    "topic": "Food",
+    "location": "VIRAC",
+    "summary_offline": "Mayan Café is a restaurants and cafes located in Virac.",
+    "place_name": "Mayan Café",
+    "coordinates": {
+      "lat": 13.583952428716442,
+      "lng": 124.23418504723898
+    }
   }
 ]

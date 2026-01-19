@@ -1,50 +1,25 @@
 .PreferenceCard {
-    background-color: #555555;
     border-radius: 16px;
-    box-shadow: 0 10px 500px rgba(51, 43, 27, 0.808);
     padding: 24px;
-    width: 90%;
-    max-width: 900px;
-    min-width: 320px;
-    position: absolute;
-    top: 12vh;
-    left: 5%;
-    overflow-y: auto;
-    z-index: 1000;
+    width: 100%;
+    max-width: 100%;
+    overflow-y: visible;
     height: auto;
-    min-height: 75vh;
 }
 
 .secondCard {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     width: 100%;
     height: 100%;
 }
 
-.leftColumn {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    height: 100%;
-}
-
-.rightColumn {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    height: 100%;
-}
-
 /* Common box styles */
 .reviewBox,
-.journeyDatesBox,
-.budgetBox,
-.activitiesBox,
 .itineraryPreview {
     padding: 20px;
-    background-color: rgb(35, 36, 36);
+    background-color: rgba(35, 36, 36, 0.9);
     border-radius: 12px;
     border: 1px solid rgb(73, 73, 73);
     color: rgb(255, 250, 250);
@@ -69,12 +44,8 @@
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease;
-
-    /* Layout */
     width: auto;
-    /* 2. Fixed duplicate width */
     min-width: 100px;
-    /* 3. Ensures it matches the Remove button size */
     margin-top: auto;
     align-self: flex-end;
 }
@@ -91,19 +62,14 @@
 .addSpotDisabled {
     padding: 10px;
     background-color: #4b5563;
-    /* Gray color */
     color: #9ca3af;
-    /* Dim text */
     border: 1px solid #374151;
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     text-align: center;
     cursor: not-allowed;
-    /* Shows 'no' symbol on hover */
     opacity: 0.7;
-
-    /* Layout match */
     width: auto;
     min-width: 100px;
     margin-top: auto;
@@ -116,18 +82,11 @@
     color: white;
     border: none;
     border-radius: 12px;
-
-    /* Font Consistency */
     font-size: 1rem;
-    /* 4. ADDED THIS (Was missing) */
     font-weight: 600;
     text-align: center;
-    /* 5. Good practice to be explicit */
-
     cursor: pointer;
     transition: all 0.2s ease;
-
-    /* Layout */
     width: auto;
     min-width: 100px;
     margin-top: auto;
@@ -164,19 +123,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .dateInputRow {
@@ -322,22 +268,13 @@
     accent-color: #007bff;
 }
 
-/* Bottom Right Section Container */
-.bottomRightSection {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: auto;
-    flex: 1;
-}
-
 .itineraryPreview {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 49vh;
 }
 
-.previewContent {
+.previewContent {   
     font-size: 0.9rem;
     color: #aaa;
     margin: 0;
@@ -380,7 +317,6 @@
     border: 1px solid #494949;
     font-size: 0.9rem;
     color: white;
-    border-radius: 4px;
     gap: 12px;
     cursor: pointer;
 }
@@ -390,7 +326,7 @@
     border-color: #666;
 }
 
-.miniSpotItem span:first-child {
+.spotName {
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
@@ -398,7 +334,7 @@
     font-weight: 500;
     text-align: left;
     font-size: 0.75rem;
-    color: #d6d6d6; 
+    color: #d6d6d6;
     text-transform: uppercase;
     font-weight: 600;
 }
@@ -440,6 +376,7 @@
     transition: all 0.2s ease;
     text-align: center;
     width: 100%;
+    margin-top: 10px;
 }
 
 .saveButton:hover {
@@ -452,19 +389,31 @@
 }
 
 /* Mobile responsive */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .secondCard {
         grid-template-columns: 1fr;
     }
 
     .PreferenceCard {
-        left: 2.5%;
-        width: 95%;
-        top: 5vh;
-        height: auto;
+        padding: 16px;
     }
 
     .activitiesOption {
         grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .PreferenceCard {
+        padding: 12px;
+    }
+
+    .secondCard {
+        gap: 15px;
+    }
+
+    .leftColumn,
+    .rightColumn {
+        gap: 15px;
     }
 }
