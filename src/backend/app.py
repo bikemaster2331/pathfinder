@@ -12,12 +12,15 @@ from fastapi.concurrency import run_in_threadpool
 
 pipeline = None
 
+BASE_DIR = Path(__file__).parent 
+DATASET = BASE_DIR / "dataset" / "dataset.json"
+CONFIG = BASE_DIR / "config" / "config.yaml"
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global pipeline
     print("Initializing Pathfinder...")
     try:
-        # Load config logic here
         pipeline = Pipeline(
             dataset_path=str(DATASET),
             config_path=str(CONFIG)
@@ -29,10 +32,6 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(title="Pathfinder API", version="1.0.0", lifespan=lifespan)
-
-BASE_DIR = Path(__file__).parent 
-DATASET = BASE_DIR / "dataset" / "dataset.json"
-CONFIG = BASE_DIR / "config" / "config.yaml"
 
 itinerary_list = []
 
@@ -50,27 +49,25 @@ class AskRequest(BaseModel):
 class ItineraryItem(BaseModel):
     place_name: str
 
+# UPDATED: Matches the new Pipeline output structure
 class PlaceInfo(BaseModel):
     name: str
-    lat: float
-    lng: float
+    coordinates: list[float] # GeoJSON style [lng, lat]
     type: str
+    municipality: str
 
 class AskResponse(BaseModel):
     answer: str
-    places: list[PlaceInfo]
+    locations: list[PlaceInfo] # Renamed from 'places' to match pipeline dict
 
 # --- ENDPOINTS ---
 
-
-# --- HEARTBEAT ENDPOINT ---
 @app.get("/health")
 async def health_check():
     return {"status": "alive", "location": "rpi-edge"}
 
 @app.get("/admin/status")
 def admin_status(response: Response):
-    # FIX: Handle 503 correctly for FastAPI
     if pipeline is None:
         response.status_code = 503
         return {"status": "starting", "ready": False}
@@ -78,7 +75,6 @@ def admin_status(response: Response):
         return {
             "status": "healthy",
             "collection_count": pipeline.collection.count(),
-            # FIX: Check attribute safely (it's a variable, not a function)
             "internet_available": getattr(pipeline, "internet_status", False),
             "message": "Pathfinder is running"
         }
@@ -88,19 +84,7 @@ def admin_status(response: Response):
 @app.post("/admin/rebuild")
 def admin_rebuild():
     try:
-        pipeline.client.delete_collection(name=pipeline.config['rag']['collection_name'])
-        pipeline.collection = pipeline.client.create_collection(
-            name = pipeline.config['rag']['collection_name'],
-            embedding_function=pipeline.embedding
-        )
-        pipeline.load_dataset(str(DATASET))
-        with open(str(DATASET), 'rb') as f:
-            current_hash = hashlib.md5(f.read()).hexdigest()
-            hash_file = BASE_DIR / "chroma_storage" / pipeline.config['system']['hash_file']
-            hash_file.parent.mkdir(exist_ok=True)
-            with open(hash_file, 'w') as f:
-                f.write(current_hash)   
-        
+        pipeline.rebuild_index() # Use the method we created in pipeline.py
         return {
             "message": "Database rebuilt successfully",
             "new_count": pipeline.collection.count()
@@ -128,50 +112,38 @@ async def ask_endpoint(request: AskRequest):
     start_time = time.time()
     
     if pipeline is None:
-        print(f"[ERROR] Pipeline not initialized")
-        raise HTTPException(
-            status_code=503, 
-            detail="Service is starting up, please try again in a few seconds"
-        )
+        raise HTTPException(status_code=503, detail="Service starting...")
     
     try:
-        answer, places_data = await run_in_threadpool(
-            pipeline.ask,
-            request.question
-        )
+        result = await run_in_threadpool(pipeline.ask, request.question)
         
-        
+        # --- NEW DEBUG LOGGING ---
+        loc_count = len(result['locations'])
+        if loc_count > 0:
+            print(f"📍 ZOOMING TO: {[l['name'] for l in result['locations']]}")
+        else:
+            print(f"⚠️ NO LOCATION FOUND for: '{request.question}'")
+        # -------------------------
+
         duration = time.time() - start_time
-        print(f"[METRIC] /ask completed in {duration:.2f}s for: '{request.question[:30]}...'")
-        
         return {
-            "answer": answer,
-            "places": places_data  
+            "answer": result['answer'],
+            "locations": result['locations']  
         }
     except Exception as e:
-        duration = time.time() - start_time
-        print(f"[ERROR] /ask failed after {duration:.2f}s: {e}")
+        print(f"[ERROR] {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/places")
 def get_all_places():
-    """Get all available places for the map"""
+    """Get all available places for the map (Legacy support if needed)"""
     if not pipeline:
         return {"places": []}
         
-    all_places = pipeline.config['places']
-    return {
-        "places": [
-            {
-                "name": name,
-                "lat": data['lat'],
-                "lng": data['lng'],
-                "type": data['type']
-            }
-            for name, data in all_places.items()
-        ]
-    }
+    # Note: New pipeline uses GeoJSON, so 'pipeline.config['places']' might be outdated
+    # unless you kept the old config structure. 
+    # For now, returning empty or you can adapt it to read from geo_engine
+    return {"places": []}
 
-# --- STATIC FILES (Must be last) ---
-# FIX: I removed the conflicting @app.get("/") so this now works for the homepage
+# --- STATIC FILES ---
 app.mount("/", StaticFiles(directory=BASE_DIR / "static", html=True), name="static")

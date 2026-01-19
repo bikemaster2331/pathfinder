@@ -5,17 +5,17 @@ import torch
 
 class Controller:
     # --- CONFIGURATION CONSTANTS (Adjustable) ---
-    MAX_CONSONANT_RUN = 6
+    MAX_CONSONANT_RUN = 5
     MIN_UNIQUE_RATIO = 0.35
-    MIN_LENGTH_FOR_CHECKS = 4
+    MIN_LENGTH_FOR_CHECKS = 3
     
     VOWELS = set('aeiouyàáâäæãåāéèêëēėęîïíīįìôöòóœøōõûüùúūu̧ÿñ')
     
     ALLOW_LIST = {
-        'hmm', 'hmmm', 'shh', 'shhh', 'psst', 'tsk', 'brrr',
-        'pfft', 'php', 'html', 'css', 'sql', 'pathfinder',
-        'catanduanes', 'hardware', 'software', 'raspberry', 'pi', 'created', 
-        'developed', 'researchers', 'university'
+        'pathfinder', 'catanduanes', 'hardware', 'software', 'raspberry', 'pi', 
+        'virac', 'bato', 'baras', 'pandan', 'viga', 'gigmoto', 
+        'panganiban', 'bagamanoc', 'caramoran', 'san miguel', 'san andres',
+        'puraran', 'beaches', 'falls', 'cave', 'church', 'bus', 'van'
     }
 
     RE_REPEATED_CHARS = re.compile(r'(.)\1{3,}')
@@ -28,13 +28,13 @@ class Controller:
     def __init__(self, config, embedding_model):
         self.greetings = [
             'hi', 'hello', 'hey', 'kumusta', 'good morning',
-            'good afternoon', 'good evening', 'musta', 'kamusta'
+            'good afternoon', 'good evening', 'musta', 'kamusta', 'yo'
         ]
         
         self.question_indicator = [
             'what', 'where', 'how', 'when', 'who', 'why', 'which',
             'can', 'is', 'are', 'do', 'does', 'will', 'should',
-            'tell', 'show', 'give',  # ADD: Commands
+            'tell', 'show', 'give',
             'ano', 'saan', 'paano', 'kailan', 'sino', 'bakit',
             'may', 'meron', 'pwede', 'gusto'
         ]
@@ -50,6 +50,10 @@ class Controller:
             for k in keywords:
                 self.keywords_topic.append(topic)
                 all_kw_text.append(k)
+        
+        # Add municipalities to semantic cache for robust matching
+        self.keywords_topic.extend(['location'] * 11)
+        all_kw_text.extend(['virac', 'baras', 'bato', 'pandan', 'viga', 'gigmoto', 'panganiban', 'bagamanoc', 'caramoran', 'san miguel', 'san andres'])
 
         print("[INFO] Caching keyword embeddings...")
         self.cached_kw_embeddings = self.embedding_model.encode(all_kw_text, convert_to_tensor=True)
@@ -64,7 +68,7 @@ class Controller:
         return normalized
 
     def _is_gibberish(self, text):
-        """Robust gibberish detection - returns confidence penalty"""
+        """Robust gibberish detection - returns True if text looks like nonsense"""
         if not text:
             return False
         
@@ -77,18 +81,21 @@ class Controller:
         if text_len < self.MIN_LENGTH_FOR_CHECKS:
             return False
 
-        # Character repetition
+        # 1. Regex for repeated characters (e.g., "aaaa")
         if self.RE_REPEATED_CHARS.search(clean_text):
             return True
 
-        # Entropy check
+        # 2. Entropy Check
         unique_chars = len(set(clean_text))
         unique_ratio = unique_chars / text_len
         
-        if text_len > 6 and unique_ratio < self.MIN_UNIQUE_RATIO:
+        # Stricter ratio for short strings
+        threshold = 0.50 if text_len < 10 else self.MIN_UNIQUE_RATIO
+        
+        if unique_ratio < threshold:
             return True
 
-        # Consonant run check
+        # 3. Consonant run check
         consonant_run = 0
         max_run = 0
         for char in clean_text:
@@ -102,12 +109,10 @@ class Controller:
                 max_run = max(max_run, consonant_run)
                 consonant_run = 0
         
-        max_run = max(max_run, consonant_run)
-        
-        if max_run > self.MAX_CONSONANT_RUN:
+        if max(max_run, consonant_run) > self.MAX_CONSONANT_RUN:
             return True
 
-        # Keyboard pattern
+        # 4. Keyboard pattern
         if text_len > 3:
             for pattern in self.KEYBOARD_SEQUENCES:
                 if clean_text in pattern:
@@ -116,14 +121,20 @@ class Controller:
         return False
 
     def check_semantic_match(self, user_input):
-        """Semantic matching with higher threshold"""
+        # CRITICAL FIX: Removed the ' ' not in user_input check to allow single words
+        if len(user_input) < 3: 
+            return False
+
         query_embedding = self.embedding_model.encode(user_input, convert_to_tensor=True)
         cosine_scores = util.cos_sim(query_embedding, self.cached_kw_embeddings)[0]
         best_score, best_index = torch.max(cosine_scores, dim=0)
         
-        if best_score > 0.85:
-            matched_topic = self.keywords_topic[best_index.item()]
-            print(f"[DEBUG] Semantic Match: '{user_input}' → '{matched_topic}' (Score: {best_score:.2f})")
+        # Lower threshold slightly for short specific queries
+        threshold = 0.80 if len(user_input) < 10 else 0.85
+        
+        if best_score > threshold:
+            # matched_topic = self.keywords_topic[best_index.item()]
+            # print(f"[DEBUG] Semantic Match: '{user_input}' (Score: {best_score:.2f})")
             return True
         
         return False
@@ -131,7 +142,6 @@ class Controller:
     def analyze_query(self, user_input):
         """
         Improved intent analysis with scoring system.
-        Philosophy: Be helpful, not gatekeeping!
         """
         clean_text = self._normalize_text(user_input)
         
@@ -144,21 +154,18 @@ class Controller:
                 "reason": "too_short"
             }
 
-        # ❌ REMOVED: Rule 1.5 technical char check (too strict!)
-        # The RAG will handle technical queries naturally
-
-        # Check for gibberish (but soften the impact)
+        # Check for gibberish
         is_gibberish = self._is_gibberish(user_input)
         
         # Check for core identifiers
-        has_greeting = any(g in clean_text for g in self.greetings)
+        has_greeting = any(g == clean_text for g in self.greetings)
+        if not has_greeting:
+             has_greeting = any(g in clean_text.split() for g in self.greetings)
+        
         has_question_word = any(q in clean_text.split() for q in self.question_indicator)
         
-        # NEW: Better keyword matching including province name
-        has_tourism_keyword = any(word in clean_text for word in [
-            'catanduanes', 'island', 'province', 'virac', 'baras',
-            'pandan', 'bato', 'pathfinder'
-        ])
+        # Better keyword matching including province name
+        has_tourism_keyword = any(word in clean_text for word in self.ALLOW_LIST)
         
         if not has_tourism_keyword:
             for topic, keywords in self.tourism_keywords.items():
@@ -169,7 +176,7 @@ class Controller:
         if not has_tourism_keyword:
             has_tourism_keyword = self.check_semantic_match(user_input)
 
-        # STRATEGIC CONFIDENCE SCORING (The Document's Approach)
+        # STRATEGIC CONFIDENCE SCORING
         confidence = 0.0
         
         if has_tourism_keyword:
@@ -179,9 +186,9 @@ class Controller:
         if has_greeting:
             confidence += 0.1
         
-        # Penalize but don't kill if gibberish
+        # Penalize hard if gibberish
         if is_gibberish:
-            confidence -= 0.5
+            confidence -= 0.6
         
         # Final Intent Assignment
         if confidence >= 0.5:
@@ -191,7 +198,7 @@ class Controller:
                 "confidence": min(confidence, 1.0),
                 "reason": "scored_as_tourism"
             }
-        elif has_greeting:
+        elif has_greeting and not is_gibberish:
             return {
                 "intent": "greeting",
                 "is_valid": True,
@@ -199,16 +206,15 @@ class Controller:
                 "reason": "greeting_only"
             }
         else:
-            # CHANGED: Don't block, let RAG try (it will return "not sure" if no match)
             return {
-                "intent": "tourism_query",  # Changed from "unclear"
-                "is_valid": True,
-                "confidence": 0.3,
-                "reason": "uncertain_let_rag_try"
+                "intent": "nonsense" if is_gibberish else "tourism_query", 
+                "is_valid": not is_gibberish,
+                "confidence": 0.3 if not is_gibberish else 0.0,
+                "reason": "uncertain"
             }
     
     def get_greeting_response(self):
         return "Hello! I'm Pathfinder, your Catanduanes tourism guide. Ask me about beaches, food, activities, or where to stay!"
     
     def get_nonsense_response(self):
-        return "I'm sorry, I didn't understand that. Try asking about beaches, surfing, food, accommodations, or activities in Catanduanes! 🏖️"
+        return "I'm sorry, I didn't understand that. Try asking about beaches, surfing, food, accommodations, or activities in Catanduanes!"

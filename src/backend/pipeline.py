@@ -1,31 +1,118 @@
+import os
+import warnings
+import logging
+import json
+import time
+import yaml
+import hashlib
+import threading
+import re
+from pathlib import Path
+from dotenv import load_dotenv
+from difflib import get_close_matches 
+
+# 1. NOISE SUPPRESSION & OFFLINE MODE
+logging.getLogger("stanza").setLevel(logging.ERROR)
+logging.getLogger("spacy").setLevel(logging.ERROR)
+warnings.filterwarnings("ignore", category=UserWarning)
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
+# --- FORCE OFFLINE MODE ---
+# This prevents the "HTTPSConnectionPool" crash by stopping model update checks
+os.environ["HF_HUB_OFFLINE"] = "1" 
+# --------------------------
+
 import chromadb
 from chromadb.utils import embedding_functions
-import json
+from sentence_transformers import SentenceTransformer, util
 import torch
+from langdetect import detect, LangDetectException
+import argostranslate.translate
 import requests
-import time
-import os
-from dotenv import load_dotenv
-import re
-import uuid
 from better_profanity import profanity
-import hashlib
-import yaml
-from pathlib import Path
-from controller import Controller
-from entity_extractor import EntityExtractor
-from sentence_transformers import SentenceTransformer
 from collections import deque
-import threading
 from queue import Queue
 
+# INTERNAL MODULES
+from controller import Controller
+from entity_extractor import EntityExtractor
+
 BASE_DIR = Path(__file__).parent 
-DATASET = BASE_DIR / "dataset" / "dataset.json"
-CONFIG = BASE_DIR / "config" / "config.yaml"
+DATASET_PATH = BASE_DIR / "dataset" / "dataset.json"
+GEOJSON_PATH = BASE_DIR.parent.parent / "public" / "catanduanes_full.geojson"
+CONFIG_PATH = BASE_DIR / "config" / "config.yaml"
 CHROMA_STORAGE = BASE_DIR / "chroma_storage" 
 
 # ============================================================================
-# SEMANTIC CACHE - NEW COMPONENT (PERSISTENT)
+# GEO LOOKUP
+# ============================================================================
+class GeoLookup:
+    """Loads GeoJSON once and provides coordinates based on place_name matches"""
+    def __init__(self, geojson_path, model):
+        self.places_db = {}
+        self.model = model
+        self.place_names = []
+        self.place_embeddings = None
+        
+        try:
+            with open(geojson_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            for feature in data.get('features', []):
+                props = feature.get('properties', {})
+                geom = feature.get('geometry', {})
+                name = props.get('name', '').strip()
+                
+                if name and geom.get('type') == 'Point':
+                    clean_name = name.lower()
+                    self.places_db[clean_name] = {
+                        "name": name,
+                        "coordinates": geom.get('coordinates'),
+                        "type": props.get('type', 'place'),
+                        "municipality": props.get('municipality', 'Catanduanes')
+                    }
+                    self.place_names.append(clean_name)
+            
+            print(f"[GEO] Loaded {len(self.places_db)} locations. Computing embeddings...")
+            
+            # Pre-compute embeddings for semantic search
+            if self.place_names:
+                self.place_embeddings = self.model.encode(self.place_names, convert_to_tensor=True)
+                
+        except Exception as e:
+            print(f"[GEO ERROR] {e}")
+
+    def get_coords(self, place_name):
+        """Finds coordinates for a specific place name tag"""
+        if not place_name: return None
+        query = place_name.lower().strip()
+        
+        # Step 1: Exact Match (Fastest)
+        exact = self.places_db.get(query)
+        if exact: return exact
+        
+        # Step 2: Semantic Match (Accurate for variations like "Falls" vs "Waterfalls")
+        if self.place_names:
+            query_embedding = self.model.encode(query, convert_to_tensor=True)
+            scores = util.cos_sim(query_embedding, self.place_embeddings)[0]
+            best_idx = torch.argmax(scores).item()
+            best_score = scores[best_idx].item()
+            
+            if best_score > 0.85: # High confidence threshold
+                match_name = self.place_names[best_idx]
+                print(f"[GEO] Semantic Match: '{query}' -> '{match_name}' ({best_score:.2f})")
+                return self.places_db[match_name]
+
+        # Step 3: Fuzzy Fallback (Catches typos like "Mribina")
+        matches = get_close_matches(query, self.place_names, n=1, cutoff=0.8)
+        if matches:
+            print(f"[GEO] Fuzzy Match: '{query}' -> '{matches[0]}'")
+            return self.places_db[matches[0]]
+            
+        return None
+
+# ============================================================================
+# SEMANTIC CACHE
 # ============================================================================
 class SemanticCache:
     """Fast vector-based cache with ChromaDB persistence"""
@@ -33,7 +120,6 @@ class SemanticCache:
         self.similarity_threshold = similarity_threshold
         self.lock = threading.Lock()
         
-        # Try to get or create persistent cache collection
         try:
             self.cache_collection = client.get_collection(
                 name=collection_name,
@@ -44,12 +130,11 @@ class SemanticCache:
             self.cache_collection = client.create_collection(
                 name=collection_name,
                 embedding_function=embedding_function,
-                metadata={"hnsw:space": "cosine"}  # Use cosine similarity
+                metadata={"hnsw:space": "cosine"}
             )
             print(f"[CACHE] Created new cache collection")
     
     def get(self, query):
-        """Check if similar query exists in cache"""
         if self.cache_collection.count() == 0:
             return None
         
@@ -71,18 +156,14 @@ class SemanticCache:
                     cached_query = results['documents'][0][0]
                     answer = metadata.get('answer', '')
                     places = metadata.get('places', '[]')
-                    # NEW: Get the version flag
                     version = metadata.get('version', 'raw') 
                     
-                    import json
                     try:
                         places_list = json.loads(places)
                     except:
                         places_list = []
                     
                     print(f"[CACHE HIT] Similarity: {similarity:.3f} | Ver: {version} | '{cached_query[:30]}...'")
-                    
-                    # NEW: Return version too
                     return (answer, places_list, version) 
                 
                 print(f"[CACHE MISS] Best similarity: {similarity:.3f}")
@@ -93,45 +174,29 @@ class SemanticCache:
                 return None
     
     def set(self, query, answer, places):
-        """Store query-answer pair in cache"""
-        import json
-        
         with self.lock:
             try:
-                # Generate unique ID based on query + timestamp
                 cache_id = f"cache_{hashlib.md5(query.encode()).hexdigest()}_{int(time.time())}"
-                
-                # Store in ChromaDB
                 self.cache_collection.add(
                     documents=[query],
                     metadatas=[{
                         "answer": answer,
-                        "places": json.dumps(places),  # Store as JSON string
+                        "places": json.dumps(places),
                         "timestamp": time.time(),
-                        "version": "raw"  # Track if enhanced or not
+                        "version": "raw"
                     }],
                     ids=[cache_id]
                 )
-                
                 print(f"[CACHE SET] Stored: '{query[:50]}...' (id: {cache_id})")
-                
             except Exception as e:
                 print(f"[CACHE SET ERROR] {e}")
     
     def update(self, query, enhanced_answer):
-        """Update existing cache entry with enhanced version"""
-        import json
-        
         with self.lock:
             try:
-                # Find the most similar entry
-                results = self.cache_collection.query(
-                    query_texts=[query],
-                    n_results=1
-                )
+                results = self.cache_collection.query(query_texts=[query], n_results=1)
                 
                 if not results['documents'][0]:
-                    print(f"[CACHE UPDATE FAILED] No entry found for: '{query[:50]}...'")
                     return False
                 
                 distance = results['distances'][0][0]
@@ -141,33 +206,26 @@ class SemanticCache:
                     cache_id = results['ids'][0][0]
                     old_metadata = results['metadatas'][0][0]
                     
-                    # Update the entry with enhanced answer
                     self.cache_collection.update(
                         ids=[cache_id],
                         metadatas=[{
                             "answer": enhanced_answer,
                             "places": old_metadata.get('places', '[]'),
                             "timestamp": time.time(),
-                            "version": "enhanced"  # Mark as enhanced
+                            "version": "enhanced"
                         }]
                     )
-                    
-                    print(f"[CACHE UPDATED] Enhanced: '{query[:50]}...' (id: {cache_id})")
+                    print(f"[CACHE UPDATED] Enhanced: '{query[:50]}...'")
                     return True
-                
-                print(f"[CACHE UPDATE FAILED] Similarity too low: {similarity:.3f}")
                 return False
-                
             except Exception as e:
                 print(f"[CACHE UPDATE ERROR] {e}")
                 return False
 
-
 # ============================================================================
-# BACKGROUND ENHANCER - NEW COMPONENT
+# BACKGROUND ENHANCER
 # ============================================================================
 class BackgroundEnhancer:
-    """Background worker for Gemini-based answer enhancement"""
     def __init__(self, api_key, cache, config):
         self.api_key = api_key
         self.cache = cache
@@ -177,7 +235,6 @@ class BackgroundEnhancer:
         self.running = False
     
     def start(self):
-        """Start background worker thread"""
         if self.worker_thread is not None:
             print("[ENHANCER] Already running")
             return
@@ -188,14 +245,12 @@ class BackgroundEnhancer:
         print("[ENHANCER] Background worker started")
     
     def stop(self):
-        """Stop background worker"""
         self.running = False
         if self.worker_thread:
             self.worker_thread.join(timeout=2)
         print("[ENHANCER] Background worker stopped")
     
     def enqueue(self, query, raw_facts, raw_answer):
-        """Add enhancement job to queue"""
         job = {
             'query': query,
             'raw_facts': raw_facts,
@@ -206,42 +261,32 @@ class BackgroundEnhancer:
         print(f"[ENHANCER] Job queued: '{query[:50]}...'")
     
     def _worker_loop(self):
-        """Fixed loop with better error visibility"""
         print("[ENHANCER] Worker loop started")
         while self.running:
             try:
-                # Use a block with timeout
                 job = self.job_queue.get(timeout=2)
-                print(f"[ENHANCER] Processing job for: {job['query'][:30]}")
-                
                 enhanced = self._enhance_with_gemini(job)
                 
                 if enhanced:
                     success = self.cache.update(job['query'], enhanced)
                     print(f"[ENHANCER] ✓ Success: {success}")
                 else:
-                    # If this prints, the API call actually happened but failed
                     print(f"[ENHANCER] ✗ Job failed at the API level")
                     time.sleep(60)
                 
                 self.job_queue.task_done()
             except Exception as e:
-                # This ignores empty queue timeouts
                 if "Empty" not in str(type(e).__name__):
                     print(f"[ENHANCER ERROR] Loop crashed: {e}")
                 continue
 
-    
     def _enhance_with_gemini(self, job):
-        """Industry standard request logic with mandatory headers"""
         if not self.api_key:
             return None
         
-        # This is the alias that actually works
         model_alias = "gemini-2.5-flash-lite"
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_alias}:generateContent?key={self.api_key}"
         
-        # Mandatory Header for Google API
         headers = {'Content-Type': 'application/json'}
         raw_template = self.config['gemini']['prompt_template']
         prompt = raw_template.format(
@@ -255,14 +300,11 @@ class BackgroundEnhancer:
         }
         
         try:
-            # We must use headers or the request 'won't get through'
             response = requests.post(url, json=payload, headers=headers, timeout=15)
-            
             if response.status_code == 200:
                 result = response.json()
                 return result['candidates'][0]['content']['parts'][0]['text'].strip()
             else:
-                # THIS IS THE KEY: We need to see the actual error message
                 print(f"[ENHANCER ERROR] Status {response.status_code}: {response.text}")
                 return None
         except Exception as e:
@@ -270,7 +312,7 @@ class BackgroundEnhancer:
             return None
 
 # ============================================================================
-# RATE LIMITER (unchanged)
+# RATE LIMITER
 # ============================================================================
 class RateLimiter:
     def __init__(self, max_request, period_seconds):
@@ -296,33 +338,41 @@ class RateLimiter:
 
 
 # ============================================================================
-# MAIN PIPELINE (REFACTORED)
+# MAIN PIPELINE
 # ============================================================================
 class Pipeline:
-    def __init__(self, dataset_path=str(DATASET), db_path=str(CHROMA_STORAGE), config_path=str(CONFIG)):
+    def __init__(self, dataset_path=str(DATASET_PATH), config_path=str(CONFIG_PATH)):
         
         self.config = self.load_config(config_path)
         print(f"[INFO] Loaded config")
         load_dotenv()
         self.internet_status = True
-        
+        self.dataset_path = dataset_path 
+
+        # --- AUTO-LOAD REMOVED ---
+        # The Entity Extractor will now rely on your UPDATED config.yaml
+        # This prevents startup crashes and HuggingFace network calls
+        # -------------------------
+
         # Initialize rate limiter
         sec_conf = self.config.get('security', {})
         rate_limit_conf = sec_conf.get('rate_limit', {})
         max_req = rate_limit_conf.get('max_request', 5)
         period = rate_limit_conf.get('period_seconds', 60)
         self.limiter = RateLimiter(max_request=max_req, period_seconds=period)
-        print(f"[INFO] Rate limiter: {max_req}/{period}s")
         
         # Setup RAG model
         RAG_MODEL = "sentence-transformers/" + self.config['rag']['model_path']
         self.raw_model = SentenceTransformer(RAG_MODEL, device="cpu")
-        self.client = chromadb.PersistentClient(path=db_path)
+        self.client = chromadb.PersistentClient(path=str(CHROMA_STORAGE))
         self.embedding = embedding_functions.SentenceTransformerEmbeddingFunction(
             model_name=RAG_MODEL, device="cpu"
         )
         
-        # Initialize semantic cache (NEW - uses separate ChromaDB collection)
+        # Initialize GeoLookup Engine
+        self.geo_engine = GeoLookup(str(GEOJSON_PATH), self.raw_model)
+        
+        # Initialize semantic cache
         cache_threshold = self.config.get('cache', {}).get('similarity_threshold', 0.88)
         cache_collection_name = self.config.get('cache', {}).get('collection_name', 'query_cache')
         self.semantic_cache = SemanticCache(
@@ -331,81 +381,43 @@ class Pipeline:
             collection_name=cache_collection_name,
             similarity_threshold=cache_threshold
         )
-        print(f"[INFO] Semantic cache initialized (threshold: {cache_threshold})")
         
-        # Initialize background enhancer (NEW)
+        # Initialize background enhancer
         gemini_key = os.getenv('GEMINI_API_KEY')
-        if gemini_key:
-            print(f"[INFO] Gemini API key loaded (ends with: ...{gemini_key[-4:]})")
-        else:
-            print("[WARN] No GEMINI_API_KEY in environment - background enhancement disabled")
-        
         self.enhancer = BackgroundEnhancer(gemini_key, self.semantic_cache, self.config)
         self.enhancer.start()
-        print("[INFO] Background enhancer started")
         
         # Initialize controller and entity extractor
         self.controller = Controller(self.config, self.raw_model)
-        print("[INFO] Rule-based controller initialized")
         self.entity_extractor = EntityExtractor(self.config)
-        print("[INFO] Entity extractor initialized")
         
         # Profanity filter
         profanity.load_censor_words()
         profanity.add_censor_words(self.config['profanity'])
         
-        # Setup ChromaDB collection (unchanged logic)
-        current_data_hash = self.dataset_hash(dataset_path)
-        stored_hash = None
-        hash_file_path = os.path.join(db_path, self.config['system']['hash_file'])
-        
-        if os.path.exists(hash_file_path):
-            with open(hash_file_path, 'r') as f:
-                stored_hash = f.read().strip()
-        
-        rebuild_required = (current_data_hash is None)
-        
+        # Setup ChromaDB collection
         try:
-            # This is the STATIC collection (your original dataset)
             self.collection = self.client.get_collection(
                 name=self.config['rag']['collection_name'],
                 embedding_function=self.embedding
             )
-            if stored_hash == current_data_hash and current_data_hash is not None:
-                print("[INFO] Using existing STATIC dataset")
-                rebuild_required = False
-            else:
-                print("[INFO] STATIC dataset rebuild required")
-                rebuild_required = True
+            count = self.collection.count()
+            print(f"[INFO] Brain loaded. Facts available: {count}")
+            if count == 0:
+                print("[WARN] Brain is empty! Run 'ingest.py' to read dataset.json.")
         except Exception:
-            rebuild_required = True
-        
-        if rebuild_required:
-            try:
-                self.client.delete_collection(name=self.config['rag']['collection_name'])
-            except:
-                pass
-            
+            print("[WARN] Collection not found. Creating new empty one.")
             self.collection = self.client.create_collection(
                 name=self.config['rag']['collection_name'],
                 embedding_function=self.embedding
             )
-            self.load_dataset(dataset_path)
-            
-            os.makedirs(db_path, exist_ok=True)
-            with open(hash_file_path, 'w') as f:
-                f.write(current_data_hash)
-            print("[INFO] STATIC dataset rebuilt and loaded")
 
     def load_config(self, config_path):
         try:
             with open(config_path, 'r', encoding='utf-8') as f:
                 return yaml.safe_load(f)
-        except FileNotFoundError:
-            print(f"Config file not found: {config_path}")
-            exit(1)
-        except yaml.YAMLError as e:
-            print(f"Invalid YAML: {e}")
+        except Exception as e:
+            print(f"Config Error: {e}")
             exit(1)
 
     def dataset_hash(self, dataset_path):
@@ -417,16 +429,16 @@ class Pipeline:
         except FileNotFoundError:
             return None
 
+    # =========================================================
+    # UPDATED: Load Dataset (Now saves place_name metadata)
+    # =========================================================
     def load_dataset(self, dataset_path):
         try:
             with open(dataset_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-        except FileNotFoundError:
-            print(f"Dataset not found: {dataset_path}")
-            exit(1)
-        except json.JSONDecodeError as e:
-            print(f"Invalid JSON: {e}")
-            exit(1)
+        except Exception as e:
+            print(f"Dataset error: {e}")
+            return
         
         documents = []
         metadatas = []
@@ -438,189 +450,128 @@ class Pipeline:
             
             documents.append(item['input'])
             
+            # HERE IS THE KEY CHANGE:
+            # We capture 'place_name' and 'location' from the JSON
             meta = {
                 "question": item['input'],
                 "answer": item['output'],
                 "title": item.get('title', 'General Info'),
                 "topic": item.get('topic', 'General'),
-                "summary_offline": item.get('summary_offline', item['output'])
+                "summary_offline": item.get('summary_offline', item['output']),
+                "place_name": item.get('place_name', ''), # <--- LINKER TAG
+                "location": str(item.get('location', '')).upper() # <--- FILTER TAG
             }
             
             # Optional filters
-            for field in ['budget', 'location', 'activities', 'group_type', 'skill_level']:
+            for field in ['budget', 'activities', 'group_type', 'skill_level']:
                 if field in item:
                     meta[field] = item[field]
             
             metadatas.append(meta)
             ids.append(str(idx))
         
-        self.collection.add(documents=documents, metadatas=metadatas, ids=ids)
-        print(f"[INFO] Loaded {len(documents)} Q&A pairs")
+        if documents:
+            self.collection.add(documents=documents, metadatas=metadatas, ids=ids)
+            print(f"[INFO] Loaded {len(documents)} Q&A pairs with Metadata Tags")
+
+    # =========================================================
+    # REBUILD METHOD (For ingest.py)
+    # =========================================================
+    def rebuild_index(self):
+        print("[INGEST] Wiping old memory...")
+        try:
+            self.client.delete_collection(name=self.config['rag']['collection_name'])
+        except:
+            pass
+        
+        self.collection = self.client.create_collection(
+            name=self.config['rag']['collection_name'],
+            embedding_function=self.embedding
+        )
+        
+        self.load_dataset(self.dataset_path)
+        print(f"[INGEST] SUCCESS.")
 
     def check_profanity(self, text):
         return profanity.contains_profanity(text)
 
     def normalize_query(self, text):
-        """Simple normalization - lowercase and trim"""
         return text.strip().lower()
 
     def protect(self, user_input):
-        """Protect place names during translation"""
         if not user_input or not user_input.strip():
-            return user_input or ""
+            return ""
+
+        try:
+            lang = detect(user_input)
+            if lang == 'en':
+                return user_input
+        except LangDetectException:
+            pass
 
         temp = user_input
         markers = {}
+        sorted_places = sorted(self.config['protected_places'], key=len, reverse=True)
 
-        for place_name in self.config['protected_places']:
-            if place_name.lower() in temp.lower():
-                # Use UUID to avoid collision
-                marker = f"__PLACE_{uuid.uuid4().hex[:8]}__"
-                temp = re.sub(
-                    re.escape(place_name), 
-                    marker, 
-                    temp, 
-                    flags=re.IGNORECASE, 
-                    count=1
-                )
+        for i, place_name in enumerate(sorted_places):
+            if re.search(re.escape(place_name), temp, re.IGNORECASE):
+                marker = f"__P{i}__"
                 markers[marker] = place_name
+                pattern = re.compile(re.escape(place_name), re.IGNORECASE)
+                temp = pattern.sub(marker, temp)
 
         try:
-            from deep_translator import GoogleTranslator
-
-            
-            if self.internet_status: # Only try if we know we have internet
-                temp = GoogleTranslator(source='auto', target='en').translate(temp)
-                print(f"[TRANSLATE] '{user_input}' → '{temp}'")
+            translated = argostranslate.translate.translate(temp, "tl", "en")
+            temp = translated
         except Exception as e:
             print(f"[TRANSLATE ERROR] {e}")
-            # Fallback: Just use the original input if translation fails
-            temp = user_input
+            return user_input
 
-        # Restore place names
         for marker, place_input in markers.items():
             temp = temp.replace(marker, place_input)
 
         return temp
     
     def extract_keywords(self, question):
-        """Extract topic keywords from question"""
         found = []
         question_lower = question.lower()
-        
         for topic, words in self.config['keywords'].items():
             for word in words:
                 pattern = r'\b' + re.escape(word) + r'\b'
                 if re.search(pattern, question_lower):
                     found.append(topic)
                     break
-        
         return found if found else ['general']
 
 
     def search(self, question, where_filter=None, entities=None):
-        print(f"[RAG SEARCH] Query: '{question[:50]}...'")
-
-        if len(question) < 3:
-            return "Please ask a complete question."
-
-        # Detect listing queries
-        listing_words = ['all', 'top', 'best', 'list', 'recommend', 'show me', 'what are', 'beaches', 'places', 'hotels']
-        is_listing = any(word in question.lower() for word in listing_words)
-
-        # Get more candidates
-        n_results = 20 if is_listing else 15
-
+        # NOTE: This is kept for compatibility, but 'ask()' now handles
+        # the deterministic filtering.
         results = self.collection.query(
             query_texts=[question],
-            n_results=n_results,
+            n_results=15,
             where=where_filter
         )
-        
         if not results['documents'][0]:
-            return "I don't have information about that. Ask about beaches, food, or activities in Catanduanes!"
-
-        # Extract target location
-        target_location = None
-        if entities and entities.get('places'):
-            target_location = entities['places'][0].lower()
-            print(f"[LOCATION FILTER] Target: '{target_location}'")
-
-        # Collect quality matches
-        good_answers = []
-        seen_places = set()
-
-        # Stricter threshold for focused queries
-        base_threshold = self.config['rag']['confidence_threshold']
-        # strict_threshold = base_threshold * 0.80  # 20% stricter
-        threshold = base_threshold
-
-        print(f"[THRESHOLD] Using {threshold:.3f} (base: {base_threshold})")
-
-        for i, metadata in enumerate(results['metadatas'][0]):
-            confidence = results['distances'][0][i]
-
-            # Skip low confidence
-            if confidence > threshold:
-                print(f"[SKIP] Conf={confidence:.3f} > {threshold:.3f}")
-                continue
-            
-            answer = metadata.get('summary_offline', metadata['answer'])
-            answer_lower = answer.lower()
-            metadata_location = metadata.get('location', '').lower()
-
-            # CRITICAL: Location validation
-            if target_location:
-                location_in_answer = target_location in answer_lower
-                location_in_metadata = target_location in metadata_location
-
-                if not (location_in_answer or location_in_metadata):
-                    print(f"[SKIP] Location mismatch - want '{target_location}', got '{metadata_location}': {answer[:50]}...")
-                    continue
-                
-            # Deduplicate by place name
-            places_in_answer = self.key_places(answer)
-            if places_in_answer and places_in_answer[0] in seen_places:
-                print(f"[SKIP] Duplicate: {places_in_answer[0]}")
-                continue
-            
-            # Good result!
-            good_answers.append(answer)
-            seen_places.update(places_in_answer)
-            print(f"[MATCH] Conf={confidence:.3f}, Loc='{metadata_location}': {answer[:60]}...")
-
-            # Stop when enough
-            max_results = 10 if is_listing else 3
-            if len(good_answers) >= max_results:
-                break
-            
-        # Handle no results
-        if not good_answers:
-            if target_location:
-                return f"I don't have specific information about that in {target_location.title()}. Try asking about other activities or places in Catanduanes!"
-            return "I'm not sure about that. Can you rephrase or ask about Catanduanes tourism?"
-
-        print(f"[RAG RESULT] {len(good_answers)} quality results (from {n_results} candidates)")
-        return " ".join(good_answers)
+            return "I don't have information about that."
+        
+        return results['metadatas'][0][0].get('summary_offline', '')
 
 
     def key_places(self, text):
-        """Extract place names from text"""
+        """Extract place names from text (Legacy scan)"""
         places = self.config['places']
         found = []
         text_lower = text.lower()
-        
         sorted_places = sorted(places, key=len, reverse=True)
-        
         for place in sorted_places:
             pattern = r'\b' + re.escape(place.lower()) + r'\b'
             if re.search(pattern, text_lower) and place not in found:
                 found.append(place)
-        
         return found
 
     def get_place_data(self, found_places):
-        """Get coordinates for places"""
+        """Get coordinates for places (Legacy)"""
         places_data = []
         for place_name in found_places:
             if place_name in self.config['places']:
@@ -634,165 +585,212 @@ class Pipeline:
         return places_data
     
     def extract_location_fallback(self, query):
-
         query_lower = query.lower()
-
-        # Check all known municipalities
         municipalities = ['virac', 'baras', 'pandan', 'bato', 'gigmoto', 
                         'san andres', 'bagamanoc', 'viga', 'caramoran']
-
         for place in municipalities:
-            # Check for common patterns
-            patterns = [
-                f" in {place}",
-                f" at {place}",
-                f" near {place}",
-                f"{place} ",
-                f" {place}"
-            ]
-
+            patterns = [f" in {place}", f" at {place}", f" near {place}", f"{place} ", f" {place}"]
             for pattern in patterns:
                 if pattern in query_lower:
-                    print(f"[LOCATION FALLBACK] Detected '{place}'")
                     return place.title()
-
         return None
 
 
     # ========================================================================
-    # MAIN ASK METHOD - CORRECTED FLOW
+    # MAIN ASK METHOD - INTEGRATED WITH CONTROLLER & EXTRACTOR
     # ========================================================================
     def ask(self, user_input):
         start_time = time.time()
 
-        # 1. Rate limiting
+        # 1-5. Same validation logic (unchanged)
         if not self.limiter.is_allowed():
-            wait_time = self.limiter.get_remaining_time()
-            return (f"You are sending messages too fast! Please wait {wait_time} seconds.", [])
+            return {"answer": f"Please wait {self.limiter.get_remaining_time()}s.", "locations": []}
 
-        # 2. Profanity check (on original)
         if self.check_profanity(user_input):
-            return ("I am unable to process that language. Please ask politely about Catanduanes tourism.", [])
+            return {"answer": "I cannot process that language.", "locations": []}
 
-        # 3. Normalize
+        analysis = self.controller.analyze_query(user_input)
+
+        if not analysis['is_valid'] or analysis['intent'] == 'nonsense':
+            print(f"[GATEKEEPER] Blocked: {user_input} (Reason: {analysis['reason']})")
+            return {"answer": self.controller.get_nonsense_response(), "locations": []}
+
+        if analysis['intent'] == 'greeting':
+            return {"answer": self.controller.get_greeting_response(), "locations": []}
+
         normalized = self.normalize_query(user_input)
-
-        # 4. Gibberish check (on original)
-        if self.controller._is_gibberish(user_input):
-            print(f"[BLOCK] Gibberish detected: '{user_input}'")
-            return (self.controller.get_nonsense_response(), [])
 
         # 5. Cache check
         cached = self.semantic_cache.get(normalized)
         if cached:
             answer, places, version = cached
-            if version == 'raw':
-                print("[CACHE] Entry is RAW. Re-queueing enhancement...")
-                self.enhancer.enqueue(normalized, answer, answer)
+            if version == 'raw': self.enhancer.enqueue(normalized, answer, answer)
+            return {"answer": answer, "locations": places}
 
-            elapsed = time.time() - start_time
-            print(f"[RESPONSE TIME] {elapsed:.3f}s (CACHE HIT)")
-            return (answer, places)
+        # 6. Entity Extraction
+        entities = self.entity_extractor.extract(user_input)
+        print(f"[ENTITIES] {entities}")
 
-        # ========================================================================
-        # 6. ENTITY EXTRACTION **BEFORE** TRANSLATION
-        # This allows the extractor to see the original place names
-        # ========================================================================
-        entities_from_original = self.entity_extractor.extract(user_input.lower())
-        print(f"[ENTITIES PRE-TRANSLATION] {entities_from_original}")
+        # 7. Separate towns vs specific places
+        target_towns = []
+        specific_places_found = []
 
-        # 7. Protect places and translate
-        translated_query = self.protect(user_input)
-        print(f"[QUERY] '{user_input}' → '{translated_query}'")
+        for p in entities['places']:
+            if p.lower() in self.entity_extractor.municipalities:
+                target_towns.append(p.upper())
+            else:
+                specific_places_found.append(p)
 
-        # 8. Intent analysis (on translated query)
-        analysis = self.controller.analyze_query(translated_query)
-        print(f"[INTENT] {analysis['intent']} (conf: {analysis['confidence']:.2f})")
+        # Implicit town inference
+        if not target_towns and entities.get('inferred_town'):
+            target_towns.append(entities['inferred_town'])
+            print(f"[PIPELINE] Inferred Town: {target_towns[0]}")
 
-        if analysis['intent'] == 'greeting':
-            response = self.controller.get_greeting_response()
-            return (response, [])
+        # 8. Listing detection
+        is_browsing = entities.get('is_listing', False)
 
-        if analysis['intent'] == 'nonsense':
-            response = self.controller.get_nonsense_response()
-            return (response, [])
+        # ====================================================================
+        # NEW: MULTI-PLACE SEARCH LOGIC (Gemini's "Smart Checklist")
+        # ====================================================================
 
-        if analysis['intent'] == 'unclear' or analysis['confidence'] < 0.5:
-            print(f"[BLOCK] Low intent confidence: {analysis['confidence']:.2f}")
-            return (self.controller.get_nonsense_response(), [])
+        if specific_places_found and len(specific_places_found) > 1:
+            print(f"[MULTI-PLACE] Detected {len(specific_places_found)} places: {specific_places_found}")
 
-        # ========================================================================
-        # 9. MERGE ENTITIES from both original and translated queries
-        # This handles cases where translation might change entity detection
-        # ========================================================================
-        entities_from_translated = self.entity_extractor.extract(translated_query)
-        print(f"[ENTITIES POST-TRANSLATION] {entities_from_translated}")
+            # Search each place separately
+            all_answers = []
+            all_locations = []
+            seen_places = set()
 
-        # Merge: Prioritize original entities but combine unique values
-        entities = {
-            'places': list(set(entities_from_original.get('places', []) + 
-                            entities_from_translated.get('places', []))),
-            'activities': list(set(entities_from_original.get('activities', []) + 
-                                entities_from_translated.get('activities', []))),
-            'budget': entities_from_original.get('budget') or entities_from_translated.get('budget'),
-            'skill_level': entities_from_original.get('skill_level') or entities_from_translated.get('skill_level'),
-            'group_type': entities_from_original.get('group_type') or entities_from_translated.get('group_type'),
-            'time_period': entities_from_original.get('time_period') or entities_from_translated.get('time_period'),
-            'proximity': entities_from_original.get('proximity') or entities_from_translated.get('proximity')
-        }
+            for place_name in specific_places_found:
+                print(f"[SEARCH] Querying: '{place_name}'")
 
-        print(f"[ENTITIES MERGED] {entities}")
+                # Individual search for this place
+                place_results = self.collection.query(
+                    query_texts=[place_name],  # Search just this place name
+                    n_results=2,  # Get top 2 results per place
+                    where={"place_name": place_name} if place_name else None
+                )
 
-        # 10. Fallback location detection (if still no places found)
-        if not entities.get('places'):
-            fallback_location = self.extract_location_fallback(translated_query)
-            if fallback_location:
-                entities['places'] = [fallback_location]
-                print(f"[ENTITIES FALLBACK] Added: {fallback_location}")
+                if place_results['documents'][0]:
+                    # Take the best result for this place
+                    meta = place_results['metadatas'][0][0]
+                    confidence = 1 - place_results['distances'][0][0]
 
-        # 11. Build ChromaDB pre-filter (non-location constraints)
-        constraints = []
+                    if confidence > 0.30:  # Reasonable threshold
+                        answer_text = meta.get('summary_offline', meta['answer'])
+                        all_answers.append(answer_text)
 
-        if entities.get('budget'):
-            constraints.append({"budget": entities['budget']})
-        if entities.get('activities') and len(entities['activities']) > 0:
-            constraints.append({"activities": entities['activities'][0]})
-        if entities.get('group_type'):
-            constraints.append({"group_type": entities['group_type']})
-        if entities.get('skill_level'):
-            constraints.append({"skill_level": entities['skill_level']})
+                        # Get coordinates
+                        place_key = meta.get('place_name')
+                        if place_key:
+                            loc_data = self.geo_engine.get_coords(place_key)
+                            if loc_data and loc_data['name'] not in seen_places:
+                                all_locations.append(loc_data)
+                                seen_places.add(loc_data['name'])
 
-        where_filter = None
-        if len(constraints) > 1:
-            where_filter = {"$and": constraints}
-        elif len(constraints) == 1:
-            where_filter = constraints[0]
+            # Combine results
+            if all_answers:
+                raw_answer = " ".join(all_answers)
+                final_locations = all_locations
+            else:
+                raw_answer = "I couldn't find specific information about those places."
+                final_locations = []
 
-        # 12. RAG search with location validation
-        raw_facts = self.search(translated_query, where_filter=where_filter, entities=entities)
-
-        # Extract places from results
-        places = self.key_places(raw_facts)[:5]
-        place_data = self.get_place_data(places)
-
-        # Check if error response
-        if any(phrase in raw_facts.lower() for phrase in ["don't have information", "not sure", "differently"]):
-            return (raw_facts, place_data)
-
-        # Construct answer
-        raw_answer = f"{raw_facts}"
-
-        # Store in cache
-        self.semantic_cache.set(normalized, raw_answer, place_data)
-        if "don't have information" not in raw_facts.lower() and "not sure" not in raw_facts.lower():
-            self.enhancer.enqueue(normalized, raw_facts, raw_answer)
+        # ====================================================================
+        # ORIGINAL LOGIC (Single place or browsing)
+        # ====================================================================
         else:
-            print("[INFO] Skipping enhancement for empty/error result to save quota.")
+            # Determine search parameters
+            if specific_places_found:
+                is_browsing = False
+                n_results = max(3, len(specific_places_found) * 3)
+            else:
+                n_results = 15 if is_browsing else 3
 
-        elapsed = time.time() - start_time
-        print(f"[RESPONSE TIME] {elapsed:.3f}s (RAW + QUEUED)")
+            print(f"[PIPELINE] Mode: {'BROWSING' if is_browsing else 'SPECIFIC'} | N={n_results}")
 
-        return (raw_answer, place_data)
+            # Build filter
+            where_filter = None
+            if specific_places_found:
+                if len(specific_places_found) == 1:
+                    where_filter = {"place_name": specific_places_found[0]}
+                else:
+                    where_filter = {"$or": [{"place_name": p} for p in specific_places_found]}
+            elif target_towns:
+                if len(target_towns) == 1:
+                    where_filter = {"location": target_towns[0]}
+                else:
+                    where_filter = {"$or": [{"location": t} for t in target_towns]}
+
+            # Query
+            results = self.collection.query(
+                query_texts=[user_input],
+                n_results=n_results,
+                where=where_filter
+            )
+
+            answers_found = []
+            final_locations = []
+            seen_places = set()
+
+            if results['documents'][0]:
+                for i, doc in enumerate(results['documents'][0]):
+                    meta = results['metadatas'][0][i]
+                    confidence = 1 - results['distances'][0][i]
+
+                    # Filtering logic
+                    if specific_places_found:
+                        if meta.get('place_name') not in specific_places_found:
+                            continue
+                    else:
+                        threshold = 0.30 if is_browsing else 0.40
+                        if confidence < threshold: 
+                            continue
+                        if target_towns and meta.get('location') not in target_towns:
+                            continue
+                        
+                    answers_found.append(meta.get('summary_offline', meta['answer']))
+
+                    # Get coordinates
+                    place_key = meta.get('place_name')
+                    if place_key:
+                        loc_data = self.geo_engine.get_coords(place_key)
+                        if loc_data and loc_data['name'] not in seen_places:
+                            final_locations.append(loc_data)
+                            seen_places.add(loc_data['name'])
+
+            # Format answer
+            if not answers_found:
+                town_str = target_towns[0].title() if target_towns else "that area"
+                raw_answer = f"I'm sorry, I don't have information on that in {town_str}." if target_towns else "I don't have information on that."
+                final_locations = []
+            else:
+                if is_browsing:
+                    raw_answer = f"Here are the options I found: " + ", ".join([l['name'] for l in final_locations[:5]]) + "."
+                else:
+                    raw_answer = " ".join(answers_found[:2])
+
+        # ====================================================================
+        # FINAL STEPS (Same as before)
+        # ====================================================================
+
+        # Cache and enhance
+        self.semantic_cache.set(normalized, raw_answer, final_locations)
+        if "don't have information" not in raw_answer.lower() and not is_browsing:
+            self.enhancer.enqueue(normalized, raw_answer, raw_answer)
+
+        # Format for frontend
+        formatted_places = []
+        for p in final_locations:
+            formatted_places.append({
+                "name": p['name'],
+                "coordinates": p['coordinates'],
+                "type": p['type'],
+                "municipality": p['municipality']
+            })
+
+        print(f"[RESPONSE TIME] {time.time() - start_time:.3f}s")
+        return {"answer": raw_answer, "locations": formatted_places}
 
     def guide_question(self):
         """Interactive CLI"""
@@ -802,31 +800,27 @@ class Pipeline:
         
         def response(user_input):
             if user_input.lower() in self.config['exit_commands']:
-                print(messages['enjoy_stay'])
-                self.enhancer.stop()  # Clean shutdown
+                self.enhancer.stop()
                 exit()
-            
             if not user_input.strip():
                 print(f"Pathfinder: {messages['enter_something']}")
                 return
             
-            natural_response, places = self.ask(user_input)
-            print(f"Pathfinder: {natural_response}\n")
-            
-            if places:
-                print(f"[PLACES] {places}")
+            # Updated to handle Dictionary return
+            result = self.ask(user_input)
+            print(f"Pathfinder: {result['answer']}\n")
+            if result['locations']:
+                print(f"[PLACES] {result['locations']}")
         
-        # Initial question
         pref = input(messages['initial_question']).strip()
         if pref:
             response(pref)
         
-        # Main loop
         while True:
             qry = input("You: ").strip()
             response(qry)
 
 
 if __name__ == '__main__':
-    pipeline = Pipeline(dataset_path=str(DATASET), config_path=str(CONFIG))
+    pipeline = Pipeline(dataset_path=str(DATASET_PATH), config_path=str(CONFIG_PATH))
     pipeline.guide_question()
