@@ -1,78 +1,225 @@
 .homeContainer {
     width: 100vw;
     height: 100vh;
+    background: linear-gradient(to right, #0c0c0c, #2b3025);
+    color: white;
+    position: relative;
+    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #000000;
-    position: relative;
     overflow: hidden;
 }
 
-.content {
-    position: relative;
-    z-index: 2;
+/* --- THE SPLIT LAYOUT WRAPPER --- */
+.splitLayout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 95vw;
+    padding: 0 clamp(20px, 4vw, 60px);
+    gap: clamp(20px, 5vw, 100px);
+}
+
+.textSection {
+    flex: 0.5;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 32px;
+    align-items: flex-start;
+    gap: clamp(5px, 1vw, 20px);
+    z-index: 10;
+    margin-left: 1vw;
+    /* Ensure text section doesn't stay too wide */
+    min-width: 300px;
 }
 
 .title {
-    font-size: 72px;
-    font-weight: 700;
-    color: #ffffff;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: clamp(40px, 5.5vw, 86px);
+
+    font-weight: 400;
     margin: 0;
-    text-align: center;
-    text-shadow: 0 2px 10px rgba(197, 195, 195, 0.5);
+    letter-spacing: -2px;
+    line-height: 0.9;
+    text-transform: uppercase;
+
+    /* Stop title from breaking into too many lines */
+    white-space: nowrap;
 }
 
 .subtitle {
-    font-size: 24px;
-    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Arial', sans-serif;
+
+    /* FLUID SUBTITLE: Scales between 12px and 16px */
+    font-size: clamp(12px, 1.2vw, 16px);
+
+    color: rgba(255, 255, 255, 0.7);
     margin: 0;
-    text-align: center;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    line-height: 1.5;
+    max-width: 400px;
 }
 
-.getStartedButton {
-    padding: 14px 48px;
-    background: rgba(255, 255, 255, 0.95);
-    color: #000000;
+/* --- THE EXPLORE BUTTON --- */
+/* --- THE EXPLORE BUTTON --- */
+.exploreButton {
+    background: transparent;
     border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: clamp(18px, 2vw, 28px);
+
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    padding: 0;
+
+    /* FLUID MARGIN: Shrinks the space above the button slightly on smaller screens */
+    margin-top: clamp(15px, 2vw, 30px);
+
+    transition: transform 0.3s ease;
+    white-space: nowrap;
+    /* Keeps arrow next to text */
 }
 
-.getStartedButton:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+/* Resize the arrow symbol too */
+.exploreButton span {
+    /* Slightly larger than the text, scaling with it */
+    font-size: clamp(20px, 2.5vw, 32px);
+
+    margin-left: 15px;
 }
 
-.getStartedButton:active {
-    transform: translateY(0);
+.exploreButton:hover {
+    transform: translateX(10px);
+    opacity: 0.8;
 }
 
-@media (max-width: 768px) {
-    .title {
-        font-size: 48px;
+/* --- RIGHT SIDE: MEDIA SECTION --- */
+.mediaSection {
+    flex: 1.5;
+    /* Takes up space on the right */
+    display: flex;
+    justify-content: flex-end;
+    /* Pushes the box to the far right */
+}
+
+.mediaBox {
+    width: 100%;
+    max-width: 1000px;
+    height: 700px;
+    border: 1px solid white;
+    background: transparent;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* --- FOOTER LINKS --- */
+.footerLinks {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    display: flex;
+    gap: 24px;
+}
+
+.footerLinks button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: lowercase;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.footerLinks button:hover {
+    opacity: 0.6;
+    text-decoration: underline;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 1024px) {
+
+    /* 1. Changed direction to normal 'column' so we can order items 1, 2, 3 */
+    .splitLayout {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 20px;
+        width: 100%;
+        max-width: 95vw;
+        text-align: center;
+        gap: 30px;
+        /* Adjusted gap slightly for better spacing */
+    }
+
+    .textSection {
+        display: contents;
+    }
+
+    .title,
+    .subtitle {
+        order: 1;
     }
 
     .subtitle {
+        margin-top: -25px;
+    }
+
+    /* 4. Force Box to be SECOND */
+    .mediaSection {
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        /* Kept your existing margins */
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+
+    /* 5. Force Button to be THIRD */
+    .exploreButton {
+        order: 3;
+        margin-top: -25px;
+        text-align: center;
         font-size: 18px;
     }
 
-    .getStartedButton {
-        padding: 12px 40px;
+    /* Kept your existing size settings */
+    .mediaBox {
+        width: 100%;
+        max-width: 500px;
+        height: 350px;
+    }
+
+    .title {
+        font-size: 50px;
+    }
+
+    .subtitle {
         font-size: 14px;
     }
+
+    /* Kept your existing Footer settings */
+    .footerLinks {
+        position: absolute;
+        bottom: 15px;
+        left: 0;
+        width: 100%;
+        justify-content: center;
+        display: flex;
+        gap: 24px;
+    }
+
+    .footerLinks button {
+        font-size: 9px;
+    }
 }
+
