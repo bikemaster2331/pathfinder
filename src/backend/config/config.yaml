@@ -21,7 +21,6 @@ rag:
   results_per_topic: 3
   llm_model: "gemini-2.5-flash"
 
-
 cache:
   similarity_threshold: 0.95
   collection_name: "query_cache" 
@@ -61,14 +60,14 @@ gemini:
     If the Facts are completely unrelated to the user question return "Please ask about Catanduanes Tourism"
 
 profanity:
-    - gago
-    - puta
-    - tangina
-    - putangina
-    - bobo
-    - puta
-    - tanga
-    - yawa
+  - gago
+  - puta
+  - tangina
+  - putangina
+  - bobo
+  - tanga
+  - yawa
+
 # Offline Fallback Messages
 messages:
   offline_error: "I am currently offline, and I apologize for the limited service. {fact}"
@@ -93,52 +92,79 @@ messages:
 
 # Topic Keywords for Extraction
 keywords:
-  surfing:
-    - surf
-    - surfing
-    - waves
-  
-  swimming:
-    - swim
-    - swimming
-    - langoy
-  
-  beaches:
-    - beach
-    - dalampasigan
-  
-  hiking:
-    - hike
-    - hiking
-    - trek
-  
-  food:
-    - eat
-    - food
-    - restaurant
-    - kain
-    - coffee
-    - cafe
-  
-  accommodation:  # ← Keep this name, matches dataset
+  accommodation:
     - stay
     - hotel
-    - hotels      # ← Add this
+    - hotels
     - resort
     - inn
     - guesthouse
     - lodging
-  
+    - accommodation
+
+  dining: 
+    - eat
+    - food
+    - restaurant
+    - dining
+    - kain
+    - coffee
+    - cafe
+    - delicacies
+
   sightseeing:
     - visit
     - see
     - tour
-    - "photography"
-    - "photos"
-    - "camera"
-    - "scenic"
-    - "view"
-  
+    - scenic
+    - view
+    - landmark
+    - tourist spot
+    - sightseeing
+
+  shopping:
+    - shop
+    - souvenir
+    - pasalubong
+    - market
+    - mall
+    - buy
+    - shopping
+
+  swimming:
+    - swim
+    - swimming
+    - langoy
+    - pool
+    - falls
+
+  hiking:
+    - hike
+    - hiking
+    - trek
+    - mountain
+    - trail
+    - summit
+
+  photography:
+    - photo
+    - photography
+    - camera
+    - instagram
+    - picture
+    - shot
+    
+  surfing:
+    - surf
+    - surfing
+    - waves
+    - puraran
+
+  beaches:
+    - beach
+    - dalampasigan
+    - sand
+
   transport:
     - how to get
     - transportation
@@ -146,12 +172,7 @@ keywords:
     - van
     - ferry
     - commute
-    - directions
     - airport
-  
-  facilities:
-    - wi-fi
-    - atm
 
 # Protected Place Names (for translation)
 protected_places:
@@ -174,7 +195,7 @@ protected_places:
   - "Nitto Lodge"
   - "Renel's Traveller's Inn"
   - "Bagamanoc Guest House"
-  - "Pusgo Island Guest House"
+  - "Pusgo Island"
   - "Sonia's Island Stay"
   - "The Lumber"
   - "Ecrown Hotel and Resort"
@@ -197,130 +218,914 @@ protected_places:
 
 # Places with Coordinates (for mapping)
 places:
-  "Puraran Beach":
-    lat: 13.691803137745696
-    lng: 124.39882862882942
-    type: surfing
-
-  "Virac Public Market": 
+  "Virac Public Market":
     lat: 13.578141390225673
-    lng: 124.22879470245454 
-    type: food
-  
-  "Virac Town Center": 
-    lat: 13.579957995200868
-    lng: 124.22855269682266
-    type: food
-
+    lng: 124.22879470245454
+    type: shopping
   "Virac Airport":
     lat: 13.579601473762152
     lng: 124.21184297254652
     type: transport
-  
-  "Twin Rock Beach":
-    lat: 13.522663495166062
-    lng: 124.21269059659129
+  "Puraran Beach":
+    lat: 13.691946453490571
+    lng: 124.39881786785304
     type: swimming
-  
   "Binurong Point":
     lat: 13.668995411184893
     lng: 124.41449841008455
-    type: hiking
-  
+    type: sightseeing
   "Maribina Falls":
     lat: 13.601708685295064
     lng: 124.2706945272802
-    type: swimming
-  
-  "Tres Karas de Kristo/Face of Jesus Beach":
-    lat: 13.518763507546256
-    lng: 124.20595165635922
     type: sightseeing
-  
-  "Nahulugan Falls":
-    lat: 13.788640961723846
-    lng: 124.36779102542982
-    type: swimming
-  
-  "Tuwad-Tuwadan Blue Lagoon":
-    lat: 14.058643378491052
-    lng: 124.12659986379072
-    type: surfing
-  
-  "St. John the Baptist Church":
-    lat: 13.983189671887365
-    lng: 124.1342556677599
-    type: sightseeing
-  
   "Mamangal Beach":
     lat: 13.555007904907587
     lng: 124.14923064840366
     type: swimming
-  
-  "Ba-Haw Falls":
-    lat: 13.753822522766649
-    lng: 124.3833036871097
-    type: swimming
-  
+  "Twin Rock Beach Resort":
+    lat: 13.522663495166062
+    lng: 124.21269059659129
+    type: accommodation
   "ARDCI Corporate Inn":
     lat: 13.5812552
     lng: 124.2301155
     type: accommodation
-  
-  "Rhaj Inn":
-    lat: 13.5791058
-    lng: 124.2262818
-    type: accommodation
-  
-  "Majestic Puraran Beach Resort":
-    lat: 13.6887766
-    lng: 124.3968770
-    type: accommodation
-  
-  "Pacific Surfers Paradise Resort":
-    lat: 13.6893856
-    lng: 124.3952103
-    type: accommodation
-  
-  "Catanduanes Midtown Inn":
+  "Catanduanes Midtown Inn Resort":
     lat: 13.5403305
     lng: 124.1638091
     type: accommodation
-  
   "Nitto Lodge":
     lat: 13.5833005
     lng: 124.2054489
     type: accommodation
-  
   "Renel's Traveller's Inn":
     lat: 13.5795156
     lng: 124.2280368
-    type: accommodation
-  
+    type: facilities
   "Bagamanoc Guest House":
     lat: 13.9415567
     lng: 124.2869733
     type: accommodation
-  
-  "Pusgo Island Guest House":
-    lat: 13.9699644
-    lng: 124.3236576
-    type: accommodation
-  
-  "Sonia's Island Stay":
-    lat: 13.58502856977906
-    lng: 124.23876468266461
-    type: accommodation
-  
-  "The Lumber":
+  "The Lumber Hotel and Resort":
     lat: 13.592217696981342
     lng: 124.24844932275295
-    type: accommodation
-  
-  "E-crown Hotel and Resort":
+    type: facilities
+  "E-Crown Hotel and Resort":
     lat: 13.593886227522459
     lng: 124.25617408469465
     type: accommodation
+  "Rhaj Inn":
+    lat: 13.5791058
+    lng: 124.2262818
+    type: accommodation
+  "Catanduanes Midtown Inn":
+    lat: 13.582963948330717
+    lng: 124.23256205211081
+    type: accommodation
+  "Angel's Pizza":
+    lat: 13.583990389845289
+    lng: 124.2341718944488
+    type: food
+  "Hinagasan Falls":
+    lat: 13.600608583794113
+    lng: 124.22421715095876
+    type: sightseeing
+  "Museo De Catanduanes":
+    lat: 13.607198646951025
+    lng: 124.24017941365666
+    type: culture
+  "Casa Remedios Bed & Breakfast":
+    lat: 13.579229296789006
+    lng: 124.21667483492335
+    type: accommodation
+  "Anika Food Corner":
+    lat: 13.579040247054639
+    lng: 124.2287243114437
+    type: food
+  "Fleur de Lilies Glamping Farm":
+    lat: 13.522814980924824
+    lng: 124.20319514587996
+    type: accommodation
+  "Appleberry":
+    lat: 13.578876723518103
+    lng: 124.23125085026427
+    type: food
+  "JM Pension House":
+    lat: 13.578996725549041
+    lng: 124.22474125714392
+    type: accommodation
+  "Jollibee":
+    lat: 13.581175578193937
+    lng: 124.22824468638174
+    type: food
+  "Mcdonald's":
+    lat: 13.57976473515069
+    lng: 124.22830760441924
+    type: food
+  "Pusgo Island Guest House":
+    lat: 13.978580903089881
+    lng: 124.3236727113077
+    type: accommodation
+  "Tuwad-Tuwadang Blue Lagoon":
+    lat: 14.058643378491052
+    lng: 124.12659986379072
+    type: sightseeing
+  "Nahulugan Falls":
+    lat: 13.788640961723846
+    lng: 124.36779102542982
+    type: sightseeing
+  "Tres Karas de Kristo/Face of Jesus Beach":
+    lat: 13.518763507546256
+    lng: 124.20595165635922
+    type: sightseeing
+  "Amenia Beach Resort":
+    lat: 13.573293073630248
+    lng: 124.13946144298322
+    type: accommodation
+  "Luyang Cave":
+    lat: 13.60572345866787
+    lng: 124.13509013677053
+    type: sightseeing
+  "Codon Lighthouse":
+    lat: 13.662910203798745
+    lng: 124.02606030674717
+    type: sightseeing
+  "Cumagat Beach & Hilltop Resort":
+    lat: 13.94963098536221
+    lng: 124.35022267619804
+    type: accommodation
+  "Lolong Point Lighthouse":
+    lat: 13.950358787088991
+    lng: 124.35430502227162
+    type: sightseeing
+  "Tuwad-Tuwadan Blue Lagoon":
+    lat: 14.058633006081989
+    lng: 124.12664279629792
+    type: sightseeing
+  "Cagnipa Rolling Hills":
+    lat: 14.058967828263247
+    lng: 124.12870453862769
+    type: sightseeing
+  "Hiyop Highlands":
+    lat: 14.069834001868761
+    lng: 124.19515607209418
+    type: sightseeing
+  "CJ's Travellers Inn":
+    lat: 13.779610603924185
+    lng: 124.3902858484338
+    type: accommodation
+  "Ba-haw Falls":
+    lat: 13.75387978940785
+    lng: 124.38320715026808
+    type: sightseeing
+  "Nupa Green Lagoon":
+    lat: 13.75714325500738
+    lng: 124.40409028095019
+    type: sightseeing
+  "Miguilas Inn and Resto Bar":
+    lat: 13.98755168209128
+    lng: 124.1348645200423
+    type: accommodation
+  "Palumbanes Island":
+    lat: 14.024204879590119
+    lng: 124.04335345796237
+    type: sightseeing
+  "Toytoy Beach":
+    lat: 13.99610361623702
+    lng: 124.13075649902726
+    type: accommodation
+  "Bote Lighthouse":
+    lat: 13.55980864586186
+    lng: 124.32548666430874
+    type: sightseeing
+  "Sakahon Beach":
+    lat: 13.561646057470904
+    lng: 124.32951300039434
+    type: accommodation
+  "Diocesan Shrine of the Holy Cross":
+    lat: 13.588667855225093
+    lng: 124.31519015172765
+    type: culture
+  "East Coast Beach Resort":
+    lat: 13.645130194241856
+    lng: 124.34601783087594
+    type: accommodation
+  "Macutal Falls":
+    lat: 13.67996312734602
+    lng: 124.36844252512445
+    type: sightseeing
+  "Balacay Point":
+    lat: 13.705434883642221
+    lng: 124.39530656745467
+    type: sightseeing
+  "Nyxx & Match Café":
+    lat: 13.660708793380602
+    lng: 124.3689383521126
+    type: food
+  "Boto Ni Korakog (Fertility Island)":
+    lat: 13.953737014066363
+    lng: 124.2875854301705
+    type: sightseeing
+  "Paday Falls":
+    lat: 13.961655521369819
+    lng: 124.27293557115381
+    type: sightseeing
+  "E-Lounge Resto Bar":
+    lat: 13.94152743708702
+    lng: 124.28853571650649
+    type: food
+  "Dayhagan Beach Resort":
+    lat: 13.972487048309555
+    lng: 124.33526422283471
+    type: accommodation
+  "San Miguel River Park":
+    lat: 13.705960845800394
+    lng: 124.28110917976015
+    type: accommodation
+  "Solong Falls":
+    lat: 13.654843207001997
+    lng: 124.29318572123779
+    type: sightseeing
+  "3s Pares Marias":
+    lat: 13.64262420028011
+    lng: 124.29963612327701
+    type: food
+  "Cathy's Spring Resort":
+    lat: 13.828328929168835
+    lng: 124.26764279047497
+    type: accommodation
+  "Black Alley":
+    lat: 13.87440986505987
+    lng: 124.30991057127426
+    type: food
+  "Summit View Park":
+    lat: 13.79084220997509
+    lng: 124.2699644422191
+    type: sightseeing
+  "Our Lady of the Assumption Parish Church":
+    lat: 13.870935518647837
+    lng: 124.30835694171724
+    type: culture
+  "H20 Resort":
+    lat: 13.855342610612587
+    lng: 124.30744043132205
+    type: accommodation
+  "Isla Bistro Café":
+    lat: 13.872557403387635
+    lng: 124.30883563610679
+    type: food
+  "Cogon Hills":
+    lat: 13.870805941856277
+    lng: 124.4067938419412
+    type: sightseeing
+  "Manuria Beach Resort":
+    lat: 13.89992812418886
+    lng: 124.36321167641226
+    type: accommodation
+  "Minaabat Beach":
+    lat: 13.854510974160771
+    lng: 124.41851218045034
+    type: accommodation
+  "Emerich Inn":
+    lat: 13.87190788627189
+    lng: 124.30975236074532
+    type: accommodation
+  "Palestina Rolling Hills":
+    lat: 13.978003
+    lng: 124.328999
+    type: sightseeing
+  "Villa Felina":
+    lat: 13.942121489713058
+    lng: 124.28616998496803
+    type: accommodation
+  "Emmans Eatery":
+    lat: 13.941215405901008
+    lng: 124.28818189474178
+    type: food
+  "Costa Marina":
+    lat: 13.954434403876908
+    lng: 124.28401107910794
+    type: accommodation
+  "Alon Stay":
+    lat: 13.689745330816304
+    lng: 124.39327067294845
+    type: accommodation
+  "Abihao Point":
+    lat: 13.6552093470827
+    lng: 124.39929844046483
+    type: sightseeing
+  "Dela Villa's Balacay Inn":
+    lat: 13.703861778807893
+    lng: 124.38796879884181
+    type: accommodation
+  "Jo Surf Inn":
+    lat: 13.688157832362895
+    lng: 124.39591621513217
+    type: accommodation
+  "2838 Tea and Cafe":
+    lat: 13.659533604564466
+    lng: 124.37112167616075
+    type: food
+  "Stanza De Benedicto":
+    lat: 13.682383103603602
+    lng: 124.40601723349695
+    type: sightseeing
+  "TasTea":
+    lat: 13.659490190945245
+    lng: 124.37109158385094
+    type: food
+  "Titaay Surfers Inn":
+    lat: 13.688946131910923
+    lng: 124.39426625732916
+    type: accommodation
+  "L'Astrolabe":
+    lat: 13.69095675710196
+    lng: 124.38856451657799
+    type: accommodation
+  "Villa Andrea Inn":
+    lat: 13.626112095688503
+    lng: 124.33393918775872
+    type: accommodation
+  "Kape't Tagpuan Sa Isla":
+    lat: 13.607682886467666
+    lng: 124.29981496225444
+    type: food
+  "Balongbong Falls":
+    lat: 13.621558812195497
+    lng: 124.29485801735287
+    type: sightseeing
+  "Batalay Mangrove Eco Park":
+    lat: 13.59293699334864
+    lng: 124.30880035575444
+    type: sightseeing
+  "Poseidon Cove Beach Resort":
+    lat: 13.563919705786883
+    lng: 124.33224886190959
+    type: accommodation
+  "Little Bliss Cafe":
+    lat: 13.607170580187129
+    lng: 124.29861953643294
+    type: food
+  "St. John the Baptist  Church":
+    lat: 13.610732662974675
+    lng: 124.29703491581695
+    type: culture
+  "Mount Pinagkaayonan (Lantad)":
+    lat: 13.606679398378262
+    lng: 124.27824218655604
+    type: sightseeing
+  "Bitaogan Beach":
+    lat: 13.55833527320848
+    lng: 124.31850376558778
+    type: accommodation
+  "Cagraray Island":
+    lat: 13.61714945492485
+    lng: 124.3494816783378
+    type: sightseeing
+  "Carorian Wonders":
+    lat: 13.58025643862461
+    lng: 124.34231555615987
+    type: accommodation
+  "St. Anthony of Padua Parish Church":
+    lat: 13.596889143817018
+    lng: 124.28389014002626
+    type: culture
+  "Natotoo Falls":
+    lat: 13.879262767642187
+    lng: 124.15298682487371
+    type: sightseeing
+  "Mt. Sadab":
+    lat: 13.885858386503344
+    lng: 124.16179072332014
+    type: sightseeing
+  "St. John the Baptist Church":
+    lat: 13.983298993332824
+    lng: 124.13504960530524
+    type: culture
+  "Coco Beach Resort":
+    lat: 13.981994139846373
+    lng: 124.13097456746102
+    type: accommodation
+  "Talahid Falls":
+    lat: 13.792830659039126
+    lng: 124.14030596560987
+    type: sightseeing
+  "Sugod Beach":
+    lat: 13.884837183543102
+    lng: 124.13127081527215
+    type: accommodation
+  "Minabobo Creek Resort":
+    lat: 13.84708042893852
+    lng: 124.13486478779596
+    type: accommodation
+  "Tignob Beach":
+    lat: 14.018106591467156
+    lng: 124.02259826506386
+    type: accommodation
+  "Bitaog Beach":
+    lat: 14.024435372457186
+    lng: 124.03736114283674
+    type: accommodation
+  "Hot Palace":
+    lat: 13.781121506344725
+    lng: 124.39053261163247
+    type: food
+  "Bantayaw Point":
+    lat: 13.831429593366844
+    lng: 124.40960689786668
+    type: sightseeing
+  "San Pedro Calungsod Parish":
+    lat: 13.83394417704535
+    lng: 124.39999675568755
+    type: culture
+  "Melfel Inn":
+    lat: 13.779120861045081
+    lng: 124.39075791718393
+    type: accommodation
+  "Gigmoto Inasal":
+    lat: 13.78079612966451
+    lng: 124.3918824809052
+    type: food
+  "Bestea X E-fren Fries":
+    lat: 13.779500510605716
+    lng: 124.39129813987927
+    type: food
+  "DON N ' MALYN'S Carinderia":
+    lat: 13.780174269134601
+    lng: 124.39144035716262
+    type: food
+  "Muraw Beach":
+    lat: 14.057362637200878
+    lng: 124.12930324842857
+    type: accommodation
+  "Andercas":
+    lat: 14.045417649184326
+    lng: 124.16887783456134
+    type: food
+  "Hinik-Hinik Falls":
+    lat: 14.019267
+    lng: 124.231355
+    type: sightseeing
+  "Saint Ignatius of Loyola Parish Church":
+    lat: 14.04460992198803
+    lng: 124.16878323678067
+    type: culture
+  "Bhem's Kitchen":
+    lat: 14.04822784104875
+    lng: 124.1691568239435
+    type: food
+  "Linampawan Falls":
+    lat: 14.014603
+    lng: 124.238823
+    type: sightseeing
+  "Paraiso ni Honesto":
+    lat: 14.083943574020907
+    lng: 124.19383756087414
+    type: sightseeing
+  "La Prisa Campsite":
+    lat: 14.044124141098605
+    lng: 124.24557100979199
+    type: sightseeing
+  "Sitio Concepcion":
+    lat: 14.062874048095829
+    lng: 124.21957776035022
+    type: accommodation
+  "Catanduanes Halfway Resort Hotel":
+    lat: 14.067248666931913
+    lng: 124.22564617010536
+    type: sightseeing
+  "Balay Victoria":
+    lat: 14.043967758271375
+    lng: 124.17151978571643
+    type: accommodation
+  "Maturin Rock Formation":
+    lat: 14.112195035591208
+    lng: 124.28345005313469
+    type: sightseeing
+  "Carangyan Beach Resort":
+    lat: 14.055886730928483
+    lng: 124.15446928280349
+    type: accommodation
+  "Pandan Lighthouse":
+    lat: 14.06538134011241
+    lng: 124.17479976209289
+    type: sightseeing
+  "North Travel Lodge":
+    lat: 14.042249909431563
+    lng: 124.17084337640102
+    type: accommodation
+  "Yabu-Yabuhan":
+    lat: 14.063824
+    lng: 124.17692
+    type: sightseeing
+  "Cagnipa Cove":
+    lat: 14.060299980132276
+    lng: 124.12740634956491
+    type: accommodation
+  "Pandan Seashore Park":
+    lat: 14.052562896257582
+    lng: 124.16753375572294
+    type: accommodation
+  "Campilan Beach":
+    lat: 14.06499
+    lng: 124.175032
+    type: accommodation
+  "Mambang Beach":
+    lat: 14.052390127026989
+    lng: 124.16012018656308
+    type: accommodation
+  "Panyero Café":
+    lat: 13.907878958291017
+    lng: 124.2996761367774
+    type: food
+  "Enerking Garden Resort":
+    lat: 13.906841559179071
+    lng: 124.30081900978871
+    type: accommodation
+  "Ernest Eatery":
+    lat: 13.906363558118793
+    lng: 124.30351882198518
+    type: food
+  "Banquerohan Bridge":
+    lat: 13.89438097388749
+    lng: 124.30837962465417
+    type: sightseeing
+  "Angeles Homestay":
+    lat: 13.907665802542967
+    lng: 124.29556399563526
+    type: accommodation
+  "Tarahid KTV Bar":
+    lat: 13.91212173717216
+    lng: 124.30487585340553
+    type: food
+  "The Rezidence":
+    lat: 13.910962045093433
+    lng: 124.30441513824577
+    type: accommodation
+  "Canapino Diner":
+    lat: 13.572931099633045
+    lng: 124.14044111946026
+    type: food
+  "Mount Cagmasoso":
+    lat: 13.623480169988486
+    lng: 124.13286350211467
+    type: sightseeing
+  "Our Lady of Sorrows Parish Church":
+    lat: 13.611589791787962
+    lng: 124.09348830280368
+    type: culture
+  "Balin's Seaview Beach Resort":
+    lat: 13.572623438011778
+    lng: 124.13993686420447
+    type: accommodation
+  "Liz & Bel Café":
+    lat: 13.599281935446907
+    lng: 124.09564860978172
+    type: food
+  "Nicole's Grill Resto Bar":
+    lat: 13.570704014196755
+    lng: 124.142135365605
+    type: food
+  "Casa Dueña Travellers Inn":
+    lat: 13.599401731389687
+    lng: 124.09595898058178
+    type: accommodation
+  "Emmalyn's Paradise Resort":
+    lat: 13.600789202838738
+    lng: 124.06048702747073
+    type: accommodation
+  "Liebe Max Beach Resort":
+    lat: 13.601924342216595
+    lng: 124.08432027699324
+    type: accommodation
+  "Liz & Bel Tourist Inn":
+    lat: 13.599278991548179
+    lng: 124.09568675395776
+    type: accommodation
+  "Wuppertaler Travellers Inn":
+    lat: 13.598845133261927
+    lng: 124.0989190144737
+    type: accommodation
+  "Camping Herold Beach":
+    lat: 13.599400700827006
+    lng: 124.05438592186414
+    type: accommodation
+  "Kibanggas Beach":
+    lat: 13.645637469518293
+    lng: 124.03760255562867
+    type: accommodation
+  "Monte Cielo":
+    lat: 13.566109000530673
+    lng: 124.14518862955885
+    type: accommodation
+  "Ericsson Beach":
+    lat: 13.569451079584018
+    lng: 124.1428227093613
+    type: accommodation
+  "Bagasbas Beach Resort":
+    lat: 13.579008198224741
+    lng: 124.12497455931305
+    type: accommodation
+  "Talaga Pebble Beach":
+    lat: 13.70849707986902
+    lng: 124.09648307885134
+    type: accommodation
+  "Blue Horizon Beach":
+    lat: 13.564625399431703
+    lng: 124.14563924065551
+    type: accommodation
+  "La Playa Resort":
+    lat: 13.569200023674027
+    lng: 124.14289013881685
+    type: accommodation
+  "Mamangal Beach Resort":
+    lat: 13.55636633190002
+    lng: 124.14885591109632
+    type: accommodation
+  "Oliver's Riff Mamangal Beach Resort":
+    lat: 13.555835876169589
+    lng: 124.14868968279221
+    type: accommodation
+  "Our Lady of Mount Carmel Parish Church":
+    lat: 13.893931145649418
+    lng: 124.37173817132177
+    type: culture
+  "Jac's Eatery":
+    lat: 13.871750292208265
+    lng: 124.31147248971916
+    type: food
+  "Tapsihan sa Ilaya":
+    lat: 13.867210183769927
+    lng: 124.30876720184392
+    type: food
+  "Sofeca Travellers Inn":
+    lat: 13.872631201214197
+    lng: 124.31609046329228
+    type: accommodation
+  "Torres Inn":
+    lat: 13.894427912854093
+    lng: 124.37185679687455
+    type: accommodation
+  "Villa Amacepia Resort":
+    lat: 13.866419737445327
+    lng: 124.30851490399891
+    type: accommodation
+  "Kubo Suzara":
+    lat: 13.887407737570227
+    lng: 124.3519918151362
+    type: accommodation
+  "Hamapayo Pension House":
+    lat: 13.58891972772742
+    lng: 124.2083954979506
+    type: accommodation
+  "ARDCI Cafe":
+    lat: 13.58145932101771
+    lng: 124.23009272327565
+    type: food
+  "Happy Island Inn":
+    lat: 13.594221210744385
+    lng: 124.26111675211118
+    type: accommodation
+  "Blossoms Restaurant":
+    lat: 13.581741965345147
+    lng: 124.23228091542933
+    type: food
+  "Blue Café":
+    lat: 13.581175578193937
+    lng: 124.22824468638174
+    type: food
+  "Marilima Beach":
+    lat: 13.538906979988818
+    lng: 124.16804587161822
+    type: accommodation
+  "Buddy's Mami House":
+    lat: 13.581306526011169
+    lng: 124.21342438651737
+    type: food
+  "Marem Pension House":
+    lat: 13.585027658792676
+    lng: 124.23616359366518
+    type: accommodation
+  "Cafe De Au":
+    lat: 13.581121990552765
+    lng: 124.23238685211084
+    type: food
+  "Queen Maricel Inn":
+    lat: 13.578029967508437
+    lng: 124.21637442753692
+    type: accommodation
+  "Cafe Norte":
+    lat: 13.586445787269987
+    lng: 124.23851286560539
+    type: food
+  "Rakdell Inn":
+    lat: 13.583461583441721
+    lng: 124.23250090566795
+    type: accommodation
+  "Cafe Ubaldita":
+    lat: 13.58417333027359
+    lng: 124.20754195211089
+    type: food
+  "Batag Beach Resort":
+    lat: 13.540203971830607
+    lng: 124.16374122931133
+    type: accommodation
+  "Carrie's Pizza, Pasta and More":
+    lat: 13.58077624646006
+    lng: 124.21429182327564
+    type: food
+  "Sunset Coast Beach Resort":
+    lat: 13.552637355513973
+    lng: 124.15569366555616
+    type: accommodation
+  "Cathy's Restaurant and Catering Services":
+    lat: 13.585544780249219
+    lng: 124.23717188404729
+    type: food
+  "LouCa Beach Resort":
+    lat: 13.548539798350518
+    lng: 124.15769502783087
+    type: accommodation
+  "DAKILA' Café":
+    lat: 13.57920899426178
+    lng: 124.22758444046303
+    type: food
+  "Regina's Beachfront Resort":
+    lat: 13.53976642609727
+    lng: 124.16488424391362
+    type: accommodation
+  "Renel's Travellers Inn":
+    lat: 13.579801222500484
+    lng: 124.22802496911423
+    type: accommodation
+  "Fernando's Asian Cuisine":
+    lat: 13.581024021555177
+    lng: 124.2284358008955
+    type: food
+  "Fleur De Lilies Glamping Farm":
+    lat: 13.522814980924824
+    lng: 124.20319514587996
+    type: food
+  "Gottsaa Milktea House":
+    lat: 13.58163263436696
+    lng: 124.21368576560516
+    type: food
+  "Tampad Beach Resort":
+    lat: 13.519176854919204
+    lng: 124.2059355539561
+    type: accommodation
+  "Jillian's Kitchenette":
+    lat: 13.581343446088963
+    lng: 124.21364651691626
+    type: food
+  "Villa Toledo Travel Lodge":
+    lat: 13.584315171613417
+    lng: 124.2337979614973
+    type: accommodation
+  "Kasiram Grill and Restaurant":
+    lat: 13.584004790641492
+    lng: 124.20834340885116
+    type: food
+  "Barefoot Beach":
+    lat: 13.551155461290714
+    lng: 124.15447590238682
+    type: accommodation
+  "Kemji Garden & Resto":
+    lat: 13.58109037731797
+    lng: 124.21505708798185
+    type: food
+  "Virac Hometel":
+    lat: 13.58179833090802
+    lng: 124.22695947921794
+    type: accommodation
+  "Mcdonald’s":
+    lat: 13.57976473515069
+    lng: 124.22830760441924
+    type: food
+  "Island Homestay":
+    lat: 13.570722658596491
+    lng: 124.20375708955693
+    type: accommodation
+  "Monj Bistro":
+    lat: 13.585892587436463
+    lng: 124.23758206645816
+    type: food
+  "Isla Be Back Staycation":
+    lat: 13.585740419849598
+    lng: 124.2164396295645
+    type: accommodation
+  "On D’ Wings - Calatagan":
+    lat: 13.591323543086718
+    lng: 124.20816347114656
+    type: food
+  "Moonwalk Villa Resort":
+    lat: 13.584791411940643
+    lng: 124.22011962003668
+    type: accommodation
+  "One Two Sawa Eatery":
+    lat: 13.584357089503174
+    lng: 124.2318788097814
+    type: food
+  "Kasa Inndustria Mountain Resort":
+    lat: 13.580627725044849
+    lng: 124.19121548423095
+    type: accommodation
+  "Oyana Café":
+    lat: 13.581512234467635
+    lng: 124.23283705395751
+    type: food
+  "Queen Maricel Inn Ramen House":
+    lat: 13.578005408414093
+    lng: 124.21626513676992
+    type: food
+  "Rojazz Café":
+    lat: 13.584380431136946
+    lng: 124.23471746745183
+    type: food
+  "Saturday’s Restaurant":
+    lat: 13.581020152106651
+    lng: 124.2145987011342
+    type: food
+  "Sea Breeze 2001":
+    lat: 13.581391183012842
+    lng: 124.23278613841805
+    type: food
+  "Sizzling House":
+    lat: 13.580889392708748
+    lng: 124.22861573676987
+    type: food
+  "Tandu Coffee":
+    lat: 13.582913575755228
+    lng: 124.23250602142909
+    type: food
+  "Taller’s Brew":
+    lat: 13.595368163992209
+    lng: 124.20498736560553
+    type: food
+  "Teaholic":
+    lat: 13.57863950521635
+    lng: 124.23128159444029
+    type: food
+  "The Hungry Bar":
+    lat: 13.585363997380046
+    lng: 124.23812822997121
+    type: food
+  "The Prime Resto Bar":
+    lat: 13.578715324713569
+    lng: 124.23135543325206
+    type: food
+  "Thirstea - Virac Town Center":
+    lat: 13.580913253521903
+    lng: 124.22858500408107
+    type: food
+  "Timo-Tea Milktea &Coffee Hub":
+    lat: 13.580706648306267
+    lng: 124.23222698978235
+    type: food
+  "Twin Bar & Café":
+    lat: 13.578752378869426
+    lng: 124.2299290521109
+    type: food
+  "ARDCI Skydeck Lounge":
+    lat: 13.581368173193223
+    lng: 124.22987346487102
+    type: food
+  "Niño Bistro":
+    lat: 13.579295434170184
+    lng: 124.22802865470325
+    type: food
+  "Peymus Resto":
+    lat: 13.579402204846764
+    lng: 124.22762197909927
+    type: food
+  "Miekoys Pizza":
+    lat: 13.587613305309315
+    lng: 124.2394488840288
+    type: food
+  "On D' Wings - Francia":
+    lat: 13.586624201844174
+    lng: 124.23853542327583
+    type: food
+  "2838 Tea & Cafe - Francia":
+    lat: 13.585508339157613
+    lng: 124.23804189685526
+    type: food
+  "Mizuna Restaurant":
+    lat: 13.582915375540159
+    lng: 124.21335317171304
+    type: food
+  "Haring Manok - Calatagan":
+    lat: 13.584063653051224
+    lng: 124.20860121139492
+    type: food
+  "Haring Manok - Rawis":
+    lat: 13.585907954596866
+    lng: 124.2376342850281
+    type: food
+  "Mayan Café":
+    lat: 13.583952428716442
+    lng: 124.23418504723898
+    type: food
 
 # Map Configuration
 map:

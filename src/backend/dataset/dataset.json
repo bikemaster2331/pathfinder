@@ -104,7 +104,7 @@
     "location": "Baras",
     "activities": "surfing",
     "place_name": "Puraran Beach",
-    "coordinates": {"lat": 13.6887766, "lng": 124.3968770}
+    "coordinates": {"lat": 13.691946453490571, "lng": 124.39881786785304}
   },
   {
     "input": "How do I get to the airport?",
@@ -238,16 +238,16 @@
     "place_name": "ARDCI Corporate Inn"
   },
   {
-    "input": "What activities are available at Majestic Puraran Beach Resort?",
-    "output": "Majestic Puraran Beach Resort offers surfing, swimming, and beach access.",
-    "title": "Majestic Puraran Activities",
+    "input": "What activities are available at Puraran Beach?",
+    "output": "Puraran Beach offers surfing, swimming, and beach access.",
+    "title": "Puraran Activities",
     "topic": "Activities",
     "location": "Baras",
     "activities": "surfing",
     "budget": "mid",
-    "summary_offline": "Majestic Puraran Beach Resort offers surfing, swimming, and beach activities.",
-    "coordinates": {"lat": 13.6887766, "lng": 124.3968770},
-    "place_name": "Majestic Puraran Beach Resort"
+    "summary_offline": "Puraran Beach offers surfing, swimming, and beach activities.",
+    "coordinates": {"lat": 13.691946453490571, "lng": 124.39881786785304},
+    "place_name": "Puraran Beach"
   },
   {
     "input": "Where can I eat in Catanduanes?",
@@ -537,28 +537,16 @@
     "place_name": "Rhaj Inn"
   },
   {
-    "input": "Where is Pusgo Island Guest House?",
-    "output": "Pusgo Island Guest House is located in Pandan.",
-    "title": "Pusgo Island Guest House Location",
+    "input": "Where is Pusgo Island?",
+    "output": "Pusgo Island is located in Pandan.",
+    "title": "Pusgo Island Location",
     "topic": "Accommodation",
-    "location": "Pandan",
+    "location": "Bagamanoc",
     "activities": "accommodation",
     "budget": "cheap",
-    "summary_offline": "Pusgo Island Guest House is located in Pandan.",
-    "coordinates": {"lat": 13.96996, "lng": 124.32366},
-    "place_name": "Pusgo Island Guest House"
-  },
-  {
-    "input": "Does Pusgo Island Guest House offer tours?",
-    "output": "Pusgo Island Guest House offers convenient access to island activities and tours in Pandan.",
-    "title": "Pusgo Island Guest House Activities",
-    "topic": "Activities",
-    "location": "Pandan",
-    "activities": "tours",
-    "budget": "cheap",
-    "summary_offline": "Pusgo Island Guest House provides access to island activities and tours.",
-    "coordinates": {"lat": 13.96996, "lng": 124.32366},
-    "place_name": "Pusgo Island Guest House"
+    "summary_offline": "Pusgo Island is located in Pandan.",
+    "coordinates": {"lat": 13.978580903089881, "lng": 124.3236727113077},
+    "place_name": "Pusgo Island"
   },
   {
     "input": "What should I wear in Catanduanes?",
@@ -711,18 +699,6 @@
     "summary_offline": "Maribina Falls is a popular attraction in Bato known for its refreshing waters.",
     "coordinates": {"lat": 13.601708685295064, "lng": 124.2706945272802},
     "place_name": "Maribina Falls"
-  },
-  {
-    "input": "Where is Mamangal Beach?",
-    "output": "Mamangal Beach is located in Virac and is known for its wide sandy shore and calm waters.",
-    "title": "Mamangal Beach Overview",
-    "topic": "Swimming",
-    "location": "Virac",
-    "activities": "swimming",
-    "group_type": "family",
-    "summary_offline": "Mamangal Beach is known for its wide sandy shoreline and calm, swimming-friendly waters.",
-    "coordinates": {"lat": 13.555007904907587, "lng": 124.14923064840366},
-    "place_name": "Mamangal Beach"
   },
   {
     "input": "What is Bato Church?",
@@ -887,16 +863,6 @@
     "activities": "food",
     "budget": "expensive",
     "summary_offline": "Breakfast is available for guests staying at ARDCI Corporate Inn."
-  },
-  {
-    "input": "What activities are available at Majestic Puraran Beach Resort?",
-    "output": "Majestic Puraran Beach Resort offers surfing, swimming, beach walks, and scenic ocean views.",
-    "title": "Majestic Puraran Activities",
-    "topic": "Activities",
-    "location": "Baras",
-    "activities": "surfing",
-    "budget": "mid",
-    "summary_offline": "Majestic Puraran Beach Resort offers surfing, swimming, and beach activities."
   },
   {
     "input": "How far is Pacific Surfers Paradise Resort from the Airport?",
@@ -1214,16 +1180,16 @@
     "place_name": "Binurong Point"
   },
   {
-    "input": "Where is Majestic Puraran Beach Resort?",
-    "output": "Majestic Puraran Beach Resort is a world-class surfing destination located in Baras.",
-    "title": "Majestic Puraran Beach Resort Location",
+    "input": "Where is Puraran Beach?",
+    "output": "Puraran Beach is a world-class surfing destination located in Baras.",
+    "title": "Puraran Beach Location",
     "topic": "Accommodation",
     "location": "Baras",
     "activities": "surfing",
     "budget": "mid",
-    "summary_offline": "Majestic Puraran Beach Resort is located in Baras.",
-    "coordinates": {"lat": 13.689409886846915, "lng": 124.39482668554628},
-    "place_name": "Majestic Puraran Beach Resort"
+    "summary_offline": "Puraran Beach is located in Baras.",
+    "coordinates": {"lat": 13.691946453490571, "lng": 124.39881786785304}, 
+    "place_name": "Puraran Beach"
   },
   {
     "input": "Where is Nyxx & Match Café located?",
@@ -1566,26 +1532,6 @@
     "summary_offline": "Rhaj Inn offers budget-friendly rooms in Virac."
   },
   {
-    "input": "Where is Pusgo Island Guest House?",
-    "output": "Pusgo Island Guest House is located in Pandan.",
-    "title": "Pusgo Island Guest House Location",
-    "topic": "Accommodation",
-    "location": "Pandan",
-    "activities": "accommodation",
-    "budget": "cheap",
-    "summary_offline": "Pusgo Island Guest House is located in Pandan."
-  },
-  {
-    "input": "Does Pusgo Island Guest House offer tours?",
-    "output": "Pusgo Island Guest House offers convenient access to island activities and tours in Pandan.",
-    "title": "Pusgo Island Guest House Activities",
-    "topic": "Activities",
-    "location": "Pandan",
-    "activities": "tours",
-    "budget": "cheap",
-    "summary_offline": "Pusgo Island Guest House provides access to island activities and tours."
-  },
-  {
     "input": "Who are you?",
     "output": "I am Pathfinder, an AI-enhanced IoT map board system designed to promote smart tourism in Catanduanes.",
     "title": "Pathfinder Identity",
@@ -1895,19 +1841,6 @@
     }
   },
   {
-    "input": "Where is Majestic Puraran Beach Resort?",
-    "output": "Majestic Puraran Beach Resort is a hotels and resorts located in Baras.",
-    "title": "Majestic Puraran Beach Resort Location",
-    "topic": "Accommodation",
-    "location": "BARAS",
-    "summary_offline": "Majestic Puraran Beach Resort is a hotels and resorts located in Baras.",
-    "place_name": "Majestic Puraran Beach Resort",
-    "coordinates": {
-      "lat": 13.689409886846915,
-      "lng": 124.39482668554628
-    }
-  },
-  {
     "input": "Where is TasTea?",
     "output": "TasTea is a restaurants and cafes located in Baras.",
     "title": "TasTea Location",
@@ -1918,19 +1851,6 @@
     "coordinates": {
       "lat": 13.659490190945245,
       "lng": 124.37109158385094
-    }
-  },
-  {
-    "input": "Where is Puraran Surf Resort?",
-    "output": "Puraran Surf Resort is a hotels and resorts located in Baras.",
-    "title": "Puraran Surf Resort Location",
-    "topic": "Accommodation",
-    "location": "BARAS",
-    "summary_offline": "Puraran Surf Resort is a hotels and resorts located in Baras.",
-    "place_name": "Puraran Surf Resort",
-    "coordinates": {
-      "lat": 13.689922738086013,
-      "lng": 124.39430347202405
     }
   },
   {
@@ -3169,13 +3089,13 @@
     }
   },
   {
-    "input": "Where is Mamangal Beach Resort?",
-    "output": "Mamangal Beach Resort is a hotels and resorts located in San andres.",
+    "input": "Where is Mamangal Beach",
+    "output": "Mamangal Beach is a hotels and resorts located in San andres.",
     "title": "Mamangal Beach Resort Location",
     "topic": "Accommodation",
-    "location": "SAN ANDRES",
-    "summary_offline": "Mamangal Beach Resort is a hotels and resorts located in San andres.",
-    "place_name": "Mamangal Beach Resort",
+    "location": "Virac",
+    "summary_offline": "Mamangal Beach is a hotels and resorts located in San andres.",
+    "place_name": "Mamangal Beach",
     "coordinates": {
       "lat": 13.55636633190002,
       "lng": 124.14885591109632
@@ -3186,7 +3106,7 @@
     "output": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in San andres.",
     "title": "Oliver's Riff Mamangal Beach Resort Location",
     "topic": "Accommodation",
-    "location": "SAN ANDRES",
+    "location": "Virac",
     "summary_offline": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in San andres.",
     "place_name": "Oliver's Riff Mamangal Beach Resort",
     "coordinates": {

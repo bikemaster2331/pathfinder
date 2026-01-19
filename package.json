@@ -12,6 +12,8 @@
     "@maplibre/maplibre-gl-directions": "^0.9.1",
     "@turf/turf": "^7.3.1",
     "axios": "^1.13.2",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.26.2",
     "geojson-path-finder": "^2.1.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.4",
@@ -19,6 +21,7 @@
     "lucide-react": "^0.559.0",
     "maplibre-gl": "^5.15.0",
     "react": "^19.2.0",
+    "react-datepicker": "^9.1.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",
     "zustand": "^5.0.8"
