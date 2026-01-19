@@ -1,11 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styles from '../styles/itinerary_page/Itinerary.module.css';
 import PreferenceCard from '../components/itineraryCard';
-import MapBackground from '../components/map';
+import MapWrapper from '../components/MapWrapper';
+import ChatBot from '../components/ChatBot';
 import { TRAVEL_HUBS } from '../constants/location'; 
 
-export default function ItineraryPage() {
+// --- CONFIGURATION ---
+const BUDGET_CONFIG = {
+    1: { filterValues: ["low"] },
+    2: { filterValues: ["low", "medium"] },
+    3: { filterValues: ["low", "medium", "high"] }
+};
 
+export default function ItineraryPage() {
     const [allSpots, setAllSpots] = useState(null);
     const [addedSpots, setAddedSpots] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState(null);
@@ -15,24 +22,31 @@ export default function ItineraryPage() {
         Accommodation: false, Dining: false, Sightseeing: false,
         Shopping: false, Swimming: false, Hiking: false, Photography: false
     });
+    
+    // New states for MapWrapper
+    const [budget, setBudget] = useState(50);
+    const [destination, setDestination] = useState('');
+    const [dateRange, setDateRange] = useState({ start: '', end: '' });
 
-    // --- 2. NEW HANDLER: Switch the Hub ---
+    const mapRef = useRef(null);
+
     const handleHubChange = (hubName) => {
         if (!hubName || hubName === "NONE") {
             setActiveHub(null);
+            setDestination('');
             return;
         }
-    
         const newHub = TRAVEL_HUBS[hubName];
         if (newHub) {
-                setActiveHub(newHub);
+            setActiveHub(newHub);
+            setDestination(hubName);
         }
     };
 
     const handleToggleLock = (spotName) => {
         setAddedSpots(prevSpots => prevSpots.map(spot => {
             if (spot.name === spotName) {
-                return { ...spot, locked: !spot.locked }; // Toggle lock
+                return { ...spot, locked: !spot.locked };
             }
             return spot;
         }));
@@ -42,15 +56,10 @@ export default function ItineraryPage() {
         setAddedSpots(prev => {
             const newSpots = [...prev];
             const targetIndex = index + direction;
-
-            // Boundary Check: prevent moving past start or end
             if (targetIndex < 0 || targetIndex >= newSpots.length) return prev;
-
-            // Swap Logic
             const temp = newSpots[index];
             newSpots[index] = newSpots[targetIndex];
             newSpots[targetIndex] = temp;
-
             return newSpots;
         });
     };
@@ -65,6 +74,31 @@ export default function ItineraryPage() {
         setAddedSpots(addedSpots.filter(s => s.name !== spotName));
     };
 
+    const handleChatbotLocation = (locations) => {
+        console.log('Chatbot returned locations:', locations);
+        
+        if (mapRef.current) {
+            mapRef.current.handleChatbotLocations(locations);
+        }
+    };
+
+    const getBudgetStep = (value) => {
+        if (value <= 33) return 1;
+        if (value <= 66) return 2;
+        return 3;
+    };
+
+    // Budget effect
+    useEffect(() => {
+        const step = getBudgetStep(budget);
+        setBudgetFilter(BUDGET_CONFIG[step].filterValues);
+    }, [budget]);
+
+    // Sync destination with activeHub
+    useEffect(() => {
+        setDestination(activeHub ? activeHub.name : '');
+    }, [activeHub]);
+
     useEffect(() => {
         fetch('/catanduanes_full.geojson')
             .then(res => res.json())
@@ -74,11 +108,31 @@ export default function ItineraryPage() {
 
     return (
         <div className={styles.itineraryContainer}>
-            {/* COLUMN 1: The Logic / Itinerary */}
-            <div className={styles.preferenceCardContainer}>
-                <PreferenceCard 
+            {/* Map Container with Controls */}
+            <div className={styles.mapContainer}>
+                <MapWrapper 
+                    ref={mapRef}
                     selectedActivities={selectedActivities}
                     setSelectedActivities={setSelectedActivities}
+                    onMarkerClick={setSelectedLocation}
+                    mapData={allSpots}
+                    selectedHub={activeHub}
+                    addedSpots={addedSpots}
+                    budgetFilter={budgetFilter}
+                    budget={budget}
+                    setBudget={setBudget}
+                    destination={destination}
+                    setDestination={setDestination}
+                    dateRange={dateRange}
+                    setDateRange={setDateRange}
+                    onHubChange={handleHubChange}
+                    getBudgetStep={getBudgetStep}
+                />
+            </div>
+
+            {/* Itinerary Card - Right Side */}
+            <div className={styles.preferenceCardContainer}>
+                <PreferenceCard 
                     selectedLocation={selectedLocation}
                     setSelectedLocation={setSelectedLocation}
                     addedSpots={addedSpots}
@@ -86,24 +140,13 @@ export default function ItineraryPage() {
                     onAddSpot={handleAddSpot}
                     onRemoveSpot={handleRemoveSpot}
                     activeHubName={activeHub ? activeHub.name : ""} 
-                    onHubChange={handleHubChange} 
                     onToggleLock={handleToggleLock}
                     onMoveSpot={handleMoveSpot}
-                    onBudgetChange={setBudgetFilter}
+                    dateRange={dateRange}
                 />
             </div>
 
-            {/* COLUMN 2: The Visualization / Map */}
-            <div className={styles.mapContainer}>
-                <MapBackground 
-                    selectedActivities={selectedActivities} 
-                    mapData={allSpots}
-                    onMarkerClick={setSelectedLocation} 
-                    selectedHub={activeHub}
-                    addedSpots={addedSpots}
-                    budgetFilter={budgetFilter}
-                />
-            </div>
+            <ChatBot onLocationResponse={handleChatbotLocation} />
         </div>
     );
 }
