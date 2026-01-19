@@ -1,19 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import * as turf from '@turf/turf';
-
 import roadData from '../data/catanduanes_optimized.json';
 import { getVisualRoute } from '../utils/visualRoute.js';
+import styles from '../styles/itinerary_page/map.module.css';
 
 // --- CONFIGURATION ---
 const INITIAL_VIEW = {
-    center: [124.09, 13.81], 
+    center: [124.20, 13.81], 
     zoom: 9.8
 };
 
 const HARD_BOUNDS = [
-    [123.45, 13.4], 
+    [123.65, 13.4], 
     [124.8, 14.2]  
 ];
 
@@ -41,13 +41,116 @@ const ACTIVITY_MAPPING = {
     Accommodation: ['HOTELS & RESORTS'] 
 };
 
-export default function Map({ selectedActivities, onMarkerClick, mapData, selectedHub, addedSpots, budgetFilter }) {
+const Map = forwardRef((props, ref) => {
+    const { selectedActivities, onMarkerClick, mapData, selectedHub, addedSpots, budgetFilter } = props;
+    
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const lastHubRef = useRef(null);
 
-    // --- 1. FILTER LOGIC ---
+    // Track glowing markers
+    const glowingMarkersRef = useRef([]);
+
+    // --- EXPOSE METHODS TO PARENT ---
+    useImperativeHandle(ref, () => ({
+        handleChatbotLocations: (locations) => {
+            if (!locations || locations.length === 0 || !map.current) return;
+
+            console.log("📍 Map received locations:", locations);
+
+            clearGlowingMarkers();
+
+            // Single Location -> Fly directly + Add Glow
+            if (locations.length === 1) {
+                const coords = locations[0].coordinates;
+                
+                map.current.flyTo({
+                    center: coords,
+                    zoom: 14,
+                    speed: 1.5,
+                    curve: 1,
+                    essential: true
+                });
+
+                addGlowingMarker(locations[0]);
+                
+                new maplibregl.Popup({ 
+                    offset: 25,
+                    closeButton: true,
+                    closeOnClick: false
+                })
+                    .setLngLat(coords)
+                    .setHTML(`
+                        <div style="padding: 4px;">
+                            <strong style="color: #FFD700;">${locations[0].name}</strong><br>
+                            <span style="font-size: 0.85em; color: #999;">${locations[0].type}</span>
+                        </div>
+                    `)
+                    .addTo(map.current);
+            } 
+            // Multiple Locations -> Fit bounds + Add Glows
+            else {
+                const bounds = new maplibregl.LngLatBounds();
+                
+                locations.forEach(loc => {
+                    bounds.extend(loc.coordinates);
+                    addGlowingMarker(loc);
+                });
+                
+                map.current.fitBounds(bounds, {
+                    padding: { top: 80, bottom: 80, left: 80, right: 80 },
+                    maxZoom: 13
+                });
+            }
+        }
+    }));
+
+    // --- Clear All Glowing Markers ---
+    const clearGlowingMarkers = () => {
+        glowingMarkersRef.current.forEach(marker => marker.remove());
+        glowingMarkersRef.current = [];
+    };
+
+    // --- Add Glowing Marker ---
+    const addGlowingMarker = (location) => {
+        if (!map.current) return;
+        
+        const container = document.createElement('div');
+        container.className = styles.markerWrapper;
+
+        const el = document.createElement('div');
+        el.className = styles.chatbotGlowMarker;
+        
+        container.appendChild(el);
+        
+        const marker = new maplibregl.Marker({ element: container })
+            .setLngLat(location.coordinates)
+            .addTo(map.current);
+        
+        glowingMarkersRef.current.push(marker);
+        
+        container.addEventListener('click', () => {
+            new maplibregl.Popup({ offset: 25 })
+                .setLngLat(location.coordinates)
+                .setHTML(`
+                    <div style="padding: 4px;">
+                        <strong style="color: #FFD700;">${location.name}</strong><br>
+                        <span style="font-size: 0.85em; color: #999;">${location.type}</span><br>
+                        <span style="font-size: 0.8em; color: #666;">${location.municipality}</span>
+                    </div>
+                `)
+                .addTo(map.current);
+        });
+        
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+            marker.remove();
+            glowingMarkersRef.current = glowingMarkersRef.current.filter(m => m !== marker);
+        }, 10000); 
+    };
+
+    // --- FILTER LOGIC ---
     useEffect(() => {
         if (!isLoaded || !map.current?.getLayer('tourist-points')) return;
 
@@ -72,7 +175,7 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
 
     }, [selectedActivities, budgetFilter, isLoaded]);
 
-    // --- 2. HUB HALO & CAMERA LOGIC (FIXED & OPTIMIZED) ---
+    // --- HUB LOGIC ---
     useEffect(() => {
         if (!isLoaded || !map.current || !selectedHub) return;
 
@@ -87,18 +190,12 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
             }]
         };
 
-        // [THE FIX]: Check if source exists FIRST, then check Ref.
-        // This ensures if the map lost the layer (e.g. style reload), we re-add it.
         if (map.current.getSource(sourceId)) {
             const currentHubKey = `${selectedHub.name}_${selectedHub.coordinates[0]}_${selectedHub.coordinates[1]}`;
-            
-            // Optimization: If source exists and hub hasn't changed, do nothing
             if (lastHubRef.current === currentHubKey) return; 
-            
             map.current.getSource(sourceId).setData(data);
             lastHubRef.current = currentHubKey;
         } else {
-            // First time setup (or recovery) - Always run
             map.current.addSource(sourceId, { type: 'geojson', data });
 
             map.current.addLayer({
@@ -126,7 +223,6 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
                 }
             });
 
-            // Update ref
             lastHubRef.current = `${selectedHub.name}_${selectedHub.coordinates[0]}_${selectedHub.coordinates[1]}`;
         }
 
@@ -139,7 +235,7 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
         
     }, [selectedHub, isLoaded]);
     
-    // --- 3. ROUTE LINE LOGIC ---
+    // --- ROUTE LOGIC ---
     useEffect(() => {
         if (!isLoaded || !map.current) return;
 
@@ -209,7 +305,7 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
 
     }, [selectedHub, addedSpots, isLoaded]);
 
-    // --- 4. MAP INITIALIZATION ---
+    // --- MAP INIT ---
     useEffect(() => {
         if (map.current) return;
 
@@ -249,7 +345,6 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
             dataPromise.then(allData => {
                 if (!map.current) return;
 
-                // 1. World Mask
                 const worldBounds = [[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]];
                 const islandHoles = [];
                 
@@ -282,7 +377,6 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
                     } 
                 });
                 
-                // 2. Island & Data Source
                 map.current.addSource('all-data', { type: 'geojson', data: allData });
                 
                 map.current.addLayer({ 
@@ -296,7 +390,6 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
                     } 
                 });
                 
-                // 3. Municipality Borders
                 map.current.addLayer({ 
                     id: 'municipality-borders', 
                     type: 'line', 
@@ -308,7 +401,6 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
                     } 
                 });
                 
-                // 4. Labels
                 map.current.addLayer({ 
                     id: 'municipality-labels', 
                     type: 'symbol', 
@@ -326,7 +418,6 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
                     } 
                 });
                 
-                // 5. Tourist Points
                 map.current.addLayer({
                     id: 'tourist-points', 
                     type: 'circle', 
@@ -350,7 +441,6 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
                     }
                 });
 
-                // 6. Router Brain Debug Layer
                 map.current.addSource('router-brain', {
                     type: 'geojson',
                     data: roadData
@@ -368,8 +458,6 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
                 });
 
                 setIsLoaded(true);
-
-                // --- EVENT HANDLERS ---
 
                 map.current.on('zoom', () => {
                     if (!map.current) return;
@@ -469,6 +557,8 @@ export default function Map({ selectedActivities, onMarkerClick, mapData, select
     }, []); 
 
     return (
-        <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
+        <div ref={mapContainer} className={styles.mapContainer} />
     );
-}
+});
+
+export default Map;
