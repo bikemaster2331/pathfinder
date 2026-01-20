@@ -5,3 +5,5 @@ pydantic
 requests
 openai
 google-generativeai
+pyyaml    
+numpy
