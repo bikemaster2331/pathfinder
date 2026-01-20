@@ -3090,11 +3090,11 @@
   },
   {
     "input": "Where is Mamangal Beach",
-    "output": "Mamangal Beach is a hotels and resorts located in San andres.",
+    "output": "Mamangal Beach is a hotels and resorts located in Virac.",
     "title": "Mamangal Beach Resort Location",
     "topic": "Accommodation",
     "location": "Virac",
-    "summary_offline": "Mamangal Beach is a hotels and resorts located in San andres.",
+    "summary_offline": "Mamangal Beach is a hotels and resorts located in Virac.",
     "place_name": "Mamangal Beach",
     "coordinates": {
       "lat": 13.55636633190002,
@@ -3103,11 +3103,11 @@
   },
   {
     "input": "Where is Oliver's Riff Mamangal Beach Resort?",
-    "output": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in San andres.",
+    "output": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in Virac.",
     "title": "Oliver's Riff Mamangal Beach Resort Location",
     "topic": "Accommodation",
     "location": "Virac",
-    "summary_offline": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in San andres.",
+    "summary_offline": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in Virac.",
     "place_name": "Oliver's Riff Mamangal Beach Resort",
     "coordinates": {
       "lat": 13.555835876169589,
