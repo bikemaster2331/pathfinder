@@ -95,6 +95,7 @@
     transition: all 0.2s ease;
     text-align: left;
     outline: none;
+    height: 4vh;
 }
 
 .dateRangeTrigger:hover {
@@ -112,6 +113,7 @@
     font-size: 0.95rem;
     font-weight: 600;
     font-family: inherit;
+    opacity: 20%;
 }
 
 .dateHelperText {
@@ -176,13 +178,14 @@
 }
 
 /* --- INPUTS & SLIDERS --- */
-.locField,
-.dateField {
+.locField {
     background-color: rgba(51, 51, 51, 0.8);
     color: white;
+    font-family: inherit;
     border: 1px solid #494949;
     border-radius: 8px;
     padding: 8px;
+    height: 4vh;
 }
 
 .locField {
