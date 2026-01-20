@@ -3,7 +3,11 @@ uvicorn
 python-dotenv
 pydantic
 requests
-openai
-google-generativeai
-pyyaml    
+pyyaml
+# --- AI Core ---
+chromadb
+sentence-transformers
+langdetect
+argostranslate
+better-profanity
 numpy
