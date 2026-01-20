@@ -26,7 +26,6 @@ from chromadb.utils import embedding_functions
 from sentence_transformers import SentenceTransformer, util
 import torch
 from langdetect import detect, LangDetectException
-import argostranslate.translate
 import requests
 from better_profanity import profanity
 from collections import deque
@@ -494,38 +493,19 @@ class Pipeline:
         return text.strip().lower()
 
     def protect(self, user_input):
+        """
+        Lightweight version: No translation, just safety checks.
+        """
+        # 1. Catch empty inputs
         if not user_input or not user_input.strip():
             return ""
 
-        try:
-            lang = detect(user_input)
-            if lang == 'en':
-                return user_input
-        except LangDetectException:
-            pass
+        # 2. (Optional) You can keep profanity check if you have it
+        if hasattr(self, 'check_profanity') and self.check_profanity(user_input):
+            return "[PROFANITY DETECTED]"
 
-        temp = user_input
-        markers = {}
-        sorted_places = sorted(self.config['protected_places'], key=len, reverse=True)
-
-        for i, place_name in enumerate(sorted_places):
-            if re.search(re.escape(place_name), temp, re.IGNORECASE):
-                marker = f"__P{i}__"
-                markers[marker] = place_name
-                pattern = re.compile(re.escape(place_name), re.IGNORECASE)
-                temp = pattern.sub(marker, temp)
-
-        try:
-            translated = argostranslate.translate.translate(temp, "tl", "en")
-            temp = translated
-        except Exception as e:
-            print(f"[TRANSLATE ERROR] {e}")
-            return user_input
-
-        for marker, place_input in markers.items():
-            temp = temp.replace(marker, place_input)
-
-        return temp
+        # 3. Return original text (Saving 200MB of RAM)
+        return user_input
     
     def extract_keywords(self, question):
         found = []
