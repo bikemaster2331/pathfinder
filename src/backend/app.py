@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel
-from fastapi.staticfiles import StaticFiles
 from pipeline import Pipeline
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
@@ -33,23 +32,32 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Pathfinder API", version="1.0.0", lifespan=lifespan)
 
+# --- CONFIGURATION ---
+# Define allowed origins (Localhost + Live Site)
+origins = [
+    "http://localhost:5173",  
+    "https://pathfinder-lilac.vercel.app", 
+]
+
 itinerary_list = []
 
-# CORS config
+# --- CRITICAL FIX: CORS SETUP ---
+# I removed the duplicate 'allow_origins' that was crashing your app.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins, 
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# --- DATA MODELS ---
 class AskRequest(BaseModel):
     question: str
 
 class ItineraryItem(BaseModel):
     place_name: str
 
-# UPDATED: Matches the new Pipeline output structure
 class PlaceInfo(BaseModel):
     name: str
     coordinates: list[float] # GeoJSON style [lng, lat]
@@ -58,16 +66,17 @@ class PlaceInfo(BaseModel):
 
 class AskResponse(BaseModel):
     answer: str
-    locations: list[PlaceInfo] # Renamed from 'places' to match pipeline dict
+    locations: list[PlaceInfo]
 
 # --- ENDPOINTS ---
 
 @app.get("/health")
 async def health_check():
-    return {"status": "alive", "location": "rpi-edge"}
+    return {"status": "alive", "location": "render-cloud"}
 
 @app.get("/admin/status")
 def admin_status(response: Response):
+    """Check the health of the AI pipeline"""
     if pipeline is None:
         response.status_code = 503
         return {"status": "starting", "ready": False}
@@ -83,8 +92,13 @@ def admin_status(response: Response):
 
 @app.post("/admin/rebuild")
 def admin_rebuild():
+    """
+    WARNING: On Render Free Tier, the filesystem is ephemeral.
+    Rebuilding the index works in memory, but if the server restarts,
+    changes might revert to the original dataset.json.
+    """
     try:
-        pipeline.rebuild_index() # Use the method we created in pipeline.py
+        pipeline.rebuild_index() 
         return {
             "message": "Database rebuilt successfully",
             "new_count": pipeline.collection.count()
@@ -117,15 +131,13 @@ async def ask_endpoint(request: AskRequest):
     try:
         result = await run_in_threadpool(pipeline.ask, request.question)
         
-        # --- NEW DEBUG LOGGING ---
+        # Debug Logging
         loc_count = len(result['locations'])
         if loc_count > 0:
             print(f"📍 ZOOMING TO: {[l['name'] for l in result['locations']]}")
         else:
             print(f"⚠️ NO LOCATION FOUND for: '{request.question}'")
-        # -------------------------
 
-        duration = time.time() - start_time
         return {
             "answer": result['answer'],
             "locations": result['locations']  
@@ -136,14 +148,7 @@ async def ask_endpoint(request: AskRequest):
 
 @app.get("/places")
 def get_all_places():
-    """Get all available places for the map (Legacy support if needed)"""
+    """Legacy support endpoint"""
     if not pipeline:
         return {"places": []}
-        
-    # Note: New pipeline uses GeoJSON, so 'pipeline.config['places']' might be outdated
-    # unless you kept the old config structure. 
-    # For now, returning empty or you can adapt it to read from geo_engine
     return {"places": []}
-
-# --- STATIC FILES ---
-app.mount("/", StaticFiles(directory=BASE_DIR / "static", html=True), name="static")
