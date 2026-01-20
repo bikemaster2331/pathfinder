@@ -1,10 +1,11 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
 fastapi
 uvicorn
 python-dotenv
 pydantic
 requests
 pyyaml
-# --- AI Core ---
 chromadb
 sentence-transformers
 langdetect
