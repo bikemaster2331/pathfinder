@@ -13,7 +13,6 @@ from difflib import get_close_matches
 
 # 1. NOISE SUPPRESSION & OFFLINE MODE
 logging.getLogger("stanza").setLevel(logging.ERROR)
-logging.getLogger("spacy").setLevel(logging.ERROR)
 warnings.filterwarnings("ignore", category=UserWarning)
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
