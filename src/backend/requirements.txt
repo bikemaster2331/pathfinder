@@ -7,7 +7,6 @@ pyyaml
 chromadb
 sentence-transformers
 langdetect
-argostranslate
 better-profanity
 numpy
 networkx
