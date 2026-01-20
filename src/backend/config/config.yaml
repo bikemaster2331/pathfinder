@@ -13,9 +13,9 @@ security:
 
 # RAG Model Settings
 rag:
-  model_path: "paraphrase-multilingual-MiniLM-L12-v2"
+  model_path: "all-MiniLM-L6-v2"
   collection_name: "knowledge_base"
-  confidence_threshold: 0.6
+  confidence_threshold: 0.65
   multi_topic_threshold: 0.65
   search_results: 10
   results_per_topic: 3
@@ -164,6 +164,7 @@ keywords:
     - beach
     - dalampasigan
     - sand
+    - beaches 
 
   transport:
     - how to get

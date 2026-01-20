@@ -18,7 +18,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 # --- FORCE OFFLINE MODE ---
 # This prevents the "HTTPSConnectionPool" crash by stopping model update checks
-os.environ["HF_HUB_OFFLINE"] = "1" 
+# os.environ["HF_HUB_OFFLINE"] = "1" 
 # --------------------------
 
 import chromadb
@@ -348,11 +348,6 @@ class Pipeline:
         self.internet_status = True
         self.dataset_path = dataset_path 
 
-        # --- AUTO-LOAD REMOVED ---
-        # The Entity Extractor will now rely on your UPDATED config.yaml
-        # This prevents startup crashes and HuggingFace network calls
-        # -------------------------
-
         # Initialize rate limiter
         sec_conf = self.config.get('security', {})
         rate_limit_conf = sec_conf.get('rate_limit', {})
@@ -361,6 +356,7 @@ class Pipeline:
         self.limiter = RateLimiter(max_request=max_req, period_seconds=period)
         
         # Setup RAG model
+        # Uses config value (e.g., 'all-MiniLM-L6-v2')
         RAG_MODEL = "sentence-transformers/" + self.config['rag']['model_path']
         self.raw_model = SentenceTransformer(RAG_MODEL, device="cpu")
         self.client = chromadb.PersistentClient(path=str(CHROMA_STORAGE))
@@ -457,8 +453,8 @@ class Pipeline:
                 "title": item.get('title', 'General Info'),
                 "topic": item.get('topic', 'General'),
                 "summary_offline": item.get('summary_offline', item['output']),
-                "place_name": item.get('place_name', ''), # <--- LINKER TAG
-                "location": str(item.get('location', '')).upper() # <--- FILTER TAG
+                "place_name": item.get('place_name', ''), 
+                "location": str(item.get('location', '')).upper() 
             }
             
             # Optional filters
@@ -544,8 +540,6 @@ class Pipeline:
 
 
     def search(self, question, where_filter=None, entities=None):
-        # NOTE: This is kept for compatibility, but 'ask()' now handles
-        # the deterministic filtering.
         results = self.collection.query(
             query_texts=[question],
             n_results=15,
@@ -601,7 +595,7 @@ class Pipeline:
     def ask(self, user_input):
         start_time = time.time()
 
-        # 1-5. Same validation logic (unchanged)
+        # 1-5. Same validation logic
         if not self.limiter.is_allowed():
             return {"answer": f"Please wait {self.limiter.get_remaining_time()}s.", "locations": []}
 
@@ -673,6 +667,15 @@ class Pipeline:
                 if place_results['documents'][0]:
                     # Take the best result for this place
                     meta = place_results['metadatas'][0][0]
+                    doc_id = place_results['ids'][0][0]
+                    doc_text = place_results['documents'][0][0]
+                    
+                    # --- DEBUG AUDIT FOR MULTI SEARCH ---
+                    print(f"\n[DEBUG AUDIT MULTI] Found ID: {doc_id}")
+                    print(f"[DEBUG AUDIT MULTI] Meta Name: {meta.get('place_name')}")
+                    print(f"[DEBUG AUDIT MULTI] Raw Text: {doc_text[:100]}...\n")
+                    # ------------------------------------
+
                     confidence = 1 - place_results['distances'][0][0]
 
                     if confidence > 0.30:  # Reasonable threshold
@@ -735,6 +738,29 @@ class Pipeline:
             if results['documents'][0]:
                 for i, doc in enumerate(results['documents'][0]):
                     meta = results['metadatas'][0][i]
+                    name = meta.get('place_name', '').lower()
+                    text = meta.get('summary_offline', '').lower()
+                    
+                    # --- DEBUG AUDIT FOR SINGLE SEARCH ---
+                    # This allows you to trace why it selected a specific document
+                    print(f"\n[DEBUG AUDIT SINGLE] ID: {results['ids'][0][i]}")
+                    print(f"[DEBUG AUDIT SINGLE] Name: {meta.get('place_name')}")
+                    print(f"[DEBUG AUDIT SINGLE] Text: {meta.get('summary_offline', '')[:50]}...") 
+
+                    if entities['activities']:
+                        # Define keywords that MUST appear for specific activities
+                        required_keywords = []
+                        if 'beaches' in entities['activities']:
+                            required_keywords = ['beach', 'resort', 'island', 'cove', 'shore']
+                        
+                        # If we have requirements, check if the result passes
+                        if required_keywords:
+                            # Check if ANY required keyword is in the Name or Text
+                            is_relevant = any(kw in name or kw in text for kw in required_keywords)
+                            if not is_relevant:
+                                print(f"[FILTERED OUT] {meta.get('place_name')} (Not a beach)")
+                                continue
+
                     confidence = 1 - results['distances'][0][i]
 
                     # Filtering logic
@@ -770,7 +796,7 @@ class Pipeline:
                     raw_answer = " ".join(answers_found[:2])
 
         # ====================================================================
-        # FINAL STEPS (Same as before)
+        # FINAL STEPS
         # ====================================================================
 
         # Cache and enhance
