@@ -687,11 +687,12 @@ class Pipeline:
                 is_browsing = False
                 n_results = max(3, len(specific_places_found) * 3)
             else:
-                n_results = 15 if is_browsing else 3
+                # FIX 1: Increased from 15 to 100 to catch everything
+                n_results = 100 if is_browsing else 5
 
             print(f"[PIPELINE] Mode: {'BROWSING' if is_browsing else 'SPECIFIC'} | N={n_results}")
 
-            # Build filter
+            # Build filter (KEPT EXACTLY THE SAME)
             where_filter = None
             if specific_places_found:
                 if len(specific_places_found) == 1:
@@ -704,7 +705,7 @@ class Pipeline:
                 else:
                     where_filter = {"$or": [{"location": t} for t in target_towns]}
 
-            # Query
+            # Query (KEPT EXACTLY THE SAME)
             results = self.collection.query(
                 query_texts=[user_input],
                 n_results=n_results,
@@ -720,30 +721,44 @@ class Pipeline:
                     meta = results['metadatas'][0][i]
                     name = meta.get('place_name', '').lower()
                     text = meta.get('summary_offline', '').lower()
-                    
-                    # --- DEBUG AUDIT FOR SINGLE SEARCH ---
-                    # This allows you to trace why it selected a specific document
-                    print(f"\n[DEBUG AUDIT SINGLE] ID: {results['ids'][0][i]}")
-                    print(f"[DEBUG AUDIT SINGLE] Name: {meta.get('place_name')}")
-                    print(f"[DEBUG AUDIT SINGLE] Text: {meta.get('summary_offline', '')[:50]}...") 
+                    place_type = meta.get('type', '').lower() # Added type check
 
-                    if entities['activities']:
-                        # Define keywords that MUST appear for specific activities
+                    if entities.get('activities'):
                         required_keywords = []
-                        if 'beaches' in entities['activities']:
-                            required_keywords = ['beach', 'resort', 'island', 'cove', 'shore']
-                        
-                        # If we have requirements, check if the result passes
+
+                        keyword_config = self.config.get('keywords', {}) 
+
+                        for act in entities['activities']:
+                            found_in_config = False
+                            
+                            # A. Direct Match (e.g., 'dining' -> loads ['restaurant', 'food'...])
+                            if act in keyword_config:
+                                required_keywords.extend(keyword_config[act])
+                                found_in_config = True
+                            
+                            # B. Reverse Match (e.g., 'kain' -> finds 'dining' -> loads ['restaurant'...])
+                            if not found_in_config:
+                                for category, synonyms in keyword_config.items():
+                                    if act in synonyms:
+                                        required_keywords.extend(synonyms)
+                                        found_in_config = True
+                                        break
+                            
+                            # C. Fallback (e.g., 'souvenirs' -> looks for 'souvenirs')
+                            if not found_in_config:
+                                required_keywords.append(act)
+
+                        # 2. Apply the Filter
                         if required_keywords:
-                            # Check if ANY required keyword is in the Name or Text
-                            is_relevant = any(kw in name or kw in text for kw in required_keywords)
+                            # Check Name OR Text OR Type for ANY of the keywords
+                            is_relevant = any(kw in name or kw in text or kw in place_type for kw in required_keywords)
+                            
                             if not is_relevant:
-                                print(f"[FILTERED OUT] {meta.get('place_name')} (Not a beach)")
-                                continue
+                                continue # Skip unrelated places
 
                     confidence = 1 - results['distances'][0][i]
 
-                    # Filtering logic
+                    # Filtering logic (KEPT EXACTLY THE SAME)
                     if specific_places_found:
                         if meta.get('place_name') not in specific_places_found:
                             continue
@@ -756,7 +771,7 @@ class Pipeline:
                         
                     answers_found.append(meta.get('summary_offline', meta['answer']))
 
-                    # Get coordinates
+                    # Get coordinates (KEPT EXACTLY THE SAME)
                     place_key = meta.get('place_name')
                     if place_key:
                         loc_data = self.geo_engine.get_coords(place_key)
@@ -771,7 +786,9 @@ class Pipeline:
                 final_locations = []
             else:
                 if is_browsing:
-                    raw_answer = f"Here are the options I found: " + ", ".join([l['name'] for l in final_locations[:5]]) + "."
+                    # FIX 3: Removed [:5] slice. Now displays ALL found locations.
+                    place_names = [l['name'] for l in final_locations]
+                    raw_answer = f"Here are the options I found: " + ", ".join(place_names) + "."
                 else:
                     raw_answer = " ".join(answers_found[:2])
 

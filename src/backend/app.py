@@ -24,6 +24,19 @@ async def lifespan(app: FastAPI):
             dataset_path=str(DATASET),
             config_path=str(CONFIG)
         )
+        
+        # ============================================================
+        # 🧠 SELF-HEALING PROTOCOL (Auto-Rebuild on Startup)
+        # ============================================================
+        print("⚠️ Detected Startup: Checking for Amnesia...")
+        try:
+            # This forces the brain to read dataset.json and refill the database immediately
+            pipeline.rebuild_index()
+            print(f"✅ Auto-Rebuild Complete! Brain contains {pipeline.collection.count()} facts.")
+        except Exception as rebuild_error:
+            print(f"❌ Auto-Rebuild Warning: {rebuild_error}")
+        # ============================================================
+
         print("Initialized successfully!")
     except Exception as e:
         print(f"Failed to initialize: {e}")
@@ -42,7 +55,6 @@ origins = [
 itinerary_list = []
 
 # --- CRITICAL FIX: CORS SETUP ---
-# I removed the duplicate 'allow_origins' that was crashing your app.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins, 
