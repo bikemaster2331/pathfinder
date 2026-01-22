@@ -8,8 +8,10 @@ import styles from '../styles/itinerary_page/map.module.css';
 
 // --- CONFIGURATION ---
 const INITIAL_VIEW = {
-    center: [124.20, 13.81], 
-    zoom: 9.8
+    center: [124.22, 13.75], 
+    zoom: 10.4,
+    pitch: 60,
+    bearing: -15 // 👈 ADDED: The -15 degree rotation you wanted
 };
 
 const HARD_BOUNDS = [
@@ -322,6 +324,8 @@ const Map = forwardRef((props, ref) => {
             },
             center: INITIAL_VIEW.center,
             zoom: INITIAL_VIEW.zoom,
+            pitch: 60,
+            bearing: INITIAL_VIEW.bearing,
             minZoom: 9, 
             maxZoom: 15,
             attributionControl: false,
@@ -459,15 +463,7 @@ const Map = forwardRef((props, ref) => {
 
                 setIsLoaded(true);
 
-                map.current.on('zoom', () => {
-                    if (!map.current) return;
-                    if (map.current.getZoom() >= 11) {
-                        map.current.setMaxBounds(WIDE_BOUNDS);
-                    } else {
-                        map.current.setMaxBounds(HARD_BOUNDS);
-                    }
-                });
-
+                // --- RESET HANDLER 1: Bounds Check (Dragging) ---
                 map.current.on('dragend', () => {
                     if (!map.current) return;
                     
@@ -476,6 +472,8 @@ const Map = forwardRef((props, ref) => {
                         map.current.easeTo({
                             center: INITIAL_VIEW.center,
                             zoom: INITIAL_VIEW.zoom,
+                            bearing: INITIAL_VIEW.bearing, // 👈 RESET BEARING
+                            pitch: INITIAL_VIEW.pitch,     // 👈 RESET PITCH
                             duration: 600,
                             easing: (t) => t * (2 - t)
                         });
@@ -493,18 +491,23 @@ const Map = forwardRef((props, ref) => {
                         map.current.easeTo({
                             center: INITIAL_VIEW.center,
                             zoom: INITIAL_VIEW.zoom,
+                            bearing: INITIAL_VIEW.bearing, // 👈 RESET BEARING
+                            pitch: INITIAL_VIEW.pitch,     // 👈 RESET PITCH
                             duration: 800, 
                             easing: (t) => t * (2 - t)
                         });
                     }
                 });
 
+                // --- RESET HANDLER 2: Zoom Check ---
                 map.current.on('zoomend', () => {
                     if (!map.current) return;
                     if (map.current.getZoom() < 9.8) {
                         map.current.easeTo({
                             center: INITIAL_VIEW.center,
                             zoom: INITIAL_VIEW.zoom,
+                            bearing: INITIAL_VIEW.bearing, // 👈 RESET BEARING
+                            pitch: INITIAL_VIEW.pitch,     // 👈 RESET PITCH
                             duration: 600
                         });
                     }
