@@ -20,7 +20,23 @@ const CustomDateInput = forwardRef(({ value, onClick, dateRange }, ref) => {
     return (
         <button className={styles.dateRangeTrigger} onClick={onClick} ref={ref}>
             <span className={styles.dateText}>{displayText}</span>
-            <span className={styles.calendarIcon}>📅</span>
+            <span className={styles.calendarIcon}>
+            <svg 
+                width="18" 
+                height="18" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+            >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+        </span>
         </button>
     );
 });
@@ -62,26 +78,6 @@ const MapWrapper = forwardRef((props, ref) => {
 
     return (
         <div className={styles.mapWrapper}>
-            {/* --- LEFT SIDE CONTROLS --- */}
-            <div className={styles.leftControls}>
-                <div className={styles.activitiesBox}>
-                    <h3 className={styles.boxTitle}>Choose your activities</h3>
-                    <div className={styles.activitiesOption}>
-                        {Object.keys(selectedActivities).map((activity) => (
-                            <label key={activity} className={styles.activityLabel}>
-                                <input 
-                                    type="checkbox" 
-                                    className={styles.activityCheckbox}
-                                    checked={selectedActivities[activity]}
-                                    onChange={() => handleActivityChange(activity)}
-                                /> 
-                                <span>{activity}</span>
-                            </label>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
             {/* --- MAP CONTAINER --- */}
             <div className={styles.mapSection}>
                 <MapBackground 
@@ -119,18 +115,15 @@ const MapWrapper = forwardRef((props, ref) => {
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </div>
-                
-                {/* ✅ CORRECT: The condition wraps the ENTIRE card, not just the inside */}
-                {isMenuOpen && (
-                    <div className={styles.collapsibleCard}>
+                    <div className={`${styles.collapsibleCard} ${isMenuOpen ? styles.cardOpen : ''}`}>
                         <div className={styles.collapsibleContent}>
 
                             {/* 1. Trip Details Box */}
                             <div className={styles.TripBox}>
                                 <div className={styles.journeyMb}>
-                                    <p className={styles.locHelperText}>
+                                    <h2 className={styles.locHelperText}>
                                         Select start point and trip dates
-                                    </p>
+                                    </h2>
                                     <select 
                                         className={styles.locField} 
                                         value={destination} 
@@ -180,9 +173,9 @@ const MapWrapper = forwardRef((props, ref) => {
                             {/* 2. Budget Box */}
                             <div className={styles.budgetBox}>
                                 <div className={styles.budgetMb}>
-                                    <p className={styles.budgetHelperText}>
+                                    <h2 className={styles.budgetHelperText}>
                                         Set your budget
-                                    </p>
+                                    </h2>
                                     <div className={styles.budgetContainer}>
                                         <input
                                             type="range"
@@ -211,10 +204,48 @@ const MapWrapper = forwardRef((props, ref) => {
                                     </div>
                                 </div>
                             </div>
-
+                            <hr className={styles.divider} />
+                            <div className={styles.activitiesBox}>
+                                <div className={styles.activitiesMb}>
+                                    <h2 className={styles.boxHelperText}>Choose your activities</h2>
+                                    <div className={styles.activitiesOption}>
+                                        {Object.keys(selectedActivities).map((activity) => (
+                                            <label key={activity} className={styles.activityLabel}>
+                                                
+                                                {/* A. The Real Input (Hidden but Functional) */}
+                                                <input 
+                                                    type="checkbox" 
+                                                    className={styles.hiddenCheckbox} /* Changed class to hidden */
+                                                    checked={selectedActivities[activity]}
+                                                    onChange={() => handleActivityChange(activity)}
+                                                /> 
+                            
+                                                {/* B. The Custom SVG Visual */}
+                                                <div className={styles.customCheckboxIcon}>
+                                                    {selectedActivities[activity] ? (
+                                                        // Checked State (Blue)
+                                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                            <rect x="2" y="2" width="20" height="20" rx="8" fill="#2258d6" />
+                                                            <path d="M8 12L11 15L16 9" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                                                        </svg>
+                                                    ) : (
+                                                        // Unchecked State (Grey Border)
+                                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                            <rect x="2" y="2" width="20" height="20" rx="8" fill="#2a2a2a" stroke="#555" strokeWidth="1.5" />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                
+                                                {/* C. The Text */}
+                                                <span>{activity}</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                )}
+                
             </div>
         </div>
     );
