@@ -8,8 +8,10 @@ import styles from '../styles/itinerary_page/map.module.css';
 
 // --- CONFIGURATION ---
 const INITIAL_VIEW = {
-    center: [124.20, 13.81], 
-    zoom: 9.8
+    center: [124.22, 13.75], 
+    zoom: 10.4,
+    pitch: 60,
+    bearing: -15 // 👈 ADDED: The -15 degree rotation you wanted
 };
 
 const HARD_BOUNDS = [
@@ -317,11 +319,13 @@ const Map = forwardRef((props, ref) => {
                 layers: [{ 
                     id: 'background', 
                     type: 'background', 
-                    paint: { 'background-color': '#000000' } 
+                    paint: { 'background-color': 'rgba(0,0,0,0)' }
                 }]
             },
             center: INITIAL_VIEW.center,
             zoom: INITIAL_VIEW.zoom,
+            pitch: 60,
+            bearing: INITIAL_VIEW.bearing,
             minZoom: 9, 
             maxZoom: 15,
             attributionControl: false,
@@ -344,38 +348,6 @@ const Map = forwardRef((props, ref) => {
 
             dataPromise.then(allData => {
                 if (!map.current) return;
-
-                const worldBounds = [[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]];
-                const islandHoles = [];
-                
-                allData.features.forEach(feature => {
-                    if (feature.geometry.type === 'Polygon') {
-                        islandHoles.push(feature.geometry.coordinates[0]);
-                    } else if (feature.geometry.type === 'MultiPolygon') {
-                        feature.geometry.coordinates.forEach(poly => islandHoles.push(poly[0]));
-                    }
-                });
-
-                map.current.addSource('world-mask', { 
-                    type: 'geojson', 
-                    data: { 
-                        type: 'Feature', 
-                        geometry: { 
-                            type: 'Polygon', 
-                            coordinates: [worldBounds, ...islandHoles] 
-                        } 
-                    } 
-                });
-                
-                map.current.addLayer({ 
-                    id: 'mask-layer', 
-                    type: 'fill', 
-                    source: 'world-mask', 
-                    paint: { 
-                        'fill-color': '#000000', 
-                        'fill-opacity': 1 
-                    } 
-                });
                 
                 map.current.addSource('all-data', { type: 'geojson', data: allData });
                 
@@ -448,6 +420,7 @@ const Map = forwardRef((props, ref) => {
 
                 map.current.addLayer({
                     id: 'router-brain-layer',
+                    minzoom: 12,
                     type: 'line',
                     source: 'router-brain',
                     paint: {
@@ -459,15 +432,7 @@ const Map = forwardRef((props, ref) => {
 
                 setIsLoaded(true);
 
-                map.current.on('zoom', () => {
-                    if (!map.current) return;
-                    if (map.current.getZoom() >= 11) {
-                        map.current.setMaxBounds(WIDE_BOUNDS);
-                    } else {
-                        map.current.setMaxBounds(HARD_BOUNDS);
-                    }
-                });
-
+                // --- RESET HANDLER 1: Bounds Check (Dragging) ---
                 map.current.on('dragend', () => {
                     if (!map.current) return;
                     
@@ -476,6 +441,8 @@ const Map = forwardRef((props, ref) => {
                         map.current.easeTo({
                             center: INITIAL_VIEW.center,
                             zoom: INITIAL_VIEW.zoom,
+                            bearing: INITIAL_VIEW.bearing, // 👈 RESET BEARING
+                            pitch: INITIAL_VIEW.pitch,     // 👈 RESET PITCH
                             duration: 600,
                             easing: (t) => t * (2 - t)
                         });
@@ -493,18 +460,23 @@ const Map = forwardRef((props, ref) => {
                         map.current.easeTo({
                             center: INITIAL_VIEW.center,
                             zoom: INITIAL_VIEW.zoom,
+                            bearing: INITIAL_VIEW.bearing, // 👈 RESET BEARING
+                            pitch: INITIAL_VIEW.pitch,     // 👈 RESET PITCH
                             duration: 800, 
                             easing: (t) => t * (2 - t)
                         });
                     }
                 });
 
+                // --- RESET HANDLER 2: Zoom Check ---
                 map.current.on('zoomend', () => {
                     if (!map.current) return;
                     if (map.current.getZoom() < 9.8) {
                         map.current.easeTo({
                             center: INITIAL_VIEW.center,
                             zoom: INITIAL_VIEW.zoom,
+                            bearing: INITIAL_VIEW.bearing, // 👈 RESET BEARING
+                            pitch: INITIAL_VIEW.pitch,     // 👈 RESET PITCH
                             duration: 600
                         });
                     }

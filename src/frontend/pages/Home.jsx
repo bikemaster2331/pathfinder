@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/homepage/Home.module.css';
 import { motion } from 'framer-motion';
+import myImage from '../assets/images/travel.jpg';
+
 
 export default function Home() {
     const navigate = useNavigate();
@@ -37,7 +39,11 @@ export default function Home() {
                 {/* RIGHT COLUMN: The Media Box */}
                 <div className={styles.mediaSection}>
                     <div className={styles.mediaBox}>
-                        {/* Insert Video/Image here later */}
+                        <img 
+                            src={myImage} 
+                            alt="View of Catanduanes" 
+                            className={styles.mediaImage} 
+                        />
                     </div>
                 </div>
 

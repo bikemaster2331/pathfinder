@@ -4,7 +4,7 @@
     width: 100%;
     max-width: 100%;
     overflow-y: visible;
-    height: auto;
+    height: 100%;
 }
 
 .secondCard {
@@ -19,9 +19,9 @@
 .reviewBox,
 .itineraryPreview {
     padding: 20px;
-    background-color: rgba(35, 36, 36, 0.9);
+    background-color: rgba(17, 17, 17, 0.8);
     border-radius: 12px;
-    border: 1px solid rgb(73, 73, 73);
+    border: 1px solid rgba(54, 54, 54, 0.5);
     color: rgb(255, 250, 250);
 }
 
@@ -107,7 +107,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: 30vh;
+    height: 60%;
 }
 
 .reviewText {
@@ -271,7 +271,7 @@
 .itineraryPreview {
     display: flex;
     flex-direction: column;
-    height: 49vh;
+    height: 100%;
 }
 
 .previewContent {   
