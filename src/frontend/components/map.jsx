@@ -319,7 +319,7 @@ const Map = forwardRef((props, ref) => {
                 layers: [{ 
                     id: 'background', 
                     type: 'background', 
-                    paint: { 'background-color': '#000000' } 
+                    paint: { 'background-color': 'rgba(0,0,0,0)' }
                 }]
             },
             center: INITIAL_VIEW.center,
@@ -348,38 +348,6 @@ const Map = forwardRef((props, ref) => {
 
             dataPromise.then(allData => {
                 if (!map.current) return;
-
-                const worldBounds = [[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]];
-                const islandHoles = [];
-                
-                allData.features.forEach(feature => {
-                    if (feature.geometry.type === 'Polygon') {
-                        islandHoles.push(feature.geometry.coordinates[0]);
-                    } else if (feature.geometry.type === 'MultiPolygon') {
-                        feature.geometry.coordinates.forEach(poly => islandHoles.push(poly[0]));
-                    }
-                });
-
-                map.current.addSource('world-mask', { 
-                    type: 'geojson', 
-                    data: { 
-                        type: 'Feature', 
-                        geometry: { 
-                            type: 'Polygon', 
-                            coordinates: [worldBounds, ...islandHoles] 
-                        } 
-                    } 
-                });
-                
-                map.current.addLayer({ 
-                    id: 'mask-layer', 
-                    type: 'fill', 
-                    source: 'world-mask', 
-                    paint: { 
-                        'fill-color': '#000000', 
-                        'fill-opacity': 1 
-                    } 
-                });
                 
                 map.current.addSource('all-data', { type: 'geojson', data: allData });
                 
@@ -452,6 +420,7 @@ const Map = forwardRef((props, ref) => {
 
                 map.current.addLayer({
                     id: 'router-brain-layer',
+                    minzoom: 12,
                     type: 'line',
                     source: 'router-brain',
                     paint: {
