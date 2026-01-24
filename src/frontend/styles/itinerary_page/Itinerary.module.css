@@ -10,12 +10,12 @@
 }
 
 /* Map Container - Left Side (70%) */
-.mapContainer {
+.mapArea {
     height: 90%;
     width: 90%;
     position: relative;
-    top: 5vh;
-    left: 2vw;
+    top: 4.5vh;
+    left: 2.25vw;
     overflow: hidden;
     background-color: #000000;
     border-radius: 16px;
@@ -23,7 +23,6 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Card Container - Right Side (30%) */
 .preferenceCardContainer {
     display: flex;
     justify-content: center;
