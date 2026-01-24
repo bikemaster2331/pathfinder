@@ -1,9 +1,10 @@
-import { useState, useEffect, forwardRef } from 'react'; // <--- consolidated here
+import { useState, useEffect, useRef, forwardRef } from 'react'; // <--- Added useRef here
 import MapBackground from './map';
 import styles from '../styles/itinerary_page/MapWrapper.module.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
+import ChatBot from './ChatBot';
 
 // --- 1. DEFINE HELPER COMPONENT OUTSIDE ---
 const CustomDateInput = forwardRef(({ value, onClick, dateRange }, ref) => {
@@ -40,7 +41,6 @@ const CustomDateInput = forwardRef(({ value, onClick, dateRange }, ref) => {
         </button>
     );
 });
-// (React requires display name for debugging when using forwardRef)
 CustomDateInput.displayName = "CustomDateInput";
 
 
@@ -59,7 +59,8 @@ const MapWrapper = forwardRef((props, ref) => {
         setDestination,
         dateRange,
         setDateRange,
-        onHubChange
+        onHubChange,
+        onChatLocation
     } = props;
 
     const [sliderValue, setSliderValue] = useState(budget);
@@ -68,6 +69,25 @@ const MapWrapper = forwardRef((props, ref) => {
     }, [budget]);
 
     const [isMenuOpen, setIsMenuOpen] = useState(true);
+    
+    // REF FOR CLICK OUTSIDE LOGIC
+    const menuRef = useRef(null);
+
+    // GLOBAL CLICK LISTENER: Closes menu if clicking ANYWHERE outside the menu container
+    useEffect(() => {
+        function handleClickOutside(event) {
+            // If menu is open AND click is NOT inside the menu container
+            if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsMenuOpen(false);
+            }
+        }
+
+        // Attach listener to the whole document (covers map, itinerary card, etc.)
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isMenuOpen]);
 
     const handleActivityChange = (activityName) => {
         setSelectedActivities(prev => ({
@@ -92,7 +112,8 @@ const MapWrapper = forwardRef((props, ref) => {
             </div>
 
             {/* --- TOP RIGHT CONTROLS --- */}
-            <div className={styles.leftRightControls}>
+            {/* Added ref={menuRef} here to track clicks inside vs outside */}
+            <div className={styles.leftRightControls} ref={menuRef}>
                 <div 
                     className={styles.collapsibleHeader} 
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -245,8 +266,8 @@ const MapWrapper = forwardRef((props, ref) => {
                             </div>
                         </div>
                     </div>
-                
             </div>
+            <ChatBot onLocationResponse={onChatLocation} />
         </div>
     );
 });
