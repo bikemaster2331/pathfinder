@@ -8,10 +8,10 @@ import styles from '../styles/itinerary_page/map.module.css';
 
 // --- CONFIGURATION ---
 const INITIAL_VIEW = {
-    center: [124.22, 13.75], 
-    zoom: 10.4,
-    pitch: 60,
-    bearing: -15 // 👈 ADDED: The -15 degree rotation you wanted
+    center: [124.23, 13.73], // first value, increase = move to left, second value, increase = move downward
+    zoom: 10.4, // increase = zoom
+    pitch: 60, // increase = declined perspective
+    bearing: -15 // -negative value = clockwise turn
 };
 
 const HARD_BOUNDS = [
@@ -41,6 +41,16 @@ const ACTIVITY_MAPPING = {
     Photography: ['VIEWPOINTS', 'RELIGIOUS SITES', 'FALLS', 'HOTELS & RESORTS'], 
     Shopping: ['SHOPPING'], 
     Accommodation: ['HOTELS & RESORTS'] 
+};
+
+const ICONS = {
+    'icon-hotel': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M7 13v-3h10v3m-10 5v-8h10v8" stroke="white" stroke-width="1.5" fill="none"/></svg>`,
+    'icon-food': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M11 9H9V7c0-1.1.9-2 2-2v4zm4.41 6L15 9h-4l-.41 6H10v5h4v-5h-.59z" fill="white"/></svg>`,
+    'icon-nature': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M14 6l-3.5 5 2.5.5-3.5 5 2 .5L9 20h11v-2l-3-4 2.5-.5L14 6z" fill="white"/></svg>`,
+    'icon-church': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M12 5v14m-4-8h8" stroke="white" stroke-width="2" fill="none"/></svg>`,
+    'icon-shop': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M9 10V8a3 3 0 0 1 6 0v2h2v9H7v-9h2zm2 0h2V8a1 1 0 0 0-2 0v2z" fill="white"/></svg>`,
+    'icon-camera': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><circle cx="12" cy="13" r="3" stroke="white" stroke-width="1.5" fill="none"/><path d="M9 8h6l2 2h2v8H5v-8h2l2-2z" fill="none" stroke="white" stroke-width="1.5"/></svg>`,
+    'icon-default': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="8" fill="#555555" stroke="white" stroke-width="2"/></svg>`
 };
 
 const Map = forwardRef((props, ref) => {
@@ -342,6 +352,18 @@ const Map = forwardRef((props, ref) => {
                 if (map.current) map.current.resize();
             }, 200);
 
+            const loadIcon = (name, svgString) => {
+                const img = new Image(24, 24);
+                img.onload = () => {
+                    if (map.current && !map.current.hasImage(name)) {
+                        map.current.addImage(name, img);
+                    }
+                };
+                img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
+            };
+
+            Object.keys(ICONS).forEach(key => loadIcon(key, ICONS[key]));
+
             const dataPromise = mapData 
                 ? Promise.resolve(mapData) 
                 : fetch('/catanduanes_full.geojson').then(res => res.json());
@@ -392,24 +414,24 @@ const Map = forwardRef((props, ref) => {
                 
                 map.current.addLayer({
                     id: 'tourist-points', 
-                    type: 'circle', 
+                    type: 'symbol', 
                     source: 'all-data', 
                     filter: ['==', ['geometry-type'], 'Point'],
-                    paint: {
-                        'circle-radius': 6,
-                        'circle-color': [
+                    layout: {
+                        'icon-image': [
                             'match', 
                             ['get', 'type'], 
-                            'HOTELS & RESORTS', '#FF5733', 
-                            'FALLS', '#33C1FF', 
-                            'VIEWPOINTS', '#2ECC71', 
-                            'RESTAURANTS & CAFES', '#F1C40F', 
-                            'RELIGIOUS SITES', '#9B59B6', 
-                            'SHOPPING', '#EC4899',
-                            '#95A5A6'
+                            'HOTELS & RESORTS', 'icon-hotel', 
+                            'FALLS', 'icon-nature', 
+                            'VIEWPOINTS', 'icon-camera', 
+                            'RESTAURANTS & CAFES', 'icon-food', 
+                            'RELIGIOUS SITES', 'icon-church', 
+                            'SHOPPING', 'icon-shop',
+                            'icon-default' // Fallback
                         ],
-                        'circle-stroke-width': 2, 
-                        'circle-stroke-color': '#ffffff'
+                        'icon-size': 1, // Adjust this if icons are too big/small
+                        'icon-allow-overlap': true,
+                        'icon-anchor': 'center'
                     }
                 });
 
@@ -496,16 +518,18 @@ const Map = forwardRef((props, ref) => {
                     const f = e.features[0];
                     new maplibregl.Popup({ offset: 15 })
                         .setLngLat(f.geometry.coordinates)
-                        .setHTML(`<strong>${f.properties.name}</strong><br>${f.properties.type}`)
+                        .setHTML(`
+                            <div style="text-align:center;">
+                                <strong>${f.properties.name}</strong><br>
+                                <span style="font-size:0.8em; color:#666;">${f.properties.type}</span>
+                            </div>
+                            `)
                         .addTo(map.current);
-                    
-                    const spotData = {
-                        ...f.properties,
-                        geometry: f.geometry
-                    };
+
+                    const spotData = { ...f.properties, geometry: f.geometry };
                     if (onMarkerClick) onMarkerClick(spotData);
                 });
-
+                    
                 ['island-fill', 'tourist-points'].forEach(l => {
                     map.current.on('mouseenter', l, () => {
                         if (map.current) map.current.getCanvas().style.cursor = 'pointer';
