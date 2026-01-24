@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import styles from '../styles/itinerary_page/Itinerary.module.css';
 import PreferenceCard from '../components/itineraryCard';
 import MapWrapper from '../components/MapWrapper';
-import ChatBot from '../components/ChatBot';
 import { TRAVEL_HUBS } from '../constants/location'; 
 
 // --- CONFIGURATION ---
@@ -109,7 +108,7 @@ export default function ItineraryPage() {
     return (
         <div className={styles.itineraryContainer}>
             {/* Map Container with Controls */}
-            <div className={styles.mapContainer}>
+            <div className={styles.mapArea}>
                 <MapWrapper 
                     ref={mapRef}
                     selectedActivities={selectedActivities}
@@ -127,6 +126,7 @@ export default function ItineraryPage() {
                     setDateRange={setDateRange}
                     onHubChange={handleHubChange}
                     getBudgetStep={getBudgetStep}
+                    onChatLocation={handleChatbotLocation} 
                 />
             </div>
 
@@ -145,8 +145,6 @@ export default function ItineraryPage() {
                     dateRange={dateRange}
                 />
             </div>
-
-            <ChatBot onLocationResponse={handleChatbotLocation} />
         </div>
     );
 }
