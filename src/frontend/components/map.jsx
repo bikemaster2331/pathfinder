@@ -6,9 +6,10 @@ import roadData from '../data/catanduanes_optimized.json';
 import { getVisualRoute } from '../utils/visualRoute.js';
 import styles from '../styles/itinerary_page/map.module.css';
 
+
 // --- CONFIGURATION ---
 const INITIAL_VIEW = {
-    center: [124.23, 13.73], // first value, increase = move to left, second value, increase = move downward
+    center: [124.23, 13.71], // first value, increase = move to left, second value, increase = move downward
     zoom: 10.4, // increase = zoom
     pitch: 60, // increase = declined perspective
     bearing: -15 // -negative value = clockwise turn
@@ -31,7 +32,7 @@ const RESET_TRIGGER_BOUNDS = {
     maxLat: 14.3
 };
 
-const HUB_COLOR = '#2563EB';
+const HUB_COLOR = '#048aa1';
 
 const ACTIVITY_MAPPING = { 
     Swimming: ['FALLS', 'HOTELS & RESORTS'], 
@@ -54,7 +55,8 @@ const ICONS = {
 };
 
 const Map = forwardRef((props, ref) => {
-    const { selectedActivities, onMarkerClick, mapData, selectedHub, addedSpots, budgetFilter } = props;
+    // UPDATED: Added selectedLocation to destructuring
+    const { selectedActivities, selectedLocation, onMarkerClick, mapData, selectedHub, addedSpots, budgetFilter } = props;
     
     const mapContainer = useRef(null);
     const map = useRef(null);
@@ -164,7 +166,7 @@ const Map = forwardRef((props, ref) => {
 
     // --- FILTER LOGIC ---
     useEffect(() => {
-        if (!isLoaded || !map.current?.getLayer('tourist-points')) return;
+        if (!isLoaded || !map.current) return;
 
         const activeActivities = Object.keys(selectedActivities).filter(key => selectedActivities[key]);
         const allowedTypes = [...new Set(activeActivities.flatMap(act => ACTIVITY_MAPPING[act]))];
@@ -180,7 +182,13 @@ const Map = forwardRef((props, ref) => {
         }
 
         try {
-            map.current.setFilter('tourist-points', combinedFilter);
+            // Apply filter to BOTH layers
+            if (map.current.getLayer('tourist-points')) {
+                map.current.setFilter('tourist-points', combinedFilter);
+            }
+            if (map.current.getLayer('tourist-dots')) {
+                map.current.setFilter('tourist-dots', combinedFilter);
+            }
         } catch (error) { 
             console.error("Filter error:", error); 
         }
@@ -247,14 +255,17 @@ const Map = forwardRef((props, ref) => {
         
     }, [selectedHub, isLoaded]);
     
-    // --- ROUTE LOGIC ---
+    // --- ROUTE LOGIC (UPDATED WITH GHOST LINE) ---
     useEffect(() => {
         if (!isLoaded || !map.current) return;
 
         const sourceId = 'route-line';
         const layerId = 'route-layer';
+        const previewSourceId = 'preview-route-line';
+        const previewLayerId = 'preview-route-layer';
 
-        const updateRoute = () => {
+        // 1. Draw Solid Route (Confirmed)
+        const updateSolidRoute = () => {
             const stops = [];
             
             if (selectedHub?.coordinates) {
@@ -304,18 +315,62 @@ const Map = forwardRef((props, ref) => {
                         'line-cap': 'round'
                     },
                     paint: {
-                        'line-color': '#2563EB', 
-                        'line-width': 4,
-                        'line-opacity': 0.8
+                        'line-color': '#06b6d4', 
+                        'line-width': 5,         
+                        'line-opacity': 1,
+                        'line-blur': 2
                     }
                 }, 'tourist-points');
             }
         };
 
-        const timer = setTimeout(updateRoute, 10);
+        // 2. Draw Ghost Route (Hub -> Selected Spot)
+        const updatePreviewRoute = () => {
+            const target = selectedLocation;
+            // Logic: Don't show ghost line if it's already added or no hub exists
+            const isAdded = target && addedSpots.some(s => s.name === target.name);
+            let previewCoords = [];
+
+            if (selectedHub?.coordinates && target?.geometry?.coordinates && !isAdded) {
+                const segment = getVisualRoute(selectedHub.coordinates, target.geometry.coordinates);
+                if (segment?.geometry?.coordinates) previewCoords = segment.geometry.coordinates;
+            }
+
+            const previewGeoJSON = {
+                type: 'Feature',
+                geometry: {
+                    type: 'LineString',
+                    coordinates: previewCoords
+                }
+            };
+
+            if (map.current.getSource(previewSourceId)) {
+                map.current.getSource(previewSourceId).setData(previewGeoJSON);
+            } else {
+                map.current.addSource(previewSourceId, { type: 'geojson', data: previewGeoJSON });
+                map.current.addLayer({
+                    id: previewLayerId, 
+                    type: 'line', 
+                    source: previewSourceId,
+                    layout: { 'line-join': 'round', 'line-cap': 'round' },
+                    paint: { 
+                        'line-color': '#9CA3AF', // Gray color
+                        'line-width': 3, 
+                        'line-dasharray': [2, 2], // Dashed line
+                        'line-opacity': 0.7 
+                    }
+                }, 'tourist-points'); // Draw below icons
+            }
+        };
+
+        const timer = setTimeout(() => {
+            updateSolidRoute();
+            updatePreviewRoute();
+        }, 10);
+        
         return () => clearTimeout(timer);
 
-    }, [selectedHub, addedSpots, isLoaded]);
+    }, [selectedHub, addedSpots, isLoaded, selectedLocation]);
 
     // --- MAP INIT ---
     useEffect(() => {
@@ -366,7 +421,7 @@ const Map = forwardRef((props, ref) => {
 
             const dataPromise = mapData 
                 ? Promise.resolve(mapData) 
-                : fetch('/catanduanes_full.geojson').then(res => res.json());
+                : fetch('/catanduanes_datafile.geojson').then(res => res.json());
 
             dataPromise.then(allData => {
                 if (!map.current) return;
@@ -379,7 +434,7 @@ const Map = forwardRef((props, ref) => {
                     source: 'all-data', 
                     filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], 
                     paint: { 
-                        'fill-color': '#ffffff', 
+                        'fill-color': '#e7e7e7',
                         'fill-opacity': 1 
                     } 
                 });
@@ -390,15 +445,17 @@ const Map = forwardRef((props, ref) => {
                     source: 'all-data', 
                     filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], 
                     paint: { 
-                        'line-color': '#cccccc', 
+                        'line-color': '#27272a', 
                         'line-width': 1.5 
                     } 
                 });
                 
+                // REVISED: Municipality Labels (Hide at low zoom)
                 map.current.addLayer({ 
                     id: 'municipality-labels', 
                     type: 'symbol', 
                     source: 'all-data', 
+                    minzoom: 11,
                     filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], 
                     layout: { 
                         'text-field': ['get', 'MUNICIPALI'], 
@@ -406,16 +463,35 @@ const Map = forwardRef((props, ref) => {
                         'text-size': 12 
                     }, 
                     paint: { 
-                        'text-color': '#333333', 
-                        'text-halo-color': '#ffffff', 
-                        'text-halo-width': 2 
+                        'text-color': '#ffffff',
+                        'text-halo-color': '#000000', 
+                        'text-halo-width': 3,
+                        'text-opacity': 0.9
                     } 
                 });
                 
+                // NEW: Tourist Dots (Stage 1 & 2 - Density View)
+                map.current.addLayer({
+                    id: 'tourist-dots',
+                    type: 'circle',
+                    source: 'all-data',
+                    maxzoom: 12, // <--- VISIBLE ONLY WHEN ZOOMED OUT
+                    filter: ['==', ['geometry-type'], 'Point'],
+                    paint: {
+                        'circle-radius': 3.5,
+                        'circle-color': '#111111',
+                        'circle-stroke-width': 1,
+                        'circle-stroke-color': '#ffffff',
+                        'circle-opacity': 0.8
+                    }
+                });
+
+                // REVISED: Tourist Points (Stage 3 - Icon View)
                 map.current.addLayer({
                     id: 'tourist-points', 
                     type: 'symbol', 
                     source: 'all-data', 
+                    minzoom: 12, // <--- VISIBLE ONLY WHEN ZOOMED IN
                     filter: ['==', ['geometry-type'], 'Point'],
                     layout: {
                         'icon-image': [
@@ -429,7 +505,7 @@ const Map = forwardRef((props, ref) => {
                             'SHOPPING', 'icon-shop',
                             'icon-default' // Fallback
                         ],
-                        'icon-size': 1, // Adjust this if icons are too big/small
+                        'icon-size': 1, 
                         'icon-allow-overlap': true,
                         'icon-anchor': 'center'
                     }
@@ -446,8 +522,8 @@ const Map = forwardRef((props, ref) => {
                     type: 'line',
                     source: 'router-brain',
                     paint: {
-                        'line-color': '#e2e2e2ff',
-                        'line-width': 2,
+                        'line-color': '#3f3f46',
+                        'line-width': 1,
                         'line-opacity': 0.3
                     }
                 });
@@ -513,6 +589,7 @@ const Map = forwardRef((props, ref) => {
                     map.current.fitBounds(b, { padding: 50, maxZoom: 12.5 });
                 });
 
+                // Interaction only enabled for icons (Zoom 12+)
                 map.current.on('click', 'tourist-points', (e) => {
                     if (!map.current) return;
                     const f = e.features[0];
