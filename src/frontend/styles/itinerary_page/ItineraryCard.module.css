@@ -1,6 +1,5 @@
 .PreferenceCard {
     border-radius: 16px;
-    padding: 24px;
     width: 100%;
     max-width: 100%;
     overflow-y: visible;
@@ -10,9 +9,9 @@
 .secondCard {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 100%;
     height: 100%;
+    overflow: visible;
+    position: relative;
 }
 
 /* Common box styles */
@@ -26,28 +25,275 @@
 }
 
 .boxTitle {
-    margin: 0 0 15px 0;
-    font-size: 1.1rem;
+    margin: 0 0 5px 0;
     color: white;
     text-align: left;
     width: 100%;
 }
 
-.addSpot {
+/* --- REVIEW BOX LAYOUT --- */
+.reviewBox {
+    position: relative;
+    flex: 0 0 40%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 16px;
+    overflow: hidden;
+    z-index: 1;
+    transition: flex 0.8s cubic-bezier(0.34, 1.26, 0.64, 1),
+        border-radius 0.8s cubic-bezier(0.34, 1.26, 0.64, 1),
+        box-shadow 0.8s ease,
+        transform 0.3s ease;
+}
+
+.reviewBox .boxTitle {
+    /* Layout */
+    margin: 0 0 5px 0;
+    width: 100%;
+    text-align: left;
+
+    /* Font (Large by default) */
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+
+    /* ANIMATION SETUP */
+    padding: 0;
+    /* Start at 0 so we can animate to 8px */
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Smooths everything (Size, Padding, Color) */
+}
+
+/* --- BASE BADGE --- */
+.distanceBadge {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4ADE80;
+    display: inline-block;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    width: fit-content;
+
+    /* ANIMATION SETUP */
+    padding: 0;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reviewBoxExpanded {
+    flex: 1 1 100% !important;
+    border-radius: 16px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9);
+    z-index: 50;
+}
+
+.reviewBoxExpanded:hover {
+    transform: none !important;
+}
+
+.reviewBox:hover:not(.reviewBoxExpanded) {
+    transform: scale(1.02);
+    box-shadow: 0 40px 70px -12px rgba(0, 0, 0, 0.9);
+    z-index: 20;
+}
+
+.reviewBoxBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30vh;
+    object-fit: cover;
+    z-index: 0;
+    padding: 0px;
+    border-radius: 16px;
+    box-sizing: border-box;
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reviewBoxOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30vh;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+    padding: 0px;
+    border-radius: 16px;
+    background-clip: content-box;
+    box-sizing: border-box;
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reviewBoxExpanded .reviewBoxBackground{
     padding: 10px;
+    border-radius: 24px;
+}
+
+.reviewBoxExpanded .reviewBoxOverlay {
+    background: transparent;
+}
+
+.reviewBoxExpanded .reviewText {
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.reviewBox.reviewBoxExpanded .boxTitle {
+    font-size: 1.4rem;
+    /* Shrinks from 1.7rem */
+    padding: 8px 12px;
+    /* Grows from 0px */
+}
+
+/* Adjust the Badge */
+.reviewBox.reviewBoxExpanded .distanceBadge {
+    margin-top: -20px;
+    font-size: 12px;
+    /* Optional: Shrink slightly from 13px */
+    padding: 8px 12px;
+    /* Grows from 0px */
+}
+
+.reviewContent {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.titleSection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.reviewBottomRow {
+    display: flex;
+    align-items: flex-end;
+    margin-top: auto;
+    width: 100%;
+}
+
+.descriptionSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.02); */
+    border-radius: 9px;
+}
+
+.reviewText {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #e5e7eb;
+    text-align: left;
+    margin: 0;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.expandBtn {
+    flex-shrink: 0;
+    width: 33px;
+    height: 33px;
+    background: transparent;
+    border: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.expandBtn:hover {
+    transform: translateY(-1px);
+}
+
+.expandBtn:active {
+    transform: scale(0.92);
+}
+
+.expandBtn svg {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btnRotatedVertical svg {
+    transform: rotate(90deg);
+}
+
+.actionButtonSection {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 20;
+    width: auto;
+}
+
+.addSpot,
+.addSpotDisabled,
+.removeSpotMain {
+    /* Layout & Sizing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    /* Small Start Size (Icon Only) */
+    width: 50px;
+    padding: 10px 16px;
+
+    /* Visuals */
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    /* CRITICAL FOR ANIMATION */
+    overflow: hidden;
+    /* Hides the text when width is small */
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Matches your other animations */
+}
+
+.reviewBox.reviewBoxExpanded .addSpot,
+.reviewBox.reviewBoxExpanded .addSpotDisabled,
+.reviewBox.reviewBoxExpanded .removeSpotMain {
+    width: 42px;
+    /* Grows wide to reveal the text */
+    border-radius: 12px;
+    padding: 8px 14px;
+    /* Optional: Slight shape change */
+}
+
+.addSpot {
     background-color: #0b7e0b;
     color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: auto;
-    min-width: 100px;
-    margin-top: auto;
-    align-self: flex-end;
 }
 
 .addSpot:hover {
@@ -60,37 +306,16 @@
 }
 
 .addSpotDisabled {
-    padding: 10px;
     background-color: #4b5563;
     color: #9ca3af;
     border: 1px solid #374151;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
     cursor: not-allowed;
     opacity: 0.7;
-    width: auto;
-    min-width: 100px;
-    margin-top: auto;
-    align-self: flex-end;
 }
 
 .removeSpotMain {
-    padding: 10px;
     background-color: #c92a2a;
     color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: auto;
-    min-width: 100px;
-    margin-top: auto;
-    align-self: flex-end;
 }
 
 .removeSpotMain:hover {
@@ -102,183 +327,135 @@
     transform: translateY(0);
 }
 
-/* Review Box */
-.reviewBox {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 60%;
-}
-
-.reviewText {
-    font-size: 1rem;
-    font-family: inherit;
-    margin: 0;
-    text-align: left;
-}
-
-/* Journey Dates Box */
-.journeyDatesBox {
-    height: 20vh;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.dateInputRow {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-}
-
-.locField {
-    flex: 1;
-    background-color: #333;
-    color: white;
-    border: 1px solid #494949;
-    border-radius: 8px;
-    font-family: inherit;
-    padding: 8px;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-    background-size: 0.65em auto;
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-    cursor: pointer;
-}
-
-.dateField {
-    flex: 1;
-    background: #333;
-    color: white;
-    border: 1px solid #494949;
-    padding: 8px;
-    border-radius: 8px;
-    font-family: inherit;
-    cursor: pointer;
-}
-
-.dateSeparator {
-    color: white;
-    font-size: 0.9rem;
-}
-
-/* Budget Box */
-.budgetBox {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.budgetSlider {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.slider {
-    width: 100%;
-    height: 6px;
-    border-radius: 5px;
-    background: #494949;
-    outline: none;
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: white;
-    cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: white;
-    cursor: pointer;
-    border: none;
-}
-
-.budgetLabels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    color: #aaa;
-}
-
-.currentBudget {
-    color: white;
-    font-weight: bold;
-}
-
-/* Activities Box */
-.activitiesBox {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    flex: 1;
-    min-height: 200px;
-}
-
-.activitiesOption {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    width: 100%;
-}
-
-.activityLabel {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    background-color: rgb(45, 46, 46);
-    border: 1px solid rgb(73, 73, 73);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: rgb(255, 255, 255);
-    width: auto;
-    flex: 0 0 auto;
-    white-space: nowrap;
-}
-
-.activityLabel:hover {
-    background-color: rgb(55, 56, 56);
-    border-color: rgb(100, 100, 100);
-}
-
-.activityCheckbox {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    accent-color: #007bff;
+.shadowText {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .itineraryPreview {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 0;
+    background-color: rgba(17, 17, 17, 0.8);
+    border: 1px solid rgba(54, 54, 54, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    opacity: 1;
+    max-height: 1000px;
+    transition: opacity 0.5s ease,
+        max-height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+        padding 0.8s ease;
+    z-index: 0;
+    margin-top: 20px;
 }
 
-.previewContent {   
+.previewHidden {
+    opacity: 0;
+    max-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.previewContent {
     font-size: 0.9rem;
     color: #aaa;
     margin: 0;
     text-align: left;
+}
+
+.previewHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.previewHeaderTitle {
+    margin: 0 !important;
+    line-height: 1;
+}
+
+.previewHeaderTitleGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.savedDaysSubtext {
+    font-size: 10px;
+    color: #9CA3AF;
+}
+
+.optimizeBtnSmall {
+    background: black;
+    /* You need to specify border-style for the color to show */
+    border: 3px solid rgb(56, 56, 56);
+    border-radius: 50%;
+    /* This makes it circular */
+    color: rgb(180, 180, 180);
+    font-size: 0.70rem;
+    font-weight: bold;
+    cursor: pointer;
+    /* Remove unequal padding */
+    padding: 0;
+    /* Set equal width and height */
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.optimizeBtnSmall:hover {
+    opacity: 0.9;
+}
+
+.walletContainer {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid #374151;
+    height: 32%;
+}
+
+.walletHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.walletStatusGroup {
+    text-align: left;
+}
+
+.walletLabel {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.walletSubtext {
+    font-size: 10px;
+    color: #9CA3AF;
+    margin-top: 4px;
+}
+
+.walletBarTrack {
+    width: 100%;
+    height: 8px;
+    background: #374151;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.walletBarFill {
+    height: 100%;
+    transition: width 0.5s ease, background-color 0.5s ease;
 }
 
 .statsRow {
@@ -295,6 +472,7 @@
     font-weight: bold;
     color: #fff;
     border: 1px solid #555;
+    margin-top: 20px;
 }
 
 .addedSpotsList {
@@ -302,28 +480,74 @@
     flex-direction: column;
     gap: 8px;
     width: 100%;
-    overflow-y: auto;
     flex: 1;
-    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-bottom: 10px;
 }
 
 .miniSpotItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #2d2e2e;
+    background: rgba(255, 255, 255, 0.05);
     padding: 10px 12px;
     border-radius: 6px;
-    border: 1px solid #494949;
+    border-left: 3px solid transparent;
     font-size: 0.9rem;
     color: white;
     gap: 12px;
     cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
 }
 
 .miniSpotItem:hover {
     background: #3a3b3b;
     border-color: #666;
+}
+
+.miniSpotItemLocked {
+    border-left-color: #F59E0B !important;
+    background-color: rgba(245, 158, 11, 0.1) !important;
+}
+
+.driveTimeLabel {
+    font-size: 10px;
+    color: #9CA3AF;
+    margin-left: 12px;
+    margin-bottom: 6px;
+    margin-top: -4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.driveTimeLine {
+    width: 0;
+    height: 14px;
+    border-left: 2px dashed #4B5563;
+    margin-right: 2px;
+    opacity: 0.5;
+}
+
+.driveTimeIcon {
+    margin-right: 4px;
+}
+
+.visitDurationBadge {
+    font-size: 10px;
+    font-weight: bold;
+    background: #374151;
+    color: #E5E7EB;
+    padding: 2px 6px;
+    border-radius: 4px;
+    min-width: 45px;
+    text-align: center;
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    border: 1px solid #4B5563;
 }
 
 .spotName {
@@ -337,6 +561,69 @@
     color: #d6d6d6;
     text-transform: uppercase;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.spotActions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.spotActionBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 10px;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    color: #E5E7EB;
+    transition: opacity 0.2s;
+}
+
+.spotActionBtn:disabled {
+    color: #444;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.spotActionBtn:not(:disabled):hover {
+    opacity: 0.7;
+}
+
+.actionDivider {
+    width: 1px;
+    height: 12px;
+    background: #4B5563;
+    margin: 0 4px;
+}
+
+.lockBtn {
+    font-size: 14px;
+    margin: 0 2px;
+    color: #6B7280;
+    transition: color 0.2s;
+}
+
+.lockBtn:hover {
+    color: #F59E0B;
+}
+
+.miniSpotItemLocked .lockBtn {
+    color: #F59E0B;
+}
+
+.removeSmallBtn {
+    color: #EF4444;
+    font-size: 16px;
+    margin-left: 4px;
+}
+
+.removeSmallBtn:hover {
+    color: #DC2626;
 }
 
 .removeBtn {
@@ -344,18 +631,20 @@
     border: none;
     color: #ff5e5e;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     line-height: 1;
-    padding: 0 8px;
-    margin-left: 10px;
+    padding: 4px;
+    margin-left: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
+    border-radius: 4px;
 }
 
 .removeBtn:hover {
-    color: #a80202;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ff2a2a;
     transform: scale(1.1);
 }
 
@@ -363,7 +652,6 @@
     transform: scale(0.9);
 }
 
-/* Save Button */
 .saveButton {
     padding: 15px;
     background-color: #007bff;
@@ -377,6 +665,11 @@
     text-align: center;
     width: 100%;
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-shrink: 0;
 }
 
 .saveButton:hover {
@@ -388,7 +681,84 @@
     transform: translateY(0);
 }
 
-/* Mobile responsive */
+.finishLink {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 11px;
+    color: #9CA3AF;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modalContent {
+    background-color: #1F2937;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #EF4444;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modalIcon {
+    font-size: 40px;
+    margin-bottom: 16px;
+}
+
+.modalTitle {
+    color: #EF4444;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.modalText {
+    color: #E5E7EB;
+    font-size: 14px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.modalActions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.modalBtnCancel {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid #4B5563;
+    background: transparent;
+    color: #E5E7EB;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.modalBtnConfirm {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background: #EF4444;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+}
+
 @media (max-width: 1024px) {
     .secondCard {
         grid-template-columns: 1fr;
@@ -396,10 +766,6 @@
 
     .PreferenceCard {
         padding: 16px;
-    }
-
-    .activitiesOption {
-        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -412,8 +778,15 @@
         gap: 15px;
     }
 
-    .leftColumn,
-    .rightColumn {
-        gap: 15px;
+    .actionButtonSection {
+        width: 120px;
+    }
+
+    .addSpot,
+    .addSpotDisabled,
+    .removeSpotMain {
+        width: 120px;
+        font-size: 0.9rem;
+        padding: 8px 12px;
     }
 }

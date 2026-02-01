@@ -1,0 +1,139 @@
+/* The Main Container (Glass Pill) */
+.toolbarContainer {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* Sizing */
+    width: 99vw;
+    padding: 12px 28px;
+    border-radius: 50px;
+
+    /* Typography */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Dark Glass Effect */
+    /* background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); */
+}
+
+/* --- LEFT GROUP (Logo) --- */
+.leftGroup {
+    display: flex;
+    align-items: center;
+}
+
+.brandBox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.logoCircle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.brandBox:hover .logoCircle {
+    transform: rotate(10deg) scale(1.05);
+}
+
+/* --- RIGHT GROUP (Navigation) --- */
+.centerGroup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* THE HOVER LINKS */
+.navLink {
+    background: transparent;
+    border: none;
+
+    /* Font Styling to match "KNOW YOUR RIDE" */
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    /* Bold */
+    letter-spacing: 0.05em;
+    /* Slight spacing */
+
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    /* Flex alignment for the arrow */
+    display: flex;
+    align-items: center;
+}
+
+.navLink::after {
+    content: "›";
+    /* The arrow character */
+    font-size: 1.4em;
+    line-height: 0.8;
+    margin-left: 0px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    color: #ffffff;
+    /* Optional: Green accent color for the arrow */
+}
+
+.navLink:hover {
+    color: #cacaca;
+}
+
+/* On Hover: Slide the arrow in */
+.navLink:hover::after {
+    opacity: 1;
+    transform: translateX(4px);
+    /* Moves it slightly to the right */
+    margin-left: 4px;
+    /* Adds actual space */
+}
+
+/* Highlighted Button (Contact Us) */
+.navLinkHighlight {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+
+    padding: 10px 24px;
+    border-radius: 30px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.80rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 12px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.navLinkHighlight:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+}

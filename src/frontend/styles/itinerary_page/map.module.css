@@ -42,7 +42,7 @@
             rgba(255, 215, 0, 0) 100%);
     border: 3px solid #FFD700;
     box-shadow:
-        0 0 30px rgba(255, 215, 0, 0.9),
+        0 0 30px rgba(87, 86, 85, 0.9),
         0 0 60px rgba(255, 215, 0, 0.5);
     animation: chatbotPulse 1.5s infinite ease-in-out;
 }
@@ -65,14 +65,13 @@
 }
 
 :global(.maplibregl-popup-close-button) {
-    color: #FFD700;
+    color: #ffffff;
     font-size: 20px;
     padding: 4px 8px;
 }
 
 :global(.maplibregl-popup-close-button:hover) {
-    background-color: rgba(255, 215, 0, 0.1);
-    color: #FFF;
+    color: #ff0000;
 }
 
 /* Responsive adjustments */

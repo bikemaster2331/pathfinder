@@ -5,6 +5,7 @@ import styles from '../styles/itinerary_page/ItineraryCard.module.css';
 import { calculateDistance, calculateTotalRoute, calculateDriveTimes, calculateTimeUsage } from '../utils/distance'; 
 import { optimizeRoute } from '../utils/optimize';
 import { generateItineraryPDF } from '../utils/generatePDF';
+import defaultBg from '../assets/images/catanduanes.png';
 
 const PreferenceCard = ({ 
     selectedLocation,
@@ -68,6 +69,8 @@ const PreferenceCard = ({
         return calculateDriveTimes(hub, addedSpots);
     }, [addedSpots, activeHubName]);
 
+    const [isReviewExpanded, setIsReviewExpanded] = useState(false);
+
     const timeWallet = useMemo(() => {
         const hub = TRAVEL_HUBS[activeHubName];
         
@@ -75,7 +78,7 @@ const PreferenceCard = ({
             totalUsed: 0, 
             percent: 0, 
             remaining: 540, 
-            color: '#3ec3e4ff', 
+            color: 'rgb(255, 255, 255)', 
             label: 'Schedule Empty', 
             subtext: 'Select a starting point' 
         };
@@ -88,18 +91,23 @@ const PreferenceCard = ({
         let percent = (usedAmount / DAILY_CAPACITY) * 100;
         if (percent > 100) percent = 100; 
 
-        let color = '#10B981'; 
+        // Dynamic Status Logic
+        let color = '#10B981'; // Green
         let label = 'Relaxed pace';
-        let subtext = 'Plenty of buffer (Start 8-9 AM)';
+        let subtext = 'Plenty of buffer (Like 9 AM start)';
         
         if (remaining < 0) {
             color = '#EF4444'; 
             label = 'Day Overloaded';
-            subtext = 'Not realistic in one day';
+            subtext = 'Exceeds standard 9-hour day'; 
+        } else if (remaining < 60) { 
+            color = '#F59E0B'; 
+            label = 'Very Full';
+            subtext = 'Aim for 6:00 AM start'; 
         } else if (remaining < 120) { 
             color = '#F59E0B'; 
-            label = 'Tight but doable';
-            subtext = 'Early start required';
+            label = 'Busy Schedule';
+            subtext = 'Aim for 7-8:00 AM start'; 
         } 
 
         return {
@@ -131,15 +139,74 @@ const PreferenceCard = ({
         if (setAddedSpots) setAddedSpots(newOrder);
     };
 
+    // --- UPDATED HANDLER: Forward Logic (Next Day) ---
     const handleSliceAndNext = () => {
+        // 1. Save current day's progress
         setStoredDays(prev => ({
             ...prev,
             [currentDay]: [...addedSpots]
         }));
         
-        setAddedSpots([]); 
-        setCurrentDay(prev => prev + 1); 
+        // 2. Calculate next day
+        const nextDay = currentDay + 1;
+        setCurrentDay(nextDay); 
         
+        // 3. CHECK: Do we have data for this future day?
+        const nextDaySpots = storedDays[nextDay];
+
+        if (nextDaySpots && nextDaySpots.length > 0) {
+            // YES -> Restore Memory
+            setAddedSpots(nextDaySpots);
+            
+            // Restore the "Last Pic Location" (The last spot in the list)
+            const lastSpot = nextDaySpots[nextDaySpots.length - 1];
+            setSelectedLocation(lastSpot); 
+            // Keep review box closed initially to be subtle, or open if you prefer
+            setIsReviewExpanded(false); 
+
+        } else {
+            // NO -> Total Amnesia (Clean Slate)
+            setAddedSpots([]); 
+            setSelectedLocation(null); // Wipe the map pin
+            setIsReviewExpanded(false); // Collapse box
+        }
+        
+        // 4. Reset warnings
+        setShowOverloadWarning(false);
+        setWarningDismissed(false);
+    };
+
+    // --- NEW HANDLER: Backward Logic (Previous Day) ---
+    const handlePreviousDay = () => {
+        if (currentDay <= 1) return;
+
+        // 1. Save current day's progress before leaving
+        setStoredDays(prev => ({
+            ...prev,
+            [currentDay]: [...addedSpots]
+        }));
+
+        // 2. Go back one day
+        const prevDay = currentDay - 1;
+        setCurrentDay(prevDay);
+        
+        // 3. Restore Previous Data
+        const prevDaySpots = storedDays[prevDay];
+
+        if (prevDaySpots && prevDaySpots.length > 0) {
+            setAddedSpots(prevDaySpots);
+            
+            // Restore "Last Pic Location" from that day
+            const lastSpot = prevDaySpots[prevDaySpots.length - 1];
+            setSelectedLocation(lastSpot);
+            setIsReviewExpanded(false);
+        } else {
+            // Fallback (Shouldn't happen if you couldn't go back, but safe to have)
+            setAddedSpots([]);
+            setSelectedLocation(null);
+        }
+
+        // 4. Reset warnings
         setShowOverloadWarning(false);
         setWarningDismissed(false);
     };
@@ -192,44 +259,20 @@ const PreferenceCard = ({
             
             {/* --- OVERLOAD MODAL --- */}
             {showOverloadWarning && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.85)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 9999
-                }}>
-                    <div style={{
-                        backgroundColor: '#1F2937',
-                        padding: '24px',
-                        borderRadius: '12px',
-                        border: '1px solid #EF4444',
-                        maxWidth: '400px',
-                        textAlign: 'center',
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
-                    }}>
-                        <div style={{ fontSize: '40px', marginBottom: '16px' }}>✂️</div>
-                        <h3 style={{ color: '#EF4444', fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>
+                <div className={styles.modalOverlay}>
+                    <div className={styles.modalContent}>
+                        <div className={styles.modalIcon}>✂️</div>
+                        <h3 className={styles.modalTitle}>
                             Day {currentDay} is Full
                         </h3>
-                        <p style={{ color: '#E5E7EB', fontSize: '14px', marginBottom: '24px', lineHeight: '1.5' }}>
+                        <p className={styles.modalText}>
                             You have exceeded the time wallet for Day {currentDay}.<br/>
                             Do you want to slice this day here and start planning <b>Day {currentDay + 1}</b>?
                         </p>
-                        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                        <div className={styles.modalActions}>
                             <button 
                                 onClick={handleKeepGoing}
-                                style={{
-                                    padding: '8px 16px',
-                                    borderRadius: '6px',
-                                    border: '1px solid #4B5563',
-                                    background: 'transparent',
-                                    color: '#E5E7EB',
-                                    cursor: 'pointer',
-                                    fontSize: '12px'
-                                }}
+                                className={styles.modalBtnCancel}
                             >
                                 No, Keep Packing Day {currentDay}
                             </button>
@@ -237,16 +280,7 @@ const PreferenceCard = ({
                             {!isLastDay && (
                                 <button 
                                     onClick={handleSliceAndNext}
-                                    style={{
-                                        padding: '8px 16px',
-                                        borderRadius: '6px',
-                                        border: 'none',
-                                        background: '#EF4444',
-                                        color: 'white',
-                                        cursor: 'pointer',
-                                        fontWeight: 'bold',
-                                        fontSize: '12px'
-                                    }}
+                                    className={styles.modalBtnConfirm}
                                 >
                                     Yes, Slice & Start Day {currentDay + 1}
                                 </button>
@@ -258,135 +292,140 @@ const PreferenceCard = ({
 
             <div className={styles.secondCard}>
                 
-                {/* Review Box */}
-                <div className={styles.reviewBox}>
-                    <h3 className={styles.boxTitle}>
-                        {selectedLocation ? selectedLocation.name : "Select a Location"}
-                    </h3>
-                    
-                    {selectedLocation && distanceFromHub !== null && (
-                        <span style={{ 
-                            fontSize: '13px', 
-                            fontWeight: '600', 
-                            color: '#4ADE80', 
-                            display: 'block', 
-                            marginBottom: '8px' 
-                        }}>
-                            📍 {distanceFromHub} km from Hub
-                        </span>
-                    )}
+                {/* --- REVIEW BOX (IMMERSIVE BACKGROUND) --- */}
+                <div className={`${styles.reviewBox} ${isReviewExpanded ? styles.reviewBoxExpanded : ''}`}>
+                    <img    
+                        src={selectedLocation?.image || defaultBg} 
+                        alt="Destination Preview" 
+                        className={styles.reviewBoxBackground}
+                        onError={(e) => { e.target.src = defaultBg; }} 
+                    />
+                    {/* 2. Gradient Overlay */}
+                    <div className={styles.reviewBoxOverlay}></div>
 
-                    <p className={styles.reviewText}>
-                        {selectedLocation 
-                            ? (selectedLocation.description || "Explore this destination and add it to your plan.") 
-                            : "Click a pin on the map to see details here."}
-                    </p>
-
-                    {selectedLocation && (
-                        isAlreadyAdded ? (
-                            <button 
-                                className={styles.removeSpotMain}
-                                onClick={() => onRemoveSpot(selectedLocation.name)}
-                            >
-                                Remove
-                            </button>
-                        ) : (
-                            <button 
-                                className={isHubSelected ? styles.addSpot : styles.addSpotDisabled}
-                                onClick={() => isHubSelected && onAddSpot(selectedLocation)}
-                                disabled={!isHubSelected}
-                                title={isHubSelected ? "Add tourist spot" : "Select a starting point first"}
-                            >
-                                {isHubSelected ? "Add" : "Set Start Point"}
-                            </button>
-                        )
-                    )}
-                </div>
-
-                {/* Itinerary Preview */}
-                <div className={styles.itineraryPreview}>
-                    
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                        <h3 className={styles.boxTitle} style={{ margin: 0 }}>
-                            Day {currentDay} of {dayCount}
+                    {/* 3. Text Content */}
+                    <div className={styles.reviewContent}>
+                        <h3 className={styles.boxTitle}>
+                            {selectedLocation ? selectedLocation.name : "Explore Catanduanes"}
                         </h3>
-                        
-                        {currentDay > 1 && (
-                            <span style={{ fontSize: '10px', color: '#9CA3AF' }}>
-                                (Days 1-{currentDay-1} Saved)
+                        {selectedLocation && distanceFromHub !== null && (
+                            <span className={styles.distanceBadge}>
+                                {distanceFromHub} km from Hub 📍
                             </span>
                         )}
+                        <div className={styles.reviewBottomRow}>
+                            {/* Left: Description */}
+                            <div className={styles.descriptionSection}>
+                                <p className={styles.reviewText}>
+                                    {selectedLocation 
+                                        ? (selectedLocation.description || "Explore this destination and add it to your plan.") 
+                                        : "Click a pin on the map to see details here."}
+                                </p>
+                                
+                                {/* MOVED: ADD SPOT BUTTONS (Now next to text) */}
+                                {selectedLocation && (
+                                    isAlreadyAdded ? (
+                                        <button 
+                                            className={styles.removeSpotMain}
+                                            onClick={() => onRemoveSpot(selectedLocation.name)}
+                                            title="Remove from itinerary"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                            </svg>
+                                        </button>
+                                    ) : (
+                                        <button 
+                                            className={isHubSelected ? styles.addSpot : styles.addSpotDisabled}
+                                            onClick={() => isHubSelected && onAddSpot(selectedLocation)}
+                                            disabled={!isHubSelected}
+                                            title={isHubSelected ? "Add tourist spot" : "Select a starting point first"}
+                                        >
+                                            {isHubSelected ? (
+                                                <>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-plus-icon lucide-map-pin-plus"><path d="M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738"/><circle cx="12" cy="10" r="3"/><path d="M16 18h6"/><path d="M19 15v6"/></svg>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                                        <circle cx="12" cy="10" r="3"></circle>
+                                                    </svg>
+                                                </>
+                                            )}
+                                        </button>
+                                    )
+                                )}
+                            </div>
+                            
+                            {/* MOVED: EXPAND BUTTON (Now in the corner) */}
+                            <div className={styles.actionButtonSection}>
+                                <button className={`${styles.expandBtn} ${isReviewExpanded ? styles.btnRotatedVertical : ''}`}
+                                    onClick={() => setIsReviewExpanded(!isReviewExpanded)}
+                                    title={isReviewExpanded ? "Collapse" : "Expand Details"}
+                                    >
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                {/* --- ITINERARY PREVIEW --- */}
+                <div className={`${styles.itineraryPreview} ${isReviewExpanded ? styles.previewHidden : ''}`}>
+                    
+                    {/* Header Row */}
+                    <div className={styles.previewHeader}>
+                        <div className={styles.previewHeaderTitleGroup}>
+                            <h3 className={`${styles.boxTitle} ${styles.previewHeaderTitle}`}>
+                                Day {currentDay} of {dayCount}
+                            </h3>
+                        </div>
+
+                        {/* Compact Optimize Button */}
+                        <button 
+                            onClick={handleOptimize}
+                            className={styles.optimizeBtnSmall}
+                            title="Fix my route order"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-waypoints-icon lucide-waypoints"><path d="m10.586 5.414-5.172 5.172"/><path d="m18.586 13.414-5.172 5.172"/><path d="M6 12h12"/><circle cx="12" cy="20" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="4" cy="12" r="2"/>
+                            </svg>
+                        </button>
                     </div>
 
-                    <button 
-                        onClick={handleOptimize}
-                        style={{
-                            width: '100%',
-                            marginBottom: '12px',
-                            padding: '8px',
-                            background: 'linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)',
-                            border: 'none',
-                            borderRadius: '6px',
-                            color: 'white',
-                            fontSize: '12px',
-                            fontWeight: 'bold',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '6px'
-                        }}
-                    >
-                        <span>✨</span> Optimize Day {currentDay}
-                    </button>
-
-                    <div style={{
-                        marginTop: '8px', 
-                        marginBottom: '16px', 
-                        padding: '12px',
-                        background: 'rgba(0,0,0,0.2)', 
-                        borderRadius: '8px',
-                        border: '1px solid #374151'
-                    }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                            <span style={{ fontSize: '12px', color: '#E5E7EB', marginTop: '2px' }}>Day {currentDay} Wallet</span>
-                            
-                            <div style={{ textAlign: 'right' }}>
-                                <div style={{ fontWeight: 'bold', fontSize: '12px', color: timeWallet.color }}>
+                    <div className={styles.walletContainer}>
+                        <div className={styles.walletHeader}>                            
+                            <div className={styles.walletStatusGroup}>
+                                <div 
+                                    className={styles.walletLabel} 
+                                    style={{ color: timeWallet.color }}
+                                >
                                     {timeWallet.label}
                                 </div>
-                                <div style={{ fontSize: '10px', color: '#9CA3AF', marginTop: '2px' }}>
+                                <div className={styles.walletSubtext}>
                                     {timeWallet.subtext}
                                 </div>
                             </div>
                         </div>
                         
-                        <div style={{ width: '100%', height: '8px', background: '#374151', borderRadius: '4px', overflow: 'hidden' }}>
-                            <div style={{
-                                width: `${timeWallet.percent}%`,
-                                height: '100%',
-                                backgroundColor: timeWallet.color,
-                                transition: 'width 0.5s ease, background-color 0.5s ease'
-                            }}></div>
+                        <div className={styles.walletBarTrack}>
+                            <div 
+                                className={styles.walletBarFill} 
+                                style={{
+                                    width: `${timeWallet.percent}%`,
+                                    backgroundColor: timeWallet.color,
+                                }}
+                            ></div>
                         </div>
-
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '11px', color: '#9CA3AF' }}>
-                            <span>Schedule Load</span>
-                            <span style={{ color: addedSpots.length > 0 ? timeWallet.color : '#6B7280', fontWeight: 'bold' }}>
-                                {(() => {
-                                    if (addedSpots.length === 0) return "Ready";
-                                    if (timeWallet.remaining < 0) return "Overloaded";
-                                    if (timeWallet.remaining < 120) return "Packed";
-                                    return "Relaxed";
-                                })()}
-                            </span>
+                        <div className={styles.statsRow}>
+                            <span className={styles.statBadge}>{addedSpots?.length || 0} Stops</span>
+                            <span className={styles.statBadge}>{totalDistance} km</span>
                         </div>
                     </div>
                     
-                    <div className={styles.statsRow}>
-                        <span className={styles.statBadge}>{addedSpots?.length || 0} Stops</span>
-                        <span className={styles.statBadge}>{totalDistance} km</span>
-                    </div>
+                    
 
                     <div className={styles.addedSpotsList}>
                         {addedSpots && addedSpots.length > 0 ? (
@@ -394,103 +433,108 @@ const PreferenceCard = ({
                                 <div key={index}>
                                     
                                     {driveData[index]?.driveTime > 0 && (
-                                        <div style={{
-                                            fontSize: '9px',
-                                            color: '#9CA3AF',
-                                            marginLeft: '52px', 
-                                            marginBottom: '4px',
-                                            marginTop: index === 0 ? '0px' : '-4px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '4px'
-                                        }}>
-                                            <div style={{ width: '2px', height: '10px', background: '#4B5563', marginRight: '4px' }}></div>
-                                            🚗 {driveData[index].driveTime} min drive
+                                        <div 
+                                            className={styles.driveTimeLabel}
+                                            style={{ marginTop: index === 0 ? '0px' : '-4px' }}
+                                        >
+                                            <div className={styles.driveTimeLine}></div>
+                                            
+                                            {/* New Car SVG */}
+                                            <svg className={styles.driveTimeIcon} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
+                                                <circle cx="7" cy="17" r="2"></circle>
+                                                <circle cx="17" cy="17" r="2"></circle>
+                                            </svg>
+                                            
+                                            {driveData[index].driveTime} min drive
                                         </div>
                                     )}
 
                                     <div 
-                                        className={styles.miniSpotItem}
-                                        onClick={() => setSelectedLocation(spot)} 
-                                        style={{ 
-                                            borderLeft: spot.locked ? '3px solid #F59E0B' : '3px solid transparent',
-                                            backgroundColor: spot.locked ? 'rgba(245, 158, 11, 0.1)' : 'rgba(255, 255, 255, 0.05)'
-                                        }}
+                                        className={`${styles.miniSpotItem} ${spot.locked ? styles.miniSpotItemLocked : ''}`}
+                                        onClick={() => setSelectedLocation(spot)}
                                     >
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
                                             
-                                            <div style={{ 
-                                                fontSize: '10px', 
-                                                fontWeight: 'bold',
-                                                background: '#374151', 
-                                                color: '#E5E7EB', 
-                                                padding: '2px 6px', 
-                                                borderRadius: '4px',
-                                                minWidth: '45px',
-                                                textAlign: 'center',
-                                                display: 'flex', 
-                                                gap: '4px',
-                                                justifyContent: 'center',
-                                                border: '1px solid #4B5563'
-                                            }}>
-                                                <span>⏳</span>
+                                            <div className={styles.visitDurationBadge}>
+                                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                                </svg>
+                                                
                                                 {spot.visit_time_minutes > 0 ? spot.visit_time_minutes : 60}m
                                             </div>
 
                                             <span className={styles.spotName}>
-                                                {spot.locked && "🔒 "} 
+                                                {spot.locked && (
+                                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                    </svg>
+                                                )} 
                                                 {spot.name}
                                             </span>
                                         </div>
                                         
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                        <div className={styles.spotActions}>
                                             
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); onMoveSpot(index, -1); }}
-                                                style={{ 
-                                                    background: 'none', border: 'none', cursor: 'pointer', 
-                                                    color: index === 0 ? '#444' : '#E5E7EB',
-                                                    fontSize: '10px', padding: '2px 4px'
-                                                }}
+                                                className={styles.spotActionBtn}
+                                                style={{ color: index === 0 ? '#444' : '#E5E7EB' }}
                                                 disabled={index === 0}
                                                 title="Move Up"
                                             >
-                                                ▲
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
                                             </button>
 
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); onMoveSpot(index, 1); }}
-                                                style={{ 
-                                                    background: 'none', border: 'none', cursor: 'pointer', 
-                                                    color: index === addedSpots.length - 1 ? '#444' : '#E5E7EB',
-                                                    fontSize: '10px', padding: '2px 4px'
-                                                }}
+                                                className={styles.spotActionBtn}
+                                                style={{ color: index === addedSpots.length - 1 ? '#444' : '#E5E7EB' }}
                                                 disabled={index === addedSpots.length - 1}
                                                 title="Move Down"
                                             >
-                                                ▼
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
                                             </button>
 
-                                            <div style={{ width: '1px', height: '12px', background: '#4B5563', margin: '0 4px' }}></div>
+                                            <div className={styles.actionDivider}></div>
 
                                             <button 
-                                                className={styles.removeBtn}
+                                                className={`${styles.removeBtn} ${styles.lockBtn}`}
                                                 onClick={(e) => { e.stopPropagation(); onToggleLock(spot.name); }}
                                                 title={spot.locked ? "Unlock" : "Anchor"}
                                                 style={{ 
-                                                    color: spot.locked ? '#F59E0B' : '#6B7280', 
-                                                    fontSize: '14px', margin: '0 2px'
+                                                    color: spot.locked ? '#F59E0B' : '#6B7280'
                                                 }}
                                             >
-                                                {spot.locked ? '🔓' : '⚓'} 
+                                                {spot.locked ? (
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                    </svg>
+                                                ) : (
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <circle cx="12" cy="5" r="3"></circle>
+                                                        <line x1="12" y1="22" x2="12" y2="8"></line>
+                                                        <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
+                                                    </svg>
+                                                )}
                                             </button>
 
                                             <button 
-                                                className={styles.removeBtn}
+                                                className={`${styles.removeBtn} ${styles.removeSmallBtn}`}
                                                 onClick={(e) => { e.stopPropagation(); onRemoveSpot(spot.name); }}
-                                                style={{ color: '#EF4444', fontSize: '16px', marginLeft: '4px' }}
+                                                title="Remove"
                                             >
-                                                &times; 
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
                                             </button>
                                         </div>
                                     </div>
@@ -502,37 +546,65 @@ const PreferenceCard = ({
                             </p>
                         )}
                     </div>
-                <button 
-                    className={styles.saveButton} 
-                    onClick={isLastDay ? handleSaveItinerary : handleSliceAndNext}
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '8px',
-                        backgroundColor: isLastDay ? '#10B981' : undefined
-                    }}
-                >
-                    {isLastDay ? "💾 Save Full Itinerary" : `Complete Day ${currentDay} & Next ➜`}
-                </button>
+
+                    {/* --- BOTTOM BUTTON ROW (UPDATED) --- */}
+                    <div style={{ display: 'flex', gap: '10px', marginTop: '10px', width: '100%' }}>
+                        
+                        {/* BACK BUTTON (Visible Day 2+) */}
+                        {currentDay > 1 && (
+                            <button 
+                                onClick={handlePreviousDay}
+                                className={styles.saveButton} 
+                                style={{ 
+                                    backgroundColor: '#4B5563', 
+                                    width: 'auto', 
+                                    padding: '0 16px',
+                                    marginTop: 0 // Override the default top margin if needed
+                                }}
+                                title="Go back to previous day"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left-icon lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                            </button>
+                        )}
+
+                        {/* NEXT / SAVE BUTTON */}
+                        <button 
+                            className={styles.saveButton} 
+                            onClick={isLastDay ? handleSaveItinerary : handleSliceAndNext}
+                            style={{
+                                backgroundColor: isLastDay ? '#2563EB' : undefined,
+                                flex: 1, // Fill remaining space
+                                marginTop: 0 // Override default
+                            }}
+                        >
+                            {isLastDay ? (
+                                <>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                        <polyline points="7 3 7 8 15 8"></polyline>
+                                    </svg>
+                                    Save
+                                </>
+                            ) : (
+                                <>
+                                    Complete Day {currentDay} & Next 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-forward-icon lucide-forward"><path d="m15 17 5-5-5-5"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/></svg>
+                                </>
+                            )}
+                        </button>
+                    </div>
+
+                    {!isLastDay && (
+                        <div 
+                            onClick={handleSaveItinerary}
+                            className={styles.finishLink}
+                        >
+                            (Or finish and save itinerary now)
+                        </div>
+                    )}
                 </div>
 
-
-                {!isLastDay && (
-                    <div 
-                        onClick={handleSaveItinerary}
-                        style={{
-                            marginTop: '8px',
-                            textAlign: 'center',
-                            fontSize: '11px',
-                            color: '#9CA3AF',
-                            cursor: 'pointer',
-                            textDecoration: 'underline'
-                        }}
-                    >
-                        (Or finish and save itinerary now)
-                    </div>
-                )}
             </div>
         </div>
     );
