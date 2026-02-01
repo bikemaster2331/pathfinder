@@ -21,7 +21,7 @@
     position: absolute;
     top: 20px;
     left: 20px;
-    z-index: 10;
+    z-index: 50;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -36,12 +36,13 @@
     border: 1px solid rgba(80, 80, 80, 0.5);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     overflow: hidden;
+    visibility: hidden;
     opacity: 0;
     transform: translateY(-10px);
     pointer-events: none;
+    display: none;
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    max-height: 75vh;
-    display: flex;
+    max-height: 65vh;
     flex-direction: column;
 }
 
@@ -50,6 +51,8 @@
     transform: translateY(0);
     pointer-events: auto;
     transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+    display: flex;
+    visibility: visible;
 }
 
 .collapsibleHeader {
@@ -194,10 +197,11 @@
 .budgetHelperText,
 .boxHelperText {
     font-size: 0.8rem;
-    color: #ffffff;
+    color: #9c9c9c;
     line-height: 1.4;
     margin-bottom: 20px;
     text-align: center;
+    font-family: 'Inter', sans-serif;
 }
 
 .budgetHelperText {
@@ -232,7 +236,7 @@
 
 .hiddenCheckbox {
     display: none;
-}   
+}
 
 .customCheckboxIcon {
     display: flex;
@@ -371,10 +375,12 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+
     50% {
         opacity: 0.5;
         transform: translateY(-5px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -432,4 +438,28 @@
 :global(.react-datepicker__input-container) {
     display: block !important;
     width: 100% !important;
+}
+
+/* --- NEW: BLUR OVERLAY --- */
+.blurOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 25;
+    /* Above Map (0), Below Controls (10) */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden;
+}
+
+.blurOverlayActive {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
 }
