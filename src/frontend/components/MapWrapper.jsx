@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, forwardRef } from 'react'; // <--- Added useRef here
+import { useState, useEffect, useRef, forwardRef } from 'react'; 
 import MapBackground from './map';
 import styles from '../styles/itinerary_page/MapWrapper.module.css';
 import DatePicker from "react-datepicker";
@@ -49,6 +49,7 @@ const MapWrapper = forwardRef((props, ref) => {
         selectedActivities,
         setSelectedActivities,
         onMarkerClick,
+        selectedLocation, 
         mapData,
         selectedHub,
         addedSpots,
@@ -103,6 +104,7 @@ const MapWrapper = forwardRef((props, ref) => {
                 <MapBackground 
                     ref={ref}
                     selectedActivities={selectedActivities} 
+                    selectedLocation={selectedLocation}
                     mapData={mapData}
                     onMarkerClick={onMarkerClick} 
                     selectedHub={selectedHub}
@@ -110,9 +112,11 @@ const MapWrapper = forwardRef((props, ref) => {
                     budgetFilter={budgetFilter}
                 />
             </div>
-
-            {/* --- TOP RIGHT CONTROLS --- */}
-            {/* Added ref={menuRef} here to track clicks inside vs outside */}
+            <ChatBot onLocationResponse={onChatLocation} />
+            <div 
+                className={`${styles.blurOverlay} ${isMenuOpen ? styles.blurOverlayActive : ''}`}
+                onClick={() => setIsMenuOpen(false)} // Clicking the blurred area closes the menu
+            />
             <div className={styles.leftRightControls} ref={menuRef}>
                 <div 
                     className={styles.collapsibleHeader} 
@@ -143,7 +147,7 @@ const MapWrapper = forwardRef((props, ref) => {
                             <div className={styles.TripBox}>
                                 <div className={styles.journeyMb}>
                                     <h2 className={styles.locHelperText}>
-                                        Select start point and trip dates
+                                        START POINT AND TRIP DATE
                                     </h2>
                                     <select 
                                         className={styles.locField} 
@@ -195,7 +199,7 @@ const MapWrapper = forwardRef((props, ref) => {
                             <div className={styles.budgetBox}>
                                 <div className={styles.budgetMb}>
                                     <h2 className={styles.budgetHelperText}>
-                                        Set your budget
+                                        BUDGET SLIDER
                                     </h2>
                                     <div className={styles.budgetContainer}>
                                         <input
@@ -228,7 +232,7 @@ const MapWrapper = forwardRef((props, ref) => {
                             <hr className={styles.divider} />
                             <div className={styles.activitiesBox}>
                                 <div className={styles.activitiesMb}>
-                                    <h2 className={styles.boxHelperText}>Choose your activities</h2>
+                                    <h2 className={styles.boxHelperText}>CHOOSE ACTIVITIES</h2>
                                     <div className={styles.activitiesOption}>
                                         {Object.keys(selectedActivities).map((activity) => (
                                             <label key={activity} className={styles.activityLabel}>
@@ -267,7 +271,6 @@ const MapWrapper = forwardRef((props, ref) => {
                         </div>
                     </div>
             </div>
-            <ChatBot onLocationResponse={onChatLocation} />
         </div>
     );
 });
