@@ -12,7 +12,7 @@ export default function ChatBot({ onLocationResponse }) {
             // Set a timer to clear the response after 10 seconds
             const timer = setTimeout(() => {
                 setResponse('');
-            }, 10000); // 10000ms = 10 seconds
+            }, 3000); // 5 seconds
 
             // Cleanup the timer if the component unmounts or response changes
             return () => clearTimeout(timer);
