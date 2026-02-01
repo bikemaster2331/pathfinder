@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import styles from '../styles/itinerary_page/Itinerary.module.css';
 import PreferenceCard from '../components/itineraryCard';
 import MapWrapper from '../components/MapWrapper';
+import FloatingToolbar from '../components/toolbar';
 import { TRAVEL_HUBS } from '../constants/location'; 
 
 // --- CONFIGURATION ---
@@ -99,7 +100,7 @@ export default function ItineraryPage() {
     }, [activeHub]);
 
     useEffect(() => {
-        fetch('/catanduanes_full.geojson')
+        fetch('/catanduanes_datafile.geojson')
             .then(res => res.json())
             .then(data => setAllSpots(data))
             .catch(err => console.error("Error loading data:", err));
@@ -107,6 +108,11 @@ export default function ItineraryPage() {
 
     return (
         <div className={styles.itineraryContainer}>
+            {/* <header className={styles.titleHeader}>
+                <div className={styles.headerDot}></div>
+                <h1>Tan-aw</h1>
+            </header> */}
+            <FloatingToolbar />
             {/* Map Container with Controls */}
             <div className={styles.mapArea}>
                 <MapWrapper 
@@ -114,11 +120,12 @@ export default function ItineraryPage() {
                     selectedActivities={selectedActivities}
                     setSelectedActivities={setSelectedActivities}
                     onMarkerClick={setSelectedLocation}
+                    selectedLocation={selectedLocation}
                     mapData={allSpots}
                     selectedHub={activeHub}
                     addedSpots={addedSpots}
                     budgetFilter={budgetFilter}
-                    budget={budget}
+                    budget={budget} 
                     setBudget={setBudget}
                     destination={destination}
                     setDestination={setDestination}
@@ -144,6 +151,58 @@ export default function ItineraryPage() {
                     onMoveSpot={handleMoveSpot}
                     dateRange={dateRange}
                 />
+            </div>
+            <div className={styles.footerCredit}>
+                <p> 
+                    Built by 
+                    <a 
+                        href="https://github.com/bikemaster2331" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={styles.creatorLink}
+                    >
+                        M.L.
+                    </a>
+                    
+                    <span className={styles.footerSeparator}>/</span> 
+                    
+                    {/* Colleagues Links */}
+                    <a 
+                        href="https://www.facebook.com/Roilan.Trasmano" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={styles.colleagueLink}
+                    >
+                        R.B.
+                    </a>
+                    
+                    <a 
+                        href="https://www.facebook.com/Yffffdkkd" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={styles.colleagueLink}
+                    >
+                        J.A.
+                    </a>
+
+                    <a 
+                        href="https://www.facebook.com/patrickjohn.guerrero.1" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={styles.colleagueLink}
+                    >
+                        P.G.
+                    </a>
+
+                    <a 
+                        href="https://www.facebook.com/leetmns.10" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={styles.colleagueLink}
+                    >
+                        J.T.
+                    </a>
+                </p>
             </div>
         </div>
     );
