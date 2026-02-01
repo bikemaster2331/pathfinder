@@ -1,28 +1,24 @@
 .chatContainer {
     position: absolute;
     bottom: 20px;
-    right: 20px;
+    left: 24px;
     width: 380px;
-    /* Slightly wider for better typing space */
     max-width: calc(100% - 40px);
     z-index: 20;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
+    pointer-events: none;
 }
 
 /* The Message Bubble (Response) */
 .responseBox {
     background: rgba(20, 20, 20, 0.85);
-    /* Darker, semi-transparent */
     backdrop-filter: blur(12px);
-    /* Blurs the map behind it */
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Subtle glowing border */
     border-radius: 16px;
     border-bottom-right-radius: 4px;
-    /* subtle chat bubble effect */
     padding: 14px 18px;
     color: #f0f0f0;
     font-size: 0.9rem;
@@ -31,6 +27,8 @@
     overflow-y: auto;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     animation: slideIn 0.3s ease-out;
+    width: 21vw;
+    pointer-events: auto;
 }
 
 .responseBox p {
@@ -39,24 +37,21 @@
 
 /* The Input Capsule */
 .inputForm {
-    width: 100%;
+    position: relative;
+    width: 22vw;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     gap: 8px;
-
-    /* Glass Effect */
     background: rgba(10, 10, 10, 0.75);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-
     border-radius: 50px;
-    /* Pill shape */
     padding: 6px 6px 6px 16px;
-    /* Padding to accomodate the button */
     transition: border-color 0.2s ease, background-color 0.2s ease;
+    pointer-events: auto;
 }
 
 .inputForm:focus-within {
