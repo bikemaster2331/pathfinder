@@ -31845,6 +31845,7 @@
     "type": "Feature",
     "properties": {
       "name": "Mayan Café",
+      "type": "RESTAURANTS & CAFES",
       "description": "A straightforward cafe spot in Virac, providing caffeine fixes for the daily commuter.",
       "municipality": "VIRAC",
       "visit_time_minutes": 45,
