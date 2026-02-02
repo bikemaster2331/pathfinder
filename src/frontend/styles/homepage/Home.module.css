@@ -1,232 +1,471 @@
+/* ================================
+FOUNDATION & LAYOUT
+   ================================ */
+
 .homeContainer {
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(to right, #0c0c0c, #2b3025);
-    color: white;
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-/* --- THE SPLIT LAYOUT WRAPPER --- */
-.splitLayout {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
-    max-width: 95vw;
-    padding: 0 clamp(20px, 4vw, 60px);
-    gap: clamp(20px, 5vw, 100px);
+    min-height: 200vh; /* Extended height to allow scrolling */
+    background: #0a0a0a;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    position: relative;
+    overflow-x: hidden;
 }
 
-.textSection {
-    flex: 0.5;
+.scrollSpacer {
+    height: 60vh;
+    /* Creates extra scroll space to see the zoom effect */
+}
+
+/* Ensure smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ================================
+BACKGROUND EFFECTS
+   ================================ */
+
+.gradientBg {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1200px;
+    height: 800px;
+    background: radial-gradient(ellipse at center,
+            rgba(164, 14, 233, 0.15) 0%,
+            rgba(189, 36, 143, 0.08) 30%,
+            transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.gridOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 1;
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}
+
+/* ================================
+NAVIGATION
+   ================================ */
+
+.navBar {
+    position: relative;
+    z-index: 50;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: clamp(5px, 1vw, 20px);
-    z-index: 10;
-    margin-left: 1vw;
-    /* Ensure text section doesn't stay too wide */
-    min-width: 300px;
-    flex-shrink: 1;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.title {
-    font-family: 'Arial',sans-serif;
-    font-size: clamp(28px, 4vw, 86px);
-
-    font-weight: 400;
-    margin: 0;
-    letter-spacing: -2px;
-    line-height: 0.9;
-    text-transform: uppercase;
-
-    /* Stop title from breaking into too many lines */
-    white-space: nowrap;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: #ffffff;
 }
 
-.subtitle {
-    font-family: 'Arial', sans-serif;
-
-    /* FLUID SUBTITLE: Scales between 12px and 16px */
-    font-size: clamp(12px, 1.2vw, 16px);
-
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0;
-    line-height: 1.5;
-    max-width: 400px;
+.brandIcon {
+    font-size: 12px;
+    color: #d70ee9;
 }
 
-/* --- THE EXPLORE BUTTON --- */
-/* --- THE EXPLORE BUTTON --- */
-.exploreButton {
-    background: transparent;
+.navLinks {
+    display: flex;
+    gap: 40px;
+}
+
+.navLink {
+    font-family: 'Manrope', sans-serif;
+    background: none;
     border: none;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: clamp(18px, 2vw, 28px);
-
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
     padding: 0;
-
-    /* FLUID MARGIN: Shrinks the space above the button slightly on smaller screens */
-    margin-top: clamp(15px, 2vw, 30px);
-
-    transition: transform 0.3s ease;
-    white-space: nowrap;
-    /* Keeps arrow next to text */
+    transition: color 0.2s ease;
+    position: relative;
 }
 
-/* Resize the arrow symbol too */
-.exploreButton span {
-    /* Slightly larger than the text, scaling with it */
-    font-size: clamp(20px, 2.5vw, 32px);
-
-    margin-left: 15px;
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #0ea5e9;
+    transition: width 0.3s ease;
 }
 
-.exploreButton:hover {
-    transform: translateX(10px);
-    opacity: 0.8;
+.navLink:hover {
+    color: #ffffff;
 }
 
-/* --- RIGHT SIDE: MEDIA SECTION --- */
-.mediaSection {
-    flex: 1.5;
-    /* Takes up space on the right */
-    display: flex;
-    justify-content: flex-end;
-    /* Pushes the box to the far right */
-}
-
-.mediaBox {
+.navLink:hover::after {
     width: 100%;
-    max-width: 1100px;
-    height: 750px;
-    background: transparent;
+}
+
+.ctaNav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #0a0a0a;
+    padding: 10px 24px;
+    border: none;
     border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ctaNav:hover {
+    background: #f1f5f9;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+}
+
+.ctaNav svg {
+    transition: transform 0.3s ease;
+}
+
+.ctaNav:hover svg {
+    transform: translateX(4px);
+}
+
+/* ================================
+HERO SECTION
+   ================================ */
+
+.heroSection {
+    font-family: 'Manrope', sans-serif;
+    position: relative;
+    z-index: 10;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 48px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contentWrapper {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+/* Status Badge */
+.statusBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 100px;
+    color: #22d3ee;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+}
+
+.statusDot {
+    width: 6px;
+    height: 6px;
+    background: #22d3ee;
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Headline */
+.headline {
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    margin: 0 0 24px 0;
+    background: linear-gradient(to bottom, #ffffff 30%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.headlineAccent {
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(to right, #64748b, #475569);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Subheadline */
+.subheadline {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(16px, 2vw, 20px);
+    line-height: 1.7;
+    color: #94a3b8;
+    max-width: 640px;
+    margin: 0 auto 48px;
+}
+
+.highlight {
+    color: #f97316;
+    font-style: italic;
+    font-weight: 600;
+}
+
+/* CTA Buttons */
+.ctaGroup {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 220px;
+}
+
+.primaryCta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: #ffffff;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
+}
+
+.primaryCta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.5);
+}
+
+.primaryCta svg {
+    transition: transform 0.3s ease;
+}
+
+.primaryCta:hover svg {
+    transform: rotate(-45deg);
+}
+
+.secondaryCta {
+    background: transparent;
+    color: #cbd5e1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.secondaryCta:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.scrollDownWrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    margin-top: 40px;
 }
 
-.mediaImage {
+.Down {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: bounce 2s infinite;
+}
+
+.Down:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-4px);
+}
+
+.Down svg {
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease;
+}
+
+.Down:hover svg {
+    color: #ffffff;
+}
+/* ================================
+HERO VISUAL
+   ================================ */
+
+.visualWrapper {
+    margin-top: 120px;
+    width: 100%;
+    height: 100%;
+    max-width: 1100px;
+}
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.heroImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- FOOTER LINKS --- */
-.footerLinks {
+.imageContainer:hover .heroImage {
+    transform: scale(1.05);
+}
+
+/* Location Card */
+.locationCard {
     position: absolute;
-    bottom: 40px;
-    right: 40px;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    background: rgba(48, 48, 49, 0.8);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
     display: flex;
-    gap: 24px;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.footerLinks button {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: lowercase;
-    cursor: pointer;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    opacity: 0.9;
-    transition: opacity 0.2s;
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.footerLinks button:hover {
-    opacity: 0.6;
-    text-decoration: underline;
+.cardLabel {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+    margin-bottom: 20px;
 }
 
-/* --- MOBILE RESPONSIVENESS --- */
-@media (max-width: 1024px) {
+.cardHeader svg {
+    color: #64748b;
+}
 
-    /* 1. Changed direction to normal 'column' so we can order items 1, 2, 3 */
-    .splitLayout {
-        display: flex;
+.cardLocation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.cardLocation svg {
+    color: #0ea5e9;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+/* ================================
+RESPONSIVE
+   ================================ */
+
+@media (max-width: 768px) {
+    .navLinks {
+        display: none;
+    }
+
+    .navBar {
+        padding: 16px 24px;
+    }
+
+    .heroSection {
+        padding: 80px 24px 60px;
+    }
+
+    .ctaGroup {
         flex-direction: column;
-        justify-content: center;
-        padding: 0 20px;
         width: 100%;
-        max-width: 95vw;
-        text-align: center;
-        gap: 30px;
-        /* Adjusted gap slightly for better spacing */
     }
 
-    .textSection {
-        display: contents;
-    }
-
-    .title,
-    .subtitle {
-        order: 1;
-    }
-
-    .subtitle {
-        margin-top: -25px;
-    }
-
-    /* 4. Force Box to be SECOND */
-    .mediaSection {
-        order: 2;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        /* Kept your existing margins */
-        margin-top: 5px;
-        margin-bottom: 20px;
-    }
-
-    /* 5. Force Button to be THIRD */
-    .exploreButton {
-        order: 3;
-        margin-top: -25px;
-        text-align: center;
-        font-size: 18px;
-    }
-
-    /* Kept your existing size settings */
-    .mediaBox {
-        width: 100%;
-        max-width: 500px;
-        height: 350px;
-    }
-
-    .title {
-        font-size: 50px;
-    }
-
-    .subtitle {
-        font-size: 14px;
-    }
-
-    /* Kept your existing Footer settings */
-    .footerLinks {
-        position: absolute;
-        bottom: 15px;
-        left: 0;
+    .primaryCta,
+    .secondaryCta {
         width: 100%;
         justify-content: center;
-        display: flex;
-        gap: 24px;
     }
 
-    .footerLinks button {
-        font-size: 9px;
+    .locationCard {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
     }
 }
-
