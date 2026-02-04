@@ -25795,6 +25795,7 @@
       "type": "Feature",
       "properties": {
         "name": "Binurong Point",
+        "is_top_10": true,
         "type": "VIEWPOINTS",
         "description": "Requires an early morning trek to beat the heat, rewarding hikers with a Batanes-like panorama of rolling grassy hills.",
         "municipality": "BARAS",
@@ -25821,6 +25822,7 @@
       "type": "Feature",
       "properties": {
         "name": "Maribina Falls",
+        "is_top_10": true,
         "type": "FALLS",
         "description": "The catch basin is shallow and chillingly cold, making it an accessible quick dip right off the main highway.",
         "municipality": "BATO",
@@ -25847,12 +25849,13 @@
       "type": "Feature",
       "properties": {
         "name": "Mamangal Beach",
+        "is_top_10": true,
         "type": "HOTELS & RESORTS",
         "description": "A glassy, shallow shoreline shaded by vegetation that feels like a private, uncommercialized picnic spot.",
         "municipality": "VIRAC",
         "visit_time_minutes": 120,
         "category": "beach",
-        "outdoor_exposure": "shaded",
+        "outdoor_exposure": "outdoor",
         "opening_hours": "24/7",
         "best_time_of_day": "midday",
         "min_budget": "low",
@@ -25873,6 +25876,7 @@
       "type": "Feature",
       "properties": {
         "name": "Twin Rock Beach Resort",
+        "is_top_10": true,
         "type": "HOTELS & RESORTS",
         "description": "Defined by the iconic dual rock formations offshore, featuring zip-lines and manicured amenities.",
         "municipality": "VIRAC",
@@ -26549,6 +26553,7 @@
       "type": "Feature",
       "properties": {
         "name": "Ba-haw Falls",
+        "is_top_10": true,
         "type": "FALLS",
         "description": "A secluded and serene waterfall tucked in Gigmoto, offering cool waters perfect for a refreshing dip away from the crowds.",
         "municipality": "GIGMOTO",
@@ -26835,6 +26840,7 @@
       "type": "Feature",
       "properties": {
         "name": "Puraran Beach",
+        "is_top_10": true,
         "type": "HOTELS & RESORTS",
         "description": "Home to the famous 'Majestic' wave, this resort is the prime spot for surfers and beach lovers in Catanduanes.",
         "municipality": "BARAS",
@@ -27277,6 +27283,7 @@
       "type": "Feature",
       "properties": {
         "name": "Tampad Beach",
+        "is_top_10": true,
         "type": "VIEWPOINTS",
         "description": "A quick roadside stop best viewed at low tide, when the receding water reveals the rock formations that uncannily resemble Jesus' face.",
         "municipality": "VIRAC",
@@ -27433,6 +27440,7 @@
       "type": "Feature",
       "properties": {
         "name": "Tuwad-Tuwadan Blue Lagoon",
+        "is_top_10": true,
         "type": "VIEWPOINTS",
         "description": "Strictly a low-tide destination; the natural pools emerge from the sea revealing crystal clear water, otherwise, you'll just be staring at rough waves.",
         "municipality": "PANDAN",
@@ -27485,6 +27493,7 @@
       "type": "Feature",
       "properties": {
         "name": "Nahulugan Falls",
+        "is_top_10": true,
         "type": "FALLS",
         "description": "A heavy-volume waterfall best visited during the rainy season for full power; the trek is short and the catch basin is deep enough for a proper swim.",
         "municipality": "GIGMOTO",
@@ -28932,6 +28941,7 @@
       "type": "Feature",
       "properties": {
         "name": "St. John the Baptist Church",
+        "is_top_10": true,
         "type": "RELIGIOUS SITES",
         "description": "A stunning example of colonial architecture standing guard by the river.",
         "municipality": "BATO",
@@ -29133,32 +29143,6 @@
         "coordinates": [
           124.16179072332014,
           13.885858386503344
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "St. John the Baptist Church",
-        "type": "RELIGIOUS SITES",
-        "description": "The center of faith in Caramoran town proper, featuring a simple but well-preserved structure that dates back to the Spanish colonial era.",
-        "municipality": "CARAMORAN",
-        "visit_time_minutes": 30,
-        "category": "religious",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "06:00-18:00",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 195,
-        "image": "/images/st_john_the_baptist_church.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.13504960530524,
-          13.983298993332824
         ]
       }
     },
@@ -31273,32 +31257,6 @@
         "coordinates": [
           124.2284358008955,
           13.581024021555177
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Tampad Beach Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "Located near the 'Face of Jesus' rock formation, this resort offers a mix of beach access and sightseeing opportunities.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "beach",
-        "outdoor_exposure": "open",
-        "opening_hours": "07:00-18:00",
-        "best_time_of_day": "morning",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 327,
-        "image": "/images/tampad_beach_resort.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2059355539561,
-          13.519176854919204
         ]
       }
     },
