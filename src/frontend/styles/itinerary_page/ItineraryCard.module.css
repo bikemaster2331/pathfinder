@@ -149,6 +149,8 @@
 }
 
 .reviewBox.reviewBoxExpanded .boxTitle {
+    position: absolute;
+    top: 270px;
     font-size: 1.4rem;
     /* Shrinks from 1.7rem */
     padding: 8px 12px;
@@ -157,7 +159,8 @@
 
 /* Adjust the Badge */
 .reviewBox.reviewBoxExpanded .distanceBadge {
-    margin-top: -20px;
+    position: absolute;
+    top: 300px;
     font-size: 12px;
     /* Optional: Shrink slightly from 13px */
     padding: 8px 12px;
@@ -289,6 +292,32 @@
     border-radius: 12px;
     padding: 8px 14px;
     /* Optional: Slight shape change */
+}
+
+.metaBox {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: all 0.9s ease;
+}
+
+.metaBox:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.metaLabel {
+    font-size: 0.65rem;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-bottom: 2px;
 }
 
 .addSpot {
