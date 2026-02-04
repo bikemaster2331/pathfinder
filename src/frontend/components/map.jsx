@@ -9,10 +9,10 @@ import styles from '../styles/itinerary_page/map.module.css';
 
 // --- CONFIGURATION ---
 const INITIAL_VIEW = {
-    center: [124.23, 13.71], // first value, increase = move to left, second value, increase = move downward
-    zoom: 10.4, // increase = zoom
-    pitch: 60, // increase = declined perspective
-    bearing: -15 // -negative value = clockwise turn
+    center: [124.23, 13.71], 
+    zoom: 10.4, 
+    pitch: 60, 
+    bearing: -15 
 };
 
 const HARD_BOUNDS = [
@@ -51,22 +51,20 @@ const ICONS = {
     'icon-church': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M12 5v14m-4-8h8" stroke="white" stroke-width="2" fill="none"/></svg>`,
     'icon-shop': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M9 10V8a3 3 0 0 1 6 0v2h2v9H7v-9h2zm2 0h2V8a1 1 0 0 0-2 0v2z" fill="white"/></svg>`,
     'icon-camera': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><circle cx="12" cy="13" r="3" stroke="white" stroke-width="1.5" fill="none"/><path d="M9 8h6l2 2h2v8H5v-8h2l2-2z" fill="none" stroke="white" stroke-width="1.5"/></svg>`,
-    'icon-default': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="8" fill="#555555" stroke="white" stroke-width="2"/></svg>`
+    'icon-default': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="8" fill="#555555" stroke="white" stroke-width="2"/></svg>`,
+    'icon-top10': '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path d="M176,72a48,48,0,1,1-48-48A48,48,0,0,1,176,72Z" fill="#e75b5b"></path><path d="M184,72a56,56,0,1,0-64,55.42V232a8,8,0,0,0,16,0V127.42A56.09,56.09,0,0,0,184,72Zm-56,40a40,40,0,1,1,40-40A40,40,0,0,1,128,112Z" fill="#000000"></path></svg>',
 };
 
 const Map = forwardRef((props, ref) => {
-    // UPDATED: Added selectedLocation to destructuring
     const { selectedActivities, selectedLocation, onMarkerClick, mapData, selectedHub, addedSpots, budgetFilter } = props;
     
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const lastHubRef = useRef(null);
-
-    // Track glowing markers
     const glowingMarkersRef = useRef([]);
+    const animationFrameRef = useRef(null);
 
-    // --- EXPOSE METHODS TO PARENT ---
     useImperativeHandle(ref, () => ({
         handleChatbotLocations: (locations) => {
             if (!locations || locations.length === 0 || !map.current) return;
@@ -75,7 +73,6 @@ const Map = forwardRef((props, ref) => {
 
             clearGlowingMarkers();
 
-            // Single Location -> Fly directly + Add Glow
             if (locations.length === 1) {
                 const coords = locations[0].coordinates;
                 
@@ -103,7 +100,6 @@ const Map = forwardRef((props, ref) => {
                     `)
                     .addTo(map.current);
             } 
-            // Multiple Locations -> Fit bounds + Add Glows
             else {
                 const bounds = new maplibregl.LngLatBounds();
                 
@@ -120,13 +116,11 @@ const Map = forwardRef((props, ref) => {
         }
     }));
 
-    // --- Clear All Glowing Markers ---
     const clearGlowingMarkers = () => {
         glowingMarkersRef.current.forEach(marker => marker.remove());
         glowingMarkersRef.current = [];
     };
 
-    // --- Add Glowing Marker ---
     const addGlowingMarker = (location) => {
         if (!map.current) return;
         
@@ -157,45 +151,35 @@ const Map = forwardRef((props, ref) => {
                 .addTo(map.current);
         });
         
-        // Auto-remove after 10 seconds
         setTimeout(() => {
             marker.remove();
             glowingMarkersRef.current = glowingMarkersRef.current.filter(m => m !== marker);
         }, 10000); 
     };
 
-    // --- FILTER LOGIC ---
     useEffect(() => {
         if (!isLoaded || !map.current) return;
 
         const activeActivities = Object.keys(selectedActivities).filter(key => selectedActivities[key]);
         const allowedTypes = [...new Set(activeActivities.flatMap(act => ACTIVITY_MAPPING[act]))];
         
-        const combinedFilter = ['all', ['==', '$type', 'Point']];
+        const commonCriteria = [];
+        if (allowedTypes.length > 0) commonCriteria.push(['in', 'type', ...allowedTypes]);
+        if (budgetFilter && budgetFilter.length > 0) commonCriteria.push(['in', 'min_budget', ...budgetFilter]);
 
-        if (allowedTypes.length > 0) {
-            combinedFilter.push(['in', 'type', ...allowedTypes]);
-        }
-
-        if (budgetFilter && budgetFilter.length > 0) {
-            combinedFilter.push(['in', 'min_budget', ...budgetFilter]);
-        }
+        const standardFilter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['!', ['to-boolean', ['get', 'is_top_10']]]];
+        const top10Filter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['to-boolean', ['get', 'is_top_10']]];
 
         try {
-            // Apply filter to BOTH layers
-            if (map.current.getLayer('tourist-points')) {
-                map.current.setFilter('tourist-points', combinedFilter);
-            }
-            if (map.current.getLayer('tourist-dots')) {
-                map.current.setFilter('tourist-dots', combinedFilter);
-            }
+            if (map.current.getLayer('tourist-dots')) map.current.setFilter('tourist-dots', standardFilter);
+            if (map.current.getLayer('tourist-points')) map.current.setFilter('tourist-points', standardFilter);
+            if (map.current.getLayer('top-10-points')) map.current.setFilter('top-10-points', top10Filter);
         } catch (error) { 
             console.error("Filter error:", error); 
         }
 
     }, [selectedActivities, budgetFilter, isLoaded]);
 
-    // --- HUB LOGIC ---
     useEffect(() => {
         if (!isLoaded || !map.current || !selectedHub) return;
 
@@ -255,7 +239,6 @@ const Map = forwardRef((props, ref) => {
         
     }, [selectedHub, isLoaded]);
     
-    // --- ROUTE LOGIC (UPDATED WITH GHOST LINE) ---
     useEffect(() => {
         if (!isLoaded || !map.current) return;
 
@@ -264,7 +247,6 @@ const Map = forwardRef((props, ref) => {
         const previewSourceId = 'preview-route-line';
         const previewLayerId = 'preview-route-layer';
 
-        // 1. Draw Solid Route (Confirmed)
         const updateSolidRoute = () => {
             const stops = [];
             
@@ -324,10 +306,8 @@ const Map = forwardRef((props, ref) => {
             }
         };
 
-        // 2. Draw Ghost Route (Hub -> Selected Spot)
         const updatePreviewRoute = () => {
             const target = selectedLocation;
-            // Logic: Don't show ghost line if it's already added or no hub exists
             const isAdded = target && addedSpots.some(s => s.name === target.name);
             let previewCoords = [];
 
@@ -359,7 +339,7 @@ const Map = forwardRef((props, ref) => {
                         'line-dasharray': [2, 2], // Dashed line
                         'line-opacity': 0.7 
                     }
-                }, 'tourist-points'); // Draw below icons
+                }, 'tourist-points'); 
             }
         };
 
@@ -372,7 +352,6 @@ const Map = forwardRef((props, ref) => {
 
     }, [selectedHub, addedSpots, isLoaded, selectedLocation]);
 
-    // --- MAP INIT ---
     useEffect(() => {
         if (map.current) return;
 
@@ -394,7 +373,12 @@ const Map = forwardRef((props, ref) => {
             minZoom: 9, 
             maxZoom: 15,
             attributionControl: false,
-            maxBounds: HARD_BOUNDS
+            maxBounds: HARD_BOUNDS,
+            dragPan: true,
+            touchZoomRotate: true,
+            touchPitch: true,
+            clickTolerance: 12,
+            cooperativeGestures: false
         });
 
         const resizeObserver = new ResizeObserver(() => {
@@ -434,7 +418,7 @@ const Map = forwardRef((props, ref) => {
                     source: 'all-data', 
                     filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], 
                     paint: { 
-                        'fill-color': '#e7e7e7',
+                        'fill-color': '#bebebe',
                         'fill-opacity': 1 
                     } 
                 });
@@ -450,7 +434,6 @@ const Map = forwardRef((props, ref) => {
                     } 
                 });
                 
-                // REVISED: Municipality Labels (Hide at low zoom)
                 map.current.addLayer({ 
                     id: 'municipality-labels', 
                     type: 'symbol', 
@@ -469,14 +452,12 @@ const Map = forwardRef((props, ref) => {
                         'text-opacity': 0.9
                     } 
                 });
-                
-                // NEW: Tourist Dots (Stage 1 & 2 - Density View)
                 map.current.addLayer({
                     id: 'tourist-dots',
                     type: 'circle',
                     source: 'all-data',
-                    maxzoom: 12, // <--- VISIBLE ONLY WHEN ZOOMED OUT
-                    filter: ['==', ['geometry-type'], 'Point'],
+                    maxzoom: 12,
+                    filter: ['all', ['==', ['geometry-type'], 'Point'], ['!', ['to-boolean', ['get', 'is_top_10']]]],
                     paint: {
                         'circle-radius': 3.5,
                         'circle-color': '#111111',
@@ -486,13 +467,12 @@ const Map = forwardRef((props, ref) => {
                     }
                 });
 
-                // REVISED: Tourist Points (Stage 3 - Icon View)
                 map.current.addLayer({
                     id: 'tourist-points', 
                     type: 'symbol', 
                     source: 'all-data', 
-                    minzoom: 12, // <--- VISIBLE ONLY WHEN ZOOMED IN
-                    filter: ['==', ['geometry-type'], 'Point'],
+                    minzoom: 12,
+                    filter: ['all', ['==', ['geometry-type'], 'Point'], ['!', ['to-boolean', ['get', 'is_top_10']]]],
                     layout: {
                         'icon-image': [
                             'match', 
@@ -503,11 +483,25 @@ const Map = forwardRef((props, ref) => {
                             'RESTAURANTS & CAFES', 'icon-food', 
                             'RELIGIOUS SITES', 'icon-church', 
                             'SHOPPING', 'icon-shop',
-                            'icon-default' // Fallback
+                            'icon-default'
                         ],
                         'icon-size': 1, 
                         'icon-allow-overlap': true,
                         'icon-anchor': 'center'
+                    }
+                });
+
+                map.current.addLayer({
+                    id: 'top-10-points',
+                    type: 'symbol',
+                    source: 'all-data',
+                    filter: ['all', ['==', ['geometry-type'], 'Point'], ['to-boolean', ['get', 'is_top_10']]],
+                    layout: {
+                        'icon-image': 'icon-top10',
+                        'icon-size': 1.25,
+                        'icon-allow-overlap': true,
+                        'icon-anchor': 'center',
+                        'symbol-sort-key': 1
                     }
                 });
 
@@ -530,7 +524,19 @@ const Map = forwardRef((props, ref) => {
 
                 setIsLoaded(true);
 
-                // --- RESET HANDLER 1: Bounds Check (Dragging) ---
+                const animateBounce = () => {
+                    const time = Date.now() / 1000;
+                    const yOffset = Math.sin(time * 3) * -5; 
+
+                    if (map.current) {
+                        if (map.current.getLayer('top-10-points')) {
+                            map.current.setPaintProperty('top-10-points', 'icon-translate', [0, yOffset]);
+                        }
+                    }
+                    animationFrameRef.current = requestAnimationFrame(animateBounce);
+                };
+                animateBounce();
+
                 map.current.on('dragend', () => {
                     if (!map.current) return;
                     
@@ -566,7 +572,6 @@ const Map = forwardRef((props, ref) => {
                     }
                 });
 
-                // --- RESET HANDLER 2: Zoom Check ---
                 map.current.on('zoomend', () => {
                     if (!map.current) return;
                     if (map.current.getZoom() < 9.8) {
@@ -581,7 +586,16 @@ const Map = forwardRef((props, ref) => {
                 });
 
                 map.current.on('click', 'island-fill', (e) => {
-                    if (!map.current || !e.features[0].properties.MUNICIPALI) return;
+                    if (!map.current) return;
+
+                    const features = map.current.queryRenderedFeatures(e.point, {
+                        layers: ['tourist-points', 'top-10-points'] 
+                    });
+
+                    if (features.length > 0) return;
+
+                    if (!e.features[0].properties.MUNICIPALI) return;
+                    
                     const b = new maplibregl.LngLatBounds();
                     e.features[0].geometry.coordinates.flat(Infinity).forEach((c, i, arr) => { 
                         if (i % 2 === 0) b.extend([c, arr[i+1]]); 
@@ -589,10 +603,25 @@ const Map = forwardRef((props, ref) => {
                     map.current.fitBounds(b, { padding: 50, maxZoom: 12.5 });
                 });
 
-                // Interaction only enabled for icons (Zoom 12+)
-                map.current.on('click', 'tourist-points', (e) => {
+                const handlePointClick = (e) => {
                     if (!map.current) return;
                     const f = e.features[0];
+                    const currentZoom = map.current.getZoom();
+                    
+                    if (currentZoom < 12) {
+                        map.current.flyTo({
+                            center: f.geometry.coordinates,
+                            zoom: 14, 
+                            speed: 1.5,
+                            essential: true
+                        });
+                    } else {
+                        map.current.easeTo({
+                            center: f.geometry.coordinates,
+                            duration: 300 
+                        });
+                    }
+
                     new maplibregl.Popup({ offset: 15 })
                         .setLngLat(f.geometry.coordinates)
                         .setHTML(`
@@ -605,9 +634,12 @@ const Map = forwardRef((props, ref) => {
 
                     const spotData = { ...f.properties, geometry: f.geometry };
                     if (onMarkerClick) onMarkerClick(spotData);
-                });
+                };
+
+                map.current.on('click', 'tourist-points', handlePointClick);
+                map.current.on('click', 'top-10-points', handlePointClick);
                     
-                ['island-fill', 'tourist-points'].forEach(l => {
+                ['tourist-points', 'top-10-points'].forEach(l => {
                     map.current.on('mouseenter', l, () => {
                         if (map.current) map.current.getCanvas().style.cursor = 'pointer';
                     });
@@ -615,6 +647,7 @@ const Map = forwardRef((props, ref) => {
                         if (map.current) map.current.getCanvas().style.cursor = '';
                     });
                 });
+                    
             }).catch(err => {
                 console.error('Failed to load map data:', err);
             });
@@ -622,6 +655,7 @@ const Map = forwardRef((props, ref) => {
 
         return () => {
             resizeObserver.disconnect();
+            if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
             if (map.current) { 
                 map.current.remove(); 
                 map.current = null; 
@@ -630,7 +664,14 @@ const Map = forwardRef((props, ref) => {
     }, []); 
 
     return (
-        <div ref={mapContainer} className={styles.mapContainer} />
+    <div 
+        ref={mapContainer} 
+        className={styles.mapContainer} 
+        style={{ 
+            touchAction: 'none',  // <--- MANDATORY for touch to work
+            outline: 'none' 
+        }} 
+    />
     );
 });
 
