@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import styles from '../styles/itinerary_page/Itinerary.module.css';
 import PreferenceCard from '../components/itineraryCard';
 import MapWrapper from '../components/MapWrapper';
-import FloatingToolbar from '../components/toolbar';
+import SharedNavbar from '../components/navbar';
 import { TRAVEL_HUBS } from '../constants/location'; 
 
 // --- CONFIGURATION ---
@@ -108,11 +108,8 @@ export default function ItineraryPage() {
 
     return (
         <div className={styles.itineraryContainer}>
-            {/* <header className={styles.titleHeader}>
-                <div className={styles.headerDot}></div>
-                <h1>Tan-aw</h1>
-            </header> */}
-            <FloatingToolbar />
+            <div className={styles.gradientBg} />
+            <div className={styles.gridOverlay} />  
             {/* Map Container with Controls */}
             <div className={styles.mapArea}>
                 <MapWrapper 
