@@ -1,10 +1,6 @@
-/* ================================
-FOUNDATION & LAYOUT
-   ================================ */
-
 .homeContainer {
     width: 100%;
-    min-height: 200vh; /* Extended height to allow scrolling */
+    min-height: 200vh;
     background: #0a0a0a;
     color: #ffffff;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
@@ -14,17 +10,12 @@ FOUNDATION & LAYOUT
 
 .scrollSpacer {
     height: 60vh;
-    /* Creates extra scroll space to see the zoom effect */
 }
 
-/* Ensure smooth scrolling */
 html {
     scroll-behavior: smooth;
 }
 
-/* ================================
-BACKGROUND EFFECTS
-   ================================ */
 
 .gradientBg {
     position: absolute;
@@ -57,108 +48,6 @@ BACKGROUND EFFECTS
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
 }
 
-/* ================================
-NAVIGATION
-   ================================ */
-
-.navBar {
-    position: relative;
-    z-index: 50;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 48px;
-    max-width: 1400px;
-    margin: 0 auto;
-    background: rgba(10, 10, 10, 0.6);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 28px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    color: #ffffff;
-}
-
-.brandIcon {
-    font-size: 12px;
-    color: #d70ee9;
-}
-
-.navLinks {
-    display: flex;
-    gap: 40px;
-}
-
-.navLink {
-    font-family: 'Manrope', sans-serif;
-    background: none;
-    border: none;
-    color: #94a3b8;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 0;
-    transition: color 0.2s ease;
-    position: relative;
-}
-
-.navLink::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: #0ea5e9;
-    transition: width 0.3s ease;
-}
-
-.navLink:hover {
-    color: #ffffff;
-}
-
-.navLink:hover::after {
-    width: 100%;
-}
-
-.ctaNav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #ffffff;
-    color: #0a0a0a;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 100px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.ctaNav:hover {
-    background: #f1f5f9;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
-}
-
-.ctaNav svg {
-    transition: transform 0.3s ease;
-}
-
-.ctaNav:hover svg {
-    transform: translateX(4px);
-}
-
-/* ================================
-HERO SECTION
-   ================================ */
 
 .heroSection {
     font-family: 'Manrope', sans-serif;
@@ -177,7 +66,6 @@ HERO SECTION
     margin-bottom: 80px;
 }
 
-/* Status Badge */
 .statusBadge {
     display: inline-flex;
     align-items: center;
@@ -192,6 +80,7 @@ HERO SECTION
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin-bottom: 32px;
+    margin-top: 95px;
 }
 
 .statusDot {
@@ -214,7 +103,6 @@ HERO SECTION
     }
 }
 
-/* Headline */
 .headline {
     font-size: clamp(48px, 7vw, 96px);
     font-weight: 700;
@@ -236,7 +124,6 @@ HERO SECTION
     background-clip: text;
 }
 
-/* Subheadline */
 .subheadline {
     font-family: 'Manrope', sans-serif;
     font-size: clamp(16px, 2vw, 20px);
@@ -252,7 +139,6 @@ HERO SECTION
     font-weight: 600;
 }
 
-/* CTA Buttons */
 .ctaGroup {
     display: flex;
     gap: 16px;
@@ -342,9 +228,6 @@ HERO SECTION
 .Down:hover svg {
     color: #ffffff;
 }
-/* ================================
-HERO VISUAL
-   ================================ */
 
 .visualWrapper {
     margin-top: 120px;
@@ -376,7 +259,6 @@ HERO VISUAL
     transform: scale(1.05);
 }
 
-/* Location Card */
 .locationCard {
     position: absolute;
     bottom: 24px;
@@ -435,9 +317,6 @@ HERO VISUAL
         transform: translateY(-10px);
     }
 }
-/* ================================
-RESPONSIVE
-   ================================ */
 
 @media (max-width: 768px) {
     .navLinks {
