@@ -80,7 +80,7 @@ html {
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin-bottom: 32px;
-    margin-top: 95px;
+    margin-top: 45px;
 }
 
 .statusDot {
@@ -144,7 +144,7 @@ html {
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 210px;
+    margin-bottom: 50px;
 }
 
 .primaryCta {
@@ -194,6 +194,31 @@ html {
     color: #ffffff;
 }
 
+.badgesContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 110px;
+    padding: 0 24px;
+}
+
+.badgeImage {
+    max-width: 100%;
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+    opacity: 0.85;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.badgeImage:hover {
+    opacity: 1;
+    transform: translateY(-4px);
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.25));
+}
+
 .scrollDownWrapper {
     display: flex;
     justify-content: center;
@@ -201,6 +226,7 @@ html {
 }
 
 .Down {
+    margin-top: 20px;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
@@ -246,6 +272,8 @@ html {
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.5),
         0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
 }
 
 .heroImage {
@@ -256,23 +284,9 @@ html {
     border-radius: 24px;
 }
 
-.imageContainer:hover .heroImage {
-    transform: scale(1.05);
-}
-
-.locationCard {
-    position: absolute;
-    bottom: 24px;
-    left: 24px;
-    right: 24px;
-    background: rgba(48, 48, 49, 0.8);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.imageContainer:hover {
+    transform: scale(1.02);
+    
 }
 
 .catnes {
@@ -330,7 +344,246 @@ html {
     }
 }
 
+/* ================================
+   SLIDESHOW NAVIGATION & INDICATORS
+   ================================ */
+
+.navArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navArrowLeft {
+    left: 20px;
+}
+
+.navArrowRight {
+    right: 20px;
+}
+
+.navArrow:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.navArrow:active {
+    transform: translateY(-50%) scale(0.95);
+    will-change: transform;
+}
+
+.slideIndicators {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 15;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.indicatorDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+}
+
+.indicatorDot:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.indicatorDotActive {
+    width: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+.slideshowImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+}
+
+/* Location Card - Moved Higher */
+.locationCard {
+    position: absolute;
+    bottom: 20px;
+    /* ← Moved up from 24px to avoid indicators */
+    left: 24px;
+    right: 24px;
+    background: rgba(48, 48, 49, 0.8);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.testimonialsSection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 120px auto 80px;
+    padding: 0 48px;
+}
+
+.testimonialCard {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonialCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(14, 165, 233, 0.5) 50%,
+            transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.testimonialCard:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.testimonialCard:hover::before {
+    opacity: 1;
+}
+
+.testimonialAvatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0ea5e9;
+}
+
+.testimonialLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+}
+
+.testimonialQuote {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+    margin: 0;
+    flex: 1;
+}
+
+.testimonialMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.metaDot {
+    width: 6px;
+    height: 6px;
+    background: #10B981;
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+
+
+/* Mobile Adjustments */
 @media (max-width: 768px) {
+    .navArrow {
+        width: 40px;
+        height: 40px;
+    }
+
+    .navArrowLeft {
+        left: 12px;
+    }
+
+    .navArrowRight {
+        right: 12px;
+    }
+
+    .slideIndicators {
+        top: 12px;
+        padding: 6px 12px;
+        gap: 6px;
+    }
+
+    .indicatorDot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .indicatorDotActive {
+        width: 24px;
+    }
+
+    .locationCard {
+        left: 16px;
+        right: 16px;
+        bottom: 60px;
+        /* Adjusted for mobile */
+        padding: 16px;
+    }
+
     .navLinks {
         display: none;
     }
@@ -354,9 +607,22 @@ html {
         justify-content: center;
     }
 
-    .locationCard {
-        left: 16px;
-        right: 16px;
-        bottom: 16px;
+    .badgesContainer {
+        margin-top: 32px;
+        margin-bottom: 40px;
+    }
+
+    .badgeImage {
+        max-height: 80px;
+    }
+
+    .testimonialsSection {
+        grid-template-columns: 1fr;
+        margin: 80px auto 60px;
+        padding: 0 24px;
+        gap: 16px;
+    }   
+    .testimonialCard {
+        padding: 20px;
     }
 }
