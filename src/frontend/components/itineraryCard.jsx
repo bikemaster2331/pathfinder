@@ -5,7 +5,7 @@ import styles from '../styles/itinerary_page/ItineraryCard.module.css';
 import { calculateDistance, calculateTotalRoute, calculateDriveTimes, calculateTimeUsage } from '../utils/distance'; 
 import { optimizeRoute } from '../utils/optimize';
 import { generateItineraryPDF } from '../utils/generatePDF';
-import defaultBg from '../assets/images/catanduanes.png';
+import defaultBg from '../assets/images/card/catanduanes.png';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PreferenceCard = ({ 
@@ -388,7 +388,7 @@ const PreferenceCard = ({
                                     <div style={{ paddingTop: '1.5rem', paddingBottom: '0.5rem' }}>
                                         
                                         {/* THE "SMART TAGS" GRID */}
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                                        <div className={styles.metaHandler}>
 
                                             {/* A. ENVIRONMENT */}
                                             <div className={styles.metaBox}>
@@ -414,7 +414,7 @@ const PreferenceCard = ({
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
                                                     <span>
                                                         {selectedLocation?.min_budget === 'high' ? '₱₱₱' : 
-                                                         selectedLocation?.min_budget === 'medium' ? '₱₱' : '₱'}
+                                                        selectedLocation?.min_budget === 'medium' ? '₱₱' : '₱'}
                                                     </span>
                                                 </div>
                                             </div>
