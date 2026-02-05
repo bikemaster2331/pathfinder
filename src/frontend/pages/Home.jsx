@@ -1,33 +1,59 @@
 import { useNavigate } from 'react-router-dom';
-import { useRef, useState, useEffect } from 'react'; // Added useEffect
+import { useRef, useState, useEffect } from 'react';
 import styles from '../styles/homepage/Home.module.css';
 import { motion, AnimatePresence, wrap } from 'framer-motion';
 import SharedNavbar from '../components/navbar';
+import badges from '../assets/images/card/badges.png';
 
 const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg,svg}', { 
-    eager: true, 
-    import: 'default' 
+    eager: true,
+    import: 'default',
 });
 
 const IMAGES = Object.values(imageModules);
 
 const slideVariants = {
     enter: (direction) => ({
-        x: direction > 0 ? 0 : -1000,
+        x: direction > 0 ? 1200 : -1200,
         opacity: 0,
-        scale: 1.1 
+        scale: 0.95,
+        filter: "blur(10px)"
     }),
     center: {
         zIndex: 1,
         x: 0,
         opacity: 1,
-        scale: 1
+        scale: 1,
+        filter: "blur(0px)"
     },
     exit: (direction) => ({
         zIndex: 0,
-        x: direction < 0 ? 0 : -1000,
-        opacity: 0
+        x: direction < 0 ? 1200 : -1200,
+        opacity: 0,
+        scale: 0.95,
+        filter: "blur(10px)"
     })
+};
+
+// SPEED CONTROL: Adjust these values
+const slideTransition = {
+    x: { 
+        type: "spring", 
+        stiffness: 400,    // ← Increase for faster (try 600-800)
+        damping: 40,       // ← Lower for snappier (try 30-35)
+        mass: 0.5          // ← Lower for lighter feel
+    },
+    opacity: { 
+        duration: 0.3,     // ← Decrease for instant fade
+        ease: [0.25, 0.1, 0.25, 1]
+    },
+    scale: {
+        duration: 0.3,
+        ease: [0.34, 1.56, 0.64, 1]
+    },
+    filter: {
+        duration: 0.25
+    }
 };
 
 export default function Home() {
@@ -41,16 +67,14 @@ export default function Home() {
         setPage([page + newDirection, newDirection]);
     };
 
-    // --- AUTO-PLAY ENGINE ---
     useEffect(() => {
         const timer = setInterval(() => {
             paginate(1);
-        }, 5000); // Change 5000 to whatever speed you want (ms)
+        }, 4000);
         return () => clearInterval(timer);
     }, [page]); 
-    // ------------------------
 
-    const swipeConfidenceThreshold = 10000;
+    const swipeConfidenceThreshold = 8000;
     const swipePower = (offset, velocity) => {
         return Math.abs(offset) * velocity;
     };
@@ -108,7 +132,7 @@ export default function Home() {
                         Explore the island of <span className={styles.catnes}>Catanduanes</span> with us.
                     </motion.p>
 
-                    <motion.div variants={fadeInUp} custom={2} className={styles.ctaGroup}>
+                    <motion.div variants={fadeInUp} custom={1.5} className={styles.ctaGroup}>
                         <button className={styles.primaryCta} onClick={() => navigate('/itinerary')}>
                             <span>Start Exploring</span>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -119,8 +143,20 @@ export default function Home() {
                             Work with us
                         </button>
                     </motion.div>
+
+                    <motion.div 
+                        variants={fadeInUp} 
+                        custom={1.5}
+                        className={styles.badgesContainer}
+                    >
+                        <img 
+                            src={badges}
+                            alt="Badges"
+                            className={styles.badgeImage}
+                        />
+                    </motion.div>
                     
-                    <motion.div variants={fadeInUp} custom={2.2} className={styles.scrollDownWrapper}>
+                    <motion.div variants={fadeInUp} custom={2} className={styles.scrollDownWrapper}>
                         <button className={styles.Down} onClick={scrollToImage}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="m7 6 5 5 5-5"/>
@@ -130,7 +166,6 @@ export default function Home() {
                     </motion.div>
                 </motion.div>
 
-                {/* Hero Visual */}
                 <motion.div
                     ref={imageRef}
                     variants={scaleIn}
@@ -139,9 +174,9 @@ export default function Home() {
                     viewport={{ once: true, margin: "-200px" }}
                     className={styles.visualWrapper}
                 >
-                    <div className={styles.imageContainer} style={{ position: 'relative', overflow: 'hidden' }}>
+                    <div className={styles.imageContainer}>
                         
-                        <AnimatePresence initial={false} custom={direction}>
+                        <AnimatePresence initial={false} custom={direction} mode="popLayout">
                             <motion.img
                                 key={page}
                                 src={IMAGES[imageIndex]}
@@ -150,13 +185,10 @@ export default function Home() {
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
-                                transition={{
-                                    x: { type: "spring", stiffness: 300, damping: 30 },
-                                    opacity: { duration: 0.2 }
-                                }}
+                                transition={slideTransition}
                                 drag="x"
                                 dragConstraints={{ left: 0, right: 0 }}
-                                dragElastic={1}
+                                dragElastic={0.2}
                                 onDragEnd={(e, { offset, velocity }) => {
                                     const swipe = swipePower(offset.x, velocity.x);
                                     if (swipe < -swipeConfidenceThreshold) {
@@ -166,36 +198,52 @@ export default function Home() {
                                     }
                                 }}
                                 alt="Catanduanes Slideshow"
-                                className={styles.heroImage}
-                                style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} 
+                                className={styles.slideshowImage}
                             />
                         </AnimatePresence>
 
-                        {/* Controls */}
-                        <div 
-                            style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', zIndex: 10, cursor: 'w-resize' }} 
-                            onClick={() => paginate(-1)} 
-                            title="Previous Photo"
-                        />
-                        <div 
-                            style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', zIndex: 10, cursor: 'e-resize' }} 
-                            onClick={() => paginate(1)} 
-                            title="Next Photo"
-                        />
+                        {/* Arrow Navigation */}
+                        <button 
+                            className={`${styles.navArrow} ${styles.navArrowLeft}`}
+                            onClick={() => paginate(-1)}
+                            aria-label="Previous image"
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
 
-                        {/* Location Card */}
+                        <button 
+                            className={`${styles.navArrow} ${styles.navArrowRight}`}
+                            onClick={() => paginate(1)}
+                            aria-label="Next image"
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+
+                        {/* Slide Indicators - NOW AT TOP */}
+                        <div className={styles.slideIndicators}>
+                            {IMAGES.map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setPage([idx, idx > imageIndex ? 1 : -1])}
+                                    className={`${styles.indicatorDot} ${idx === imageIndex ? styles.indicatorDotActive : ''}`}
+                                    aria-label={`Go to slide ${idx + 1}`}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Location Card - Moved Higher */}
                         <motion.div 
                             className={styles.locationCard}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.2, duration: 0.6 }}
-                            style={{ zIndex: 20, pointerEvents: 'none' }}
                         >
                             <div className={styles.cardHeader}>
                                 <span className={styles.cardLabel}>Current Location</span>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
-                                </svg>
                             </div>
                             
                             <div className={styles.cardLocation}>
@@ -207,6 +255,68 @@ export default function Home() {
                         </motion.div>
                     </div>
                 </motion.div>
+
+                <motion.section 
+    className={styles.testimonialsSection}
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+>
+    <div className={styles.testimonialCard}>
+        <div className={styles.testimonialAvatar}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+            </svg>
+        </div>
+        <span className={styles.testimonialLabel}>First-time Visitor</span>
+        <p className={styles.testimonialQuote}>
+            "Ang bilis lang magplano, will use again"
+        </p>
+        <div className={styles.testimonialMeta}>
+            <span className={styles.metaDot}></span>
+            <span>Verified Experience</span>
+        </div>
+    </div>
+
+    <div className={styles.testimonialCard}>
+        <div className={styles.testimonialAvatar}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+        </div>
+        <span className={styles.testimonialLabel}>Weekend Explorer</span>
+        <p className={styles.testimonialQuote}>
+            "Shoutout sa mga kapamilya at mga kaibigan ko, sikat na ako"
+        </p>
+        <div className={styles.testimonialMeta}>
+            <span className={styles.metaDot}></span>
+            <span>Verified Experience</span>
+        </div>
+    </div>
+
+    <div className={styles.testimonialCard}>
+        <div className={styles.testimonialAvatar}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+        </div>
+        <span className={styles.testimonialLabel}>Group Trip Organizer</span>
+        <p className={styles.testimonialQuote}>
+            "Multi-day planner kept our group of 8 perfectly coordinated across 3 days. Sa mga graduating d'yan ingat!"
+        </p>
+        <div className={styles.testimonialMeta}>
+            <span className={styles.metaDot}></span>
+            <span>Verified Experience</span>
+        </div>
+    </div>
+</motion.section>
+
             </main>
         </div>
     );
