@@ -735,15 +735,15 @@
     "place_name": "Nahulugan Falls"
   },
   {
-    "input": "Where is Tres Karas de Kristo (Face of Jesus Beach)?",
-    "output": "Tres Karas de Kristo (Face of Jesus Beach) is a scenic spot located in Virac.",
-    "title": "Tres Karas de Kristo Overview",
+    "input": "Where is Tampad Beach?",
+    "output": "Tampad Beach is a scenic spot located in Virac.",
+    "title": "Tampad Beach Location",
     "topic": "Sightseeing",
     "location": "Virac",
     "activities": "sightseeing",
-    "summary_offline": "Tres Karas de Kristo (Face of Jesus Beach) is a scenic spot located in Virac.",
+    "summary_offline": "Tampad Beach is a scenic spot located in Virac.",
     "coordinates": {"lat": 13.518763507546256, "lng": 124.20595165635922},
-    "place_name": "Tres Karas de Kristo/Face of Jesus Beach"
+    "place_name": "Tampad Beach"
   },
 {
     "input": "Where is Ba-haw Falls?",
@@ -1286,18 +1286,6 @@
     "summary_offline": "Solong Falls is located in San Miguel.",
     "coordinates": {"lat": 13.654843207001997, "lng": 124.29318572123779},
     "place_name": "Solong Falls"
-  },
-  {
-    "input": "Where is 3s Pares Marias located?",
-    "output": "3s Pares Marias is a local restaurant located in San Miguel.",
-    "title": "3s Pares Marias Location",
-    "topic": "Food",
-    "location": "San Miguel",
-    "activities": "dining",
-    "budget": "cheap",
-    "summary_offline": "3s Pares Marias is located in San Miguel.",
-    "coordinates": {"lat": 13.64262420028011, "lng": 124.29963612327701},
-    "place_name": "3s Pares Marias"
   },
   {
     "input": "Where is Cathy's Spring Resort located?",
@@ -3138,19 +3126,6 @@
     "coordinates": {
       "lat": 13.654843207001997,
       "lng": 124.29318572123779
-    }
-  },
-  {
-    "input": "Where is 3s Pares Marias?",
-    "output": "3s Pares Marias is a restaurants and cafes located in San miguel.",
-    "title": "3s Pares Marias Location",
-    "topic": "Food",
-    "location": "SAN MIGUEL",
-    "summary_offline": "3s Pares Marias is a restaurants and cafes located in San miguel.",
-    "place_name": "3s Pares Marias",
-    "coordinates": {
-      "lat": 13.64262420028011,
-      "lng": 124.29963612327701
     }
   },
   {

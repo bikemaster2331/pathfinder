@@ -653,7 +653,7 @@ class Pipeline:
                     # --- DEBUG AUDIT FOR MULTI SEARCH ---
                     print(f"\n[DEBUG AUDIT MULTI] Found ID: {doc_id}")
                     print(f"[DEBUG AUDIT MULTI] Meta Name: {meta.get('place_name')}")
-                    print(f"[DEBUG AUDIT MULTI] Raw Text: {doc_text[:100]}...\n")
+                    print(f"[DEBUG AUDIT MULTI] Raw Text: {doc_text[:15]}...\n")
                     # ------------------------------------
 
                     confidence = 1 - place_results['distances'][0][0]

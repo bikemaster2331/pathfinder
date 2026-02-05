@@ -18,9 +18,11 @@
 .reviewBox,
 .itineraryPreview {
     padding: 20px;
-    background-color: rgba(17, 17, 17, 0.8);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.95) 60%);;
+    background-color: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(12px);
     border-radius: 12px;
-    border: 1px solid rgba(54, 54, 54, 0.5);
+    border-color: rgba(255, 255, 255, 0.12);
     color: rgb(255, 250, 250);
 }
 
@@ -29,6 +31,8 @@
     color: white;
     text-align: left;
     width: 100%;
+    font-weight: 500;
+    letter-spacing: -0.01em;
 }
 
 /* --- REVIEW BOX LAYOUT --- */
@@ -39,8 +43,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: #111;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     padding: 16px;
     overflow: hidden;
@@ -52,43 +57,45 @@
 }
 
 .reviewBox .boxTitle {
-    /* Layout */
     margin: 0 0 5px 0;
     width: 100%;
     text-align: left;
-
-    /* Font (Large by default) */
     font-size: 1.7rem;
-    font-weight: 800;
+    font-weight: 700;
     color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-
-    /* ANIMATION SETUP */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    letter-spacing: -0.02em;
     padding: 0;
-    /* Start at 0 so we can animate to 8px */
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    /* Smooths everything (Size, Padding, Color) */
 }
 
 /* --- BASE BADGE --- */
 .distanceBadge {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
-    color: #4ADE80;
-    display: inline-block;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    color: #10B981;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(16, 185, 129, 0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 6px;
+    padding: 4px 8px;
     width: fit-content;
-
-    /* ANIMATION SETUP */
-    padding: 0;
+    letter-spacing: 0.01em;
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .reviewBoxExpanded {
     flex: 1 1 100% !important;
     border-radius: 16px;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
+                0 0 0 1px rgba(255, 255, 255, 0.05);
     z-index: 50;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.4) 0%,
+            rgba(0, 0, 0, 0.95) 60%);
 }
 
 .reviewBoxExpanded:hover {
@@ -96,8 +103,10 @@
 }
 
 .reviewBox:hover:not(.reviewBoxExpanded) {
-    transform: scale(1.02);
-    box-shadow: 0 40px 70px -12px rgba(0, 0, 0, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 
+                0 0 0 1px rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
     z-index: 20;
 }
 
@@ -131,37 +140,64 @@
     transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.reviewBoxExpanded .reviewBoxBackground{
+.reviewBoxExpanded .reviewBoxBackground {
     padding: 10px;
     border-radius: 24px;
+    filter: brightness(0.9) saturate(1.1);
 }
 
 .reviewBoxExpanded .reviewBoxOverlay {
     background: transparent;
 }
 
+.reviewBox.reviewBoxExpanded .boxTitle {
+    position: absolute;
+    top: 280px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding: 0 12px;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    line-height: 1.2;
+}
+
+.reviewBox.reviewBoxExpanded .distanceBadge {
+    position: absolute;
+    top: 320px;
+    left: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #10B981;
+    text-shadow: none;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
 .reviewBoxExpanded .reviewText {
+    position: absolute;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    left: 0;
+    right: 0;
+    top: 365.25px;
     -webkit-line-clamp: unset !important;
     line-clamp: unset;
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 8px;
-}
-
-.reviewBox.reviewBoxExpanded .boxTitle {
-    font-size: 1.4rem;
-    /* Shrinks from 1.7rem */
-    padding: 8px 12px;
-    /* Grows from 0px */
-}
-
-/* Adjust the Badge */
-.reviewBox.reviewBoxExpanded .distanceBadge {
-    margin-top: -20px;
-    font-size: 12px;
-    /* Optional: Shrink slightly from 13px */
-    padding: 8px 12px;
-    /* Grows from 0px */
+    max-height: none;
+    overflow-y: visible;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #A1A1AA;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    padding: 12px;
 }
 
 .reviewContent {
@@ -194,46 +230,49 @@
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    /* border: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: rgba(255, 255, 255, 0.02); */
     border-radius: 9px;
+    gap: 12px;
+    overflow: hidden;
 }
 
 .reviewText {
-    font-size: 0.95rem;
-    line-height: 1.4;
-    color: #e5e7eb;
+    min-width: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #A1A1AA;
     text-align: left;
     margin: 0;
-    flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .expandBtn {
     flex-shrink: 0;
-    width: 33px;
-    height: 33px;
-    background: transparent;
-    border: transparent;
-    color: white;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .expandBtn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
 }
 
 .expandBtn:active {
-    transform: scale(0.92);
+    transform: translateY(0) scale(0.95);
 }
 
 .expandBtn svg {
@@ -258,46 +297,137 @@
 .addSpot,
 .addSpotDisabled,
 .removeSpotMain {
-    /* Layout & Sizing */
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-
-    /* Small Start Size (Icon Only) */
-    width: 50px;
-    padding: 10px 16px;
-
-    /* Visuals */
+    gap: 6px;
+    height: 36px;
+    width: 36px;
+    padding: 0;
     border: none;
-    border-radius: 16px;
+    border-radius: 8px;
     cursor: pointer;
     white-space: nowrap;
-
-    /* CRITICAL FOR ANIMATION */
     overflow: hidden;
-    /* Hides the text when width is small */
-    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    /* Matches your other animations */
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .reviewBox.reviewBoxExpanded .addSpot,
 .reviewBox.reviewBoxExpanded .addSpotDisabled,
 .reviewBox.reviewBoxExpanded .removeSpotMain {
-    width: 42px;
-    /* Grows wide to reveal the text */
-    border-radius: 12px;
-    padding: 8px 14px;
-    /* Optional: Slight shape change */
+    position: absolute;
+    bottom: 6px;
+    right: 12px;
+    height: 36px;
+    width: 72px;
+    padding: 0;
+    border-radius: 18px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.reviewBox.reviewBoxExpanded .addSpot {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.reviewBox.reviewBoxExpanded .addSpot:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    transform: translateY(-2px);
+}
+
+.reviewBox.reviewBoxExpanded .addSpot:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.reviewBox.reviewBoxExpanded .addSpotDisabled {
+    background: rgba(75, 85, 99, 0.5);
+    border: 1px solid rgba(107, 114, 128, 0.3);
+    color: rgba(156, 163, 175, 0.8);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.reviewBox.reviewBoxExpanded .removeSpotMain {
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.reviewBox.reviewBoxExpanded .removeSpotMain:hover {
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    transform: translateY(-2px);
+}
+
+.reviewBox.reviewBoxExpanded .removeSpotMain:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.metaBox {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.metaBox:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.metaLabel {
+    font-size: 0.65rem;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.metaHandler {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    position: absolute;
+    top: 49vh;
+    left: -5px;
+    right: -5px;
+    padding: 0 16px;
 }
 
 .addSpot {
-    background-color: #0b7e0b;
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: white;
 }
 
 .addSpot:hover {
-    background-color: #02440b;
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     transform: translateY(-2px);
 }
 
@@ -306,20 +436,22 @@
 }
 
 .addSpotDisabled {
-    background-color: #4b5563;
-    color: #9ca3af;
-    border: 1px solid #374151;
+    background: rgba(75, 85, 99, 0.5);
+    border: 1px solid rgba(107, 114, 128, 0.3);
+    color: rgba(156, 163, 175, 0.8);
     cursor: not-allowed;
     opacity: 0.7;
 }
 
 .removeSpotMain {
-    background-color: #c92a2a;
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: white;
 }
 
 .removeSpotMain:hover {
-    background-color: #a61e1e;
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
     transform: translateY(-2px);
 }
 
@@ -336,8 +468,9 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
-    background-color: rgba(17, 17, 17, 0.8);
-    border: 1px solid rgba(54, 54, 54, 0.5);
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     padding: 20px;
     opacity: 1;
@@ -361,7 +494,7 @@
 
 .previewContent {
     font-size: 0.9rem;
-    color: #aaa;
+    color: rgba(255, 255, 255, 0.5);
     margin: 0;
     text-align: left;
 }
@@ -376,6 +509,8 @@
 .previewHeaderTitle {
     margin: 0 !important;
     line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 .previewHeaderTitleGroup {
@@ -389,37 +524,42 @@
 }
 
 .optimizeBtnSmall {
-    background: black;
-    /* You need to specify border-style for the color to show */
-    border: 3px solid rgb(56, 56, 56);
-    border-radius: 50%;
-    /* This makes it circular */
-    color: rgb(180, 180, 180);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.70rem;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    /* Remove unequal padding */
     padding: 0;
-    /* Set equal width and height */
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .optimizeBtnSmall:hover {
-    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+}
+
+.optimizeBtnSmall:active {
+    transform: translateY(0) scale(0.95);
 }
 
 .walletContainer {
     margin-top: 8px;
     margin-bottom: 16px;
-    padding: 12px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    border: 1px solid #374151;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     height: 32%;
 }
 
@@ -427,7 +567,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .walletStatusGroup {
@@ -435,50 +575,56 @@
 }
 
 .walletLabel {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 14px;
+    letter-spacing: -0.01em;
 }
 
 .walletSubtext {
     font-size: 10px;
-    color: #9CA3AF;
+    color: rgba(255, 255, 255, 0.5);
     margin-top: 4px;
+    letter-spacing: 0.01em;
 }
 
 .walletBarTrack {
     width: 100%;
-    height: 8px;
-    background: #374151;
-    border-radius: 4px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
     overflow: hidden;
 }
 
 .walletBarFill {
     height: 100%;
-    transition: width 0.5s ease, background-color 0.5s ease;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                background-color 0.5s ease;
+    border-radius: 3px;
 }
 
 .statsRow {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 15px;
 }
 
 .statBadge {
-    background: #444;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #fff;
-    border: 1px solid #555;
-    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 12px;
+    letter-spacing: 0.01em;
 }
 
 .addedSpotsList {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
     flex: 1;
     overflow-y: auto;
@@ -490,43 +636,47 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(8px);
     padding: 10px 12px;
-    border-radius: 6px;
-    border-left: 3px solid transparent;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 2px solid transparent;
     font-size: 0.9rem;
     color: white;
     gap: 12px;
     cursor: pointer;
     flex-shrink: 0;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .miniSpotItem:hover {
-    background: #3a3b3b;
-    border-color: #666;
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(2px);
 }
 
 .miniSpotItemLocked {
     border-left-color: #F59E0B !important;
-    background-color: rgba(245, 158, 11, 0.1) !important;
+    background-color: rgba(245, 158, 11, 0.08) !important;
 }
 
 .driveTimeLabel {
     font-size: 10px;
-    color: #9CA3AF;
+    color: rgba(255, 255, 255, 0.4);
     margin-left: 12px;
     margin-bottom: 6px;
     margin-top: -4px;
     display: flex;
     align-items: center;
     gap: 6px;
+    letter-spacing: 0.02em;
 }
 
 .driveTimeLine {
     width: 0;
     height: 14px;
-    border-left: 2px dashed #4B5563;
+    border-left: 2px dashed rgba(255, 255, 255, 0.15);
     margin-right: 2px;
     opacity: 0.5;
 }
@@ -537,17 +687,18 @@
 
 .visitDurationBadge {
     font-size: 10px;
-    font-weight: bold;
-    background: #374151;
-    color: #E5E7EB;
-    padding: 2px 6px;
-    border-radius: 4px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 4px 8px;
+    border-radius: 6px;
     min-width: 45px;
     text-align: center;
     display: flex;
     gap: 4px;
     justify-content: center;
-    border: 1px solid #4B5563;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    letter-spacing: 0.01em;
 }
 
 .spotName {
@@ -558,12 +709,13 @@
     font-weight: 500;
     text-align: left;
     font-size: 0.75rem;
-    color: #d6d6d6;
+    color: rgba(255, 255, 255, 0.85);
     text-transform: uppercase;
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 4px;
+    letter-spacing: 0.03em;
 }
 
 .spotActions {
@@ -573,39 +725,44 @@
 }
 
 .spotActionBtn {
-    background: none;
-    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
     cursor: pointer;
     font-size: 10px;
-    padding: 2px 4px;
+    padding: 4px;
     display: flex;
     align-items: center;
-    color: #E5E7EB;
-    transition: opacity 0.2s;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .spotActionBtn:disabled {
-    color: #444;
+    color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.02);
     cursor: not-allowed;
     opacity: 0.5;
 }
 
 .spotActionBtn:not(:disabled):hover {
-    opacity: 0.7;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .actionDivider {
     width: 1px;
     height: 12px;
-    background: #4B5563;
+    background: rgba(255, 255, 255, 0.12);
     margin: 0 4px;
 }
 
 .lockBtn {
     font-size: 14px;
     margin: 0 2px;
-    color: #6B7280;
-    transition: color 0.2s;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .lockBtn:hover {
@@ -653,41 +810,51 @@
 }
 
 .saveButton {
-    padding: 15px;
-    background-color: #007bff;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
     color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
     width: 100%;
     margin-top: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     flex-shrink: 0;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
 }
 
 .saveButton:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #1E40AF 0%, #1E3A8A 100%);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
     transform: translateY(-2px);
 }
 
 .saveButton:active {
     transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .finishLink {
     margin-top: 8px;
     text-align: center;
     font-size: 11px;
-    color: #9CA3AF;
+    color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
     text-decoration: underline;
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease;
+}
+
+.finishLink:hover {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .modalOverlay {
@@ -697,6 +864,7 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -704,13 +872,14 @@
 }
 
 .modalContent {
-    background-color: #1F2937;
+    background-color: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(16px);
     padding: 24px;
-    border-radius: 12px;
-    border: 1px solid #EF4444;
+    border-radius: 16px;
+    border: 1px solid rgba(239, 68, 68, 0.3);
     max-width: 400px;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .modalIcon {
@@ -721,15 +890,16 @@
 .modalTitle {
     color: #EF4444;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 12px;
+    letter-spacing: -0.01em;
 }
 
 .modalText {
-    color: #E5E7EB;
+    color: rgba(255, 255, 255, 0.85);
     font-size: 14px;
     margin-bottom: 24px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .modalActions {
@@ -739,24 +909,44 @@
 }
 
 .modalBtnCancel {
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: 1px solid #4B5563;
-    background: transparent;
-    color: #E5E7EB;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modalBtnCancel:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 .modalBtnConfirm {
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: none;
-    background: #EF4444;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
     color: white;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 12px;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modalBtnConfirm:hover {
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    transform: translateY(-1px);
+}
+
+.modalBtnConfirm:active {
+    transform: translateY(0);
 }
 
 @media (max-width: 1024px) {

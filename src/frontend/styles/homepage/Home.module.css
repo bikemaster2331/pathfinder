@@ -1,10 +1,6 @@
-/* ================================
-FOUNDATION & LAYOUT
-   ================================ */
-
 .homeContainer {
     width: 100%;
-    min-height: 200vh; /* Extended height to allow scrolling */
+    min-height: 200vh;
     background: #0a0a0a;
     color: #ffffff;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
@@ -14,17 +10,12 @@ FOUNDATION & LAYOUT
 
 .scrollSpacer {
     height: 60vh;
-    /* Creates extra scroll space to see the zoom effect */
 }
 
-/* Ensure smooth scrolling */
 html {
     scroll-behavior: smooth;
 }
 
-/* ================================
-BACKGROUND EFFECTS
-   ================================ */
 
 .gradientBg {
     position: absolute;
@@ -34,8 +25,8 @@ BACKGROUND EFFECTS
     width: 1200px;
     height: 800px;
     background: radial-gradient(ellipse at center,
-            rgba(164, 14, 233, 0.15) 0%,
-            rgba(189, 36, 143, 0.08) 30%,
+            rgba(14, 233, 197, 0.15) 0%,
+            rgba(36, 189, 95, 0.08) 30%,
             transparent 70%);
     filter: blur(80px);
     pointer-events: none;
@@ -57,108 +48,6 @@ BACKGROUND EFFECTS
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
 }
 
-/* ================================
-NAVIGATION
-   ================================ */
-
-.navBar {
-    position: relative;
-    z-index: 50;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 48px;
-    max-width: 1400px;
-    margin: 0 auto;
-    background: rgba(10, 10, 10, 0.6);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 28px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    color: #ffffff;
-}
-
-.brandIcon {
-    font-size: 12px;
-    color: #d70ee9;
-}
-
-.navLinks {
-    display: flex;
-    gap: 40px;
-}
-
-.navLink {
-    font-family: 'Manrope', sans-serif;
-    background: none;
-    border: none;
-    color: #94a3b8;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 0;
-    transition: color 0.2s ease;
-    position: relative;
-}
-
-.navLink::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: #0ea5e9;
-    transition: width 0.3s ease;
-}
-
-.navLink:hover {
-    color: #ffffff;
-}
-
-.navLink:hover::after {
-    width: 100%;
-}
-
-.ctaNav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #ffffff;
-    color: #0a0a0a;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 100px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.ctaNav:hover {
-    background: #f1f5f9;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
-}
-
-.ctaNav svg {
-    transition: transform 0.3s ease;
-}
-
-.ctaNav:hover svg {
-    transform: translateX(4px);
-}
-
-/* ================================
-HERO SECTION
-   ================================ */
 
 .heroSection {
     font-family: 'Manrope', sans-serif;
@@ -177,7 +66,6 @@ HERO SECTION
     margin-bottom: 80px;
 }
 
-/* Status Badge */
 .statusBadge {
     display: inline-flex;
     align-items: center;
@@ -192,6 +80,7 @@ HERO SECTION
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin-bottom: 32px;
+    margin-top: 45px;
 }
 
 .statusDot {
@@ -214,7 +103,6 @@ HERO SECTION
     }
 }
 
-/* Headline */
 .headline {
     font-size: clamp(48px, 7vw, 96px);
     font-weight: 700;
@@ -236,7 +124,6 @@ HERO SECTION
     background-clip: text;
 }
 
-/* Subheadline */
 .subheadline {
     font-family: 'Manrope', sans-serif;
     font-size: clamp(16px, 2vw, 20px);
@@ -252,13 +139,12 @@ HERO SECTION
     font-weight: 600;
 }
 
-/* CTA Buttons */
 .ctaGroup {
     display: flex;
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 210px;
+    margin-bottom: 50px;
 }
 
 .primaryCta {
@@ -273,7 +159,7 @@ HERO SECTION
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.7, 0, 0.5, 1);
     box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
 }
 
@@ -308,6 +194,31 @@ HERO SECTION
     color: #ffffff;
 }
 
+.badgesContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 110px;
+    padding: 0 24px;
+}
+
+.badgeImage {
+    max-width: 100%;
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+    opacity: 0.85;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.badgeImage:hover {
+    opacity: 1;
+    transform: translateY(-4px);
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.25));
+}
+
 .scrollDownWrapper {
     display: flex;
     justify-content: center;
@@ -315,6 +226,7 @@ HERO SECTION
 }
 
 .Down {
+    margin-top: 20px;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
@@ -342,9 +254,6 @@ HERO SECTION
 .Down:hover svg {
     color: #ffffff;
 }
-/* ================================
-HERO VISUAL
-   ================================ */
 
 .visualWrapper {
     margin-top: 120px;
@@ -363,6 +272,8 @@ HERO VISUAL
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.5),
         0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
 }
 
 .heroImage {
@@ -370,26 +281,23 @@ HERO VISUAL
     height: 100%;
     object-fit: cover;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 24px;
 }
 
-.imageContainer:hover .heroImage {
-    transform: scale(1.05);
+.imageContainer:hover {
+    transform: scale(1.02);
+    
 }
 
-/* Location Card */
-.locationCard {
-    position: absolute;
-    bottom: 24px;
-    left: 24px;
-    right: 24px;
-    background: rgba(48, 48, 49, 0.8);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.catnes {
+    font-weight: 900;
+    background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+    filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.2));
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .cardHeader {
@@ -435,11 +343,247 @@ HERO VISUAL
         transform: translateY(-10px);
     }
 }
+
 /* ================================
-RESPONSIVE
+   SLIDESHOW NAVIGATION & INDICATORS
    ================================ */
 
+.navArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navArrowLeft {
+    left: 20px;
+}
+
+.navArrowRight {
+    right: 20px;
+}
+
+.navArrow:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.navArrow:active {
+    transform: translateY(-50%) scale(0.95);
+    will-change: transform;
+}
+
+.slideIndicators {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 15;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.indicatorDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+}
+
+.indicatorDot:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.indicatorDotActive {
+    width: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+.slideshowImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+}
+
+/* Location Card - Moved Higher */
+.locationCard {
+    position: absolute;
+    bottom: 20px;
+    /* ← Moved up from 24px to avoid indicators */
+    left: 24px;
+    right: 24px;
+    background: rgba(48, 48, 49, 0.8);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.testimonialsSection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 120px auto 80px;
+    padding: 0 48px;
+}
+
+.testimonialCard {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonialCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(14, 165, 233, 0.5) 50%,
+            transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.testimonialCard:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.testimonialCard:hover::before {
+    opacity: 1;
+}
+
+.testimonialAvatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0ea5e9;
+}
+
+.testimonialLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+}
+
+.testimonialQuote {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+    margin: 0;
+    flex: 1;
+}
+
+.testimonialMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.metaDot {
+    width: 6px;
+    height: 6px;
+    background: #10B981;
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+
+
+/* Mobile Adjustments */
 @media (max-width: 768px) {
+    .navArrow {
+        width: 40px;
+        height: 40px;
+    }
+
+    .navArrowLeft {
+        left: 12px;
+    }
+
+    .navArrowRight {
+        right: 12px;
+    }
+
+    .slideIndicators {
+        top: 12px;
+        padding: 6px 12px;
+        gap: 6px;
+    }
+
+    .indicatorDot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .indicatorDotActive {
+        width: 24px;
+    }
+
+    .locationCard {
+        left: 16px;
+        right: 16px;
+        bottom: 60px;
+        /* Adjusted for mobile */
+        padding: 16px;
+    }
+
     .navLinks {
         display: none;
     }
@@ -463,9 +607,22 @@ RESPONSIVE
         justify-content: center;
     }
 
-    .locationCard {
-        left: 16px;
-        right: 16px;
-        bottom: 16px;
+    .badgesContainer {
+        margin-top: 32px;
+        margin-bottom: 40px;
+    }
+
+    .badgeImage {
+        max-height: 80px;
+    }
+
+    .testimonialsSection {
+        grid-template-columns: 1fr;
+        margin: 80px auto 60px;
+        padding: 0 24px;
+        gap: 16px;
+    }   
+    .testimonialCard {
+        padding: 20px;
     }
 }

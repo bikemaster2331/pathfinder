@@ -5,7 +5,8 @@ import styles from '../styles/itinerary_page/ItineraryCard.module.css';
 import { calculateDistance, calculateTotalRoute, calculateDriveTimes, calculateTimeUsage } from '../utils/distance'; 
 import { optimizeRoute } from '../utils/optimize';
 import { generateItineraryPDF } from '../utils/generatePDF';
-import defaultBg from '../assets/images/catanduanes.png';
+import defaultBg from '../assets/images/card/catanduanes.png';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const PreferenceCard = ({ 
     selectedLocation,
@@ -368,13 +369,115 @@ const PreferenceCard = ({
                                     </svg>
                                 </button>
                             </div>
-
                         </div>
+
+                        {/* --- THE CLOSET METHOD: ANIMATED EXPANDED COMPONENTS (SMART TAGS) --- */}
+                        <AnimatePresence>
+                            {isReviewExpanded && (
+                                <motion.div
+                                    key="expanded-details"
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    
+                                    // FIX 1: Slowed down animation to 0.8s to allow UI to catch up
+                                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} 
+                                    
+                                    style={{ overflow: "hidden" }}
+                                >
+                                    <div style={{ paddingTop: '1.5rem', paddingBottom: '0.5rem' }}>
+                                        
+                                        {/* THE "SMART TAGS" GRID */}
+                                        <div className={styles.metaHandler}>
+
+                                            {/* A. ENVIRONMENT */}
+                                            <div className={styles.metaBox}>
+                                                <span className={styles.metaLabel}>ENVIRONMENT</span>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F3F4F6' }}>
+                                                    {selectedLocation?.outdoor_exposure === 'indoor' ? (
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M10 9a3 3 0 0 1 3 3v9"/></svg>
+                                                    ) : selectedLocation?.outdoor_exposure === 'shaded' ? (
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2"><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><circle cx="12" cy="12" r="5"/></svg>
+                                                    ) : (
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FCD34D" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/></svg>
+                                                    )}
+                                                    <span style={{ textTransform: 'capitalize' }}>
+                                                        {selectedLocation?.outdoor_exposure || 'Outdoor'}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* B. COST LEVEL */}
+                                            <div className={styles.metaBox}>
+                                                <span className={styles.metaLabel}>COST LEVEL</span>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F3F4F6' }}>
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                                                    <span>
+                                                        {selectedLocation?.min_budget === 'high' ? '₱₱₱' : 
+                                                        selectedLocation?.min_budget === 'medium' ? '₱₱' : '₱'}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* C. BEST TIME */}
+                                            <div className={styles.metaBox}>
+                                                <span className={styles.metaLabel}>BEST TIME</span>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F3F4F6' }}>
+                                                    {(() => {
+                                                        const time = selectedLocation?.best_time_of_day;
+                                                        let icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
+                                                        let color = '#10B981';
+                                                        
+                                                        if (time === 'morning') {
+                                                            color = '#FCD34D';
+                                                            icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg>;
+                                                        } else if (['noon', 'midday', 'lunch'].includes(time)) {
+                                                            color = '#F59E0B';
+                                                            icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/></svg>;
+                                                        } else if (['sunset', 'evening'].includes(time)) {
+                                                            color = '#F472B6';
+                                                            icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><path d="M12 2v8"/><path d="m2 18h2"/><path d="m20 18h2"/><path d="M22 22H2"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>;
+                                                        }
+
+                                                        return (
+                                                            <>
+                                                                {icon}
+                                                                <span style={{ textTransform: 'capitalize' }}>
+                                                                    {time === 'any' ? 'All Day' : time || 'Anytime'}
+                                                                </span>
+                                                            </>
+                                                        );
+                                                    })()}
+                                                </div>
+                                            </div>
+
+                                            {/* D. LOCATION */}
+                                            <div className={styles.metaBox}>
+                                                <span className={styles.metaLabel}>LOCATION</span>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F3F4F6' }}>
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F87171" strokeWidth="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                                    <span style={{ textTransform: 'uppercase', fontSize: '0.8rem' }}>
+                                                        {selectedLocation?.municipality || 'Catanduanes'}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                        {/* --- END CLOSET --- */}
+
                     </div>
                 </div>
 
-                {/* --- ITINERARY PREVIEW --- */}
-                <div className={`${styles.itineraryPreview} ${isReviewExpanded ? styles.previewHidden : ''}`}>
+                {/* --- ITINERARY PREVIEW (BLANKET METHOD) --- */}
+                {/* FIX 2: Added inline transition to SYNC with the motion.div above */}
+                <div 
+                    className={`${styles.itineraryPreview} ${isReviewExpanded ? styles.previewHidden : ''}`}
+                    style={{ transition: 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)' }}
+                >
                     
                     {/* Header Row */}
                     <div className={styles.previewHeader}>
@@ -465,7 +568,16 @@ const PreferenceCard = ({
                                                 {spot.visit_time_minutes > 0 ? spot.visit_time_minutes : 60}m
                                             </div>
 
-                                            <span className={styles.spotName}>
+                                            {/* FIX: Prevent wide text expanding the card */}
+                                            <span 
+                                                className={styles.spotName}
+                                                style={{ 
+                                                    whiteSpace: 'nowrap', 
+                                                    overflow: 'hidden', 
+                                                    textOverflow: 'ellipsis', 
+                                                    flex: 1 
+                                                }}
+                                            >
                                                 {spot.locked && (
                                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
