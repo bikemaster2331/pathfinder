@@ -289,7 +289,24 @@ export default function Home() {
         </div>
         <span className={styles.testimonialLabel}>Weekend Explorer</span>
         <p className={styles.testimonialQuote}>
-            "Shoutout sa mga kapamilya at mga kaibigan ko, sikat na ako"
+            "Shoutout sa mga kapamilya at mga kaibigan ko at kay Patrick Guerrero, sikat na ako."
+        </p>
+        <div className={styles.testimonialMeta}>
+            <span className={styles.metaDot}></span>
+            <span>Verified Experience</span>
+        </div>
+    </div>
+
+    <div className={styles.testimonialCard}>
+        <div className={styles.testimonialAvatar}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+        </div>
+        <span className={styles.testimonialLabel}>Weekend Explorer</span>
+        <p className={styles.testimonialQuote}>
+            "Must try: Paraiso Ni Honesto"
         </p>
         <div className={styles.testimonialMeta}>
             <span className={styles.metaDot}></span>
