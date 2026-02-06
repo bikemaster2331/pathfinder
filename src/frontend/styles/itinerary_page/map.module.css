@@ -53,19 +53,20 @@
 }
 
 :global(.maplibregl-popup-content) {
-    background-color: rgba(30, 30, 30, 0.95);
-    color: white;
+    background-color: var(--itinerary-map-popup-bg);
+    color: var(--itinerary-map-popup-text);
+    border: 1px solid var(--itinerary-map-popup-border);
     border-radius: 8px;
     padding: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px var(--itinerary-map-popup-shadow);
 }
 
 :global(.maplibregl-popup-tip) {
-    border-top-color: rgba(30, 30, 30, 0.95);
+    border-top-color: var(--itinerary-map-popup-bg);
 }
 
 :global(.maplibregl-popup-close-button) {
-    color: #ffffff;
+    color: var(--itinerary-map-popup-text);
     font-size: 20px;
     padding: 4px 8px;
 }
