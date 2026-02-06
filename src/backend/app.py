@@ -25,9 +25,6 @@ async def lifespan(app: FastAPI):
             config_path=str(CONFIG)
         )
         
-        # ============================================================
-        # 🧠 SELF-HEALING PROTOCOL (Auto-Rebuild on Startup)
-        # ============================================================
         print("⚠️ Detected Startup: Checking for Amnesia...")
         try:
             # This forces the brain to read dataset.json and refill the database immediately
@@ -49,7 +46,8 @@ app = FastAPI(title="Pathfinder API", version="1.0.0", lifespan=lifespan)
 # Define allowed origins (Localhost + Live Site)
 origins = [
     "http://localhost:5173",  
-    "https://pathfinder-lilac.vercel.app", 
+    "https://pathfinder-lilac.vercel.app",
+    "*" 
 ]
 
 itinerary_list = []
