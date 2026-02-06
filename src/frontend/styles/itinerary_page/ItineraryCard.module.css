@@ -18,17 +18,17 @@
 .reviewBox,
 .itineraryPreview {
     padding: 20px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.95) 60%);;
-    background-color: rgba(17, 17, 17, 0.95);
+    background: linear-gradient(to bottom, var(--itinerary-card-shadow-40) 0%, var(--itinerary-card-shadow-95) 60%);
+    background-color: var(--itinerary-card-panel-bg);
     backdrop-filter: blur(12px);
     border-radius: 12px;
-    border-color: rgba(255, 255, 255, 0.12);
-    color: rgb(255, 250, 250);
+    border-color: var(--itinerary-card-surface-12);
+    color: var(--itinerary-card-text-offwhite);
 }
 
 .boxTitle {
     margin: 0 0 5px 0;
-    color: white;
+    color: var(--itinerary-card-text-white);
     text-align: left;
     width: 100%;
     font-weight: 500;
@@ -43,9 +43,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: rgba(17, 17, 17, 0.95);
+    background-color: var(--itinerary-card-panel-bg);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--itinerary-card-surface-08);
     border-radius: 16px;
     padding: 16px;
     overflow: hidden;
@@ -62,8 +62,8 @@
     text-align: left;
     font-size: 1.7rem;
     font-weight: 700;
-    color: white;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    color: var(--itinerary-card-text-white);
+    text-shadow: 0 2px 8px var(--itinerary-card-shadow-60);
     letter-spacing: -0.02em;
     padding: 0;
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
@@ -73,13 +73,13 @@
 .distanceBadge {
     font-size: 11px;
     font-weight: 600;
-    color: #10B981;
+    color: var(--itinerary-card-accent-green);
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    background: rgba(16, 185, 129, 0.12);
+    background: var(--itinerary-card-accent-green-12);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    border: 1px solid var(--itinerary-card-accent-green-20);
     border-radius: 6px;
     padding: 4px 8px;
     width: fit-content;
@@ -90,12 +90,12 @@
 .reviewBoxExpanded {
     flex: 1 1 100% !important;
     border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
-                0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 60px var(--itinerary-card-shadow-50), 
+                0 0 0 1px var(--itinerary-card-surface-05);
     z-index: 50;
     background: linear-gradient(to bottom,
-            rgba(0, 0, 0, 0.4) 0%,
-            rgba(0, 0, 0, 0.95) 60%);
+            var(--itinerary-card-shadow-40) 0%,
+            var(--itinerary-card-shadow-95) 60%);
 }
 
 .reviewBoxExpanded:hover {
@@ -104,9 +104,9 @@
 
 .reviewBox:hover:not(.reviewBoxExpanded) {
     transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 
-                0 0 0 1px rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 24px var(--itinerary-card-shadow-40), 
+                0 0 0 1px var(--itinerary-card-surface-08);
+    border-color: var(--itinerary-card-surface-12);
     z-index: 20;
 }
 
@@ -132,7 +132,7 @@
     height: 30vh;
     z-index: 1;
     pointer-events: none;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(to top, var(--itinerary-card-shadow-90) 0%, var(--itinerary-card-transparent) 100%);
     padding: 0px;
     border-radius: 16px;
     background-clip: content-box;
@@ -157,8 +157,8 @@
     font-weight: 700;
     padding: 0 12px;
     letter-spacing: -0.02em;
-    color: #ffffff;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    color: var(--itinerary-card-text-white);
+    text-shadow: 0 2px 12px var(--itinerary-card-shadow-60);
     line-height: 1.2;
 }
 
@@ -169,11 +169,11 @@
     font-size: 11px;
     font-weight: 600;
     padding: 4px 10px;
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--itinerary-card-surface-12);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--itinerary-card-surface-20);
     border-radius: 6px;
-    color: #10B981;
+    color: var(--itinerary-card-accent-green);
     text-shadow: none;
     letter-spacing: 0.02em;
     display: inline-flex;
@@ -194,10 +194,73 @@
     overflow-y: visible;
     font-size: 0.9rem;
     line-height: 1.5;
-    color: #A1A1AA;
+    color: var(--itinerary-card-gray-500);
     font-weight: 400;
     letter-spacing: -0.01em;
     padding: 12px;
+}
+
+/* Light mode overrides */
+:global([data-theme='light']) .reviewBox,
+:global([data-theme='light']) .itineraryPreview {
+    background: var(--itinerary-card-panel-bg);
+    border: 1px solid var(--itinerary-card-border);
+    color: var(--itinerary-card-text);
+    box-shadow: 0 12px 24px var(--itinerary-card-shadow);
+}
+
+:global([data-theme='light']) .boxTitle,
+:global([data-theme='light']) .reviewBox .boxTitle,
+:global([data-theme='light']) .reviewBox.reviewBoxExpanded .boxTitle {
+    color: var(--itinerary-card-text);
+    text-shadow: none;
+}
+
+:global([data-theme='light']) .reviewBoxOverlay {
+    background: linear-gradient(to top, var(--itinerary-card-light-65) 0%, var(--itinerary-card-light-20) 100%);
+}
+
+:global([data-theme='light']) .reviewBoxExpanded {
+    background: var(--itinerary-card-panel-bg);
+    box-shadow: 0 20px 60px var(--itinerary-card-shadow);
+}
+
+:global([data-theme='light']) .reviewBoxExpanded .reviewText {
+    color: var(--itinerary-card-text);
+}
+
+:global([data-theme='light']) .metaBox {
+    background: var(--itinerary-card-light-08);
+    border: 1px solid var(--itinerary-card-light-18);
+    box-shadow: 0 6px 16px var(--itinerary-card-light-12);
+    color: var(--itinerary-card-text);
+}
+
+:global([data-theme='light']) .metaBox:hover {
+    background: var(--itinerary-card-light-12);
+    border-color: var(--itinerary-card-light-22);
+}
+
+:global([data-theme='light']) .metaLabel {
+    color: var(--itinerary-card-text);
+}
+
+:global([data-theme='light']) .reviewText {
+    color: var(--itinerary-card-text);
+}
+
+:global([data-theme='light']) .itineraryPreview {
+    color: var(--itinerary-card-text);
+}
+
+:global([data-theme='light']) .shadowText {
+    color: var(--itinerary-card-text);
+    text-shadow: none;
+}
+
+:global([data-theme='light']) .reviewBox.reviewBoxExpanded .distanceBadge {
+    background: var(--itinerary-card-light-06);
+    border: 1px solid var(--itinerary-card-border);
 }
 
 .reviewContent {
@@ -239,7 +302,7 @@
     min-width: 0;
     font-size: 0.8rem;
     line-height: 1.5;
-    color: #A1A1AA;
+    color: var(--itinerary-card-gray-500);
     text-align: left;
     margin: 0;
     display: -webkit-box;
@@ -253,11 +316,11 @@
     flex-shrink: 0;
     width: 32px;
     height: 32px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--itinerary-card-surface-08);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--itinerary-card-surface-12);
     border-radius: 8px;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--itinerary-card-text-90);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,8 +329,8 @@
 }
 
 .expandBtn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: var(--itinerary-card-surface-12);
+    border-color: var(--itinerary-card-surface-20);
     transform: translateY(-1px);
 }
 
@@ -314,7 +377,7 @@
     font-weight: 600;
     letter-spacing: 0.01em;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 3px var(--itinerary-card-shadow-20);
 }
 
 .reviewBox.reviewBoxExpanded .addSpot,
@@ -331,7 +394,7 @@
     font-weight: 600;
     letter-spacing: 0.01em;
     transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 8px var(--itinerary-card-shadow-30);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -339,53 +402,53 @@
 }
 
 .reviewBox.reviewBoxExpanded .addSpot {
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: white;
+    background: linear-gradient(135deg, var(--itinerary-card-accent-green) 0%, var(--itinerary-card-accent-green-dark) 100%);
+    border: 1px solid var(--itinerary-card-surface-15);
+    color: var(--itinerary-card-text-white);
 }
 
 .reviewBox.reviewBoxExpanded .addSpot:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, var(--itinerary-card-accent-green-dark) 0%, var(--itinerary-card-accent-green-darker) 100%);
+    box-shadow: 0 4px 12px var(--itinerary-card-accent-green-40);
     transform: translateY(-2px);
 }
 
 .reviewBox.reviewBoxExpanded .addSpot:active {
     transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px var(--itinerary-card-shadow-30);
 }
 
 .reviewBox.reviewBoxExpanded .addSpotDisabled {
-    background: rgba(75, 85, 99, 0.5);
-    border: 1px solid rgba(107, 114, 128, 0.3);
-    color: rgba(156, 163, 175, 0.8);
+    background: var(--itinerary-card-gray-700-50);
+    border: 1px solid var(--itinerary-card-gray-600-30);
+    color: var(--itinerary-card-gray-400-80);
     cursor: not-allowed;
     box-shadow: none;
 }
 
 .reviewBox.reviewBoxExpanded .removeSpotMain {
-    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: white;
+    background: linear-gradient(135deg, var(--itinerary-card-accent-red) 0%, var(--itinerary-card-accent-red-dark) 100%);
+    border: 1px solid var(--itinerary-card-surface-15);
+    color: var(--itinerary-card-text-white);
 }
 
 .reviewBox.reviewBoxExpanded .removeSpotMain:hover {
-    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
+    box-shadow: 0 4px 12px var(--itinerary-card-accent-red-40);
     transform: translateY(-2px);
 }
 
 .reviewBox.reviewBoxExpanded .removeSpotMain:active {
     transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px var(--itinerary-card-shadow-30);
 }
 
 .metaBox {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--itinerary-card-surface-05);
     backdrop-filter: blur(8px);
     border-radius: 8px;
     padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--itinerary-card-surface-10);
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -393,15 +456,15 @@
 }
 
 .metaBox:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: var(--itinerary-card-surface-08);
+    border-color: var(--itinerary-card-surface-15);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px var(--itinerary-card-shadow-15);
 }
 
 .metaLabel {
     font-size: 0.65rem;
-    color: #9CA3AF;
+    color: var(--itinerary-card-gray-400);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     font-weight: 600;
@@ -420,14 +483,14 @@
 }
 
 .addSpot {
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: white;
+    background: linear-gradient(135deg, var(--itinerary-card-accent-green) 0%, var(--itinerary-card-accent-green-dark) 100%);
+    border: 1px solid var(--itinerary-card-surface-15);
+    color: var(--itinerary-card-text-white);
 }
 
 .addSpot:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    background: linear-gradient(135deg, var(--itinerary-card-accent-green-dark) 0%, var(--itinerary-card-accent-green-darker) 100%);
+    box-shadow: 0 4px 12px var(--itinerary-card-accent-green-30);
     transform: translateY(-2px);
 }
 
@@ -436,22 +499,22 @@
 }
 
 .addSpotDisabled {
-    background: rgba(75, 85, 99, 0.5);
-    border: 1px solid rgba(107, 114, 128, 0.3);
-    color: rgba(156, 163, 175, 0.8);
+    background: var(--itinerary-card-gray-700-50);
+    border: 1px solid var(--itinerary-card-gray-600-30);
+    color: var(--itinerary-card-gray-400-80);
     cursor: not-allowed;
     opacity: 0.7;
 }
 
 .removeSpotMain {
-    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: white;
+    background: linear-gradient(135deg, var(--itinerary-card-accent-red) 0%, var(--itinerary-card-accent-red-dark) 100%);
+    border: 1px solid var(--itinerary-card-surface-15);
+    color: var(--itinerary-card-text-white);
 }
 
 .removeSpotMain:hover {
-    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
+    box-shadow: 0 4px 12px var(--itinerary-card-accent-red-30);
     transform: translateY(-2px);
 }
 
@@ -460,7 +523,7 @@
 }
 
 .shadowText {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 2px 4px var(--itinerary-card-shadow-80);
 }
 
 .itineraryPreview {
@@ -468,9 +531,9 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: var(--itinerary-card-shadow-95);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--itinerary-card-surface-08);
     border-radius: 12px;
     padding: 20px;
     opacity: 1;
@@ -494,7 +557,7 @@
 
 .previewContent {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--itinerary-card-text-50);
     margin: 0;
     text-align: left;
 }
@@ -520,15 +583,15 @@
 
 .savedDaysSubtext {
     font-size: 10px;
-    color: #9CA3AF;
+    color: var(--itinerary-card-gray-400);
 }
 
 .optimizeBtnSmall {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--itinerary-card-surface-05);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--itinerary-card-surface-12);
     border-radius: 8px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--itinerary-card-text-70);
     font-size: 0.70rem;
     font-weight: 600;
     cursor: pointer;
@@ -542,9 +605,9 @@
 }
 
 .optimizeBtnSmall:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.9);
+    background: var(--itinerary-card-surface-08);
+    border-color: var(--itinerary-card-surface-20);
+    color: var(--itinerary-card-text-90);
     transform: translateY(-1px);
 }
 
@@ -556,10 +619,10 @@
     margin-top: 8px;
     margin-bottom: 16px;
     padding: 14px;
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--itinerary-card-surface-03);
     backdrop-filter: blur(8px);
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--itinerary-card-surface-08);
     height: 32%;
 }
 
@@ -582,7 +645,7 @@
 
 .walletSubtext {
     font-size: 10px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--itinerary-card-text-50);
     margin-top: 4px;
     letter-spacing: 0.01em;
 }
@@ -590,7 +653,7 @@
 .walletBarTrack {
     width: 100%;
     height: 6px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--itinerary-card-surface-08);
     border-radius: 3px;
     overflow: hidden;
 }
@@ -609,14 +672,14 @@
 }
 
 .statBadge {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--itinerary-card-surface-06);
     backdrop-filter: blur(8px);
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--itinerary-card-text-90);
+    border: 1px solid var(--itinerary-card-surface-10);
     margin-top: 12px;
     letter-spacing: 0.01em;
 }
@@ -636,14 +699,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--itinerary-card-surface-04);
     backdrop-filter: blur(8px);
     padding: 10px 12px;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--itinerary-card-surface-08);
     border-left: 2px solid transparent;
     font-size: 0.9rem;
-    color: white;
+    color: var(--itinerary-card-text-white);
     gap: 12px;
     cursor: pointer;
     flex-shrink: 0;
@@ -651,19 +714,19 @@
 }
 
 .miniSpotItem:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: var(--itinerary-card-surface-06);
+    border-color: var(--itinerary-card-surface-12);
     transform: translateX(2px);
 }
 
 .miniSpotItemLocked {
-    border-left-color: #F59E0B !important;
-    background-color: rgba(245, 158, 11, 0.08) !important;
+    border-left-color: var(--itinerary-card-accent-amber) !important;
+    background-color: var(--itinerary-card-accent-amber-08) !important;
 }
 
 .driveTimeLabel {
     font-size: 10px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--itinerary-card-text-40);
     margin-left: 12px;
     margin-bottom: 6px;
     margin-top: -4px;
@@ -676,7 +739,7 @@
 .driveTimeLine {
     width: 0;
     height: 14px;
-    border-left: 2px dashed rgba(255, 255, 255, 0.15);
+    border-left: 2px dashed var(--itinerary-card-surface-15);
     margin-right: 2px;
     opacity: 0.5;
 }
@@ -688,8 +751,8 @@
 .visitDurationBadge {
     font-size: 10px;
     font-weight: 600;
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.9);
+    background: var(--itinerary-card-surface-08);
+    color: var(--itinerary-card-text-90);
     padding: 4px 8px;
     border-radius: 6px;
     min-width: 45px;
@@ -697,7 +760,7 @@
     display: flex;
     gap: 4px;
     justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--itinerary-card-surface-12);
     letter-spacing: 0.01em;
 }
 
@@ -709,7 +772,7 @@
     font-weight: 500;
     text-align: left;
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--itinerary-card-text-85);
     text-transform: uppercase;
     font-weight: 600;
     display: flex;
@@ -725,68 +788,68 @@
 }
 
 .spotActionBtn {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--itinerary-card-surface-05);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--itinerary-card-surface-08);
     border-radius: 6px;
     cursor: pointer;
     font-size: 10px;
     padding: 4px;
     display: flex;
     align-items: center;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--itinerary-card-text-70);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .spotActionBtn:disabled {
-    color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.02);
+    color: var(--itinerary-card-surface-20);
+    background: var(--itinerary-card-surface-02);
     cursor: not-allowed;
     opacity: 0.5;
 }
 
 .spotActionBtn:not(:disabled):hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.9);
+    background: var(--itinerary-card-surface-08);
+    border-color: var(--itinerary-card-surface-15);
+    color: var(--itinerary-card-text-90);
 }
 
 .actionDivider {
     width: 1px;
     height: 12px;
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--itinerary-card-surface-12);
     margin: 0 4px;
 }
 
 .lockBtn {
     font-size: 14px;
     margin: 0 2px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--itinerary-card-text-50);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .lockBtn:hover {
-    color: #F59E0B;
+    color: var(--itinerary-card-accent-amber);
 }
 
 .miniSpotItemLocked .lockBtn {
-    color: #F59E0B;
+    color: var(--itinerary-card-accent-amber);
 }
 
 .removeSmallBtn {
-    color: #EF4444;
+    color: var(--itinerary-card-accent-red);
     font-size: 16px;
     margin-left: 4px;
 }
 
 .removeSmallBtn:hover {
-    color: #DC2626;
+    color: var(--itinerary-card-accent-red-dark);
 }
 
 .removeBtn {
     background: transparent;
     border: none;
-    color: #ff5e5e;
+    color: var(--itinerary-card-alert);
     cursor: pointer;
     font-size: 1.2rem;
     line-height: 1;
@@ -800,8 +863,8 @@
 }
 
 .removeBtn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ff2a2a;
+    background-color: var(--itinerary-card-surface-10);
+    color: var(--itinerary-card-alert-strong);
     transform: scale(1.1);
 }
 
@@ -811,9 +874,9 @@
 
 .saveButton {
     padding: 12px 16px;
-    background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, var(--itinerary-card-accent-blue) 0%, var(--itinerary-card-accent-blue-dark) 100%);
+    color: var(--itinerary-card-text-white);
+    border: 1px solid var(--itinerary-card-surface-15);
     border-radius: 8px;
     font-size: 0.9rem;
     font-weight: 600;
@@ -828,25 +891,25 @@
     gap: 8px;
     flex-shrink: 0;
     letter-spacing: 0.01em;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 2px 8px var(--itinerary-card-accent-blue-25);
 }
 
 .saveButton:hover {
-    background: linear-gradient(135deg, #1E40AF 0%, #1E3A8A 100%);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    background: linear-gradient(135deg, var(--itinerary-card-accent-blue-dark) 0%, var(--itinerary-card-accent-blue-darker) 100%);
+    box-shadow: 0 4px 12px var(--itinerary-card-accent-blue-40);
     transform: translateY(-2px);
 }
 
 .saveButton:active {
     transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px var(--itinerary-card-shadow-30);
 }
 
 .finishLink {
     margin-top: 8px;
     text-align: center;
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--itinerary-card-text-40);
     cursor: pointer;
     text-decoration: underline;
     letter-spacing: 0.01em;
@@ -854,7 +917,7 @@
 }
 
 .finishLink:hover {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--itinerary-card-text-60);
 }
 
 .modalOverlay {
@@ -863,7 +926,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: var(--itinerary-card-shadow-85);
     backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
@@ -872,14 +935,14 @@
 }
 
 .modalContent {
-    background-color: rgba(17, 17, 17, 0.95);
+    background-color: var(--itinerary-card-panel-bg);
     backdrop-filter: blur(16px);
     padding: 24px;
     border-radius: 16px;
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    border: 1px solid var(--itinerary-card-accent-red-30);
     max-width: 400px;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 60px var(--itinerary-card-shadow-50);
 }
 
 .modalIcon {
@@ -888,7 +951,7 @@
 }
 
 .modalTitle {
-    color: #EF4444;
+    color: var(--itinerary-card-accent-red);
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -896,7 +959,7 @@
 }
 
 .modalText {
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--itinerary-card-text-85);
     font-size: 14px;
     margin-bottom: 24px;
     line-height: 1.6;
@@ -911,10 +974,10 @@
 .modalBtnCancel {
     padding: 10px 18px;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--itinerary-card-surface-15);
+    background: var(--itinerary-card-surface-05);
     backdrop-filter: blur(8px);
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--itinerary-card-text-90);
     cursor: pointer;
     font-size: 13px;
     font-weight: 600;
@@ -922,26 +985,26 @@
 }
 
 .modalBtnCancel:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.25);
+    background: var(--itinerary-card-surface-08);
+    border-color: var(--itinerary-card-surface-25);
 }
 
 .modalBtnConfirm {
     padding: 10px 18px;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-    color: white;
+    border: 1px solid var(--itinerary-card-surface-15);
+    background: linear-gradient(135deg, var(--itinerary-card-accent-red) 0%, var(--itinerary-card-accent-red-dark) 100%);
+    color: var(--itinerary-card-text-white);
     cursor: pointer;
     font-weight: 600;
     font-size: 13px;
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    box-shadow: 0 2px 8px var(--itinerary-card-accent-red-30);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .modalBtnConfirm:hover {
-    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
+    box-shadow: 0 4px 12px var(--itinerary-card-accent-red-40);
     transform: translateY(-1px);
 }
 
