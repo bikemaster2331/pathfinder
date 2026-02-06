@@ -6,9 +6,9 @@
     padding: 20px 48px;
     width: 100%;
     box-sizing: border-box;
-    background: rgba(10, 10, 10, 0.7);
+    background: var(--nav-glass);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 100px solid var(--nav-border);
     z-index: 1000;
     transition:
         transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
@@ -26,7 +26,7 @@
     margin-left: auto;
     margin-right: auto;
     max-width: 1200px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 2px solid var(--nav-border);
 }
 
 /* Itinerary Page: Sticks to the top of the map */
@@ -38,7 +38,21 @@
     margin-left: auto;
     margin-right: auto;
     height: 90px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--nav-border);
+}
+
+.navBarHome::after,
+.navBarFixed::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -1px;
+    right: -1px;
+    pointer-events: none;
+    background:
+        linear-gradient(90deg, var(--nav-glass) 0%, rgba(0, 0, 0, 0) 18%),
+        linear-gradient(270deg, var(--nav-glass) 0%, rgba(0, 0, 0, 0) 18%);
 }
 
 .navBarFixed .brandButton svg{
@@ -56,7 +70,7 @@
     stroke-width: 1.75;
     background: none;
     border: none;
-    color: white;
+    color: var(--text);
     font-size: 16px;
     font-weight: 700;
     letter-spacing: 1.5px;
@@ -86,7 +100,7 @@
     font-family: 'Manrope', sans-serif;
     background: none;
     border: none;
-    color: #94a3b8;
+    color: var(--navbar-muted);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -102,12 +116,12 @@
     left: 0;
     width: 0;
     height: 1px;
-    background: #f7f7f7;
+    background: var(--navbar-text);
     transition: width 0.3s ease;
 }
 
 .navLink:hover {
-    color: #ffffff;
+    color: var(--navbar-text);
     scale: 1.2;
     transition: all 0.4s ease;
 }
@@ -121,8 +135,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #ffffff;
-    color: #0a0a0a;
+    background: var(--navbar-cta-bg);
+    color: var(--navbar-cta-text);
     padding: 10px 24px;
     border: none;
     border-radius: 100px;
@@ -133,9 +147,9 @@
 }
 
 .ctaNav:hover {
-    background: #f1f5f9;
+    background: var(--navbar-cta-bg-hover);
     transform: translateY(-1px);
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.15);
 }
 
 .ctaNav svg {
@@ -144,6 +158,85 @@
 
 .ctaNav:hover svg {
     transform: translateX(4px);
+}
+
+/* Theme Toggle Pill */
+.themeToggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navbar-glass);
+    color: var(--navbar-text);
+    border: 1px solid var(--navbar-border);
+    border-radius: 999px;
+    padding: 6px 10px 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.themeToggle:hover {
+    background: var(--navbar-surface-subtle);
+    box-shadow: 0 8px 18px var(--navbar-shadow);
+    transform: translateY(-1px);
+}
+
+.toggleLabel {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+}
+
+.toggleTrack {
+    width: 42px;
+    height: 22px;
+    border-radius: 999px;
+    background: var(--navbar-toggle-track);
+    display: inline-flex;
+    align-items: center;
+    padding: 3px;
+    transition: background 0.25s ease;
+}
+
+.toggleThumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--navbar-toggle-thumb);
+    transform: translateX(0);
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.toggleTrack[data-theme='dark'] .toggleThumb {
+    transform: translateX(18px);
+}
+
+.menuToggle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--navbar-glass-strong);
+    border: 1px solid var(--navbar-border);
+    color: var(--navbar-text);
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menuToggle:hover {
+    background: var(--navbar-surface-subtle);
+    transform: translateY(-1px);
+}
+
+.menuToggleHint {
+    font-size: 12px;
+    color: var(--navbar-muted);
 }
 
 @media (max-width: 768px) {
