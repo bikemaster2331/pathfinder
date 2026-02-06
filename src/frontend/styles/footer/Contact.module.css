@@ -1,9 +1,9 @@
 .cont {
     width: 100vw;
     height: 100vh;
-    background-color: #0a0a0a;
+    background-color: var(--footer-contact-bg);
     /* Deep black */
-    color: #e0e0e0;
+    color: var(--footer-contact-text);
     /* Soft white */
 
     display: flex;
@@ -21,7 +21,7 @@
     margin-bottom: 20px;
     letter-spacing: -0.5px;
 
-    background: linear-gradient(to right, #fff, #888);
+    background: linear-gradient(to right, var(--footer-contact-text), var(--footer-contact-muted));
 
     /* --- MAKE SURE THESE ARE CORRECT --- */
     -webkit-background-clip: text;
@@ -34,22 +34,22 @@
     font-size: 1.1rem;
     max-width: 600px;
     line-height: 1.6;
-    color: #aaa;
+    color: var(--footer-contact-muted);
     margin-bottom: 40px;
 }
 
 .backButton {
     padding: 12px 24px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: var(--footer-contact-surface-subtle);
+    border: 1px solid var(--footer-contact-border);
     border-radius: 8px;
-    color: white;
+    color: var(--footer-contact-text);
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 0.9rem;
 }
 
 .backButton:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--footer-contact-surface);
     transform: translateY(-2px);
 }
