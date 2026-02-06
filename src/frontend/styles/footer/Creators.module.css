@@ -3,9 +3,9 @@
 .container {
     width: 100vw;
     height: 100vh;
-    background-color: #0a0a0a;
+    background-color: var(--footer-creators-bg);
     /* Deep black */
-    color: #e0e0e0;
+    color: var(--footer-creators-text);
     /* Soft white */
 
     display: flex;
@@ -22,7 +22,7 @@
     font-weight: 700;
     margin-bottom: 20px;
     letter-spacing: -0.5px;
-    background: linear-gradient(to right, #fff, #888);
+    background: linear-gradient(to right, var(--footer-creators-text), var(--footer-creators-muted));
     /* Subtle gradient text */
     -webkit-background-clip: text;
     background-clip: none;
@@ -33,22 +33,22 @@
     font-size: 1.1rem;
     max-width: 600px;
     line-height: 1.6;
-    color: #aaa;
+    color: var(--footer-creators-muted);
     margin-bottom: 40px;
 }
 
 .backButton {
     padding: 12px 24px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: var(--footer-creators-surface-subtle);
+    border: 1px solid var(--footer-creators-border);
     border-radius: 8px;
-    color: white;
+    color: var(--footer-creators-text);
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 0.9rem;
 }
 
 .backButton:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--footer-creators-surface);
     transform: translateY(-2px);
 }
