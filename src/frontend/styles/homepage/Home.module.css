@@ -1,8 +1,8 @@
 .homeContainer {
     width: 100%;
     min-height: 200vh;
-    background: #0a0a0a;
-    color: #ffffff;
+    background: var(--home-bg);
+    color: var(--home-text);
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
     position: relative;
     overflow-x: hidden;
@@ -25,14 +25,23 @@ html {
     width: 1200px;
     height: 800px;
     background: radial-gradient(ellipse at center,
-            rgba(14, 233, 197, 0.15) 0%,
-            rgba(36, 189, 95, 0.08) 30%,
-            transparent 70%);
+            rgba(18, 214, 18, 0.15) 0%,
+            rgba(13, 214, 204, 0.08) 35%,
+            rgba(173, 157, 8, 0.12) 60%,
+            transparent 75%);
     filter: blur(80px);
     pointer-events: none;
     z-index: 0;
 }
 
+:global([data-theme='light']) .gradientBg {
+    background: radial-gradient(ellipse at center,
+            rgba(223, 137, 39, 0.55) 0%,
+            rgba(197, 27, 169, 0.35) 35%,
+            rgba(85, 59, 3, 0.12) 60%,
+            transparent 75%);
+    filter: blur(80px);
+}
 .gridOverlay {
     position: absolute;
     top: 0;
@@ -71,22 +80,26 @@ html {
     align-items: center;
     gap: 8px;
     padding: 6px 16px;
-    background: rgba(6, 182, 212, 0.1);
-    border: 1px solid rgba(6, 182, 212, 0.2);
+    background: rgba(61, 36, 36, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 100px;
-    color: #22d3ee;
+    color: #ffffff;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin-bottom: 32px;
-    margin-top: 45px;
+    margin-top: 25vh;
+}
+
+:global([data-theme='light']) .statusBadge {
+    color: #0b0b0b;
 }
 
 .statusDot {
     width: 6px;
     height: 6px;
-    background: #22d3ee;
+    background: #0ea5e9;
     border-radius: 50%;
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -109,7 +122,7 @@ html {
     line-height: 1.1;
     letter-spacing: -0.04em;
     margin: 0 0 24px 0;
-    background: linear-gradient(to bottom, #ffffff 30%, #94a3b8 100%);
+    background: linear-gradient(to bottom, var(--home-text) 30%, var(--home-muted) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -118,17 +131,30 @@ html {
 .headlineAccent {
     font-style: italic;
     font-weight: 400;
-    background: linear-gradient(to right, #64748b, #475569);
+    background: linear-gradient(to right, var(--home-muted), var(--home-muted-2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Light mode: soften headline without affecting dark mode */
+:global([data-theme='light']) .headline {
+    background: none;
+    -webkit-text-fill-color: var(--home-text);
+    color: var(--home-text);
+}
+
+:global([data-theme='light']) .headlineAccent {
+    background: none;
+    -webkit-text-fill-color: var(--home-text);
+    color: var(--home-text);
 }
 
 .subheadline {
     font-family: 'Manrope', sans-serif;
     font-size: clamp(16px, 2vw, 20px);
     line-height: 1.7;
-    color: #94a3b8;
+    color: var(--home-muted-2);
     max-width: 640px;
     margin: 0 auto 48px;
 }
@@ -177,9 +203,9 @@ html {
 }
 
 .secondaryCta {
-    background: transparent;
-    color: #cbd5e1;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
     padding: 16px 32px;
     border-radius: 100px;
     font-size: 16px;
@@ -189,9 +215,22 @@ html {
 }
 
 .secondaryCta:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.35);
     color: #ffffff;
+}
+
+/* Light mode: make the secondary CTA dark */
+:global([data-theme='light']) .secondaryCta {
+    background: rgba(15, 23, 42, 0.08);
+    color: #0b0b0b;
+    border: 1px solid rgba(15, 23, 42, 0.16);
+}
+
+:global([data-theme='light']) .secondaryCta:hover {
+    background: rgba(15, 23, 42, 0.14);
+    border-color: rgba(15, 23, 42, 0.26);
+    color: #0b0b0b;
 }
 
 .badgesContainer {
@@ -210,13 +249,13 @@ html {
     object-fit: contain;
     opacity: 0.85;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+    filter: drop-shadow(0 4px 12px var(--home-shadow));
 }
 
 .badgeImage:hover {
     opacity: 1;
     transform: translateY(-4px);
-    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0 8px 24px var(--home-shadow-strong));
 }
 
 .scrollDownWrapper {
@@ -227,8 +266,8 @@ html {
 
 .Down {
     margin-top: 20px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--home-down-bg);
+    border: 1px solid var(--home-down-border);
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -241,18 +280,18 @@ html {
 }
 
 .Down:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: var(--home-surface-subtle);
+    border-color: var(--home-border-strong);
     transform: translateY(-4px);
 }
 
 .Down svg {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--home-muted-2);
     transition: color 0.3s ease;
 }
 
 .Down:hover svg {
-    color: #ffffff;
+    color: #0b0b0b;
 }
 
 .visualWrapper {
@@ -268,10 +307,10 @@ html {
     aspect-ratio: 16 / 9;
     border-radius: 24px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--home-border);
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(255, 255, 255, 0.05);
+        0 20px 60px var(--home-shadow-strong),
+        0 0 0 1px rgba(15, 23, 42, 0.06);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
@@ -325,7 +364,7 @@ html {
     gap: 10px;
     font-size: 16px;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--home-text);
 }
 
 .cardLocation svg {
@@ -353,9 +392,9 @@ html {
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--home-nav-arrow-bg);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--home-nav-arrow-border);
     border-radius: 50%;
     width: 48px;
     height: 48px;
@@ -375,8 +414,8 @@ html {
 }
 
 .navArrow:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: var(--home-nav-arrow-bg-hover);
+    border-color: var(--home-nav-arrow-border-hover);
     transform: translateY(-50%) scale(1.1);
 }
 
@@ -394,17 +433,17 @@ html {
     gap: 8px;
     z-index: 15;
     padding: 8px 16px;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--home-glass);
     backdrop-filter: blur(12px);
     border-radius: 100px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--home-border);
 }
 
 .indicatorDot {
     width: 8px;
     height: 8px;
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(15, 23, 42, 0.35);
     border: none;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -412,13 +451,23 @@ html {
 }
 
 .indicatorDot:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(15, 23, 42, 0.55);
 }
 
 .indicatorDotActive {
     width: 32px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+    background: #0b0b0b;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25);
+}
+
+/* Dark mode: make indicators sit on a light pill */
+:global([data-theme='dark']) .slideIndicators {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+:global([data-theme='dark']) .indicatorDotActive {
+    box-shadow: none;
 }
 
 .slideshowImage {
@@ -433,12 +482,11 @@ html {
 .locationCard {
     position: absolute;
     bottom: 20px;
-    /* ← Moved up from 24px to avoid indicators */
     left: 24px;
     right: 24px;
-    background: rgba(48, 48, 49, 0.8);
+    background: var(--home-glass-strong);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--home-border);
     border-radius: 16px;
     padding: 20px;
     display: flex;
@@ -458,9 +506,9 @@ html {
 }
 
 .testimonialCard {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--home-glass);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--home-border);
     border-radius: 16px;
     padding: 24px;
     display: flex;
@@ -487,10 +535,10 @@ html {
 }
 
 .testimonialCard:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: var(--home-glass-strong);
+    border-color: var(--home-border-strong);
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 32px var(--home-shadow);
 }
 
 .testimonialCard:hover::before {
@@ -514,13 +562,13 @@ html {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #64748b;
+    color: var(--home-muted-2);
 }
 
 .testimonialQuote {
     font-size: 15px;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--home-text);
     font-weight: 400;
     margin: 0;
     flex: 1;
@@ -531,7 +579,7 @@ html {
     align-items: center;
     gap: 8px;
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--home-muted);
     font-weight: 500;
     letter-spacing: 0.02em;
 }
