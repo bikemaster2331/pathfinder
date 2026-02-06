@@ -55,6 +55,32 @@ const ICONS = {
     'icon-top10': '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path d="M176,72a48,48,0,1,1-48-48A48,48,0,0,1,176,72Z" fill="#e75b5b"></path><path d="M184,72a56,56,0,1,0-64,55.42V232a8,8,0,0,0,16,0V127.42A56.09,56.09,0,0,0,184,72Zm-56,40a40,40,0,1,1,40-40A40,40,0,0,1,128,112Z" fill="#000000"></path></svg>',
 };
 
+const readMapTheme = () => {
+    if (typeof window === 'undefined') {
+        return {
+            mapBg: '#e8efe5',
+            mapLand: '#1f4d3a',
+            mapBorder: '#123625',
+            mapLabel: '#f8fafc',
+            mapLabelHalo: '#0b0b0b',
+            mapPoint: '#0f172a',
+            mapPointStroke: '#f8fafc',
+            mapRoute: '#334155'
+        };
+    }
+    const styles = getComputedStyle(document.documentElement);
+    return {
+        mapBg: styles.getPropertyValue('--map-style-bg').trim() || '#e8efe5',
+        mapLand: styles.getPropertyValue('--map-style-land').trim() || '#1f4d3a',
+        mapBorder: styles.getPropertyValue('--map-style-border').trim() || '#123625',
+        mapLabel: styles.getPropertyValue('--map-style-label').trim() || '#f8fafc',
+        mapLabelHalo: styles.getPropertyValue('--map-style-label-halo').trim() || '#0b0b0b',
+        mapPoint: styles.getPropertyValue('--map-style-point').trim() || '#0f172a',
+        mapPointStroke: styles.getPropertyValue('--map-style-point-stroke').trim() || '#f8fafc',
+        mapRoute: styles.getPropertyValue('--map-style-route').trim() || '#334155'
+    };
+};
+
 const Map = forwardRef((props, ref) => {
     const { selectedActivities, selectedLocation, onMarkerClick, mapData, selectedHub, addedSpots, budgetFilter } = props;
     
@@ -355,6 +381,8 @@ const Map = forwardRef((props, ref) => {
     useEffect(() => {
         if (map.current) return;
 
+        const theme = readMapTheme();
+
         map.current = new maplibregl.Map({
             container: mapContainer.current,
             style: {
@@ -363,7 +391,7 @@ const Map = forwardRef((props, ref) => {
                 layers: [{ 
                     id: 'background', 
                     type: 'background', 
-                    paint: { 'background-color': 'rgba(0,0,0,0)' }
+                    paint: { 'background-color': theme.mapBg }
                 }]
             },
             center: INITIAL_VIEW.center,
@@ -409,6 +437,7 @@ const Map = forwardRef((props, ref) => {
 
             dataPromise.then(allData => {
                 if (!map.current) return;
+                const activeTheme = readMapTheme();
                 
                 map.current.addSource('all-data', { type: 'geojson', data: allData });
                 
@@ -418,7 +447,7 @@ const Map = forwardRef((props, ref) => {
                     source: 'all-data', 
                     filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], 
                     paint: { 
-                        'fill-color': '#bebebe',
+                        'fill-color': activeTheme.mapLand,
                         'fill-opacity': 1 
                     } 
                 });
@@ -429,7 +458,7 @@ const Map = forwardRef((props, ref) => {
                     source: 'all-data', 
                     filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], 
                     paint: { 
-                        'line-color': '#27272a', 
+                        'line-color': activeTheme.mapBorder, 
                         'line-width': 1.5 
                     } 
                 });
@@ -446,8 +475,8 @@ const Map = forwardRef((props, ref) => {
                         'text-size': 12 
                     }, 
                     paint: { 
-                        'text-color': '#ffffff',
-                        'text-halo-color': '#000000', 
+                        'text-color': activeTheme.mapLabel,
+                        'text-halo-color': activeTheme.mapLabelHalo, 
                         'text-halo-width': 3,
                         'text-opacity': 0.9
                     } 
@@ -460,9 +489,9 @@ const Map = forwardRef((props, ref) => {
                     filter: ['all', ['==', ['geometry-type'], 'Point'], ['!', ['to-boolean', ['get', 'is_top_10']]]],
                     paint: {
                         'circle-radius': 3.5,
-                        'circle-color': '#111111',
+                        'circle-color': activeTheme.mapPoint,
                         'circle-stroke-width': 1,
-                        'circle-stroke-color': '#ffffff',
+                        'circle-stroke-color': activeTheme.mapPointStroke,
                         'circle-opacity': 0.8
                     }
                 });
@@ -516,7 +545,7 @@ const Map = forwardRef((props, ref) => {
                     type: 'line',
                     source: 'router-brain',
                     paint: {
-                        'line-color': '#3f3f46',
+                        'line-color': activeTheme.mapRoute,
                         'line-width': 1,
                         'line-opacity': 0.3
                     }
@@ -661,7 +690,40 @@ const Map = forwardRef((props, ref) => {
                 map.current = null; 
             }
         };
-    }, []); 
+    }, []);
+
+    useEffect(() => {
+        if (!map.current) return;
+
+        const applyTheme = () => {
+            if (!map.current) return;
+            const theme = readMapTheme();
+            if (map.current.getLayer('background')) {
+                map.current.setPaintProperty('background', 'background-color', theme.mapBg);
+            }
+            if (map.current.getLayer('island-fill')) {
+                map.current.setPaintProperty('island-fill', 'fill-color', theme.mapLand);
+            }
+            if (map.current.getLayer('municipality-borders')) {
+                map.current.setPaintProperty('municipality-borders', 'line-color', theme.mapBorder);
+            }
+            if (map.current.getLayer('municipality-labels')) {
+                map.current.setPaintProperty('municipality-labels', 'text-color', theme.mapLabel);
+                map.current.setPaintProperty('municipality-labels', 'text-halo-color', theme.mapLabelHalo);
+            }
+            if (map.current.getLayer('tourist-dots')) {
+                map.current.setPaintProperty('tourist-dots', 'circle-color', theme.mapPoint);
+                map.current.setPaintProperty('tourist-dots', 'circle-stroke-color', theme.mapPointStroke);
+            }
+            if (map.current.getLayer('router-brain-layer')) {
+                map.current.setPaintProperty('router-brain-layer', 'line-color', theme.mapRoute);
+            }
+        };
+
+        applyTheme();
+        window.addEventListener('themechange', applyTheme);
+        return () => window.removeEventListener('themechange', applyTheme);
+    }, [isLoaded]);
 
     return (
     <div 
