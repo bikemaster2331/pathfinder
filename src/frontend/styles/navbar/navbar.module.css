@@ -8,7 +8,7 @@
     box-sizing: border-box;
     background: var(--nav-glass);
     backdrop-filter: blur(12px);
-    border-bottom: 100px solid var(--nav-border);
+    border-bottom: 1px solid var(--nav-border);
     z-index: 1000;
     transition:
         transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
@@ -25,7 +25,7 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    max-width: 1200px;
+    max-width: 100%;
     border-bottom: 2px solid var(--nav-border);
 }
 
@@ -39,6 +39,8 @@
     margin-right: auto;
     height: 90px;
     border-bottom: 1px solid var(--nav-border);
+    max-width: 1200px;
+    border-radius: 999px;
 }
 
 .navBarHome::after,
@@ -64,6 +66,170 @@
 .brand {
     display: flex;
     align-items: center;
+}
+
+.navLeft {
+    display: flex;
+    align-items: center;
+}
+
+.navCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex: 1;
+}
+
+.navRight {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 120px;
+}
+
+.collapsibleWrap {
+    display: none;
+    position: relative;
+    align-items: center;
+    gap: 8px;
+}
+
+.burgerButton {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: #0b0b0b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.burgerLine {
+    width: 18px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    display: block;
+}
+
+.burgerMenu {
+    position: absolute;
+    top: 46px;
+    right: 0;
+    min-width: 150px;
+    background: var(--glass-strong);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(14px);
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 2000;
+}
+
+.burgerBackdrop {
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    z-index: 1500;
+}
+
+.menuLink {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.menuLink:active {
+    color: var(--navbar-muted);
+    transform: translateX(4px) scale(1.02);
+}
+
+.ctaGroupNav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Icon-only theme toggle */
+.themeIconButton {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.themeIconButton:hover {
+    background: var(--surface-subtle);
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+}
+
+.themeIconButton svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    fill: none;
+}
+
+@media (max-width: 768px) {
+    .navCenter {
+        display: none;
+    }
+
+    .navRight {
+        display: none;
+    }
+
+    .navLinks {
+        display: none;
+    }
+
+    .ctaGroupNav {
+        display: none;
+    }
+
+    .collapsibleWrap {
+        display: inline-flex;
+        margin-left: auto;
+    }
+
+    .brandButton {
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+
+.brandIcon svg {
+    width: 24px;
+    height: 24px;
+}
+
+@media (min-width: 769px) {
+    .brandIcon svg {
+        width: 32px;
+        height: 32px;
+    }
+}
 }
 
 .brandButton {
@@ -109,25 +275,66 @@
     position: relative;
 }
 
-.navLink::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--navbar-text);
-    transition: width 0.3s ease;
+.navLink:active {
+    color: var(--navbar-muted);
+    transform: scale(1.02);
 }
 
-.navLink:hover {
-    color: var(--navbar-text);
-    scale: 1.2;
-    transition: all 0.4s ease;
+@media (min-width: 769px) {
+    .navLink::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--navbar-text);
+        transition: width 0.3s ease;
+    }
+
+    .navLink:hover {
+        color: var(--navbar-text);
+        scale: 1.2;
+        transition: all 0.4s ease;
+    }
+
+    .navLink:hover::after {
+        width: 100%;
+    }
+
+    .menuLink::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--navbar-text, var(--text));
+        transition: width 0.3s ease;
+    }
+
+    .menuLink:hover {
+        color: var(--navbar-text, var(--text));
+        transform: translateX(6px) scale(1.02);
+    }
+
+    .menuLink:hover::after {
+        width: 100%;
+    }
 }
 
-.navLink:hover::after {
-    width: 100%;
+@media (max-width: 768px) {
+    .burgerMenu {
+        min-width: 110px;
+        max-width: 130px;
+        right: 8px;
+        top: 46px;
+    }
+
+    .menuLink {
+        padding: 6px 4px;
+        font-size: 12px;
+    }
 }
 
 /* CTA Button */
@@ -239,6 +446,63 @@
     color: var(--navbar-muted);
 }
 
+/* Collapsible menu for non-home pages */
+.collapsibleWrap {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.burgerButton {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    cursor: pointer;
+}
+
+.burgerLine {
+    width: 12px;
+    height: 2px;
+    background: var(--navbar-text);
+    border-radius: 2px;
+}
+
+.burgerMenu {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    min-width: 120px;
+    padding: 6px;
+    border-radius: 8px;
+    background: var(--navbar-glass);
+    border: 1px solid var(--navbar-border);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    z-index: 5;
+}
+
+.menuLink {
+    background: transparent;
+    border: none;
+    color: var(--navbar-text);
+    font-size: 11px;
+    text-align: left;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 8px;
+}
+
+.menuLink:hover {
+    background: var(--navbar-surface-subtle);
+}
+
 @media (max-width: 768px) {
     .navLinks {
         gap: 20px;
@@ -248,4 +512,29 @@
     .navBarFixed {
         padding: 16px 24px;
     }
+
+    .brandIcon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .brandIcon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .brandButton {
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+}
+
+.burgerButton svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+
+:global([data-theme='dark']) .burgerButton {
+    color: #ffffff;
 }
