@@ -762,6 +762,7 @@ html {
     .badgesContainer {
         margin-top: 100px;
         margin-bottom: 20px;
+        width: 350px;
     }
 
     .badgeImage {
