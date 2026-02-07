@@ -19,29 +19,35 @@ html {
 
 .gradientBg {
     position: absolute;
-    top: -10%;
+    bottom: 40%;
     left: 50%;
     transform: translateX(-50%);
-    width: 1200px;
-    height: 800px;
+    width: 1800px;
+    height: 900px;
     background: radial-gradient(ellipse at center,
             rgba(18, 214, 18, 0.15) 0%,
             rgba(13, 214, 204, 0.08) 35%,
-            rgba(173, 157, 8, 0.12) 60%,
+            rgba(13, 173, 8, 0.12) 60%,
             transparent 75%);
-    filter: blur(80px);
+    filter: blur(60px);
+    opacity: 1;
     pointer-events: none;
     z-index: 0;
 }
 
 :global([data-theme='light']) .gradientBg {
+    position: absolute;
+    top: -15%;
+    left: 50%;
     background: radial-gradient(ellipse at center,
-            rgba(223, 137, 39, 0.55) 0%,
-            rgba(197, 27, 169, 0.35) 35%,
-            rgba(85, 59, 3, 0.12) 60%,
+            rgba(223, 137, 39, 0.75) 0%,
+            rgba(211, 47, 184, 0.55) 35%,
+            rgba(119, 48, 78, 0.55) 75%,
             transparent 75%);
-    filter: blur(80px);
+    filter: blur(120px);
+    opacity: 1;
 }
+
 .gridOverlay {
     position: absolute;
     top: 0;
@@ -56,6 +62,7 @@ html {
     z-index: 1;
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
 }
+
 
 
 .heroSection {
@@ -88,8 +95,8 @@ html {
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-bottom: 32px;
-    margin-top: 25vh;
+    margin-bottom: 48px;
+    margin-top: 32px;
 }
 
 :global([data-theme='light']) .statusBadge {
@@ -170,7 +177,7 @@ html {
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 50px;
+    margin-bottom: 125px;
 }
 
 .primaryCta {
@@ -258,41 +265,6 @@ html {
     filter: drop-shadow(0 8px 24px var(--home-shadow-strong));
 }
 
-.scrollDownWrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-}
-
-.Down {
-    margin-top: 20px;
-    background: var(--home-down-bg);
-    border: 1px solid var(--home-down-border);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    animation: bounce 2s infinite;
-}
-
-.Down:hover {
-    background: var(--home-surface-subtle);
-    border-color: var(--home-border-strong);
-    transform: translateY(-4px);
-}
-
-.Down svg {
-    color: var(--home-muted-2);
-    transition: color 0.3s ease;
-}
-
-.Down:hover svg {
-    color: #0b0b0b;
-}
 
 .visualWrapper {
     margin-top: 120px;
@@ -350,25 +322,12 @@ html {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #64748b;
+    color: var(--home-text);
     margin-bottom: 20px;
 }
 
 .cardHeader svg {
     color: #64748b;
-}
-
-.cardLocation {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--home-text);
-}
-
-.cardLocation svg {
-    color: #0ea5e9;
 }
 
 @keyframes bounce {
@@ -426,7 +385,7 @@ html {
 
 .slideIndicators {
     position: absolute;
-    top: 20px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -481,19 +440,34 @@ html {
 /* Location Card - Moved Higher */
 .locationCard {
     position: absolute;
-    bottom: 20px;
-    left: 24px;
-    right: 24px;
-    background: var(--home-glass-strong);
-    backdrop-filter: blur(16px);
+    top: 16px;
+    right: 12px;
+    background: var(--home-glass);
+    backdrop-filter: blur(12px);
     border: 1px solid var(--home-border);
-    border-radius: 16px;
-    padding: 20px;
+    border-radius: 999px;
+    padding: 8px 12px;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
     z-index: 20;
     pointer-events: none;
+    max-width: 360px;
+}
+
+:global([data-theme='dark']) .locationCard {
+    background: rgba(0, 0, 0, 0.35);
+    border-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+}
+
+.locationCard .cardLocation {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--home-text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
 }
 
 .testimonialsSection {
@@ -503,6 +477,13 @@ html {
     max-width: 1200px;
     margin: 120px auto 80px;
     padding: 0 48px;
+    overflow: visible;
+}
+
+.testimonialItem {
+    position: relative;
+    height: 220px;
+    align-self: start;
 }
 
 .testimonialCard {
@@ -517,6 +498,14 @@ html {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    height: 100%;
+    will-change: transform;
+}
+
+.testimonialHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .testimonialCard::before {
@@ -572,12 +561,90 @@ html {
     font-weight: 400;
     margin: 0;
     flex: 1;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.testimonialCardExpanded {
+    height: auto;
+}
+
+.testimonialCardActive {
+    z-index: 5;
+    transform: scale(1.05);
+    overflow: visible;
+}
+
+.testimonialCardActive:hover {
+    transform: scale(1.05);
+}
+
+.testimonialsActive .testimonialCard:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.testimonialsActive .testimonialCardActive:hover {
+    transform: scale(1.05);
+}
+
+.testimonialsActive .testimonialCard {
+    pointer-events: none;
+}
+
+.testimonialsActive .testimonialCardActive {
+    pointer-events: auto;
+}
+
+.testimonialsActive .testimonialCardDim {
+    pointer-events: none;
+}
+
+.testimonialItemActive {
+    height: auto;
+}
+
+.testimonialCardDim {
+    filter: blur(4px);
+    opacity: 0.7;
+}
+
+.testimonialCardExpanded .testimonialQuote {
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.testimonialCardExpanded .testimonialMeta {
+    position: static;
+    margin-top: 8px;
+    right: auto;
+    bottom: auto;
+}
+
+.testimonialToggle {
+    background: none;
+    border: none;
+    color: var(--home-muted-2);
+    font-size: 12px;
+    text-align: left;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 4px;
 }
 
 .testimonialMeta {
-    display: flex;
+    position: static;
+    margin-top: auto;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-size: 11px;
     color: var(--home-muted);
     font-weight: 500;
@@ -596,40 +663,35 @@ html {
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
+    .testimonialCard:hover {
+        transform: none;
+        box-shadow: none;
+    }
     .navArrow {
-        width: 40px;
-        height: 40px;
-    }
-
-    .navArrowLeft {
-        left: 12px;
-    }
-
-    .navArrowRight {
-        right: 12px;
+        display: none;
     }
 
     .slideIndicators {
-        top: 12px;
-        padding: 6px 12px;
-        gap: 6px;
+        top: auto;
+        bottom: 12px;
+        padding: 4px 10px;
+        gap: 5px;
     }
 
     .indicatorDot {
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
     }
 
     .indicatorDotActive {
-        width: 24px;
+        width: 18px;
     }
 
     .locationCard {
-        left: 16px;
-        right: 16px;
-        bottom: 60px;
-        /* Adjusted for mobile */
-        padding: 16px;
+        top: 12px;
+        right: 10px;
+        padding: 6px 10px;
+        max-width: 260px;
     }
 
     .navLinks {
@@ -641,36 +703,157 @@ html {
     }
 
     .heroSection {
-        padding: 80px 24px 60px;
+        padding: 88px 20px 48px;
+    }
+
+    .statusBadge {
+        font-size: 10px;
+        padding: 4px 12px;
+        margin-top: 50px;
+        margin-bottom: 40px;
+    }
+
+    .headline {
+        font-size: clamp(32px, 9vw, 44px);
+        line-height: 1.1;
+    }
+
+    .subheadline {
+        font-size: 11px;
+        line-height: 1.65;
+        margin: 0 auto 36px;
     }
 
     .ctaGroup {
-        flex-direction: column;
-        width: 100%;
+        gap: 10px;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: center;
     }
 
     .primaryCta,
     .secondaryCta {
-        width: 100%;
+        padding: 10px 16px;
+        font-size: 12px;
+        width: auto;
         justify-content: center;
     }
 
+    .gradientBg {
+        bottom: 65%;
+        width: 520px;
+        height: 380px;
+        filter: blur(22px);
+        opacity: 1;
+    }
+
+    :global([data-theme='light']) .gradientBg {
+        position: absolute;
+        top: -5%;
+        left: 50%;
+        background: radial-gradient(ellipse at center,
+                rgba(92, 3, 52, 0.75) 0%,
+                rgba(192, 13, 162, 0.6) 35%,
+                rgba(190, 144, 83, 0.6) 65%,
+                transparent 75%);
+        opacity: 1;
+    }
+
     .badgesContainer {
-        margin-top: 32px;
-        margin-bottom: 40px;
+        margin-top: 100px;
+        margin-bottom: 20px;
     }
 
     .badgeImage {
         max-height: 80px;
     }
 
+    .locationCard .cardLocation {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 400;
+        color: var(--home-text);
+        font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    }
+
     .testimonialsSection {
-        grid-template-columns: 1fr;
-        margin: 80px auto 60px;
-        padding: 0 24px;
-        gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin: 40px auto 32px;
+        padding: 0 16px;
+        gap: 12px;
     }   
+    .testimonialItem {
+        height: 190px;
+        align-self: start;
+    }
     .testimonialCard {
-        padding: 20px;
+        padding: 12px;
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+        gap: 8px;
+        height: 100%;
+        padding-bottom: 30px;
+    }
+
+    .testimonialCardExpanded {
+        height: auto;
+    }
+
+    .testimonialItemActive {
+        height: auto;
+    }
+
+    .testimonialCardActive {
+        transform: scale(1.05);
+    }
+
+    .testimonialCard:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .testimonialHeader {
+        gap: 8px;
+    }
+
+    .testimonialAvatar {
+        width: 18px;
+        height: 18px;
+        border-radius: 10px;
+    }
+
+    .testimonialLabel {
+        font-size: 8px;
+        letter-spacing: 0.06em;
+        min-height: 14px;
+    }
+
+    .testimonialQuote {
+        text-align: left;
+        font-size: 12px;
+        line-height: 1.45;
+        min-height: 64px;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+    }
+
+    .testimonialToggle {
+        font-size: 11px;
+    }
+
+    .testimonialMeta {
+        font-size: 10px;
+        gap: 6px;
+        margin-top: auto;
+    }
+
+    .testimonialCardExpanded .testimonialMeta {
+        position: static;
+        margin-top: 8px;
+        right: auto;
+        bottom: auto;
     }
 }
