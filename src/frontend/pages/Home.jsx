@@ -10,7 +10,8 @@ const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg
     import: 'default',
 });
 
-const IMAGES = Object.values(imageModules);
+const imageEntries = Object.entries(imageModules).sort(([a], [b]) => a.localeCompare(b));
+const IMAGES = imageEntries.map(([, src]) => src);
 
 const slideVariants = {
     enter: (direction) => ({
@@ -62,9 +63,32 @@ export default function Home() {
 
     const [[page, direction], setPage] = useState([0, 0]);
     const imageIndex = wrap(0, IMAGES.length, page);
+    const [expandedTestimonials, setExpandedTestimonials] = useState({});
+    const [activeTestimonial, setActiveTestimonial] = useState(null);
+    const suppressNextOpenRef = useRef(false);
 
     const paginate = (newDirection) => {
         setPage([page + newDirection, newDirection]);
+    };
+
+    const toggleTestimonial = (index) => {
+        if (suppressNextOpenRef.current) {
+            suppressNextOpenRef.current = false;
+            return;
+        }
+        if (activeTestimonial !== null && activeTestimonial !== index) {
+            setExpandedTestimonials((prev) => ({
+                ...prev,
+                [activeTestimonial]: false
+            }));
+            setActiveTestimonial(null);
+            return;
+        }
+        setExpandedTestimonials((prev) => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+        setActiveTestimonial((prev) => (prev === index ? null : index));
     };
 
     useEffect(() => {
@@ -73,6 +97,28 @@ export default function Home() {
         }, 4000);
         return () => clearInterval(timer);
     }, [page]); 
+
+    useEffect(() => {
+        if (activeTestimonial === null) return;
+
+        const handleOutsideClick = (event) => {
+            const card = event.target.closest('[data-testimonial-card]');
+            if (card) {
+                const index = Number(card.getAttribute('data-testimonial-card'));
+                if (index === activeTestimonial) return;
+                suppressNextOpenRef.current = true;
+            }
+            setActiveTestimonial(null);
+            setExpandedTestimonials((prev) => ({
+                ...prev,
+                [activeTestimonial]: false
+            }));
+        };
+
+        document.addEventListener('pointerdown', handleOutsideClick, true);
+        return () => document.removeEventListener('pointerdown', handleOutsideClick, true);
+    }, [activeTestimonial]);
+
 
     const swipeConfidenceThreshold = 8000;
     const swipePower = (offset, velocity) => {
@@ -129,7 +175,7 @@ export default function Home() {
                         The easternmost edge of Luzon. The{' '}
                         <span className={styles.highlight}>1st</span> to greet the Pacific.
                         <br />
-                        Explore the island of <span className={styles.catnes}>Catanduanes</span> with us.
+                        Explore the island of <span className={styles.catnes}>Catanduanes</span>.
                     </motion.p>
 
                     <motion.div variants={fadeInUp} custom={1.5} className={styles.ctaGroup}>
@@ -156,14 +202,6 @@ export default function Home() {
                         />
                     </motion.div>
                     
-                    <motion.div variants={fadeInUp} custom={2} className={styles.scrollDownWrapper}>
-                        <button className={styles.Down} onClick={scrollToImage}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="m7 6 5 5 5-5"/>
-                                <path d="m7 13 5 5 5-5"/>
-                            </svg>
-                        </button>
-                    </motion.div>
                 </motion.div>
 
                 <motion.div
@@ -235,84 +273,150 @@ export default function Home() {
                             ))}
                         </div>
 
-                        {/* Location Card - Moved Higher */}
+                        {/* Location Pill */}
                         <motion.div 
                             className={styles.locationCard}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.2, duration: 0.6 }}
                         >
-                            <div className={styles.cardHeader}>
-                                <span className={styles.cardLabel}>Current Location</span>
-                            </div>
-                            
                             <div className={styles.cardLocation}>
-                                <svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor">
-                                    <path d="M160,140V72.85a4,4,0,0,1,7-2.69l55,60.46a8,8,0,0,1,.43,10.26,8.24,8.24,0,0,1-6.58,3.12H164A4,4,0,0,1,160,140Zm87.21,32.53A8,8,0,0,0,240,168H144V8a8,8,0,0,0-14.21-5l-104,128A8,8,0,0,0,32,144h96v24H16a8,8,0,0,0-6.25,13l29.6,37a15.93,15.93,0,0,0,12.49,6H204.16a15.93,15.93,0,0,0,12.49-6l29.6-37A8,8,0,0,0,247.21,172.53Z"/>
-                                </svg>
                                 <span>Catanduanes, Philippines</span>
                             </div>
                         </motion.div>
                     </div>
                 </motion.div>
 
-                <motion.section 
-    className={styles.testimonialsSection}
+<motion.section 
+    className={`${styles.testimonialsSection} ${activeTestimonial !== null ? styles.testimonialsActive : ''}`}
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
     viewport={{ once: true }}
     transition={{ duration: 0.8 }}
 >
-    <div className={styles.testimonialCard}>
-        <div className={styles.testimonialAvatar}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-            </svg>
+    <div className={`${styles.testimonialItem} ${activeTestimonial === 0 ? styles.testimonialItemActive : ''}`}>
+        <div
+            className={`${styles.testimonialCard} ${expandedTestimonials[0] ? styles.testimonialCardExpanded : ''} ${activeTestimonial === 0 ? styles.testimonialCardActive : ''} ${activeTestimonial !== null && activeTestimonial !== 0 ? styles.testimonialCardDim : ''}`}
+            data-testimonial-card="0"
+            onClick={() => toggleTestimonial(0)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && toggleTestimonial(0)}
+        >
+        <div className={styles.testimonialHeader}>
+            <div className={styles.testimonialAvatar}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+            <span className={styles.testimonialLabel}>First-time Visitor</span>
         </div>
-        <span className={styles.testimonialLabel}>First-time Visitor</span>
         <p className={styles.testimonialQuote}>
             "Ang bilis lang magplano, will use again"
         </p>
+        <button className={styles.testimonialToggle} type="button" onClick={(e) => { e.stopPropagation(); toggleTestimonial(0); }}>
+            {expandedTestimonials[0] ? 'Show less' : 'Read more'}
+        </button>
         <div className={styles.testimonialMeta}>
             <span className={styles.metaDot}></span>
             <span>Verified Experience</span>
         </div>
+        </div>
     </div>
 
-    <div className={styles.testimonialCard}>
-        <div className={styles.testimonialAvatar}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
+    <div className={`${styles.testimonialItem} ${activeTestimonial === 1 ? styles.testimonialItemActive : ''}`}>
+        <div
+            className={`${styles.testimonialCard} ${expandedTestimonials[1] ? styles.testimonialCardExpanded : ''} ${activeTestimonial === 1 ? styles.testimonialCardActive : ''} ${activeTestimonial !== null && activeTestimonial !== 1 ? styles.testimonialCardDim : ''}`}
+            data-testimonial-card="1"
+            onClick={() => toggleTestimonial(1)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && toggleTestimonial(1)}
+        >
+        <div className={styles.testimonialHeader}>
+            <div className={styles.testimonialAvatar}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+            </div>
+            <span className={styles.testimonialLabel}>Weekend Explorer</span>
         </div>
-        <span className={styles.testimonialLabel}>Weekend Explorer</span>
         <p className={styles.testimonialQuote}>
-            "Shoutout sa mga kapamilya at mga kaibigan ko, sikat na ako"
+            "Shoutout sa mga kapamilya at mga kaibigan ko at kay Patrick Guerrero, sikat na ako. SDASDABDJKAJKDHAJKLDAKLDJAKLDJAKLJDKLAJDKLAJDLK"
         </p>
+        <button className={styles.testimonialToggle} type="button" onClick={(e) => { e.stopPropagation(); toggleTestimonial(1); }}>
+            {expandedTestimonials[1] ? 'Show less' : 'Read more'}
+        </button>
         <div className={styles.testimonialMeta}>
             <span className={styles.metaDot}></span>
             <span>Verified Experience</span>
         </div>
+        </div>
     </div>
 
-    <div className={styles.testimonialCard}>
-        <div className={styles.testimonialAvatar}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
+    <div className={`${styles.testimonialItem} ${activeTestimonial === 2 ? styles.testimonialItemActive : ''}`}>
+        <div
+            className={`${styles.testimonialCard} ${expandedTestimonials[2] ? styles.testimonialCardExpanded : ''} ${activeTestimonial === 2 ? styles.testimonialCardActive : ''} ${activeTestimonial !== null && activeTestimonial !== 2 ? styles.testimonialCardDim : ''}`}
+            data-testimonial-card="2"
+            onClick={() => toggleTestimonial(2)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && toggleTestimonial(2)}
+        >
+        <div className={styles.testimonialHeader}>
+            <div className={styles.testimonialAvatar}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+            </div>
+            <span className={styles.testimonialLabel}>Weekend Explorer</span>
         </div>
-        <span className={styles.testimonialLabel}>Group Trip Organizer</span>
+        <p className={styles.testimonialQuote}>
+            "Must try: Paraiso Ni Honesto"
+        </p>
+        <button className={styles.testimonialToggle} type="button" onClick={(e) => { e.stopPropagation(); toggleTestimonial(2); }}>
+            {expandedTestimonials[2] ? 'Show less' : 'Read more'}
+        </button>
+        <div className={styles.testimonialMeta}>
+            <span className={styles.metaDot}></span>
+            <span>Verified Experience</span>
+        </div>
+        </div>
+    </div>
+
+    <div className={`${styles.testimonialItem} ${activeTestimonial === 3 ? styles.testimonialItemActive : ''}`}>
+        <div
+            className={`${styles.testimonialCard} ${expandedTestimonials[3] ? styles.testimonialCardExpanded : ''} ${activeTestimonial === 3 ? styles.testimonialCardActive : ''} ${activeTestimonial !== null && activeTestimonial !== 3 ? styles.testimonialCardDim : ''}`}
+            data-testimonial-card="3"
+            onClick={() => toggleTestimonial(3)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && toggleTestimonial(3)}
+        >
+        <div className={styles.testimonialHeader}>
+            <div className={styles.testimonialAvatar}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+            </div>
+            <span className={styles.testimonialLabel}>Group Trip Organizer</span>
+        </div>
         <p className={styles.testimonialQuote}>
             "Multi-day planner kept our group of 8 perfectly coordinated across 3 days. Sa mga graduating d'yan ingat!"
         </p>
+        <button className={styles.testimonialToggle} type="button" onClick={(e) => { e.stopPropagation(); toggleTestimonial(3); }}>
+            {expandedTestimonials[3] ? 'Show less' : 'Read more'}
+        </button>
         <div className={styles.testimonialMeta}>
             <span className={styles.metaDot}></span>
             <span>Verified Experience</span>
+        </div>
         </div>
     </div>
 </motion.section>

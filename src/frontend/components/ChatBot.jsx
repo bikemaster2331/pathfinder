@@ -26,7 +26,7 @@ export default function ChatBot({ onLocationResponse }) {
         setLoading(true);
         
         try {
-            const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+            const API_BASE = import.meta.env.VITE_API_URL || "http://172.20.10.2:8000";
             const res = await fetch(`${API_BASE}/ask`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

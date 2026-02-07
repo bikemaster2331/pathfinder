@@ -30,11 +30,11 @@
 
 .collapsibleCard {
     width: 320px;
-    background-color: rgba(17, 17, 17, 0.98);
+    background-color: var(--itinerary-map-panel-bg);
     backdrop-filter: blur(15px);
     border-radius: 12px;
-    border: 1px solid rgba(80, 80, 80, 0.5);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--itinerary-map-panel-border);
+    box-shadow: var(--itinerary-map-panel-shadow);
     overflow: hidden;
     visibility: hidden;
     opacity: 0;
@@ -63,21 +63,31 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: rgba(17, 17, 17, 0.95);
+    background-color: var(--itinerary-map-panel-bg-contrast);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(80, 80, 80, 0.5);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--itinerary-map-panel-border-contrast);
+    box-shadow: 0 4px 10px var(--itinerary-map-shadow);
     pointer-events: auto;
     transition: transform 0.3s ease-out, background-color 0.3s ease-out;
 }
 
 .collapsibleHeader:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--itinerary-map-surface-subtle);
     transition: transform 0.1s ease-out, background-color 0.1s ease-out;
 }
 
+:global([data-theme='light']) .collapsibleHeader {
+    background-color: rgba(15, 23, 42, 0.14);
+    border-color: rgba(15, 23, 42, 0.2);
+}
+
+:global([data-theme='light']) .collapsibleHeader:hover {
+    background-color: rgba(15, 23, 42, 0.22);
+    border-color: rgba(15, 23, 42, 0.28);
+}
+
 .toggleIcon {
-    color: #aaa;
+    color: var(--itinerary-map-muted);
     font-size: 0.8rem;
 }
 
@@ -97,14 +107,14 @@
 }
 
 .collapsibleContent::-webkit-scrollbar-thumb {
-    background: #444;
+    background: var(--itinerary-map-slider-track);
     border-radius: 3px;
 }
 
 .divider {
     border: 0;
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--itinerary-map-border);
     margin: 0 20px;
 }
 
@@ -115,7 +125,7 @@
     width: 100%;
     background-color: transparent;
     border: none;
-    color: rgb(255, 250, 250);
+    color: var(--itinerary-map-text);
 }
 
 /* Overriding background for items inside the collapsible card so they blend in */
@@ -153,10 +163,10 @@
     height: 40px;
     width: 100%;
     padding: 0 16px;
-    background-color: rgba(51, 51, 51, 0.8);
-    border: 1px solid #494949;
+    background-color: var(--itinerary-map-input-bg);
+    border: 1px solid var(--itinerary-map-input-border);
     border-radius: 12px;
-    color: grey;
+    color: var(--itinerary-map-muted);
     font-size: 14px;
     font-family: inherit;
     font-weight: 500;
@@ -176,14 +186,14 @@
 
 .dateRangeTrigger:hover,
 .locField:hover {
-    background-color: rgba(70, 70, 70, 0.9);
-    border-color: #777;
+    background-color: var(--itinerary-map-input-hover-bg);
+    border-color: var(--itinerary-map-border-strong);
 }
 
 .calendarIcon {
     display: flex;
     align-items: center;
-    color: #ccc;
+    color: var(--itinerary-map-muted);
 }
 
 .dateText {
@@ -197,7 +207,7 @@
 .budgetHelperText,
 .boxHelperText {
     font-size: 0.8rem;
-    color: #9c9c9c;
+    color: var(--itinerary-map-muted-2);
     line-height: 1.4;
     margin-bottom: 20px;
     text-align: center;
@@ -223,7 +233,7 @@
 }
 
 .activitiesBox::-webkit-scrollbar-thumb {
-    background: #555;
+    background: var(--itinerary-map-slider-track);
     border-radius: 3px;
 }
 
@@ -250,23 +260,23 @@
     align-items: center;
     gap: 8px;
     padding: 8px 12px;
-    background-color: rgba(45, 46, 46, 0.8);
-    border: 1px solid rgba(73, 73, 73, 0.5);
+    background-color: var(--itinerary-map-chip-bg);
+    border: 1px solid var(--itinerary-map-chip-border);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
-    color: rgb(255, 255, 255);
+    color: var(--itinerary-map-text);
     font-size: 0.85rem;
     user-select: none
 }
 
 .activityLabel:hover {
-    background-color: rgba(55, 56, 56, 0.9);
-    border-color: rgb(100, 100, 100);
+    background-color: var(--itinerary-map-chip-hover-bg);
+    border-color: var(--itinerary-map-border-strong);
 }
 
 .activityLabel:hover rect[stroke] {
-    stroke: #999;
+    stroke: var(--itinerary-map-muted);
     transition: stroke 0.2s ease;
 }
 
@@ -308,7 +318,7 @@
     padding: 10px 12px;
     border-radius: 8px;
     font-size: 0.66rem;
-    color: #777;
+    color: var(--itinerary-map-muted-2);
     font-weight: 500;
     transition: all 0.1s ease;
     border: 1px solid transparent;
@@ -319,11 +329,11 @@
 
 /* The ACTIVE price box (Highlighted) */
 .activePriceBox {
-    background-color: rgba(60, 60, 60, 0.9);
-    color: white;
+    background-color: var(--itinerary-map-input-hover-bg);
+    color: var(--itinerary-map-text);
     font-weight: 700;
-    border: 1px solid #555;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--itinerary-map-border-strong);
+    box-shadow: 0 4px 12px var(--itinerary-map-shadow);
     transform: scale(1.05);
 }
 
@@ -333,7 +343,7 @@
     appearance: none;
     width: 100%;
     height: 6px;
-    background: #444;
+    background: var(--itinerary-map-slider-track);
     border-radius: 5px;
     outline: none;
     cursor: pointer;
@@ -345,10 +355,10 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #ffffff;
+    background: var(--itinerary-map-slider-thumb);
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border: 2px solid #1a1a1a;
+    box-shadow: 0 0 10px var(--itinerary-map-shadow);
+    border: 2px solid var(--itinerary-map-text);
     margin-top: -9px;
 }
 
@@ -356,16 +366,16 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #ffffff;
+    background: var(--itinerary-map-slider-thumb);
     cursor: pointer;
-    border: 2px solid #1a1a1a;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--itinerary-map-text);
+    box-shadow: 0 0 10px var(--itinerary-map-shadow);
 }
 
 .customRange::-moz-range-track {
     width: 100%;
     height: 6px;
-    background: #444;
+    background: var(--itinerary-map-slider-track);
     border-radius: 5px;
     cursor: pointer;
 }
@@ -389,17 +399,17 @@
 
 /* --- REACT DATEPICKER DARK MODE OVERRIDES --- */
 :global(.react-datepicker) {
-    background-color: #1a1a1a !important;
-    border: 1px solid #444 !important;
-    color: white !important;
+    background-color: var(--itinerary-map-surface) !important;
+    border: 1px solid var(--itinerary-map-border) !important;
+    color: var(--itinerary-map-text) !important;
     font-family: inherit !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 20px var(--itinerary-map-shadow);
     border-radius: 12px !important;
 }
 
 :global(.react-datepicker__header) {
-    background-color: #2a2a2a !important;
-    border-bottom: 1px solid #444 !important;
+    background-color: var(--itinerary-map-surface-subtle) !important;
+    border-bottom: 1px solid var(--itinerary-map-border) !important;
     border-top-left-radius: 12px !important;
     border-top-right-radius: 12px !important;
     padding-top: 10px !important;
@@ -407,17 +417,17 @@
 
 :global(.react-datepicker__current-month),
 :global(.react-datepicker__day-name) {
-    color: white !important;
+    color: var(--itinerary-map-text) !important;
     font-weight: 600 !important;
 }
 
 :global(.react-datepicker__day) {
-    color: #e0e0e0 !important;
+    color: var(--itinerary-map-muted) !important;
     border-radius: 50% !important;
 }
 
 :global(.react-datepicker__day:hover) {
-    background-color: #444 !important;
+    background-color: var(--itinerary-map-surface-subtle) !important;
 }
 
 :global(.react-datepicker__day--selected),
@@ -427,7 +437,7 @@
 }
 
 :global(.react-datepicker__day--disabled) {
-    color: #555 !important;
+    color: var(--itinerary-map-muted-2) !important;
 }
 
 :global(.react-datepicker__triangle) {
@@ -449,7 +459,7 @@
     height: 100%;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--itinerary-map-overlay);
     z-index: 25;
     /* Above Map (0), Below Controls (10) */
     opacity: 0;

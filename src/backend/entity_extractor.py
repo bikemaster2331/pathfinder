@@ -184,24 +184,30 @@ class EntityExtractor:
         query_lower = query.lower()
         
         # Strong listing keywords
-        listing_keywords = ['all', 'list', 'show me', 'what are', 'which', 'any', 'options']
+        listing_keywords = ['all', 'list', 'show me', 'what are', 'which', 'any', 'options', 'where can i', 'where to', 'places for', 'places to' ]
         if any(kw in query_lower for kw in listing_keywords):
             return True
         
         # Plural nouns indicate browsing
-        plurals = ['beaches', 'hotels', 'cafes', 'restaurants', 'falls', 
-                    'resorts', 'waterfalls', 'viewpoints', 'activities']
+        plurals = [
+            'beaches', 'hotels', 'cafes', 'restaurants', 'falls', 
+            'resorts', 'waterfalls', 'viewpoints', 'activities',
+            'burgers', 'pizzas', 'coffee shops', 'bars'  # NEW
+        ]
         
         has_plural = any(plural in query_lower for plural in plurals)
+
+        specific_spots = [
+            p for p in found_places 
+            if p.lower() not in self.municipalities
+        ]
         
-        # Logic: If user mentions "falls" (plural) BUT names a specific place
-        # (e.g. "Hinik-Hinik Falls"), it is NOT a listing intent.
-        if has_plural and not found_places:
+        if has_plural and len(specific_spots) == 0:
             return True
         
-        # "in [town]" pattern suggests browsing that location
-        if re.search(r'\b(in|at)\s+(virac|baras|pandan|bato|gigmoto|san andres)\b', query_lower):
-            return True
+        if re.search(r'\b(in|at|around|near)\s+(virac|baras|pandan|bato|gigmoto|san andres)\b', query_lower):
+            if len(specific_spots) == 0:
+                return True
         
         return False
     

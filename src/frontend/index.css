@@ -5,7 +5,397 @@
 
 :root {
     --color-white: #ffffff;
+    --app-bg: #f8fafc;
+    --app-text: #0b0b0b;
+
+    /* Home page */
+    --home-bg: #f8fafc;
+    --home-surface: #ffffff;
+    --home-surface-subtle: rgba(102, 102, 102, 0.75);
+    --home-text: #0b0b0b;
+    --home-muted: #475569;
+    --home-muted-2: #64748b;
+    --home-border: #e2e8f0;
+    --home-border-strong: #cbd5e1;
+    --home-shadow: rgba(15, 23, 42, 0.15);
+    --home-shadow-strong: rgba(15, 23, 42, 0.25);
+    --home-glass: rgba(255, 255, 255, 0.75);
+    --home-glass-strong: rgba(255, 255, 255, 0.4);
+    --home-down-bg: #e5e7eb;
+    --home-down-border: #cbd5e1;
+    --home-nav-arrow-bg: rgba(15, 23, 42, 0.16);
+    --home-nav-arrow-border: rgba(15, 23, 42, 0.18);
+    --home-nav-arrow-bg-hover: rgba(102, 102, 102, 0.75);
+    --home-nav-arrow-border-hover: rgba(15, 23, 42, 0.18);
+
+    /* Navbar */
+    --navbar-glass: rgba(255, 255, 255, 0.6);
+    --navbar-glass-strong: rgba(255, 255, 255, 0.4);
+    --navbar-border: rgba(15, 23, 42, 0.06);
+    --navbar-text: #0b0b0b;
+    --navbar-muted: #475569;
+    --navbar-cta-bg: #0f172a;
+    --navbar-cta-bg-hover: #0b1220;
+    --navbar-cta-text: #ffffff;
+    --navbar-surface-subtle: rgba(102, 102, 102, 0.75);
+    --navbar-shadow: rgba(15, 23, 42, 0.15);
+    --navbar-toggle-track: #0f172a;
+    --navbar-toggle-thumb: #ffffff;
+
+    /* Footer: About */
+    --footer-about-bg: #f8fafc;
+    --footer-about-text: #0b0b0b;
+    --footer-about-muted: #475569;
+    --footer-about-surface-subtle: rgba(102, 102, 102, 0.75);
+    --footer-about-border: #e2e8f0;
+    --footer-about-surface: #ffffff;
+
+    /* Footer: Contact */
+    --footer-contact-bg: #f8fafc;
+    --footer-contact-text: #0b0b0b;
+    --footer-contact-muted: #475569;
+    --footer-contact-surface-subtle: rgba(102, 102, 102, 0.75);
+    --footer-contact-border: #e2e8f0;
+    --footer-contact-surface: #ffffff;
+
+    /* Footer: Creators */
+    --footer-creators-bg: #f8fafc;
+    --footer-creators-text: #0b0b0b;
+    --footer-creators-muted: #475569;
+    --footer-creators-surface-subtle: rgba(102, 102, 102, 0.75);
+    --footer-creators-border: #e2e8f0;
+    --footer-creators-surface: #ffffff;
+
+    /* Itinerary page */
+    --itinerary-bg: #f8fafc;
+    --itinerary-grid-line: rgba(15, 23, 42, 0.04);
+    --itinerary-surface: #ffffff;
+    --itinerary-surface-subtle: rgba(102, 102, 102, 0.75);
+    --itinerary-border-strong: #cbd5e1;
+    --itinerary-shadow: rgba(15, 23, 42, 0.15);
+    --itinerary-text: #0b0b0b;
+    --itinerary-muted: #475569;
+    --itinerary-glass: rgba(255, 255, 255, 0.75);
+    --itinerary-slider-track: #cbd5e1;
+
+    /* Itinerary: Chatbot */
+    --itinerary-chat-glass: rgba(255, 255, 255, 0.75);
+    --itinerary-chat-glass-strong: rgba(255, 255, 255, 0.4);
+    --itinerary-chat-border: #e2e8f0;
+    --itinerary-chat-border-strong: #cbd5e1;
+    --itinerary-chat-text: #0b0b0b;
+    --itinerary-chat-muted: #475569;
+    --itinerary-chat-shadow: rgba(15, 23, 42, 0.15);
+    --itinerary-chat-surface: #ffffff;
+    --itinerary-chat-surface-subtle: rgba(102, 102, 102, 0.75);
+
+    /* Itinerary: Map wrapper */
+    --itinerary-map-panel-bg: rgba(255, 255, 255, 0.92);
+    --itinerary-map-panel-border: #e2e8f0;
+    --itinerary-map-panel-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+    --itinerary-map-panel-bg-contrast: rgba(15, 23, 42, 0.08);
+    --itinerary-map-panel-border-contrast: rgba(15, 23, 42, 0.16);
+    --itinerary-map-shadow: rgba(15, 23, 42, 0.15);
+    --itinerary-map-surface-subtle: rgba(102, 102, 102, 0.75);
+    --itinerary-map-muted: #475569;
+    --itinerary-map-muted-2: #64748b;
+    --itinerary-map-slider-track: #cbd5e1;
+    --itinerary-map-slider-thumb: #0f172a;
+    --itinerary-map-border: #e2e8f0;
+    --itinerary-map-border-strong: #cbd5e1;
+    --itinerary-map-text: #0b0b0b;
+    --itinerary-map-input-bg: #ffffff;
+    --itinerary-map-input-border: #cbd5e1;
+    --itinerary-map-input-hover-bg: #f1f5f9;
+    --itinerary-map-chip-bg: #f8fafc;
+    --itinerary-map-chip-border: #e2e8f0;
+    --itinerary-map-chip-hover-bg: #eef2f6;
+    --itinerary-map-surface: #ffffff;
+    --itinerary-map-overlay: rgba(15, 23, 42, 0.08);
+
+    /* Itinerary: Map popups */
+    --itinerary-map-popup-bg: #ffffff;
+    --itinerary-map-popup-text: #0f172a;
+    --itinerary-map-popup-border: #e2e8f0;
+    --itinerary-map-popup-shadow: rgba(15, 23, 42, 0.15);
+
+    /* Itinerary: Card */
+    --itinerary-card-panel-bg: #d5dbe3;
+    --itinerary-card-border: #c2c9d3;
+    --itinerary-card-text: #0b0b0b;
+    --itinerary-card-shadow: rgba(15, 23, 42, 0.18);
+    --itinerary-card-surface-02: rgba(15, 23, 42, 0.02);
+    --itinerary-card-surface-03: rgba(15, 23, 42, 0.03);
+    --itinerary-card-surface-04: rgba(15, 23, 42, 0.04);
+    --itinerary-card-surface-05: rgba(15, 23, 42, 0.05);
+    --itinerary-card-surface-06: rgba(15, 23, 42, 0.06);
+    --itinerary-card-surface-08: rgba(15, 23, 42, 0.08);
+    --itinerary-card-surface-10: rgba(15, 23, 42, 0.1);
+    --itinerary-card-surface-12: rgba(15, 23, 42, 0.12);
+    --itinerary-card-surface-15: rgba(15, 23, 42, 0.15);
+    --itinerary-card-surface-20: rgba(15, 23, 42, 0.2);
+    --itinerary-card-surface-25: rgba(15, 23, 42, 0.25);
+    --itinerary-card-text-50: rgba(15, 23, 42, 0.5);
+    --itinerary-card-text-40: rgba(15, 23, 42, 0.4);
+    --itinerary-card-text-60: rgba(15, 23, 42, 0.6);
+    --itinerary-card-text-70: rgba(15, 23, 42, 0.7);
+    --itinerary-card-text-85: rgba(15, 23, 42, 0.85);
+    --itinerary-card-text-90: rgba(15, 23, 42, 0.9);
+    --itinerary-card-text-white: #ffffff;
+    --itinerary-card-text-offwhite: #0b0b0b;
+    --itinerary-card-shadow-15: rgba(15, 23, 42, 0.15);
+    --itinerary-card-shadow-20: rgba(15, 23, 42, 0.2);
+    --itinerary-card-shadow-30: rgba(15, 23, 42, 0.3);
+    --itinerary-card-shadow-40: rgba(15, 23, 42, 0.4);
+    --itinerary-card-shadow-50: rgba(15, 23, 42, 0.5);
+    --itinerary-card-shadow-60: rgba(15, 23, 42, 0.6);
+    --itinerary-card-shadow-80: rgba(15, 23, 42, 0.8);
+    --itinerary-card-shadow-85: rgba(15, 23, 42, 0.85);
+    --itinerary-card-shadow-90: rgba(15, 23, 42, 0.9);
+    --itinerary-card-shadow-95: rgba(15, 23, 42, 0.95);
+    --itinerary-card-transparent: rgba(0, 0, 0, 0);
+    --itinerary-card-accent-green: #10B981;
+    --itinerary-card-accent-green-dark: #059669;
+    --itinerary-card-accent-green-darker: #047857;
+    --itinerary-card-accent-green-12: rgba(16, 185, 129, 0.12);
+    --itinerary-card-accent-green-20: rgba(16, 185, 129, 0.2);
+    --itinerary-card-accent-green-30: rgba(16, 185, 129, 0.3);
+    --itinerary-card-accent-green-40: rgba(16, 185, 129, 0.4);
+    --itinerary-card-accent-red: #EF4444;
+    --itinerary-card-accent-red-dark: #DC2626;
+    --itinerary-card-accent-red-darker: #B91C1C;
+    --itinerary-card-accent-red-30: rgba(239, 68, 68, 0.3);
+    --itinerary-card-accent-red-40: rgba(239, 68, 68, 0.4);
+    --itinerary-card-accent-amber: #F59E0B;
+    --itinerary-card-accent-amber-08: rgba(245, 158, 11, 0.08);
+    --itinerary-card-accent-blue: #2563EB;
+    --itinerary-card-accent-blue-dark: #1E40AF;
+    --itinerary-card-accent-blue-darker: #1E3A8A;
+    --itinerary-card-accent-blue-25: rgba(37, 99, 235, 0.25);
+    --itinerary-card-accent-blue-40: rgba(37, 99, 235, 0.4);
+    --itinerary-card-gray-400: #9CA3AF;
+    --itinerary-card-gray-500: #A1A1AA;
+    --itinerary-card-gray-400-80: rgba(156, 163, 175, 0.8);
+    --itinerary-card-gray-600-30: rgba(107, 114, 128, 0.3);
+    --itinerary-card-gray-700-50: rgba(75, 85, 99, 0.5);
+    --itinerary-card-alert: #ff5e5e;
+    --itinerary-card-alert-strong: #ff2a2a;
+    --itinerary-card-light-06: rgba(15, 23, 42, 0.06);
+    --itinerary-card-light-08: rgba(15, 23, 42, 0.08);
+    --itinerary-card-light-12: rgba(15, 23, 42, 0.12);
+    --itinerary-card-light-18: rgba(15, 23, 42, 0.18);
+    --itinerary-card-light-20: rgba(15, 23, 42, 0.2);
+    --itinerary-card-light-22: rgba(15, 23, 42, 0.22);
+    --itinerary-card-light-65: rgba(15, 23, 42, 0.65);
+    --itinerary-walletlabel-text: #0b0b0b;
+    --itinerary-walletlabel-text: rgba(15, 23, 42, 0.9);
+
+    /* Map component style */
+    --map-style-bg: #e8efe5;
+    --map-style-land: #1f4d3a;
+    --map-style-border: #123625;
+    --map-style-label: #f8fafc;
+    --map-style-label-halo: #0b0b0b;
+    --map-style-point: #0f172a;
+    --map-style-point-stroke: #f8fafc;
+    --map-style-route: #334155;
     font-family: 'Outfit', sans-serif;
+}
+
+[data-theme='dark'] {
+    --app-bg: #0a0a0a;
+    --app-text: #ffffff;
+
+    /* Home page */
+    --home-bg: #0a0a0a;
+    --home-surface: #111111;
+    --home-surface-subtle: #1a1a1a;
+    --home-text: #ffffff;
+    --home-muted: #94a3b8;
+    --home-muted-2: #64748b;
+    --home-border: rgba(255, 255, 255, 0.12);
+    --home-border-strong: rgba(255, 255, 255, 0.2);
+    --home-shadow: rgba(0, 0, 0, 0.5);
+    --home-shadow-strong: rgba(0, 0, 0, 0.7);
+    --home-glass: rgba(10, 10, 10, 0.45);
+    --home-glass-strong: rgba(10, 10, 10, 0.6);
+    --home-down-bg: rgba(255, 255, 255, 0.1);
+    --home-down-border: rgba(255, 255, 255, 0.2);
+    --home-nav-arrow-bg: rgba(10, 10, 10, 0.45);
+    --home-nav-arrow-border: rgba(255, 255, 255, 0.12);
+    --home-nav-arrow-bg-hover: #1a1a1a;
+    --home-nav-arrow-border-hover: rgba(255, 255, 255, 0.12);
+
+    /* Navbar */
+    --navbar-glass: rgba(10, 10, 10, 0.7);
+    --navbar-glass-strong: rgba(10, 10, 10, 0.6);
+    --navbar-border: rgba(255, 255, 255, 0.06);
+    --navbar-text: #ffffff;
+    --navbar-muted: #94a3b8;
+    --navbar-cta-bg: #ffffff;
+    --navbar-cta-bg-hover: #e5e7eb;
+    --navbar-cta-text: #0a0a0a;
+    --navbar-surface-subtle: #1a1a1a;
+    --navbar-shadow: rgba(0, 0, 0, 0.5);
+    --navbar-toggle-track: #ffffff;
+    --navbar-toggle-thumb: #0a0a0a;
+
+    /* Footer: About */
+    --footer-about-bg: #0a0a0a;
+    --footer-about-text: #ffffff;
+    --footer-about-muted: #94a3b8;
+    --footer-about-surface-subtle: #1a1a1a;
+    --footer-about-border: rgba(255, 255, 255, 0.12);
+    --footer-about-surface: #111111;
+
+    /* Footer: Contact */
+    --footer-contact-bg: #0a0a0a;
+    --footer-contact-text: #ffffff;
+    --footer-contact-muted: #94a3b8;
+    --footer-contact-surface-subtle: #1a1a1a;
+    --footer-contact-border: rgba(255, 255, 255, 0.12);
+    --footer-contact-surface: #111111;
+
+    /* Footer: Creators */
+    --footer-creators-bg: #0a0a0a;
+    --footer-creators-text: #ffffff;
+    --footer-creators-muted: #94a3b8;
+    --footer-creators-surface-subtle: #1a1a1a;
+    --footer-creators-border: rgba(255, 255, 255, 0.12);
+    --footer-creators-surface: #111111;
+
+    /* Itinerary page */
+    --itinerary-bg: #0a0a0a;
+    --itinerary-grid-line: rgba(255, 255, 255, 0.02);
+    --itinerary-surface: #111111;
+    --itinerary-surface-subtle: #1a1a1a;
+    --itinerary-border-strong: rgba(255, 255, 255, 0.2);
+    --itinerary-shadow: rgba(0, 0, 0, 0.5);
+    --itinerary-text: #ffffff;
+    --itinerary-muted: #94a3b8;
+    --itinerary-glass: rgba(10, 10, 10, 0.45);
+    --itinerary-slider-track: #444;
+
+    /* Itinerary: Chatbot */
+    --itinerary-chat-glass: rgba(10, 10, 10, 0.45);
+    --itinerary-chat-glass-strong: rgba(10, 10, 10, 0.6);
+    --itinerary-chat-border: rgba(255, 255, 255, 0.12);
+    --itinerary-chat-border-strong: rgba(255, 255, 255, 0.2);
+    --itinerary-chat-text: #ffffff;
+    --itinerary-chat-muted: #94a3b8;
+    --itinerary-chat-shadow: rgba(0, 0, 0, 0.5);
+    --itinerary-chat-surface: #111111;
+    --itinerary-chat-surface-subtle: #1a1a1a;
+
+    /* Itinerary: Map wrapper */
+    --itinerary-map-panel-bg: rgba(17, 17, 17, 0.98);
+    --itinerary-map-panel-border: rgba(80, 80, 80, 0.5);
+    --itinerary-map-panel-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    --itinerary-map-panel-bg-contrast: rgba(17, 17, 17, 0.98);
+    --itinerary-map-panel-border-contrast: rgba(80, 80, 80, 0.5);
+    --itinerary-map-shadow: rgba(0, 0, 0, 0.5);
+    --itinerary-map-surface-subtle: #1a1a1a;
+    --itinerary-map-muted: #94a3b8;
+    --itinerary-map-muted-2: #64748b;
+    --itinerary-map-slider-track: #444;
+    --itinerary-map-slider-thumb: #ffffff;
+    --itinerary-map-border: rgba(255, 255, 255, 0.12);
+    --itinerary-map-border-strong: rgba(255, 255, 255, 0.2);
+    --itinerary-map-text: #ffffff;
+    --itinerary-map-input-bg: rgba(51, 51, 51, 0.8);
+    --itinerary-map-input-border: #494949;
+    --itinerary-map-input-hover-bg: rgba(70, 70, 70, 0.9);
+    --itinerary-map-chip-bg: rgba(45, 46, 46, 0.8);
+    --itinerary-map-chip-border: rgba(73, 73, 73, 0.5);
+    --itinerary-map-chip-hover-bg: rgba(55, 56, 56, 0.9);
+    --itinerary-map-surface: #111111;
+    --itinerary-map-overlay: rgba(0, 0, 0, 0.4);
+
+    /* Itinerary: Map popups */
+    --itinerary-map-popup-bg: rgba(30, 30, 30, 0.95);
+    --itinerary-map-popup-text: #ffffff;
+    --itinerary-map-popup-border: rgba(255, 255, 255, 0.12);
+    --itinerary-map-popup-shadow: rgba(0, 0, 0, 0.5);
+
+    /* Itinerary: Card */
+    --itinerary-card-panel-bg: rgba(17, 17, 17, 0.95);
+    --itinerary-card-border: rgba(255, 255, 255, 0.12);
+    --itinerary-card-text: #ffffff;
+    --itinerary-card-shadow: rgba(0, 0, 0, 0.5);
+    --itinerary-card-surface-02: rgba(255, 255, 255, 0.02);
+    --itinerary-card-surface-03: rgba(255, 255, 255, 0.03);
+    --itinerary-card-surface-04: rgba(255, 255, 255, 0.04);
+    --itinerary-card-surface-05: rgba(255, 255, 255, 0.05);
+    --itinerary-card-surface-06: rgba(255, 255, 255, 0.06);
+    --itinerary-card-surface-08: rgba(255, 255, 255, 0.08);
+    --itinerary-card-surface-10: rgba(255, 255, 255, 0.1);
+    --itinerary-card-surface-12: rgba(255, 255, 255, 0.12);
+    --itinerary-card-surface-15: rgba(255, 255, 255, 0.15);
+    --itinerary-card-surface-20: rgba(255, 255, 255, 0.2);
+    --itinerary-card-surface-25: rgba(255, 255, 255, 0.25);
+    --itinerary-card-text-50: rgba(255, 255, 255, 0.5);
+    --itinerary-card-text-40: rgba(255, 255, 255, 0.4);
+    --itinerary-card-text-60: rgba(255, 255, 255, 0.6);
+    --itinerary-card-text-70: rgba(255, 255, 255, 0.7);
+    --itinerary-card-text-85: rgba(255, 255, 255, 0.85);
+    --itinerary-card-text-90: rgba(255, 255, 255, 0.9);
+    --itinerary-card-text-white: #ffffff;
+    --itinerary-card-text-offwhite: rgb(255, 250, 250);
+    --itinerary-card-shadow-15: rgba(0, 0, 0, 0.15);
+    --itinerary-card-shadow-20: rgba(0, 0, 0, 0.2);
+    --itinerary-card-shadow-30: rgba(0, 0, 0, 0.3);
+    --itinerary-card-shadow-40: rgba(0, 0, 0, 0.4);
+    --itinerary-card-shadow-50: rgba(0, 0, 0, 0.5);
+    --itinerary-card-shadow-60: rgba(0, 0, 0, 0.6);
+    --itinerary-card-shadow-80: rgba(0, 0, 0, 0.8);
+    --itinerary-card-shadow-85: rgba(0, 0, 0, 0.85);
+    --itinerary-card-shadow-90: rgba(0, 0, 0, 0.9);
+    --itinerary-card-shadow-95: rgba(0, 0, 0, 0.95);
+    --itinerary-card-transparent: rgba(0, 0, 0, 0);
+    --itinerary-card-accent-green: #10B981;
+    --itinerary-card-accent-green-dark: #059669;
+    --itinerary-card-accent-green-darker: #047857;
+    --itinerary-card-accent-green-12: rgba(16, 185, 129, 0.12);
+    --itinerary-card-accent-green-20: rgba(16, 185, 129, 0.2);
+    --itinerary-card-accent-green-30: rgba(16, 185, 129, 0.3);
+    --itinerary-card-accent-green-40: rgba(16, 185, 129, 0.4);
+    --itinerary-card-accent-red: #EF4444;
+    --itinerary-card-accent-red-dark: #DC2626;
+    --itinerary-card-accent-red-darker: #B91C1C;
+    --itinerary-card-accent-red-30: rgba(239, 68, 68, 0.3);
+    --itinerary-card-accent-red-40: rgba(239, 68, 68, 0.4);
+    --itinerary-card-accent-amber: #F59E0B;
+    --itinerary-card-accent-amber-08: rgba(245, 158, 11, 0.08);
+    --itinerary-card-accent-blue: #2563EB;
+    --itinerary-card-accent-blue-dark: #1E40AF;
+    --itinerary-card-accent-blue-darker: #1E3A8A;
+    --itinerary-card-accent-blue-25: rgba(37, 99, 235, 0.25);
+    --itinerary-card-accent-blue-40: rgba(37, 99, 235, 0.4);
+    --itinerary-card-gray-400: #9CA3AF;
+    --itinerary-card-gray-500: #A1A1AA;
+    --itinerary-card-gray-400-80: rgba(156, 163, 175, 0.8);
+    --itinerary-card-gray-600-30: rgba(107, 114, 128, 0.3);
+    --itinerary-card-gray-700-50: rgba(75, 85, 99, 0.5);
+    --itinerary-card-alert: #ff5e5e;
+    --itinerary-card-alert-strong: #ff2a2a;
+    --itinerary-card-light-06: rgba(15, 23, 42, 0.06);
+    --itinerary-card-light-08: rgba(15, 23, 42, 0.08);
+    --itinerary-card-light-12: rgba(15, 23, 42, 0.12);
+    --itinerary-card-light-18: rgba(15, 23, 42, 0.18);
+    --itinerary-card-light-20: rgba(15, 23, 42, 0.2);
+    --itinerary-card-light-22: rgba(15, 23, 42, 0.22);
+    --itinerary-card-light-65: rgba(15, 23, 42, 0.65);
+    --itinerary-walletlabel-text: #f8fafc;
+
+    /* Map component style */
+    --map-style-bg: #0a0a0a;
+    --map-style-land: #bebebe;
+    --map-style-border: #27272a;
+    --map-style-label: #ffffff;
+    --map-style-label-halo: #000000;
+    --map-style-point: #111111;
+    --map-style-point-stroke: #ffffff;
+    --map-style-route: #3f3f46;
 }
 
 * {
@@ -23,7 +413,8 @@ body::-webkit-scrollbar {
 
 html,
 body {
-    background-color: #050505;
+    background-color: var(--app-bg);
+    color: var(--app-text);
     margin: 0;
     padding: 0;
     width: 100%;

@@ -382,10 +382,9 @@ const PreferenceCard = ({
                                     
                                     // FIX 1: Slowed down animation to 0.8s to allow UI to catch up
                                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} 
-                                    
-                                    style={{ overflow: "hidden" }}
+                                    className={styles.expandedContent}
                                 >
-                                    <div style={{ paddingTop: '1.5rem', paddingBottom: '0.5rem' }}>
+                                    <div className={styles.expandedContentInner}>
                                         
                                         {/* THE "SMART TAGS" GRID */}
                                         <div className={styles.metaHandler}>
@@ -393,7 +392,7 @@ const PreferenceCard = ({
                                             {/* A. ENVIRONMENT */}
                                             <div className={styles.metaBox}>
                                                 <span className={styles.metaLabel}>ENVIRONMENT</span>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F3F4F6' }}>
+                                                <div className={styles.metaRow}>
                                                     {selectedLocation?.outdoor_exposure === 'indoor' ? (
                                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M10 9a3 3 0 0 1 3 3v9"/></svg>
                                                     ) : selectedLocation?.outdoor_exposure === 'shaded' ? (
@@ -401,7 +400,7 @@ const PreferenceCard = ({
                                                     ) : (
                                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FCD34D" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/></svg>
                                                     )}
-                                                    <span style={{ textTransform: 'capitalize' }}>
+                                                    <span className={styles.metaValueCaps}>
                                                         {selectedLocation?.outdoor_exposure || 'Outdoor'}
                                                     </span>
                                                 </div>
@@ -410,9 +409,9 @@ const PreferenceCard = ({
                                             {/* B. COST LEVEL */}
                                             <div className={styles.metaBox}>
                                                 <span className={styles.metaLabel}>COST LEVEL</span>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F3F4F6' }}>
+                                                <div className={styles.metaRow}>
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                                                    <span>
+                                                    <span className={styles.metaValue}>
                                                         {selectedLocation?.min_budget === 'high' ? '₱₱₱' : 
                                                         selectedLocation?.min_budget === 'medium' ? '₱₱' : '₱'}
                                                     </span>
@@ -422,7 +421,7 @@ const PreferenceCard = ({
                                             {/* C. BEST TIME */}
                                             <div className={styles.metaBox}>
                                                 <span className={styles.metaLabel}>BEST TIME</span>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F3F4F6' }}>
+                                                <div className={styles.metaRow}>
                                                     {(() => {
                                                         const time = selectedLocation?.best_time_of_day;
                                                         let icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
@@ -442,7 +441,7 @@ const PreferenceCard = ({
                                                         return (
                                                             <>
                                                                 {icon}
-                                                                <span style={{ textTransform: 'capitalize' }}>
+                                                                <span className={styles.metaValueCaps}>
                                                                     {time === 'any' ? 'All Day' : time || 'Anytime'}
                                                                 </span>
                                                             </>
@@ -454,9 +453,9 @@ const PreferenceCard = ({
                                             {/* D. LOCATION */}
                                             <div className={styles.metaBox}>
                                                 <span className={styles.metaLabel}>LOCATION</span>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F3F4F6' }}>
+                                                <div className={styles.metaRow}>
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F87171" strokeWidth="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                                                    <span style={{ textTransform: 'uppercase', fontSize: '0.8rem' }}>
+                                                    <span className={styles.metaValueUpper}>
                                                         {selectedLocation?.municipality || 'Catanduanes'}
                                                     </span>
                                                 </div>
@@ -475,8 +474,7 @@ const PreferenceCard = ({
                 {/* --- ITINERARY PREVIEW (BLANKET METHOD) --- */}
                 {/* FIX 2: Added inline transition to SYNC with the motion.div above */}
                 <div 
-                    className={`${styles.itineraryPreview} ${isReviewExpanded ? styles.previewHidden : ''}`}
-                    style={{ transition: 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)' }}
+                    className={`${styles.itineraryPreview} ${isReviewExpanded ? styles.previewHidden : ''} ${styles.itineraryPreviewTransition}`}
                 >
                     
                     {/* Header Row */}
@@ -501,10 +499,7 @@ const PreferenceCard = ({
                     <div className={styles.walletContainer}>
                         <div className={styles.walletHeader}>                            
                             <div className={styles.walletStatusGroup}>
-                                <div 
-                                    className={styles.walletLabel} 
-                                    style={{ color: timeWallet.color }}
-                                >
+                                <div className={styles.walletLabel}>
                                     {timeWallet.label}
                                 </div>
                                 <div className={styles.walletSubtext}>
@@ -557,7 +552,7 @@ const PreferenceCard = ({
                                         className={`${styles.miniSpotItem} ${spot.locked ? styles.miniSpotItemLocked : ''}`}
                                         onClick={() => setSelectedLocation(spot)}
                                     >
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
+                                        <div className={styles.spotRow}>
                                             
                                             <div className={styles.visitDurationBadge}>
                                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -569,15 +564,7 @@ const PreferenceCard = ({
                                             </div>
 
                                             {/* FIX: Prevent wide text expanding the card */}
-                                            <span 
-                                                className={styles.spotName}
-                                                style={{ 
-                                                    whiteSpace: 'nowrap', 
-                                                    overflow: 'hidden', 
-                                                    textOverflow: 'ellipsis', 
-                                                    flex: 1 
-                                                }}
-                                            >
+                                            <span className={styles.spotName}>
                                                 {spot.locked && (
                                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -593,7 +580,6 @@ const PreferenceCard = ({
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); onMoveSpot(index, -1); }}
                                                 className={styles.spotActionBtn}
-                                                style={{ color: index === 0 ? '#444' : '#E5E7EB' }}
                                                 disabled={index === 0}
                                                 title="Move Up"
                                             >
@@ -605,7 +591,6 @@ const PreferenceCard = ({
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); onMoveSpot(index, 1); }}
                                                 className={styles.spotActionBtn}
-                                                style={{ color: index === addedSpots.length - 1 ? '#444' : '#E5E7EB' }}
                                                 disabled={index === addedSpots.length - 1}
                                                 title="Move Down"
                                             >
@@ -617,12 +602,9 @@ const PreferenceCard = ({
                                             <div className={styles.actionDivider}></div>
 
                                             <button 
-                                                className={`${styles.removeBtn} ${styles.lockBtn}`}
+                                                className={`${styles.removeBtn} ${styles.lockBtn} ${spot.locked ? styles.lockBtnActive : styles.lockBtnInactive}`}
                                                 onClick={(e) => { e.stopPropagation(); onToggleLock(spot.name); }}
                                                 title={spot.locked ? "Unlock" : "Anchor"}
-                                                style={{ 
-                                                    color: spot.locked ? '#F59E0B' : '#6B7280'
-                                                }}
                                             >
                                                 {spot.locked ? (
                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -660,18 +642,15 @@ const PreferenceCard = ({
                     </div>
 
                     {/* --- BOTTOM BUTTON ROW (UPDATED) --- */}
-                    <div style={{ display: 'flex', gap: '10px', marginTop: '10px', width: '100%' }}>
+                    <div className={styles.bottomButtonRow}>
                         
                         {/* BACK BUTTON (Visible Day 2+) */}
                         {currentDay > 1 && (
                             <button 
                                 onClick={handlePreviousDay}
-                                className={styles.saveButton} 
+                                className={`${styles.saveButton} ${styles.backButton}`}
                                 style={{ 
-                                    backgroundColor: '#4B5563', 
-                                    width: 'auto', 
-                                    padding: '0 16px',
-                                    marginTop: 0 // Override the default top margin if needed
+                                    backgroundColor: '#4B5563'
                                 }}
                                 title="Go back to previous day"
                             >
@@ -685,8 +664,7 @@ const PreferenceCard = ({
                             onClick={isLastDay ? handleSaveItinerary : handleSliceAndNext}
                             style={{
                                 backgroundColor: isLastDay ? '#2563EB' : undefined,
-                                flex: 1, // Fill remaining space
-                                marginTop: 0 // Override default
+                                flex: 1
                             }}
                         >
                             {isLastDay ? (

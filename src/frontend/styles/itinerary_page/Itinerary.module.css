@@ -4,7 +4,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-color: #000000;
+    background-color: var(--itinerary-bg);
     padding: 15vh 4.5vw 10vh 4.5vw;
     gap: 70px;
     box-sizing: border-box;
@@ -33,8 +33,8 @@
     width: 100%;
     height: 100%;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        linear-gradient(var(--itinerary-grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--itinerary-grid-line) 1px, transparent 1px);
     background-size: 50px 50px;
     pointer-events: none;
     z-index: 1;
@@ -44,11 +44,11 @@
 .mapArea {
     width: 100%;
     height: 100%;
-    background-color: #000000;
+    background-color: var(--itinerary-surface);
     overflow: hidden;
     border-radius: 16px;
-    border: 2px solid #525252;
-    box-shadow: 14px 14px 25px rgba(29, 29, 29, 0.5);
+    border: 2px solid var(--itinerary-border-strong);
+    box-shadow: 14px 14px 25px var(--itinerary-shadow);
 }
 
 .preferenceCardContainer {
@@ -71,7 +71,7 @@
         monospace;
     font-size: 1.5rem;
     letter-spacing: -0.02em;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--itinerary-text);
     z-index: 50;
     pointer-events: auto;
     transition: all 0.2s ease;
@@ -79,8 +79,8 @@
 }
 
 .titleHeader:hover {
-    border-color: rgba(255, 255, 255, 0.3);
-    background: rgba(0, 0, 0, 0.6);
+    border-color: var(--itinerary-border-strong);
+    background: var(--itinerary-glass);
     transform: translateY(-1px);
 }
 
@@ -92,7 +92,7 @@
     transform: translateX(-50%);
     font-size: 0.75rem;
     letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--itinerary-muted);
     pointer-events: auto;
     z-index: 50;
     transition: color 0.4s ease;
@@ -102,7 +102,7 @@
 .creatorLink {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 550;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--itinerary-muted);
     text-decoration: none;
     margin-left: 7px;
     cursor: pointer;
@@ -112,16 +112,16 @@
 }
 
 .creatorLink:hover{
-    color: #ffffff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    color: var(--itinerary-text);
+    border-bottom: 1px solid var(--itinerary-border-strong);
+    text-shadow: 0 0 10px var(--itinerary-shadow);
     transform: translateY(-1px);
 }
 
 .colleagueLink {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--itinerary-muted);
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -131,16 +131,16 @@
 }
 
 .colleagueLink:hover {
-    color: #ffffff;
+    color: var(--itinerary-text);
     transform: translateY(-1px);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 8px var(--itinerary-shadow);
     transform: translateY(-1px);
 }
 
 .footerSeparator {
     margin-left: 7px;
     opacity: 0.3;
-    color: rgb(255, 255, 255);
+    color: var(--itinerary-text);
 }
 /* Scrollbar Styles */
 .preferenceCardContainer::-webkit-scrollbar {
@@ -148,17 +148,17 @@
 }
 
 .preferenceCardContainer::-webkit-scrollbar-track {
-    background: #1a1a1a;
+    background: var(--itinerary-surface-subtle);
     border-radius: 4px;
 }
 
 .preferenceCardContainer::-webkit-scrollbar-thumb {
-    background: #3a3a3a;
+    background: var(--itinerary-slider-track);
     border-radius: 4px;
 }
 
 .preferenceCardContainer::-webkit-scrollbar-thumb:hover {
-    background: #4a4a4a;
+    background: var(--itinerary-border-strong);
 }
 
 /* Mobile Responsive */

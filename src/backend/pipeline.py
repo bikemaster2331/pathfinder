@@ -639,9 +639,9 @@ class Pipeline:
 
                 # Individual search for this place
                 place_results = self.collection.query(
-                    query_texts=[place_name],  # Search just this place name
-                    n_results=2,  # Get top 2 results per place
-                    where={"place_name": place_name} if place_name else None
+                    query_texts=[f"{place_name} location information"],  # Add context
+                    n_results=3,
+                    where={"place_name": {"$eq": place_name}}  # Strict equality
                 )
 
                 if place_results['documents'][0]:
@@ -696,7 +696,7 @@ class Pipeline:
             where_filter = None
             if specific_places_found:
                 if len(specific_places_found) == 1:
-                    where_filter = {"place_name": specific_places_found[0]}
+                    where_filter = {"place_name": {"$eq": specific_places_found[0]}} 
                 else:
                     where_filter = {"$or": [{"place_name": p} for p in specific_places_found]}
             elif target_towns:
@@ -786,11 +786,12 @@ class Pipeline:
                 final_locations = []
             else:
                 if is_browsing:
-                    # FIX 3: Removed [:5] slice. Now displays ALL found locations.
-                    place_names = [l['name'] for l in final_locations]
-                    raw_answer = f"Here are the options I found: " + ", ".join(place_names) + "."
-                else:
-                    raw_answer = " ".join(answers_found[:2])
+                    descriptions = []
+                    for loc in final_locations[:10]:  # Limit to 10
+                        desc = f"{loc['name']} ({loc['municipality']})"
+                        descriptions.append(desc)
+
+                    raw_answer = "Here are some options: " + "; ".join(descriptions) + "."
 
         # ====================================================================
         # FINAL STEPS
