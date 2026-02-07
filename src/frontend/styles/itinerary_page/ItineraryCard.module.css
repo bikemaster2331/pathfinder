@@ -147,7 +147,7 @@
 }
 
 .reviewBoxExpanded .reviewBoxOverlay {
-    background: transparent;
+    display: none;
 }
 
 .reviewBox.reviewBoxExpanded .boxTitle {
@@ -200,6 +200,15 @@
     padding: 12px;
 }
 
+.expandedContent {
+    overflow: hidden;
+}
+
+.expandedContentInner {
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+
 /* Light mode overrides */
 :global([data-theme='light']) .reviewBox,
 :global([data-theme='light']) .itineraryPreview {
@@ -225,6 +234,16 @@
     box-shadow: 0 20px 60px var(--itinerary-card-shadow);
 }
 
+:global([data-theme='light']) .reviewBoxExpanded .reviewBoxBackground {
+    padding: 10px;
+    border-radius: 24px;
+    filter: none;
+}
+
+:global([data-theme='light']) .reviewBoxExpanded .reviewBoxOverlay {
+    display: none;
+}
+
 :global([data-theme='light']) .reviewBoxExpanded .reviewText {
     color: var(--itinerary-card-text);
 }
@@ -233,7 +252,7 @@
     background: var(--itinerary-card-light-08);
     border: 1px solid var(--itinerary-card-light-18);
     box-shadow: 0 6px 16px var(--itinerary-card-light-12);
-    color: var(--itinerary-card-text);
+    color: #0b0b0b;
 }
 
 :global([data-theme='light']) .metaBox:hover {
@@ -471,6 +490,32 @@
     margin-bottom: 2px;
 }
 
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--itinerary-card-text-90);
+}
+
+:global([data-theme='light']) .metaRow {
+    color: #0b0b0b;
+}
+
+.metaValue {
+    color: inherit;
+}
+
+.metaValueCaps {
+    color: inherit;
+    text-transform: capitalize;
+}
+
+.metaValueUpper {
+    color: inherit;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
 .metaHandler {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -545,6 +590,10 @@
     margin-top: 20px;
 }
 
+.itineraryPreviewTransition {
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .previewHidden {
     opacity: 0;
     max-height: 0 !important;
@@ -553,6 +602,19 @@
     margin-top: 0 !important;
     overflow: hidden;
     pointer-events: none;
+}
+
+.bottomButtonRow {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.backButton {
+    width: auto;
+    padding: 0 16px;
+    margin-top: 0;
 }
 
 .previewContent {
@@ -641,6 +703,7 @@
     font-weight: 600;
     font-size: 14px;
     letter-spacing: -0.01em;
+    color: var(--itinerary-walletlabel-text);
 }
 
 .walletSubtext {
@@ -781,6 +844,13 @@
     letter-spacing: 0.03em;
 }
 
+.spotRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+}
+
 .spotActions {
     display: flex;
     align-items: center;
@@ -799,6 +869,14 @@
     align-items: center;
     color: var(--itinerary-card-text-70);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spotActionBtn:disabled {
+    color: #E5E7EB;
+}
+
+:global([data-theme='light']) .spotActionBtn:disabled {
+    color: #444444;
 }
 
 .spotActionBtn:disabled {
@@ -826,6 +904,14 @@
     margin: 0 2px;
     color: var(--itinerary-card-text-50);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lockBtnActive {
+    color: var(--itinerary-card-accent-amber);
+}
+
+.lockBtnInactive {
+    color: #6B7280;
 }
 
 .lockBtn:hover {
