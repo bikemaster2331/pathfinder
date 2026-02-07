@@ -77,6 +77,7 @@ export default function Home() {
             return;
         }
         if (activeTestimonial !== null && activeTestimonial !== index) {
+            suppressNextOpenRef.current = true;
             setExpandedTestimonials((prev) => ({
                 ...prev,
                 [activeTestimonial]: false
@@ -106,8 +107,8 @@ export default function Home() {
             if (card) {
                 const index = Number(card.getAttribute('data-testimonial-card'));
                 if (index === activeTestimonial) return;
-                suppressNextOpenRef.current = true;
             }
+            suppressNextOpenRef.current = true;
             setActiveTestimonial(null);
             setExpandedTestimonials((prev) => ({
                 ...prev,
@@ -146,6 +147,22 @@ export default function Home() {
     const staggerContainer = {
         hidden: { opacity: 0 },
         visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+    };
+
+    const handleTestimonialsCapture = (event) => {
+        if (activeTestimonial === null) return;
+        const card = event.target.closest('[data-testimonial-card]');
+        if (card) {
+            const index = Number(card.getAttribute('data-testimonial-card'));
+            if (index === activeTestimonial) return;
+        }
+        suppressNextOpenRef.current = true;
+        setExpandedTestimonials((prev) => ({
+            ...prev,
+            [activeTestimonial]: false
+        }));
+        setActiveTestimonial(null);
+        event.stopPropagation();
     };
 
     return (
@@ -293,6 +310,7 @@ export default function Home() {
     whileInView={{ opacity: 1 }}
     viewport={{ once: true }}
     transition={{ duration: 0.8 }}
+    onClickCapture={handleTestimonialsCapture}
 >
     <div className={`${styles.testimonialItem} ${activeTestimonial === 0 ? styles.testimonialItemActive : ''}`}>
         <div
