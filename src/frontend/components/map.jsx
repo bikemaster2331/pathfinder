@@ -193,8 +193,8 @@ const Map = forwardRef((props, ref) => {
         if (allowedTypes.length > 0) commonCriteria.push(['in', 'type', ...allowedTypes]);
         if (budgetFilter && budgetFilter.length > 0) commonCriteria.push(['in', 'min_budget', ...budgetFilter]);
 
-        const standardFilter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['!', ['to-boolean', ['get', 'is_top_10']]]];
-        const top10Filter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['to-boolean', ['get', 'is_top_10']]];
+        const standardFilter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['!=', ['get', 'is_top_10'], true]];
+        const top10Filter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['==', ['get', 'is_top_10'], true]];
 
         try {
             if (map.current.getLayer('tourist-dots')) map.current.setFilter('tourist-dots', standardFilter);
