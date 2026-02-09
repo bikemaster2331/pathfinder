@@ -792,6 +792,9 @@ class Pipeline:
                         descriptions.append(desc)
 
                     raw_answer = "Here are some options: " + "; ".join(descriptions) + "."
+                else:
+                    # Non-browsing path with matches should still produce an answer
+                    raw_answer = " ".join(answers_found)
 
         # ====================================================================
         # FINAL STEPS
