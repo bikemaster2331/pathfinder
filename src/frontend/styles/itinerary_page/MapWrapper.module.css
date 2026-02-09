@@ -63,27 +63,32 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: var(--itinerary-map-panel-bg-contrast);
+    background-color: var(--itinerary-map-panel-bg);
     backdrop-filter: blur(10px);
-    border: 1px solid var(--itinerary-map-panel-border-contrast);
+    border: 1px solid var(--itinerary-map-border-strong);
     box-shadow: 0 4px 10px var(--itinerary-map-shadow);
     pointer-events: auto;
     transition: transform 0.3s ease-out, background-color 0.3s ease-out;
 }
 
 .collapsibleHeader:hover {
-    background-color: var(--itinerary-map-surface-subtle);
+    background-color: #e2e8f0;
     transition: transform 0.1s ease-out, background-color 0.1s ease-out;
 }
 
+:global([data-theme='dark']) .collapsibleHeader:hover {
+    background-color: #0b0b0b;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
 :global([data-theme='light']) .collapsibleHeader {
-    background-color: rgba(15, 23, 42, 0.14);
-    border-color: rgba(15, 23, 42, 0.2);
+    background-color: #14532d;
+    border-color: #0f3d22;
 }
 
 :global([data-theme='light']) .collapsibleHeader:hover {
-    background-color: rgba(15, 23, 42, 0.22);
-    border-color: rgba(15, 23, 42, 0.28);
+    background-color: #0f3d22;
+    border-color: #0b2e19;
 }
 
 .toggleIcon {
@@ -116,6 +121,22 @@
     height: 1px;
     background-color: var(--itinerary-map-border);
     margin: 0 20px;
+}
+
+@media (max-width: 768px) {
+    .leftRightControls {
+        top: 110px;
+        left: 12px;
+    }
+
+    .collapsibleCard {
+        width: 230px;
+    }
+
+    .collapsibleHeader {
+        width: 28px;
+        height: 28px;
+    }
 }
 
 /* 5. BOX STYLES (Activities, Budget, Dates) */
