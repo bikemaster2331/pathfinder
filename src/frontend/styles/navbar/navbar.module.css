@@ -39,7 +39,7 @@
     margin-right: auto;
     height: 90px;
     border-bottom: 1px solid var(--nav-border);
-    max-width: 1200px;
+    max-width: 100%;
     border-radius: 999px;
 }
 
@@ -57,10 +57,19 @@
         linear-gradient(270deg, var(--nav-glass) 0%, rgba(0, 0, 0, 0) 18%);
 }
 
+.navBarFixed {
+    background: transparent;
+    border-bottom: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.navBarFixed::after {
+    display: none;
+}
+
 .navBarFixed .brandButton svg{
     color: rgba(9, 158, 83, 0.15);
-    height: 48px;
-    width: 48px;
 }
 
 .brand {
@@ -89,30 +98,32 @@
 }
 
 .collapsibleWrap {
-    display: none;
-    position: relative;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
     align-items: center;
     gap: 8px;
+    z-index: 10;
 }
 
 .burgerButton {
     width: 38px;
     height: 38px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--glass);
-    color: #0b0b0b;
+    border: none;
+    background: transparent;
+    color: var(--navbar-text);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
     cursor: pointer;
 }
 
 .burgerLine {
     width: 18px;
     height: 2px;
-    background: var(--text);
+    background: var(--navbar-text);
     border-radius: 2px;
     display: block;
 }
@@ -122,8 +133,8 @@
     top: 46px;
     right: 0;
     min-width: 150px;
-    background: var(--glass-strong);
-    border: 1px solid var(--border);
+    background: var(--navbar-glass-strong);
+    border: 1px solid var(--navbar-border);
     backdrop-filter: blur(14px);
     border-radius: 12px;
     padding: 10px;
@@ -143,7 +154,7 @@
 .menuLink {
     background: transparent;
     border: none;
-    color: var(--text);
+    color: var(--navbar-text);
     text-align: left;
     padding: 8px 6px;
     font-size: 14px;
@@ -160,17 +171,17 @@
 .ctaGroupNav {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 24px;
 }
 
 /* Icon-only theme toggle */
 .themeIconButton {
     width: 36px;
     height: 36px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--glass);
-    color: var(--text);
+    margin-right: 15px;
+    border: none;
+    background: transparent;
+    color: var(--navbar-text);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -179,8 +190,6 @@
 }
 
 .themeIconButton:hover {
-    background: var(--surface-subtle);
-    border-color: var(--border-strong);
     transform: translateY(-1px);
 }
 
@@ -192,45 +201,36 @@
     fill: none;
 }
 
+.iconLight,
+.iconDark {
+    display: none;
+}
+
+:global([data-theme='light']) .themeIconButton .iconLight {
+    display: block;
+}
+
+:global([data-theme='dark']) .themeIconButton .iconDark {
+    display: block;
+}
+
+
 @media (max-width: 768px) {
-    .navCenter {
-        display: none;
-    }
-
-    .navRight {
-        display: none;
-    }
-
-    .navLinks {
-        display: none;
-    }
-
-    .ctaGroupNav {
-        display: none;
-    }
-
-    .collapsibleWrap {
-        display: inline-flex;
-        margin-left: auto;
-    }
-
     .brandButton {
         font-size: 13px;
         letter-spacing: 1px;
     }
 
-.brandIcon svg {
-    width: 24px;
-    height: 24px;
-}
-
-@media (min-width: 769px) {
     .brandIcon svg {
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .themeIconButton {
+        margin-right: 0px;
     }
 }
-}
+
 
 .brandButton {
     stroke-width: 1.75;
@@ -503,7 +503,30 @@
     background: var(--navbar-surface-subtle);
 }
 
+/* Page-specific burger visibility */
+.navHome .collapsibleWrap {
+    display: none;
+}
+
+.navOther .navCenter,
+.navOther .navRight,
+.navOther .navLinks,
+.navOther .ctaGroupNav {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    .navHome .navCenter,
+    .navHome .navRight,
+    .navHome .navLinks,
+    .navHome .ctaGroupNav {
+        display: none;
+    }
+
+    .navHome .collapsibleWrap {
+        display: inline-flex;
+    }
+
     .navLinks {
         gap: 20px;
     }
