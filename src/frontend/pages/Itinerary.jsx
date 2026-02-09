@@ -27,8 +27,10 @@ export default function ItineraryPage() {
     const [budget, setBudget] = useState(50);
     const [destination, setDestination] = useState('');
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
+    const [sheetState, setSheetState] = useState('collapsed');
 
     const mapRef = useRef(null);
+    const touchStartYRef = useRef(0);
 
     const handleHubChange = (hubName) => {
         if (!hubName || hubName === "NONE") {
@@ -88,6 +90,28 @@ export default function ItineraryPage() {
         return 3;
     };
 
+    const handleSheetToggle = () => {
+        setSheetState((prev) => {
+            if (prev === 'collapsed') return 'mid';
+            if (prev === 'mid') return 'open';
+            return 'collapsed';
+        });
+    };
+
+    const handleSheetTouchStart = (event) => {
+        touchStartYRef.current = event.touches[0].clientY;
+    };
+
+    const handleSheetTouchEnd = (event) => {
+        const endY = event.changedTouches[0].clientY;
+        const delta = touchStartYRef.current - endY;
+        if (delta > 40) {
+            setSheetState('open');
+        } else if (delta < -40) {
+            setSheetState('collapsed');
+        }
+    };
+
     // Budget effect
     useEffect(() => {
         const step = getBudgetStep(budget);
@@ -108,6 +132,7 @@ export default function ItineraryPage() {
 
     return (
         <div className={styles.itineraryContainer}>
+            <SharedNavbar />
             <div className={styles.gradientBg} />
             <div className={styles.gridOverlay} />  
             {/* Map Container with Controls */}
@@ -200,6 +225,86 @@ export default function ItineraryPage() {
                         J.T.
                     </a>
                 </p>
+            </div>
+
+            {/* Mobile Bottom Sheet */}
+            <div className={`${styles.mobileSheet} ${styles[`mobileSheet${sheetState}`]}`}>
+                <button
+                    type="button"
+                    className={styles.sheetHandle}
+                    onClick={handleSheetToggle}
+                    onTouchStart={handleSheetTouchStart}
+                    onTouchEnd={handleSheetTouchEnd}
+                    aria-label={`Toggle panel: ${sheetState}`}
+                >
+                    <span className={styles.sheetPill} />
+                </button>
+                <div className={styles.mobileSheetContent}>
+                    <PreferenceCard 
+                        selectedLocation={selectedLocation}
+                        setSelectedLocation={setSelectedLocation}
+                        addedSpots={addedSpots}
+                        setAddedSpots={setAddedSpots}
+                        onAddSpot={handleAddSpot}
+                        onRemoveSpot={handleRemoveSpot}
+                        activeHubName={activeHub ? activeHub.name : ""} 
+                        onToggleLock={handleToggleLock}
+                        onMoveSpot={handleMoveSpot}
+                        dateRange={dateRange}
+                    />
+                    <div className={styles.footerCreditMobile}>
+                        <p> 
+                            Built by 
+                            <a 
+                                href="https://github.com/bikemaster2331" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className={styles.creatorLink}
+                            >
+                                M.L.
+                            </a>
+                            
+                            <span className={styles.footerSeparator}>/</span> 
+                            
+                            {/* Colleagues Links */}
+                            <a 
+                                href="https://www.facebook.com/Roilan.Trasmano" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className={styles.colleagueLink}
+                            >
+                                R.B.
+                            </a>
+                            
+                            <a 
+                                href="https://www.facebook.com/Yffffdkkd" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className={styles.colleagueLink}
+                            >
+                                J.A.
+                            </a>
+
+                            <a 
+                                href="https://www.facebook.com/patrickjohn.guerrero.1" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className={styles.colleagueLink}
+                            >
+                                P.G.
+                            </a>
+
+                            <a 
+                                href="https://www.facebook.com/leetmns.10" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className={styles.colleagueLink}
+                            >
+                                J.T.
+                            </a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );
