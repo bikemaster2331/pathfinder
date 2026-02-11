@@ -113,7 +113,7 @@
     display: inline-block;
 }
 
-.creatorLink:hover{
+.creatorLink:hover {
     color: var(--itinerary-text);
     border-bottom: 1px solid var(--itinerary-border-strong);
     text-shadow: 0 0 10px var(--itinerary-shadow);
@@ -149,6 +149,7 @@
 .footerCreditMobile {
     display: none;
 }
+
 /* Scrollbar Styles */
 .preferenceCardContainer::-webkit-scrollbar {
     width: 8px;
@@ -169,7 +170,7 @@
 }
 
 /* Mobile Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .itineraryContainer {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
@@ -218,38 +219,50 @@
         display: none;
     }
 
+    /* --- FLOATING ISLAND SHEET --- */
     .mobileSheet {
-        display: flex;
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1200;
-        flex-direction: column;
+        position: fixed !important;
+        bottom: 16px !important;
+        left: 16px !important;
+        right: 16px !important;
+        top: auto !important;
+        width: auto !important;
+        margin: 0 !important;
+
+        /* Glass/Card Style */
         background: var(--itinerary-map-panel-bg);
-        border-top: 1px solid var(--itinerary-map-panel-border);
-        box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease;
-        max-height: 85vh;
-        border-top-left-radius: 18px;
-        border-top-right-radius: 18px;
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--itinerary-map-panel-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        border-radius: 24px;
+        z-index: 1200;
+
+        /* Flex Layout for Sticky Search Bar */
+        display: flex;
+        flex-direction: column;
         overflow: hidden;
+
+        /* Animation */
+        transition: height 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        transform: none !important;
     }
 
+    /* STATES (HEIGHTS) */
     .mobileSheetcollapsed {
-        transform: translateY(80%);
+        height: 80px !important;
+        /* Visible Search Bar only */
     }
 
     .mobileSheetmid {
-        transform: translateY(50%);
+        height: 45vh !important;
     }
 
     .mobileSheetopen {
-        transform: translateY(0);
+        height: 80vh !important;
     }
 
     .sheetHandle {
-        height: 44px;
+        height: 20px;
         border: none;
         background: transparent;
         display: flex;
@@ -257,20 +270,42 @@
         justify-content: center;
         cursor: pointer;
         padding: 0;
+        flex-shrink: 0;
+        /* Prevent shrinking */
     }
 
     .sheetPill {
-        width: 56px;
-        height: 5px;
+        width: 52px;
+        height: 4px;
         border-radius: 999px;
         background: var(--itinerary-map-muted-2);
         opacity: 0.7;
     }
 
+    .mobileSheetCard {
+        background: transparent;
+        padding-top: 6px;
+        /* Remove unused properties if any */
+    }
+
+    /* CONTENT WRAPPER */
     .mobileSheetContent {
+        flex: 1;
+        /* Takes remaining space below Search Bar */
         overflow-y: auto;
-        padding: 8px 14px 20px;
-        max-height: 80vh;
+        padding: 0 4px 20px;
+
+        /* Fade Logic */
+        opacity: 0;
+        transition: opacity 0.3s ease 0.1s;
+        pointer-events: none;
+    }
+
+    /* Show content when expanded */
+    .mobileSheetmid .mobileSheetContent,
+    .mobileSheetopen .mobileSheetContent {
+        opacity: 1;
+        pointer-events: auto;
     }
 
     .footerCreditMobile {
