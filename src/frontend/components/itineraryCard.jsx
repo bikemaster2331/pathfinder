@@ -18,7 +18,8 @@ const PreferenceCard = ({
     activeHubName,
     onToggleLock,
     onMoveSpot,
-    dateRange
+    dateRange,
+    mobileMode = false
 }) => {
     const navigate = useNavigate();
 
@@ -71,6 +72,46 @@ const PreferenceCard = ({
     }, [addedSpots, activeHubName]);
 
     const [isReviewExpanded, setIsReviewExpanded] = useState(false);
+    const [activeMobilePanel, setActiveMobilePanel] = useState('review');
+    const [reviewImageSrc, setReviewImageSrc] = useState(defaultBg);
+    const [isReviewImageLoading, setIsReviewImageLoading] = useState(false);
+
+    useEffect(() => {
+        const nextSrc = selectedLocation?.image || defaultBg;
+
+        // If the image is already set, skip loading state
+        if (reviewImageSrc === nextSrc) return;
+
+        let delayTimer = null;
+        let cancelled = false;
+
+        setIsReviewImageLoading(true);
+        const img = new Image();
+        img.onload = () => {
+            const apply = () => {
+                if (cancelled) return;
+                setReviewImageSrc(nextSrc);
+                setIsReviewImageLoading(false);
+            };
+
+            if (import.meta.env.DEV) {
+                delayTimer = setTimeout(apply, 700);
+            } else {
+                apply();
+            }
+        };
+        img.onerror = () => {
+            if (cancelled) return;
+            setReviewImageSrc(defaultBg);
+            setIsReviewImageLoading(false);
+        };
+        img.src = nextSrc;
+
+        return () => {
+            cancelled = true;
+            if (delayTimer) clearTimeout(delayTimer);
+        };
+    }, [selectedLocation, reviewImageSrc]);
 
     const timeWallet = useMemo(() => {
         const hub = TRAVEL_HUBS[activeHubName];
@@ -254,6 +295,8 @@ const PreferenceCard = ({
     };
 
     const isLastDay = currentDay >= dayCount;
+    const isReviewPanelVisible = !mobileMode || activeMobilePanel === 'review';
+    const isPreviewPanelVisible = !mobileMode || activeMobilePanel === 'preview';
 
     return (
         <div className={styles.PreferenceCard}>
@@ -292,17 +335,47 @@ const PreferenceCard = ({
             )}
 
             <div className={styles.secondCard}>
+                {mobileMode && (
+                    <div className={styles.viewToggle} role="tablist" aria-label="Switch itinerary panel">
+                        <button
+                            type="button"
+                            role="tab"
+                            aria-selected={activeMobilePanel === 'review'}
+                            className={`${styles.viewToggleBtn} ${activeMobilePanel === 'review' ? styles.viewToggleBtnActive : ''}`}
+                            onClick={() => setActiveMobilePanel('review')}
+                        >
+                            Review
+                        </button>
+                        <button
+                            type="button"
+                            role="tab"
+                            aria-selected={activeMobilePanel === 'preview'}
+                            className={`${styles.viewToggleBtn} ${activeMobilePanel === 'preview' ? styles.viewToggleBtnActive : ''}`}
+                            onClick={() => {
+                                setIsReviewExpanded(false);
+                                setActiveMobilePanel('preview');
+                            }}
+                        >
+                            Preview
+                        </button>
+                    </div>
+                )}
                 
                 {/* --- REVIEW BOX (IMMERSIVE BACKGROUND) --- */}
-                <div className={`${styles.reviewBox} ${isReviewExpanded ? styles.reviewBoxExpanded : ''}`}>
-                    <img    
-                        src={selectedLocation?.image || defaultBg} 
-                        alt="Destination Preview" 
-                        className={styles.reviewBoxBackground}
-                        onError={(e) => { e.target.src = defaultBg; }} 
-                    />
-                    {/* 2. Gradient Overlay */}
-                    <div className={styles.reviewBoxOverlay}></div>
+                <div className={`${styles.reviewBox} ${isReviewExpanded ? styles.reviewBoxExpanded : ''} ${!isReviewPanelVisible ? styles.panelHidden : ''}`}>
+                    <div className={styles.reviewImageFrame}>
+                        <img    
+                            src={reviewImageSrc} 
+                            alt="Destination Preview" 
+                            className={styles.reviewBoxBackground}
+                            onError={(e) => { e.target.src = defaultBg; }} 
+                        />
+                        {isReviewImageLoading && (
+                            <div className={styles.reviewBoxPlaceholder} aria-hidden="true"></div>
+                        )}
+                        {/* Gradient Overlay (clipped to image frame) */}
+                        <div className={styles.reviewBoxOverlay}></div>
+                    </div>
 
                     {/* 3. Text Content */}
                     <div className={styles.reviewContent}>
@@ -474,7 +547,7 @@ const PreferenceCard = ({
                 {/* --- ITINERARY PREVIEW (BLANKET METHOD) --- */}
                 {/* FIX 2: Added inline transition to SYNC with the motion.div above */}
                 <div 
-                    className={`${styles.itineraryPreview} ${isReviewExpanded ? styles.previewHidden : ''} ${styles.itineraryPreviewTransition}`}
+                    className={`${styles.itineraryPreview} ${!mobileMode && isReviewExpanded ? styles.previewHidden : ''} ${styles.itineraryPreviewTransition} ${!isPreviewPanelVisible ? styles.panelHidden : ''}`}
                 >
                     
                     {/* Header Row */}
