@@ -25,7 +25,7 @@
 /* Common box styles */
 .reviewBox,
 .itineraryPreview {
-    padding: 20px;
+    padding: 10px;
     background: linear-gradient(to bottom, var(--itinerary-card-shadow-40) 0%, var(--itinerary-card-shadow-95) 60%);
     background-color: var(--itinerary-card-panel-bg);
     backdrop-filter: blur(12px);
