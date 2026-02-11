@@ -14,6 +14,14 @@
     position: relative;
 }
 
+.viewToggle {
+    display: none;
+}
+
+.panelHidden {
+    display: none !important;
+}
+
 /* Common box styles */
 .reviewBox,
 .itineraryPreview {
@@ -111,16 +119,31 @@
     z-index: 20;
 }
 
-.reviewBoxBackground {
+.reviewImageFrame {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 30vh;
+    z-index: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        top 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        left 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reviewBoxBackground {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     z-index: 0;
-    padding: 0px;
-    border-radius: 16px;
+    border-radius: 12px;
     box-sizing: border-box;
     transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -130,20 +153,55 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 30vh;
+    height: 100%;
     z-index: 1;
     pointer-events: none;
     background: linear-gradient(to top, var(--itinerary-card-shadow-60) 0%, var(--itinerary-card-transparent) 100%);
-    padding: 0px;
-    border-radius: 16px;
-    background-clip: content-box;
+    border-radius: 12px;
     box-sizing: border-box;
     transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.reviewBoxExpanded .reviewBoxBackground {
+.reviewBoxPlaceholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    border-radius: 12px;
+    box-sizing: border-box;
+    background: linear-gradient(
+        110deg,
+        var(--itinerary-card-surface-08) 8%,
+        var(--itinerary-card-surface-15) 18%,
+        var(--itinerary-card-surface-08) 33%
+    );
+    background-size: 200% 100%;
+    animation: reviewSkeleton 1.2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.reviewBoxExpanded .reviewBoxPlaceholder {
+    border-radius: 16px;
+}
+
+@keyframes reviewSkeleton {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.reviewBoxExpanded .reviewImageFrame {
     padding: 10px;
-    border-radius: 24px;
+    border-radius: 16px;
+    width: calc(100% - 20px);
+    height: calc(30vh - 20px);
+    left: 10px;
+    top: 10px;
+}
+
+.reviewBoxExpanded .reviewBoxBackground {
+    border-radius: 16px;
     filter: brightness(0.9) saturate(1.1);
 }
 
@@ -1129,6 +1187,37 @@
 
     .secondCard {
         gap: 15px;
+    }
+
+    .viewToggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px;
+        border-radius: 10px;
+        background: var(--itinerary-card-surface-05);
+        border: 1px solid var(--itinerary-card-surface-10);
+        margin-bottom: 2px;
+    }
+
+    .viewToggleBtn {
+        flex: 1;
+        border: 1px solid transparent;
+        background: transparent;
+        color: var(--itinerary-card-text-70);
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .viewToggleBtnActive {
+        background: var(--itinerary-card-surface-12);
+        color: var(--itinerary-card-text-white);
+        border-color: var(--itinerary-card-surface-20);
+        box-shadow: 0 2px 8px var(--itinerary-card-shadow-20);
     }
 
     .actionButtonSection {
