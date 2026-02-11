@@ -3,6 +3,7 @@ import styles from '../styles/itinerary_page/Itinerary.module.css';
 import PreferenceCard from '../components/itineraryCard';
 import MapWrapper from '../components/MapWrapper';
 import SharedNavbar from '../components/navbar';
+import ChatBot from '../components/ChatBot';
 import { TRAVEL_HUBS } from '../constants/location'; 
 
 // --- CONFIGURATION ---
@@ -28,6 +29,7 @@ export default function ItineraryPage() {
     const [destination, setDestination] = useState('');
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
     const [sheetState, setSheetState] = useState('collapsed');
+    const [isMobile, setIsMobile] = useState(false);
 
     const mapRef = useRef(null);
     const touchStartYRef = useRef(0);
@@ -82,6 +84,30 @@ export default function ItineraryPage() {
         if (mapRef.current) {
             mapRef.current.handleChatbotLocations(locations);
         }
+
+        if (!locations || locations.length !== 1) return;
+
+        // Sync review box only when exactly one location is returned
+        const first = locations[0];
+        let matched = null;
+
+        if (allSpots?.features?.length) {
+            matched = allSpots.features.find(f => {
+                const name = f?.properties?.name || '';
+                return name.toLowerCase() === String(first.name || '').toLowerCase();
+            });
+        }
+
+        if (matched) {
+            setSelectedLocation({ ...matched.properties, geometry: matched.geometry });
+        } else {
+            setSelectedLocation({
+                name: first.name,
+                type: first.type,
+                municipality: first.municipality,
+                geometry: { type: 'Point', coordinates: first.coordinates }
+            });
+        }
     };
 
     const getBudgetStep = (value) => {
@@ -129,6 +155,39 @@ export default function ItineraryPage() {
             .then(data => setAllSpots(data))
             .catch(err => console.error("Error loading data:", err));
     }, []);
+
+    useEffect(() => {
+        if (typeof window === 'undefined' || !window.matchMedia) return;
+        const media = window.matchMedia('(max-width: 768px)');
+        const handleChange = () => setIsMobile(media.matches);
+        handleChange();
+        if (media.addEventListener) {
+            media.addEventListener('change', handleChange);
+        } else {
+            media.addListener(handleChange);
+        }
+        return () => {
+            if (media.removeEventListener) {
+                media.removeEventListener('change', handleChange);
+            } else {
+                media.removeListener(handleChange);
+            }
+        };
+    }, []);
+
+    // Preload spot images for faster review box updates
+    useEffect(() => {
+        if (!allSpots?.features?.length) return;
+        const uniqueImages = new Set();
+        allSpots.features.forEach(feature => {
+            const img = feature?.properties?.image;
+            if (img) uniqueImages.add(img);
+        });
+        uniqueImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }, [allSpots]);
 
     return (
         <div className={styles.itineraryContainer}>
@@ -228,84 +287,90 @@ export default function ItineraryPage() {
             </div>
 
             {/* Mobile Bottom Sheet */}
-            <div className={`${styles.mobileSheet} ${styles[`mobileSheet${sheetState}`]}`}>
-                <button
-                    type="button"
-                    className={styles.sheetHandle}
-                    onClick={handleSheetToggle}
-                    onTouchStart={handleSheetTouchStart}
-                    onTouchEnd={handleSheetTouchEnd}
-                    aria-label={`Toggle panel: ${sheetState}`}
+            {isMobile && (
+                <ChatBot
+                    variant="sheet"
+                    containerClassName={`${styles.mobileSheet} ${styles[`mobileSheet${sheetState}`]}`}
+                    onLocationResponse={handleChatbotLocation}
+                    onExpand={() => {
+                        if (sheetState === 'collapsed') setSheetState('mid');
+                    }}
+                    onHandleToggle={handleSheetToggle}
+                    onHandleTouchStart={handleSheetTouchStart}
+                    onHandleTouchEnd={handleSheetTouchEnd}
+                    sheetState={sheetState}
                 >
-                    <span className={styles.sheetPill} />
-                </button>
-                <div className={styles.mobileSheetContent}>
-                    <PreferenceCard 
-                        selectedLocation={selectedLocation}
-                        setSelectedLocation={setSelectedLocation}
-                        addedSpots={addedSpots}
-                        setAddedSpots={setAddedSpots}
-                        onAddSpot={handleAddSpot}
-                        onRemoveSpot={handleRemoveSpot}
-                        activeHubName={activeHub ? activeHub.name : ""} 
-                        onToggleLock={handleToggleLock}
-                        onMoveSpot={handleMoveSpot}
-                        dateRange={dateRange}
-                    />
-                    <div className={styles.footerCreditMobile}>
-                        <p> 
-                            Built by 
-                            <a 
-                                href="https://github.com/bikemaster2331" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className={styles.creatorLink}
-                            >
-                                M.L.
-                            </a>
-                            
-                            <span className={styles.footerSeparator}>/</span> 
-                            
-                            {/* Colleagues Links */}
-                            <a 
-                                href="https://www.facebook.com/Roilan.Trasmano" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className={styles.colleagueLink}
-                            >
-                                R.B.
-                            </a>
-                            
-                            <a 
-                                href="https://www.facebook.com/Yffffdkkd" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className={styles.colleagueLink}
-                            >
-                                J.A.
-                            </a>
+                    <div className={styles.mobileSheetCard}>
+                        <div className={styles.mobileSheetContent}>
+                            <PreferenceCard 
+                                selectedLocation={selectedLocation}
+                                setSelectedLocation={setSelectedLocation}
+                                addedSpots={addedSpots}
+                                setAddedSpots={setAddedSpots}
+                                onAddSpot={handleAddSpot}
+                                onRemoveSpot={handleRemoveSpot}
+                                activeHubName={activeHub ? activeHub.name : ""} 
+                                onToggleLock={handleToggleLock}
+                                onMoveSpot={handleMoveSpot}
+                                dateRange={dateRange}
+                                mobileMode
+                            />
+                            <div className={styles.footerCreditMobile}>
+                                <p> 
+                                    Built by 
+                                    <a 
+                                        href="https://github.com/bikemaster2331" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className={styles.creatorLink}
+                                    >
+                                        M.L.
+                                    </a>
+                                    
+                                    <span className={styles.footerSeparator}>/</span> 
+                                    
+                                    {/* Colleagues Links */}
+                                    <a 
+                                        href="https://www.facebook.com/Roilan.Trasmano" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className={styles.colleagueLink}
+                                    >
+                                        R.B.
+                                    </a>
+                                    
+                                    <a 
+                                        href="https://www.facebook.com/Yffffdkkd" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className={styles.colleagueLink}
+                                    >
+                                        J.A.
+                                    </a>
 
-                            <a 
-                                href="https://www.facebook.com/patrickjohn.guerrero.1" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className={styles.colleagueLink}
-                            >
-                                P.G.
-                            </a>
+                                    <a 
+                                        href="https://www.facebook.com/patrickjohn.guerrero.1" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className={styles.colleagueLink}
+                                    >
+                                        P.G.
+                                    </a>
 
-                            <a 
-                                href="https://www.facebook.com/leetmns.10" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className={styles.colleagueLink}
-                            >
-                                J.T.
-                            </a>
-                        </p>
+                                    <a 
+                                        href="https://www.facebook.com/leetmns.10" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className={styles.colleagueLink}
+                                    >
+                                        J.T.
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </ChatBot>
+            )}
         </div>
     );
 }
