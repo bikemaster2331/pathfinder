@@ -1,7 +1,17 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/itinerary_page/ChatBot.module.css';
 
-export default function ChatBot({ onLocationResponse }) {
+export default function ChatBot({ 
+    onLocationResponse, 
+    variant = 'floating', 
+    onExpand,
+    onHandleToggle,
+    onHandleTouchStart,
+    onHandleTouchEnd,
+    sheetState,
+    containerClassName = '',
+    children
+}) {
     const [input, setInput] = useState('');
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
@@ -52,8 +62,27 @@ export default function ChatBot({ onLocationResponse }) {
         }
     };
 
+    const handleExpand = () => {
+        if (onExpand) onExpand();
+    };
+
     return (
-        <div className={styles.chatContainer}>
+        <div className={`${styles.chatContainer} ${variant === 'sheet' ? styles.sheet : styles.floating} ${containerClassName}`}>
+            
+            {/* --- FIX START: Handle moved here (Top of stack, outside form) --- */}
+            {variant === 'sheet' && (
+                <div 
+                    className={styles.sheetHandleWrapper}
+                    onClick={onHandleToggle}
+                    onTouchStart={onHandleTouchStart}
+                    onTouchEnd={onHandleTouchEnd}
+                    aria-label={`Toggle panel: ${sheetState || ''}`}
+                >
+                    <div className={styles.sheetHandle} />
+                </div>
+            )}
+            {/* --- FIX END --- */}
+
             {/* Logic: Show response box if there is a response OR if loading (to show 'Thinking...') */}
             {(response || loading) && (
                 <div className={styles.responseBox}>
@@ -65,11 +94,13 @@ export default function ChatBot({ onLocationResponse }) {
                 </div>
             )}
             
-            <form onSubmit={handleSubmit} className={styles.inputForm}>
+            <form onSubmit={handleSubmit} className={styles.inputForm} onClick={handleExpand}>
+                {/* Note: I removed the handle from INSIDE here so it doesn't get clipped */}
                 <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    onFocus={handleExpand}
                     placeholder="Ask Pathfinder... (e.g., 'cafes in virac')"
                     className={styles.chatInput}
                     disabled={loading}
@@ -99,6 +130,7 @@ export default function ChatBot({ onLocationResponse }) {
                     )}
                 </button>
             </form>
+            {variant === 'sheet' && children}
         </div>
     );
 }
