@@ -112,7 +112,7 @@ const MapWrapper = forwardRef((props, ref) => {
                     budgetFilter={budgetFilter}
                 />
             </div>
-            <ChatBot onLocationResponse={onChatLocation} />
+            <ChatBot onLocationResponse={onChatLocation} variant="floating" />
             <div 
                 className={`${styles.blurOverlay} ${isMenuOpen ? styles.blurOverlayActive : ''}`}
                 onClick={() => setIsMenuOpen(false)} // Clicking the blurred area closes the menu

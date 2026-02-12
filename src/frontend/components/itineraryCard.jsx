@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TRAVEL_HUBS } from '../constants/location';
 import styles from '../styles/itinerary_page/ItineraryCard.module.css';
@@ -18,7 +18,13 @@ const PreferenceCard = ({
     activeHubName,
     onToggleLock,
     onMoveSpot,
-    dateRange
+    dateRange,
+    mobileMode = false,
+    onMobilePanelChange,
+    activeMobilePanel,
+    showPanelToggleInCard = true,
+    mobileSheetState,
+    onMobileSheetStateChange
 }) => {
     const navigate = useNavigate();
 
@@ -71,6 +77,58 @@ const PreferenceCard = ({
     }, [addedSpots, activeHubName]);
 
     const [isReviewExpanded, setIsReviewExpanded] = useState(false);
+    const [localMobilePanel, setLocalMobilePanel] = useState('review');
+    const [reviewImageSrc, setReviewImageSrc] = useState(defaultBg);
+    const [isReviewImageLoading, setIsReviewImageLoading] = useState(false);
+
+    useEffect(() => {
+        const nextSrc = selectedLocation?.image || defaultBg;
+
+        // If the image is already set, skip loading state
+        if (reviewImageSrc === nextSrc) return;
+
+        let delayTimer = null;
+        let cancelled = false;
+
+        setIsReviewImageLoading(true);
+        const img = new Image();
+        img.onload = () => {
+            const apply = () => {
+                if (cancelled) return;
+                setReviewImageSrc(nextSrc);
+                setIsReviewImageLoading(false);
+            };
+
+            if (import.meta.env.DEV) {
+                delayTimer = setTimeout(apply, 700);
+            } else {
+                apply();
+            }
+        };
+        img.onerror = () => {
+            if (cancelled) return;
+            setReviewImageSrc(defaultBg);
+            setIsReviewImageLoading(false);
+        };
+        img.src = nextSrc;
+
+        return () => {
+            cancelled = true;
+            if (delayTimer) clearTimeout(delayTimer);
+        };
+    }, [selectedLocation, reviewImageSrc]);
+
+    useEffect(() => {
+        if (!mobileMode) return;
+        if (mobileSheetState === 'mid' && isReviewExpanded) {
+            setIsReviewExpanded(false);
+            return;
+        }
+        const panel = activeMobilePanel ?? localMobilePanel;
+        if (mobileSheetState === 'open' && panel === 'review' && !isReviewExpanded) {
+            setIsReviewExpanded(true);
+        }
+    }, [mobileMode, mobileSheetState, activeMobilePanel, localMobilePanel, isReviewExpanded]);
 
     const timeWallet = useMemo(() => {
         const hub = TRAVEL_HUBS[activeHubName];
@@ -254,9 +312,175 @@ const PreferenceCard = ({
     };
 
     const isLastDay = currentDay >= dayCount;
+    const isMidSheet = mobileMode && mobileSheetState === 'mid';
+    const resolvedMobilePanel = activeMobilePanel ?? localMobilePanel;
+    const isReviewPanelVisible = !mobileMode || resolvedMobilePanel === 'review';
+    const isPreviewPanelVisible = !mobileMode || resolvedMobilePanel === 'preview';
+
+    const handleReviewExpandToggle = () => {
+        const nextExpanded = !isReviewExpanded;
+        setIsReviewExpanded(nextExpanded);
+
+        if (!mobileMode || !onMobileSheetStateChange) return;
+        onMobileSheetStateChange(nextExpanded ? 'open' : 'mid');
+    };
+
+    const switchToMobilePanel = (panel) => {
+        if (!mobileMode) return;
+        if (panel !== 'review' && panel !== 'preview') return;
+        if (panel === resolvedMobilePanel) return;
+
+        if (panel === 'preview') {
+            setIsReviewExpanded(false);
+        }
+        setLocalMobilePanel(panel);
+        if (onMobilePanelChange) onMobilePanelChange(panel);
+    };
+
+    const swipeStartRef = useRef({ x: 0, y: 0 });
+
+    const handlePanelTouchStart = (event) => {
+        if (!mobileMode || mobileSheetState === 'collapsed') return;
+        const touch = event.touches[0];
+        swipeStartRef.current = { x: touch.clientX, y: touch.clientY };
+    };
+
+    const handlePanelTouchEnd = (event) => {
+        if (!mobileMode || mobileSheetState === 'collapsed') return;
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - swipeStartRef.current.x;
+        const deltaY = touch.clientY - swipeStartRef.current.y;
+
+        if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+        if (deltaX < 0) {
+            // right-to-left => preview
+            switchToMobilePanel('preview');
+        } else {
+            // left-to-right => review
+            switchToMobilePanel('review');
+        }
+    };
+
+    const renderMobilePanelToggle = () => {
+        if (!showPanelToggleInCard || !mobileMode || mobileSheetState === 'collapsed') return null;
+        const nextPanel = resolvedMobilePanel === 'review' ? 'preview' : 'review';
+        const switchLabel = nextPanel === 'preview' ? 'Switch to preview' : 'Switch to review';
+        return (
+            <div className={styles.viewToggle} aria-label="Switch itinerary panel">
+                <button
+                    type="button"
+                    className={`${styles.viewToggleBtn} ${styles.viewToggleBtnActive}`}
+                    aria-label={switchLabel}
+                    title={switchLabel}
+                    onClick={() => switchToMobilePanel(nextPanel)}
+                >
+                    {nextPanel === 'preview' ? (
+                        <svg className={styles.viewToggleIcon} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6Z" stroke="currentColor" strokeWidth="2" />
+                            <circle cx="12" cy="12" r="2.5" stroke="currentColor" strokeWidth="2" />
+                        </svg>
+                    ) : (
+                        <svg className={styles.viewToggleIcon} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2" />
+                            <path d="M8 9h8M8 13h8M8 17h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                        </svg>
+                    )}
+                </button>
+            </div>
+        );
+    };
+
+    const renderSpotActionButton = () => {
+        if (!selectedLocation) return null;
+
+        if (isAlreadyAdded) {
+            return (
+                <button
+                    className={styles.removeSpotMain}
+                    onClick={() => onRemoveSpot(selectedLocation.name)}
+                    title="Remove from itinerary"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                </button>
+            );
+        }
+
+        return (
+            <button
+                className={isHubSelected ? styles.addSpot : styles.addSpotDisabled}
+                onClick={() => isHubSelected && onAddSpot(selectedLocation)}
+                disabled={!isHubSelected}
+                title={isHubSelected ? "Add tourist spot" : "Select a starting point first"}
+            >
+                {isHubSelected ? (
+                    <>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-plus-icon lucide-map-pin-plus"><path d="M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738"/><circle cx="12" cy="10" r="3"/><path d="M16 18h6"/><path d="M19 15v6"/></svg>
+                    </>
+                ) : (
+                    <>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </>
+                )}
+            </button>
+        );
+    };
+
+    const mobileMetaItems = useMemo(() => {
+        if (!selectedLocation) return [];
+
+        const exposure = selectedLocation.outdoor_exposure || 'outdoor';
+        const budgetRaw = String(selectedLocation.min_budget || 'low').toLowerCase();
+        const bestTimeRaw = String(selectedLocation.best_time_of_day || 'any').toLowerCase();
+        const municipality = selectedLocation.municipality || 'Catanduanes';
+        const locationLabel = String(municipality)
+            .toLowerCase()
+            .replace(/\b\w/g, (char) => char.toUpperCase());
+
+        let budgetLevel = 'Low';
+        if (budgetRaw.includes('high') || budgetRaw.includes('₱₱₱')) budgetLevel = 'High';
+        else if (budgetRaw.includes('medium') || budgetRaw.includes('₱₱')) budgetLevel = 'Medium';
+
+        let timeLabel = 'Anytime';
+        if (bestTimeRaw === 'any') timeLabel = 'All Day';
+        else if (bestTimeRaw.includes('morning')) timeLabel = 'Morning';
+        else if (bestTimeRaw.includes('noon') || bestTimeRaw.includes('midday') || bestTimeRaw.includes('lunch')) timeLabel = 'Midday';
+        else if (bestTimeRaw.includes('sunset')) timeLabel = 'Sunset';
+        else if (bestTimeRaw.includes('night')) timeLabel = 'Night';
+        else if (bestTimeRaw.includes('evening')) timeLabel = 'Evening';
+        else if (bestTimeRaw.includes('dinner')) timeLabel = 'Dinner';
+        else timeLabel = bestTimeRaw.charAt(0).toUpperCase() + bestTimeRaw.slice(1);
+
+        const isNightTime = bestTimeRaw.includes('night') || bestTimeRaw.includes('evening') || bestTimeRaw.includes('dinner');
+
+        const environmentIcon = exposure === 'indoor'
+            ? <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M5 21V7l8-4 8 4v14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 9a3 3 0 0 1 3 3v9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            : exposure === 'shaded'
+                ? <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/></svg>
+                : <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>;
+
+        const costIcon = <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M2 10h20" stroke="currentColor" strokeWidth="2"/></svg>;
+        const timeIcon = <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/><path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+        const locationIcon = <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" stroke="currentColor" strokeWidth="2"/><circle cx="12" cy="10" r="3" stroke="currentColor" strokeWidth="2"/></svg>;
+
+        return [
+            { key: 'environment', value: exposure.charAt(0).toUpperCase() + exposure.slice(1), icon: environmentIcon, toneClass: styles.mobileMetaToneEnvironment },
+            { key: 'cost', value: budgetLevel, icon: costIcon, toneClass: styles.mobileMetaToneCost },
+            { key: 'time', value: timeLabel, icon: timeIcon, toneClass: isNightTime ? styles.mobileMetaToneTimeNight : styles.mobileMetaToneTime },
+            { key: 'location', value: locationLabel, icon: locationIcon, toneClass: styles.mobileMetaToneLocation }
+        ];
+    }, [selectedLocation]);
 
     return (
-        <div className={styles.PreferenceCard}>
+        <div
+            className={`${styles.PreferenceCard} ${isMidSheet ? styles.mobileMidSheet : ''} ${mobileMode && mobileSheetState === 'open' ? styles.mobileOpenSheet : ''}`}
+            onTouchStart={handlePanelTouchStart}
+            onTouchEnd={handlePanelTouchEnd}
+        >
             
             {/* --- OVERLOAD MODAL --- */}
             {showOverloadWarning && (
@@ -292,28 +516,59 @@ const PreferenceCard = ({
             )}
 
             <div className={styles.secondCard}>
-                
                 {/* --- REVIEW BOX (IMMERSIVE BACKGROUND) --- */}
-                <div className={`${styles.reviewBox} ${isReviewExpanded ? styles.reviewBoxExpanded : ''}`}>
-                    <img    
-                        src={selectedLocation?.image || defaultBg} 
-                        alt="Destination Preview" 
-                        className={styles.reviewBoxBackground}
-                        onError={(e) => { e.target.src = defaultBg; }} 
-                    />
-                    {/* 2. Gradient Overlay */}
-                    <div className={styles.reviewBoxOverlay}></div>
+                <div className={`${styles.reviewBox} ${isReviewExpanded ? styles.reviewBoxExpanded : ''} ${!isReviewPanelVisible ? styles.panelHidden : ''}`}>
+                    <div className={styles.reviewImageFrame}>
+                        <img    
+                            src={reviewImageSrc} 
+                            alt="Destination Preview" 
+                            className={styles.reviewBoxBackground}
+                            onError={(e) => { e.target.src = defaultBg; }} 
+                        />
+                        {isReviewImageLoading && (
+                            <div className={styles.reviewBoxPlaceholder} aria-hidden="true"></div>
+                        )}
+                        {/* Gradient Overlay (clipped to image frame) */}
+                        <div className={styles.reviewBoxOverlay}></div>
+                        {mobileMode && (
+                            <div className={styles.reviewImageAction}>
+                                {renderSpotActionButton()}
+                            </div>
+                        )}
+                    </div>
 
                     {/* 3. Text Content */}
                     <div className={styles.reviewContent}>
-                        <h3 className={styles.boxTitle}>
-                            {selectedLocation ? selectedLocation.name : "Explore Catanduanes"}
-                        </h3>
-                        {selectedLocation && distanceFromHub !== null && (
-                            <span className={styles.distanceBadge}>
-                                {distanceFromHub} km from Hub 📍
-                            </span>
+                        <div className={styles.reviewHeaderRow}>
+                            <h3 className={styles.boxTitle}>
+                                {selectedLocation ? selectedLocation.name : "Explore Catanduanes"}
+                            </h3>
+                            <div className={styles.reviewHeaderMeta}>
+                                {renderMobilePanelToggle()}
+                            </div>
+                        </div>
+                        {selectedLocation && (
+                            <div className={styles.reviewMetaRow}>
+                                {!mobileMode && distanceFromHub !== null && (
+                                    <span className={styles.distanceBadge}>
+                                        {distanceFromHub} km from Hub 📍
+                                    </span>
+                                )}
+                                {mobileMode ? (
+                                    <div className={`${styles.metaHandler} ${styles.mobileMetaHandler}`}>
+                                        {mobileMetaItems.map((item) => (
+                                            <div key={item.key} className={`${styles.metaBox} ${styles.mobileMetaBox} ${item.toneClass}`}>
+                                                <div className={styles.metaRow}>
+                                                    {item.icon}
+                                                    <span className={styles.mobileMetaValue}>{item.value}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : null}
+                            </div>
                         )}
+                        {!mobileMode && (
                         <div className={styles.reviewBottomRow}>
                             {/* Left: Description */}
                             <div className={styles.descriptionSection}>
@@ -324,52 +579,24 @@ const PreferenceCard = ({
                                 </p>
                                 
                                 {/* MOVED: ADD SPOT BUTTONS (Now next to text) */}
-                                {selectedLocation && (
-                                    isAlreadyAdded ? (
-                                        <button 
-                                            className={styles.removeSpotMain}
-                                            onClick={() => onRemoveSpot(selectedLocation.name)}
-                                            title="Remove from itinerary"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                                            </svg>
-                                        </button>
-                                    ) : (
-                                        <button 
-                                            className={isHubSelected ? styles.addSpot : styles.addSpotDisabled}
-                                            onClick={() => isHubSelected && onAddSpot(selectedLocation)}
-                                            disabled={!isHubSelected}
-                                            title={isHubSelected ? "Add tourist spot" : "Select a starting point first"}
-                                        >
-                                            {isHubSelected ? (
-                                                <>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-plus-icon lucide-map-pin-plus"><path d="M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738"/><circle cx="12" cy="10" r="3"/><path d="M16 18h6"/><path d="M19 15v6"/></svg>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                                        <circle cx="12" cy="10" r="3"></circle>
-                                                    </svg>
-                                                </>
-                                            )}
-                                        </button>
-                                    )
-                                )}
+                                {renderSpotActionButton()}
                             </div>
                             
                             {/* MOVED: EXPAND BUTTON (Now in the corner) */}
-                            <div className={styles.actionButtonSection}>
-                                <button className={`${styles.expandBtn} ${isReviewExpanded ? styles.btnRotatedVertical : ''}`}
-                                    onClick={() => setIsReviewExpanded(!isReviewExpanded)}
-                                    title={isReviewExpanded ? "Collapse" : "Expand Details"}
-                                    >
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
-                                    </svg>
-                                </button>
-                            </div>
+                            {!mobileMode && (
+                                <div className={styles.actionButtonSection}>
+                                    <button className={`${styles.expandBtn} ${isReviewExpanded ? styles.btnRotatedVertical : ''}`}
+                                        onClick={handleReviewExpandToggle}
+                                        title={isReviewExpanded ? "Collapse" : "Expand Details"}
+                                        >
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            )}
                         </div>
+                        )}
 
                         {/* --- THE CLOSET METHOD: ANIMATED EXPANDED COMPONENTS (SMART TAGS) --- */}
                         <AnimatePresence>
@@ -474,7 +701,7 @@ const PreferenceCard = ({
                 {/* --- ITINERARY PREVIEW (BLANKET METHOD) --- */}
                 {/* FIX 2: Added inline transition to SYNC with the motion.div above */}
                 <div 
-                    className={`${styles.itineraryPreview} ${isReviewExpanded ? styles.previewHidden : ''} ${styles.itineraryPreviewTransition}`}
+                    className={`${styles.itineraryPreview} ${!mobileMode && isReviewExpanded ? styles.previewHidden : ''} ${styles.itineraryPreviewTransition} ${!isPreviewPanelVisible ? styles.panelHidden : ''}`}
                 >
                     
                     {/* Header Row */}
@@ -485,15 +712,18 @@ const PreferenceCard = ({
                             </h3>
                         </div>
 
-                        {/* Compact Optimize Button */}
-                        <button 
-                            onClick={handleOptimize}
-                            className={styles.optimizeBtnSmall}
-                            title="Fix my route order"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-waypoints-icon lucide-waypoints"><path d="m10.586 5.414-5.172 5.172"/><path d="m18.586 13.414-5.172 5.172"/><path d="M6 12h12"/><circle cx="12" cy="20" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="4" cy="12" r="2"/>
-                            </svg>
-                        </button>
+                        <div className={styles.previewHeaderActions}>
+                            {renderMobilePanelToggle()}
+                            {/* Compact Optimize Button */}
+                            <button 
+                                onClick={handleOptimize}
+                                className={styles.optimizeBtnSmall}
+                                title="Fix my route order"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-waypoints-icon lucide-waypoints"><path d="m10.586 5.414-5.172 5.172"/><path d="m18.586 13.414-5.172 5.172"/><path d="M6 12h12"/><circle cx="12" cy="20" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="4" cy="12" r="2"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
 
                     <div className={styles.walletContainer}>

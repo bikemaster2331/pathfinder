@@ -11,6 +11,118 @@
     pointer-events: none;
 }
 
+.floating {
+    position: absolute;
+}
+
+.sheet {
+    position: relative;
+    left: 0;
+    right: auto;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    gap: 0;
+    /* Changed to 0 so handle sits tight on top */
+    pointer-events: auto;
+    transform: none;
+}
+
+.sheet .responseBox {
+    width: 100%;
+    max-height: 160px;
+    margin-bottom: 10px;
+    /* Add margin here since gap is 0 */
+}
+
+.sheet .inputForm {
+    width: 100%;
+}
+
+/* --- UPDATED: Removes the padding hack since handle is outside --- */
+.sheet .inputForm {
+    position: relative;
+    justify-content: flex-start;
+    padding: 6px 6px 6px 16px;
+    /* Standard padding */
+}
+
+.sheet .chatInput {
+    text-align: left;
+}
+
+.sheet .sendBtn {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.sheet .sendIcon {
+    stroke: var(--itinerary-chat-muted);
+}
+
+.sheetInputRow {
+    width: 92%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 1px 0;
+    overflow: visible;
+}
+
+.sheetAccessory {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-width: 0;
+    max-width: none;
+    overflow: hidden;
+}
+
+.sheetAccessory > * {
+    max-width: 100%;
+}
+
+/* --- NEW: Wrapper to make the handle easy to grab --- */
+.sheetHandleWrapper {
+    width: 100%;
+    height: 12px;
+    /* Taller hit area for fingers */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    flex-shrink: 0;
+    background: transparent;
+    margin: 2px;
+}
+
+/* --- UPDATED: Relative positioning (No more absolute) --- */
+.sheetHandle {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 54px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(60, 60, 67, 0.3);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    opacity: 1;
+    z-index: 2;
+    box-shadow: none;
+}
+
+.sheetPill {
+    display: none;
+}
+
 /* The Message Bubble (Response) */
 .responseBox {
     background: var(--itinerary-chat-glass-strong);
@@ -38,7 +150,7 @@
 /* The Input Capsule */
 .inputForm {
     position: relative;
-    width: 22vw;
+    width: 25vw;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -108,7 +220,6 @@
     border-radius: 50%;
     border: 1px solid transparent;
     background: #ffffff;
-    /* Your hub color or nice blue */
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 0;
@@ -142,7 +253,6 @@
     stroke-width: 2.5;
     fill: none;
     transform: translateX(-1px);
-    /* Optical alignment */
 }
 
 .sendBtn:disabled .sendIcon {
@@ -197,12 +307,142 @@
 }
 
 @media (max-width: 768px) {
+
     .chatContainer {
+        transition: height 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+                border-radius 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        border: none;
+        border-radius: 16px;
+        will-change: height;
+    }
+
+    .sheetCollapsed {
+        z-index: 1300;
+    }
+
+    .floating {
         width: 95%;
         bottom: 15px;
         right: 50%;
         transform: translateX(50%);
-        /* Center on mobile */
         max-width: 95%;
+    }
+
+    .floating {
+        display: none;
+    }
+
+    .sheet {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 10px;
+    }
+
+    .sheet .inputForm {
+        width: 92%;
+        margin: 0 auto;
+        height: 44px;
+        border-radius: 22px;
+        padding: 6px 8px 6px 12px;
+        box-sizing: border-box;
+        overflow: hidden;
+        /* Standard padding */
+        background: rgba(17, 24, 39, 0.05);
+        /* Lighter background for iOS feel */
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: none;
+        /* Removed heavy shadow for cleaner look */
+    }
+
+    .sheetInputRow .inputForm {
+        width: 100%;
+        flex: none;
+        min-width: 0;
+        margin: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+
+    .sheetInputRow .sheetAccessory {
+        height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    .sheetInputRow .sheetAccessory > * {
+        height: auto;
+    }
+
+    .sheetInputRow .inputForm .chatInput {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .sheetAccessory {
+        margin: 0;
+        max-width: none;
+    }
+
+    .sheet .inputForm .sendBtn {
+        flex: 0 0 auto;
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        min-height: 26px;
+        max-width: 26px;
+        max-height: 26px;
+        aspect-ratio: 1 / 1;
+        box-sizing: border-box;
+    }
+
+    .sheetInputRow .inputForm .sendBtn {
+        flex: 0 0 26px;
+        margin-left: 0;
+    }
+
+    .sheet .inputForm .sendIcon {
+        width: 13px;
+        height: 13px;
+    }
+
+    /* Dark mode override */
+    :global([data-theme='dark']) .sheet .inputForm {
+        background: rgba(15, 23, 35, 0.86);
+        border: 1px solid rgba(148, 163, 184, 0.34);
+    }
+
+    :global([data-theme='light']) .sheet .inputForm {
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(15, 23, 42, 0.25);
+        box-shadow: none;
+    }
+
+    .sheet .chatInput {
+        font-size: 0.95rem;
+    }
+
+    /* Handle Colors */
+    .sheetHandle {
+        background: rgba(60, 60, 67, 0.3);
+        /* Light mode handle */
+    }
+
+    :global([data-theme='dark']) .sheetHandle {
+        background: rgba(255, 255, 255, 0.3);
+        /* Dark mode handle */
+    }
+
+    /* Ensure wrapper doesn't collapse */
+    .sheetHandleWrapper {
+        display: flex;
     }
 }

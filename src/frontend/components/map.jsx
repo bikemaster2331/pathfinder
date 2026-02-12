@@ -15,6 +15,20 @@ const INITIAL_VIEW = {
     bearing: -15 
 };
 
+const MOBILE_INITIAL_VIEW = {
+    center: INITIAL_VIEW.center,
+    zoom: 9.2,
+    pitch: 0,
+    bearing: 0
+};
+
+const getInitialView = () => {
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+        return MOBILE_INITIAL_VIEW;
+    }
+    return INITIAL_VIEW;
+};
+
 const HARD_BOUNDS = [
     [123.65, 13.4], 
     [124.8, 14.2]  
@@ -52,7 +66,7 @@ const ICONS = {
     'icon-shop': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M9 10V8a3 3 0 0 1 6 0v2h2v9H7v-9h2zm2 0h2V8a1 1 0 0 0-2 0v2z" fill="white"/></svg>`,
     'icon-camera': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><circle cx="12" cy="13" r="3" stroke="white" stroke-width="1.5" fill="none"/><path d="M9 8h6l2 2h2v8H5v-8h2l2-2z" fill="none" stroke="white" stroke-width="1.5"/></svg>`,
     'icon-default': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="8" fill="#555555" stroke="white" stroke-width="2"/></svg>`,
-    'icon-top10': '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path d="M176,72a48,48,0,1,1-48-48A48,48,0,0,1,176,72Z" fill="#e75b5b"></path><path d="M184,72a56,56,0,1,0-64,55.42V232a8,8,0,0,0,16,0V127.42A56.09,56.09,0,0,0,184,72Zm-56,40a40,40,0,1,1,40-40A40,40,0,0,1,128,112Z" fill="#000000"></path></svg>',
+    'icon-top10': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 4c-10.5 0-19 8.5-19 19 0 13.6 16.7 30.2 18.1 31.6.5.5 1.3.5 1.8 0C34.3 53.2 51 36.6 51 23 51 12.5 42.5 4 32 4z" fill="#111827" stroke="#facc15" stroke-width="2"/><circle cx="32" cy="23" r="11" fill="#1f2937"/><path d="M32 14l2.6 5.3 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L32 14z" fill="#facc15"/></svg>',
 };
 
 const readMapTheme = () => {
@@ -90,6 +104,9 @@ const Map = forwardRef((props, ref) => {
     const lastHubRef = useRef(null);
     const glowingMarkersRef = useRef([]);
     const animationFrameRef = useRef(null);
+    const resizeRafRef = useRef(null);
+    const resizePendingRef = useRef(false);
+    const resizeAfterIdleRef = useRef(false);
 
     useImperativeHandle(ref, () => ({
         handleChatbotLocations: (locations) => {
@@ -383,6 +400,8 @@ const Map = forwardRef((props, ref) => {
 
         const theme = readMapTheme();
 
+        const initialView = getInitialView();
+
         map.current = new maplibregl.Map({
             container: mapContainer.current,
             style: {
@@ -394,10 +413,10 @@ const Map = forwardRef((props, ref) => {
                     paint: { 'background-color': theme.mapBg }
                 }]
             },
-            center: INITIAL_VIEW.center,
-            zoom: INITIAL_VIEW.zoom,
-            pitch: 60,
-            bearing: INITIAL_VIEW.bearing,
+            center: initialView.center,
+            zoom: initialView.zoom,
+            pitch: initialView.pitch,
+            bearing: initialView.bearing,
             minZoom: 9, 
             maxZoom: 15,
             attributionControl: false,
@@ -409,14 +428,37 @@ const Map = forwardRef((props, ref) => {
             cooperativeGestures: false
         });
 
+        const scheduleResize = () => {
+            if (!map.current) return;
+
+            const isBusy = map.current.isMoving?.() || map.current.isZooming?.() || map.current.isRotating?.() || map.current.isEasing?.();
+            if (isBusy) {
+                if (!resizeAfterIdleRef.current) {
+                    resizeAfterIdleRef.current = true;
+                    map.current.once('idle', () => {
+                        resizeAfterIdleRef.current = false;
+                        if (map.current) map.current.resize();
+                    });
+                }
+                return;
+            }
+
+            if (resizePendingRef.current) return;
+            resizePendingRef.current = true;
+            resizeRafRef.current = requestAnimationFrame(() => {
+                resizePendingRef.current = false;
+                if (map.current) map.current.resize();
+            });
+        };
+
         const resizeObserver = new ResizeObserver(() => {
-            if (map.current) map.current.resize();
+            scheduleResize();
         });
         resizeObserver.observe(mapContainer.current);
 
         map.current.on('load', () => {
             setTimeout(() => {
-                if (map.current) map.current.resize();
+                scheduleResize();
             }, 200);
 
             const loadIcon = (name, svgString) => {
@@ -534,6 +576,19 @@ const Map = forwardRef((props, ref) => {
                     }
                 });
 
+                map.current.addLayer({
+                    id: 'top-10-pulse',
+                    type: 'circle',
+                    source: 'all-data',
+                    filter: ['all', ['==', ['geometry-type'], 'Point'], ['to-boolean', ['get', 'is_top_10']]],
+                    paint: {
+                        'circle-radius': 12,
+                        'circle-color': '#facc15',
+                        'circle-opacity': 0.25,
+                        'circle-blur': 0.8
+                    }
+                }, 'top-10-points');
+
                 map.current.addSource('router-brain', {
                     type: 'geojson',
                     data: roadData
@@ -553,29 +608,32 @@ const Map = forwardRef((props, ref) => {
 
                 setIsLoaded(true);
 
-                const animateBounce = () => {
+                const animatePulse = () => {
                     const time = Date.now() / 1000;
-                    const yOffset = Math.sin(time * 3) * -5; 
+                    const pulse = 12 + Math.sin(time * 3) * 3;
+                    const opacity = 0.15 + (Math.sin(time * 3) + 1) * 0.1;
 
                     if (map.current) {
-                        if (map.current.getLayer('top-10-points')) {
-                            map.current.setPaintProperty('top-10-points', 'icon-translate', [0, yOffset]);
+                        if (map.current.getLayer('top-10-pulse')) {
+                            map.current.setPaintProperty('top-10-pulse', 'circle-radius', pulse);
+                            map.current.setPaintProperty('top-10-pulse', 'circle-opacity', opacity);
                         }
                     }
-                    animationFrameRef.current = requestAnimationFrame(animateBounce);
+                    animationFrameRef.current = requestAnimationFrame(animatePulse);
                 };
-                animateBounce();
+                animatePulse();
 
                 map.current.on('dragend', () => {
                     if (!map.current) return;
                     
                     const currentZoom = map.current.getZoom();
                     if (currentZoom < 11) {
+                        const initialView = getInitialView();
                         map.current.easeTo({
-                            center: INITIAL_VIEW.center,
-                            zoom: INITIAL_VIEW.zoom,
-                            bearing: INITIAL_VIEW.bearing, // 👈 RESET BEARING
-                            pitch: INITIAL_VIEW.pitch,     // 👈 RESET PITCH
+                            center: initialView.center,
+                            zoom: initialView.zoom,
+                            bearing: initialView.bearing, // 👈 RESET BEARING
+                            pitch: initialView.pitch,     // 👈 RESET PITCH
                             duration: 600,
                             easing: (t) => t * (2 - t)
                         });
@@ -590,11 +648,12 @@ const Map = forwardRef((props, ref) => {
                         center.lat > RESET_TRIGGER_BOUNDS.maxLat;
 
                     if (isOutsideSafeZone) {
+                        const initialView = getInitialView();
                         map.current.easeTo({
-                            center: INITIAL_VIEW.center,
-                            zoom: INITIAL_VIEW.zoom,
-                            bearing: INITIAL_VIEW.bearing, // 👈 RESET BEARING
-                            pitch: INITIAL_VIEW.pitch,     // 👈 RESET PITCH
+                            center: initialView.center,
+                            zoom: initialView.zoom,
+                            bearing: initialView.bearing, // 👈 RESET BEARING
+                            pitch: initialView.pitch,     // 👈 RESET PITCH
                             duration: 800, 
                             easing: (t) => t * (2 - t)
                         });
@@ -604,11 +663,12 @@ const Map = forwardRef((props, ref) => {
                 map.current.on('zoomend', () => {
                     if (!map.current) return;
                     if (map.current.getZoom() < 9.8) {
+                        const initialView = getInitialView();
                         map.current.easeTo({
-                            center: INITIAL_VIEW.center,
-                            zoom: INITIAL_VIEW.zoom,
-                            bearing: INITIAL_VIEW.bearing, // 👈 RESET BEARING
-                            pitch: INITIAL_VIEW.pitch,     // 👈 RESET PITCH
+                            center: initialView.center,
+                            zoom: initialView.zoom,
+                            bearing: initialView.bearing, // 👈 RESET BEARING
+                            pitch: initialView.pitch,     // 👈 RESET PITCH
                             duration: 600
                         });
                     }
@@ -685,6 +745,7 @@ const Map = forwardRef((props, ref) => {
         return () => {
             resizeObserver.disconnect();
             if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+            if (resizeRafRef.current) cancelAnimationFrame(resizeRafRef.current);
             if (map.current) { 
                 map.current.remove(); 
                 map.current = null; 
