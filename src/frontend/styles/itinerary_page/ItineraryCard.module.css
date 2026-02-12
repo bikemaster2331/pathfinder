@@ -66,10 +66,10 @@
 }
 
 .reviewBox .boxTitle {
-    margin: 0 0 5px 0;
+    margin: 0 0 0 0;
     width: 100%;
     text-align: left;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--itinerary-card-text-white);
     text-shadow: 0 2px 8px var(--itinerary-card-shadow-60);
@@ -201,7 +201,7 @@
 }
 
 .reviewBoxExpanded .reviewBoxBackground {
-    border-radius: 16px;
+    border-radius: 18px;
     filter: brightness(0.9) saturate(1.1);
 }
 
@@ -272,7 +272,6 @@
 :global([data-theme='light']) .reviewBox,
 :global([data-theme='light']) .itineraryPreview {
     background: var(--itinerary-card-panel-bg);
-    border: 1px solid var(--itinerary-card-border);
     color: var(--itinerary-card-text);
     box-shadow: 0 12px 24px var(--itinerary-card-shadow);
 }
@@ -290,12 +289,9 @@
 
 :global([data-theme='light']) .reviewBoxExpanded {
     background: var(--itinerary-card-panel-bg);
-    box-shadow: 0 20px 60px var(--itinerary-card-shadow);
 }
 
 :global([data-theme='light']) .reviewBoxExpanded .reviewBoxBackground {
-    padding: 10px;
-    border-radius: 24px;
     filter: none;
 }
 
@@ -357,6 +353,37 @@
     flex-direction: column;
 }
 
+.reviewHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.reviewHeaderRow .boxTitle {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.reviewHeaderMeta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    flex: 0 0 auto;
+    min-width: 0;
+}
+
+.reviewImageAction {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .titleSection {
     display: flex;
     flex-direction: column;
@@ -368,6 +395,14 @@
     display: flex;
     align-items: flex-end;
     margin-top: auto;
+    width: 100%;
+}
+
+.reviewMetaRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
     width: 100%;
 }
 
@@ -596,7 +631,7 @@
     top: 49vh;
     left: -5px;
     right: -5px;
-    padding: 0 16px;
+    padding: 0 6px;
 }
 
 .addSpot {
@@ -713,6 +748,12 @@
 .previewHeaderTitleGroup {
     display: flex;
     flex-direction: column;
+}
+
+.previewHeaderActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .savedDaysSubtext {
@@ -1182,35 +1223,335 @@
 
 @media (max-width: 768px) {
     .PreferenceCard {
-        padding: 12px;
+        padding: 6px;
+        height: 100%;
+        min-height: 0;
+        box-sizing: border-box;
+        overflow: hidden;
     }
 
     .secondCard {
         gap: 15px;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .mobileMidSheet {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        --mobile-mid-bottom-row-min-height: 64px;
+        --mobile-mid-bottom-row-height: 64px;
+        --mobile-mid-review-text-lines: 2;
+        --mobile-mid-action-size: 36px;
+    }
+
+    .mobileMidSheet .secondCard {
+        display: contents;
+    }
+
+    .mobileMidSheet .reviewBox {
+        display: contents;
+    }
+
+    /* mobile mid: show only requested review box elements */
+    .mobileMidSheet .expandedContent {
+        display: none !important;
+    }
+
+    .mobileMidSheet .reviewContent {
+        background: transparent !important;
+    }
+
+    .mobileMidSheet .reviewBoxOverlay {
+        display: none !important;
+    }
+
+    .mobileMidSheet .reviewImageFrame {
+        position: relative !important;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        height: clamp(132px, 24vh, 186px);
+        flex: 0 0 auto;
+        margin: 0;
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .mobileMidSheet .reviewContent {
+        position: relative !important;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        top: auto;
+        height: auto;
+        flex: 1 1 auto;
+        min-height: 0;
+        padding: 0 !important;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .mobileMidSheet .reviewBottomRow {
+        margin-top: 1px;
+        height: var(--mobile-mid-bottom-row-height);
+        min-height: var(--mobile-mid-bottom-row-height);
+        max-height: var(--mobile-mid-bottom-row-height);
+        align-items: stretch;
+        overflow: hidden;
+    }
+
+    .mobileMidSheet .descriptionSection {
+        height: 100%;
+        min-height: 0;
+        max-height: 100%;
+        min-width: 0;
+        align-items: center;
+        overflow: hidden;
+    }
+
+
+    .mobileMidSheet .reviewText {
+        display: -webkit-box !important;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: var(--mobile-mid-review-text-lines);
+        line-clamp: var(--mobile-mid-review-text-lines);
+        flex: 1 1 auto;
+        width: auto;
+        max-width: 100%;
+        height: var(--mobile-mid-action-size);
+        min-height: var(--mobile-mid-action-size);
+        max-height: var(--mobile-mid-action-size);
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 6px 10px;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+    }
+
+    .mobileMidSheet .addSpot,
+    .mobileMidSheet .addSpotDisabled,
+    .mobileMidSheet .removeSpotMain {
+        flex: 0 0 auto;
+        width: var(--mobile-mid-action-size);
+        height: var(--mobile-mid-action-size);
+        min-height: var(--mobile-mid-action-size);
+        min-width: var(--mobile-mid-action-size);
+        max-width: var(--mobile-mid-action-size);
+        max-height: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        align-self: center;
+    }
+
+    .mobileMidSheet .boxTitle {
+        margin-top: 10px;
+        margin-bottom: 0;
+        font-size: 1.4rem;
+        line-height: 1.15;
+    }
+
+    .mobileMidSheet .reviewHeaderRow {
+        justify-content: flex-start;
+    }
+
+    .mobileMidSheet .reviewHeaderMeta {
+        margin-left: auto;
+        gap: 4px;
+    }
+
+    .mobileMidSheet .reviewImageAction .addSpot,
+    .mobileMidSheet .reviewImageAction .addSpotDisabled,
+    .mobileMidSheet .reviewImageAction .removeSpotMain {
+        width: var(--mobile-mid-action-size);
+        height: var(--mobile-mid-action-size);
+        min-width: var(--mobile-mid-action-size);
+        min-height: var(--mobile-mid-action-size);
+        max-width: var(--mobile-mid-action-size);
+        max-height: var(--mobile-mid-action-size);
+        padding: 0;
+        border-radius: 10px;
+    }
+
+    .mobileMidSheet .distanceBadge {
+        margin: 0;
+        font-size: 11px;
+        padding: 4px 8px;
+        min-height: 24px;
+        box-sizing: border-box;
+        white-space: nowrap;
+    }
+
+    .mobileMidSheet .reviewMetaRow {
+        margin-top: 0;
+        margin-bottom: 0;
+        align-items: stretch;
+        min-height: 0;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .mobileMidSheet .mobileMetaHandler {
+        position: static;
+        top: auto;
+        left: auto;
+        right: auto;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 4px;
+        width: auto;
+        flex: 1 1 auto;
+        min-height: 0;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .mobileMidSheet .mobileMetaBox {
+        padding: 3px 6px;
+        border-radius: 6px;
+        min-height: 22px;
+        box-sizing: border-box;
+        background: var(--itinerary-card-surface-08);
+        border: 1px solid var(--itinerary-card-surface-12);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobileMidSheet .mobileMetaBox .metaRow {
+        gap: 4px;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+    }
+
+    .mobileMidSheet .mobileMetaBox .metaRow svg {
+        width: 12px;
+        height: 12px;
+        flex: 0 0 12px;
+    }
+
+    .mobileMidSheet .mobileMetaValue {
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1;
+        color: currentColor;
+        text-transform: capitalize;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .mobileMidSheet .mobileMetaToneEnvironment {
+        background: rgba(52, 211, 153, 0.08);
+        border-color: rgba(52, 211, 153, 0.24);
+        color: #059669;
+    }
+
+    .mobileMidSheet .mobileMetaToneCost {
+        background: rgba(16, 185, 129, 0.08);
+        border-color: rgba(16, 185, 129, 0.24);
+        color: #047857;
+    }
+
+    .mobileMidSheet .mobileMetaToneTime {
+        background: rgba(245, 158, 11, 0.09);
+        border-color: rgba(245, 158, 11, 0.24);
+        color: #b45309;
+    }
+
+    .mobileMidSheet .mobileMetaToneTimeNight {
+        background: rgba(139, 92, 246, 0.1);
+        border-color: rgba(139, 92, 246, 0.26);
+        color: #6d28d9;
+    }
+
+    .mobileMidSheet .mobileMetaToneLocation {
+        background: rgba(59, 130, 246, 0.08);
+        border-color: rgba(59, 130, 246, 0.24);
+        color: #1d4ed8;
+    }
+
+    .mobileOpenSheet,
+    .mobileOpenSheet .secondCard,
+    .mobileOpenSheet .reviewBox.reviewBoxExpanded {
+        min-height: 0;
+    }
+
+    .mobileOpenSheet .reviewBox.reviewBoxExpanded {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .mobileOpenSheet .expandedContent {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .reviewBox {
+        padding: 4px;
+        background: var(--itinerary-map-input-bg);
+        border: none;
+        box-shadow: none;
+    }
+
+    :global([data-theme='light']) .reviewBox {
+        background: var(--itinerary-map-panel-bg);
     }
 
     .viewToggle {
         display: flex;
         align-items: center;
-        gap: 6px;
-        padding: 4px;
-        border-radius: 10px;
+        gap: 4px;
+        padding: 2px;
+        border-radius: 999px;
         background: var(--itinerary-card-surface-05);
         border: 1px solid var(--itinerary-card-surface-10);
-        margin-bottom: 2px;
+        margin: 0;
+        width: fit-content;
+        flex: 0 0 auto;
     }
 
     .viewToggleBtn {
-        flex: 1;
+        flex: 0 0 auto;
         border: 1px solid transparent;
         background: transparent;
         color: var(--itinerary-card-text-70);
-        border-radius: 8px;
-        padding: 8px 10px;
-        font-size: 0.8rem;
+        border-radius: 999px;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        font-size: 0;
         font-weight: 600;
         cursor: pointer;
+        line-height: 1;
         transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .viewToggleIcon {
+        width: 14px;
+        height: 14px;
     }
 
     .viewToggleBtnActive {
@@ -1230,5 +1571,87 @@
         width: 120px;
         font-size: 0.9rem;
         padding: 8px 12px;
+    }
+
+    /* Mobile fix: expanded review should use flow layout, not desktop absolute offsets */
+    .reviewBox.reviewBoxExpanded {
+        flex: 1 1 auto !important;
+        min-height: 0;
+        background: var(--itinerary-map-panel-bg);
+    }
+
+    :global([data-theme='light']) .reviewBox.reviewBoxExpanded {
+        background: var(--itinerary-map-panel-bg);
+    }
+
+    .reviewBox.reviewBoxExpanded .reviewContent {
+        background: var(--itinerary-map-panel-bg);
+    }
+
+    .reviewBoxExpanded .reviewImageFrame {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        height: 180px;
+        padding: 0;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        border: none;
+    }
+
+    .reviewBox.reviewBoxExpanded .boxTitle,
+    .reviewBox.reviewBoxExpanded .distanceBadge,
+    .reviewBoxExpanded .reviewText {
+        position: static;
+        top: auto;
+        left: auto;
+        right: auto;
+    }
+    
+    .reviewBox.reviewBoxExpanded .boxTitle {
+        font-size: 1.2rem;
+        padding: 0;
+        margin: 0 0 8px 0;
+    }
+
+    .reviewBox.reviewBoxExpanded .distanceBadge {
+        margin-bottom: 0;
+    }
+
+    .reviewBoxExpanded .reviewText {
+        height: auto;
+        min-height: 72px;
+        padding: 10px 12px;
+        overflow: visible;
+        border: none;
+    }
+
+    .reviewBox.reviewBoxExpanded .addSpot,
+    .reviewBox.reviewBoxExpanded .addSpotDisabled,
+    .reviewBox.reviewBoxExpanded .removeSpotMain {
+        position: static;
+        bottom: auto;
+        right: auto;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px var(--itinerary-card-shadow-20);
+    }
+
+    .reviewBox.reviewBoxExpanded .metaBox,
+    .reviewBox.reviewBoxExpanded .distanceBadge,
+    .reviewBox.reviewBoxExpanded .expandBtn {
+        border: none;
+    }
+
+    .metaHandler {
+        position: static;
+        top: auto;
+        left: auto;
+        right: auto;
+        margin-top: 12px;
+        padding: 0;
+        grid-template-columns: 1fr;
     }
 }

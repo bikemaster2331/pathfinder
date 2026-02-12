@@ -61,10 +61,36 @@
     stroke: var(--itinerary-chat-muted);
 }
 
+.sheetInputRow {
+    width: 92%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 1px 0;
+    overflow: visible;
+}
+
+.sheetAccessory {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-width: 0;
+    max-width: none;
+    overflow: hidden;
+}
+
+.sheetAccessory > * {
+    max-width: 100%;
+}
+
 /* --- NEW: Wrapper to make the handle easy to grab --- */
 .sheetHandleWrapper {
     width: 100%;
-    height: 24px;
+    height: 12px;
     /* Taller hit area for fingers */
     display: flex;
     align-items: center;
@@ -72,7 +98,7 @@
     cursor: grab;
     flex-shrink: 0;
     background: transparent;
-    margin-bottom: 2px;
+    margin: 2px;
 }
 
 /* --- UPDATED: Relative positioning (No more absolute) --- */
@@ -81,9 +107,8 @@
     top: auto;
     left: auto;
     transform: none;
-
-    width: 36px;
-    height: 5px;
+    width: 54px;
+    height: 3px;
     border-radius: 999px;
     background: rgba(60, 60, 67, 0.3);
     border: none;
@@ -125,7 +150,7 @@
 /* The Input Capsule */
 .inputForm {
     position: relative;
-    width: 22vw;
+    width: 25vw;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -282,6 +307,19 @@
 }
 
 @media (max-width: 768px) {
+
+    .chatContainer {
+        transition: height 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+                border-radius 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        border: none;
+        border-radius: 16px;
+        will-change: height;
+    }
+
+    .sheetCollapsed {
+        z-index: 1300;
+    }
+
     .floating {
         width: 95%;
         bottom: 15px;
@@ -302,14 +340,17 @@
         transform: none;
         width: 100%;
         max-width: 100%;
+        border-radius: 10px;
     }
 
     .sheet .inputForm {
-        width: calc(100% - 32px);
-        /* Adjusted for simpler margins */
+        width: 92%;
         margin: 0 auto;
-        border-radius: 999px;
-        padding: 10px 16px;
+        height: 44px;
+        border-radius: 22px;
+        padding: 6px 8px 6px 12px;
+        box-sizing: border-box;
+        overflow: hidden;
         /* Standard padding */
         background: rgba(17, 24, 39, 0.05);
         /* Lighter background for iOS feel */
@@ -318,16 +359,70 @@
         /* Removed heavy shadow for cleaner look */
     }
 
+    .sheetInputRow .inputForm {
+        width: 100%;
+        flex: none;
+        min-width: 0;
+        margin: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+
+    .sheetInputRow .sheetAccessory {
+        height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    .sheetInputRow .sheetAccessory > * {
+        height: auto;
+    }
+
+    .sheetInputRow .inputForm .chatInput {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .sheetAccessory {
+        margin: 0;
+        max-width: none;
+    }
+
+    .sheet .inputForm .sendBtn {
+        flex: 0 0 auto;
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        min-height: 26px;
+        max-width: 26px;
+        max-height: 26px;
+        aspect-ratio: 1 / 1;
+        box-sizing: border-box;
+    }
+
+    .sheetInputRow .inputForm .sendBtn {
+        flex: 0 0 26px;
+        margin-left: 0;
+    }
+
+    .sheet .inputForm .sendIcon {
+        width: 13px;
+        height: 13px;
+    }
+
     /* Dark mode override */
     :global([data-theme='dark']) .sheet .inputForm {
-        background: rgba(118, 118, 128, 0.24);
-        /* Apple Maps Dark Search Bar */
-        border: none;
+        background: rgba(15, 23, 35, 0.86);
+        border: 1px solid rgba(148, 163, 184, 0.34);
     }
 
     :global([data-theme='light']) .sheet .inputForm {
         background: rgba(0, 0, 0, 0.05);
-        border-color: transparent;
+        border: 1px solid rgba(15, 23, 42, 0.25);
         box-shadow: none;
     }
 
