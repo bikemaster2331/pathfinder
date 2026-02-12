@@ -623,17 +623,20 @@ const Map = forwardRef((props, ref) => {
                 };
                 animatePulse();
 
-                map.current.on('dragend', () => {
+                // --- CRITICAL FIX START: Reset Logic ---
+                const handleResetCheck = () => {
                     if (!map.current) return;
                     
                     const currentZoom = map.current.getZoom();
-                    if (currentZoom < 11) {
+                    
+                    // CRITICAL FIX: Lowered threshold to 8.5 (Must be lower than MOBILE_INITIAL_VIEW zoom of 9.2)
+                    if (currentZoom < 8.5) {
                         const initialView = getInitialView();
                         map.current.easeTo({
                             center: initialView.center,
                             zoom: initialView.zoom,
-                            bearing: initialView.bearing, // 👈 RESET BEARING
-                            pitch: initialView.pitch,     // 👈 RESET PITCH
+                            bearing: initialView.bearing,
+                            pitch: initialView.pitch,
                             duration: 600,
                             easing: (t) => t * (2 - t)
                         });
@@ -651,28 +654,19 @@ const Map = forwardRef((props, ref) => {
                         const initialView = getInitialView();
                         map.current.easeTo({
                             center: initialView.center,
-                            zoom: initialView.zoom,
-                            bearing: initialView.bearing, // 👈 RESET BEARING
-                            pitch: initialView.pitch,     // 👈 RESET PITCH
+                            zoom: initialView.zoom, // Keep current zoom usually, or reset to initial
+                            bearing: initialView.bearing,
+                            pitch: initialView.pitch,
                             duration: 800, 
                             easing: (t) => t * (2 - t)
                         });
                     }
-                });
-
-                map.current.on('zoomend', () => {
-                    if (!map.current) return;
-                    if (map.current.getZoom() < 9.8) {
-                        const initialView = getInitialView();
-                        map.current.easeTo({
-                            center: initialView.center,
-                            zoom: initialView.zoom,
-                            bearing: initialView.bearing, // 👈 RESET BEARING
-                            pitch: initialView.pitch,     // 👈 RESET PITCH
-                            duration: 600
-                        });
-                    }
-                });
+                };
+                
+                // Use the shared handler for both
+                map.current.on('dragend', handleResetCheck);
+                map.current.on('zoomend', handleResetCheck);
+                // --- CRITICAL FIX END ---
 
                 map.current.on('click', 'island-fill', (e) => {
                     if (!map.current) return;
