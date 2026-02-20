@@ -9,7 +9,7 @@
     --app-text: #0b0b0b;
 
     /* Home page */
-    --home-bg: #f8fafc;
+    --home-bg: #eee7ef;
     --home-surface: #ffffff;
     --home-surface-subtle: rgba(102, 102, 102, 0.75);
     --home-text: #0b0b0b;
@@ -67,7 +67,7 @@
     --footer-creators-surface: #ffffff;
 
     /* Itinerary page */
-    --itinerary-bg: #f8fafc;
+    --itinerary-bg: var(--map-style-bg);
     --itinerary-grid-line: rgba(15, 23, 42, 0.04);
     --itinerary-surface: #ffffff;
     --itinerary-surface-subtle: rgba(102, 102, 102, 0.75);

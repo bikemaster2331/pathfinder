@@ -3,7 +3,10 @@ import uvicorn
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from pipeline import Pipeline
+try:
+    from .pipeline import Pipeline
+except ImportError:
+    from pipeline import Pipeline
 from pathlib import Path
 from contextlib import asynccontextmanager
 from fastapi.concurrency import run_in_threadpool
@@ -15,7 +18,7 @@ CONFIG = BASE_DIR / "config" / "config.yaml"
 
 # Global state
 pipeline = None
-itinerary_list = []  # Restored memory for itinerary
+itinerary_list = []
 
 # --- LIFESPAN (SMART STARTUP) ---
 @asynccontextmanager
@@ -24,7 +27,7 @@ async def lifespan(app: FastAPI):
     print("🚀 Pathfinder API is starting up...")
     
     try:
-        # Initialize Pipeline (This loads the brain)
+        # Initialize Pipeline
         pipeline = Pipeline(
             dataset_path=str(DATASET),
             config_path=str(CONFIG)
@@ -32,8 +35,9 @@ async def lifespan(app: FastAPI):
         
         # RENDER FIX: Check if brain is empty (ephemeral storage)
         if pipeline.collection.count() == 0:
-            print("⚠️ Brain is empty (Render Ephemeral Storage). Rebuilding index...")
-            pipeline.rebuild_index()
+            print("⚠️ Brain is empty. Rebuilding index...")
+            # Run rebuild in threadpool to avoid blocking startup
+            await run_in_threadpool(pipeline.rebuild_index)
             print(f"✅ Rebuild Complete! Loaded {pipeline.collection.count()} facts.")
         else:
             print(f"🧠 Brain loaded. Contains {pipeline.collection.count()} facts.")
@@ -61,10 +65,10 @@ class AskRequest(BaseModel):
     question: str
 
 class PlaceInfo(BaseModel):
-    name: str
-    coordinates: list[float]
-    type: str
-    municipality: str
+    name: str = ""
+    coordinates: list[float] = [0.0, 0.0]
+    type: str = "Unknown"
+    municipality: str = "Unknown"
 
 class AskResponse(BaseModel):
     answer: str
@@ -73,7 +77,7 @@ class AskResponse(BaseModel):
 class ItineraryItem(BaseModel):
     place_name: str
 
-# --- RESTORED ENDPOINTS ---
+# --- ENDPOINTS ---
 
 @app.get("/")
 def home():
@@ -83,7 +87,7 @@ def home():
 def health_check():
     if pipeline:
         return {"status": "healthy", "facts_loaded": pipeline.collection.count()}
-    return {"status": "starting"}
+    return {"status": "starting", "message": "Pipeline initializing"}
 
 @app.get("/admin/status")
 def admin_status(response: Response):
@@ -102,12 +106,12 @@ def admin_status(response: Response):
         return {"status": "error", "message": str(e)}
 
 @app.post("/admin/rebuild")
-def admin_rebuild():
+async def admin_rebuild():
     """Manually force a brain rebuild"""
     if not pipeline:
         raise HTTPException(status_code=503, detail="Pipeline not initialized")
     try:
-        pipeline.rebuild_index() 
+        await run_in_threadpool(pipeline.rebuild_index)
         return {
             "message": "Database rebuilt successfully",
             "new_count": pipeline.collection.count()
@@ -133,34 +137,49 @@ def get_itinerary():
 
 @app.get("/places")
 def get_all_places():
-    """Legacy endpoint (returns empty list for now)"""
     return {"places": []}
 
 @app.post("/ask", response_model=AskResponse)
 async def ask_endpoint(request: AskRequest):
+    # 1. Check if Brain is Ready
     if pipeline is None:
-        raise HTTPException(status_code=503, detail="System is still initializing. Please wait.")
+        raise HTTPException(status_code=503, detail="System is waking up. Please try again in 10 seconds.")
     
     try:
-        # Run heavy AI task in threadpool
+        print(f"❓ Processing: {request.question}")
+        
+        # 2. Run AI Task in separate thread (Prevents freezing)
         result = await run_in_threadpool(pipeline.ask, request.question)
         
-        # Debug Logging
-        loc_count = len(result['locations'])
-        if loc_count > 0:
-            print(f"📍 ZOOMING TO: {[l['name'] for l in result['locations']]}")
+        # 3. SAFETY CHECK: Ensure result is valid
+        if not isinstance(result, dict):
+            print(f"⚠️ Unexpected result format: {result}")
+            return {
+                "answer": str(result),
+                "locations": []
+            }
+
+        locations = result.get('locations', [])
+        answer = result.get('answer', "I found some info but couldn't process the answer properly.")
+
+        if len(locations) > 0:
+            print(f"📍 Found {len(locations)} locations.")
         else:
-            print(f"⚠️ NO LOCATION FOUND for: '{request.question}'")
+            print(f"⚠️ No locations found.")
 
         return {
-            "answer": result['answer'],
-            "locations": result['locations']
+            "answer": answer,
+            "locations": locations
         }
-    except Exception as e:
-        print(f"Error processing request: {e}")
-        raise HTTPException(status_code=500, detail="Internal Server Error")
 
-# --- AUTO-START ---
+    except Exception as e:
+        print(f"❌ Error processing request: {e}")
+        # Return a friendly error instead of crashing the server
+        return {
+            "answer": "I encountered an error processing that request. Please try asking differently.",
+            "locations": []
+        }
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     print(f"🔌 Server listening on http://0.0.0.0:{port}")

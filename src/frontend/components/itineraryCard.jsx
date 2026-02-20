@@ -87,23 +87,14 @@ const PreferenceCard = ({
         // If the image is already set, skip loading state
         if (reviewImageSrc === nextSrc) return;
 
-        let delayTimer = null;
         let cancelled = false;
 
         setIsReviewImageLoading(true);
         const img = new Image();
         img.onload = () => {
-            const apply = () => {
-                if (cancelled) return;
-                setReviewImageSrc(nextSrc);
-                setIsReviewImageLoading(false);
-            };
-
-            if (import.meta.env.DEV) {
-                delayTimer = setTimeout(apply, 700);
-            } else {
-                apply();
-            }
+            if (cancelled) return;
+            setReviewImageSrc(nextSrc);
+            setIsReviewImageLoading(false);
         };
         img.onerror = () => {
             if (cancelled) return;
@@ -114,7 +105,6 @@ const PreferenceCard = ({
 
         return () => {
             cancelled = true;
-            if (delayTimer) clearTimeout(delayTimer);
         };
     }, [selectedLocation, reviewImageSrc]);
 
@@ -720,7 +710,8 @@ const PreferenceCard = ({
                                 className={styles.optimizeBtnSmall}
                                 title="Fix my route order"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-waypoints-icon lucide-waypoints"><path d="m10.586 5.414-5.172 5.172"/><path d="m18.586 13.414-5.172 5.172"/><path d="M6 12h12"/><circle cx="12" cy="20" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="4" cy="12" r="2"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                                    <path d="M230.86,109.25,169.18,86.82,146.75,25.14a19.95,19.95,0,0,0-37.5,0L86.82,86.82,25.14,109.25a19.95,19.95,0,0,0,0,37.5l61.68,22.43,22.43,61.68a19.95,19.95,0,0,0,37.5,0l22.43-61.68,61.68-22.43a19.95,19.95,0,0,0,0-37.5Zm-75.14,39.29a12,12,0,0,0-7.18,7.18L128,212.21l-20.54-56.49a12,12,0,0,0-7.18-7.18L43.79,128l56.49-20.54a12,12,0,0,0,7.18-7.18L128,43.79l20.54,56.49a12,12,0,0,0,7.18,7.18L212.21,128Z" />
                                 </svg>
                             </button>
                         </div>

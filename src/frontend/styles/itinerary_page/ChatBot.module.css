@@ -1,18 +1,26 @@
+/* ================================
+   CHAT CONTAINER BASE
+   ================================ */
+
 .chatContainer {
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+}
+
+/* ================================
+   VARIANTS
+   ================================ */
+
+.floating {
     position: absolute;
     bottom: 20px;
     left: 24px;
     width: 380px;
     max-width: calc(100% - 40px);
     z-index: 20;
-    display: flex;
-    flex-direction: column;
     gap: 8px;
-    pointer-events: none;
-}
-
-.floating {
-    position: absolute;
 }
 
 .sheet {
@@ -23,42 +31,473 @@
     width: 100%;
     max-width: 100%;
     gap: 0;
-    /* Changed to 0 so handle sits tight on top */
     pointer-events: auto;
-    transform: none;
 }
 
-.sheet .responseBox {
-    width: 100%;
-    max-height: 160px;
-    margin-bottom: 10px;
-    /* Add margin here since gap is 0 */
-}
-
-.sheet .inputForm {
-    width: 100%;
-}
-
-/* --- UPDATED: Removes the padding hack since handle is outside --- */
-.sheet .inputForm {
+.panel {
     position: relative;
-    justify-content: flex-start;
-    padding: 6px 6px 6px 16px;
-    /* Standard padding */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    gap: 0;
+    pointer-events: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.sheet .chatInput {
-    text-align: left;
+/* ================================
+   MESSAGES AREA
+   ================================ */
+
+.messagesArea {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 24px 16px 8px;
+    scroll-behavior: smooth;
 }
 
-.sheet .sendBtn {
+/* Custom scrollbar */
+.messagesArea::-webkit-scrollbar {
+    width: 4px;
+}
+
+.messagesArea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.messagesArea::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.2);
+    border-radius: 99px;
+}
+
+.messagesArea::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.35);
+}
+
+/* ================================
+   EMPTY STATE
+   ================================ */
+
+.emptyState {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 40px 24px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.2s forwards;
+}
+
+.emptyIcon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #22d3ee;
+    margin-bottom: 4px;
+}
+
+.emptyTitle {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    letter-spacing: -0.01em;
+}
+
+.emptySubtitle {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: rgba(148, 163, 184, 0.7);
+    max-width: 220px;
+}
+
+:global([data-theme='light']) .emptyTitle {
+    color: #0f172a;
+}
+
+:global([data-theme='light']) .emptySubtitle {
+    color: rgba(71, 85, 105, 0.7);
+}
+
+:global([data-theme='light']) .emptyIcon {
+    background: rgba(14, 165, 233, 0.08);
+    border-color: rgba(14, 165, 233, 0.15);
+    color: #0ea5e9;
+}
+
+/* ================================
+   MESSAGE LIST
+   ================================ */
+
+.messageList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.messageRow {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    opacity: 0;
+    animation: fadeUp 0.25s ease forwards;
+}
+
+.userRow {
+    flex-direction: row-reverse;
+}
+
+.assistantRow {
+    flex-direction: row;
+}
+
+/* ================================
+   AVATAR
+   ================================ */
+
+.avatar {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.15) 0%, rgba(36, 189, 95, 0.15) 100%);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #22d3ee;
+    margin-bottom: 2px;
+}
+
+:global([data-theme='light']) .avatar {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+    border-color: rgba(14, 165, 233, 0.2);
+    color: #0ea5e9;
+}
+
+/* ================================
+   BUBBLES
+   ================================ */
+
+.bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.userBubble {
+    background: rgba(34, 211, 238, 0.12);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    color: #e2e8f0;
+    border-bottom-right-radius: 4px;
+}
+
+.assistantBubble {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    color: rgba(226, 232, 240, 0.92);
+    border-bottom-left-radius: 4px;
+    backdrop-filter: blur(8px);
+}
+
+.errorBubble {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.2);
+    color: rgba(252, 165, 165, 0.9);
+}
+
+:global([data-theme='light']) .userBubble {
+    background: rgba(14, 165, 233, 0.1);
+    border-color: rgba(14, 165, 233, 0.18);
+    color: #0f172a;
+}
+
+:global([data-theme='light']) .assistantBubble {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(15, 23, 42, 0.08);
+    color: rgba(15, 23, 42, 0.88);
+}
+
+:global([data-theme='light']) .errorBubble {
+    background: rgba(239, 68, 68, 0.06);
+    border-color: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+}
+
+/* ================================
+   TYPING INDICATOR
+   ================================ */
+
+.typingIndicator {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 2px 0;
+}
+
+.typingIndicator span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(148, 163, 184, 0.5);
+    animation: typing 1.4s ease-in-out infinite;
+}
+
+.typingIndicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typingIndicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+
+    30% {
+        transform: translateY(-5px);
+        opacity: 1;
+    }
+}
+
+/* ================================
+   INPUT AREA
+   ================================ */
+
+.inputArea {
+    flex-shrink: 0;
+    padding: 12px 12px 14px;
+}
+
+/* ================================
+   INPUT FORM
+   ================================ */
+
+.inputForm {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    box-shadow: 0 2px 12px rgba(2, 6, 23, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    padding: 10px 10px 10px 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    pointer-events: auto;
+}
+
+.inputForm:focus-within {
+    border-color: rgba(34, 211, 238, 0.3);
+    box-shadow: 0 2px 12px rgba(2, 6, 23, 0.3), 0 0 0 3px rgba(34, 211, 238, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.panel .inputForm {
+    background: rgba(18, 18, 21, 0.9);
+    border-color: #515152;
+    box-shadow: 0 2px 12px rgba(2, 6, 23, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.panel .inputForm:focus-within {
+    border-color: #475569;
+    box-shadow: 0 2px 12px rgba(2, 6, 23, 0.42), 0 0 0 3px rgba(71, 85, 105, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+:global([data-theme='light']) .inputForm {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(15, 23, 42, 0.1);
+    box-shadow: 0 1px 8px rgba(15, 23, 42, 0.06);
+}
+
+:global([data-theme='light']) .inputForm:focus-within {
+    border-color: rgba(14, 165, 233, 0.35);
+    box-shadow: 0 1px 8px rgba(15, 23, 42, 0.06), 0 0 0 3px rgba(14, 165, 233, 0.08);
+}
+
+/* ================================
+   TEXTAREA INPUT
+   ================================ */
+
+.chatInput {
+    flex: 1;
     background: transparent;
     border: none;
-    box-shadow: none;
+    color: #e2e8f0;
+    font-size: 0.875rem;
+    font-family: inherit;
+    outline: none;
+    padding: 4px 0;
+    resize: none;
+    line-height: 1.5;
+    max-height: 120px;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 
-.sheet .sendIcon {
-    stroke: var(--itinerary-chat-muted);
+.chatInput::-webkit-scrollbar {
+    display: none;
+}
+
+.chatInput::placeholder {
+    color: rgba(148, 163, 184, 0.45);
+    font-weight: 400;
+}
+
+.chatInput:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+:global([data-theme='light']) .chatInput {
+    color: #0f172a;
+}
+
+:global([data-theme='light']) .chatInput::placeholder {
+    color: rgba(100, 116, 139, 0.5);
+}
+
+/* ================================
+   SEND BUTTON
+   ================================ */
+
+.sendBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(148, 163, 184, 0.12);
+    color: rgba(148, 163, 184, 0.4);
+    cursor: not-allowed;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+}
+
+.sendBtnActive {
+    background: #22d3ee;
+    color: #0f172a;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(34, 211, 238, 0.3);
+}
+
+.sendBtnActive:hover {
+    background: #38bdf8;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(34, 211, 238, 0.4);
+}
+
+.sendBtnActive:active {
+    transform: scale(0.96);
+}
+
+:global([data-theme='light']) .sendBtnActive {
+    background: #0ea5e9;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.25);
+}
+
+:global([data-theme='light']) .sendBtnActive:hover {
+    background: #0284c7;
+}
+
+.sendIcon {
+    width: 16px;
+    height: 16px;
+}
+
+/* ================================
+   LOADING SPINNER
+   ================================ */
+
+.loadingSpinner {
+    width: 16px;
+    height: 16px;
+    color: #0f172a;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ================================
+   SHEET HANDLE
+   ================================ */
+
+.sheetHandleWrapper {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    flex-shrink: 0;
+    background: transparent;
+    padding: 4px 0;
+}
+
+.sheetHandle {
+    position: relative;
+    width: 36px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.25);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+:global([data-theme='dark']) .sheetHandle {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sheetPill {
+    display: none;
+}
+
+/* ================================
+   SHEET VARIANTS
+   ================================ */
+
+.sheet .inputArea {
+    padding: 8px 12px 12px;
+    border-top: none;
+}
+
+.sheet .inputForm {
+    width: 100%;
 }
 
 .sheetInputRow {
@@ -68,9 +507,6 @@
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 4px;
-    min-width: 0;
-    padding: 1px 0;
-    overflow: visible;
 }
 
 .sheetAccessory {
@@ -78,213 +514,28 @@
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
-    min-width: 0;
-    max-width: none;
-    overflow: hidden;
 }
 
-.sheetAccessory > * {
-    max-width: 100%;
+.sheetCollapsed {
+    z-index: 1300;
 }
 
-/* --- NEW: Wrapper to make the handle easy to grab --- */
-.sheetHandleWrapper {
-    width: 100%;
-    height: 12px;
-    /* Taller hit area for fingers */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: grab;
-    flex-shrink: 0;
-    background: transparent;
-    margin: 2px;
+/* ================================
+   PANEL MESSAGES HEIGHT
+   ================================ */
+
+.panel .messagesArea {
+    height: 0;
 }
 
-/* --- UPDATED: Relative positioning (No more absolute) --- */
-.sheetHandle {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 54px;
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(60, 60, 67, 0.3);
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    opacity: 1;
-    z-index: 2;
-    box-shadow: none;
-}
+/* ================================
+   ANIMATIONS
+   ================================ */
 
-.sheetPill {
-    display: none;
-}
-
-/* The Message Bubble (Response) */
-.responseBox {
-    background: var(--itinerary-chat-glass-strong);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--itinerary-chat-border);
-    border-radius: 16px;
-    border-bottom-right-radius: 4px;
-    padding: 14px 18px;
-    color: var(--itinerary-chat-text);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    max-height: 200px;
-    overflow-y: auto;
-    box-shadow: 0 8px 32px var(--itinerary-chat-shadow);
-    animation: slideIn 0.3s ease-out;
-    width: 21vw;
-    pointer-events: auto;
-}
-
-.responseBox p {
-    margin: 0;
-}
-
-/* The Input Capsule */
-.inputForm {
-    position: relative;
-    width: 25vw;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--itinerary-chat-glass);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--itinerary-chat-border);
-    box-shadow: 0 8px 32px var(--itinerary-chat-shadow);
-    border-radius: 50px;
-    padding: 6px 6px 6px 16px;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
-    pointer-events: auto;
-}
-
-.inputForm:focus-within {
-    border-color: var(--itinerary-chat-border-strong);
-    background: var(--itinerary-chat-glass-strong);
-}
-
-:global([data-theme='light']) .inputForm {
-    background: #f5ede0;
-    border-color: #e2d3bd;
-}
-
-:global([data-theme='light']) .inputForm:focus-within {
-    background: #efe4d2;
-    border-color: #d7c3a6;
-}
-
-:global([data-theme='light']) .chatInput {
-    color: #2b241b;
-}
-
-:global([data-theme='light']) .chatInput::placeholder {
-    color: #6b5a46;
-}
-
-.chatInput {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: var(--itinerary-chat-text);
-    font-size: 0.9rem;
-    font-family: inherit;
-    outline: none;
-    padding: 8px 0;
-}
-
-.chatInput::placeholder {
-    color: var(--itinerary-chat-muted);
-    font-weight: 300;
-}
-
-.chatInput:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* The Circle Send Button */
-.sendBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid transparent;
-    background: #ffffff;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0;
-}
-
-.sendBtn:hover:not(:disabled) {
-    background: #f1f5f9;
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(15, 23, 42, 0.18);
-}
-
-.sendBtn:active:not(:disabled) {
-    transform: scale(0.95);
-}
-
-:global([data-theme='light']) .sendBtn:not(:disabled) {
-    background: #e8efe5;
-    border-color: #2b241b;
-}
-
-.sendBtn:disabled {
-    background: #9ca3af;
-    cursor: not-allowed;
-}
-
-/* SVG Styling */
-.sendIcon {
-    width: 18px;
-    height: 18px;
-    stroke: #0b0b0b;
-    stroke-width: 2.5;
-    fill: none;
-    transform: translateX(-1px);
-}
-
-.sendBtn:disabled .sendIcon {
-    stroke: #f3f4f6;
-}
-
-/* Loading Dots */
-.loadingDots {
-    display: flex;
-    gap: 3px;
-}
-
-.dot {
-    width: 4px;
-    height: 4px;
-    background: var(--itinerary-chat-text);
-    border-radius: 50%;
-    animation: bounce 1.4s infinite ease-in-out both;
-}
-
-.dot:nth-child(1) {
-    animation-delay: -0.32s;
-}
-
-.dot:nth-child(2) {
-    animation-delay: -0.16s;
-}
-
-@keyframes slideIn {
+@keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
     }
 
     to {
@@ -293,39 +544,17 @@
     }
 }
 
-@keyframes bounce {
-
-    0%,
-    80%,
-    100% {
-        transform: scale(0);
-    }
-
-    40% {
-        transform: scale(1);
-    }
-}
+/* ================================
+   MOBILE
+   ================================ */
 
 @media (max-width: 768px) {
-
     .chatContainer {
         transition: height 0.4s cubic-bezier(0.32, 0.72, 0, 1),
-                border-radius 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+            border-radius 0.4s cubic-bezier(0.32, 0.72, 0, 1);
         border: none;
         border-radius: 16px;
         will-change: height;
-    }
-
-    .sheetCollapsed {
-        z-index: 1300;
-    }
-
-    .floating {
-        width: 95%;
-        bottom: 15px;
-        right: 50%;
-        transform: translateX(50%);
-        max-width: 95%;
     }
 
     .floating {
@@ -340,23 +569,17 @@
         transform: none;
         width: 100%;
         max-width: 100%;
-        border-radius: 10px;
+        border-radius: 20px;
     }
 
     .sheet .inputForm {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .sheetInputRow {
         width: 92%;
         margin: 0 auto;
-        height: 44px;
-        border-radius: 22px;
-        padding: 6px 8px 6px 12px;
-        box-sizing: border-box;
-        overflow: hidden;
-        /* Standard padding */
-        background: rgba(17, 24, 39, 0.05);
-        /* Lighter background for iOS feel */
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        box-shadow: none;
-        /* Removed heavy shadow for cleaner look */
     }
 
     .sheetInputRow .inputForm {
@@ -364,12 +587,6 @@
         flex: none;
         min-width: 0;
         margin: 0;
-        box-sizing: border-box;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 8px;
     }
 
     .sheetInputRow .sheetAccessory {
@@ -378,71 +595,26 @@
         align-items: center;
     }
 
-    .sheetInputRow .sheetAccessory > * {
-        height: auto;
-    }
-
-    .sheetInputRow .inputForm .chatInput {
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-
-    .sheetAccessory {
-        margin: 0;
-        max-width: none;
-    }
-
     .sheet .inputForm .sendBtn {
-        flex: 0 0 auto;
-        width: 26px;
-        height: 26px;
-        min-width: 26px;
-        min-height: 26px;
-        max-width: 26px;
-        max-height: 26px;
-        aspect-ratio: 1 / 1;
-        box-sizing: border-box;
+        width: 30px;
+        height: 30px;
     }
 
-    .sheetInputRow .inputForm .sendBtn {
-        flex: 0 0 26px;
-        margin-left: 0;
-    }
-
-    .sheet .inputForm .sendIcon {
-        width: 13px;
-        height: 13px;
-    }
-
-    /* Dark mode override */
     :global([data-theme='dark']) .sheet .inputForm {
         background: rgba(15, 23, 35, 0.86);
-        border: 1px solid rgba(148, 163, 184, 0.34);
+        border: 1px solid rgba(148, 163, 184, 0.18);
     }
 
     :global([data-theme='light']) .sheet .inputForm {
-        background: rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(15, 23, 42, 0.25);
-        box-shadow: none;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(15, 23, 42, 0.1);
     }
 
-    .sheet .chatInput {
-        font-size: 0.95rem;
-    }
-
-    /* Handle Colors */
     .sheetHandle {
         background: rgba(60, 60, 67, 0.3);
-        /* Light mode handle */
     }
 
     :global([data-theme='dark']) .sheetHandle {
-        background: rgba(255, 255, 255, 0.3);
-        /* Dark mode handle */
-    }
-
-    /* Ensure wrapper doesn't collapse */
-    .sheetHandleWrapper {
-        display: flex;
+        background: rgba(255, 255, 255, 0.25);
     }
 }
