@@ -1,3 +1,27 @@
+@font-face {
+    font-family: 'HelveticaCustom';
+    src: url('/fonts/Helvetica-Font-Family2/Helvetica.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HelveticaCustom';
+    src: url('/fonts/Helvetica-Font-Family2/Helvetica-Bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HelveticaCustom';
+    src: url('/fonts/Helvetica-Font-Family2/helvetica-light-587ebe5a59211.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+}
+
 .homeContainer {
     width: 100%;
     min-height: 200vh;
@@ -5,7 +29,16 @@
     color: var(--home-text);
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
     position: relative;
-    overflow-x: hidden;
+    overflow-x: clip;
+    /* Essential for Sticky */
+}
+
+:global([data-theme='light']) .homeContainer {
+    background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(255, 255, 255, 0.55), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(214, 182, 255, 0.2), transparent 60%),
+        radial-gradient(700px 500px at 50% 100%, rgba(255, 182, 212, 0.16), transparent 65%),
+        linear-gradient(160deg, #eee7ef 0%, #e9e1ed 45%, #e4dce9 100%);
 }
 
 .scrollSpacer {
@@ -16,62 +49,13 @@ html {
     scroll-behavior: smooth;
 }
 
-
-.gradientBg {
-    position: absolute;
-    bottom: 40%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1800px;
-    height: 900px;
-    background: radial-gradient(ellipse at center,
-            rgba(18, 214, 18, 0.15) 0%,
-            rgba(13, 214, 204, 0.08) 35%,
-            rgba(13, 173, 8, 0.12) 60%,
-            transparent 75%);
-    filter: blur(60px);
-    opacity: 1;
-    pointer-events: none;
-    z-index: 0;
-}
-
-:global([data-theme='light']) .gradientBg {
-    position: absolute;
-    top: -15%;
-    left: 50%;
-    background: radial-gradient(ellipse at center,
-            rgba(223, 137, 39, 0.75) 0%,
-            rgba(211, 47, 184, 0.55) 35%,
-            rgba(119, 48, 78, 0.55) 75%,
-            transparent 75%);
-    filter: blur(120px);
-    opacity: 1;
-}
-
-.gridOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-    z-index: 1;
-    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-}
-
-
-
 .heroSection {
     font-family: 'Manrope', sans-serif;
     position: relative;
     z-index: 10;
-    max-width: 1400px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 120px 48px 80px;
+    padding: 100px 0px 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -79,7 +63,7 @@ html {
 
 .contentWrapper {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 0px;
 }
 
 .statusBadge {
@@ -87,15 +71,13 @@ html {
     align-items: center;
     gap: 8px;
     padding: 6px 16px;
-    background: rgba(61, 36, 36, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 100px;
+    background: rgba(80, 80, 80, 0.12);
+    border-radius: 999px;
     color: #ffffff;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-bottom: 48px;
+    margin-bottom: 36px;
     margin-top: 32px;
 }
 
@@ -106,7 +88,7 @@ html {
 .statusDot {
     width: 6px;
     height: 6px;
-    background: #0ea5e9;
+    background: #0eaf16;
     border-radius: 50%;
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -123,28 +105,20 @@ html {
     }
 }
 
-.headline {
-    font-size: clamp(48px, 7vw, 96px);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.04em;
-    margin: 0 0 24px 0;
-    background: linear-gradient(to bottom, var(--home-text) 30%, var(--home-muted) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
+.headline,
 .headlineAccent {
-    font-style: italic;
-    font-weight: 400;
-    background: linear-gradient(to right, var(--home-muted), var(--home-muted-2));
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 7rem;
+    font-weight: 550;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin: 76px 0 24px 0;
+    background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* Light mode: soften headline without affecting dark mode */
 :global([data-theme='light']) .headline {
     background: none;
     -webkit-text-fill-color: var(--home-text);
@@ -158,12 +132,17 @@ html {
 }
 
 .subheadline {
-    font-family: 'Manrope', sans-serif;
-    font-size: clamp(16px, 2vw, 20px);
-    line-height: 1.7;
-    color: var(--home-muted-2);
-    max-width: 640px;
-    margin: 0 auto 48px;
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.03em;
+    line-height: 1.4;
+    color: rgb(131, 131, 131);
+    font-weight: 400;
+    margin: 0 auto 24px;
+}
+
+:global([data-theme='light']) .subheadline {
+    color: #4b445e;
 }
 
 .highlight {
@@ -174,34 +153,35 @@ html {
 
 .ctaGroup {
     display: flex;
-    gap: 16px;
+    gap: 8px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 125px;
+    margin-bottom: 90px;
 }
 
 .primaryCta {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-    color: #ffffff;
-    padding: 16px 32px;
+    gap: 6px;
+    background: white;
+    color: #000000;
+    padding: 9px 16px;
     border: none;
-    border-radius: 100px;
-    font-size: 16px;
+    border-radius: 56px;
+    font-size: 13px;
+    line-height: 1;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.7, 0, 0.5, 1);
-    box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
 }
 
 .primaryCta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.5);
 }
 
 .primaryCta svg {
+    width: 14px;
+    height: 14px;
     transition: transform 0.3s ease;
 }
 
@@ -210,24 +190,24 @@ html {
 }
 
 .secondaryCta {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(138, 138, 138, 0.1);
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.22);
-    padding: 16px 32px;
-    border-radius: 100px;
-    font-size: 16px;
+    padding: 9px 16px;
+    border-radius: 56px;
+    font-size: 13px;
+    line-height: 1;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .secondaryCta:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(128, 128, 128, 0.18);
+    border-color: rgba(94, 94, 94, 0.35);
     color: #ffffff;
 }
 
-/* Light mode: make the secondary CTA dark */
 :global([data-theme='light']) .secondaryCta {
     background: rgba(15, 23, 42, 0.08);
     color: #0b0b0b;
@@ -245,7 +225,6 @@ html {
     justify-content: center;
     align-items: center;
     margin-top: 40px;
-    margin-bottom: 110px;
     padding: 0 24px;
 }
 
@@ -265,12 +244,11 @@ html {
     filter: drop-shadow(0 8px 24px var(--home-shadow-strong));
 }
 
-
 .visualWrapper {
-    margin-top: 120px;
+    margin-top: 160px;
     width: 100%;
     height: 100%;
-    max-width: 1100px;
+    max-width: 1360px;
 }
 
 .imageContainer {
@@ -297,54 +275,7 @@ html {
 
 .imageContainer:hover {
     transform: scale(1.02);
-    
 }
-
-.catnes {
-    font-weight: 900;
-    background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: inline-block;
-    filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.2));
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.cardHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.cardLabel {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--home-text);
-    margin-bottom: 20px;
-}
-
-.cardHeader svg {
-    color: #64748b;
-}
-
-@keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-/* ================================
-   SLIDESHOW NAVIGATION & INDICATORS
-   ================================ */
 
 .navArrow {
     position: absolute;
@@ -419,7 +350,6 @@ html {
     box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25);
 }
 
-/* Dark mode: make indicators sit on a light pill */
 :global([data-theme='dark']) .slideIndicators {
     background: #ffffff;
     border: 1px solid rgba(15, 23, 42, 0.12);
@@ -437,7 +367,6 @@ html {
     will-change: transform;
 }
 
-/* Location Card - Moved Higher */
 .locationCard {
     position: absolute;
     top: 16px;
@@ -474,16 +403,46 @@ html {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
-    max-width: 1200px;
-    margin: 120px auto 80px;
-    padding: 0 48px;
+    max-width: 100%;
+    margin: 240px 0px 80px;
+    padding: 84px 120px 112px 120px;
     overflow: visible;
+}
+
+.testimonialsHeading {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 5rem;
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--home-text);
+    text-align: left;
+}
+
+.testimonialsBlock {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 50px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonialsItems {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    width: 100%;
 }
 
 .testimonialItem {
     position: relative;
     height: 220px;
     align-self: start;
+    width: 100%;
 }
 
 .testimonialCard {
@@ -502,6 +461,29 @@ html {
     will-change: transform;
 }
 
+.testimonialCardLast {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.testimonialCardLast > :not(.testimonialEllipsis) {
+    filter: blur(1.2px);
+    opacity: 0.78;
+}
+
+.testimonialEllipsis {
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow:
+        -11px 0 0 rgba(255, 255, 255, 0.72),
+        -22px 0 0 rgba(255, 255, 255, 0.72);
+    pointer-events: none;
+}
+
 .testimonialHeader {
     display: flex;
     align-items: center;
@@ -515,10 +497,6 @@ html {
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(14, 165, 233, 0.5) 50%,
-            transparent 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -526,7 +504,7 @@ html {
 .testimonialCard:hover {
     background: var(--home-glass-strong);
     border-color: var(--home-border-strong);
-    transform: translateY(-4px);
+    transform: translateY(-8px);
     box-shadow: 0 12px 32px var(--home-shadow);
 }
 
@@ -560,13 +538,15 @@ html {
     color: var(--home-text);
     font-weight: 400;
     margin: 0;
-    flex: 1;
+    min-height: calc(2 * 1.6em);
+    max-height: calc(2 * 1.6em);
     text-align: left;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .testimonialCardExpanded {
@@ -629,14 +609,7 @@ html {
 }
 
 .testimonialToggle {
-    background: none;
-    border: none;
-    color: var(--home-muted-2);
-    font-size: 12px;
-    text-align: left;
-    padding: 0;
-    cursor: pointer;
-    margin-top: 4px;
+    display: none;
 }
 
 .testimonialMeta {
@@ -659,14 +632,384 @@ html {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* ================================
+   STICKY SCROLL LAYOUT
+   ================================ */
 
+.stickyContainer {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    min-height: 300vh;
+    width: 100%;
+    position: relative;
+    /* Do NOT use align-items: start here */
+}
+
+/* LEFT PANEL - STICKY TITLES */
+.stickyPanel {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 60px;
+    z-index: 10;
+}
+
+.stickyContent {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.stickyTitle {
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin: 0;
+    color: var(--home-text);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* RIGHT PANEL - SCROLLING CONTENT */
+.scrollPanel {
+    padding: 60px 0px 0px 40px;
+}
+
+.scrollSection {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 0px;
+}
+
+.scrollSectionSubtitle {
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 1.5rem;
+    color: var(--home-muted);
+    margin: 60px 0 30px 0;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+}
+
+.cardsGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+/* Roulette Card */
+.rouletteCard {
+    background: var(--home-glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--home-border);
+    border-radius: 24px;
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.cardsGridReviews .rouletteCard {
+    height: 100%;
+}
+
+.cardsGridReviews {
+    height: 80vh;
+}
+
+.rouletteCard:hover {
+    border-color: var(--home-border-strong);
+    box-shadow: 0 16px 48px var(--home-shadow-strong);
+    transform: translateX(8px);
+}
+
+.cardIcon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+.cardSlideWrap {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--home-border);
+    background: var(--home-surface-subtle);
+}
+
+.cardSlideImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.cardTitle {
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--home-text);
+    margin: 0 0 12px 0;
+    letter-spacing: -0.02em;
+}
+
+.cardDescription {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--home-muted);
+    margin: 0;
+    font-weight: 400;
+}
 
 /* Mobile Adjustments */
+@media (max-width: 1024px) {
+    .stickyContainer {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .stickyPanel {
+        position: relative;
+        height: auto;
+        padding: 60px 20px 40px;
+    }
+
+    .stickyContent {
+        gap: 60px;
+    }
+
+    .stickyTitle {
+        font-size: 3.5rem;
+    }
+
+    .scrollPanel {
+        padding: 20px;
+    }
+
+    .scrollSection {
+        min-height: auto;
+        margin-bottom: 60px;
+    }
+
+    .scrollSectionSubtitle {
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+    }
+
+    .cardsGrid {
+        gap: 16px;
+    }
+
+    .rouletteCard {
+        padding: 32px 24px;
+    }
+
+    .rouletteCard:hover {
+        transform: translateY(-4px);
+    }
+
+    .cardIcon {
+        font-size: 3rem;
+    }
+
+    .cardTitle {
+        font-size: 1.5rem;
+    }
+
+    .cardDescription {
+        font-size: 0.95rem;
+    }
+}
+
+
+/* ================================
+   MOCKUP STYLES (Section 1: Chat)
+   ================================ */
+
+.chatMockupWindow {
+    width: 90%;
+    max-width: 600px;
+    background: #111111;
+    /* Dark theme to match your style */
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+}
+
+.mockupHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mockupAvatar {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.mockupTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    flex: 1;
+}
+
+.mockupStatus {
+    font-size: 0.75rem;
+    color: #10B981;
+    /* Green dot equivalent */
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.mockupBody {
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mockupBubbleUser {
+    align-self: flex-end;
+    background: #ffffff;
+    color: #000000;
+    padding: 14px 18px;
+    border-radius: 16px 16px 4px 16px;
+    max-width: 85%;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mockupBubbleAi {
+    align-self: flex-start;
+    background: #1e1e1e;
+    color: #e5e7eb;
+    padding: 14px 18px;
+    border-radius: 16px 16px 16px 4px;
+    max-width: 90%;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mockupRouteCard {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 16px;
+    border-radius: 12px;
+    width: 85%;
+    margin-top: -8px;
+    /* Pulled up slightly to look attached to the bubble */
+}
+
+.routeDay {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.routeItem {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+    align-items: baseline;
+}
+
+.routeItem:last-child {
+    margin-bottom: 0;
+}
+
+.routeTime {
+    font-size: 0.8rem;
+    color: #888;
+    font-weight: 500;
+    min-width: 65px;
+}
+
+.routePlace {
+    font-size: 0.95rem;
+    color: #ddd;
+}
+
+.mockupInputBar {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.mockupInputFake {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 16px;
+    border-radius: 100px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.mockupSendBtn {
+    width: 40px;
+    height: 40px;
+    background: #ffffff;
+    color: #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add this to your mobile media query (@media max-width: 1024px) */
+@media (max-width: 1024px) {
+    .chatMockupWindow {
+        width: 100%;
+        max-width: none;
+    }
+}
+
 @media (max-width: 768px) {
     .testimonialCard:hover {
         transform: none;
         box-shadow: none;
     }
+
     .navArrow {
         display: none;
     }
@@ -694,34 +1037,21 @@ html {
         max-width: 260px;
     }
 
-    .navLinks {
-        display: none;
-    }
-
-    .navBar {
-        padding: 16px 24px;
-    }
-
     .heroSection {
         padding: 88px 20px 48px;
-    }
-
-    .statusBadge {
-        font-size: 10px;
-        padding: 4px 12px;
-        margin-top: 50px;
-        margin-bottom: 40px;
     }
 
     .headline {
         font-size: clamp(32px, 9vw, 44px);
         line-height: 1.1;
+        margin-top: 32px;
     }
 
     .subheadline {
-        font-size: 11px;
+        font-size: 12px;
+        font-weight: 500;
         line-height: 1.65;
-        margin: 0 auto 36px;
+        margin: -12px auto 0;
     }
 
     .ctaGroup {
@@ -729,39 +1059,22 @@ html {
         flex-wrap: nowrap;
         flex-direction: row;
         justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 10px;
     }
 
     .primaryCta,
     .secondaryCta {
-        padding: 10px 16px;
-        font-size: 12px;
+        padding: 8px 12px;
+        font-size: 11px;
+        border-radius: 42px;
         width: auto;
         justify-content: center;
     }
 
-    .gradientBg {
-        bottom: 65%;
-        width: 520px;
-        height: 380px;
-        filter: blur(22px);
-        opacity: 1;
-    }
-
-    :global([data-theme='light']) .gradientBg {
-        position: absolute;
-        top: -5%;
-        left: 50%;
-        background: radial-gradient(ellipse at center,
-                rgba(92, 3, 52, 0.75) 0%,
-                rgba(192, 13, 162, 0.6) 35%,
-                rgba(190, 144, 83, 0.6) 65%,
-                transparent 75%);
-        opacity: 1;
-    }
-
     .badgesContainer {
-        margin-top: 100px;
-        margin-bottom: 20px;
+        margin-top: 24px;
+        margin-bottom: 12px;
         width: 350px;
     }
 
@@ -770,13 +1083,7 @@ html {
     }
 
     .locationCard .cardLocation {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
         font-size: 11px;
-        font-weight: 400;
-        color: var(--home-text);
-        font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
     }
 
     .testimonialsSection {
@@ -785,11 +1092,27 @@ html {
         margin: 40px auto 32px;
         padding: 0 16px;
         gap: 12px;
-    }   
+    }
+
+    .testimonialsItems {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .testimonialsHeading {
+        font-size: 2.1rem;
+    }
+
+    .testimonialsBlock {
+        gap: 80px;
+    }
+
     .testimonialItem {
         height: 190px;
         align-self: start;
+        max-width: none;
     }
+
     .testimonialCard {
         padding: 12px;
         display: grid;
@@ -836,9 +1159,10 @@ html {
         text-align: left;
         font-size: 12px;
         line-height: 1.45;
-        min-height: 64px;
-        -webkit-line-clamp: 4;
-        line-clamp: 4;
+        min-height: calc(2 * 1.45em);
+        max-height: calc(2 * 1.45em);
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
     }
 
     .testimonialToggle {
@@ -856,5 +1180,26 @@ html {
         margin-top: 8px;
         right: auto;
         bottom: auto;
+    }
+
+    .stickyTitle {
+        font-size: 2.5rem;
+    }
+
+    .scrollSectionSubtitle {
+        font-size: 1rem;
+    }
+
+    .cardIcon {
+        font-size: 2.5rem;
+        margin-bottom: 16px;
+    }
+
+    .cardTitle {
+        font-size: 1.3rem;
+    }
+
+    .cardDescription {
+        font-size: 0.9rem;
     }
 }
