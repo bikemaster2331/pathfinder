@@ -25,8 +25,8 @@
 
 .leftRightControls {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: clamp(60px, 8vw, 74px);
+    left: clamp(12px, 1.6vw, 20px);
     z-index: 50;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@
 }
 
 .collapsibleCard {
-    width: 320px;
+    width: clamp(340px, 48vw, 640px);
     background-color: var(--itinerary-map-panel-bg);
     backdrop-filter: blur(15px);
     border-radius: 12px;
@@ -48,9 +48,17 @@
     pointer-events: none;
     display: none;
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    max-height: 65vh;
+    height: clamp(460px, 62vh, 760px);
+    max-height: 78vh;
     flex-direction: column;
+    position: relative;
 }
+
+.collapsibleCard:hover {
+    transform: scale(1.02);
+}
+
+
 
 .cardOpen {
     opacity: 1;
@@ -75,6 +83,15 @@
     box-shadow: 0 4px 10px var(--itinerary-map-shadow);
     pointer-events: auto;
     transition: transform 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+.collapsibleChevron {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.collapsibleChevronOpen {
+    transform: rotate(180deg);
 }
 
 .collapsibleHeader:hover {
@@ -103,10 +120,12 @@
 }
 
 .collapsibleContent {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
     width: 100%;
-    overflow-y: auto;
+    overflow: hidden;
+    padding-bottom: 20px;
 }
 
 .collapsibleContent::-webkit-scrollbar {
@@ -136,13 +155,26 @@
     }
 
     .collapsibleCard {
-        width: 230px;
+        width: min(92vw, 380px);
+        height: clamp(500px, 72vh, 760px);
+        max-height: 78vh;
+    }
+
+    .collapsibleContent {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .controlsColumnLeft {
+        border-right: none;
+        border-bottom: 1px solid var(--itinerary-map-border);
     }
 
     .collapsibleHeader {
         width: 28px;
         height: 28px;
     }
+
 }
 
 /* 5. BOX STYLES (Activities, Budget, Dates) */
@@ -166,7 +198,7 @@
 }
 
 .budgetMb {
-    width: 19vw;
+    width: 100%;
 }
 
 .activitiesMb {
@@ -179,24 +211,55 @@
 .budgetBox,
 .activitiesBox {
     width: 100%;
-    padding: 20px;
+    padding: clamp(12px, 1.8vw, 20px);
     background-color: transparent;
     box-sizing: border-box;
+}
+
+.controlsColumnLeft .TripBox,
+.controlsColumnLeft .budgetBox {
+    border-bottom: 1px solid var(--itinerary-map-border);
+}
+
+.controlsColumnLeft .budgetBox {
+    border-bottom: none;
+    margin-top: clamp(16px, 2.2vw, 30px);
+}
+
+.controlsColumnLeft > *:not(:last-child),
+.controlsColumnRight > *:not(:last-child) {
+    border-bottom: 1px solid var(--itinerary-map-border);
+}
+
+.controlsColumnLeft .TripBox {
+    border-bottom: none !important;
+}
+
+.controlsColumnLeft,
+.controlsColumnRight {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.controlsColumnLeft {
+    border-right: 1px solid var(--itinerary-map-border);
 }
 
 .dateRangeTrigger,
 .locField {
     box-sizing: border-box;
-    height: 40px;
+    height: clamp(38px, 4.4vh, 44px);
     width: 100%;
     padding: 0 16px;
-    background-color: var(--itinerary-map-input-bg);
+    background-color: var(--itinerary-map-surface);
     border: 1px solid var(--itinerary-map-input-border);
     border-radius: 12px;
     color: var(--itinerary-map-muted);
-    font-size: 14px;
+    font-size: clamp(13px, 1vw, 14px);
     font-family: inherit;
     font-weight: 500;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 /* --- DATE PICKER TRIGGER BUTTON --- */
@@ -211,10 +274,51 @@
     outline: none;
 }
 
+.locFieldWrap {
+    position: relative;
+}
+
+.locFieldIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--itinerary-map-muted-2);
+    display: inline-flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.locField {
+    padding-left: 38px;
+}
+
+.locFieldOption {
+    color: #ffffff;
+    background-color: #333333;
+}
+
+.dateFieldWrap {
+    margin-top: 10px;
+}
+
 .dateRangeTrigger:hover,
 .locField:hover {
     background-color: var(--itinerary-map-input-hover-bg);
     border-color: var(--itinerary-map-border-strong);
+}
+
+.locField:focus,
+.locField:focus-visible,
+.dateRangeTrigger:focus,
+.dateRangeTrigger:focus-visible,
+.dateFieldWrap:focus-within .dateRangeTrigger,
+.locFieldWrap:focus-within .locField {
+    border-width: 2px;
+    border-color: var(--itinerary-map-slider-thumb);
+    box-shadow: 0 0 0 3px var(--itinerary-map-shadow);
+    outline: none;
 }
 
 .calendarIcon {
@@ -230,15 +334,173 @@
     opacity: 1;
 }
 
+.fieldEmpty {
+    color: var(--itinerary-map-muted);
+}
+
+.fieldFilled {
+    color: var(--itinerary-map-text);
+    background-color: var(--itinerary-map-input-hover-bg);
+}
+
+:global([data-theme='light']) .dateRangeTrigger,
+:global([data-theme='light']) .locField {
+    background-color: #ffffff;
+}
+
+:global([data-theme='light']) .fieldFilled {
+    background-color: #ffffff;
+}
+
 .locHelperText,
 .budgetHelperText,
 .boxHelperText {
-    font-size: 0.8rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--itinerary-map-muted-2);
     line-height: 1.4;
     margin-bottom: 20px;
     text-align: center;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
+}
+
+.tripForecastRow {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--itinerary-map-border);
+    padding: 20px;
+    color: var(--itinerary-map-text);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tripForecastTitle {
+    margin-bottom: 5px;
+}
+
+.tripForecastTextBox {
+    width: 100%;
+    height: 110px;
+    min-height: 100px;
+    max-height: 100px;
+    overflow-y: auto;
+    border: 1px solid var(--itinerary-map-border);
+    border-radius: 10px;
+    background: var(--itinerary-map-surface);
+    padding: 10px 12px;
+    box-sizing: border-box;
+}
+
+.tripForecastText {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--itinerary-map-text);
+    opacity: 0.9;
+    margin: 0;
+}
+
+.tripForecastActions {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    z-index: 3;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.doneBtn {
+    height: 32px;
+    min-width: 74px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--itinerary-map-border-strong);
+    background: var(--itinerary-map-input-hover-bg);
+    color: var(--itinerary-map-text);
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.doneBtn:hover {
+    background: var(--itinerary-map-input-bg);
+    border-color: var(--itinerary-map-slider-thumb);
+    box-shadow: 0 6px 14px var(--itinerary-map-shadow);
+    transform: translateY(-1px);
+}
+
+.doneBtn:active {
+    transform: scale(0.98);
+}
+
+.doneBtn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+:global([data-theme='light']) .doneBtn:disabled {
+    background: #f3f4f6;
+    border-color: #e5e7eb;
+    color: #9ca3af;
+    box-shadow: none;
+}
+
+:global([data-theme='light']) .doneBtn {
+    background: #ffffff;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+:global([data-theme='light']) .doneBtn:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.15);
+    transform: translateY(-1px);
+}
+
+.typingCursor {
+    display: inline-block;
+    color: var(--itinerary-map-text);
+    font-weight: 400;
+    white-space: pre-wrap;
+    /* Preserves spaces during typing */
+    position: relative;
+}
+
+/* The Blinking Cursor Line */
+.typingCursor::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: var(--itinerary-map-text);
+    /* Matches text color */
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blinkCursor 1s step-end infinite;
+}
+
+.typingActive::after {
+    animation: none;
+    /* Stop blinking while actively typing/erasing for realism */
+    opacity: 1;
+}
+
+@keyframes blinkCursor {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 .budgetHelperText {
@@ -265,8 +527,8 @@
 }
 
 .activitiesOption {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 8px;
     width: 100%;
 }
@@ -275,36 +537,101 @@
     display: none;
 }
 
-.customCheckboxIcon {
+.activityTile {
     display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: clamp(8px, 1vw, 10px) clamp(10px, 1.2vw, 12px);
+    background-color: var(--itinerary-map-input-bg);
+    border: 1px solid var(--itinerary-map-input-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.18s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    color: var(--itinerary-map-text);
+    font-size: clamp(0.76rem, 0.9vw, 0.82rem);
+    user-select: none;
+    min-height: clamp(42px, 5.2vh, 46px);
+    box-sizing: border-box;
+}
+
+.activityTile:hover {
+    background-color: var(--itinerary-map-input-hover-bg);
+    border-color: var(--itinerary-map-border-strong);
+    color: var(--itinerary-map-text);
+    box-shadow: 0 4px 12px var(--itinerary-map-shadow);
+    transform: none;
+}
+
+:global([data-theme='dark']) .activityTile {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: rgba(248, 250, 252, 0.9);
+}
+
+.activityTileActive {
+    transform: scale(1.03);
+    background-color: var(--itinerary-map-input-hover-bg);
+    border-color: var(--itinerary-map-border-strong);
+    color: var(--itinerary-map-text);
+    box-shadow: 0 4px 12px var(--itinerary-map-shadow);
+}
+
+.activityTileActive:hover {
+    background-color: var(--itinerary-map-input-hover-bg);
+    border-color: var(--itinerary-map-border-strong);
+    color: var(--itinerary-map-text);
+    box-shadow: 0 4px 12px var(--itinerary-map-shadow);
+    transform: scale(1.07);
+}
+
+:global([data-theme='dark']) .activityTileActive {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #f8fafc;
+    box-shadow:
+        0 8px 16px rgba(15, 23, 42, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 0 8px rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme='dark']) .activityTileActive:hover {
+    background-color: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.36);
+    color: #ffffff;
+    box-shadow:
+        0 10px 18px rgba(15, 23, 42, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 0 10px rgba(255, 255, 255, 0.1);
+    transform: scale(1.07);
+}
+
+.activityTileIcon {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-right: 12px;
+    color: currentColor;
+    flex-shrink: 0;
 }
 
-.activityLabel {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background-color: var(--itinerary-map-chip-bg);
-    border: 1px solid var(--itinerary-map-chip-border);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: var(--itinerary-map-text);
-    font-size: 0.85rem;
-    user-select: none
+.activityTileIcon circle {
+    fill: transparent;
+    stroke: currentColor;
 }
 
-.activityLabel:hover {
-    background-color: var(--itinerary-map-chip-hover-bg);
-    border-color: var(--itinerary-map-border-strong);
+.activityTileActive .activityTileIcon circle {
+    fill: currentColor;
+    stroke: currentColor;
 }
 
-.activityLabel:hover rect[stroke] {
-    stroke: var(--itinerary-map-muted);
-    transition: stroke 0.2s ease;
+.activityTileActive .activityTileIcon svg {
+    opacity: 0.9;
+}
+
+.activityTileLabel {
+    line-height: 1.2;
+    font-weight: 600;
 }
 
 .activityCheckbox {
@@ -312,6 +639,32 @@
     height: 14px;
     cursor: pointer;
     accent-color: #007bff;
+}
+
+:global([data-theme='light']) .activityTile {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+:global([data-theme='light']) .activityTile:hover {
+    background: #ffffff;
+    border-color: #9ca3af;
+    color: #111827;
+    transform: none;
+}
+
+:global([data-theme='light']) .activityTileActive {
+    background: #ffffff;
+    color: #111827;
+    border-color: #9ca3af;
+}
+
+:global([data-theme='light']) .activityTileActive:hover {
+    background: #ffffff;
+    color: #111827;
+    border-color: #9ca3af;
+    transform: scale(1.05);
 }
 
 /* --- INPUTS & SLIDERS --- */
@@ -435,7 +788,7 @@
 }
 
 :global(.react-datepicker__header) {
-    background-color: var(--itinerary-map-surface-subtle) !important;
+    background-color: #ef4444 !important;
     border-bottom: 1px solid var(--itinerary-map-border) !important;
     border-top-left-radius: 12px !important;
     border-top-right-radius: 12px !important;
