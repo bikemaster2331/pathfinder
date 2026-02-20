@@ -9,8 +9,8 @@ import styles from '../styles/itinerary_page/map.module.css';
 
 // --- CONFIGURATION ---
 const INITIAL_VIEW = {
-    center: [124.23, 13.71], 
-    zoom: 10.4, 
+    center: [124.25, 13.70], // first value/increase = push to left, second value/increase = push down
+    zoom: 10.7, 
     pitch: 60, 
     bearing: -15 
 };
@@ -58,15 +58,41 @@ const ACTIVITY_MAPPING = {
     Accommodation: ['HOTELS & RESORTS'] 
 };
 
-const ICONS = {
-    'icon-hotel': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M7 13v-3h10v3m-10 5v-8h10v8" stroke="white" stroke-width="1.5" fill="none"/></svg>`,
-    'icon-food': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M11 9H9V7c0-1.1.9-2 2-2v4zm4.41 6L15 9h-4l-.41 6H10v5h4v-5h-.59z" fill="white"/></svg>`,
-    'icon-nature': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M14 6l-3.5 5 2.5.5-3.5 5 2 .5L9 20h11v-2l-3-4 2.5-.5L14 6z" fill="white"/></svg>`,
-    'icon-church': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M12 5v14m-4-8h8" stroke="white" stroke-width="2" fill="none"/></svg>`,
-    'icon-shop': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><path d="M9 10V8a3 3 0 0 1 6 0v2h2v9H7v-9h2zm2 0h2V8a1 1 0 0 0-2 0v2z" fill="white"/></svg>`,
-    'icon-camera': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="#333333" stroke="white" stroke-width="2"/><circle cx="12" cy="13" r="3" stroke="white" stroke-width="1.5" fill="none"/><path d="M9 8h6l2 2h2v8H5v-8h2l2-2z" fill="none" stroke="white" stroke-width="1.5"/></svg>`,
-    'icon-default': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="8" fill="#555555" stroke="white" stroke-width="2"/></svg>`,
-    'icon-top10': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 4c-10.5 0-19 8.5-19 19 0 13.6 16.7 30.2 18.1 31.6.5.5 1.3.5 1.8 0C34.3 53.2 51 36.6 51 23 51 12.5 42.5 4 32 4z" fill="#111827" stroke="#facc15" stroke-width="2"/><circle cx="32" cy="23" r="11" fill="#1f2937"/><path d="M32 14l2.6 5.3 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L32 14z" fill="#facc15"/></svg>',
+const isLightTheme = () => (
+    typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light'
+);
+
+const getMapIconPalette = () => {
+    if (isLightTheme()) {
+        return {
+            bg: '#ffffff',
+            stroke: '#000000',
+            defaultFill: '#ffffff'
+        };
+    }
+    return {
+        bg: '#333333',
+        stroke: '#ffffff',
+        defaultFill: '#555555'
+    };
+};
+
+const getTop10IconSvg = () => {
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path d="M136,127.42V232a8,8,0,0,1-16,0V127.42a56,56,0,1,1,16,0Z" fill="#ef4444" stroke="#000000" stroke-width="16" stroke-linejoin="round"/></svg>`;
+};
+
+const getIconSvgs = () => {
+    const palette = getMapIconPalette();
+    return {
+        'icon-hotel': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="${palette.bg}" stroke="${palette.stroke}" stroke-width="2"/><path d="M7 13v-3h10v3m-10 5v-8h10v8" stroke="${palette.stroke}" stroke-width="1.5" fill="none"/></svg>`,
+        'icon-food': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="${palette.bg}" stroke="${palette.stroke}" stroke-width="2"/><path d="M11 9H9V7c0-1.1.9-2 2-2v4zm4.41 6L15 9h-4l-.41 6H10v5h4v-5h-.59z" fill="${palette.stroke}"/></svg>`,
+        'icon-nature': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="${palette.bg}" stroke="${palette.stroke}" stroke-width="2"/><path d="M14 6l-3.5 5 2.5.5-3.5 5 2 .5L9 20h11v-2l-3-4 2.5-.5L14 6z" fill="${palette.stroke}"/></svg>`,
+        'icon-church': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="${palette.bg}" stroke="${palette.stroke}" stroke-width="2"/><path d="M12 5v14m-4-8h8" stroke="${palette.stroke}" stroke-width="2" fill="none"/></svg>`,
+        'icon-shop': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="${palette.bg}" stroke="${palette.stroke}" stroke-width="2"/><path d="M9 10V8a3 3 0 0 1 6 0v2h2v9H7v-9h2zm2 0h2V8a1 1 0 0 0-2 0v2z" fill="${palette.stroke}"/></svg>`,
+        'icon-camera': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="11" fill="${palette.bg}" stroke="${palette.stroke}" stroke-width="2"/><circle cx="12" cy="13" r="3" stroke="${palette.stroke}" stroke-width="1.5" fill="none"/><path d="M9 8h6l2 2h2v8H5v-8h2l2-2z" fill="none" stroke="${palette.stroke}" stroke-width="1.5"/></svg>`,
+        'icon-default': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="8" fill="${palette.defaultFill}" stroke="${palette.stroke}" stroke-width="2"/></svg>`,
+        'icon-top10': getTop10IconSvg(),
+    };
 };
 
 const readMapTheme = () => {
@@ -96,7 +122,17 @@ const readMapTheme = () => {
 };
 
 const Map = forwardRef((props, ref) => {
-    const { selectedActivities, selectedLocation, onMarkerClick, mapData, selectedHub, addedSpots, budgetFilter } = props;
+    const {
+        selectedActivities,
+        selectedLocation,
+        onMarkerClick,
+        mapData,
+        selectedHub,
+        addedSpots,
+        budgetFilter,
+        isMenuOpen,
+        onToggleMenu
+    } = props;
     
     const mapContainer = useRef(null);
     const map = useRef(null);
@@ -107,6 +143,21 @@ const Map = forwardRef((props, ref) => {
     const resizeRafRef = useRef(null);
     const resizePendingRef = useRef(false);
     const resizeAfterIdleRef = useRef(false);
+
+    const openTimedPopup = (lngLat, html, options = {}) => {
+        if (!map.current) return;
+        const popup = new maplibregl.Popup({
+            offset: 15,
+            closeButton: true,
+            closeOnClick: false,
+            ...options
+        })
+            .setLngLat(lngLat)
+            .setHTML(html)
+            .addTo(map.current);
+
+        window.setTimeout(() => popup.remove(), 3000);
+    };
 
     useImperativeHandle(ref, () => ({
         handleChatbotLocations: (locations) => {
@@ -129,19 +180,16 @@ const Map = forwardRef((props, ref) => {
 
                 addGlowingMarker(locations[0]);
                 
-                new maplibregl.Popup({ 
-                    offset: 25,
-                    closeButton: true,
-                    closeOnClick: false
-                })
-                    .setLngLat(coords)
-                    .setHTML(`
+                openTimedPopup(
+                    coords,
+                    `
                         <div style="padding: 4px;">
                             <strong style="color: #FFD700;">${locations[0].name}</strong><br>
                             <span style="font-size: 0.85em; color: #999;">${locations[0].type}</span>
                         </div>
-                    `)
-                    .addTo(map.current);
+                    `,
+                    { offset: 25 }
+                );
             } 
             else {
                 const bounds = new maplibregl.LngLatBounds();
@@ -182,22 +230,25 @@ const Map = forwardRef((props, ref) => {
         glowingMarkersRef.current.push(marker);
         
         container.addEventListener('click', () => {
-            new maplibregl.Popup({ offset: 25 })
-                .setLngLat(location.coordinates)
-                .setHTML(`
+            const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
+            const popupAccent = isLight ? '#1d4ed8' : '#22d3ee';
+            openTimedPopup(
+                location.coordinates,
+                `
                     <div style="padding: 4px;">
-                        <strong style="color: #FFD700;">${location.name}</strong><br>
+                        <strong style="color: ${popupAccent};">${location.name}</strong><br>
                         <span style="font-size: 0.85em; color: #999;">${location.type}</span><br>
                         <span style="font-size: 0.8em; color: #666;">${location.municipality}</span>
                     </div>
-                `)
-                .addTo(map.current);
+                `,
+                { offset: 25 }
+            );
         });
         
         setTimeout(() => {
             marker.remove();
             glowingMarkersRef.current = glowingMarkersRef.current.filter(m => m !== marker);
-        }, 10000); 
+        }, 60000); 
     };
 
     useEffect(() => {
@@ -471,7 +522,8 @@ const Map = forwardRef((props, ref) => {
                 img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
             };
 
-            Object.keys(ICONS).forEach(key => loadIcon(key, ICONS[key]));
+            const iconSvgs = getIconSvgs();
+            Object.keys(iconSvgs).forEach((key) => loadIcon(key, iconSvgs[key]));
 
             const dataPromise = mapData 
                 ? Promise.resolve(mapData) 
@@ -576,19 +628,6 @@ const Map = forwardRef((props, ref) => {
                     }
                 });
 
-                map.current.addLayer({
-                    id: 'top-10-pulse',
-                    type: 'circle',
-                    source: 'all-data',
-                    filter: ['all', ['==', ['geometry-type'], 'Point'], ['to-boolean', ['get', 'is_top_10']]],
-                    paint: {
-                        'circle-radius': 12,
-                        'circle-color': '#facc15',
-                        'circle-opacity': 0.25,
-                        'circle-blur': 0.8
-                    }
-                }, 'top-10-points');
-
                 map.current.addSource('router-brain', {
                     type: 'geojson',
                     data: roadData
@@ -623,20 +662,17 @@ const Map = forwardRef((props, ref) => {
                 };
                 animatePulse();
 
-                // --- CRITICAL FIX START: Reset Logic ---
-                const handleResetCheck = () => {
+                map.current.on('dragend', () => {
                     if (!map.current) return;
                     
                     const currentZoom = map.current.getZoom();
-                    
-                    // CRITICAL FIX: Lowered threshold to 8.5 (Must be lower than MOBILE_INITIAL_VIEW zoom of 9.2)
-                    if (currentZoom < 8.5) {
+                    if (currentZoom < 11) {
                         const initialView = getInitialView();
                         map.current.easeTo({
                             center: initialView.center,
                             zoom: initialView.zoom,
-                            bearing: initialView.bearing,
-                            pitch: initialView.pitch,
+                            bearing: initialView.bearing, // 👈 RESET BEARING
+                            pitch: initialView.pitch,     // 👈 RESET PITCH
                             duration: 600,
                             easing: (t) => t * (2 - t)
                         });
@@ -654,19 +690,28 @@ const Map = forwardRef((props, ref) => {
                         const initialView = getInitialView();
                         map.current.easeTo({
                             center: initialView.center,
-                            zoom: initialView.zoom, // Keep current zoom usually, or reset to initial
-                            bearing: initialView.bearing,
-                            pitch: initialView.pitch,
+                            zoom: initialView.zoom,
+                            bearing: initialView.bearing, // 👈 RESET BEARING
+                            pitch: initialView.pitch,     // 👈 RESET PITCH
                             duration: 800, 
                             easing: (t) => t * (2 - t)
                         });
                     }
-                };
-                
-                // Use the shared handler for both
-                map.current.on('dragend', handleResetCheck);
-                map.current.on('zoomend', handleResetCheck);
-                // --- CRITICAL FIX END ---
+                });
+
+                map.current.on('zoomend', () => {
+                    if (!map.current) return;
+                    if (map.current.getZoom() < 9.8) {
+                        const initialView = getInitialView();
+                        map.current.easeTo({
+                            center: initialView.center,
+                            zoom: initialView.zoom,
+                            bearing: initialView.bearing, // 👈 RESET BEARING
+                            pitch: initialView.pitch,     // 👈 RESET PITCH
+                            duration: 600
+                        });
+                    }
+                });
 
                 map.current.on('click', 'island-fill', (e) => {
                     if (!map.current) return;
@@ -705,15 +750,16 @@ const Map = forwardRef((props, ref) => {
                         });
                     }
 
-                    new maplibregl.Popup({ offset: 15 })
-                        .setLngLat(f.geometry.coordinates)
-                        .setHTML(`
+                    openTimedPopup(
+                        f.geometry.coordinates,
+                        `
                             <div style="text-align:center;">
                                 <strong>${f.properties.name}</strong><br>
                                 <span style="font-size:0.8em; color:#666;">${f.properties.type}</span>
                             </div>
-                            `)
-                        .addTo(map.current);
+                            `,
+                        { offset: 15 }
+                    );
 
                     const spotData = { ...f.properties, geometry: f.geometry };
                     if (onMarkerClick) onMarkerClick(spotData);
@@ -773,6 +819,18 @@ const Map = forwardRef((props, ref) => {
             if (map.current.getLayer('router-brain-layer')) {
                 map.current.setPaintProperty('router-brain-layer', 'line-color', theme.mapRoute);
             }
+
+            const iconSvgs = getIconSvgs();
+            Object.entries(iconSvgs).forEach(([name, svgString]) => {
+                const img = new Image(24, 24);
+                img.onload = () => {
+                    if (!map.current) return;
+                    if (map.current.hasImage(name) && typeof map.current.updateImage === 'function') {
+                        map.current.updateImage(name, img);
+                    }
+                };
+                img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
+            });
         };
 
         applyTheme();
@@ -780,15 +838,121 @@ const Map = forwardRef((props, ref) => {
         return () => window.removeEventListener('themechange', applyTheme);
     }, [isLoaded]);
 
+    const handleZoomIn = () => {
+        if (!map.current) return;
+        map.current.zoomIn({ duration: 220 });
+    };
+
+    const handleZoomOut = () => {
+        if (!map.current) return;
+        map.current.zoomOut({ duration: 220 });
+    };
+
     return (
-    <div 
-        ref={mapContainer} 
-        className={styles.mapContainer} 
-        style={{ 
-            touchAction: 'none',  // <--- MANDATORY for touch to work
-            outline: 'none' 
-        }} 
-    />
+        <div className={styles.mapShell}>
+            <div
+                ref={mapContainer}
+                className={styles.mapContainer}
+                style={{
+                    touchAction: 'none',
+                    outline: 'none'
+                }}
+            />
+            <div className={styles.topControls}>
+                <button
+                    type="button"
+                    className={styles.menuToggleButton}
+                    onClick={onToggleMenu}
+                    title="Trip Configuration"
+                    data-menu-toggle="true"
+                    aria-label="Toggle trip configuration"
+                >
+                    <svg
+                        className={`${styles.menuChevron} ${isMenuOpen ? styles.menuChevronOpen : ''}`}
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                    >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div className={styles.zoomControls}>
+                <button
+                    type="button"
+                    className={styles.zoomButton}
+                    onClick={handleZoomIn}
+                    aria-label="Zoom in"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                    </svg>
+                </button>
+                <button
+                    type="button"
+                    className={styles.zoomButton}
+                    onClick={handleZoomOut}
+                    aria-label="Zoom out"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M5 12h14" />
+                    </svg>
+                </button>
+                </div>
+            </div>
+            <div className={styles.mapFooterCredit}>
+                <p>
+                    Built by
+                    <a
+                        href="https://github.com/bikemaster2331"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.mapCreatorLink}
+                    >
+                        M.L.
+                    </a>
+                    <span className={styles.mapFooterSeparator}>/</span>
+                    <a
+                        href="https://www.facebook.com/Roilan.Trasmano"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.mapColleagueLink}
+                    >
+                        R.B.
+                    </a>
+                    <a
+                        href="https://www.facebook.com/Yffffdkkd"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.mapColleagueLink}
+                    >
+                        J.A.
+                    </a>
+                    <a
+                        href="https://www.facebook.com/patrickjohn.guerrero.1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.mapColleagueLink}
+                    >
+                        P.G.
+                    </a>
+                    <a
+                        href="https://www.facebook.com/leetmns.10"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.mapColleagueLink}
+                    >
+                        J.T.
+                    </a>
+                </p>
+            </div>
+        </div>
     );
 });
 
