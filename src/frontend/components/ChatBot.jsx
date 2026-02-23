@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef, forwardRef } from 'react';
+import Keyboard from 'react-simple-keyboard';
+import 'react-simple-keyboard/build/css/index.css';
 import styles from '../styles/itinerary_page/ChatBot.module.css';
 
-const ChatBot = forwardRef(({ 
-    messages = [], 
+const ChatBot = forwardRef(({
+    messages = [],
     setMessages,
-    onLocationResponse, 
-    variant = 'floating', 
+    onLocationResponse,
+    variant = 'floating',
     onExpand,
     onHandleToggle,
     onHandleTouchStart,
@@ -19,8 +21,11 @@ const ChatBot = forwardRef(({
 }, ref) => {
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showKeyboard, setShowKeyboard] = useState(false);
+    const [layoutName, setLayoutName] = useState("default");
     const messagesEndRef = useRef(null);
     const textareaRef = useRef(null);
+    const keyboardRef = useRef(null);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -31,10 +36,31 @@ const ChatBot = forwardRef(({
     }, [messages, loading, children]);
 
     const handleInputChange = (e) => {
-        setInput(e.target.value);
+        const val = e.target.value;
+        setInput(val);
+        if (keyboardRef.current) {
+            keyboardRef.current.setInput(val);
+        }
         if (textareaRef.current) {
             textareaRef.current.style.height = 'auto';
             textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 120) + 'px';
+        }
+    };
+
+    const onChangeKeyboard = (inputVal) => {
+        setInput(inputVal);
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 120) + 'px';
+        }
+    };
+
+    const onKeyPress = (button) => {
+        if (button === "{shift}" || button === "{lock}") {
+            setLayoutName(layoutName === "default" ? "shift" : "default");
+        }
+        if (button === "{enter}" && !loading) {
+            handleSubmit({ preventDefault: () => { } });
         }
     };
 
@@ -44,6 +70,9 @@ const ChatBot = forwardRef(({
 
         const userMessage = input.trim();
         setInput('');
+        if (keyboardRef.current) {
+            keyboardRef.current.clearInput();
+        }
         if (textareaRef.current) textareaRef.current.style.height = 'auto';
 
         setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
@@ -105,19 +134,19 @@ const ChatBot = forwardRef(({
     const containerVariantClass = isSheet
         ? styles.sheet
         : isPanel
-        ? styles.panel
-        : styles.floating;
+            ? styles.panel
+            : styles.floating;
 
     const hasMessages = messages.length > 0;
 
     return (
-        <div 
-            ref={ref} 
-            className={`${styles.chatContainer} ${containerVariantClass} ${isSheetCollapsed ? styles.sheetCollapsed : ''} ${isSheetMid ? styles.sheetMid : ''} ${containerClassName}`} 
+        <div
+            ref={ref}
+            className={`${styles.chatContainer} ${containerVariantClass} ${isSheetCollapsed ? styles.sheetCollapsed : ''} ${isSheetMid ? styles.sheetMid : ''} ${containerClassName}`}
             style={containerStyle}
         >
             {isSheet && (
-                <div 
+                <div
                     className={styles.sheetHandleWrapper}
                     onClick={onHandleToggle}
                     onTouchStart={onHandleTouchStart}
@@ -134,7 +163,7 @@ const ChatBot = forwardRef(({
                     {!hasMessages && !(isPanel && children) ? (
                         <div className={styles.emptyState}>
                             <div className={styles.emptyIcon}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8" /><rect width="16" height="12" x="4" y="8" rx="2" /><path d="M2 14h2" /><path d="M20 14h2" /><path d="M15 13v2" /><path d="M9 13v2" /></svg>
                             </div>
                             <p className={styles.emptyTitle}>Pathfinder AI</p>
                             <p className={styles.emptySubtitle}>Ask me about destinations, activities, or anything about Catanduanes</p>
@@ -154,8 +183,8 @@ const ChatBot = forwardRef(({
                                 }
 
                                 return (
-                                    <div 
-                                        key={i} 
+                                    <div
+                                        key={i}
                                         className={`${styles.messageRow} ${msg.role === 'user' ? styles.userRow : styles.assistantRow}`}
                                     >
                                         <div className={`${styles.bubble} ${msg.role === 'user' ? styles.userBubble : styles.assistantBubble} ${msg.isError ? styles.errorBubble : ''}`}>
@@ -191,6 +220,14 @@ const ChatBot = forwardRef(({
 
             <div className={`${styles.inputArea} ${isSheetExpanded ? styles.sheetInputRow : ''}`}>
                 <form onSubmit={handleSubmit} className={styles.inputForm} onClick={handleExpand}>
+                    <button
+                        type="button"
+                        onClick={(e) => { e.stopPropagation(); setShowKeyboard(prev => !prev); }}
+                        aria-label="Toggle keyboard"
+                        style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 8h.01" /><path d="M12 12h.01" /><path d="M14 8h.01" /><path d="M16 12h.01" /><path d="M18 8h.01" /><path d="M6 8h.01" /><path d="M7 16h10" /><path d="M8 12h.01" /><rect width="20" height="16" x="2" y="4" rx="2" /></svg>
+                    </button>
                     <textarea
                         ref={textareaRef}
                         rows={1}
@@ -202,19 +239,19 @@ const ChatBot = forwardRef(({
                         className={styles.chatInput}
                         disabled={loading}
                     />
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         className={`${styles.sendBtn} ${input.trim() && !loading ? styles.sendBtnActive : ''}`}
                         disabled={loading || !input.trim()}
                     >
                         {loading ? (
                             <svg className={styles.loadingSpinner} viewBox="0 0 24 24" fill="none">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" strokeDasharray="31.4" strokeDashoffset="10" strokeLinecap="round"/>
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" strokeDasharray="31.4" strokeDashoffset="10" strokeLinecap="round" />
                             </svg>
                         ) : (
                             <svg className={styles.sendIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/>
-                                <path d="m21.854 2.147-10.94 10.939"/>
+                                <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+                                <path d="m21.854 2.147-10.94 10.939" />
                             </svg>
                         )}
                     </button>
@@ -225,6 +262,42 @@ const ChatBot = forwardRef(({
                     </div>
                 )}
             </div>
+
+            {showKeyboard && (
+                <div style={{ background: '#fff', borderTop: '1px solid #eee', padding: '10px', color: '#000' }}>
+                    <Keyboard
+                        keyboardRef={r => (keyboardRef.current = r)}
+                        layoutName={layoutName}
+                        onChange={onChangeKeyboard}
+                        onKeyPress={onKeyPress}
+                        layout={{
+                            default: [
+                                "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+                                "{tab} q w e r t y u i o p [ ] \\",
+                                "{lock} a s d f g h j k l ; ' {enter}",
+                                "{shift} z x c v b n m , . / {shift}",
+                                "{space}"
+                            ],
+                            shift: [
+                                "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
+                                "{tab} Q W E R T Y U I O P { } |",
+                                '{lock} A S D F G H J K L : " {enter}',
+                                "{shift} Z X C V B N M < > ? {shift}",
+                                "{space}"
+                            ]
+                        }}
+                        display={{
+                            "{bksp}": "backspace",
+                            "{enter}": "enter",
+                            "{shift}": "shift",
+                            "{tab}": "tab",
+                            "{lock}": "caps lock",
+                            "{space}": " "
+                        }}
+                        physicalKeyboardHighlight={true}
+                    />
+                </div>
+            )}
 
             {isSheet && children}
         </div>
