@@ -245,10 +245,12 @@ html {
 }
 
 .visualWrapper {
-    margin-top: 160px;
+    margin-top: 60px;
     width: 100%;
     height: 100%;
-    max-width: 1360px;
+    max-width: 1220px;
+    position: relative;
+    padding-bottom: 76px;
 }
 
 .imageContainer {
@@ -279,15 +281,15 @@ html {
 
 .navArrow {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 18px;
+    transform: none;
     z-index: 10;
     background: var(--home-nav-arrow-bg);
     backdrop-filter: blur(8px);
     border: 1px solid var(--home-nav-arrow-border);
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
+    border-radius: 999px;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -296,21 +298,21 @@ html {
 }
 
 .navArrowLeft {
-    left: 20px;
+    right: 48px;
 }
 
 .navArrowRight {
-    right: 20px;
+    right: 0;
 }
 
 .navArrow:hover {
     background: var(--home-nav-arrow-bg-hover);
     border-color: var(--home-nav-arrow-border-hover);
-    transform: translateY(-50%) scale(1.1);
+    transform: scale(1.1);
 }
 
 .navArrow:active {
-    transform: translateY(-50%) scale(0.95);
+    transform: scale(0.95);
     will-change: transform;
 }
 
@@ -661,12 +663,32 @@ html {
 .stickyContent {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+}
+
+.stickyTitleGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.stickySubtextWrap {
+    overflow: hidden;
+}
+
+.stickySubtext {
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--home-muted);
+    margin: 0;
+    padding-top: 40px;
+    max-width: 300px;
+    letter-spacing: -0.01em;
 }
 
 .stickyTitle {
     font-family: 'HelveticaCustom', 'Manrope', sans-serif;
-    font-size: 6rem;
+    font-size: 4.1rem;
     font-weight: 700;
     line-height: 0.95;
     letter-spacing: -0.04em;
@@ -677,7 +699,7 @@ html {
 
 /* RIGHT PANEL - SCROLLING CONTENT */
 .scrollPanel {
-    padding: 60px 0px 0px 40px;
+    padding: 60px 0px 0px 0px;
 }
 
 .scrollSection {
@@ -692,7 +714,7 @@ html {
     font-family: 'HelveticaCustom', 'Manrope', sans-serif;
     font-size: 1.5rem;
     color: var(--home-muted);
-    margin: 60px 0 30px 0;
+    margin: 60px 0 18px 0;
     font-weight: 500;
     letter-spacing: -0.02em;
 }
@@ -840,49 +862,160 @@ html {
    MOCKUP STYLES (Section 1: Chat)
    ================================ */
 
+.guideVisualStack {
+    position: relative;
+    width: min(100%, 1020px);
+    max-width: none;
+    margin-left: auto;
+    min-height: 680px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.mapLitePreview {
+    width: 56%;
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background:
+        radial-gradient(140% 110% at 15% 10%, rgba(46, 111, 91, 0.95) 0%, rgba(24, 64, 53, 0.96) 48%, rgba(13, 33, 29, 0.98) 100%);
+    box-shadow: 0 28px 64px rgba(0, 0, 0, 0.45);
+}
+
+.mapLiteGlow {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(220px 180px at 72% 36%, rgba(34, 211, 238, 0.2), transparent 72%),
+        radial-gradient(180px 160px at 20% 65%, rgba(45, 212, 191, 0.18), transparent 74%);
+}
+
+.mapLiteGrid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.3;
+}
+
+.mapLiteRoute {
+    position: absolute;
+    width: 64%;
+    height: 48%;
+    left: 20%;
+    top: 26%;
+    border: 3px solid rgba(244, 249, 255, 0.86);
+    border-left: 0;
+    border-radius: 40% 60% 55% 45% / 44% 52% 48% 56%;
+    transform: rotate(-9deg);
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.32));
+}
+
+.mapLitePin {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fb7185;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 10px rgba(251, 113, 133, 0.16);
+}
+
+.mapLitePinOne {
+    top: 34%;
+    left: 28%;
+}
+
+.mapLitePinTwo {
+    top: 46%;
+    left: 54%;
+    background: #22d3ee;
+    box-shadow: 0 0 0 10px rgba(34, 211, 238, 0.2);
+}
+
+.mapLitePinThree {
+    top: 62%;
+    left: 68%;
+    background: #facc15;
+    box-shadow: 0 0 0 10px rgba(250, 204, 21, 0.2);
+}
+
+.mapLiteLabel,
+.mapLiteLabelAlt {
+    position: absolute;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(7, 11, 16, 0.62);
+    color: #f8fafc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+}
+
+.mapLiteLabel {
+    top: 26%;
+    left: 18%;
+}
+
+.mapLiteLabelAlt {
+    top: 54%;
+    right: 14%;
+}
+
 .chatMockupWindow {
-    width: 90%;
-    max-width: 600px;
+    width: 88%;
+    max-width: 760px;
     background: #111111;
     /* Dark theme to match your style */
-    border-radius: 20px;
+    border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    position: relative;
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    bottom: -36px;
+    transform: none;
 }
 
 .mockupHeader {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 20px;
+    gap: 8px;
+    padding: 20px 24px;
     background: rgba(255, 255, 255, 0.03);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .mockupAvatar {
-    width: 28px;
-    height: 28px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 34px;
+    height: 34px;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
 }
 
 .mockupTitle {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #ffffff;
     flex: 1;
 }
 
 .mockupStatus {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: #10B981;
     /* Green dot equivalent */
     font-weight: 500;
@@ -891,50 +1024,49 @@ html {
 }
 
 .mockupBody {
-    padding: 30px 20px;
+    padding: 36px 28px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 .mockupBubbleUser {
     align-self: flex-end;
-    background: #ffffff;
-    color: #000000;
     padding: 14px 18px;
-    border-radius: 16px 16px 4px 16px;
     max-width: 85%;
     font-size: 0.95rem;
-    line-height: 1.5;
-    font-weight: 500;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    line-height: 1.55;
+    background: rgba(148, 163, 184, 0.22);
+    border: 1px solid rgba(148, 163, 184, 0.32);
+    color: #f8fafc;
+    border-bottom-right-radius: 8px;
 }
 
 .mockupBubbleAi {
     align-self: flex-start;
-    background: #1e1e1e;
-    color: #e5e7eb;
     padding: 14px 18px;
-    border-radius: 16px 16px 16px 4px;
     max-width: 90%;
     font-size: 0.95rem;
-    line-height: 1.6;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    line-height: 1.62;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    border-bottom-left-radius: 8px;
 }
 
 .mockupRouteCard {
     align-self: flex-start;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 16px;
-    border-radius: 12px;
+    padding: 20px;
+    border-radius: 14px;
     width: 85%;
     margin-top: -8px;
     /* Pulled up slightly to look attached to the bubble */
 }
 
 .routeDay {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: #fff;
     text-transform: uppercase;
@@ -946,8 +1078,8 @@ html {
 
 .routeItem {
     display: flex;
-    gap: 12px;
-    margin-bottom: 8px;
+    gap: 14px;
+    margin-bottom: 10px;
     align-items: baseline;
 }
 
@@ -956,55 +1088,99 @@ html {
 }
 
 .routeTime {
-    font-size: 0.8rem;
+    font-size: 0.88rem;
     color: #888;
     font-weight: 500;
     min-width: 65px;
 }
 
 .routePlace {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #ddd;
 }
 
 .mockupInputBar {
-    padding: 16px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    gap: 12px;
-    align-items: center;
+    padding: 12px 16px 14px;
+    display: block;
+}
+
+.mockupInputForm {
+    width: 100%;
 }
 
 .mockupInputFake {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 12px 16px;
-    border-radius: 100px;
-    color: #666;
+    padding: 4px 0;
     font-size: 0.9rem;
+    line-height: 1.5;
+    user-select: none;
 }
 
 .mockupSendBtn {
-    width: 40px;
-    height: 40px;
-    background: #ffffff;
-    color: #000000;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 10px;
+}
+
+.chatMockupWindow .mockupBubbleUser {
+    background: rgba(148, 163, 184, 0.22);
+    border: 1px solid rgba(148, 163, 184, 0.32);
+    color: #f8fafc;
+}
+
+.chatMockupWindow .mockupBubbleAi {
+    background: transparent;
+    border: none;
+    color: #ffffff;
 }
 
 /* Add this to your mobile media query (@media max-width: 1024px) */
 @media (max-width: 1024px) {
+    .guideVisualStack {
+        min-height: 600px;
+    }
+
     .chatMockupWindow {
         width: 100%;
         max-width: none;
+        right: 0;
+        bottom: -28px;
+    }
+
+    .mapLiteRoute {
+        width: 68%;
+        height: 52%;
+        left: 16%;
+        top: 24%;
+    }
+
+    .mapLiteLabel,
+    .mapLiteLabelAlt {
+        font-size: 0.7rem;
     }
 }
 
 @media (max-width: 768px) {
+    .guideVisualStack {
+        min-height: 500px;
+    }
+
+    .chatMockupWindow {
+        right: 0;
+        bottom: -16px;
+    }
+
+    .mapLiteGrid {
+        background-size: 40px 40px;
+    }
+
+    .mapLitePin {
+        width: 14px;
+        height: 14px;
+    }
+
+    .mapLiteLabelAlt {
+        right: 8%;
+    }
+
     .testimonialCard:hover {
         transform: none;
         box-shadow: none;
@@ -1201,5 +1377,1182 @@ html {
 
     .cardDescription {
         font-size: 0.9rem;
+    }
+}
+
+
+/* ================================================================
+   ADD THESE CSS RULES to your Home.module.css
+   (append to the bottom, or integrate alongside existing rules)
+   ================================================================ */
+
+/* --------------------------------
+   GUIDE SECTION — Feature Chips
+   -------------------------------- */
+
+.featureChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.featureChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--home-glass);
+    border: 1px solid var(--home-border);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--home-text);
+    letter-spacing: 0.01em;
+    backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+    cursor: default;
+    user-select: none;
+}
+
+.featureChip:hover {
+    background: var(--home-glass-strong);
+    border-color: var(--home-border-strong);
+    transform: translateY(-2px);
+}
+
+.featureChipIcon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* ----------------------------------------------------------------
+   REVIEWS SECTION — Framer-style Bento Grid
+   ---------------------------------------------------------------- */
+
+.bentoGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: min(100%, 1180px);
+    max-width: none;
+}
+
+/* Stats row — 3 cards in a horizontal row */
+.bentoStatsRow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.bentoStatCard {
+    border-radius: 20px;
+    border: 1px solid var(--home-border);
+    background: var(--home-glass);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 28px 24px;
+    transition: border-color 0.25s ease, background 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    min-height: 180px;
+}
+
+.bentoStatCard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120px 120px at 10% 10%,
+            color-mix(in srgb, var(--stat-accent) 14%, transparent),
+            transparent 72%);
+    pointer-events: none;
+}
+
+.bentoStatCard:hover {
+    border-color: color-mix(in srgb, var(--stat-accent) 35%, transparent);
+    background: var(--home-glass-strong);
+}
+
+.bentoStatIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--stat-accent) 10%, transparent);
+    margin-bottom: 16px;
+}
+
+.bentoStatValue {
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+.bentoStatLabel {
+    font-size: 0.78rem;
+    color: var(--home-muted);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 6px;
+}
+
+.bentoStatTap {
+    font-size: 0.72rem;
+    color: var(--home-muted);
+    opacity: 0;
+    margin-top: auto;
+    padding-top: 12px;
+    transition: opacity 0.2s ease;
+    letter-spacing: 0.02em;
+}
+
+.bentoStatCard:hover .bentoStatTap {
+    opacity: 0.7;
+}
+
+/* Expanded stat card — fills the whole stats area */
+.bentoExpanded {
+    border-radius: 20px;
+    border: 1px solid color-mix(in srgb, var(--stat-accent) 30%, transparent);
+    background: var(--home-glass);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bentoExpanded::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(300px 200px at 0% 0%,
+            color-mix(in srgb, var(--stat-accent) 12%, transparent),
+            transparent 70%);
+    pointer-events: none;
+}
+
+.bentoExpandedHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.bentoExpandedIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--stat-accent) 12%, transparent);
+    flex-shrink: 0;
+}
+
+.bentoExpandedValue {
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    display: block;
+}
+
+.bentoExpandedLabel {
+    font-size: 0.82rem;
+    color: var(--home-muted);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+}
+
+.bentoExpandedClose {
+    margin-left: auto;
+    font-size: 1.1rem;
+    color: var(--home-muted);
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.bentoExpanded:hover .bentoExpandedClose {
+    opacity: 1;
+}
+
+.bentoExpandedDetail {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--home-muted);
+    margin: 0;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+}
+
+.bentoExpandedHint {
+    font-size: 0.72rem;
+    color: var(--home-muted);
+    opacity: 0.4;
+    margin-top: 20px;
+    letter-spacing: 0.03em;
+    position: relative;
+    z-index: 1;
+}
+
+/* Marquee strip */
+.bentoMarqueeCard {
+    border-radius: 14px;
+    border: 1px solid var(--home-border);
+    background: var(--home-glass);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    height: 72px;
+    display: flex;
+    align-items: center;
+}
+
+.marqueeTrack {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    white-space: nowrap;
+    animation: marqueeScroll 22s linear infinite;
+    will-change: transform;
+}
+
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.marqueeItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--home-muted);
+    padding: 0 18px;
+    transition: color 0.2s;
+}
+
+.marqueeItem:hover {
+    color: var(--home-text);
+}
+
+.marqueeDot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--home-muted);
+    opacity: 0.5;
+}
+
+/* CTA card hidden */
+.bentoCtaCard {
+    display: none;
+}
+
+/* ----------------------------------------------------------------
+   COLLABORATE SECTION — Social Links
+   ---------------------------------------------------------------- */
+
+.socialGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: min(100%, 820px);
+    max-width: none;
+}
+
+/* ---- Open Source / Contribute Layout ---- */
+
+.contributeLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: min(100%, 620px);
+    margin: 0 auto 0 10%;
+}
+
+.repoCard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 28px;
+    border-radius: 20px;
+    border: 1px solid var(--home-border);
+    background: var(--home-glass);
+    backdrop-filter: blur(16px);
+    text-decoration: none;
+    color: var(--home-text);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+}
+
+.repoCard:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.repoCardHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.repoIconWrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.repoMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.repoName {
+    font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--home-text);
+    letter-spacing: -0.01em;
+}
+
+.repoDesc {
+    font-size: 0.88rem;
+    color: var(--home-muted);
+    line-height: 1.5;
+}
+
+.repoArrow {
+    font-size: 1.2rem;
+    color: var(--home-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.repoCard:hover .repoArrow {
+    transform: translate(2px, -2px);
+}
+
+.repoStats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.repoStat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--home-muted);
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--home-border);
+    background: rgba(255, 255, 255, 0.03);
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.repoCard:hover .repoStat {
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--home-text);
+}
+
+.repoBadge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(45, 212, 191, 0.25);
+    color: #2dd4bf;
+    margin-left: auto;
+}
+
+.techStack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.techLabel {
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--home-muted-2, var(--home-muted));
+}
+
+.techBadges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.techBadge {
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--tech-color) 30%, transparent);
+    color: var(--tech-color);
+    background: color-mix(in srgb, var(--tech-color) 8%, transparent);
+    letter-spacing: 0.01em;
+}
+
+.techBadgeLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.04);
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.techBadgeLink:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.contributeBadges {
+    padding: 8px 0;
+}
+
+.contributeNote {
+    font-size: 0.9rem;
+    color: var(--home-muted);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.socialIntro {
+    font-size: 0.95rem;
+    color: var(--home-muted);
+    line-height: 1.65;
+    margin: 0 0 8px 0;
+    font-weight: 400;
+}
+
+.socialCard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    border: 1px solid var(--social-border, var(--home-border));
+    background: var(--social-bg, var(--home-glass));
+    backdrop-filter: blur(12px);
+    text-decoration: none;
+    color: var(--home-text);
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.socialCard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120px 80px at 0% 50%,
+            color-mix(in srgb, var(--social-color) 8%, transparent),
+            transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.socialCard:hover::before {
+    opacity: 1;
+}
+
+.socialCard:hover {
+    border-color: color-mix(in srgb, var(--social-color) 40%, transparent);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.socialIconWrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--social-color) 12%, transparent);
+    color: var(--social-color);
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+}
+
+.socialCard:hover .socialIconWrap {
+    background: color-mix(in srgb, var(--social-color) 22%, transparent);
+}
+
+.socialInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.socialName {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--home-text);
+    letter-spacing: -0.01em;
+}
+
+.socialHandle {
+    font-size: 0.8rem;
+    color: var(--home-muted);
+    font-weight: 400;
+}
+
+.socialArrow {
+    font-size: 1.1rem;
+    color: var(--home-muted);
+    opacity: 0.5;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.socialCard:hover .socialArrow {
+    opacity: 1;
+    color: var(--social-color);
+    transform: translate(2px, -2px);
+}
+
+/* ----------------------------------------------------------------
+   MOBILE ADJUSTMENTS FOR NEW COMPONENTS
+   ---------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    .featureChips {
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+
+    .featureChip {
+        font-size: 0.76rem;
+        padding: 6px 11px;
+    }
+
+    .bentoGrid {
+        max-width: 100%;
+    }
+
+    .bentoStatsRow {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .bentoStatCard {
+        min-height: 120px;
+        padding: 20px;
+    }
+
+    .bentoStatValue {
+        font-size: 1.8rem;
+    }
+
+    .bentoExpanded {
+        padding: 28px;
+        min-height: 180px;
+    }
+
+    .bentoMarqueeCard {
+        height: 60px;
+    }
+
+    .socialGrid {
+        max-width: 100%;
+    }
+
+    .socialCard {
+        padding: 13px 16px;
+        gap: 12px;
+    }
+
+    .socialIconWrap {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+    }
+
+    .socialName {
+        font-size: 0.88rem;
+    }
+
+    .socialHandle {
+        font-size: 0.74rem;
+    }
+}
+
+/* ================================================================
+   GUIDE SECTION — Complete redesign CSS
+   ================================================================ */
+
+/* ── OUTER SHOWCASE WRAPPER ── */
+.guideShowcase {
+    width: 60vw;
+    height: 80vh;
+    max-width: none;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* ── MAP FRAME ── */
+.guideMapFrame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #0d1117;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 4px 16px rgba(0, 0, 0, 0.4),
+        0 24px 56px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(14, 165, 233, 0.08);
+    isolation: isolate;
+}
+
+#guide.scrollSection {
+    height: 100vh;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    align-content: center;
+}
+
+#guide.scrollSection .scrollSectionSubtitle {
+    width: 80%;
+    margin: 0 auto 16px auto;
+}
+
+.guideMapImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: saturate(0.88) brightness(0.92);
+    transition: filter 0.4s ease;
+}
+
+.guideMapFrame:hover .guideMapImage {
+    filter: saturate(1) brightness(1);
+}
+
+.guideMapVignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 90% 85% at 50% 50%,
+        transparent 42%,
+        rgba(0, 0, 0, 0.48) 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+}
+
+.guideMapScanlines {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.06) 2px,
+        rgba(0, 0, 0, 0.06) 3px
+    );
+    pointer-events: none;
+    z-index: 3;
+    mix-blend-mode: multiply;
+}
+
+.guideMapBadge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(0, 0, 0, 0.56);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 6px 13px 6px 10px;
+}
+
+.guideMapPulse {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22d3ee;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.28);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    flex-shrink: 0;
+}
+
+.guideMapBadgeText {
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+.guidePin {
+    position: absolute;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.62);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 5px 11px 5px 7px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: pinFloat 4s ease-in-out infinite;
+}
+
+.guidePinA {
+    top: 28%;
+    right: 22%;
+    animation-delay: 0s;
+}
+
+.guidePinB {
+    top: 52%;
+    left: 48%;
+    animation-delay: 1.3s;
+}
+
+.guidePinC {
+    top: 68%;
+    left: 66%;
+    animation-delay: 2.6s;
+}
+
+@keyframes pinFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+.guidePinDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px currentColor;
+}
+
+/* ── CHAT WINDOW ── */
+.guideChatFloat {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 30;
+    width: min(48%, 430px);
+    background: rgba(13, 13, 16, 0.92);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow:
+        0 20px 48px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.guideChatHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.guideChatDots {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.guideChatDots span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.guideChatDots span:nth-child(1) { background: #ff5f57; }
+.guideChatDots span:nth-child(2) { background: #febc2e; }
+.guideChatDots span:nth-child(3) { background: #28c840; }
+
+.guideChatTitle {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.01em;
+    flex: 1;
+    text-align: center;
+    margin-left: -52px;
+}
+
+.guideChatOnline {
+    font-size: 0.7rem;
+    color: #10b981;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+}
+
+.guideChatBody {
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.guideMsgUser {
+    align-self: flex-end;
+    max-width: 78%;
+    padding: 11px 16px;
+    background: rgba(148, 163, 184, 0.14);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 16px 16px 4px 16px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: rgba(248, 250, 252, 0.9);
+}
+
+.guideMsgAi {
+    align-self: flex-start;
+    max-width: 88%;
+    padding: 0 4px;
+    font-size: 0.88rem;
+    line-height: 1.58;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.guideMsgCard {
+    align-self: flex-start;
+    width: 100%;
+    max-width: 90%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.guideMsgCardLabel {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.38);
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.guideMsgStop {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.guideMsgTime {
+    font-size: 0.76rem;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 500;
+    min-width: 58px;
+    font-variant-numeric: tabular-nums;
+}
+
+.guideMsgStopDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.guideMsgPlace {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+}
+
+.guideChatInput {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.guideChatInputPlaceholder {
+    flex: 1;
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.22);
+    font-style: italic;
+    user-select: none;
+    padding: 2px 4px;
+}
+
+.guideChatSend {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: not-allowed;
+    flex-shrink: 0;
+}
+
+/* ── FEATURE PILLS STRIP ── */
+.guideFeatureStrip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.guideFeaturePill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 13px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.79rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.01em;
+    backdrop-filter: blur(8px);
+    transition: all 0.22s ease;
+    cursor: default;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.guideFeaturePill:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+}
+
+/* Light theme overrides */
+:global([data-theme='light']) .guideMapFrame {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 24px 56px rgba(0, 0, 0, 0.18);
+}
+
+:global([data-theme='light']) .guideChatFloat {
+    background: rgba(255, 255, 255, 0.82);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme='light']) .guideChatHeader {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme='light']) .guideChatTitle {
+    color: rgba(0, 0, 0, 0.55);
+}
+
+:global([data-theme='light']) .guideMsgUser {
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #0b0b0b;
+}
+
+:global([data-theme='light']) .guideMsgAi {
+    color: rgba(0, 0, 0, 0.65);
+}
+
+:global([data-theme='light']) .guideMsgCard {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme='light']) .guideMsgCardLabel {
+    color: rgba(0, 0, 0, 0.35);
+    border-bottom-color: rgba(0, 0, 0, 0.07);
+}
+
+:global([data-theme='light']) .guideMsgTime {
+    color: rgba(0, 0, 0, 0.35);
+}
+
+:global([data-theme='light']) .guideMsgPlace {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+:global([data-theme='light']) .guideChatInput {
+    border-top-color: rgba(0, 0, 0, 0.07);
+}
+
+:global([data-theme='light']) .guideChatInputPlaceholder {
+    color: rgba(0, 0, 0, 0.25);
+}
+
+:global([data-theme='light']) .guideChatSend {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.45);
+}
+
+:global([data-theme='light']) .guideFeaturePill {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.55);
+}
+
+:global([data-theme='light']) .guideFeaturePill:hover {
+    background: rgba(0, 0, 0, 0.09);
+    color: rgba(0, 0, 0, 0.85);
+}
+
+:global([data-theme='light']) .guideMapBadge {
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+:global([data-theme='light']) .guideMapBadgeText {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+:global([data-theme='light']) .guidePin {
+    background: rgba(255, 255, 255, 0.82);
+    border-color: rgba(0, 0, 0, 0.14);
+    color: #0b0b0b;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+    #guide.scrollSection {
+        height: auto;
+        min-height: auto;
+        display: flex;
+    }
+
+    #guide.scrollSection .scrollSectionSubtitle {
+        width: 100%;
+        margin: 0 0 16px 0;
+    }
+
+    .guideShowcase {
+        width: 100%;
+        height: auto;
+    }
+
+    .guideMapFrame {
+        border-radius: 16px;
+        aspect-ratio: 4 / 3;
+    }
+
+    .guidePinA { top: 24%; left: 16%; }
+    .guidePinB { top: 48%; left: 42%; }
+    .guidePinC { display: none; }
+
+    .guideChatFloat {
+        width: calc(100% - 24px);
+        right: 12px;
+        bottom: 12px;
+        border-radius: 16px;
+    }
+
+    .guideMsgUser {
+        max-width: 90%;
+    }
+
+    .guideMsgCard {
+        max-width: 100%;
+    }
+
+    .guideFeatureStrip {
+        gap: 6px;
+    }
+
+    .guideFeaturePill {
+        font-size: 0.72rem;
+        padding: 5px 10px;
     }
 }

@@ -793,8 +793,9 @@ class Pipeline:
 
                     raw_answer = "Here are some options: " + "; ".join(descriptions) + "."
                 else:
-                    # Non-browsing path with matches should still produce an answer
-                    raw_answer = " ".join(answers_found)
+                    # Non-browsing successful matches should return factual summaries.
+                    deduped_answers = list(dict.fromkeys(answers_found))
+                    raw_answer = " ".join(deduped_answers)
 
         # ====================================================================
         # FINAL STEPS

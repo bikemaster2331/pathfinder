@@ -15,6 +15,114 @@ const BUDGET_CONFIG = {
     3: { filterValues: ["low", "medium", "high"] }
 };
 
+// --- NEW: COLLAPSIBLE WIDGET COMPONENT ---
+// This is pulled out so it can manage its own expanded/collapsed state natively in the chat flow.
+const PreviewWidget = ({ 
+    isLatest, 
+    spots, 
+    styles, 
+    cardStyles, 
+    handleOptimize, 
+    setSelectedLocation, 
+    handleMoveSpot, 
+    handleRemoveSpot 
+}) => {
+    const [expanded, setExpanded] = useState(isLatest);
+
+    // Auto-collapse older widgets when a new one is added to the chat
+    useEffect(() => {
+        setExpanded(isLatest);
+    }, [isLatest]);
+
+    return (
+        <aside 
+            className={`${styles.mapExpandedPreviewBox} ${styles.desktopChatPreviewBox}`} 
+            style={!expanded ? { height: 'auto', minHeight: 'auto', paddingBottom: '0' } : {}}
+        >
+            <div 
+                className={styles.mapExpandedPreviewHeader} 
+                onClick={() => setExpanded(!expanded)}
+                style={{ cursor: 'pointer', borderBottom: expanded ? '' : 'none' }}
+            >
+                <h3 className={styles.mapExpandedPreviewTitle}>Itinerary Preview</h3>
+                <div className={styles.mapExpandedPreviewHeaderActions}>
+                    <span className={styles.mapExpandedPreviewCount}>{spots.length} spot{spots.length === 1 ? '' : 's'}</span>
+                    
+                    {/* Expand/Collapse Chevron */}
+                    {expanded ? (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    ) : (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    )}
+
+                    {expanded && (
+                        <button
+                            type="button"
+                            onClick={(e) => { e.stopPropagation(); handleOptimize(); }}
+                            className={cardStyles.optimizeBtnSmall}
+                            title="Fix my route order"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                                <path d="M230.86,109.25,169.18,86.82,146.75,25.14a19.95,19.95,0,0,0-37.5,0L86.82,86.82,25.14,109.25a19.95,19.95,0,0,0,0,37.5l61.68,22.43,22.43,61.68a19.95,19.95,0,0,0,37.5,0l22.43-61.68,61.68-22.43a19.95,19.95,0,0,0,0-37.5Zm-75.14,39.29a12,12,0,0,0-7.18,7.18L128,212.21l-20.54-56.49a12,12,0,0,0-7.18-7.18L43.79,128l56.49-20.54a12,12,0,0,0,7.18-7.18L128,43.79l20.54,56.49a12,12,0,0,0,7.18,7.18L212.21,128Z" />
+                            </svg>
+                        </button>
+                    )}
+                </div>
+            </div>
+            {expanded && (
+                <div className={`${styles.mapExpandedPreviewList} ${cardStyles.addedSpotsList}`}>
+                    {spots.map((spot, index) => (
+                        <div
+                            key={`${spot.name}-${index}`}
+                            className={`${cardStyles.miniSpotItem} ${spot.locked ? cardStyles.miniSpotItemLocked : ''}`}
+                            onClick={() => setSelectedLocation(spot)}
+                        >
+                            <div className={cardStyles.spotRow}>
+                                <div className={cardStyles.visitDurationBadge}>
+                                    {spot.visit_time_minutes > 0 ? `${spot.visit_time_minutes}m` : '60m'}
+                                </div>
+                                <span className={cardStyles.spotName}>{spot.name}</span>
+                            </div>
+                            <div className={cardStyles.spotActions}>
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, -1); }}
+                                    className={cardStyles.spotActionBtn}
+                                    disabled={index === 0}
+                                    title="Move Up"
+                                >
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                </button>
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, 1); }}
+                                    className={cardStyles.spotActionBtn}
+                                    disabled={index === spots.length - 1}
+                                    title="Move Down"
+                                >
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                                <div className={cardStyles.actionDivider}></div>
+                                <button
+                                    className={`${cardStyles.removeBtn} ${cardStyles.removeSmallBtn}`}
+                                    onClick={(e) => { e.stopPropagation(); handleRemoveSpot(spot.name); }}
+                                    title="Remove"
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                    {spots.length === 0 && (
+                        <div style={{ padding: '20px', textAlign: 'center', color: '#888', fontSize: '0.85rem' }}>
+                            Your itinerary is empty.
+                        </div>
+                    )}
+                </div>
+            )}
+        </aside>
+    );
+};
+
+
 export default function ItineraryPage() {
     const [allSpots, setAllSpots] = useState(null);
     const [addedSpots, setAddedSpots] = useState([]);
@@ -26,11 +134,13 @@ export default function ItineraryPage() {
         Shopping: false, Swimming: false, Hiking: false
     });
     
-    // New states for MapWrapper
     const [budget, setBudget] = useState(50);
     const [destination, setDestination] = useState('');
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
     
+    // Chat State Lifted to Parent
+    const [chatMessages, setChatMessages] = useState([]);
+
     // SHEET STATE
     const [sheetState, setSheetState] = useState('collapsed');
     
@@ -40,15 +150,11 @@ export default function ItineraryPage() {
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
     const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
     
-    // REMOVED: const [sheetDragHeight, setSheetDragHeight] = useState(null);
-    // REMOVED: const [isSheetDragging, setIsSheetDragging] = useState(false);
-    
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
     const mobilePanelToggleLabel = nextMobilePanel === 'preview' ? 'Show preview' : 'Show review';
 
     const mapRef = useRef(null);
     
-    // --- NEW: SHEET REFS FOR DIRECT MANIPULATION ---
     const sheetRef = useRef(null);
     const touchStartYRef = useRef(0);
     const touchStartHeightRef = useRef(0);
@@ -64,6 +170,18 @@ export default function ItineraryPage() {
             setActiveHub(newHub);
             setDestination(hubName);
         }
+    };
+
+    // --- NEW: INJECT WIDGET INTO CHAT STATE ---
+    const pushItineraryWidgetToChat = () => {
+        setChatMessages(prev => {
+            const lastMsg = prev[prev.length - 1];
+            // If the last message is already an itinerary widget, don't spam a new one
+            if (lastMsg && lastMsg.role === 'widget' && lastMsg.type === 'itinerary') {
+                return prev; 
+            }
+            return [...prev, { role: 'widget', type: 'itinerary', id: Date.now() }];
+        });
     };
 
     const handleToggleLock = (spotName) => {
@@ -94,13 +212,17 @@ export default function ItineraryPage() {
     };
 
     const handleAddSpot = (spot) => {
-        if (!addedSpots.find(s => s.name === spot.name)) {
-            setAddedSpots([...addedSpots, spot]);
-        }
+        setAddedSpots(prev => {
+            if (!prev.find(s => s.name === spot.name)) {
+                return [...prev, spot];
+            }
+            return prev;
+        });
+        pushItineraryWidgetToChat();
     };
 
     const handleRemoveSpot = (spotName) => {
-        setAddedSpots(addedSpots.filter(s => s.name !== spotName));
+        setAddedSpots(prev => prev.filter(s => s.name !== spotName));
     };
 
     const isSelectedAlreadyAdded = selectedLocation
@@ -116,7 +238,6 @@ export default function ItineraryPage() {
 
         if (!locations || locations.length !== 1) return;
 
-        // Sync review box only when exactly one location is returned
         const first = locations[0];
         let matched = null;
 
@@ -153,14 +274,13 @@ export default function ItineraryPage() {
         }
         const vh = window.innerHeight;
         return {
-            collapsed: Math.min(124, Math.max(60, vh * 0.12)), // Slight bump to 12%
+            collapsed: Math.min(124, Math.max(60, vh * 0.12)),
             mid: vh * 0.53,
-            open: vh * 0.92 // Apple Maps style almost full screen
+            open: vh * 0.92
         };
     };
 
     const handleSheetToggle = () => {
-        // Toggle Logic: Cycle through states
         setSheetState((prev) => {
             if (prev === 'collapsed') return 'mid';
             if (prev === 'mid') return 'open';
@@ -168,16 +288,10 @@ export default function ItineraryPage() {
         });
     };
 
-    // --- DIRECT DOM MANIPULATION HANDLERS ---
-    
     const handleSheetTouchStart = (event) => {
         if (!sheetRef.current) return;
         
-        // 1. FREEZE TRANSITION: Add class that sets transition: none
-        // NOTE: Ensure .isDragging { transition: none !important; } exists in your CSS
         sheetRef.current.classList.add(styles.isDragging);
-        
-        // 2. RECORD START POINTS
         touchStartYRef.current = event.touches[0].clientY;
         touchStartHeightRef.current = sheetRef.current.offsetHeight;
     };
@@ -185,16 +299,13 @@ export default function ItineraryPage() {
     const handleSheetTouchMove = (event) => {
         if (!isMobile || !sheetRef.current) return;
         
-        // Prevent Pull-to-refresh / bouncing
         if (event.cancelable) event.preventDefault();
 
         const currentY = event.touches[0].clientY;
-        const delta = touchStartYRef.current - currentY; // Dragging UP is positive delta
+        const delta = touchStartYRef.current - currentY;
         const newHeight = touchStartHeightRef.current + delta;
 
-        // 3. APPLY HEIGHT DIRECTLY (0ms Latency)
         const heights = getSheetHeights();
-        // Allow slight rubber-banding (+/- 20px) but mostly clamp
         const clampedHeight = Math.max(heights.collapsed - 20, Math.min(heights.open + 20, newHeight));
         
         sheetRef.current.style.height = `${clampedHeight}px`;
@@ -203,34 +314,24 @@ export default function ItineraryPage() {
     const handleSheetTouchEnd = (event) => {
         if (!sheetRef.current) return;
 
-        // 4. RESTORE TRANSITION (Smooth snap)
         sheetRef.current.classList.remove(styles.isDragging);
-        
-        // Read final height from DOM
         const currentHeight = sheetRef.current.offsetHeight;
-        
-        // Clear manual inline style so CSS classes can take over
         sheetRef.current.style.height = ''; 
 
-        // 5. SNAP LOGIC
         const heights = getSheetHeights();
         const distCollapsed = Math.abs(currentHeight - heights.collapsed);
         const distMid = Math.abs(currentHeight - heights.mid);
         const distOpen = Math.abs(currentHeight - heights.open);
 
-        // Velocity Check (Did user flick?)
         const touchEndY = event.changedTouches[0].clientY;
         const totalDelta = touchStartYRef.current - touchEndY;
         
         let nextState = 'mid';
 
-        // Flick Up Logic
         if (totalDelta > 80 && sheetState === 'collapsed') nextState = 'mid';
         else if (totalDelta > 80 && sheetState === 'mid') nextState = 'open';
-        // Flick Down Logic
         else if (totalDelta < -80 && sheetState === 'open') nextState = 'mid';
         else if (totalDelta < -80 && sheetState === 'mid') nextState = 'collapsed';
-        // Proximity Logic (If no flick)
         else {
             const min = Math.min(distCollapsed, distMid, distOpen);
             if (min === distCollapsed) nextState = 'collapsed';
@@ -241,13 +342,11 @@ export default function ItineraryPage() {
         setSheetState(nextState);
     };
 
-    // Budget effect
     useEffect(() => {
         const step = getBudgetStep(budget);
         setBudgetFilter(BUDGET_CONFIG[step].filterValues);
     }, [budget]);
 
-    // Sync destination with activeHub
     useEffect(() => {
         setDestination(activeHub ? activeHub.name : '');
     }, [activeHub]);
@@ -278,7 +377,6 @@ export default function ItineraryPage() {
         };
     }, []);
 
-    // Preload spot images for faster review box updates
     useEffect(() => {
         if (!allSpots?.features?.length) return;
         const uniqueImages = new Set();
@@ -298,6 +396,31 @@ export default function ItineraryPage() {
         }
     }, [selectedLocation]);
 
+    // --- MAP CHAT MESSAGES TO REACT COMPONENTS ---
+    // Finds the last widget so we can auto-expand only the newest one
+    const latestWidgetIndex = chatMessages.map(m => m.type).lastIndexOf('itinerary');
+
+    const desktopDisplayMessages = chatMessages.map((msg, index) => {
+        if (msg.role === 'widget' && msg.type === 'itinerary') {
+            return {
+                ...msg,
+                content: (
+                    <PreviewWidget 
+                        isLatest={index === latestWidgetIndex} 
+                        spots={addedSpots} 
+                        styles={styles} 
+                        cardStyles={cardStyles} 
+                        handleOptimize={handleOptimize} 
+                        setSelectedLocation={setSelectedLocation} 
+                        handleMoveSpot={handleMoveSpot} 
+                        handleRemoveSpot={handleRemoveSpot} 
+                    />
+                )
+            };
+        }
+        return msg;
+    });
+
     return (
         <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${!isInitialTripboxCompleted ? styles.itineraryContainerBoot : ''}`}>
             <div className={styles.gradientBg} />
@@ -312,10 +435,13 @@ export default function ItineraryPage() {
                             variant="panel"
                             containerClassName={styles.desktopChatBot}
                             onLocationResponse={handleChatbotLocation}
+                            messages={desktopDisplayMessages}
+                            setMessages={setChatMessages}
                         />
                     </div>
                 </aside>
             )}
+            
             {/* Map Container with Controls */}
             <div className={`${styles.mapArea} ${isMapFullscreen ? styles.mapAreaFullscreen : ''} ${!isInitialTripboxCompleted ? styles.mapAreaBoot : ''}`}>
                 <MapWrapper 
@@ -381,78 +507,6 @@ export default function ItineraryPage() {
                                 </button>
                             </div>
                         </aside>
-
-                        <aside className={styles.mapExpandedPreviewBox}>
-                            <div className={styles.mapExpandedPreviewHeader}>
-                                <h3 className={styles.mapExpandedPreviewTitle}>Itinerary Preview</h3>
-                                <div className={styles.mapExpandedPreviewHeaderActions}>
-                                    <span className={styles.mapExpandedPreviewCount}>{addedSpots.length} spot{addedSpots.length === 1 ? '' : 's'}</span>
-                                    <button
-                                        type="button"
-                                        onClick={handleOptimize}
-                                        className={cardStyles.optimizeBtnSmall}
-                                        title="Fix my route order"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
-                                            <path d="M230.86,109.25,169.18,86.82,146.75,25.14a19.95,19.95,0,0,0-37.5,0L86.82,86.82,25.14,109.25a19.95,19.95,0,0,0,0,37.5l61.68,22.43,22.43,61.68a19.95,19.95,0,0,0,37.5,0l22.43-61.68,61.68-22.43a19.95,19.95,0,0,0,0-37.5Zm-75.14,39.29a12,12,0,0,0-7.18,7.18L128,212.21l-20.54-56.49a12,12,0,0,0-7.18-7.18L43.79,128l56.49-20.54a12,12,0,0,0,7.18-7.18L128,43.79l20.54,56.49a12,12,0,0,0,7.18,7.18L212.21,128Z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className={`${styles.mapExpandedPreviewList} ${cardStyles.addedSpotsList}`}>
-                                {addedSpots.length === 0 ? (
-                                    <p className={styles.mapExpandedPreviewEmpty}>No spots added yet.</p>
-                                ) : (
-                                    addedSpots.map((spot, index) => (
-                                        <div
-                                            key={`${spot.name}-${index}`}
-                                            className={`${cardStyles.miniSpotItem} ${spot.locked ? cardStyles.miniSpotItemLocked : ''}`}
-                                            onClick={() => setSelectedLocation(spot)}
-                                        >
-                                            <div className={cardStyles.spotRow}>
-                                                <div className={cardStyles.visitDurationBadge}>
-                                                    {spot.visit_time_minutes > 0 ? `${spot.visit_time_minutes}m` : '60m'}
-                                                </div>
-                                                <span className={cardStyles.spotName}>{spot.name}</span>
-                                            </div>
-                                            <div className={cardStyles.spotActions}>
-                                                <button
-                                                    onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, -1); }}
-                                                    className={cardStyles.spotActionBtn}
-                                                    disabled={index === 0}
-                                                    title="Move Up"
-                                                >
-                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <polyline points="18 15 12 9 6 15"></polyline>
-                                                    </svg>
-                                                </button>
-                                                <button
-                                                    onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, 1); }}
-                                                    className={cardStyles.spotActionBtn}
-                                                    disabled={index === addedSpots.length - 1}
-                                                    title="Move Down"
-                                                >
-                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                                    </svg>
-                                                </button>
-                                                <div className={cardStyles.actionDivider}></div>
-                                                <button
-                                                    className={`${cardStyles.removeBtn} ${cardStyles.removeSmallBtn}`}
-                                                    onClick={(e) => { e.stopPropagation(); handleRemoveSpot(spot.name); }}
-                                                    title="Remove"
-                                                >
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
-                        </aside>
                     </>
                 )}
             </div>
@@ -474,11 +528,14 @@ export default function ItineraryPage() {
                     />
                 </div>
             )}
+            
             {/* Mobile Bottom Sheet */}
             {isMobile && (
                 <ChatBot
-                    ref={sheetRef} // <--- 6. PASS THE REF HERE
+                    ref={sheetRef}
                     variant="sheet"
+                    messages={chatMessages}
+                    setMessages={setChatMessages}
                     containerClassName={`${styles.mobileSheet} ${styles[`mobileSheet${sheetState}`]}`}
                     formAccessory={
                         sheetState !== 'collapsed' ? (
@@ -517,14 +574,10 @@ export default function ItineraryPage() {
                         if (sheetState === 'collapsed') setSheetState('mid');
                     }}
                     onHandleToggle={handleSheetToggle}
-                    
-                    // Pass the Direct DOM handlers
                     onHandleTouchStart={handleSheetTouchStart}
                     onHandleTouchMove={handleSheetTouchMove}
                     onHandleTouchEnd={handleSheetTouchEnd}
-                    
                     sheetState={sheetState}
-                    // Removed containerStyle prop as we now use direct class manipulation for dragging
                 >
                     <div className={styles.mobileSheetCard}>
                         <div className={styles.mobileSheetContent}>

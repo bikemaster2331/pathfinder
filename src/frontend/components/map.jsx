@@ -58,6 +58,9 @@ const ACTIVITY_MAPPING = {
     Accommodation: ['HOTELS & RESORTS'] 
 };
 
+// Temporary switch for clean-map screenshots.
+const CLEAN_MAP_SCREENSHOT_MODE = false;
+
 const isLightTheme = () => (
     typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light'
 );
@@ -162,6 +165,7 @@ const Map = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
         handleChatbotLocations: (locations) => {
             if (!locations || locations.length === 0 || !map.current) return;
+            if (CLEAN_MAP_SCREENSHOT_MODE) return;
 
             console.log("📍 Map received locations:", locations);
 
@@ -214,6 +218,7 @@ const Map = forwardRef((props, ref) => {
 
     const addGlowingMarker = (location) => {
         if (!map.current) return;
+        if (CLEAN_MAP_SCREENSHOT_MODE) return;
         
         const container = document.createElement('div');
         container.className = styles.markerWrapper;
@@ -278,6 +283,23 @@ const Map = forwardRef((props, ref) => {
         if (!isLoaded || !map.current || !selectedHub) return;
 
         const sourceId = 'hub-data';
+
+        if (CLEAN_MAP_SCREENSHOT_MODE) {
+            if (map.current.getLayer('hub-halo')) {
+                map.current.setLayoutProperty('hub-halo', 'visibility', 'none');
+            }
+            if (map.current.getLayer('hub-center')) {
+                map.current.setLayoutProperty('hub-center', 'visibility', 'none');
+            }
+
+            map.current.flyTo({
+                center: selectedHub.coordinates,
+                zoom: 11,
+                speed: 1.2,
+                curve: 1
+            });
+            return;
+        }
         
         const data = {
             type: 'FeatureCollection',
@@ -300,6 +322,9 @@ const Map = forwardRef((props, ref) => {
                 id: 'hub-halo', 
                 type: 'circle', 
                 source: sourceId,
+                layout: {
+                    'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible'
+                },
                 paint: {
                     'circle-radius': 20, 
                     'circle-color': HUB_COLOR,
@@ -313,6 +338,9 @@ const Map = forwardRef((props, ref) => {
                 id: 'hub-center', 
                 type: 'circle', 
                 source: sourceId,
+                layout: {
+                    'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible'
+                },
                 paint: {
                     'circle-radius': 6, 
                     'circle-color': '#ffffff',
@@ -340,6 +368,16 @@ const Map = forwardRef((props, ref) => {
         const layerId = 'route-layer';
         const previewSourceId = 'preview-route-line';
         const previewLayerId = 'preview-route-layer';
+
+        if (CLEAN_MAP_SCREENSHOT_MODE) {
+            if (map.current.getLayer(layerId)) {
+                map.current.setLayoutProperty(layerId, 'visibility', 'none');
+            }
+            if (map.current.getLayer(previewLayerId)) {
+                map.current.setLayoutProperty(previewLayerId, 'visibility', 'none');
+            }
+            return;
+        }
 
         const updateSolidRoute = () => {
             const stops = [];
@@ -581,6 +619,9 @@ const Map = forwardRef((props, ref) => {
                     source: 'all-data',
                     maxzoom: 12,
                     filter: ['all', ['==', ['geometry-type'], 'Point'], ['!', ['to-boolean', ['get', 'is_top_10']]]],
+                    layout: {
+                        'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible'
+                    },
                     paint: {
                         'circle-radius': 3.5,
                         'circle-color': activeTheme.mapPoint,
@@ -597,6 +638,7 @@ const Map = forwardRef((props, ref) => {
                     minzoom: 12,
                     filter: ['all', ['==', ['geometry-type'], 'Point'], ['!', ['to-boolean', ['get', 'is_top_10']]]],
                     layout: {
+                        'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible',
                         'icon-image': [
                             'match', 
                             ['get', 'type'], 
@@ -620,6 +662,7 @@ const Map = forwardRef((props, ref) => {
                     source: 'all-data',
                     filter: ['all', ['==', ['geometry-type'], 'Point'], ['to-boolean', ['get', 'is_top_10']]],
                     layout: {
+                        'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible',
                         'icon-image': 'icon-top10',
                         'icon-size': 1.25,
                         'icon-allow-overlap': true,
@@ -858,54 +901,56 @@ const Map = forwardRef((props, ref) => {
                     outline: 'none'
                 }}
             />
-            <div className={styles.topControls}>
-                <button
-                    type="button"
-                    className={styles.menuToggleButton}
-                    onClick={onToggleMenu}
-                    title="Trip Configuration"
-                    data-menu-toggle="true"
-                    aria-label="Toggle trip configuration"
-                >
-                    <svg
-                        className={`${styles.menuChevron} ${isMenuOpen ? styles.menuChevronOpen : ''}`}
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
+            {!CLEAN_MAP_SCREENSHOT_MODE && (
+                <div className={styles.topControls}>
+                    <button
+                        type="button"
+                        className={styles.menuToggleButton}
+                        onClick={onToggleMenu}
+                        title="Trip Configuration"
+                        data-menu-toggle="true"
+                        aria-label="Toggle trip configuration"
                     >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <div className={styles.zoomControls}>
-                <button
-                    type="button"
-                    className={styles.zoomButton}
-                    onClick={handleZoomIn}
-                    aria-label="Zoom in"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12h14" />
-                        <path d="M12 5v14" />
-                    </svg>
-                </button>
-                <button
-                    type="button"
-                    className={styles.zoomButton}
-                    onClick={handleZoomOut}
-                    aria-label="Zoom out"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12h14" />
-                    </svg>
-                </button>
+                        <svg
+                            className={`${styles.menuChevron} ${isMenuOpen ? styles.menuChevronOpen : ''}`}
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                        >
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div className={styles.zoomControls}>
+                    <button
+                        type="button"
+                        className={styles.zoomButton}
+                        onClick={handleZoomIn}
+                        aria-label="Zoom in"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M5 12h14" />
+                            <path d="M12 5v14" />
+                        </svg>
+                    </button>
+                    <button
+                        type="button"
+                        className={styles.zoomButton}
+                        onClick={handleZoomOut}
+                        aria-label="Zoom out"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M5 12h14" />
+                        </svg>
+                    </button>
+                    </div>
                 </div>
-            </div>
+            )}
             <div className={styles.mapFooterCredit}>
                 <p>
                     Built by
