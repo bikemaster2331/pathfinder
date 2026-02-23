@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, forwardRef } from 'react';
 import styles from '../styles/itinerary_page/ChatBot.module.css';
 
 const ChatBot = forwardRef(({ 
+    messages = [], 
+    setMessages,
     onLocationResponse, 
     variant = 'floating', 
     onExpand,
@@ -13,13 +15,11 @@ const ChatBot = forwardRef(({
     containerClassName = '',
     containerStyle,
     formAccessory,
-    children
+    children // We keep this for the mobile PreferenceCard inject, but stop using it for the preview box
 }, ref) => {
     const [input, setInput] = useState('');
-    const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef(null);
-    const inputRef = useRef(null);
     const textareaRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -28,9 +28,8 @@ const ChatBot = forwardRef(({
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages, loading]);
+    }, [messages, loading, children]);
 
-    // Auto-resize textarea
     const handleInputChange = (e) => {
         setInput(e.target.value);
         if (textareaRef.current) {
@@ -41,13 +40,12 @@ const ChatBot = forwardRef(({
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!input.trim() || loading) return;
+        if (!input.trim() || loading || !setMessages) return;
 
         const userMessage = input.trim();
         setInput('');
         if (textareaRef.current) textareaRef.current.style.height = 'auto';
 
-        // Add user message
         setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
         setLoading(true);
 
@@ -68,7 +66,6 @@ const ChatBot = forwardRef(({
 
             const data = await res.json();
 
-            // Add assistant message
             setMessages(prev => [...prev, { role: 'assistant', content: data.answer }]);
 
             if (onLocationResponse && data.locations?.length > 0) {
@@ -119,7 +116,6 @@ const ChatBot = forwardRef(({
             className={`${styles.chatContainer} ${containerVariantClass} ${isSheetCollapsed ? styles.sheetCollapsed : ''} ${isSheetMid ? styles.sheetMid : ''} ${containerClassName}`} 
             style={containerStyle}
         >
-            {/* Handle Wrapper for sheet variant */}
             {isSheet && (
                 <div 
                     className={styles.sheetHandleWrapper}
@@ -133,51 +129,56 @@ const ChatBot = forwardRef(({
                 </div>
             )}
 
-            {/* Messages Area */}
             {(isPanel || (isSheet && isSheetExpanded)) && (
                 <div className={styles.messagesArea}>
-                    {!hasMessages ? (
+                    {!hasMessages && !(isPanel && children) ? (
                         <div className={styles.emptyState}>
                             <div className={styles.emptyIcon}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot-icon lucide-bot"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
                             </div>
                             <p className={styles.emptyTitle}>Pathfinder AI</p>
                             <p className={styles.emptySubtitle}>Ask me about destinations, activities, or anything about Catanduanes</p>
                         </div>
                     ) : (
                         <div className={styles.messageList}>
-                            {messages.map((msg, i) => (
-                                <div 
-                                    key={i} 
-                                    className={`${styles.messageRow} ${msg.role === 'user' ? styles.userRow : styles.assistantRow}`}
-                                >
-                                    {msg.role === 'assistant' && (
-                                        <div className={styles.avatar}>
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                                <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                            </svg>
+                            {messages.map((msg, i) => {
+                                // NEW LOGIC: Render dynamic widget components directly in the flow
+                                if (msg.role === 'widget') {
+                                    return (
+                                        <div key={i} className={`${styles.messageRow} ${styles.assistantRow} ${styles.inlinePanelRow}`}>
+                                            <div className={styles.inlinePanelCard}>
+                                                {msg.content}
+                                            </div>
                                         </div>
-                                    )}
-                                    <div className={`${styles.bubble} ${msg.role === 'user' ? styles.userBubble : styles.assistantBubble} ${msg.isError ? styles.errorBubble : ''}`}>
-                                        {msg.content}
+                                    );
+                                }
+
+                                return (
+                                    <div 
+                                        key={i} 
+                                        className={`${styles.messageRow} ${msg.role === 'user' ? styles.userRow : styles.assistantRow}`}
+                                    >
+                                        <div className={`${styles.bubble} ${msg.role === 'user' ? styles.userBubble : styles.assistantBubble} ${msg.isError ? styles.errorBubble : ''}`}>
+                                            {msg.content}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
 
                             {loading && (
                                 <div className={`${styles.messageRow} ${styles.assistantRow}`}>
-                                    <div className={styles.avatar}>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                            <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        </svg>
-                                    </div>
                                     <div className={`${styles.bubble} ${styles.assistantBubble}`}>
                                         <div className={styles.typingIndicator}>
                                             <span></span><span></span><span></span>
                                         </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {isPanel && children && (
+                                <div className={`${styles.messageRow} ${styles.assistantRow} ${styles.inlinePanelRow}`}>
+                                    <div className={styles.inlinePanelCard}>
+                                        {children}
                                     </div>
                                 </div>
                             )}
@@ -188,7 +189,6 @@ const ChatBot = forwardRef(({
                 </div>
             )}
 
-            {/* Input Area */}
             <div className={`${styles.inputArea} ${isSheetExpanded ? styles.sheetInputRow : ''}`}>
                 <form onSubmit={handleSubmit} className={styles.inputForm} onClick={handleExpand}>
                     <textarea
@@ -212,8 +212,9 @@ const ChatBot = forwardRef(({
                                 <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" strokeDasharray="31.4" strokeDashoffset="10" strokeLinecap="round"/>
                             </svg>
                         ) : (
-                            <svg className={styles.sendIcon} viewBox="0 0 24 24" fill="none">
-                                <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <svg className={styles.sendIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/>
+                                <path d="m21.854 2.147-10.94 10.939"/>
                             </svg>
                         )}
                     </button>
