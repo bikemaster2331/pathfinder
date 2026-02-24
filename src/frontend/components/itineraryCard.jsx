@@ -723,9 +723,6 @@ const PreferenceCard = ({
                                 <div className={styles.walletLabel}>
                                     {timeWallet.label}
                                 </div>
-                                <div className={styles.walletSubtext}>
-                                    {timeWallet.subtext}
-                                </div>
                             </div>
                         </div>
                         
@@ -737,10 +734,6 @@ const PreferenceCard = ({
                                     backgroundColor: timeWallet.color,
                                 }}
                             ></div>
-                        </div>
-                        <div className={styles.statsRow}>
-                            <span className={styles.statBadge}>{addedSpots?.length || 0} Stops</span>
-                            <span className={styles.statBadge}>{totalDistance} km</span>
                         </div>
                     </div>
                     
@@ -906,14 +899,6 @@ const PreferenceCard = ({
                         </button>
                     </div>
 
-                    {!isLastDay && (
-                        <div 
-                            onClick={handleSaveItinerary}
-                            className={styles.finishLink}
-                        >
-                            (Or finish and save itinerary now)
-                        </div>
-                    )}
                 </div>
 
             </div>

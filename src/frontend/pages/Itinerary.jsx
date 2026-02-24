@@ -39,6 +39,7 @@ const PreviewWidget = ({
     handleSaveItinerary
 }) => {
     const [expanded, setExpanded] = useState(isLatest);
+    const isNextAction = dayCount > 1 && !isLastDay;
 
     // Auto-collapse older widgets when a new one is added to the chat
     useEffect(() => {
@@ -98,8 +99,7 @@ const PreviewWidget = ({
 
     return (
         <aside 
-            className={`${styles.mapExpandedPreviewBox} ${styles.desktopChatPreviewBox}`} 
-            style={!expanded ? { height: 'auto', minHeight: 'auto', paddingBottom: '0' } : {}}
+            className={`${styles.mapExpandedPreviewBox} ${styles.desktopChatPreviewBox} ${expanded ? styles.mapExpandedPreviewExpanded : styles.mapExpandedPreviewCollapsed}`}
         >
             <div 
                 className={styles.mapExpandedPreviewHeader} 
@@ -110,13 +110,6 @@ const PreviewWidget = ({
                 <div className={styles.mapExpandedPreviewHeaderActions}>
                     <span className={styles.mapExpandedPreviewCount}>{spots.length} spot{spots.length === 1 ? '' : 's'}</span>
                     
-                    {/* Expand/Collapse Chevron */}
-                    {expanded ? (
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                    ) : (
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    )}
-
                     {expanded && (
                         <button
                             type="button"
@@ -129,43 +122,47 @@ const PreviewWidget = ({
                             </svg>
                         </button>
                     )}
+
+                    {/* Expand/Collapse Chevron */}
+                    {expanded ? (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    ) : (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    )}
                 </div>
             </div>
             {expanded && (
-                <div className={`${styles.mapExpandedPreviewList} ${cardStyles.addedSpotsList}`}>
-                    <div className={cardStyles.previewHeader}>
-                        <div className={cardStyles.previewHeaderTitleGroup}>
-                            <h3 className={`${cardStyles.boxTitle} ${cardStyles.previewHeaderTitle}`}>
-                                Day {currentDay} of {dayCount}
-                            </h3>
-                        </div>
-                    </div>
-
-                    <div className={cardStyles.walletContainer}>
-                        <div className={cardStyles.walletHeader}>
-                            <div className={cardStyles.walletStatusGroup}>
-                                <div className={cardStyles.walletLabel}>{timeWallet.label}</div>
-                                <div className={cardStyles.walletSubtext}>{timeWallet.subtext}</div>
+                <div className={styles.mapExpandedPreviewList}>
+                    <div className={styles.mapExpandedTopRow}>
+                        <div className={`${cardStyles.previewHeader} ${styles.mapExpandedTitleHeader}`}>
+                            <div className={cardStyles.previewHeaderTitleGroup}>
+                                <h3 className={`${cardStyles.boxTitle} ${cardStyles.previewHeaderTitle}`}>
+                                    Day {currentDay} of {dayCount}
+                                </h3>
                             </div>
                         </div>
-                        <div className={cardStyles.walletBarTrack}>
-                            <div
-                                className={cardStyles.walletBarFill}
-                                style={{
-                                    width: `${timeWallet.percent}%`,
-                                    backgroundColor: timeWallet.color,
-                                }}
-                            />
-                        </div>
-                        <div className={cardStyles.statsRow}>
-                            <span className={cardStyles.statBadge}>{spots?.length || 0} Stops</span>
-                            <span className={cardStyles.statBadge}>{totalDistance} km</span>
+                        <div className={`${cardStyles.walletContainer} ${styles.mapExpandedWalletCompact}`}>
+                            <div className={`${cardStyles.walletHeader} ${styles.mapExpandedWalletHeader}`}>
+                                <div className={cardStyles.walletStatusGroup}>
+                                    <div className={cardStyles.walletLabel}>{timeWallet.label}</div>
+                                </div>
+                            </div>
+                            <div className={cardStyles.walletBarTrack}>
+                                <div
+                                    className={cardStyles.walletBarFill}
+                                    style={{
+                                        width: `${timeWallet.percent}%`,
+                                        backgroundColor: timeWallet.color,
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
 
-                    {spots && spots.length > 0 ? (
-                        spots.map((spot, index) => (
-                            <div key={`${spot.name}-${index}`}>
+                    <div className={styles.mapExpandedSpotsScroll}>
+                        {spots && spots.length > 0 ? (
+                            spots.map((spot, index) => (
+                                <div key={`${spot.name}-${index}`}>
                                 {driveData[index]?.driveTime > 0 && (
                                     <div
                                         className={cardStyles.driveTimeLabel}
@@ -260,19 +257,20 @@ const PreviewWidget = ({
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p className={cardStyles.previewContent}>
-                            Day {currentDay} wallet is empty. Select a pin to add.
-                        </p>
-                    )}
+                                </div>
+                            ))
+                        ) : (
+                            <p className={cardStyles.previewContent}>
+                                Day {currentDay} wallet is empty. Select a pin to add.
+                            </p>
+                        )}
+                    </div>
 
-                    <div className={cardStyles.bottomButtonRow}>
+                    <div className={`${cardStyles.bottomButtonRow} ${styles.mapExpandedActionRow}`}>
                         {currentDay > 1 && (
                             <button
                                 onClick={handlePreviousDay}
-                                className={`${cardStyles.saveButton} ${cardStyles.backButton}`}
+                                className={`${cardStyles.saveButton} ${cardStyles.backButton} ${styles.mapExpandedBackAction}`}
                                 style={{ backgroundColor: '#4B5563' }}
                                 title="Go back to previous day"
                             >
@@ -281,33 +279,14 @@ const PreviewWidget = ({
                         )}
 
                         <button
-                            className={cardStyles.saveButton}
-                            onClick={isLastDay ? handleSaveItinerary : handleSliceAndNext}
-                            style={{ backgroundColor: isLastDay ? '#2563EB' : undefined, flex: 1 }}
+                            className={`${cardStyles.saveButton} ${cardStyles.previewPrimaryAction} ${styles.mapExpandedPrimaryAction}`}
+                            onClick={isNextAction ? handleSliceAndNext : handleSaveItinerary}
+                            style={{ backgroundColor: isNextAction ? undefined : '#2563EB' }}
                         >
-                            {isLastDay ? (
-                                <>
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                                        <polyline points="7 3 7 8 15 8"></polyline>
-                                    </svg>
-                                    Save
-                                </>
-                            ) : (
-                                <>
-                                    Complete Day {currentDay} & Next
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 17 5-5-5-5"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/></svg>
-                                </>
-                            )}
+                            {isNextAction ? 'Next' : 'Save'}
                         </button>
                     </div>
 
-                    {!isLastDay && (
-                        <div onClick={handleSaveItinerary} className={cardStyles.finishLink}>
-                            (Or finish and save itinerary now)
-                        </div>
-                    )}
                 </div>
             )}
         </aside>
