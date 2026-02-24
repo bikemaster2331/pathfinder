@@ -476,7 +476,6 @@
 .expandBtn:hover {
     background: var(--itinerary-card-surface-12);
     border-color: var(--itinerary-card-surface-20);
-    transform: translateY(-1px);
 }
 
 .expandBtn:active {
@@ -555,7 +554,6 @@
 .reviewBox.reviewBoxExpanded .addSpot:hover {
     background: linear-gradient(135deg, var(--itinerary-card-accent-green-dark) 0%, var(--itinerary-card-accent-green-darker) 100%);
     box-shadow: 0 4px 12px var(--itinerary-card-accent-green-40);
-    transform: translateY(-2px);
 }
 
 .reviewBox.reviewBoxExpanded .addSpot:active {
@@ -580,7 +578,6 @@
 .reviewBox.reviewBoxExpanded .removeSpotMain:hover {
     background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
     box-shadow: 0 4px 12px var(--itinerary-card-accent-red-40);
-    transform: translateY(-2px);
 }
 
 .reviewBox.reviewBoxExpanded .removeSpotMain:active {
@@ -662,7 +659,6 @@
 .addSpot:hover {
     background: linear-gradient(135deg, var(--itinerary-card-accent-green-dark) 0%, var(--itinerary-card-accent-green-darker) 100%);
     box-shadow: 0 4px 12px var(--itinerary-card-accent-green-30);
-    transform: translateY(-2px);
 }
 
 .addSpot:active {
@@ -686,7 +682,6 @@
 .removeSpotMain:hover {
     background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
     box-shadow: 0 4px 12px var(--itinerary-card-accent-red-30);
-    transform: translateY(-2px);
 }
 
 .removeSpotMain:active {
@@ -732,7 +727,7 @@
 
 .bottomButtonRow {
     display: flex;
-    gap: 10px;
+    gap: 6px;
     margin-top: 10px;
     width: 100%;
 }
@@ -802,7 +797,6 @@
     background: var(--itinerary-card-surface-08);
     border-color: var(--itinerary-card-surface-20);
     color: var(--itinerary-card-text-90);
-    transform: translateY(-1px);
 }
 
 .optimizeBtnSmall:active {
@@ -1115,7 +1109,6 @@
 .saveButton:hover {
     background: linear-gradient(135deg, var(--itinerary-card-accent-blue-dark) 0%, var(--itinerary-card-accent-blue-darker) 100%);
     box-shadow: 0 4px 12px var(--itinerary-card-accent-blue-40);
-    transform: translateY(-2px);
 }
 
 .saveButton:active {
@@ -1223,7 +1216,6 @@
 .modalBtnConfirm:hover {
     background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
     box-shadow: 0 4px 12px var(--itinerary-card-accent-red-40);
-    transform: translateY(-1px);
 }
 
 .modalBtnConfirm:active {
