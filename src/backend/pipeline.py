@@ -840,9 +840,10 @@ class Pipeline:
                     query_lower = user_input.lower()
                     wants_top_spots = any(word in query_lower for word in ['best', 'top', 'must see', 'must-see', 'recommended'])
                     
-                    if wants_top_spots and name in self.config.get('places', {}):
+                    original_name = meta.get('place_name', '')
+                    if wants_top_spots and original_name in self.config.get('places', {}):
                         # If it's a known place, ensure it is considered a "top 10" spot
-                        if not self.config['places'][name].get('is_top_10', False):
+                        if not self.config['places'][original_name].get('is_top_10', False):
                             continue
                     
                     if specific_places_found:

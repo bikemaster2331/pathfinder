@@ -268,7 +268,7 @@ const Map = forwardRef((props, ref) => {
 
         // Filters for unclustered points in the clustered source
         const standardFilter = ['all', ['!', ['has', 'point_count']], ...commonCriteria, ['!', ['to-boolean', ['get', 'is_top_10']]]];
-        const top10Filter = ['all', ['!', ['has', 'point_count']], ...commonCriteria, ['to-boolean', ['get', 'is_top_10']]];
+        const top10Filter = ['all', ...commonCriteria];
 
         try {
             if (map.current.getLayer('tourist-dots')) map.current.setFilter('tourist-dots', standardFilter);
@@ -577,21 +577,30 @@ const Map = forwardRef((props, ref) => {
                     const t = f.geometry?.type;
                     return t === 'Polygon' || t === 'MultiPolygon';
                 });
-                const pointFeatures = allData.features.filter(f => f.geometry?.type === 'Point');
+
+                const regularPointFeatures = allData.features.filter(f => f.geometry?.type === 'Point' && !f.properties?.is_top_10);
+                const top10PointFeatures = allData.features.filter(f => f.geometry?.type === 'Point' && f.properties?.is_top_10);
 
                 const polygonData = { ...allData, features: polygonFeatures };
-                const pointData = { ...allData, features: pointFeatures };
+                const regularPointData = { ...allData, features: regularPointFeatures };
+                const top10PointData = { ...allData, features: top10PointFeatures };
 
                 // Polygon source (no clustering)
                 map.current.addSource('all-data', { type: 'geojson', data: polygonData });
 
-                // Clustered point source
+                // Clustered point source (for non-top-10 points)
                 map.current.addSource('points-clustered', {
                     type: 'geojson',
-                    data: pointData,
+                    data: regularPointData,
                     cluster: true,
                     clusterMaxZoom: 12,
                     clusterRadius: 50
+                });
+
+                // Top 10 points source (NO clustering)
+                map.current.addSource('points-top10', {
+                    type: 'geojson',
+                    data: top10PointData
                 });
 
                 // --- Polygon layers (unchanged, use 'all-data') ---
@@ -728,8 +737,7 @@ const Map = forwardRef((props, ref) => {
                 map.current.addLayer({
                     id: 'top-10-points',
                     type: 'symbol',
-                    source: 'points-clustered',
-                    filter: ['all', ['!', ['has', 'point_count']], ['to-boolean', ['get', 'is_top_10']]],
+                    source: 'points-top10',
                     layout: {
                         'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible',
                         'icon-image': 'icon-top10',
@@ -829,7 +837,7 @@ const Map = forwardRef((props, ref) => {
                     if (!map.current) return;
 
                     const features = map.current.queryRenderedFeatures(e.point, {
-                        layers: ['tourist-points', 'top-10-points']
+                        layers: ['tourist-points', 'top-10-points', 'clusters']
                     });
 
                     if (features.length > 0) return;

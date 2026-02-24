@@ -580,23 +580,29 @@
 .locationChip {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 5px 12px 5px 8px;
-    border-radius: 999px;
-    border: 1px solid rgba(34, 211, 238, 0.25);
-    background: rgba(34, 211, 238, 0.08);
-    color: #22d3ee;
-    font-size: 0.76rem;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    /* Rounded rectangle instead of pill */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #111827;
+    /* Dark background */
+    color: #f3f4f6;
+    /* Light gray text */
+    font-size: 0.8rem;
     font-family: inherit;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.18s ease;
+    transition: all 0.2s ease;
     white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .locationChip:hover {
-    background: rgba(34, 211, 238, 0.18);
-    border-color: rgba(34, 211, 238, 0.4);
+    background: #1f2937;
+    border-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .locationChip:active {
@@ -611,32 +617,38 @@
 
 .locationChipName {
     font-weight: 500;
-    color: #e2e8f0;
+    color: #f8fafc;
 }
 
 .locationChipType {
     font-size: 0.68rem;
-    color: rgba(148, 163, 184, 0.6);
-    font-weight: 400;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
     margin-left: 2px;
+    color: rgba(248, 250, 252, 0.85);
 }
 
 :global([data-theme='light']) .locationChip {
-    border-color: rgba(14, 165, 233, 0.2);
-    background: rgba(14, 165, 233, 0.06);
-    color: #0ea5e9;
+    border-color: rgba(0, 0, 0, 0.1);
+    background: #0f172a;
+    color: #f8fafc;
 }
 
 :global([data-theme='light']) .locationChipName {
-    color: #0f172a;
+    color: #f8fafc;
 }
 
 :global([data-theme='light']) .locationChipType {
-    color: rgba(71, 85, 105, 0.6);
+    color: rgba(248, 250, 252, 0.85);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 :global([data-theme='light']) .locationChip:hover {
-    background: rgba(14, 165, 233, 0.12);
+    background: #1e293b;
     border-color: rgba(14, 165, 233, 0.35);
 }
 
@@ -754,49 +766,13 @@
 /*
   Keyboard input modal overlay
 */
-.keyboardModalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 999998;
-    /* Sits behind the keyboard (999999) and modal (1000000) */
-}
 
-:global([data-theme='light']) .keyboardModalOverlay {
-    background: rgba(255, 255, 255, 0.45);
-}
 
+:global([data-theme='light'])
 /*
   Keyboard input modal
 */
-.keyboardInputModal {
-    position: fixed;
-    top: 0;
-    bottom: 400px;
-    margin: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    height: max-content;
-    width: 680px;
-    max-width: calc(100vw - 40px);
-    background: rgba(15, 23, 42, 0.45);
-    /* Made more transparent to show blur */
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    padding: 32px;
-    /* Increased padding */
-    z-index: 1000000;
-    display: flex;
-    flex-direction: column;
-}
+
 
 /* Pseudo-element for stronger blur support on some older Safari/iOS versions if needed */
 .keyboardInputModal::before {
@@ -812,16 +788,7 @@
     z-index: -1;
 }
 
-:global([data-theme='light']) .keyboardInputModal {
-    background: rgba(255, 255, 255, 0.45);
-    /* Made more transparent to show blur */
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.02);
-}
-
-.keyboardInputModal .chatInput {
+:global([data-theme='light']) .keyboardInputModal .chatInput {
     font-size: 1.4rem;
     /* Increased text size */
     padding: 12px 0;

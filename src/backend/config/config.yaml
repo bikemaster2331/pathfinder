@@ -231,22 +231,32 @@ places:
     lat: 13.691946453490571
     lng: 124.39881786785304
     type: swimming
+    is_top_10: true
   "Binurong Point":
     lat: 13.668995411184893
     lng: 124.41449841008455
     type: sightseeing
+    is_top_10: true
   "Maribina Falls":
     lat: 13.601708685295064
     lng: 124.2706945272802
     type: sightseeing
+    is_top_10: true
   "Mamangal Beach":
     lat: 13.555007904907587
     lng: 124.14923064840366
     type: swimming
+    is_top_10: true
+  "Tampad Beach":
+    lat: 13.565406
+    lng: 124.141548
+    type: swimming
+    is_top_10: true
   "Twin Rock Beach Resort":
     lat: 13.522663495166062
     lng: 124.21269059659129
     type: accommodation
+    is_top_10: true
   "ARDCI Corporate Inn":
     lat: 13.5812552
     lng: 124.2301155
@@ -331,10 +341,12 @@ places:
     lat: 14.058643378491052
     lng: 124.12659986379072
     type: sightseeing
+    is_top_10: true
   "Nahulugan Falls":
     lat: 13.788640961723846
     lng: 124.36779102542982
     type: sightseeing
+    is_top_10: true
   "Tres Karas de Kristo/Face of Jesus Beach":
     lat: 13.518763507546256
     lng: 124.20595165635922
@@ -363,6 +375,7 @@ places:
     lat: 14.058633006081989
     lng: 124.12664279629792
     type: sightseeing
+    is_top_10: true
   "Cagnipa Rolling Hills":
     lat: 14.058967828263247
     lng: 124.12870453862769
@@ -379,6 +392,7 @@ places:
     lat: 13.75387978940785
     lng: 124.38320715026808
     type: sightseeing
+    is_top_10: true
   "Nupa Green Lagoon":
     lat: 13.75714325500738
     lng: 124.40409028095019
@@ -571,6 +585,7 @@ places:
     lat: 13.610732662974675
     lng: 124.29703491581695
     type: culture
+    is_top_10: true
   "Mount Pinagkaayonan (Lantad)":
     lat: 13.606679398378262
     lng: 124.27824218655604
@@ -603,6 +618,7 @@ places:
     lat: 13.983298993332824
     lng: 124.13504960530524
     type: culture
+    is_top_10: true
   "Coco Beach Resort":
     lat: 13.981994139846373
     lng: 124.13097456746102
