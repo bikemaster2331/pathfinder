@@ -901,6 +901,10 @@ const Map = forwardRef((props, ref) => {
                     outline: 'none'
                 }}
             />
+            <div
+                className={`${styles.blurOverlay} ${isMenuOpen ? styles.blurOverlayActive : ''}`}
+                onClick={() => isMenuOpen && onToggleMenu && onToggleMenu()}
+            />
             {!CLEAN_MAP_SCREENSHOT_MODE && (
                 <div className={styles.topControls}>
                     <button

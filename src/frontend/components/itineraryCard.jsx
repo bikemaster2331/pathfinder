@@ -903,12 +903,12 @@ const PreferenceCard = ({
                             )}
                         </button>
                     </div>
-                </div>
+                </div >
 
-            </div>
+            </div >
 
             {/* FULLSCREEN IMAGE MODAL LAYER */}
-            <AnimatePresence>
+            < AnimatePresence >
                 {isImageFullscreen && (
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -980,9 +980,9 @@ const PreferenceCard = ({
                         </button>
                     </motion.div>
                 )}
-            </AnimatePresence>
+            </AnimatePresence >
 
-        </div>
+        </div >
     );
 }
 

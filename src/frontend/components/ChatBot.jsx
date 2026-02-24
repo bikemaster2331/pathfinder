@@ -374,7 +374,6 @@ const ChatBot = forwardRef(({
                         ) : (
                             <div className={styles.messageList}>
                                 {messages.map((msg, i) => {
-                                    // NEW LOGIC: Render dynamic widget components directly in the flow
                                     if (msg.role === 'widget') {
                                         return (
                                             <div key={i} className={`${styles.messageRow} ${styles.assistantRow} ${styles.inlinePanelRow}`}>
@@ -475,16 +474,16 @@ const ChatBot = forwardRef(({
                                 </svg>
                             )}
                         </button>
-                    </form>
+                    </form >
                     {isSheetExpanded && formAccessory && (
                         <div className={styles.sheetAccessory}>
                             {formAccessory}
                         </div>
                     )}
-                </div>
+                </div >
 
                 {isSheet && children}
-            </div>
+            </div >
 
             {showKeyboard && (
                 <>

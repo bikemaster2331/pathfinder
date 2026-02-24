@@ -447,6 +447,9 @@
 .sendIcon {
     width: 16px;
     height: 16px;
+    display: block;
+    flex-shrink: 0;
+    transform: translate(-0.5px, -0.5px);
 }
 
 /* ================================
@@ -742,15 +745,46 @@
     min-height: 50px;
 }
 
+.keyboardInputModal .chatInput::placeholder {
+    font-size: 1.05rem;
+}
+
+.modalChatInput {
+    height: 88px;
+    min-height: 88px;
+    max-height: 88px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.55) transparent;
+    scrollbar-gutter: stable;
+}
+
+.modalChatInput::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+}
+
+.modalChatInput::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 999px;
+}
+
+.modalChatInput::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.5);
+    border-radius: 999px;
+}
+
+.modalChatInput::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.65);
+}
+
 .keyboardInputModal .sendBtn {
     width: 52px;
-    /* Increased size */
     height: 52px;
 }
 
 .keyboardInputModal .sendIcon {
     width: 24px;
-    /* Increased icon size */
     height: 24px;
 }
 

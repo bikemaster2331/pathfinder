@@ -52,6 +52,10 @@ const PreviewWidget = ({
         return calculateDriveTimes(activeHub, spots);
     }, [activeHub, spots]);
 
+    const totalDistance = useMemo(() => {
+        if (!activeHub || !spots || spots.length === 0) return 0;
+        return calculateTotalRoute(activeHub, spots);
+    }, [activeHub, spots]);
     const timeWallet = useMemo(() => {
         if (!activeHub) {
             return {
@@ -105,21 +109,6 @@ const PreviewWidget = ({
                 <h3 className={styles.mapExpandedPreviewTitle}>Itinerary Preview</h3>
                 <div className={styles.mapExpandedPreviewHeaderActions}>
                     <span className={styles.mapExpandedPreviewCount}>{spots.length} spot{spots.length === 1 ? '' : 's'}</span>
-
-                    {expanded && (
-                        <button
-                            type="button"
-                            onClick={(e) => { e.stopPropagation(); handleOptimize(); }}
-                            className={cardStyles.optimizeBtnSmall}
-                            title="Fix my route order"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
-                                <path d="M230.86,109.25,169.18,86.82,146.75,25.14a19.95,19.95,0,0,0-37.5,0L86.82,86.82,25.14,109.25a19.95,19.95,0,0,0,0,37.5l61.68,22.43,22.43,61.68a19.95,19.95,0,0,0,37.5,0l22.43-61.68,61.68-22.43a19.95,19.95,0,0,0,0-37.5Zm-75.14,39.29a12,12,0,0,0-7.18,7.18L128,212.21l-20.54-56.49a12,12,0,0,0-7.18-7.18L43.79,128l56.49-20.54a12,12,0,0,0,7.18-7.18L128,43.79l20.54,56.49a12,12,0,0,0,7.18,7.18L212.21,128Z" />
-                            </svg>
-                        </button>
-                    )}
-
-                    {/* Expand/Collapse Chevron */}
                     {expanded ? (
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
                     ) : (
@@ -260,7 +249,7 @@ const PreviewWidget = ({
                                 Day {currentDay} wallet is empty. Select a pin to add.
                             </p>
                         )}
-                    </div>
+                    </div >
 
                     <div className={`${cardStyles.bottomButtonRow} ${styles.mapExpandedActionRow}`}>
                         {currentDay > 1 && (
@@ -271,7 +260,7 @@ const PreviewWidget = ({
                                 title="Go back to previous day"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
-                            </button>
+                            </button >
                         )}
 
                         <button
@@ -281,10 +270,10 @@ const PreviewWidget = ({
                         >
                             {isNextAction ? 'Next' : 'Save'}
                         </button>
-                    </div>
-                </div>
+                    </div >
+                </div >
             )}
-        </aside>
+        </aside >
     );
 };
 
@@ -321,7 +310,6 @@ export default function ItineraryPage() {
         const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
         return days > 0 ? days : 1;
     }, [dateRange]);
-
     const isLastDay = currentDay >= dayCount;
     useEffect(() => {
         const saved = sessionStorage.getItem('itinerary_dateRange');
@@ -347,7 +335,6 @@ export default function ItineraryPage() {
     useEffect(() => {
         sessionStorage.setItem('itinerary_dateRange', JSON.stringify(dateRange));
     }, [dateRange]);
-
     // Chat State Lifted to Parent
     const [chatMessages, setChatMessages] = useState([]);
 
@@ -713,9 +700,9 @@ export default function ItineraryPage() {
     });
 
     return (
-        <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${!isInitialTripboxCompleted ? styles.itineraryContainerBoot : ''}`}>
+        <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''}`}>
             <div className={styles.gradientBg} />
-            {!isMobile && isInitialTripboxCompleted && (
+            {!isMobile && (
                 <aside className={styles.desktopChatContainer}>
                     <div className={styles.desktopChatHeader}>
                         <span className={styles.desktopChatTitle}>PATHFINDER</span>
@@ -734,7 +721,7 @@ export default function ItineraryPage() {
             )}
 
             {/* Map Container with Controls */}
-            <div className={`${styles.mapArea} ${isMapFullscreen ? styles.mapAreaFullscreen : ''} ${!isInitialTripboxCompleted ? styles.mapAreaBoot : ''}`}>
+            <div className={`${styles.mapArea} ${isMapFullscreen ? styles.mapAreaFullscreen : ''}`}>
                 <MapWrapper
                     ref={mapRef}
                     selectedActivities={selectedActivities}
