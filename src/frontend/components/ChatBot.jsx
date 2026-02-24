@@ -469,6 +469,7 @@ const ChatBot = forwardRef(({
                                 placeholder="Ask Pathfinder..."
                                 className={styles.chatInput}
                                 disabled={loading}
+                                readOnly={true} /* Prevent native OS keyboard from popping up */
                             />
                             <button
                                 type="submit"
