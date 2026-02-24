@@ -99,8 +99,8 @@
 .reviewBoxExpanded {
     flex: 1 1 100% !important;
     border-radius: 16px;
-    box-shadow: 0 20px 60px var(--itinerary-card-shadow-50), 
-                0 0 0 1px var(--itinerary-card-surface-05);
+    box-shadow: 0 20px 60px var(--itinerary-card-shadow-50),
+        0 0 0 1px var(--itinerary-card-surface-05);
     z-index: 50;
     background: linear-gradient(to bottom,
             var(--itinerary-card-shadow-40) 0%,
@@ -113,8 +113,8 @@
 
 .reviewBox:hover:not(.reviewBoxExpanded) {
     transform: translateY(-2px);
-    box-shadow: 0 12px 24px var(--itinerary-card-shadow-40), 
-                0 0 0 1px var(--itinerary-card-surface-08);
+    box-shadow: 0 12px 24px var(--itinerary-card-shadow-40),
+        0 0 0 1px var(--itinerary-card-surface-08);
     border-color: var(--itinerary-card-surface-12);
     z-index: 20;
 }
@@ -125,7 +125,7 @@
     left: 0;
     width: 100%;
     height: 30vh;
-    z-index: 0;
+    z-index: 5;
     border-radius: 12px;
     overflow: hidden;
     box-sizing: border-box;
@@ -142,10 +142,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;
+    z-index: 6;
     border-radius: 12px;
     box-sizing: border-box;
     transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: zoom-in;
+    pointer-events: auto;
 }
 
 .reviewBoxOverlay {
@@ -154,7 +156,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 7;
     pointer-events: none;
     background: linear-gradient(to top, var(--itinerary-card-shadow-60) 0%, var(--itinerary-card-transparent) 100%);
     border-radius: 12px;
@@ -171,12 +173,10 @@
     z-index: 2;
     border-radius: 12px;
     box-sizing: border-box;
-    background: linear-gradient(
-        110deg,
-        var(--itinerary-card-surface-08) 8%,
-        var(--itinerary-card-surface-15) 18%,
-        var(--itinerary-card-surface-08) 33%
-    );
+    background: linear-gradient(110deg,
+            var(--itinerary-card-surface-08) 8%,
+            var(--itinerary-card-surface-15) 18%,
+            var(--itinerary-card-surface-08) 33%);
     background-size: 200% 100%;
     animation: reviewSkeleton 1.2s ease-in-out infinite;
     pointer-events: none;
@@ -187,8 +187,13 @@
 }
 
 @keyframes reviewSkeleton {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 .reviewBoxExpanded .reviewImageFrame {
@@ -351,6 +356,11 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    pointer-events: none;
+}
+
+.reviewContent>* {
+    pointer-events: auto;
 }
 
 .reviewHeaderRow {
@@ -845,8 +855,8 @@
 
 .walletBarFill {
     height: 100%;
-    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                background-color 0.5s ease;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.5s ease;
     border-radius: 3px;
 }
 
@@ -1617,7 +1627,7 @@
         left: auto;
         right: auto;
     }
-    
+
     .reviewBox.reviewBoxExpanded .boxTitle {
         font-size: 1.2rem;
         padding: 0;

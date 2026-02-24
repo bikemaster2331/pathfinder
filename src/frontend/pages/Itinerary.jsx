@@ -127,7 +127,10 @@ export default function ItineraryPage() {
     const [allSpots, setAllSpots] = useState(null);
     const [addedSpots, setAddedSpots] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState(null);
-    const [activeHub, setActiveHub] = useState(null);
+    const [activeHub, setActiveHub] = useState(() => {
+        const saved = localStorage.getItem('itinerary_activeHub');
+        return saved ? JSON.parse(saved) : null;
+    });
     const [budgetFilter, setBudgetFilter] = useState(['low', 'medium', 'high']);
     const [selectedActivities, setSelectedActivities] = useState({
         Accommodation: false, Dining: false, Sightseeing: false,
@@ -135,8 +138,35 @@ export default function ItineraryPage() {
     });
 
     const [budget, setBudget] = useState(50);
-    const [destination, setDestination] = useState('');
-    const [dateRange, setDateRange] = useState({ start: '', end: '' });
+    const [destination, setDestination] = useState(() => {
+        const saved = localStorage.getItem('itinerary_destination');
+        return saved ? saved : '';
+    });
+    const [dateRange, setDateRange] = useState(() => {
+        const saved = localStorage.getItem('itinerary_dateRange');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            return {
+                start: parsed.start ? new Date(parsed.start) : '',
+                end: parsed.end ? new Date(parsed.end) : ''
+            };
+        }
+        return { start: '', end: '' };
+    });
+
+    useEffect(() => {
+        if (activeHub) localStorage.setItem('itinerary_activeHub', JSON.stringify(activeHub));
+        else localStorage.removeItem('itinerary_activeHub');
+    }, [activeHub]);
+
+    useEffect(() => {
+        if (destination) localStorage.setItem('itinerary_destination', destination);
+        else localStorage.removeItem('itinerary_destination');
+    }, [destination]);
+
+    useEffect(() => {
+        localStorage.setItem('itinerary_dateRange', JSON.stringify(dateRange));
+    }, [dateRange]);
 
     // Chat State Lifted to Parent
     const [chatMessages, setChatMessages] = useState([]);
@@ -148,7 +178,6 @@ export default function ItineraryPage() {
     const [isMobile, setIsMobile] = useState(false);
     const [isMapFullscreen, setIsMapFullscreen] = useState(false);
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
-    const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
 
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
@@ -482,12 +511,6 @@ export default function ItineraryPage() {
                                     src={selectedLocation?.image || defaultBg}
                                     alt={selectedLocation?.name || 'Catanduanes'}
                                     className={styles.mapExpandedReviewImage}
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => {
-                                        if (selectedLocation?.image) {
-                                            setIsImageModalOpen(true);
-                                        }
-                                    }}
                                     onError={(e) => { e.currentTarget.src = defaultBg; }}
                                 />
                             </div>
@@ -514,21 +537,6 @@ export default function ItineraryPage() {
                                 </button>
                             </div>
                         </aside>
-
-                        {/* Image Fullscreen Modal */}
-                        {isImageModalOpen && selectedLocation?.image && (
-                            <div
-                                className={styles.fullscreenImageModal}
-                                onClick={() => setIsImageModalOpen(false)}
-                            >
-                                <div className={styles.fullscreenImageModalClose}>&times;</div>
-                                <img
-                                    src={selectedLocation.image}
-                                    alt={selectedLocation.name}
-                                    onClick={(e) => e.stopPropagation()}
-                                />
-                            </div>
-                        )}
                     </>
                 )}
             </div>

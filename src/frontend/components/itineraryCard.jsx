@@ -2,16 +2,16 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TRAVEL_HUBS } from '../constants/location';
 import styles from '../styles/itinerary_page/ItineraryCard.module.css';
-import { calculateDistance, calculateTotalRoute, calculateDriveTimes, calculateTimeUsage } from '../utils/distance'; 
+import { calculateDistance, calculateTotalRoute, calculateDriveTimes, calculateTimeUsage } from '../utils/distance';
 import { optimizeRoute } from '../utils/optimize';
 import { generateItineraryPDF } from '../utils/generatePDF';
 import defaultBg from '../assets/images/card/catanduanes.png';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const PreferenceCard = ({ 
+const PreferenceCard = ({
     selectedLocation,
     setSelectedLocation,
-    addedSpots,   
+    addedSpots,
     setAddedSpots,
     onAddSpot,
     onRemoveSpot,
@@ -31,10 +31,10 @@ const PreferenceCard = ({
     // --- MULTI-DAY STATE ---
     const [currentDay, setCurrentDay] = useState(1);
     const [storedDays, setStoredDays] = useState({});
-    
+
     // --- WARNING MODAL STATE ---
     const [showOverloadWarning, setShowOverloadWarning] = useState(false);
-    const [warningDismissed, setWarningDismissed] = useState(false); 
+    const [warningDismissed, setWarningDismissed] = useState(false);
 
     const isAlreadyAdded = selectedLocation && addedSpots.some(spot => spot.name === selectedLocation.name);
     const isHubSelected = Boolean(activeHubName && activeHubName !== "");
@@ -59,7 +59,7 @@ const PreferenceCard = ({
 
     const distanceFromHub = useMemo(() => {
         if (!selectedLocation || !activeHubName) return null;
-        const hub = TRAVEL_HUBS[activeHubName]; 
+        const hub = TRAVEL_HUBS[activeHubName];
         if (!hub || !hub.coordinates || !selectedLocation.geometry || !selectedLocation.geometry.coordinates) return null;
         return calculateDistance(hub.coordinates, selectedLocation.geometry.coordinates);
     }, [selectedLocation, activeHubName]);
@@ -80,6 +80,7 @@ const PreferenceCard = ({
     const [localMobilePanel, setLocalMobilePanel] = useState('review');
     const [reviewImageSrc, setReviewImageSrc] = useState(defaultBg);
     const [isReviewImageLoading, setIsReviewImageLoading] = useState(false);
+    const [isImageFullscreen, setIsImageFullscreen] = useState(false);
 
     useEffect(() => {
         const nextSrc = selectedLocation?.image || defaultBg;
@@ -122,42 +123,42 @@ const PreferenceCard = ({
 
     const timeWallet = useMemo(() => {
         const hub = TRAVEL_HUBS[activeHubName];
-        
-        if (!hub) return { 
-            totalUsed: 0, 
-            percent: 0, 
-            remaining: 540, 
-            color: 'rgb(255, 255, 255)', 
-            label: 'Schedule Empty', 
-            subtext: 'Select a starting point' 
+
+        if (!hub) return {
+            totalUsed: 0,
+            percent: 0,
+            remaining: 540,
+            color: 'rgb(255, 255, 255)',
+            label: 'Schedule Empty',
+            subtext: 'Select a starting point'
         };
 
-        const DAILY_CAPACITY = 540; 
+        const DAILY_CAPACITY = 540;
         const usage = calculateTimeUsage(hub, addedSpots);
-        const usedAmount = Number(usage?.totalUsed) || 0; 
+        const usedAmount = Number(usage?.totalUsed) || 0;
         const remaining = DAILY_CAPACITY - usedAmount;
-        
+
         let percent = (usedAmount / DAILY_CAPACITY) * 100;
-        if (percent > 100) percent = 100; 
+        if (percent > 100) percent = 100;
 
         // Dynamic Status Logic
         let color = '#10B981'; // Green
         let label = 'Relaxed pace';
         let subtext = 'Plenty of buffer (Like 9 AM start)';
-        
+
         if (remaining < 0) {
-            color = '#EF4444'; 
+            color = '#EF4444';
             label = 'Day Overloaded';
-            subtext = 'Exceeds standard 9-hour day'; 
-        } else if (remaining < 60) { 
-            color = '#F59E0B'; 
+            subtext = 'Exceeds standard 9-hour day';
+        } else if (remaining < 60) {
+            color = '#F59E0B';
             label = 'Very Full';
-            subtext = 'Aim for 6:00 AM start'; 
-        } else if (remaining < 120) { 
-            color = '#F59E0B'; 
+            subtext = 'Aim for 6:00 AM start';
+        } else if (remaining < 120) {
+            color = '#F59E0B';
             label = 'Busy Schedule';
-            subtext = 'Aim for 7-8:00 AM start'; 
-        } 
+            subtext = 'Aim for 7-8:00 AM start';
+        }
 
         return {
             used: usedAmount,
@@ -195,31 +196,31 @@ const PreferenceCard = ({
             ...prev,
             [currentDay]: [...addedSpots]
         }));
-        
+
         // 2. Calculate next day
         const nextDay = currentDay + 1;
-        setCurrentDay(nextDay); 
-        
+        setCurrentDay(nextDay);
+
         // 3. CHECK: Do we have data for this future day?
         const nextDaySpots = storedDays[nextDay];
 
         if (nextDaySpots && nextDaySpots.length > 0) {
             // YES -> Restore Memory
             setAddedSpots(nextDaySpots);
-            
+
             // Restore the "Last Pic Location" (The last spot in the list)
             const lastSpot = nextDaySpots[nextDaySpots.length - 1];
-            setSelectedLocation(lastSpot); 
+            setSelectedLocation(lastSpot);
             // Keep review box closed initially to be subtle, or open if you prefer
-            setIsReviewExpanded(false); 
+            setIsReviewExpanded(false);
 
         } else {
             // NO -> Total Amnesia (Clean Slate)
-            setAddedSpots([]); 
+            setAddedSpots([]);
             setSelectedLocation(null); // Wipe the map pin
             setIsReviewExpanded(false); // Collapse box
         }
-        
+
         // 4. Reset warnings
         setShowOverloadWarning(false);
         setWarningDismissed(false);
@@ -238,13 +239,13 @@ const PreferenceCard = ({
         // 2. Go back one day
         const prevDay = currentDay - 1;
         setCurrentDay(prevDay);
-        
+
         // 3. Restore Previous Data
         const prevDaySpots = storedDays[prevDay];
 
         if (prevDaySpots && prevDaySpots.length > 0) {
             setAddedSpots(prevDaySpots);
-            
+
             // Restore "Last Pic Location" from that day
             const lastSpot = prevDaySpots[prevDaySpots.length - 1];
             setSelectedLocation(lastSpot);
@@ -262,7 +263,7 @@ const PreferenceCard = ({
 
     const handleKeepGoing = () => {
         setShowOverloadWarning(false);
-        setWarningDismissed(true); 
+        setWarningDismissed(true);
     };
 
     const handleSaveItinerary = () => {
@@ -293,7 +294,7 @@ const PreferenceCard = ({
         generateItineraryPDF({
             activeHubName,
             dateRange,
-            addedSpots: finalItinerary, 
+            addedSpots: finalItinerary,
             totalDistance: fullTripDistance,
             driveData: fullTripDriveData
         });
@@ -391,7 +392,7 @@ const PreferenceCard = ({
                     onClick={() => onRemoveSpot(selectedLocation.name)}
                     title="Remove from itinerary"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                     </svg>
                 </button>
             );
@@ -406,7 +407,7 @@ const PreferenceCard = ({
             >
                 {isHubSelected ? (
                     <>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-plus-icon lucide-map-pin-plus"><path d="M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738"/><circle cx="12" cy="10" r="3"/><path d="M16 18h6"/><path d="M19 15v6"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-plus-icon lucide-map-pin-plus"><path d="M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738" /><circle cx="12" cy="10" r="3" /><path d="M16 18h6" /><path d="M19 15v6" /></svg>
                     </>
                 ) : (
                     <>
@@ -448,14 +449,14 @@ const PreferenceCard = ({
         const isNightTime = bestTimeRaw.includes('night') || bestTimeRaw.includes('evening') || bestTimeRaw.includes('dinner');
 
         const environmentIcon = exposure === 'indoor'
-            ? <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M5 21V7l8-4 8 4v14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 9a3 3 0 0 1 3 3v9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            ? <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><path d="M5 21V7l8-4 8 4v14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M10 9a3 3 0 0 1 3 3v9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
             : exposure === 'shaded'
-                ? <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/></svg>
-                : <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>;
+                ? <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2" /></svg>
+                : <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>;
 
-        const costIcon = <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M2 10h20" stroke="currentColor" strokeWidth="2"/></svg>;
-        const timeIcon = <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/><path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-        const locationIcon = <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" stroke="currentColor" strokeWidth="2"/><circle cx="12" cy="10" r="3" stroke="currentColor" strokeWidth="2"/></svg>;
+        const costIcon = <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2" /><path d="M2 10h20" stroke="currentColor" strokeWidth="2" /></svg>;
+        const timeIcon = <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" /><path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+        const locationIcon = <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" stroke="currentColor" strokeWidth="2" /><circle cx="12" cy="10" r="3" stroke="currentColor" strokeWidth="2" /></svg>;
 
         return [
             { key: 'environment', value: exposure.charAt(0).toUpperCase() + exposure.slice(1), icon: environmentIcon, toneClass: styles.mobileMetaToneEnvironment },
@@ -471,7 +472,7 @@ const PreferenceCard = ({
             onTouchStart={handlePanelTouchStart}
             onTouchEnd={handlePanelTouchEnd}
         >
-            
+
             {/* --- OVERLOAD MODAL --- */}
             {showOverloadWarning && (
                 <div className={styles.modalOverlay}>
@@ -481,19 +482,19 @@ const PreferenceCard = ({
                             Day {currentDay} is Full
                         </h3>
                         <p className={styles.modalText}>
-                            You have exceeded the time wallet for Day {currentDay}.<br/>
+                            You have exceeded the time wallet for Day {currentDay}.<br />
                             Do you want to slice this day here and start planning <b>Day {currentDay + 1}</b>?
                         </p>
                         <div className={styles.modalActions}>
-                            <button 
+                            <button
                                 onClick={handleKeepGoing}
                                 className={styles.modalBtnCancel}
                             >
                                 No, Keep Packing Day {currentDay}
                             </button>
-                            
+
                             {!isLastDay && (
-                                <button 
+                                <button
                                     onClick={handleSliceAndNext}
                                     className={styles.modalBtnConfirm}
                                 >
@@ -509,11 +510,13 @@ const PreferenceCard = ({
                 {/* --- REVIEW BOX (IMMERSIVE BACKGROUND) --- */}
                 <div className={`${styles.reviewBox} ${isReviewExpanded ? styles.reviewBoxExpanded : ''} ${!isReviewPanelVisible ? styles.panelHidden : ''}`}>
                     <div className={styles.reviewImageFrame}>
-                        <img    
-                            src={reviewImageSrc} 
-                            alt="Destination Preview" 
+                        <img
+                            src={reviewImageSrc}
+                            alt="Destination Preview"
                             className={styles.reviewBoxBackground}
-                            onError={(e) => { e.target.src = defaultBg; }} 
+                            style={{ cursor: 'zoom-in' }}
+                            onClick={() => setIsImageFullscreen(true)}
+                            onError={(e) => { e.target.src = defaultBg; }}
                         />
                         {isReviewImageLoading && (
                             <div className={styles.reviewBoxPlaceholder} aria-hidden="true"></div>
@@ -559,33 +562,33 @@ const PreferenceCard = ({
                             </div>
                         )}
                         {!mobileMode && (
-                        <div className={styles.reviewBottomRow}>
-                            {/* Left: Description */}
-                            <div className={styles.descriptionSection}>
-                                <p className={styles.reviewText}>
-                                    {selectedLocation 
-                                        ? (selectedLocation.description || "Explore this destination and add it to your plan.") 
-                                        : "Click a pin on the map to see details here."}
-                                </p>
-                                
-                                {/* MOVED: ADD SPOT BUTTONS (Now next to text) */}
-                                {renderSpotActionButton()}
-                            </div>
-                            
-                            {/* MOVED: EXPAND BUTTON (Now in the corner) */}
-                            {!mobileMode && (
-                                <div className={styles.actionButtonSection}>
-                                    <button className={`${styles.expandBtn} ${isReviewExpanded ? styles.btnRotatedVertical : ''}`}
-                                        onClick={handleReviewExpandToggle}
-                                        title={isReviewExpanded ? "Collapse" : "Expand Details"}
-                                        >
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
-                                        </svg>
-                                    </button>
+                            <div className={styles.reviewBottomRow}>
+                                {/* Left: Description */}
+                                <div className={styles.descriptionSection}>
+                                    <p className={styles.reviewText}>
+                                        {selectedLocation
+                                            ? (selectedLocation.description || "Explore this destination and add it to your plan.")
+                                            : "Click a pin on the map to see details here."}
+                                    </p>
+
+                                    {/* MOVED: ADD SPOT BUTTONS (Now next to text) */}
+                                    {renderSpotActionButton()}
                                 </div>
-                            )}
-                        </div>
+
+                                {/* MOVED: EXPAND BUTTON (Now in the corner) */}
+                                {!mobileMode && (
+                                    <div className={styles.actionButtonSection}>
+                                        <button className={`${styles.expandBtn} ${isReviewExpanded ? styles.btnRotatedVertical : ''}`}
+                                            onClick={handleReviewExpandToggle}
+                                            title={isReviewExpanded ? "Collapse" : "Expand Details"}
+                                        >
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M7 15l5 5 5-5M7 9l5-5 5 5" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         )}
 
                         {/* --- THE CLOSET METHOD: ANIMATED EXPANDED COMPONENTS (SMART TAGS) --- */}
@@ -596,13 +599,13 @@ const PreferenceCard = ({
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: "auto", opacity: 1 }}
                                     exit={{ height: 0, opacity: 0 }}
-                                    
+
                                     // FIX 1: Slowed down animation to 0.8s to allow UI to catch up
-                                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} 
+                                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                                     className={styles.expandedContent}
                                 >
                                     <div className={styles.expandedContentInner}>
-                                        
+
                                         {/* THE "SMART TAGS" GRID */}
                                         <div className={styles.metaHandler}>
 
@@ -611,11 +614,11 @@ const PreferenceCard = ({
                                                 <span className={styles.metaLabel}>ENVIRONMENT</span>
                                                 <div className={styles.metaRow}>
                                                     {selectedLocation?.outdoor_exposure === 'indoor' ? (
-                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M10 9a3 3 0 0 1 3 3v9"/></svg>
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2"><path d="M3 21h18" /><path d="M5 21V7l8-4 8 4v14" /><path d="M10 9a3 3 0 0 1 3 3v9" /></svg>
                                                     ) : selectedLocation?.outdoor_exposure === 'shaded' ? (
-                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2"><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><circle cx="12" cy="12" r="5"/></svg>
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2"><path d="M12 2v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><circle cx="12" cy="12" r="5" /></svg>
                                                     ) : (
-                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FCD34D" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/></svg>
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FCD34D" strokeWidth="2"><circle cx="12" cy="12" r="5" /><path d="M12 1v2" /><path d="M12 21v2" /><path d="M4.22 4.22l1.42 1.42" /><path d="M18.36 18.36l1.42 1.42" /><path d="M1 12h2" /><path d="M21 12h2" /><path d="M4.22 19.78l1.42-1.42" /><path d="M18.36 5.64l1.42-1.42" /></svg>
                                                     )}
                                                     <span className={styles.metaValueCaps}>
                                                         {selectedLocation?.outdoor_exposure || 'Outdoor'}
@@ -627,10 +630,10 @@ const PreferenceCard = ({
                                             <div className={styles.metaBox}>
                                                 <span className={styles.metaLabel}>COST LEVEL</span>
                                                 <div className={styles.metaRow}>
-                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></svg>
                                                     <span className={styles.metaValue}>
-                                                        {selectedLocation?.min_budget === 'high' ? '₱₱₱' : 
-                                                        selectedLocation?.min_budget === 'medium' ? '₱₱' : '₱'}
+                                                        {selectedLocation?.min_budget === 'high' ? '₱₱₱' :
+                                                            selectedLocation?.min_budget === 'medium' ? '₱₱' : '₱'}
                                                     </span>
                                                 </div>
                                             </div>
@@ -641,18 +644,18 @@ const PreferenceCard = ({
                                                 <div className={styles.metaRow}>
                                                     {(() => {
                                                         const time = selectedLocation?.best_time_of_day;
-                                                        let icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
+                                                        let icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>;
                                                         let color = '#10B981';
-                                                        
+
                                                         if (time === 'morning') {
                                                             color = '#FCD34D';
-                                                            icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg>;
+                                                            icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><path d="M12 2v8" /><path d="m4.93 10.93 1.41 1.41" /><circle cx="12" cy="12" r="4" /></svg>;
                                                         } else if (['noon', 'midday', 'lunch'].includes(time)) {
                                                             color = '#F59E0B';
-                                                            icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/></svg>;
+                                                            icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><circle cx="12" cy="12" r="5" /><path d="M12 1v2" /><path d="M12 21v2" /><path d="M4.22 4.22l1.42 1.42" /><path d="M18.36 18.36l1.42 1.42" /><path d="M1 12h2" /><path d="M21 12h2" /></svg>;
                                                         } else if (['sunset', 'evening'].includes(time)) {
                                                             color = '#F472B6';
-                                                            icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><path d="M12 2v8"/><path d="m2 18h2"/><path d="m20 18h2"/><path d="M22 22H2"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>;
+                                                            icon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><path d="M12 2v8" /><path d="m2 18h2" /><path d="m20 18h2" /><path d="M22 22H2" /><path d="M16 18a4 4 0 0 0-8 0" /></svg>;
                                                         }
 
                                                         return (
@@ -671,7 +674,7 @@ const PreferenceCard = ({
                                             <div className={styles.metaBox}>
                                                 <span className={styles.metaLabel}>LOCATION</span>
                                                 <div className={styles.metaRow}>
-                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F87171" strokeWidth="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F87171" strokeWidth="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
                                                     <span className={styles.metaValueUpper}>
                                                         {selectedLocation?.municipality || 'Catanduanes'}
                                                     </span>
@@ -690,10 +693,10 @@ const PreferenceCard = ({
 
                 {/* --- ITINERARY PREVIEW (BLANKET METHOD) --- */}
                 {/* FIX 2: Added inline transition to SYNC with the motion.div above */}
-                <div 
+                <div
                     className={`${styles.itineraryPreview} ${!mobileMode && isReviewExpanded ? styles.previewHidden : ''} ${styles.itineraryPreviewTransition} ${!isPreviewPanelVisible ? styles.panelHidden : ''}`}
                 >
-                    
+
                     {/* Header Row */}
                     <div className={styles.previewHeader}>
                         <div className={styles.previewHeaderTitleGroup}>
@@ -705,7 +708,7 @@ const PreferenceCard = ({
                         <div className={styles.previewHeaderActions}>
                             {renderMobilePanelToggle()}
                             {/* Compact Optimize Button */}
-                            <button 
+                            <button
                                 onClick={handleOptimize}
                                 className={styles.optimizeBtnSmall}
                                 title="Fix my route order"
@@ -718,7 +721,7 @@ const PreferenceCard = ({
                     </div>
 
                     <div className={styles.walletContainer}>
-                        <div className={styles.walletHeader}>                            
+                        <div className={styles.walletHeader}>
                             <div className={styles.walletStatusGroup}>
                                 <div className={styles.walletLabel}>
                                     {timeWallet.label}
@@ -728,10 +731,10 @@ const PreferenceCard = ({
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className={styles.walletBarTrack}>
-                            <div 
-                                className={styles.walletBarFill} 
+                            <div
+                                className={styles.walletBarFill}
                                 style={{
                                     width: `${timeWallet.percent}%`,
                                     backgroundColor: timeWallet.color,
@@ -743,44 +746,44 @@ const PreferenceCard = ({
                             <span className={styles.statBadge}>{totalDistance} km</span>
                         </div>
                     </div>
-                    
-                    
+
+
 
                     <div className={styles.addedSpotsList}>
                         {addedSpots && addedSpots.length > 0 ? (
                             addedSpots.map((spot, index) => (
                                 <div key={index}>
-                                    
+
                                     {driveData[index]?.driveTime > 0 && (
-                                        <div 
+                                        <div
                                             className={styles.driveTimeLabel}
                                             style={{ marginTop: index === 0 ? '0px' : '-4px' }}
                                         >
                                             <div className={styles.driveTimeLine}></div>
-                                            
+
                                             {/* New Car SVG */}
                                             <svg className={styles.driveTimeIcon} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                 <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
                                                 <circle cx="7" cy="17" r="2"></circle>
                                                 <circle cx="17" cy="17" r="2"></circle>
                                             </svg>
-                                            
+
                                             {driveData[index].driveTime} min drive
                                         </div>
                                     )}
 
-                                    <div 
+                                    <div
                                         className={`${styles.miniSpotItem} ${spot.locked ? styles.miniSpotItemLocked : ''}`}
                                         onClick={() => setSelectedLocation(spot)}
                                     >
                                         <div className={styles.spotRow}>
-                                            
+
                                             <div className={styles.visitDurationBadge}>
                                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                                     <circle cx="12" cy="12" r="10"></circle>
                                                     <polyline points="12 6 12 12 16 14"></polyline>
                                                 </svg>
-                                                
+
                                                 {spot.visit_time_minutes > 0 ? spot.visit_time_minutes : 60}m
                                             </div>
 
@@ -791,13 +794,13 @@ const PreferenceCard = ({
                                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                                     </svg>
-                                                )} 
+                                                )}
                                                 {spot.name}
                                             </span>
                                         </div>
-                                        
+
                                         <div className={styles.spotActions}>
-                                            
+
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); onMoveSpot(index, -1); }}
                                                 className={styles.spotActionBtn}
@@ -822,7 +825,7 @@ const PreferenceCard = ({
 
                                             <div className={styles.actionDivider}></div>
 
-                                            <button 
+                                            <button
                                                 className={`${styles.removeBtn} ${styles.lockBtn} ${spot.locked ? styles.lockBtnActive : styles.lockBtnInactive}`}
                                                 onClick={(e) => { e.stopPropagation(); onToggleLock(spot.name); }}
                                                 title={spot.locked ? "Unlock" : "Anchor"}
@@ -841,7 +844,7 @@ const PreferenceCard = ({
                                                 )}
                                             </button>
 
-                                            <button 
+                                            <button
                                                 className={`${styles.removeBtn} ${styles.removeSmallBtn}`}
                                                 onClick={(e) => { e.stopPropagation(); onRemoveSpot(spot.name); }}
                                                 title="Remove"
@@ -864,24 +867,24 @@ const PreferenceCard = ({
 
                     {/* --- BOTTOM BUTTON ROW (UPDATED) --- */}
                     <div className={styles.bottomButtonRow}>
-                        
+
                         {/* BACK BUTTON (Visible Day 2+) */}
                         {currentDay > 1 && (
-                            <button 
+                            <button
                                 onClick={handlePreviousDay}
                                 className={`${styles.saveButton} ${styles.backButton}`}
-                                style={{ 
+                                style={{
                                     backgroundColor: '#4B5563'
                                 }}
                                 title="Go back to previous day"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left-icon lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left-icon lucide-arrow-left"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
                             </button>
                         )}
 
                         {/* NEXT / SAVE BUTTON */}
-                        <button 
-                            className={styles.saveButton} 
+                        <button
+                            className={styles.saveButton}
                             onClick={isLastDay ? handleSaveItinerary : handleSliceAndNext}
                             style={{
                                 backgroundColor: isLastDay ? '#2563EB' : undefined,
@@ -899,15 +902,15 @@ const PreferenceCard = ({
                                 </>
                             ) : (
                                 <>
-                                    Complete Day {currentDay} & Next 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-forward-icon lucide-forward"><path d="m15 17 5-5-5-5"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/></svg>
+                                    Complete Day {currentDay} & Next
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-forward-icon lucide-forward"><path d="m15 17 5-5-5-5" /><path d="M4 18v-2a4 4 0 0 1 4-4h12" /></svg>
                                 </>
                             )}
                         </button>
                     </div>
 
                     {!isLastDay && (
-                        <div 
+                        <div
                             onClick={handleSaveItinerary}
                             className={styles.finishLink}
                         >
@@ -917,6 +920,82 @@ const PreferenceCard = ({
                 </div>
 
             </div>
+
+            {/* FULLSCREEN IMAGE MODAL LAYER */}
+            <AnimatePresence>
+                {isImageFullscreen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsImageFullscreen(false)}
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: 'rgba(0,0,0,0.85)',
+                            backdropFilter: 'blur(12px)',
+                            WebkitBackdropFilter: 'blur(12px)',
+                            zIndex: 9999999, /* Above navbar and modals */
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '24px',
+                            cursor: 'zoom-out'
+                        }}
+                    >
+                        <motion.img
+                            src={reviewImageSrc}
+                            alt="Fullscreen Destination"
+                            initial={{ scale: 0.9, opacity: 0, y: 30 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 30 }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                            style={{
+                                maxWidth: '100%',
+                                maxHeight: '90vh',
+                                objectFit: 'contain',
+                                borderRadius: '16px',
+                                boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.6)',
+                                cursor: 'default'
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                        <button
+                            onClick={() => setIsImageFullscreen(false)}
+                            title="Close picture"
+                            style={{
+                                position: 'absolute',
+                                top: '24px',
+                                right: '24px',
+                                background: 'rgba(255, 255, 255, 0.15)',
+                                border: '1px solid rgba(255, 255, 255, 0.3)',
+                                color: '#fff',
+                                width: '44px',
+                                height: '44px',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                backdropFilter: 'blur(4px)',
+                                transition: 'all 0.2s ease',
+                                zIndex: 2
+                            }}
+                            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)'}
+                            onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'}
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </div>
     );
 }
