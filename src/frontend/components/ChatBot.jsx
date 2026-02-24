@@ -36,6 +36,59 @@ const ChatBot = forwardRef(({
     const recognitionRef = useRef(null);
     const modalContainerRef = useRef(null);
 
+    // Focus the modal container so it can catch physical keystrokes
+    useEffect(() => {
+        if (showKeyboard && modalContainerRef.current) {
+            modalContainerRef.current.focus();
+        }
+    }, [showKeyboard]);
+
+    // Handle physical keyboard typing when modal is active
+    const handleGlobalKeyDown = (e) => {
+        if (!showKeyboard) return;
+
+        // Don't capture if user is holding Ctrl/Cmd (shortcuts)
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+        // Handle special keys
+        if (e.key === 'Escape') {
+            setShowKeyboard(false);
+            return;
+        }
+
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleModalSubmit(e);
+            return;
+        }
+
+        if (e.key === 'Backspace') {
+            e.preventDefault();
+            setModalInput(prev => {
+                const newVal = prev.slice(0, -1);
+                if (keyboardRef.current) keyboardRef.current.setInput(newVal);
+                return newVal;
+            });
+            return;
+        }
+
+        // Only capture printable characters (length 1)
+        if (e.key.length === 1) {
+            e.preventDefault();
+            setModalInput(prev => {
+                const newVal = prev + e.key;
+                if (keyboardRef.current) keyboardRef.current.setInput(newVal);
+                return newVal;
+            });
+
+            if (modalTextareaRef.current) {
+                setTimeout(() => {
+                    modalTextareaRef.current.style.height = 'auto';
+                    modalTextareaRef.current.style.height = Math.min(modalTextareaRef.current.scrollHeight, 200) + 'px';
+                }, 0);
+            }
+        }
+    };
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
