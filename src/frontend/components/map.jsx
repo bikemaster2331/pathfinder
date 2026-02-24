@@ -267,8 +267,8 @@ const Map = forwardRef((props, ref) => {
         if (budgetFilter && budgetFilter.length > 0) commonCriteria.push(['in', 'min_budget', ...budgetFilter]);
 
         // Filters for unclustered points in the clustered source
-        const standardFilter = ['all', ['!', ['has', 'point_count']], ...commonCriteria, ['!=', 'is_top_10', true]];
-        const top10Filter = ['all', ['!', ['has', 'point_count']], ...commonCriteria, ['==', 'is_top_10', true]];
+        const standardFilter = ['all', ['!', ['has', 'point_count']], ...commonCriteria, ['!', ['to-boolean', ['get', 'is_top_10']]]];
+        const top10Filter = ['all', ['!', ['has', 'point_count']], ...commonCriteria, ['to-boolean', ['get', 'is_top_10']]];
 
         try {
             if (map.current.getLayer('tourist-dots')) map.current.setFilter('tourist-dots', standardFilter);
