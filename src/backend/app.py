@@ -191,7 +191,7 @@ async def ask_stream_endpoint(request: AskRequest):
     async def event_generator():
         try:
             # Step 1: Run RAG pipeline to get facts + locations (non-streaming)
-            result = await run_in_threadpool(pipeline.ask, request.question)
+            result = await run_in_threadpool(pipeline.ask, request.question, skip_ollama=True)
 
             locations = result.get('locations', [])
             raw_answer = result.get('answer', '')

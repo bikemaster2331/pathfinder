@@ -643,7 +643,7 @@ class Pipeline:
     # ========================================================================
     # MAIN ASK METHOD - INTEGRATED WITH CONTROLLER & EXTRACTOR
     # ========================================================================
-    def ask(self, user_input):
+    def ask(self, user_input, skip_ollama=False):
         start_time = time.time()
 
         # 1-5. Same validation logic
@@ -835,7 +835,16 @@ class Pipeline:
 
                     confidence = 1 - results['distances'][0][i]
 
-                    # Filtering logic (KEPT EXACTLY THE SAME)
+                    # Filtering logic
+                    # --- NEW: Restrict to Top 10 for "best/top" queries ---
+                    query_lower = user_input.lower()
+                    wants_top_spots = any(word in query_lower for word in ['best', 'top', 'must see', 'must-see', 'recommended'])
+                    
+                    if wants_top_spots and name in self.config.get('places', {}):
+                        # If it's a known place, ensure it is considered a "top 10" spot
+                        if not self.config['places'][name].get('is_top_10', False):
+                            continue
+                    
                     if specific_places_found:
                         if meta.get('place_name') not in specific_places_found:
                             continue
@@ -879,7 +888,7 @@ class Pipeline:
         # ====================================================================
 
         # Try to enhance answer with local Ollama LLM (if available)
-        if "don't have information" not in raw_answer.lower() and not is_browsing:
+        if not skip_ollama and "don't have information" not in raw_answer.lower() and not is_browsing:
             ollama_answer = self._generate_with_ollama(user_input, raw_answer)
             if ollama_answer:
                 raw_answer = ollama_answer
