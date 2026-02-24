@@ -190,43 +190,79 @@ const MapWrapper = forwardRef((props, ref) => {
         onInitialTripboxComplete
     } = props;
 
-    const [sliderValue, setSliderValue] = useState(budget);
-    useEffect(() => {
-        setSliderValue(budget);
-    }, [budget]);
-
     const [isMenuOpen, setIsMenuOpen] = useState(true);
     const [hasCompletedInitialTripbox, setHasCompletedInitialTripbox] = useState(false);
+    const [sliderValue, setSliderValue] = useState(budget);
+    const [draftActivities, setDraftActivities] = useState(selectedActivities);
     const menuRef = useRef(null);
     const isTripBoxComplete = Boolean(destination && dateRange.start && dateRange.end);
+
+    useEffect(() => {
+        if (!isMenuOpen) {
+            setSliderValue(budget);
+        }
+    }, [budget, isMenuOpen]);
+
+    useEffect(() => {
+        if (!isMenuOpen) {
+            setDraftActivities(selectedActivities);
+        }
+    }, [selectedActivities, isMenuOpen]);
+
+    const commitDraftFilters = () => {
+        const activityKeys = Object.keys({ ...selectedActivities, ...draftActivities });
+        const hasActivityChanges = activityKeys.some(
+            (key) => Boolean(selectedActivities[key]) !== Boolean(draftActivities[key])
+        );
+
+        if (hasActivityChanges) {
+            setSelectedActivities(draftActivities);
+        }
+
+        if (sliderValue !== budget) {
+            setBudget(sliderValue);
+        }
+
+        const committedHubName = selectedHub?.name || '';
+        if (destination !== committedHubName && onHubChange) {
+            onHubChange(destination);
+        }
+    };
+
+    const closeMenuAndApply = () => {
+        commitDraftFilters();
+        setIsMenuOpen(false);
+    };
 
     useEffect(() => {
         function handleClickOutside(event) {
             if (!hasCompletedInitialTripbox) return;
             const clickedToggle = event.target && event.target.closest && event.target.closest('[data-menu-toggle="true"]');
             if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target) && !clickedToggle) {
-                setIsMenuOpen(false);
+                closeMenuAndApply();
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [isMenuOpen, hasCompletedInitialTripbox]);
+    }, [isMenuOpen, hasCompletedInitialTripbox, draftActivities, sliderValue, budget, selectedActivities, destination, selectedHub, onHubChange]);
 
     const handleMenuToggle = () => {
-        setIsMenuOpen((prev) => {
-            // Always allow opening.
-            if (!prev) return true;
-            // Block closing during initial setup until TripBox is complete.
-            if (!hasCompletedInitialTripbox) return true;
-            return false;
-        });
+        if (!isMenuOpen) {
+            setDraftActivities(selectedActivities);
+            setSliderValue(budget);
+            setIsMenuOpen(true);
+            return;
+        }
+        // Block closing during initial setup until TripBox is complete.
+        if (!hasCompletedInitialTripbox) return;
+        closeMenuAndApply();
     };
 
     const handleOverlayClose = () => {
         if (!hasCompletedInitialTripbox) return;
-        setIsMenuOpen(false);
+        closeMenuAndApply();
     };
 
     const handleDoneClick = () => {
@@ -237,11 +273,11 @@ const MapWrapper = forwardRef((props, ref) => {
                 onInitialTripboxComplete();
             }
         }
-        setIsMenuOpen(false);
+        closeMenuAndApply();
     };
 
     const handleActivityChange = (activityName) => {
-        setSelectedActivities(prev => ({
+        setDraftActivities(prev => ({
             ...prev,
             [activityName]: !prev[activityName]
         }));
@@ -273,8 +309,8 @@ const MapWrapper = forwardRef((props, ref) => {
     // Part 3: Activities (Fixed Logic)
     const activityText = useMemo(() => {
         // 1. Sort the keys to ensure stability when toggling items
-        const activeKeys = Object.keys(selectedActivities)
-            .filter(key => selectedActivities[key])
+        const activeKeys = Object.keys(draftActivities)
+            .filter(key => draftActivities[key])
             .sort(); // <-- IMPORTANT: Sorts alphabetically so the start of sentence doesn't jump
 
         if (activeKeys.length > 0) {
@@ -303,7 +339,7 @@ const MapWrapper = forwardRef((props, ref) => {
             return text;
         }
         return "";
-    }, [selectedActivities]);
+    }, [draftActivities]);
 
     return (
         <div className={styles.mapWrapper}>
@@ -353,7 +389,6 @@ const MapWrapper = forwardRef((props, ref) => {
                                                 onChange={(e) => {
                                                     const val = e.target.value;
                                                     setDestination(val);
-                                                    if (onHubChange) onHubChange(val);
                                                 }}
                                             >
                                                 <option value="" disabled hidden>Set start point here</option>
@@ -403,22 +438,20 @@ const MapWrapper = forwardRef((props, ref) => {
                                                 min="0"
                                                 max="100"
                                                 value={sliderValue}
-                                                onChange={(e) => setBudget(Number(e.target.value))}
-                                                onMouseUp={() => setBudget(sliderValue)} 
-                                                onTouchEnd={() => setBudget(sliderValue)}
+                                                onChange={(e) => setSliderValue(Number(e.target.value))}
                                                 className={styles.customRange}
                                             />
 
                                             <div className={styles.budgetLabelsRow}>
-                                                <div className={`${styles.priceBox} ${budget <= 33 ? styles.activePriceBox : ''}`}>
+                                                <div className={`${styles.priceBox} ${sliderValue <= 33 ? styles.activePriceBox : ''}`}>
                                                     ≤ ₱200
                                                 </div>
 
-                                                <div className={`${styles.priceBox} ${budget > 33 && budget <= 66 ? styles.activePriceBox : ''}`}>
+                                                <div className={`${styles.priceBox} ${sliderValue > 33 && sliderValue <= 66 ? styles.activePriceBox : ''}`}>
                                                     ₱200 - ₱600
                                                 </div>
 
-                                                <div className={`${styles.priceBox} ${budget > 66 ? styles.activePriceBox : ''}`}>
+                                                <div className={`${styles.priceBox} ${sliderValue > 66 ? styles.activePriceBox : ''}`}>
                                                     ₱600+
                                                 </div>
                                             </div>
@@ -433,15 +466,15 @@ const MapWrapper = forwardRef((props, ref) => {
                                     <div className={styles.activitiesMb}>
                                         <h2 className={styles.boxHelperText}>CHOOSE ACTIVITIES</h2>
                                         <div className={styles.activitiesOption}>
-                                            {Object.keys(selectedActivities).map((activity) => (
+                                            {Object.keys(draftActivities).map((activity) => (
                                                 <label
                                                     key={activity}
-                                                    className={`${styles.activityTile} ${selectedActivities[activity] ? styles.activityTileActive : ''}`}
+                                                    className={`${styles.activityTile} ${draftActivities[activity] ? styles.activityTileActive : ''}`}
                                                 >
                                                     <input 
                                                         type="checkbox" 
                                                         className={styles.hiddenCheckbox}
-                                                        checked={selectedActivities[activity]}
+                                                        checked={draftActivities[activity]}
                                                         onChange={() => handleActivityChange(activity)}
                                                     /> 
                                                     <span className={styles.activityTileIcon} aria-hidden="true">

@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/itinerary_page/Itinerary.module.css';
 import cardStyles from '../styles/itinerary_page/ItineraryCard.module.css';
 import PreferenceCard from '../components/itineraryCard';
@@ -6,6 +7,8 @@ import MapWrapper from '../components/MapWrapper';
 import ChatBot from '../components/ChatBot';
 import { TRAVEL_HUBS } from '../constants/location'; 
 import { optimizeRoute } from '../utils/optimize';
+import { calculateDriveTimes, calculateTimeUsage, calculateTotalRoute } from '../utils/distance';
+import { generateItineraryPDF } from '../utils/generatePDF';
 import defaultBg from '../assets/images/card/catanduanes.png';
 
 // --- CONFIGURATION ---
@@ -22,10 +25,18 @@ const PreviewWidget = ({
     spots, 
     styles, 
     cardStyles, 
+    activeHub,
+    currentDay,
+    dayCount,
+    isLastDay,
     handleOptimize, 
     setSelectedLocation, 
+    handleToggleLock,
     handleMoveSpot, 
-    handleRemoveSpot 
+    handleRemoveSpot,
+    handlePreviousDay,
+    handleSliceAndNext,
+    handleSaveItinerary
 }) => {
     const [expanded, setExpanded] = useState(isLatest);
 
@@ -33,6 +44,57 @@ const PreviewWidget = ({
     useEffect(() => {
         setExpanded(isLatest);
     }, [isLatest]);
+
+    const driveData = useMemo(() => {
+        if (!activeHub) return [];
+        return calculateDriveTimes(activeHub, spots);
+    }, [activeHub, spots]);
+
+    const totalDistance = useMemo(() => {
+        if (!activeHub || !spots || spots.length === 0) return 0;
+        return calculateTotalRoute(activeHub, spots);
+    }, [activeHub, spots]);
+
+    const timeWallet = useMemo(() => {
+        if (!activeHub) {
+            return {
+                totalUsed: 0,
+                percent: 0,
+                remaining: 540,
+                color: 'rgb(255, 255, 255)',
+                label: 'Schedule Empty',
+                subtext: 'Select a starting point'
+            };
+        }
+
+        const DAILY_CAPACITY = 540;
+        const usage = calculateTimeUsage(activeHub, spots);
+        const usedAmount = Number(usage?.totalUsed) || 0;
+        const remaining = DAILY_CAPACITY - usedAmount;
+
+        let percent = (usedAmount / DAILY_CAPACITY) * 100;
+        if (percent > 100) percent = 100;
+
+        let color = '#10B981';
+        let label = 'Relaxed pace';
+        let subtext = 'Plenty of buffer (Like 9 AM start)';
+
+        if (remaining < 0) {
+            color = '#EF4444';
+            label = 'Day Overloaded';
+            subtext = 'Exceeds standard 9-hour day';
+        } else if (remaining < 60) {
+            color = '#F59E0B';
+            label = 'Very Full';
+            subtext = 'Aim for 6:00 AM start';
+        } else if (remaining < 120) {
+            color = '#F59E0B';
+            label = 'Busy Schedule';
+            subtext = 'Aim for 7-8:00 AM start';
+        }
+
+        return { used: usedAmount, remaining, percent, color, label, subtext };
+    }, [activeHub, spots]);
 
     return (
         <aside 
@@ -71,49 +133,179 @@ const PreviewWidget = ({
             </div>
             {expanded && (
                 <div className={`${styles.mapExpandedPreviewList} ${cardStyles.addedSpotsList}`}>
-                    {spots.map((spot, index) => (
-                        <div
-                            key={`${spot.name}-${index}`}
-                            className={`${cardStyles.miniSpotItem} ${spot.locked ? cardStyles.miniSpotItemLocked : ''}`}
-                            onClick={() => setSelectedLocation(spot)}
-                        >
-                            <div className={cardStyles.spotRow}>
-                                <div className={cardStyles.visitDurationBadge}>
-                                    {spot.visit_time_minutes > 0 ? `${spot.visit_time_minutes}m` : '60m'}
-                                </div>
-                                <span className={cardStyles.spotName}>{spot.name}</span>
-                            </div>
-                            <div className={cardStyles.spotActions}>
-                                <button
-                                    onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, -1); }}
-                                    className={cardStyles.spotActionBtn}
-                                    disabled={index === 0}
-                                    title="Move Up"
-                                >
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                                </button>
-                                <button
-                                    onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, 1); }}
-                                    className={cardStyles.spotActionBtn}
-                                    disabled={index === spots.length - 1}
-                                    title="Move Down"
-                                >
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                </button>
-                                <div className={cardStyles.actionDivider}></div>
-                                <button
-                                    className={`${cardStyles.removeBtn} ${cardStyles.removeSmallBtn}`}
-                                    onClick={(e) => { e.stopPropagation(); handleRemoveSpot(spot.name); }}
-                                    title="Remove"
-                                >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                </button>
+                    <div className={cardStyles.previewHeader}>
+                        <div className={cardStyles.previewHeaderTitleGroup}>
+                            <h3 className={`${cardStyles.boxTitle} ${cardStyles.previewHeaderTitle}`}>
+                                Day {currentDay} of {dayCount}
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div className={cardStyles.walletContainer}>
+                        <div className={cardStyles.walletHeader}>
+                            <div className={cardStyles.walletStatusGroup}>
+                                <div className={cardStyles.walletLabel}>{timeWallet.label}</div>
+                                <div className={cardStyles.walletSubtext}>{timeWallet.subtext}</div>
                             </div>
                         </div>
-                    ))}
-                    {spots.length === 0 && (
-                        <div style={{ padding: '20px', textAlign: 'center', color: '#888', fontSize: '0.85rem' }}>
-                            Your itinerary is empty.
+                        <div className={cardStyles.walletBarTrack}>
+                            <div
+                                className={cardStyles.walletBarFill}
+                                style={{
+                                    width: `${timeWallet.percent}%`,
+                                    backgroundColor: timeWallet.color,
+                                }}
+                            />
+                        </div>
+                        <div className={cardStyles.statsRow}>
+                            <span className={cardStyles.statBadge}>{spots?.length || 0} Stops</span>
+                            <span className={cardStyles.statBadge}>{totalDistance} km</span>
+                        </div>
+                    </div>
+
+                    {spots && spots.length > 0 ? (
+                        spots.map((spot, index) => (
+                            <div key={`${spot.name}-${index}`}>
+                                {driveData[index]?.driveTime > 0 && (
+                                    <div
+                                        className={cardStyles.driveTimeLabel}
+                                        style={{ marginTop: index === 0 ? '0px' : '-4px' }}
+                                    >
+                                        <div className={cardStyles.driveTimeLine}></div>
+                                        <svg className={cardStyles.driveTimeIcon} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
+                                            <circle cx="7" cy="17" r="2"></circle>
+                                            <circle cx="17" cy="17" r="2"></circle>
+                                        </svg>
+                                        {driveData[index].driveTime} min drive
+                                    </div>
+                                )}
+
+                                <div
+                                    className={`${cardStyles.miniSpotItem} ${spot.locked ? cardStyles.miniSpotItemLocked : ''}`}
+                                    onClick={() => setSelectedLocation(spot)}
+                                >
+                                    <div className={cardStyles.spotRow}>
+                                        <div className={cardStyles.visitDurationBadge}>
+                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <polyline points="12 6 12 12 16 14"></polyline>
+                                            </svg>
+                                            {spot.visit_time_minutes > 0 ? spot.visit_time_minutes : 60}m
+                                        </div>
+                                        <span className={cardStyles.spotName}>
+                                            {spot.locked && (
+                                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                </svg>
+                                            )}
+                                            {spot.name}
+                                        </span>
+                                    </div>
+
+                                    <div className={cardStyles.spotActions}>
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, -1); }}
+                                            className={cardStyles.spotActionBtn}
+                                            disabled={index === 0}
+                                            title="Move Up"
+                                        >
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <polyline points="18 15 12 9 6 15"></polyline>
+                                            </svg>
+                                        </button>
+
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, 1); }}
+                                            className={cardStyles.spotActionBtn}
+                                            disabled={index === spots.length - 1}
+                                            title="Move Down"
+                                        >
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </button>
+
+                                        <div className={cardStyles.actionDivider}></div>
+
+                                        <button
+                                            className={`${cardStyles.removeBtn} ${cardStyles.lockBtn} ${spot.locked ? cardStyles.lockBtnActive : cardStyles.lockBtnInactive}`}
+                                            onClick={(e) => { e.stopPropagation(); handleToggleLock(spot.name); }}
+                                            title={spot.locked ? "Unlock" : "Anchor"}
+                                        >
+                                            {spot.locked ? (
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                </svg>
+                                            ) : (
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <circle cx="12" cy="5" r="3"></circle>
+                                                    <line x1="12" y1="22" x2="12" y2="8"></line>
+                                                    <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
+                                                </svg>
+                                            )}
+                                        </button>
+
+                                        <button
+                                            className={`${cardStyles.removeBtn} ${cardStyles.removeSmallBtn}`}
+                                            onClick={(e) => { e.stopPropagation(); handleRemoveSpot(spot.name); }}
+                                            title="Remove"
+                                        >
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p className={cardStyles.previewContent}>
+                            Day {currentDay} wallet is empty. Select a pin to add.
+                        </p>
+                    )}
+
+                    <div className={cardStyles.bottomButtonRow}>
+                        {currentDay > 1 && (
+                            <button
+                                onClick={handlePreviousDay}
+                                className={`${cardStyles.saveButton} ${cardStyles.backButton}`}
+                                style={{ backgroundColor: '#4B5563' }}
+                                title="Go back to previous day"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                            </button>
+                        )}
+
+                        <button
+                            className={cardStyles.saveButton}
+                            onClick={isLastDay ? handleSaveItinerary : handleSliceAndNext}
+                            style={{ backgroundColor: isLastDay ? '#2563EB' : undefined, flex: 1 }}
+                        >
+                            {isLastDay ? (
+                                <>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                        <polyline points="7 3 7 8 15 8"></polyline>
+                                    </svg>
+                                    Save
+                                </>
+                            ) : (
+                                <>
+                                    Complete Day {currentDay} & Next
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 17 5-5-5-5"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/></svg>
+                                </>
+                            )}
+                        </button>
+                    </div>
+
+                    {!isLastDay && (
+                        <div onClick={handleSaveItinerary} className={cardStyles.finishLink}>
+                            (Or finish and save itinerary now)
                         </div>
                     )}
                 </div>
@@ -124,8 +316,11 @@ const PreviewWidget = ({
 
 
 export default function ItineraryPage() {
+    const navigate = useNavigate();
     const [allSpots, setAllSpots] = useState(null);
     const [addedSpots, setAddedSpots] = useState([]);
+    const [storedDays, setStoredDays] = useState({});
+    const [currentDay, setCurrentDay] = useState(1);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [activeHub, setActiveHub] = useState(null);
     const [budgetFilter, setBudgetFilter] = useState(['low', 'medium', 'high']);
@@ -137,6 +332,16 @@ export default function ItineraryPage() {
     const [budget, setBudget] = useState(50);
     const [destination, setDestination] = useState('');
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
+
+    const dayCount = useMemo(() => {
+        if (!dateRange.start || !dateRange.end) return 1;
+        const start = new Date(dateRange.start);
+        const end = new Date(dateRange.end);
+        const diffTime = end - start;
+        const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+        return days > 0 ? days : 1;
+    }, [dateRange]);
+    const isLastDay = currentDay >= dayCount;
     
     // Chat State Lifted to Parent
     const [chatMessages, setChatMessages] = useState([]);
@@ -223,6 +428,68 @@ export default function ItineraryPage() {
 
     const handleRemoveSpot = (spotName) => {
         setAddedSpots(prev => prev.filter(s => s.name !== spotName));
+    };
+
+    const handleSliceAndNext = () => {
+        setStoredDays(prev => ({ ...prev, [currentDay]: [...addedSpots] }));
+        const nextDay = currentDay + 1;
+        setCurrentDay(nextDay);
+
+        const nextDaySpots = storedDays[nextDay];
+        if (nextDaySpots && nextDaySpots.length > 0) {
+            setAddedSpots(nextDaySpots);
+            setSelectedLocation(nextDaySpots[nextDaySpots.length - 1]);
+        } else {
+            setAddedSpots([]);
+            setSelectedLocation(null);
+        }
+    };
+
+    const handlePreviousDay = () => {
+        if (currentDay <= 1) return;
+        setStoredDays(prev => ({ ...prev, [currentDay]: [...addedSpots] }));
+
+        const prevDay = currentDay - 1;
+        setCurrentDay(prevDay);
+        const prevDaySpots = storedDays[prevDay];
+
+        if (prevDaySpots && prevDaySpots.length > 0) {
+            setAddedSpots(prevDaySpots);
+            setSelectedLocation(prevDaySpots[prevDaySpots.length - 1]);
+        } else {
+            setAddedSpots([]);
+            setSelectedLocation(null);
+        }
+    };
+
+    const handleSaveItinerary = () => {
+        const finalItinerary = { ...storedDays, [currentDay]: addedSpots };
+
+        const allSpotsFlat = [];
+        Object.keys(finalItinerary).sort().forEach(day => {
+            allSpotsFlat.push(...finalItinerary[day]);
+        });
+
+        if (!activeHub?.name || allSpotsFlat.length === 0) {
+            alert("Please add at least one spot before saving.");
+            return;
+        }
+
+        localStorage.setItem('finalItinerary', JSON.stringify(finalItinerary));
+        localStorage.setItem('activeHubName', activeHub.name);
+
+        const fullTripDistance = calculateTotalRoute(activeHub, allSpotsFlat);
+        const fullTripDriveData = calculateDriveTimes(activeHub, allSpotsFlat);
+
+        generateItineraryPDF({
+            activeHubName: activeHub.name,
+            dateRange,
+            addedSpots: finalItinerary,
+            totalDistance: fullTripDistance,
+            driveData: fullTripDriveData
+        });
+
+        navigate('/last');
     };
 
     const isSelectedAlreadyAdded = selectedLocation
@@ -378,6 +645,14 @@ export default function ItineraryPage() {
     }, []);
 
     useEffect(() => {
+        if (dayCount < currentDay) {
+            setCurrentDay(1);
+            setStoredDays({});
+            setAddedSpots([]);
+        }
+    }, [dayCount, currentDay]);
+
+    useEffect(() => {
         if (!allSpots?.features?.length) return;
         const uniqueImages = new Set();
         allSpots.features.forEach(feature => {
@@ -410,10 +685,18 @@ export default function ItineraryPage() {
                         spots={addedSpots} 
                         styles={styles} 
                         cardStyles={cardStyles} 
+                        activeHub={activeHub}
+                        currentDay={currentDay}
+                        dayCount={dayCount}
+                        isLastDay={isLastDay}
                         handleOptimize={handleOptimize} 
                         setSelectedLocation={setSelectedLocation} 
+                        handleToggleLock={handleToggleLock}
                         handleMoveSpot={handleMoveSpot} 
-                        handleRemoveSpot={handleRemoveSpot} 
+                        handleRemoveSpot={handleRemoveSpot}
+                        handlePreviousDay={handlePreviousDay}
+                        handleSliceAndNext={handleSliceAndNext}
+                        handleSaveItinerary={handleSaveItinerary}
                     />
                 )
             };
