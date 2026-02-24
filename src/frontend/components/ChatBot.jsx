@@ -27,6 +27,7 @@ const ChatBot = forwardRef(({
     useEffect(() => { showKeyboardRef.current = showKeyboard; }, [showKeyboard]);
     const [isRecording, setIsRecording] = useState(false);
     const [speechError, setSpeechError] = useState('');
+    const [isKeyboardHovered, setIsKeyboardHovered] = useState(false);
     const [layoutName, setLayoutName] = useState("default");
     const messagesEndRef = useRef(null);
     const textareaRef = useRef(null);
@@ -433,8 +434,14 @@ const ChatBot = forwardRef(({
 
             {showKeyboard && (
                 <>
-                    <div className={styles.keyboardModalOverlay} aria-hidden="true" />
-                    <div ref={modalContainerRef} className={styles.keyboardInputModal}>
+                    <div className={styles.keyboardModalOverlay} aria-hidden="true" onClick={() => setShowKeyboard(false)} />
+                    <div
+                        ref={modalContainerRef}
+                        className={styles.keyboardInputModal}
+                        tabIndex="-1"
+                        onKeyDown={handleGlobalKeyDown}
+                        style={{ outline: 'none' }}
+                    >
                         <form onSubmit={handleModalSubmit} className={styles.inputForm}>
                             <button
                                 type="button"
