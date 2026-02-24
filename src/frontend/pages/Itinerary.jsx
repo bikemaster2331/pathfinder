@@ -4,7 +4,7 @@ import cardStyles from '../styles/itinerary_page/ItineraryCard.module.css';
 import PreferenceCard from '../components/itineraryCard';
 import MapWrapper from '../components/MapWrapper';
 import ChatBot from '../components/ChatBot';
-import { TRAVEL_HUBS } from '../constants/location'; 
+import { TRAVEL_HUBS } from '../constants/location';
 import { optimizeRoute } from '../utils/optimize';
 import defaultBg from '../assets/images/card/catanduanes.png';
 
@@ -17,15 +17,15 @@ const BUDGET_CONFIG = {
 
 // --- NEW: COLLAPSIBLE WIDGET COMPONENT ---
 // This is pulled out so it can manage its own expanded/collapsed state natively in the chat flow.
-const PreviewWidget = ({ 
-    isLatest, 
-    spots, 
-    styles, 
-    cardStyles, 
-    handleOptimize, 
-    setSelectedLocation, 
-    handleMoveSpot, 
-    handleRemoveSpot 
+const PreviewWidget = ({
+    isLatest,
+    spots,
+    styles,
+    cardStyles,
+    handleOptimize,
+    setSelectedLocation,
+    handleMoveSpot,
+    handleRemoveSpot
 }) => {
     const [expanded, setExpanded] = useState(isLatest);
 
@@ -35,19 +35,19 @@ const PreviewWidget = ({
     }, [isLatest]);
 
     return (
-        <aside 
-            className={`${styles.mapExpandedPreviewBox} ${styles.desktopChatPreviewBox}`} 
+        <aside
+            className={`${styles.mapExpandedPreviewBox} ${styles.desktopChatPreviewBox}`}
             style={!expanded ? { height: 'auto', minHeight: 'auto', paddingBottom: '0' } : {}}
         >
-            <div 
-                className={styles.mapExpandedPreviewHeader} 
+            <div
+                className={styles.mapExpandedPreviewHeader}
                 onClick={() => setExpanded(!expanded)}
                 style={{ cursor: 'pointer', borderBottom: expanded ? '' : 'none' }}
             >
                 <h3 className={styles.mapExpandedPreviewTitle}>Itinerary Preview</h3>
                 <div className={styles.mapExpandedPreviewHeaderActions}>
                     <span className={styles.mapExpandedPreviewCount}>{spots.length} spot{spots.length === 1 ? '' : 's'}</span>
-                    
+
                     {/* Expand/Collapse Chevron */}
                     {expanded ? (
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
@@ -133,28 +133,29 @@ export default function ItineraryPage() {
         Accommodation: false, Dining: false, Sightseeing: false,
         Shopping: false, Swimming: false, Hiking: false
     });
-    
+
     const [budget, setBudget] = useState(50);
     const [destination, setDestination] = useState('');
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
-    
+
     // Chat State Lifted to Parent
     const [chatMessages, setChatMessages] = useState([]);
 
     // SHEET STATE
     const [sheetState, setSheetState] = useState('collapsed');
-    
+
     const [mobilePanel, setMobilePanel] = useState('review');
     const [isMobile, setIsMobile] = useState(false);
     const [isMapFullscreen, setIsMapFullscreen] = useState(false);
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
+    const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
-    
+
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
     const mobilePanelToggleLabel = nextMobilePanel === 'preview' ? 'Show preview' : 'Show review';
 
     const mapRef = useRef(null);
-    
+
     const sheetRef = useRef(null);
     const touchStartYRef = useRef(0);
     const touchStartHeightRef = useRef(0);
@@ -178,7 +179,7 @@ export default function ItineraryPage() {
             const lastMsg = prev[prev.length - 1];
             // If the last message is already an itinerary widget, don't spam a new one
             if (lastMsg && lastMsg.role === 'widget' && lastMsg.type === 'itinerary') {
-                return prev; 
+                return prev;
             }
             return [...prev, { role: 'widget', type: 'itinerary', id: Date.now() }];
         });
@@ -231,7 +232,7 @@ export default function ItineraryPage() {
 
     const handleChatbotLocation = (locations) => {
         console.log('Chatbot returned locations:', locations);
-        
+
         if (mapRef.current) {
             mapRef.current.handleChatbotLocations(locations);
         }
@@ -290,7 +291,7 @@ export default function ItineraryPage() {
 
     const handleSheetTouchStart = (event) => {
         if (!sheetRef.current) return;
-        
+
         sheetRef.current.classList.add(styles.isDragging);
         touchStartYRef.current = event.touches[0].clientY;
         touchStartHeightRef.current = sheetRef.current.offsetHeight;
@@ -298,7 +299,7 @@ export default function ItineraryPage() {
 
     const handleSheetTouchMove = (event) => {
         if (!isMobile || !sheetRef.current) return;
-        
+
         if (event.cancelable) event.preventDefault();
 
         const currentY = event.touches[0].clientY;
@@ -307,7 +308,7 @@ export default function ItineraryPage() {
 
         const heights = getSheetHeights();
         const clampedHeight = Math.max(heights.collapsed - 20, Math.min(heights.open + 20, newHeight));
-        
+
         sheetRef.current.style.height = `${clampedHeight}px`;
     };
 
@@ -316,7 +317,7 @@ export default function ItineraryPage() {
 
         sheetRef.current.classList.remove(styles.isDragging);
         const currentHeight = sheetRef.current.offsetHeight;
-        sheetRef.current.style.height = ''; 
+        sheetRef.current.style.height = '';
 
         const heights = getSheetHeights();
         const distCollapsed = Math.abs(currentHeight - heights.collapsed);
@@ -325,7 +326,7 @@ export default function ItineraryPage() {
 
         const touchEndY = event.changedTouches[0].clientY;
         const totalDelta = touchStartYRef.current - touchEndY;
-        
+
         let nextState = 'mid';
 
         if (totalDelta > 80 && sheetState === 'collapsed') nextState = 'mid';
@@ -405,15 +406,15 @@ export default function ItineraryPage() {
             return {
                 ...msg,
                 content: (
-                    <PreviewWidget 
-                        isLatest={index === latestWidgetIndex} 
-                        spots={addedSpots} 
-                        styles={styles} 
-                        cardStyles={cardStyles} 
-                        handleOptimize={handleOptimize} 
-                        setSelectedLocation={setSelectedLocation} 
-                        handleMoveSpot={handleMoveSpot} 
-                        handleRemoveSpot={handleRemoveSpot} 
+                    <PreviewWidget
+                        isLatest={index === latestWidgetIndex}
+                        spots={addedSpots}
+                        styles={styles}
+                        cardStyles={cardStyles}
+                        handleOptimize={handleOptimize}
+                        setSelectedLocation={setSelectedLocation}
+                        handleMoveSpot={handleMoveSpot}
+                        handleRemoveSpot={handleRemoveSpot}
                     />
                 )
             };
@@ -441,10 +442,10 @@ export default function ItineraryPage() {
                     </div>
                 </aside>
             )}
-            
+
             {/* Map Container with Controls */}
             <div className={`${styles.mapArea} ${isMapFullscreen ? styles.mapAreaFullscreen : ''} ${!isInitialTripboxCompleted ? styles.mapAreaBoot : ''}`}>
-                <MapWrapper 
+                <MapWrapper
                     ref={mapRef}
                     selectedActivities={selectedActivities}
                     setSelectedActivities={setSelectedActivities}
@@ -454,7 +455,7 @@ export default function ItineraryPage() {
                     selectedHub={activeHub}
                     addedSpots={addedSpots}
                     budgetFilter={budgetFilter}
-                    budget={budget} 
+                    budget={budget}
                     setBudget={setBudget}
                     destination={destination}
                     setDestination={setDestination}
@@ -481,6 +482,12 @@ export default function ItineraryPage() {
                                     src={selectedLocation?.image || defaultBg}
                                     alt={selectedLocation?.name || 'Catanduanes'}
                                     className={styles.mapExpandedReviewImage}
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => {
+                                        if (selectedLocation?.image) {
+                                            setIsImageModalOpen(true);
+                                        }
+                                    }}
                                     onError={(e) => { e.currentTarget.src = defaultBg; }}
                                 />
                             </div>
@@ -499,14 +506,29 @@ export default function ItineraryPage() {
                                         !selectedLocation
                                             ? null
                                             : isSelectedAlreadyAdded
-                                            ? handleRemoveSpot(selectedLocation.name)
-                                            : handleAddSpot(selectedLocation)
+                                                ? handleRemoveSpot(selectedLocation.name)
+                                                : handleAddSpot(selectedLocation)
                                     )}
                                 >
                                     {!selectedLocation ? 'Select a Spot' : isSelectedAlreadyAdded ? 'Remove Spot' : 'Add Spot'}
                                 </button>
                             </div>
                         </aside>
+
+                        {/* Image Fullscreen Modal */}
+                        {isImageModalOpen && selectedLocation?.image && (
+                            <div
+                                className={styles.fullscreenImageModal}
+                                onClick={() => setIsImageModalOpen(false)}
+                            >
+                                <div className={styles.fullscreenImageModalClose}>&times;</div>
+                                <img
+                                    src={selectedLocation.image}
+                                    alt={selectedLocation.name}
+                                    onClick={(e) => e.stopPropagation()}
+                                />
+                            </div>
+                        )}
                     </>
                 )}
             </div>
@@ -514,21 +536,21 @@ export default function ItineraryPage() {
             {/* Itinerary Card - Right Side */}
             {false && !isMapFullscreen && (
                 <div className={styles.preferenceCardContainer}>
-                    <PreferenceCard 
+                    <PreferenceCard
                         selectedLocation={selectedLocation}
                         setSelectedLocation={setSelectedLocation}
                         addedSpots={addedSpots}
                         setAddedSpots={setAddedSpots}
                         onAddSpot={handleAddSpot}
                         onRemoveSpot={handleRemoveSpot}
-                        activeHubName={activeHub ? activeHub.name : ""} 
+                        activeHubName={activeHub ? activeHub.name : ""}
                         onToggleLock={handleToggleLock}
                         onMoveSpot={handleMoveSpot}
                         dateRange={dateRange}
                     />
                 </div>
             )}
-            
+
             {/* Mobile Bottom Sheet */}
             {isMobile && (
                 <ChatBot
@@ -581,14 +603,14 @@ export default function ItineraryPage() {
                 >
                     <div className={styles.mobileSheetCard}>
                         <div className={styles.mobileSheetContent}>
-                            <PreferenceCard 
+                            <PreferenceCard
                                 selectedLocation={selectedLocation}
                                 setSelectedLocation={setSelectedLocation}
                                 addedSpots={addedSpots}
                                 setAddedSpots={setAddedSpots}
                                 onAddSpot={handleAddSpot}
                                 onRemoveSpot={handleRemoveSpot}
-                                activeHubName={activeHub ? activeHub.name : ""} 
+                                activeHubName={activeHub ? activeHub.name : ""}
                                 onToggleLock={handleToggleLock}
                                 onMoveSpot={handleMoveSpot}
                                 dateRange={dateRange}
