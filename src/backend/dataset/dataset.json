@@ -1192,18 +1192,6 @@
     "place_name": "Puraran Beach"
   },
   {
-    "input": "Where is Nyxx & Match Café located?",
-    "output": "Nyxx & Match Café is a restaurant and cafe located in Baras.",
-    "title": "Nyxx & Match Café Location",
-    "topic": "Food",
-    "location": "Baras",
-    "activities": "dining",
-    "budget": "cheap",
-    "summary_offline": "Nyxx & Match Café is located in Baras.",
-    "coordinates": {"lat": 13.660708793380602, "lng": 124.3689383521126},
-    "place_name": "Nyxx & Match Café"
-  },
-  {
     "input": "Where is Bagamanoc Guest House?",
     "output": "Bagamanoc Guest House is located in the municipality of Bagamanoc.",
     "title": "Bagamanoc Guest House Location",
@@ -1761,19 +1749,6 @@
     "coordinates": {
       "lat": 13.703861778807893,
       "lng": 124.38796879884181
-    }
-  },
-  {
-    "input": "Where is Nyxx & Match Café?",
-    "output": "Nyxx & Match Café is a restaurants and cafes located in Baras.",
-    "title": "Nyxx & Match Café Location",
-    "topic": "Food",
-    "location": "BARAS",
-    "summary_offline": "Nyxx & Match Café is a restaurants and cafes located in Baras.",
-    "place_name": "Nyxx & Match Café",
-    "coordinates": {
-      "lat": 13.660708793380602,
-      "lng": 124.3689383521126
     }
   },
   {

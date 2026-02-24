@@ -10,6 +10,7 @@
     height: 100%;
     position: relative;
     border-radius: 0;
+    touch-action: none;
 }
 
 .topControls {
@@ -146,7 +147,7 @@
 
 /* Marker Wrapper */
 .markerWrapper {
-    width: 40px; 
+    width: 40px;
     height: 40px;
     display: flex;
     justify-content: center;
@@ -182,6 +183,7 @@
 /* MapLibre GL Overrides */
 :global(.maplibregl-canvas) {
     outline: none;
+    touch-action: none !important;
 }
 
 :global(.maplibregl-popup-content) {
