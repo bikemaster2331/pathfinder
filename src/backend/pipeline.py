@@ -793,6 +793,7 @@ class Pipeline:
             if results['documents'][0]:
                 for i, doc in enumerate(results['documents'][0]):
                     meta = results['metadatas'][0][i]
+                    confidence = 1 - results['distances'][0][i]
                     name = meta.get('place_name', '').lower()
                     text = meta.get('summary_offline', '').lower()
                     place_type = meta.get('type', '').lower() # Added type check
@@ -833,7 +834,7 @@ class Pipeline:
                                 if confidence < (0.50 + confidence_threshold_boost):
                                     continue  # Only skip if confidence is also low
 
-                    confidence = 1 - results['distances'][0][i]
+
 
                     # Filtering logic
                     # --- NEW: Restrict to Top 10 for "best/top" queries ---
