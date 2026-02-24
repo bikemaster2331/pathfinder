@@ -65,24 +65,15 @@
     overflow-y: auto;
     padding: 18px 12px 10px;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+    scrollbar-width: none;
 }
 
-/* Custom scrollbar */
+/* Hide scrollbar for touch-friendly clean UI */
 .messagesArea::-webkit-scrollbar {
-    width: 4px;
-}
-
-.messagesArea::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.messagesArea::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.2);
-    border-radius: 99px;
-}
-
-.messagesArea::-webkit-scrollbar-thumb:hover {
-    background: rgba(148, 163, 184, 0.35);
+    display: none;
 }
 
 /* ================================
@@ -554,6 +545,99 @@
 
 .inlinePanelCard {
     width: 100%;
+}
+
+/* ================================
+   MESSAGE BUBBLE GROUP
+   ================================ */
+
+.messageBubbleGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 92%;
+}
+
+.userRow .messageBubbleGroup {
+    align-items: flex-end;
+}
+
+.assistantRow .messageBubbleGroup {
+    align-items: flex-start;
+}
+
+/* ================================
+   LOCATION CHIPS (below assistant messages)
+   ================================ */
+
+.locationChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 2px 0 4px;
+}
+
+.locationChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px 5px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    background: rgba(34, 211, 238, 0.08);
+    color: #22d3ee;
+    font-size: 0.76rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+}
+
+.locationChip:hover {
+    background: rgba(34, 211, 238, 0.18);
+    border-color: rgba(34, 211, 238, 0.4);
+    transform: translateY(-1px);
+}
+
+.locationChip:active {
+    transform: scale(0.96);
+}
+
+.locationChipIcon {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+}
+
+.locationChipName {
+    font-weight: 500;
+    color: #e2e8f0;
+}
+
+.locationChipType {
+    font-size: 0.68rem;
+    color: rgba(148, 163, 184, 0.6);
+    font-weight: 400;
+    margin-left: 2px;
+}
+
+:global([data-theme='light']) .locationChip {
+    border-color: rgba(14, 165, 233, 0.2);
+    background: rgba(14, 165, 233, 0.06);
+    color: #0ea5e9;
+}
+
+:global([data-theme='light']) .locationChipName {
+    color: #0f172a;
+}
+
+:global([data-theme='light']) .locationChipType {
+    color: rgba(71, 85, 105, 0.6);
+}
+
+:global([data-theme='light']) .locationChip:hover {
+    background: rgba(14, 165, 233, 0.12);
+    border-color: rgba(14, 165, 233, 0.35);
 }
 
 /* ================================

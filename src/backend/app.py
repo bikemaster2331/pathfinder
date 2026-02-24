@@ -1,6 +1,8 @@
 import os
+import json
 import uvicorn
 from fastapi import FastAPI, HTTPException, Response
+from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 try:
@@ -179,6 +181,61 @@ async def ask_endpoint(request: AskRequest):
             "answer": "I encountered an error processing that request. Please try asking differently.",
             "locations": []
         }
+
+@app.post("/ask/stream")
+async def ask_stream_endpoint(request: AskRequest):
+    """Streaming endpoint — sends tokens via SSE as Ollama generates them."""
+    if pipeline is None:
+        raise HTTPException(status_code=503, detail="System is waking up.")
+
+    async def event_generator():
+        try:
+            # Step 1: Run RAG pipeline to get facts + locations (non-streaming)
+            result = await run_in_threadpool(pipeline.ask, request.question)
+
+            locations = result.get('locations', [])
+            raw_answer = result.get('answer', '')
+
+            # Send locations as first event
+            yield f"data: {json.dumps({'type': 'locations', 'locations': locations})}\n\n"
+
+            # Step 2: Try streaming from Ollama
+            ollama_response = pipeline._generate_with_ollama(
+                request.question, raw_answer, stream=True
+            )
+
+            if ollama_response and hasattr(ollama_response, 'iter_lines'):
+                for line in ollama_response.iter_lines():
+                    if line:
+                        try:
+                            chunk = json.loads(line)
+                            token = chunk.get('response', '')
+                            if token:
+                                yield f"data: {json.dumps({'type': 'token', 'token': token})}\n\n"
+                            if chunk.get('done', False):
+                                break
+                        except json.JSONDecodeError:
+                            continue
+            else:
+                # Fallback: send raw answer as a single chunk
+                yield f"data: {json.dumps({'type': 'token', 'token': raw_answer})}\n\n"
+
+            # Signal completion
+            yield f"data: {json.dumps({'type': 'done'})}\n\n"
+
+        except Exception as e:
+            print(f"[STREAM ERROR] {e}")
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no"
+        }
+    )
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))

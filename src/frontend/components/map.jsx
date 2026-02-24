@@ -266,8 +266,9 @@ const Map = forwardRef((props, ref) => {
         if (allowedTypes.length > 0) commonCriteria.push(['in', 'type', ...allowedTypes]);
         if (budgetFilter && budgetFilter.length > 0) commonCriteria.push(['in', 'min_budget', ...budgetFilter]);
 
-        const standardFilter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['!=', 'is_top_10', true]];
-        const top10Filter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['==', 'is_top_10', true]];
+        // Filters for unclustered points in the clustered source
+        const standardFilter = ['all', ['!', ['has', 'point_count']], ...commonCriteria, ['!=', 'is_top_10', true]];
+        const top10Filter = ['all', ['!', ['has', 'point_count']], ...commonCriteria, ['==', 'is_top_10', true]];
 
         try {
             if (map.current.getLayer('tourist-dots')) map.current.setFilter('tourist-dots', standardFilter);
@@ -571,8 +572,29 @@ const Map = forwardRef((props, ref) => {
                 if (!map.current) return;
                 const activeTheme = readMapTheme();
 
-                map.current.addSource('all-data', { type: 'geojson', data: allData });
+                // --- Split data: polygons stay in 'all-data', points go to clustered source ---
+                const polygonFeatures = allData.features.filter(f => {
+                    const t = f.geometry?.type;
+                    return t === 'Polygon' || t === 'MultiPolygon';
+                });
+                const pointFeatures = allData.features.filter(f => f.geometry?.type === 'Point');
 
+                const polygonData = { ...allData, features: polygonFeatures };
+                const pointData = { ...allData, features: pointFeatures };
+
+                // Polygon source (no clustering)
+                map.current.addSource('all-data', { type: 'geojson', data: polygonData });
+
+                // Clustered point source
+                map.current.addSource('points-clustered', {
+                    type: 'geojson',
+                    data: pointData,
+                    cluster: true,
+                    clusterMaxZoom: 12,
+                    clusterRadius: 50
+                });
+
+                // --- Polygon layers (unchanged, use 'all-data') ---
                 map.current.addLayer({
                     id: 'island-fill',
                     type: 'fill',
@@ -613,12 +635,59 @@ const Map = forwardRef((props, ref) => {
                         'text-opacity': 0.9
                     }
                 });
+
+                // --- Cluster circle layer (visible at low zoom) ---
+                map.current.addLayer({
+                    id: 'clusters',
+                    type: 'circle',
+                    source: 'points-clustered',
+                    filter: ['has', 'point_count'],
+                    layout: {
+                        'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible'
+                    },
+                    paint: {
+                        'circle-color': [
+                            'step', ['get', 'point_count'],
+                            '#22d3ee', 10,  // Cyan for < 10
+                            '#f59e0b', 25,  // Amber for 10-25
+                            '#ef4444'        // Red for > 25
+                        ],
+                        'circle-radius': [
+                            'step', ['get', 'point_count'],
+                            16, 10,
+                            22, 25,
+                            28
+                        ],
+                        'circle-stroke-width': 2,
+                        'circle-stroke-color': 'rgba(255,255,255,0.5)',
+                        'circle-opacity': 0.85
+                    }
+                });
+
+                // --- Cluster count label ---
+                map.current.addLayer({
+                    id: 'cluster-count',
+                    type: 'symbol',
+                    source: 'points-clustered',
+                    filter: ['has', 'point_count'],
+                    layout: {
+                        'text-field': ['get', 'point_count_abbreviated'],
+                        'text-font': ['Open Sans Bold'],
+                        'text-size': 12,
+                        'text-allow-overlap': true
+                    },
+                    paint: {
+                        'text-color': '#ffffff'
+                    }
+                });
+
+                // --- Individual point layers (use clustered source, filter out clusters) ---
                 map.current.addLayer({
                     id: 'tourist-dots',
                     type: 'circle',
-                    source: 'all-data',
+                    source: 'points-clustered',
                     maxzoom: 12,
-                    filter: ['all', ['==', ['geometry-type'], 'Point'], ['!', ['to-boolean', ['get', 'is_top_10']]]],
+                    filter: ['all', ['!', ['has', 'point_count']], ['!', ['to-boolean', ['get', 'is_top_10']]]],
                     layout: {
                         'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible'
                     },
@@ -634,9 +703,9 @@ const Map = forwardRef((props, ref) => {
                 map.current.addLayer({
                     id: 'tourist-points',
                     type: 'symbol',
-                    source: 'all-data',
+                    source: 'points-clustered',
                     minzoom: 12,
-                    filter: ['all', ['==', ['geometry-type'], 'Point'], ['!', ['to-boolean', ['get', 'is_top_10']]]],
+                    filter: ['all', ['!', ['has', 'point_count']], ['!', ['to-boolean', ['get', 'is_top_10']]]],
                     layout: {
                         'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible',
                         'icon-image': [
@@ -659,8 +728,8 @@ const Map = forwardRef((props, ref) => {
                 map.current.addLayer({
                     id: 'top-10-points',
                     type: 'symbol',
-                    source: 'all-data',
-                    filter: ['all', ['==', ['geometry-type'], 'Point'], ['to-boolean', ['get', 'is_top_10']]],
+                    source: 'points-clustered',
+                    filter: ['all', ['!', ['has', 'point_count']], ['to-boolean', ['get', 'is_top_10']]],
                     layout: {
                         'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible',
                         'icon-image': 'icon-top10',
@@ -811,7 +880,23 @@ const Map = forwardRef((props, ref) => {
                 map.current.on('click', 'tourist-points', handlePointClick);
                 map.current.on('click', 'top-10-points', handlePointClick);
 
-                ['tourist-points', 'top-10-points'].forEach(l => {
+                // --- Cluster click: zoom in to expand ---
+                map.current.on('click', 'clusters', (e) => {
+                    if (!map.current) return;
+                    const features = map.current.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+                    if (!features.length) return;
+                    const clusterId = features[0].properties.cluster_id;
+                    map.current.getSource('points-clustered').getClusterExpansionZoom(clusterId, (err, zoom) => {
+                        if (err || !map.current) return;
+                        map.current.easeTo({
+                            center: features[0].geometry.coordinates,
+                            zoom: zoom,
+                            duration: 500
+                        });
+                    });
+                });
+
+                ['tourist-points', 'top-10-points', 'clusters'].forEach(l => {
                     map.current.on('mouseenter', l, () => {
                         if (map.current) map.current.getCanvas().style.cursor = 'pointer';
                     });

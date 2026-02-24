@@ -370,6 +370,13 @@ export default function ItineraryPage() {
         }
     };
 
+    const handleActivityToggle = (activityKey) => {
+        setSelectedActivities(prev => ({
+            ...prev,
+            [activityKey]: !prev[activityKey]
+        }));
+    };
+
     // --- NEW: INJECT WIDGET INTO CHAT STATE ---
     const pushItineraryWidgetToChat = () => {
         setChatMessages(prev => {
@@ -715,6 +722,8 @@ export default function ItineraryPage() {
                             onLocationResponse={handleChatbotLocation}
                             messages={desktopDisplayMessages}
                             setMessages={setChatMessages}
+                            selectedActivities={selectedActivities}
+                            onActivityToggle={handleActivityToggle}
                         />
                     </div>
                 </aside>
@@ -854,6 +863,8 @@ export default function ItineraryPage() {
                         ) : null
                     }
                     onLocationResponse={handleChatbotLocation}
+                    selectedActivities={selectedActivities}
+                    onActivityToggle={handleActivityToggle}
                     onExpand={() => {
                         if (sheetState === 'collapsed') setSheetState('mid');
                     }}

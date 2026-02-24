@@ -568,6 +568,77 @@ class Pipeline:
                     return place.title()
         return None
 
+    def expand_short_query(self, user_input):
+        """Expands short queries into fuller questions for better ChromaDB recall."""
+        words = user_input.strip().split()
+        if len(words) > 3:
+            return user_input  # Already descriptive enough
+        
+        clean = user_input.strip().lower()
+        
+        # Map common single words to expanded queries
+        keyword_config = self.config.get('keywords', {})
+        for category, synonyms in keyword_config.items():
+            if clean in synonyms or clean == category:
+                return f"What are the best places for {clean} in Catanduanes?"
+        
+        # If it looks like a place name, ask about it
+        if self.geo_engine.get_coords(clean):
+            return f"Tell me about {user_input} in Catanduanes"
+        
+        # Generic short query expansion
+        if len(words) <= 2:
+            return f"What are the best {user_input} in Catanduanes?"
+        
+        return user_input
+
+    def _generate_with_ollama(self, question, facts, stream=False):
+        """Generate a response using local Ollama LLM. Falls back to raw facts if unavailable."""
+        try:
+            system_prompt = (
+                "You are Pathfinder \u2014 a calm, polite, and excited Catanduanes tourism assistant. "
+                "Respond using ONLY the provided facts. Be concise (2-3 sentences max). "
+                "Sound natural, friendly, and enthusiastic. Do not make up information. "
+                "If facts are unrelated to the question, say so politely."
+            )
+            prompt = f"Tourist asked: {question}\nFacts: {facts}\n\nRespond helpfully and concisely:"
+
+            ollama_url = os.environ.get('OLLAMA_URL', 'http://localhost:11434')
+            response = requests.post(
+                f"{ollama_url}/api/generate",
+                json={
+                    "model": os.environ.get('OLLAMA_MODEL', 'qwen2.5:1.5b'),
+                    "prompt": prompt,
+                    "system": system_prompt,
+                    "stream": stream,
+                    "options": {
+                        "temperature": 0.3,
+                        "num_predict": 200,
+                        "top_p": 0.9
+                    }
+                },
+                timeout=10
+            )
+
+            if response.status_code == 200:
+                if stream:
+                    return response  # Return raw response for streaming
+                result = response.json()
+                generated = result.get('response', '').strip()
+                if generated:
+                    print(f"[OLLAMA] Generated response ({len(generated)} chars)")
+                    return generated
+            
+            print(f"[OLLAMA] Status {response.status_code}, falling back to raw")
+            return None
+            
+        except requests.exceptions.ConnectionError:
+            print("[OLLAMA] Not available, using raw RAG answer")
+            return None
+        except Exception as e:
+            print(f"[OLLAMA ERROR] {e}")
+            return None
+
 
     # ========================================================================
     # MAIN ASK METHOD - INTEGRATED WITH CONTROLLER & EXTRACTOR
@@ -705,9 +776,12 @@ class Pipeline:
                 else:
                     where_filter = {"$or": [{"location": t} for t in target_towns]}
 
-            # Query (KEPT EXACTLY THE SAME)
+            # Query with expanded text for better recall
+            search_query = self.expand_short_query(user_input)
+            print(f"[PIPELINE] Search query: '{search_query}'")
+
             results = self.collection.query(
-                query_texts=[user_input],
+                query_texts=[search_query],
                 n_results=n_results,
                 where=where_filter
             )
@@ -748,13 +822,16 @@ class Pipeline:
                             if not found_in_config:
                                 required_keywords.append(act)
 
-                        # 2. Apply the Filter
+                        # 2. Apply the Filter (SOFTENED: penalty instead of hard skip)
                         if required_keywords:
                             # Check Name OR Text OR Type for ANY of the keywords
                             is_relevant = any(kw in name or kw in text or kw in place_type for kw in required_keywords)
                             
                             if not is_relevant:
-                                continue # Skip unrelated places
+                                # Soft penalty: still include but require higher confidence
+                                confidence_threshold_boost = 0.20
+                                if confidence < (0.50 + confidence_threshold_boost):
+                                    continue  # Only skip if confidence is also low
 
                     confidence = 1 - results['distances'][0][i]
 
@@ -800,6 +877,12 @@ class Pipeline:
         # ====================================================================
         # FINAL STEPS
         # ====================================================================
+
+        # Try to enhance answer with local Ollama LLM (if available)
+        if "don't have information" not in raw_answer.lower() and not is_browsing:
+            ollama_answer = self._generate_with_ollama(user_input, raw_answer)
+            if ollama_answer:
+                raw_answer = ollama_answer
 
         # Cache and enhance
         self.semantic_cache.set(normalized, raw_answer, final_locations)

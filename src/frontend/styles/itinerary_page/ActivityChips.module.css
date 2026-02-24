@@ -1,0 +1,115 @@
+/* ================================
+   ACTIVITY CHIPS SCROLL CONTAINER
+   ================================ */
+
+.chipScroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 8px 4px 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+
+.chipScroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* ================================
+   INDIVIDUAL CHIP
+   ================================ */
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px 7px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(226, 232, 240, 0.8);
+    font-size: 0.78rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    transition: all 0.2s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.chip:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(148, 163, 184, 0.35);
+}
+
+.chip:active {
+    transform: scale(0.95);
+}
+
+/* ================================
+   ACTIVE STATE
+   ================================ */
+
+.chipActive {
+    background: rgba(34, 211, 238, 0.12);
+    border-color: rgba(34, 211, 238, 0.35);
+    color: #22d3ee;
+}
+
+.chipActive:hover {
+    background: rgba(34, 211, 238, 0.2);
+    border-color: rgba(34, 211, 238, 0.5);
+}
+
+/* ================================
+   CHIP ICON & LABEL
+   ================================ */
+
+.chipIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.chipIcon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.chipLabel {
+    line-height: 1;
+}
+
+/* ================================
+   LIGHT THEME
+   ================================ */
+
+:global([data-theme='light']) .chip {
+    border-color: rgba(100, 116, 139, 0.2);
+    background: rgba(15, 23, 42, 0.04);
+    color: rgba(51, 65, 85, 0.85);
+}
+
+:global([data-theme='light']) .chip:hover {
+    background: rgba(15, 23, 42, 0.08);
+    border-color: rgba(100, 116, 139, 0.35);
+}
+
+:global([data-theme='light']) .chipActive {
+    background: rgba(14, 165, 233, 0.08);
+    border-color: rgba(14, 165, 233, 0.3);
+    color: #0ea5e9;
+}
+
+:global([data-theme='light']) .chipActive:hover {
+    background: rgba(14, 165, 233, 0.14);
+    border-color: rgba(14, 165, 233, 0.45);
+}

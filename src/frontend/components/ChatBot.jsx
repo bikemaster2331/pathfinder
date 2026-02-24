@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, forwardRef } from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import styles from '../styles/itinerary_page/ChatBot.module.css';
+import ActivityChips from './ActivityChips';
 
 const ChatBot = forwardRef(({
     messages = [],
@@ -17,6 +18,8 @@ const ChatBot = forwardRef(({
     containerClassName = '',
     containerStyle,
     formAccessory,
+    selectedActivities,
+    onActivityToggle,
     children // We keep this for the mobile PreferenceCard inject, but stop using it for the preview box
 }, ref) => {
     const [input, setInput] = useState('');
@@ -252,30 +255,116 @@ const ChatBot = forwardRef(({
             let baseUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
             if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
 
-            const res = await fetch(`${baseUrl}/ask`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: userMessage })
-            });
+            // Try streaming endpoint first
+            let streamSuccess = false;
+            try {
+                const streamRes = await fetch(`${baseUrl}/ask/stream`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: userMessage })
+                });
 
-            if (!res.ok) {
-                const errorText = await res.text();
-                throw new Error(`Server Error ${res.status}: ${errorText}`);
+                if (streamRes.ok && streamRes.body) {
+                    streamSuccess = true;
+                    // Add empty assistant message to fill in
+                    const msgIndex = { current: -1 };
+                    setMessages(prev => {
+                        msgIndex.current = prev.length;
+                        return [...prev, { role: 'assistant', content: '', locations: [] }];
+                    });
+
+                    const reader = streamRes.body.getReader();
+                    const decoder = new TextDecoder();
+                    let buffer = '';
+
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split('\n');
+                        buffer = lines.pop() || '';
+
+                        for (const line of lines) {
+                            if (!line.startsWith('data: ')) continue;
+                            try {
+                                const event = JSON.parse(line.slice(6));
+
+                                if (event.type === 'locations' && event.locations?.length > 0) {
+                                    setMessages(prev => {
+                                        const updated = [...prev];
+                                        if (msgIndex.current >= 0 && updated[msgIndex.current]) {
+                                            updated[msgIndex.current] = {
+                                                ...updated[msgIndex.current],
+                                                locations: event.locations
+                                            };
+                                        }
+                                        return updated;
+                                    });
+                                    if (onLocationResponse) onLocationResponse(event.locations);
+                                } else if (event.type === 'token') {
+                                    setMessages(prev => {
+                                        const updated = [...prev];
+                                        if (msgIndex.current >= 0 && updated[msgIndex.current]) {
+                                            updated[msgIndex.current] = {
+                                                ...updated[msgIndex.current],
+                                                content: updated[msgIndex.current].content + event.token
+                                            };
+                                        }
+                                        return updated;
+                                    });
+                                } else if (event.type === 'error') {
+                                    setMessages(prev => {
+                                        const updated = [...prev];
+                                        if (msgIndex.current >= 0 && updated[msgIndex.current]) {
+                                            updated[msgIndex.current] = {
+                                                ...updated[msgIndex.current],
+                                                content: event.message || 'Stream error',
+                                                isError: true
+                                            };
+                                        }
+                                        return updated;
+                                    });
+                                }
+                            } catch { /* skip malformed SSE lines */ }
+                        }
+                    }
+                }
+            } catch {
+                // Streaming failed, will fall back below
             }
 
-            const data = await res.json();
+            // Fallback to regular /ask if streaming didn't work
+            if (!streamSuccess) {
+                const res = await fetch(`${baseUrl}/ask`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: userMessage })
+                });
 
-            setMessages(prev => [...prev, { role: 'assistant', content: data.answer }]);
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    throw new Error(`Server Error ${res.status}: ${errorText}`);
+                }
 
-            if (onLocationResponse && data.locations?.length > 0) {
-                onLocationResponse(data.locations);
+                const data = await res.json();
+
+                setMessages(prev => [...prev, {
+                    role: 'assistant',
+                    content: data.answer,
+                    locations: data.locations || []
+                }]);
+
+                if (onLocationResponse && data.locations?.length > 0) {
+                    onLocationResponse(data.locations);
+                }
             }
 
         } catch (error) {
             let errorMsg = 'Something went wrong. Please try again.';
-            if (error.message.includes('Failed to fetch')) {
+            if (error.message?.includes('Failed to fetch')) {
                 errorMsg = 'Cannot connect to server. Is the backend running?';
-            } else if (error.message.includes('503')) {
+            } else if (error.message?.includes('503')) {
                 errorMsg = 'The AI is waking up. Please try again in 10 seconds.';
             }
             setMessages(prev => [...prev, { role: 'assistant', content: errorMsg, isError: true }]);
@@ -389,8 +478,31 @@ const ChatBot = forwardRef(({
                                             key={i}
                                             className={`${styles.messageRow} ${msg.role === 'user' ? styles.userRow : styles.assistantRow}`}
                                         >
-                                            <div className={`${styles.bubble} ${msg.role === 'user' ? styles.userBubble : styles.assistantBubble} ${msg.isError ? styles.errorBubble : ''}`}>
-                                                {msg.content}
+                                            <div className={styles.messageBubbleGroup}>
+                                                <div className={`${styles.bubble} ${msg.role === 'user' ? styles.userBubble : styles.assistantBubble} ${msg.isError ? styles.errorBubble : ''}`}>
+                                                    {msg.content}
+                                                </div>
+                                                {msg.role === 'assistant' && msg.locations?.length > 0 && (
+                                                    <div className={styles.locationChips}>
+                                                        {msg.locations.map((loc, li) => (
+                                                            <button
+                                                                key={li}
+                                                                className={styles.locationChip}
+                                                                onClick={() => {
+                                                                    if (onLocationResponse) onLocationResponse([loc]);
+                                                                }}
+                                                                title={`Fly to ${loc.name}`}
+                                                            >
+                                                                <svg className={styles.locationChipIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                                                    <circle cx="12" cy="10" r="3" />
+                                                                </svg>
+                                                                <span className={styles.locationChipName}>{loc.name}</span>
+                                                                {loc.type && <span className={styles.locationChipType}>{loc.type}</span>}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     );
@@ -418,6 +530,14 @@ const ChatBot = forwardRef(({
                             </div>
                         )}
                     </div>
+                )}
+
+                {isPanel && (
+                    <ActivityChips
+                        selectedActivities={selectedActivities}
+                        onToggle={onActivityToggle}
+                        onPrompt={(prompt) => submitMessage(prompt)}
+                    />
                 )}
 
                 <div className={`${styles.inputArea} ${isSheetExpanded ? styles.sheetInputRow : ''}`}>
