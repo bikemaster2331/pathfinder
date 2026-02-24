@@ -129,7 +129,7 @@ export default function ItineraryPage() {
     const [addedSpots, setAddedSpots] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [activeHub, setActiveHub] = useState(() => {
-        const saved = localStorage.getItem('itinerary_activeHub');
+        const saved = sessionStorage.getItem('itinerary_activeHub');
         return saved ? JSON.parse(saved) : null;
     });
     const [budgetFilter, setBudgetFilter] = useState(['low', 'medium', 'high']);
@@ -140,11 +140,11 @@ export default function ItineraryPage() {
 
     const [budget, setBudget] = useState(50);
     const [destination, setDestination] = useState(() => {
-        const saved = localStorage.getItem('itinerary_destination');
+        const saved = sessionStorage.getItem('itinerary_destination');
         return saved ? saved : '';
     });
     const [dateRange, setDateRange] = useState(() => {
-        const saved = localStorage.getItem('itinerary_dateRange');
+        const saved = sessionStorage.getItem('itinerary_dateRange');
         if (saved) {
             const parsed = JSON.parse(saved);
             return {
@@ -156,17 +156,17 @@ export default function ItineraryPage() {
     });
 
     useEffect(() => {
-        if (activeHub) localStorage.setItem('itinerary_activeHub', JSON.stringify(activeHub));
-        else localStorage.removeItem('itinerary_activeHub');
+        if (activeHub) sessionStorage.setItem('itinerary_activeHub', JSON.stringify(activeHub));
+        else sessionStorage.removeItem('itinerary_activeHub');
     }, [activeHub]);
 
     useEffect(() => {
-        if (destination) localStorage.setItem('itinerary_destination', destination);
-        else localStorage.removeItem('itinerary_destination');
+        if (destination) sessionStorage.setItem('itinerary_destination', destination);
+        else sessionStorage.removeItem('itinerary_destination');
     }, [destination]);
 
     useEffect(() => {
-        localStorage.setItem('itinerary_dateRange', JSON.stringify(dateRange));
+        sessionStorage.setItem('itinerary_dateRange', JSON.stringify(dateRange));
     }, [dateRange]);
 
     // Chat State Lifted to Parent
