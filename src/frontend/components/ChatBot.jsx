@@ -440,12 +440,12 @@ const ChatBot = forwardRef(({
                             aria-label={isRecording ? "Stop recording" : "Start recording"}
                             title={speechError || "Voice Input"}
                             style={{
+                                display: 'none', /* Hidden but functionality kept intact */
                                 background: 'none',
                                 border: 'none',
                                 color: isRecording ? '#ef4444' : 'inherit',
                                 cursor: 'pointer',
                                 padding: '8px',
-                                display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 transition: 'color 0.2s',
@@ -467,7 +467,6 @@ const ChatBot = forwardRef(({
                             placeholder="Ask Pathfinder..."
                             className={styles.chatInput}
                             disabled={loading}
-                            readOnly={true} /* Prevent native OS keyboard from popping up on touch devices */
                         />
                         <button
                             type="submit"
