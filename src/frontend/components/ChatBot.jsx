@@ -611,6 +611,7 @@ const ChatBot = forwardRef(({
                 <>
                     <div className={styles.keyboardModalOverlay} aria-hidden="true" onClick={() => setShowKeyboard(false)} />
                     <div
+                        ref={modalContainerRef}
                         className={styles.keyboardInputModal}
                         tabIndex="-1"
                         onKeyDown={handleGlobalKeyDown}

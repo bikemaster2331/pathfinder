@@ -195,12 +195,14 @@
    ================================ */
 
 .bubble {
-    max-width: 84%;
-    padding: 11px 16px;
+    max-width: 85%;
+    padding: 12px 18px;
     border-radius: 18px;
-    font-size: 0.86rem;
-    line-height: 1.62;
-    word-break: break-word;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    hyphens: none;
 }
 
 .userBubble {
@@ -761,17 +763,64 @@
 :global([data-theme='dark']) .keyboardFixedContainer {
     background: #0f172a;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    z-index: 2000002;
+}
+
+.keyboardActive {
+    /* Prevent sidebar expansion */
+    width: 380px !important;
+    max-width: 380px !important;
 }
 
 /*
   Keyboard input modal overlay
 */
+.keyboardModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000000;
+}
 
+:global([data-theme='light']) .keyboardModalOverlay {
+    background: rgba(255, 255, 255, 0.45);
+}
 
-:global([data-theme='light'])
 /*
   Keyboard input modal
 */
+.keyboardInputModal {
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: 680px;
+    max-width: calc(100vw - 40px);
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    padding: 32px;
+    z-index: 2000001;
+    display: flex;
+    flex-direction: column;
+}
+
+:global([data-theme='light']) .keyboardInputModal {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
 
 
 /* Pseudo-element for stronger blur support on some older Safari/iOS versions if needed */
