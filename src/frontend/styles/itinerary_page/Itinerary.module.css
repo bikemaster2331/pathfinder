@@ -142,9 +142,12 @@
     right: auto !important;
     margin: 4px 0 0 0 !important;
     /* Kills any weird offsets and adds a small gap */
-    width: 100%;
-    height: auto;
-    max-height: min(42vh, 360px);
+    width: 90% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    height: auto !important;
+    max-height: min(72vh, 680px) !important;
+    overflow: hidden !important;
     z-index: 10;
     border-radius: 14px;
     border: 1px solid #2c2c31;

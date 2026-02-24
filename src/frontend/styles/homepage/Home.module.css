@@ -117,11 +117,11 @@ html::-webkit-scrollbar {
 .headline,
 .headlineAccent {
     font-family: 'HelveticaCustom', 'Manrope', sans-serif;
-    font-size: 7rem;
+    font-size: 7.5rem;
     font-weight: 550;
     line-height: 0.9;
     letter-spacing: -0.04em;
-    margin: 76px 0 24px 0;
+    margin: 96px 0 24px 0;
     background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -174,10 +174,10 @@ html::-webkit-scrollbar {
     gap: 6px;
     background: white;
     color: #000000;
-    padding: 9px 16px;
+    padding: 12px 16px;
     border: none;
     border-radius: 56px;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1;
     font-weight: 600;
     cursor: pointer;
@@ -189,8 +189,8 @@ html::-webkit-scrollbar {
 }
 
 .primaryCta svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     transition: transform 0.3s ease;
 }
 
@@ -254,7 +254,7 @@ html::-webkit-scrollbar {
 }
 
 .visualWrapper {
-    margin-top: 60px;
+    margin-top: 180px;
     width: 100%;
     height: 100%;
     max-width: 1220px;
@@ -415,7 +415,7 @@ html::-webkit-scrollbar {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
     max-width: 100%;
-    margin: 240px 0px 80px;
+    margin: 220px 0px 80px;
     padding: 84px 120px 112px 120px;
     overflow: visible;
 }
@@ -690,9 +690,22 @@ html::-webkit-scrollbar {
     line-height: 1.5;
     color: var(--home-muted);
     margin: 0;
-    padding-top: 40px;
     max-width: 300px;
     letter-spacing: -0.01em;
+}
+
+.stickySubtextInner {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    padding-top: 40px;
+}
+
+.stickyChevron {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--home-muted);
+    opacity: 0.6;
 }
 
 .stickyTitle {
@@ -1463,20 +1476,20 @@ html::-webkit-scrollbar {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding: 28px 24px;
+    padding: 36px 28px;
     transition: border-color 0.25s ease, background 0.25s ease;
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    min-height: 180px;
+    min-height: 220px;
 }
 
 .bentoStatCard::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(120px 120px at 10% 10%,
-            color-mix(in srgb, var(--stat-accent) 14%, transparent),
+    background: radial-gradient(160px 160px at 10% 10%,
+            color-mix(in srgb, var(--stat-accent) 16%, transparent),
             transparent 72%);
     pointer-events: none;
 }
@@ -1487,31 +1500,31 @@ html::-webkit-scrollbar {
 }
 
 .bentoStatIcon {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: color-mix(in srgb, var(--stat-accent) 10%, transparent);
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .bentoStatValue {
     font-family: 'HelveticaCustom', 'Manrope', sans-serif;
-    font-size: 2.4rem;
+    font-size: 2.8rem;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.04em;
 }
 
 .bentoStatLabel {
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     color: var(--home-muted);
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 .bentoStatTap {
@@ -1684,10 +1697,48 @@ html::-webkit-scrollbar {
     opacity: 0.5;
 }
 
+/* Category Pills */
+.bentoCategoryRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.bentoCategoryPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--cat-accent) 25%, transparent);
+    background: color-mix(in srgb, var(--cat-accent) 5%, transparent);
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--home-text);
+    cursor: default;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bentoCategoryPill:hover {
+    border-color: color-mix(in srgb, var(--cat-accent) 45%, transparent);
+    background: color-mix(in srgb, var(--cat-accent) 10%, transparent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--cat-accent) 15%, transparent);
+}
+
+.bentoCategoryIcon {
+    display: flex;
+    align-items: center;
+}
+
 /* CTA card hidden */
 .bentoCtaCard {
     display: none;
 }
+
+
 
 /* ----------------------------------------------------------------
    COLLABORATE SECTION — Social Links
@@ -1707,28 +1758,62 @@ html::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: min(100%, 620px);
-    margin: 0 auto 0 10%;
+    width: min(100%, 1120px);
+    margin: 0 auto;
+}
+
+.projectGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 2.9fr) minmax(280px, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    width: min(100%, 850px);
+    margin-right: auto;
 }
 
 .repoCard {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 28px;
-    border-radius: 20px;
-    border: 1px solid var(--home-border);
+    gap: 26px;
+    padding: 44px;
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     background: var(--home-glass);
     backdrop-filter: blur(16px);
     text-decoration: none;
     color: var(--home-text);
-    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 20px 56px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
     cursor: pointer;
 }
 
+.repoCard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 120% at 8% 0%, rgba(99, 102, 241, 0.16), transparent 58%);
+    pointer-events: none;
+}
+
 .repoCard:hover {
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.38);
+    transform: translateY(-2px);
+}
+
+.repoDivider {
+    width: 100%;
+    height: 1px;
+    background: var(--home-border);
+    opacity: 0.6;
+}
+
+.repoTechSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .repoCardHeader {
@@ -1738,13 +1823,13 @@ html::-webkit-scrollbar {
 }
 
 .repoIconWrap {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
+    width: 62px;
+    height: 62px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
     flex-shrink: 0;
 }
@@ -1758,14 +1843,14 @@ html::-webkit-scrollbar {
 
 .repoName {
     font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: var(--home-text);
     letter-spacing: -0.01em;
 }
 
 .repoDesc {
-    font-size: 0.88rem;
+    font-size: 0.96rem;
     color: var(--home-muted);
     line-height: 1.5;
 }
@@ -1791,10 +1876,10 @@ html::-webkit-scrollbar {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     font-weight: 500;
     color: var(--home-muted);
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 999px;
     border: 1px solid var(--home-border);
     background: rgba(255, 255, 255, 0.03);
@@ -1815,13 +1900,23 @@ html::-webkit-scrollbar {
     border-radius: 999px;
     border: 1px solid rgba(45, 212, 191, 0.25);
     color: #2dd4bf;
-    margin-left: auto;
 }
 
 .techStack {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.techCard {
+    background: var(--home-glass);
+    backdrop-filter: blur(16px);
+    border-radius: 22px;
+    padding: 24px;
+    height: 100%;
+    justify-content: flex-start;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0.92;
 }
 
 .techLabel {
@@ -1836,9 +1931,22 @@ html::-webkit-scrollbar {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-top: 12px;
+}
+
+.techBadgesCentered {
+    justify-content: center;
+}
+
+.connectFooter {
+    margin-top: 4px;
+    opacity: 0.9;
 }
 
 .techBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     font-size: 0.82rem;
     font-weight: 500;
     padding: 6px 14px;
@@ -1847,6 +1955,31 @@ html::-webkit-scrollbar {
     color: var(--tech-color);
     background: color-mix(in srgb, var(--tech-color) 8%, transparent);
     letter-spacing: 0.01em;
+    cursor: default;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.techBadge:hover {
+    border-color: color-mix(in srgb, var(--tech-color) 45%, transparent);
+    background: color-mix(in srgb, var(--tech-color) 12%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--tech-color) 14%, transparent),
+                0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.techBadgeIcon {
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tech-color);
+    flex-shrink: 0;
+}
+
+.techBadgeIcon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .techBadgeLink {
@@ -1878,10 +2011,197 @@ html::-webkit-scrollbar {
 }
 
 .contributeNote {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--home-muted);
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.7;
+    min-height: 1.6em;
+    max-width: 48rem;
+}
+
+.inlineLink {
+    color: var(--home-text);
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.inlineLink:hover {
+    transform: scale(1.005);
+}
+
+/* ── Meet the Creators — 3D Card Flip ── */
+.creatorsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: min(100%, 850px);
+    margin-right: auto;
+    opacity: 0.93;
+}
+
+.creatorsGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.creatorCardWrap {
+    perspective: 800px;
+    cursor: pointer;
+    height: 176px;
+}
+
+.creatorFlipper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.creatorFlipped {
+    transform: rotateY(180deg);
+}
+
+/* Shared face styles */
+.creatorFront,
+.creatorBack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 10px;
+    border: 1px solid var(--home-border);
+    background: var(--home-glass);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.creatorFront {
+    gap: 12px;
+    padding: 20px 10px 12px;
+    justify-content: flex-start;
+}
+
+.creatorBack {
+    transform: rotateY(180deg);
+    gap: 6px;
+    padding: 20px 12px 14px;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.creatorCardWrap:hover .creatorFront,
+.creatorCardWrap:hover .creatorBack {
+    border-color: color-mix(in srgb, var(--creator-accent) 35%, transparent);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2),
+                0 0 0 1px color-mix(in srgb, var(--creator-accent) 10%, transparent);
+}
+
+.creatorAvatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--creator-accent) 12%, transparent);
+    border: 2px solid color-mix(in srgb, var(--creator-accent) 25%, transparent);
+    color: var(--creator-accent);
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.creatorAvatar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.creatorCardWrap:hover .creatorAvatar {
+    background: color-mix(in srgb, var(--creator-accent) 20%, transparent);
+    border-color: color-mix(in srgb, var(--creator-accent) 45%, transparent);
+}
+
+.creatorName {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--home-text);
+    letter-spacing: -0.01em;
+    text-align: center;
+}
+
+.creatorBackName {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--creator-accent);
+    letter-spacing: -0.01em;
+    text-align: center;
+    margin-bottom: -2px;
+}
+
+.creatorRole {
+    font-size: 0.64rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--creator-accent);
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--creator-accent) 25%, transparent);
+    background: color-mix(in srgb, var(--creator-accent) 6%, transparent);
+}
+
+.creatorBio {
+    font-size: 0.65rem;
+    line-height: 1.45;
+    color: var(--home-muted);
+    margin: 6px 0 24px;
+    text-align: center;
+    padding: 0;
+}
+
+.creatorLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.68rem;
+    color: var(--home-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.creatorLink:hover {
+    color: var(--creator-accent);
+}
+
+.creatorActions {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.typewriterCursor {
+    display: inline;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    animation: cursorBlink 0.7s steps(1) infinite;
+    margin-left: 1px;
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .socialIntro {
@@ -1980,6 +2300,21 @@ html::-webkit-scrollbar {
     transform: translate(2px, -2px);
 }
 
+@media (max-width: 1024px) {
+    .contributeLayout {
+        width: min(100%, 980px);
+    }
+
+    .projectGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .repoCard {
+        padding: 34px;
+        gap: 22px;
+    }
+}
+
 /* ----------------------------------------------------------------
    MOBILE ADJUSTMENTS FOR NEW COMPONENTS
    ---------------------------------------------------------------- */
@@ -2022,6 +2357,33 @@ html::-webkit-scrollbar {
         height: 60px;
     }
 
+    .bentoHighlightsGrid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .bentoHighlightCard {
+        padding: 20px 18px;
+    }
+
+    .bentoHighlightsTitle {
+        font-size: 1.25rem;
+    }
+
+    .bentoActivityCard {
+        padding: 18px 16px;
+        gap: 14px;
+    }
+
+    .bentoActIcon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .bentoActArrow {
+        display: none;
+    }
+
     .socialGrid {
         max-width: 100%;
     }
@@ -2044,6 +2406,50 @@ html::-webkit-scrollbar {
     .socialHandle {
         font-size: 0.74rem;
     }
+
+    .creatorsGrid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .contributeLayout {
+        gap: 14px;
+    }
+
+    .projectGrid {
+        gap: 12px;
+    }
+
+    .techCard {
+        padding: 18px;
+    }
+
+    .contributeNote {
+        font-size: 0.88rem;
+        line-height: 1.6;
+    }
+
+    .creatorCardWrap {
+        height: 160px;
+    }
+
+    .creatorFront {
+        padding: 14px 8px 10px;
+        gap: 10px;
+    }
+
+    .creatorBack {
+        padding: 16px 10px 12px;
+    }
+
+    .creatorAvatar {
+        width: 38px;
+        height: 38px;
+    }
+
+    .creatorBio {
+        font-size: 0.65rem;
+    }
 }
 
 /* ================================================================
@@ -2055,7 +2461,7 @@ html::-webkit-scrollbar {
     width: 60vw;
     height: 80vh;
     max-width: none;
-    margin: 0 auto;
+    margin-top: 36px;
     position: relative;
 }
 
@@ -2318,6 +2724,12 @@ html::-webkit-scrollbar {
     font-size: 0.88rem;
     line-height: 1.58;
     color: rgba(255, 255, 255, 0.72);
+}
+
+.guideMsgTypewriter {
+    display: block;
+    width: 100%;
+    margin: 0;
 }
 
 .guideMsgCard {

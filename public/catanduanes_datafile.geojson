@@ -26863,32 +26863,7 @@
         ]
       }
     },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Nyxx & Match Café",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A cozy roadside café in Baras serving coffee and snacks, perfect for a quick stop during an east coast road trip.",
-        "municipality": "BARAS",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-19:00",
-        "best_time_of_day": "snack",
-        "min_budget": "low",
-        "size": 0.1,
-        "showAtZoom": 11,
-        "id": 414,
-        "image": "/images/nyxx_match_cafe.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.3689383521126,
-          13.660708793380602
-        ]
-      }
-    },
+
     {
       "type": "Feature",
       "properties": {
@@ -27322,7 +27297,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 89,
-        "image": "/images/amenia_beach_resort.jpg"
+        "image": "/images/amenia.png"
       },
       "geometry": {
         "type": "Point",
