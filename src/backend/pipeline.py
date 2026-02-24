@@ -18,7 +18,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 # --- FORCE OFFLINE MODE ---
 # This prevents the "HTTPSConnectionPool" crash by stopping model update checks
-# os.environ["HF_HUB_OFFLINE"] = "1" 
+os.environ["HF_HUB_OFFLINE"] = "1" 
 # --------------------------
 
 import chromadb
@@ -471,6 +471,27 @@ class Pipeline:
     # =========================================================
     # REBUILD METHOD (For ingest.py)
     # =========================================================
+    def warm_up(self):
+        """Warm up the Ollama model to ensure first response is fast."""
+        print("[OLLAMA] Warming up model...")
+        try:
+            ollama_url = os.environ.get('OLLAMA_URL', 'http://localhost:11434')
+            response = requests.post(
+                f"{ollama_url}/api/generate",
+                json={
+                    "model": os.environ.get('OLLAMA_MODEL', 'qwen2.5:1.5b'),
+                    "prompt": "hi",
+                    "keep_alive": "20m"
+                },
+                timeout=5
+            )
+            if response.status_code == 200:
+                print("[OLLAMA] Warm-up complete")
+            else:
+                print(f"[OLLAMA] Warm-up status: {response.status_code}")
+        except Exception as e:
+            print(f"[OLLAMA WARM-UP ERROR] {e}")
+
     def rebuild_index(self):
         print("[INGEST] Wiping old memory...")
         try:
@@ -615,7 +636,8 @@ class Pipeline:
                         "temperature": 0.3,
                         "num_predict": 200,
                         "top_p": 0.9
-                    }
+                    },
+                    "keep_alive": "20m"
                 },
                 timeout=10
             )

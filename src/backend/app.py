@@ -35,6 +35,9 @@ async def lifespan(app: FastAPI):
             config_path=str(CONFIG)
         )
         
+        # Warm up Ollama model
+        await run_in_threadpool(pipeline.warm_up)
+        
         # RENDER FIX: Check if brain is empty (ephemeral storage)
         if pipeline.collection.count() == 0:
             print("⚠️ Brain is empty. Rebuilding index...")
