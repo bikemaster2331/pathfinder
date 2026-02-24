@@ -1384,18 +1384,6 @@
     "place_name": "Minaabat Beach"
   },
   {
-    "input": "Where is Emerich Inn?",
-    "output": "Emerich Inn is located in the municipality of Viga.",
-    "title": "Emerich Inn Location",
-    "topic": "Accommodation",
-    "location": "Viga",
-    "activities": "accommodation",
-    "budget": "cheap",
-    "summary_offline": "Emerich Inn is located in Viga.",
-    "coordinates": {"lat": 13.87190788627189, "lng": 124.30975236074532},
-    "place_name": "Emerich Inn"
-  },
-  {
     "input": "Where is Nitto Lodge located in Virac?",
     "output": "Nitto Lodge is situated in the town proper of Virac, close to shops and local dining spots.",
     "title": "Nitto Lodge Location",
@@ -3260,19 +3248,6 @@
     }
   },
   {
-    "input": "Where is Emerich Inn?",
-    "output": "Emerich Inn is a hotels and resorts located in Viga.",
-    "title": "Emerich Inn Location",
-    "topic": "Accommodation",
-    "location": "VIGA",
-    "summary_offline": "Emerich Inn is a hotels and resorts located in Viga.",
-    "place_name": "Emerich Inn",
-    "coordinates": {
-      "lat": 13.87190788627189,
-      "lng": 124.30975236074532
-    }
-  },
-  {
     "input": "Where is Sofeca Travellers Inn?",
     "output": "Sofeca Travellers Inn is a hotels and resorts located in Viga.",
     "title": "Sofeca Travellers Inn Location",
@@ -4076,19 +4051,6 @@
     "coordinates": {
       "lat": 13.580889392708748,
       "lng": 124.22861573676987
-    }
-  },
-  {
-    "input": "Where is Tandu Coffee?",
-    "output": "Tandu Coffee is a restaurants and cafes located in Virac.",
-    "title": "Tandu Coffee Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Tandu Coffee is a restaurants and cafes located in Virac.",
-    "place_name": "Tandu Coffee",
-    "coordinates": {
-      "lat": 13.582913575755228,
-      "lng": 124.23250602142909
     }
   },
   {
