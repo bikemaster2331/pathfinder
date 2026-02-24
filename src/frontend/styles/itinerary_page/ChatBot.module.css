@@ -840,3 +840,11 @@
     background: #0f172a !important;
     box-shadow: 0 0px 0px #0f172a !important;
 }
+
+.modalChatInput {
+    font-size: 1.4rem !important;
+    line-height: 1.5 !important;
+    padding: 12px 0 !important;
+    min-height: 100px !important;
+    max-height: 200px !important;
+}

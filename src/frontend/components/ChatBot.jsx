@@ -528,7 +528,7 @@ const ChatBot = forwardRef(({
                                 onChange={handleModalInputChange}
                                 onKeyDown={handleModalKeyDown}
                                 placeholder="Ask Pathfinder..."
-                                className={styles.chatInput}
+                                className={`${styles.chatInput} ${styles.modalChatInput}`}
                                 disabled={loading}
                                 readOnly={true} /* Prevent native OS keyboard from popping up */
                             />

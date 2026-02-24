@@ -19,6 +19,10 @@ const PreferenceCard = ({
     onToggleLock,
     onMoveSpot,
     dateRange,
+    currentDay,
+    setCurrentDay,
+    storedDays,
+    setStoredDays,
     mobileMode = false,
     onMobilePanelChange,
     activeMobilePanel,
@@ -27,10 +31,6 @@ const PreferenceCard = ({
     onMobileSheetStateChange
 }) => {
     const navigate = useNavigate();
-
-    // --- MULTI-DAY STATE ---
-    const [currentDay, setCurrentDay] = useState(1);
-    const [storedDays, setStoredDays] = useState({});
 
     // --- WARNING MODAL STATE ---
     const [showOverloadWarning, setShowOverloadWarning] = useState(false);
@@ -273,9 +273,11 @@ const PreferenceCard = ({
         };
 
         const allSpotsFlat = [];
-        Object.keys(finalItinerary).sort().forEach(day => {
-            allSpotsFlat.push(...finalItinerary[day]);
-        });
+        Object.keys(finalItinerary)
+            .sort((a, b) => Number(a) - Number(b))
+            .forEach(day => {
+                allSpotsFlat.push(...finalItinerary[day]);
+            });
 
         if (!activeHubName || allSpotsFlat.length === 0) {
             alert("Please add at least one spot before saving.");
@@ -291,7 +293,7 @@ const PreferenceCard = ({
         const fullTripDistance = calculateTotalRoute(hub, allSpotsFlat);
         const fullTripDriveData = calculateDriveTimes(hub, allSpotsFlat);
 
-        generateItineraryPDF({
+        const pdfData = generateItineraryPDF({
             activeHubName,
             dateRange,
             addedSpots: finalItinerary,
@@ -299,7 +301,7 @@ const PreferenceCard = ({
             driveData: fullTripDriveData
         });
 
-        navigate('/last');
+        navigate('/last', { state: { pdfData } });
     };
 
     const isLastDay = currentDay >= dayCount;
@@ -726,9 +728,6 @@ const PreferenceCard = ({
                                 <div className={styles.walletLabel}>
                                     {timeWallet.label}
                                 </div>
-                                <div className={styles.walletSubtext}>
-                                    {timeWallet.subtext}
-                                </div>
                             </div>
                         </div>
 
@@ -740,10 +739,6 @@ const PreferenceCard = ({
                                     backgroundColor: timeWallet.color,
                                 }}
                             ></div>
-                        </div>
-                        <div className={styles.statsRow}>
-                            <span className={styles.statBadge}>{addedSpots?.length || 0} Stops</span>
-                            <span className={styles.statBadge}>{totalDistance} km</span>
                         </div>
                     </div>
 
@@ -908,15 +903,6 @@ const PreferenceCard = ({
                             )}
                         </button>
                     </div>
-
-                    {!isLastDay && (
-                        <div
-                            onClick={handleSaveItinerary}
-                            className={styles.finishLink}
-                        >
-                            (Or finish and save itinerary now)
-                        </div>
-                    )}
                 </div>
 
             </div>

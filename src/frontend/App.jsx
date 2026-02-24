@@ -11,7 +11,7 @@ import ItineraryPage from './pages/Itinerary';
 import Creators from './pages/Creators';
 import About from './pages/About';
 import Contact from './pages/Contact';
-// import Last from './pages/Last'; // Uncomment if you are using this
+import Last from './pages/Last';
 
 const PageTransition = ({ children }) => {
     return (
@@ -32,18 +32,18 @@ function AnimatedRoutes() {
 
     return (
         <>
-            <SharedNavbar />
+            {location.pathname !== '/last' && <SharedNavbar />}
 
             {/* mode="wait" ensures the old page leaves before the new one enters */}
             <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>
-                    
+
                     <Route path="/" element={
                         <PageTransition>
                             <Home />
                         </PageTransition>
                     } />
-                    
+
                     <Route path="/itinerary" element={
                         <PageTransition>
                             <ItineraryPage />
@@ -65,6 +65,12 @@ function AnimatedRoutes() {
                     <Route path="/contact" element={
                         <PageTransition>
                             <Contact />
+                        </PageTransition>
+                    } />
+
+                    <Route path="/last" element={
+                        <PageTransition>
+                            <Last />
                         </PageTransition>
                     } />
 

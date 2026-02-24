@@ -10,9 +10,9 @@ import styles from '../styles/itinerary_page/map.module.css';
 // --- CONFIGURATION ---
 const INITIAL_VIEW = {
     center: [124.25, 13.70], // first value/increase = push to left, second value/increase = push down
-    zoom: 10.7, 
-    pitch: 60, 
-    bearing: -15 
+    zoom: 10.7,
+    pitch: 60,
+    bearing: -15
 };
 
 const MOBILE_INITIAL_VIEW = {
@@ -30,13 +30,13 @@ const getInitialView = () => {
 };
 
 const HARD_BOUNDS = [
-    [123.65, 13.4], 
-    [124.8, 14.2]  
+    [123.65, 13.4],
+    [124.8, 14.2]
 ];
 
 const WIDE_BOUNDS = [
-    [123.0, 13.0], 
-    [125.5, 14.8]  
+    [123.0, 13.0],
+    [125.5, 14.8]
 ];
 
 const RESET_TRIGGER_BOUNDS = {
@@ -48,14 +48,14 @@ const RESET_TRIGGER_BOUNDS = {
 
 const HUB_COLOR = '#048aa1';
 
-const ACTIVITY_MAPPING = { 
-    Swimming: ['FALLS', 'HOTELS & RESORTS'], 
-    Hiking: ['VIEWPOINTS', 'FALLS'], 
-    Dining: ['RESTAURANTS & CAFES'], 
-    Sightseeing: ['VIEWPOINTS', 'RELIGIOUS SITES', 'FALLS'], 
-    Photography: ['VIEWPOINTS', 'RELIGIOUS SITES', 'FALLS', 'HOTELS & RESORTS'], 
-    Shopping: ['SHOPPING'], 
-    Accommodation: ['HOTELS & RESORTS'] 
+const ACTIVITY_MAPPING = {
+    Swimming: ['FALLS', 'HOTELS & RESORTS'],
+    Hiking: ['VIEWPOINTS', 'FALLS'],
+    Dining: ['RESTAURANTS & CAFES'],
+    Sightseeing: ['VIEWPOINTS', 'RELIGIOUS SITES', 'FALLS'],
+    Photography: ['VIEWPOINTS', 'RELIGIOUS SITES', 'FALLS', 'HOTELS & RESORTS'],
+    Shopping: ['SHOPPING'],
+    Accommodation: ['HOTELS & RESORTS']
 };
 
 // Temporary switch for clean-map screenshots.
@@ -136,7 +136,7 @@ const Map = forwardRef((props, ref) => {
         isMenuOpen,
         onToggleMenu
     } = props;
-    
+
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -173,7 +173,7 @@ const Map = forwardRef((props, ref) => {
 
             if (locations.length === 1) {
                 const coords = locations[0].coordinates;
-                
+
                 map.current.flyTo({
                     center: coords,
                     zoom: 14,
@@ -183,7 +183,7 @@ const Map = forwardRef((props, ref) => {
                 });
 
                 addGlowingMarker(locations[0]);
-                
+
                 openTimedPopup(
                     coords,
                     `
@@ -194,15 +194,15 @@ const Map = forwardRef((props, ref) => {
                     `,
                     { offset: 25 }
                 );
-            } 
+            }
             else {
                 const bounds = new maplibregl.LngLatBounds();
-                
+
                 locations.forEach(loc => {
                     bounds.extend(loc.coordinates);
                     addGlowingMarker(loc);
                 });
-                
+
                 map.current.fitBounds(bounds, {
                     padding: { top: 80, bottom: 80, left: 80, right: 80 },
                     maxZoom: 13
@@ -219,21 +219,21 @@ const Map = forwardRef((props, ref) => {
     const addGlowingMarker = (location) => {
         if (!map.current) return;
         if (CLEAN_MAP_SCREENSHOT_MODE) return;
-        
+
         const container = document.createElement('div');
         container.className = styles.markerWrapper;
 
         const el = document.createElement('div');
         el.className = styles.chatbotGlowMarker;
-        
+
         container.appendChild(el);
-        
+
         const marker = new maplibregl.Marker({ element: container })
             .setLngLat(location.coordinates)
             .addTo(map.current);
-        
+
         glowingMarkersRef.current.push(marker);
-        
+
         container.addEventListener('click', () => {
             const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
             const popupAccent = isLight ? '#1d4ed8' : '#22d3ee';
@@ -249,11 +249,11 @@ const Map = forwardRef((props, ref) => {
                 { offset: 25 }
             );
         });
-        
+
         setTimeout(() => {
             marker.remove();
             glowingMarkersRef.current = glowingMarkersRef.current.filter(m => m !== marker);
-        }, 60000); 
+        }, 60000);
     };
 
     useEffect(() => {
@@ -261,20 +261,20 @@ const Map = forwardRef((props, ref) => {
 
         const activeActivities = Object.keys(selectedActivities).filter(key => selectedActivities[key]);
         const allowedTypes = [...new Set(activeActivities.flatMap(act => ACTIVITY_MAPPING[act]))];
-        
+
         const commonCriteria = [];
         if (allowedTypes.length > 0) commonCriteria.push(['in', 'type', ...allowedTypes]);
         if (budgetFilter && budgetFilter.length > 0) commonCriteria.push(['in', 'min_budget', ...budgetFilter]);
 
-        const standardFilter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['!=', ['get', 'is_top_10'], true]];
-        const top10Filter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['==', ['get', 'is_top_10'], true]];
+        const standardFilter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['!=', 'is_top_10', true]];
+        const top10Filter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['==', 'is_top_10', true]];
 
         try {
             if (map.current.getLayer('tourist-dots')) map.current.setFilter('tourist-dots', standardFilter);
             if (map.current.getLayer('tourist-points')) map.current.setFilter('tourist-points', standardFilter);
             if (map.current.getLayer('top-10-points')) map.current.setFilter('top-10-points', top10Filter);
-        } catch (error) { 
-            console.error("Filter error:", error); 
+        } catch (error) {
+            console.error("Filter error:", error);
         }
 
     }, [selectedActivities, budgetFilter, isLoaded]);
@@ -300,7 +300,7 @@ const Map = forwardRef((props, ref) => {
             });
             return;
         }
-        
+
         const data = {
             type: 'FeatureCollection',
             features: [{
@@ -312,39 +312,39 @@ const Map = forwardRef((props, ref) => {
 
         if (map.current.getSource(sourceId)) {
             const currentHubKey = `${selectedHub.name}_${selectedHub.coordinates[0]}_${selectedHub.coordinates[1]}`;
-            if (lastHubRef.current === currentHubKey) return; 
+            if (lastHubRef.current === currentHubKey) return;
             map.current.getSource(sourceId).setData(data);
             lastHubRef.current = currentHubKey;
         } else {
             map.current.addSource(sourceId, { type: 'geojson', data });
 
             map.current.addLayer({
-                id: 'hub-halo', 
-                type: 'circle', 
+                id: 'hub-halo',
+                type: 'circle',
                 source: sourceId,
                 layout: {
                     'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible'
                 },
                 paint: {
-                    'circle-radius': 20, 
+                    'circle-radius': 20,
                     'circle-color': HUB_COLOR,
-                    'circle-opacity': 0.4, 
-                    'circle-stroke-width': 1, 
+                    'circle-opacity': 0.4,
+                    'circle-stroke-width': 1,
                     'circle-stroke-color': HUB_COLOR
                 }
             });
-            
+
             map.current.addLayer({
-                id: 'hub-center', 
-                type: 'circle', 
+                id: 'hub-center',
+                type: 'circle',
                 source: sourceId,
                 layout: {
                     'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible'
                 },
                 paint: {
-                    'circle-radius': 6, 
+                    'circle-radius': 6,
                     'circle-color': '#ffffff',
-                    'circle-stroke-width': 3, 
+                    'circle-stroke-width': 3,
                     'circle-stroke-color': HUB_COLOR
                 }
             });
@@ -358,9 +358,9 @@ const Map = forwardRef((props, ref) => {
             speed: 1.2,
             curve: 1
         });
-        
+
     }, [selectedHub, isLoaded]);
-    
+
     useEffect(() => {
         if (!isLoaded || !map.current) return;
 
@@ -381,7 +381,7 @@ const Map = forwardRef((props, ref) => {
 
         const updateSolidRoute = () => {
             const stops = [];
-            
+
             if (selectedHub?.coordinates) {
                 stops.push(selectedHub.coordinates);
             }
@@ -395,7 +395,7 @@ const Map = forwardRef((props, ref) => {
             }
 
             const fullCoordinates = [];
-            
+
             if (stops.length > 1) {
                 for (let i = 0; i < stops.length - 1; i++) {
                     const segment = getVisualRoute(stops[i], stops[i + 1]);
@@ -429,8 +429,8 @@ const Map = forwardRef((props, ref) => {
                         'line-cap': 'round'
                     },
                     paint: {
-                        'line-color': '#06b6d4', 
-                        'line-width': 5,         
+                        'line-color': '#06b6d4',
+                        'line-width': 5,
                         'line-opacity': 1,
                         'line-blur': 2
                     }
@@ -461,17 +461,17 @@ const Map = forwardRef((props, ref) => {
             } else {
                 map.current.addSource(previewSourceId, { type: 'geojson', data: previewGeoJSON });
                 map.current.addLayer({
-                    id: previewLayerId, 
-                    type: 'line', 
+                    id: previewLayerId,
+                    type: 'line',
                     source: previewSourceId,
                     layout: { 'line-join': 'round', 'line-cap': 'round' },
-                    paint: { 
+                    paint: {
                         'line-color': '#9CA3AF', // Gray color
-                        'line-width': 3, 
+                        'line-width': 3,
                         'line-dasharray': [2, 2], // Dashed line
-                        'line-opacity': 0.7 
+                        'line-opacity': 0.7
                     }
-                }, 'tourist-points'); 
+                }, 'tourist-points');
             }
         };
 
@@ -479,7 +479,7 @@ const Map = forwardRef((props, ref) => {
             updateSolidRoute();
             updatePreviewRoute();
         }, 10);
-        
+
         return () => clearTimeout(timer);
 
     }, [selectedHub, addedSpots, isLoaded, selectedLocation]);
@@ -496,9 +496,9 @@ const Map = forwardRef((props, ref) => {
             style: {
                 version: 8,
                 sources: {},
-                layers: [{ 
-                    id: 'background', 
-                    type: 'background', 
+                layers: [{
+                    id: 'background',
+                    type: 'background',
                     paint: { 'background-color': theme.mapBg }
                 }]
             },
@@ -506,7 +506,7 @@ const Map = forwardRef((props, ref) => {
             zoom: initialView.zoom,
             pitch: initialView.pitch,
             bearing: initialView.bearing,
-            minZoom: 9, 
+            minZoom: 9,
             maxZoom: 15,
             attributionControl: false,
             maxBounds: HARD_BOUNDS,
@@ -563,55 +563,55 @@ const Map = forwardRef((props, ref) => {
             const iconSvgs = getIconSvgs();
             Object.keys(iconSvgs).forEach((key) => loadIcon(key, iconSvgs[key]));
 
-            const dataPromise = mapData 
-                ? Promise.resolve(mapData) 
+            const dataPromise = mapData
+                ? Promise.resolve(mapData)
                 : fetch('/catanduanes_datafile.geojson').then(res => res.json());
 
             dataPromise.then(allData => {
                 if (!map.current) return;
                 const activeTheme = readMapTheme();
-                
+
                 map.current.addSource('all-data', { type: 'geojson', data: allData });
-                
-                map.current.addLayer({ 
-                    id: 'island-fill', 
-                    type: 'fill', 
-                    source: 'all-data', 
-                    filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], 
-                    paint: { 
+
+                map.current.addLayer({
+                    id: 'island-fill',
+                    type: 'fill',
+                    source: 'all-data',
+                    filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]],
+                    paint: {
                         'fill-color': activeTheme.mapLand,
-                        'fill-opacity': 1 
-                    } 
+                        'fill-opacity': 1
+                    }
                 });
-                
-                map.current.addLayer({ 
-                    id: 'municipality-borders', 
-                    type: 'line', 
-                    source: 'all-data', 
-                    filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], 
-                    paint: { 
-                        'line-color': activeTheme.mapBorder, 
-                        'line-width': 1.5 
-                    } 
+
+                map.current.addLayer({
+                    id: 'municipality-borders',
+                    type: 'line',
+                    source: 'all-data',
+                    filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]],
+                    paint: {
+                        'line-color': activeTheme.mapBorder,
+                        'line-width': 1.5
+                    }
                 });
-                
-                map.current.addLayer({ 
-                    id: 'municipality-labels', 
-                    type: 'symbol', 
-                    source: 'all-data', 
+
+                map.current.addLayer({
+                    id: 'municipality-labels',
+                    type: 'symbol',
+                    source: 'all-data',
                     minzoom: 11,
-                    filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], 
-                    layout: { 
-                        'text-field': ['get', 'MUNICIPALI'], 
-                        'text-font': ['Open Sans Bold'], 
-                        'text-size': 12 
-                    }, 
-                    paint: { 
+                    filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]],
+                    layout: {
+                        'text-field': ['get', 'MUNICIPALI'],
+                        'text-font': ['Open Sans Bold'],
+                        'text-size': 12
+                    },
+                    paint: {
                         'text-color': activeTheme.mapLabel,
-                        'text-halo-color': activeTheme.mapLabelHalo, 
+                        'text-halo-color': activeTheme.mapLabelHalo,
                         'text-halo-width': 3,
                         'text-opacity': 0.9
-                    } 
+                    }
                 });
                 map.current.addLayer({
                     id: 'tourist-dots',
@@ -632,25 +632,25 @@ const Map = forwardRef((props, ref) => {
                 });
 
                 map.current.addLayer({
-                    id: 'tourist-points', 
-                    type: 'symbol', 
-                    source: 'all-data', 
+                    id: 'tourist-points',
+                    type: 'symbol',
+                    source: 'all-data',
                     minzoom: 12,
                     filter: ['all', ['==', ['geometry-type'], 'Point'], ['!', ['to-boolean', ['get', 'is_top_10']]]],
                     layout: {
                         'visibility': CLEAN_MAP_SCREENSHOT_MODE ? 'none' : 'visible',
                         'icon-image': [
-                            'match', 
-                            ['get', 'type'], 
-                            'HOTELS & RESORTS', 'icon-hotel', 
-                            'FALLS', 'icon-nature', 
-                            'VIEWPOINTS', 'icon-camera', 
-                            'RESTAURANTS & CAFES', 'icon-food', 
-                            'RELIGIOUS SITES', 'icon-church', 
+                            'match',
+                            ['get', 'type'],
+                            'HOTELS & RESORTS', 'icon-hotel',
+                            'FALLS', 'icon-nature',
+                            'VIEWPOINTS', 'icon-camera',
+                            'RESTAURANTS & CAFES', 'icon-food',
+                            'RELIGIOUS SITES', 'icon-church',
                             'SHOPPING', 'icon-shop',
                             'icon-default'
                         ],
-                        'icon-size': 1, 
+                        'icon-size': 1,
                         'icon-allow-overlap': true,
                         'icon-anchor': 'center'
                     }
@@ -707,7 +707,7 @@ const Map = forwardRef((props, ref) => {
 
                 map.current.on('dragend', () => {
                     if (!map.current) return;
-                    
+
                     const currentZoom = map.current.getZoom();
                     if (currentZoom < 11) {
                         const initialView = getInitialView();
@@ -719,14 +719,14 @@ const Map = forwardRef((props, ref) => {
                             duration: 600,
                             easing: (t) => t * (2 - t)
                         });
-                        return; 
+                        return;
                     }
 
                     const center = map.current.getCenter();
-                    const isOutsideSafeZone = 
-                        center.lng < RESET_TRIGGER_BOUNDS.minLng || 
+                    const isOutsideSafeZone =
+                        center.lng < RESET_TRIGGER_BOUNDS.minLng ||
                         center.lng > RESET_TRIGGER_BOUNDS.maxLng ||
-                        center.lat < RESET_TRIGGER_BOUNDS.minLat || 
+                        center.lat < RESET_TRIGGER_BOUNDS.minLat ||
                         center.lat > RESET_TRIGGER_BOUNDS.maxLat;
 
                     if (isOutsideSafeZone) {
@@ -736,7 +736,7 @@ const Map = forwardRef((props, ref) => {
                             zoom: initialView.zoom,
                             bearing: initialView.bearing, // 👈 RESET BEARING
                             pitch: initialView.pitch,     // 👈 RESET PITCH
-                            duration: 800, 
+                            duration: 800,
                             easing: (t) => t * (2 - t)
                         });
                     }
@@ -760,16 +760,16 @@ const Map = forwardRef((props, ref) => {
                     if (!map.current) return;
 
                     const features = map.current.queryRenderedFeatures(e.point, {
-                        layers: ['tourist-points', 'top-10-points'] 
+                        layers: ['tourist-points', 'top-10-points']
                     });
 
                     if (features.length > 0) return;
 
                     if (!e.features[0].properties.MUNICIPALI) return;
-                    
+
                     const b = new maplibregl.LngLatBounds();
-                    e.features[0].geometry.coordinates.flat(Infinity).forEach((c, i, arr) => { 
-                        if (i % 2 === 0) b.extend([c, arr[i+1]]); 
+                    e.features[0].geometry.coordinates.flat(Infinity).forEach((c, i, arr) => {
+                        if (i % 2 === 0) b.extend([c, arr[i + 1]]);
                     });
                     map.current.fitBounds(b, { padding: 50, maxZoom: 12.5 });
                 });
@@ -778,18 +778,18 @@ const Map = forwardRef((props, ref) => {
                     if (!map.current) return;
                     const f = e.features[0];
                     const currentZoom = map.current.getZoom();
-                    
+
                     if (currentZoom < 12) {
                         map.current.flyTo({
                             center: f.geometry.coordinates,
-                            zoom: 14, 
+                            zoom: 14,
                             speed: 1.5,
                             essential: true
                         });
                     } else {
                         map.current.easeTo({
                             center: f.geometry.coordinates,
-                            duration: 300 
+                            duration: 300
                         });
                     }
 
@@ -810,7 +810,7 @@ const Map = forwardRef((props, ref) => {
 
                 map.current.on('click', 'tourist-points', handlePointClick);
                 map.current.on('click', 'top-10-points', handlePointClick);
-                    
+
                 ['tourist-points', 'top-10-points'].forEach(l => {
                     map.current.on('mouseenter', l, () => {
                         if (map.current) map.current.getCanvas().style.cursor = 'pointer';
@@ -819,7 +819,7 @@ const Map = forwardRef((props, ref) => {
                         if (map.current) map.current.getCanvas().style.cursor = '';
                     });
                 });
-                    
+
             }).catch(err => {
                 console.error('Failed to load map data:', err);
             });
@@ -829,9 +829,9 @@ const Map = forwardRef((props, ref) => {
             resizeObserver.disconnect();
             if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
             if (resizeRafRef.current) cancelAnimationFrame(resizeRafRef.current);
-            if (map.current) { 
-                map.current.remove(); 
-                map.current = null; 
+            if (map.current) {
+                map.current.remove();
+                map.current = null;
             }
         };
     }, []);
@@ -927,27 +927,27 @@ const Map = forwardRef((props, ref) => {
                         </svg>
                     </button>
                     <div className={styles.zoomControls}>
-                    <button
-                        type="button"
-                        className={styles.zoomButton}
-                        onClick={handleZoomIn}
-                        aria-label="Zoom in"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M5 12h14" />
-                            <path d="M12 5v14" />
-                        </svg>
-                    </button>
-                    <button
-                        type="button"
-                        className={styles.zoomButton}
-                        onClick={handleZoomOut}
-                        aria-label="Zoom out"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M5 12h14" />
-                        </svg>
-                    </button>
+                        <button
+                            type="button"
+                            className={styles.zoomButton}
+                            onClick={handleZoomIn}
+                            aria-label="Zoom in"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <path d="M5 12h14" />
+                                <path d="M12 5v14" />
+                            </svg>
+                        </button>
+                        <button
+                            type="button"
+                            className={styles.zoomButton}
+                            onClick={handleZoomOut}
+                            aria-label="Zoom out"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <path d="M5 12h14" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             )}
