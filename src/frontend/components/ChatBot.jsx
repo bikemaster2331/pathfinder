@@ -20,8 +20,11 @@ const ChatBot = forwardRef(({
     children // We keep this for the mobile PreferenceCard inject, but stop using it for the preview box
 }, ref) => {
     const [input, setInput] = useState('');
+    const [modalInput, setModalInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [showKeyboard, setShowKeyboard] = useState(false);
+    const showKeyboardRef = useRef(false);
+    useEffect(() => { showKeyboardRef.current = showKeyboard; }, [showKeyboard]);
     const [isRecording, setIsRecording] = useState(false);
     const [speechError, setSpeechError] = useState('');
     const [layoutName, setLayoutName] = useState("default");
@@ -30,6 +33,7 @@ const ChatBot = forwardRef(({
     const modalTextareaRef = useRef(null);
     const keyboardRef = useRef(null);
     const recognitionRef = useRef(null);
+    const modalContainerRef = useRef(null);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -50,6 +54,10 @@ const ChatBot = forwardRef(({
             }
             // Check if the click is on the textarea itself, we don't want to dismiss and immediately re-open
             if (textareaRef.current && textareaRef.current.contains(e.target)) {
+                return;
+            }
+            // Check if the click is inside the modal container
+            if (modalContainerRef.current && modalContainerRef.current.contains(e.target)) {
                 return;
             }
 
@@ -76,18 +84,25 @@ const ChatBot = forwardRef(({
 
             recognitionRef.current.onresult = (event) => {
                 const transcript = event.results[0][0].transcript;
-                setInput(prev => {
-                    const newVal = prev + (prev.endsWith(' ') ? '' : ' ') + transcript;
-                    if (keyboardRef.current) keyboardRef.current.setInput(newVal);
-                    return newVal;
-                });
-                if (textareaRef.current) {
-                    textareaRef.current.style.height = 'auto';
-                    textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 120) + 'px';
-                }
-                if (modalTextareaRef.current) {
-                    modalTextareaRef.current.style.height = 'auto';
-                    modalTextareaRef.current.style.height = Math.min(modalTextareaRef.current.scrollHeight, 200) + 'px';
+                if (showKeyboardRef.current) {
+                    setModalInput(prev => {
+                        const newVal = prev + (prev.endsWith(' ') ? '' : ' ') + transcript;
+                        if (keyboardRef.current) keyboardRef.current.setInput(newVal);
+                        return newVal;
+                    });
+                    if (modalTextareaRef.current) {
+                        modalTextareaRef.current.style.height = 'auto';
+                        modalTextareaRef.current.style.height = Math.min(modalTextareaRef.current.scrollHeight, 200) + 'px';
+                    }
+                } else {
+                    setInput(prev => {
+                        const newVal = prev + (prev.endsWith(' ') ? '' : ' ') + transcript;
+                        return newVal;
+                    });
+                    if (textareaRef.current) {
+                        textareaRef.current.style.height = 'auto';
+                        textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 120) + 'px';
+                    }
                 }
             };
 
@@ -130,12 +145,17 @@ const ChatBot = forwardRef(({
     const handleInputChange = (e) => {
         const val = e.target.value;
         setInput(val);
-        if (keyboardRef.current) {
-            keyboardRef.current.setInput(val);
-        }
         if (textareaRef.current) {
             textareaRef.current.style.height = 'auto';
             textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 120) + 'px';
+        }
+    };
+
+    const handleModalInputChange = (e) => {
+        const val = e.target.value;
+        setModalInput(val);
+        if (keyboardRef.current) {
+            keyboardRef.current.setInput(val);
         }
         if (modalTextareaRef.current) {
             modalTextareaRef.current.style.height = 'auto';
@@ -144,11 +164,7 @@ const ChatBot = forwardRef(({
     };
 
     const onChangeKeyboard = (inputVal) => {
-        setInput(inputVal);
-        if (textareaRef.current) {
-            textareaRef.current.style.height = 'auto';
-            textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 120) + 'px';
-        }
+        setModalInput(inputVal);
         if (modalTextareaRef.current) {
             modalTextareaRef.current.style.height = 'auto';
             modalTextareaRef.current.style.height = Math.min(modalTextareaRef.current.scrollHeight, 200) + 'px';
@@ -165,23 +181,14 @@ const ChatBot = forwardRef(({
         if (button === "{default}") {
             setLayoutName("default");
         }
-        if (button === "{enter}" && !loading && input.trim()) {
-            handleSubmit({ preventDefault: () => { } });
+        if (button === "{enter}" && !loading && modalInput.trim()) {
+            handleModalSubmit({ preventDefault: () => { } });
             setLayoutName("default"); // Option to revert to default on send
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!input.trim() || loading || !setMessages) return;
-
-        const userMessage = input.trim();
-        setInput('');
-        if (keyboardRef.current) {
-            keyboardRef.current.clearInput();
-        }
-        if (textareaRef.current) textareaRef.current.style.height = 'auto';
-        if (modalTextareaRef.current) modalTextareaRef.current.style.height = 'auto';
+    const submitMessage = async (userMessage) => {
+        if (!userMessage || loading || !setMessages) return;
 
         setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
         setLoading(true);
@@ -222,10 +229,42 @@ const ChatBot = forwardRef(({
         }
     };
 
+    const handleSubmit = (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        const userMessage = input.trim();
+        if (!userMessage || loading) return;
+
+        setInput('');
+        if (textareaRef.current) textareaRef.current.style.height = 'auto';
+        submitMessage(userMessage);
+    };
+
+    const handleModalSubmit = (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        const userMessage = modalInput.trim();
+        if (!userMessage || loading) return;
+
+        setModalInput('');
+        if (keyboardRef.current) {
+            keyboardRef.current.clearInput();
+        }
+        if (modalTextareaRef.current) modalTextareaRef.current.style.height = 'auto';
+        setShowKeyboard(false);
+
+        submitMessage(userMessage);
+    };
+
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             handleSubmit(e);
+        }
+    };
+
+    const handleModalKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleModalSubmit(e);
         }
     };
 
@@ -393,8 +432,8 @@ const ChatBot = forwardRef(({
             </div>
 
             {showKeyboard && (
-                <div className={styles.keyboardInputModal}>
-                    <form onSubmit={handleSubmit} className={styles.inputForm}>
+                <div ref={modalContainerRef} className={styles.keyboardInputModal}>
+                    <form onSubmit={handleModalSubmit} className={styles.inputForm}>
                         <button
                             type="button"
                             onClick={toggleRecording}
@@ -422,9 +461,9 @@ const ChatBot = forwardRef(({
                         <textarea
                             ref={modalTextareaRef}
                             rows={1}
-                            value={input}
-                            onChange={handleInputChange}
-                            onKeyDown={handleKeyDown}
+                            value={modalInput}
+                            onChange={handleModalInputChange}
+                            onKeyDown={handleModalKeyDown}
                             placeholder="Ask Pathfinder..."
                             className={styles.chatInput}
                             disabled={loading}
@@ -432,8 +471,8 @@ const ChatBot = forwardRef(({
                         />
                         <button
                             type="submit"
-                            className={`${styles.sendBtn} ${input.trim() && !loading ? styles.sendBtnActive : ''}`}
-                            disabled={loading || !input.trim()}
+                            className={`${styles.sendBtn} ${modalInput.trim() && !loading ? styles.sendBtnActive : ''}`}
+                            disabled={loading || !modalInput.trim()}
                         >
                             {loading ? (
                                 <svg className={styles.loadingSpinner} viewBox="0 0 24 24" fill="none">
