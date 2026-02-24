@@ -1,232 +1,263 @@
-# Pathfinder — AI-powered IoT Map Board
+# 🧭 Pathfinder — Catanduanes Tourism Kiosk
 
-Pathfinder is an AI-powered interactive map board that provides tourist information, smart itineraries, and location-aware answers. It combines a React frontend (kiosk / browser), a FastAPI backend, and a retrieval-augmented generation (RAG) pipeline (ChromaDB + embeddings + LLM) to answer natural-language queries and display results on maps for kiosks or web clients.
-
-This README documents the architecture, quick start, developer guidance for tracing frontend ↔ backend calls, and maintenance tips.
+An AI-powered interactive tourism kiosk for Catanduanes, Philippines. Features a conversational chatbot with RAG (Retrieval-Augmented Generation), an interactive MapLibre map with marker clustering, activity-based filtering, and optional local LLM integration via Ollama.
 
 ---
 
-## Table of contents
-- [Features](#features)
-- [Architecture & system flow](#architecture--system-flow)
-- [Repo layout (where to look)](#repo-layout-where-to-look)
-- [Quick start (development)](#quick-start-development)
-- [Environment variables](#environment-variables)
-- [Common API endpoints & examples](#common-api-endpoints--examples)
-- [Frontend - Backend mapping (how to find callers)](#frontend---backend-mapping-how-to-find-callers)
-- [Admin / rebuild flow](#admin--rebuild-flow)
-- [Docker & deployment notes](#docker--deployment-notes)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact / Maintainer](#contact--maintainer)
-- [Related projects](#related-projects)
+## 📋 Prerequisites
+
+| Requirement | Version | Notes |
+|---|---|---|
+| **Node.js** | ≥ 18 | [nodejs.org](https://nodejs.org) |
+| **Python** | ≥ 3.10 | [python.org](https://python.org) |
+| **Git** | any | [git-scm.com](https://git-scm.com) |
+| **Ollama** *(optional)* | latest | [ollama.com](https://ollama.com) — for local LLM responses |
 
 ---
 
-## Features
-- Natural-language Q&A powered by RAG (ChromaDB + embeddings + an LLM)
-- Interactive map rendering (Leaflet / react-leaflet)
-- Place details and itinerary support
-- Admin endpoints to rebuild dataset/index
-- Background / async support for long-running LLM tasks
-- Health and status endpoints for monitoring
+## 🚀 Quick Start
 
----
+### 1. Clone the Repository
 
-## Architecture & system flow
-- Client (React): UI components — Search, MapView, Results, Itinerary, Admin UI
-- API client: centralized module invoking backend endpoints (e.g. `/ask`, `/places`, `/admin/*`)
-- Backend (FastAPI): HTTP routes wrapping the pipeline, auth, and data access
-- Pipeline: ingestion, Chroma collections, embeddings, LLM calls, dataset hash/versioning
-- Storage & services: Chroma DB persistence directory, LLM provider (OpenAI/GCP), optional Redis/Sentry
-
-Minimal request flow:
-User -> React UI -> API client -> FastAPI POST /ask -> RAG (Chroma + embeddings + LLM) -> Response (answer + places) -> React UI -> Map (Leaflet) renders markers / routes
-
----
-
-## Repo layout (where to look)
-Typical locations (actual paths may vary in this repo — search commands below will locate exact folders):
-- backend/ or server/
-  - app/main.py or main.py (FastAPI entry)
-  - api/ or routes/ (route definitions)
-  - pipeline/ (ingest, RAG logic, rebuild)
-  - models/, schemas/
-- frontend/ or react-app/ or web/
-  - package.json
-  - src/
-    - api.ts / api.js (central API client)
-    - components/, pages/, App.tsx, index.tsx
-- data/
-  - dataset.json
-- docker/ or deployment/
-  - Dockerfiles, docker-compose.yml
-- README.md, LICENSE, .env.example
-
----
-
-## Quick start (development)
-Prereqs:
-- Node 18+ (npm or yarn)
-- Python 3.10+
-- Virtualenv / venv
-- (Optional) Docker & docker-compose
-- LLM credentials (OPENAI_API_KEY or GCP credentials depending on config)
-
-1) Backend
 ```bash
-# from repo root (adjust if backend is inside subfolder)
-cd backend || cd server || cd .
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env      # edit .env with values below
-uvicorn app.main:app --reload --port 8000
+git clone https://github.com/bikemaster2331/pathfinder.git
+cd pathfinder
+git checkout nai
 ```
 
-2) Frontend
+---
+
+### 2. Frontend Setup
+
 ```bash
-# find the frontend folder first if unknown (see mapping section)
-cd frontend || cd web || cd react-app
-cp .env.example .env      # set REACT_APP_API_BASE_URL=http://localhost:8000
+# Install Node dependencies
 npm install
-npm start
+
+# Start the development server
+npm run dev
 ```
 
-Quick test:
+The frontend will be available at **http://localhost:5173** (default Vite port).
+
+#### Environment Variables (Frontend)
+
+Create a `.env` file in the project root if your backend runs on a different host:
+
+```env
+VITE_API_URL=http://127.0.0.1:8000
+```
+
+---
+
+### 3. Backend Setup
+
 ```bash
-curl -s -X POST "http://localhost:8000/ask" \
+# Navigate to the backend directory
+cd src/backend
+
+# Create a Python virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+
+# Install Python dependencies
+pip install -r requirements.txt
+```
+
+#### Environment Variables (Backend)
+
+Create a `.env` file inside `src/backend/`:
+
+```env
+# Required for Gemini cloud enhancement (optional but recommended)
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Ollama configuration (optional — app works without it)
+OLLAMA_URL=http://localhost:11434
+OLLAMA_MODEL=qwen2.5:1.5b
+```
+
+#### Ingest the Dataset
+
+Before the chatbot can answer questions, you need to ingest the tourism dataset into ChromaDB:
+
+```bash
+# From src/backend/
+python ingest.py
+```
+
+This reads `src/backend/dataset/dataset.json` and creates the vector embeddings in `src/backend/chroma_storage/`.
+
+#### Start the Backend Server
+
+```bash
+# From src/backend/
+python app.py
+```
+
+The API will be available at **http://localhost:8000**.
+
+You can verify it's running by visiting: http://localhost:8000/health
+
+---
+
+### 4. Ollama Setup (Optional)
+
+Ollama provides local LLM inference for more natural chatbot responses. Without it, the chatbot returns raw RAG facts (still functional).
+
+```bash
+# Install Ollama (see ollama.com for your platform)
+# Then pull the recommended lightweight model:
+ollama pull qwen2.5:1.5b
+
+# Ollama runs automatically on http://localhost:11434
+```
+
+> **Raspberry Pi 5 users**: Ollama supports ARM64. Use `qwen2.5:1.5b` or `qwen2.5:0.5b` for best performance on edge devices.
+
+---
+
+## 🏗️ Production Build
+
+```bash
+# From the project root
+npm run build
+```
+
+Output goes to `dist/`. Serve it with any static file server:
+
+```bash
+npm run preview
+# or
+npx serve dist
+```
+
+---
+
+## 📁 Project Structure
+
+```
+pathfinder/
+├── public/
+│   ├── catanduanes_full.geojson    # Map data (polygons + points)
+│   └── icons/                      # Map marker icons
+├── src/
+│   ├── frontend/
+│   │   ├── components/
+│   │   │   ├── ChatBot.jsx         # Chat UI with streaming & location chips
+│   │   │   ├── ActivityChips.jsx   # Activity filter chips
+│   │   │   ├── map.jsx             # MapLibre map with clustering
+│   │   │   └── MapWrapper.jsx      # Map container with controls
+│   │   ├── pages/
+│   │   │   └── Itinerary.jsx       # Main page orchestrator
+│   │   └── styles/
+│   │       └── itinerary_page/     # CSS modules
+│   └── backend/
+│       ├── app.py                  # FastAPI server + /ask + /ask/stream
+│       ├── pipeline.py             # RAG pipeline + Ollama integration
+│       ├── controller.py           # Input validation & intent detection
+│       ├── entity_extractor.py     # Place/activity entity extraction
+│       ├── ingest.py               # Dataset → ChromaDB ingestion
+│       ├── config/
+│       │   └── config.yaml         # Keywords, prompts, model settings
+│       ├── dataset/
+│       │   └── dataset.json        # Tourism knowledge base
+│       └── requirements.txt        # Python dependencies
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/ask` | Standard Q&A — returns `{ answer, locations }` |
+| `POST` | `/ask/stream` | SSE streaming — streams tokens + locations in real-time |
+| `GET` | `/health` | Health check — returns collection count & status |
+| `POST` | `/admin/rebuild` | Force re-ingest the dataset into ChromaDB |
+| `POST` | `/itinerary_add` | Add a place to the itinerary |
+| `GET` | `/itinerary` | Get the current itinerary list |
+
+### Example `/ask` Request
+
+```bash
+curl -X POST http://localhost:8000/ask \
   -H "Content-Type: application/json" \
-  -d '{"question":"best cafes near the river"}'
+  -d '{"question": "What are the best beaches?"}'
 ```
 
 ---
 
-## Environment variables
-Backend (.env):
-- FASTAPI_HOST=0.0.0.0
-- FASTAPI_PORT=8000
-- CHROMA_PERSIST_DIR=./chroma_db
-- DATASET_JSON=./data/dataset.json
-- LLM_PROVIDER=openai|gcp
-- OPENAI_API_KEY=your_openai_key
-- GOOGLE_APPLICATION_CREDENTIALS=/path/to/gcp-creds.json
-- ADMIN_API_KEY=secret_admin_key
-- LOG_LEVEL=info
+## 🗺️ Features
 
-Frontend (.env):
-- REACT_APP_API_BASE_URL=http://localhost:8000
-- REACT_APP_ADMIN_UI=true
-
-Adjust variable names/paths to match the actual repo implementation.
+- **Map Clustering** — Points auto-cluster at low zoom. Click a cluster to expand.
+- **Activity Chips** — Quick-filter by Beaches, Hiking, Sightseeing, Dining, Shopping, Stay.
+- **Location Chips** — Tap a suggested location in chat to fly the map there.
+- **AI Chatbot** — RAG pipeline with semantic search, query expansion, and optional Ollama LLM.
+- **SSE Streaming** — Token-by-token response streaming for a typewriter effect.
+- **Touch Optimized** — Momentum scrolling, overscroll containment, tap-friendly UI.
+- **Offline Capable** — Works without internet (uses pre-computed embeddings + local LLM).
 
 ---
 
-## Common API endpoints & examples
-(Confirm exact paths in backend code. These are typical endpoints used by the frontend.)
+## 🔧 Configuration
 
-- POST /ask
-  - Request: { "question": "..." }
-  - Response: { "answer": "...", "places": [{ id, name, lat, lng, categories }] }
+All AI behavior is configured in `src/backend/config/config.yaml`:
 
-- GET /places
-  - Query: ?near=lat,lng&radius=500 or ?ids=1,2,3
-  - Response: array of place objects
-
-- GET /places/{id}
-  - Response: full place detail object
-
-- POST /admin/rebuild
-  - Header: x-api-key: ADMIN_API_KEY
-  - Response: { "status": "rebuild_started", "job_id": "..." }
-
-- GET /admin/hash or GET /admin/status
-  - Response: dataset hash or rebuild status
-
-- GET /health
-  - Response: { "status": "ok" }
+- **RAG model** — `rag.model_path` (default: `all-MiniLM-L6-v2`)
+- **Keywords** — Activity-to-keyword mappings for filtering
+- **Prompts** — Gemini enhancement prompt templates
+- **Rate limiting** — `security.rate_limit.max_request` and `period_seconds`
+- **Cache** — `cache.similarity_threshold` for semantic caching
 
 ---
 
-## Frontend - Backend mapping (how to find callers)
-If you're unsure which files call backend endpoints, run these commands from the repo root and inspect the results. Paste outputs if you want help mapping them.
+## 🍓 Raspberry Pi 5 Deployment
 
-1) Find any package.json (locate React app):
+For kiosk deployment on a Raspberry Pi 5:
+
 ```bash
-find . -type f -name package.json -print
-```
+# 1. Clone and setup (same as above)
+git clone https://github.com/bikemaster2331/pathfinder.git
+cd pathfinder && git checkout nai
 
-2) Search frontend for endpoint strings:
-```bash
-# replace 'frontend' with the actual frontend folder if different
-grep -R --line-number "/ask\|/admin\|/places\|/health" frontend || true
-grep -R --line-number "axios\|fetch(" frontend || true
-```
+# 2. Install Node.js (ARM64)
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
+sudo apt install -y nodejs
 
-3) Find centralized API client files:
-```bash
-grep -R --line-number "axios.create\|export .*api\|const api" frontend/src || true
-```
+# 3. Frontend
+npm install && npm run build
 
-4) Detect map integration (Leaflet / react-leaflet):
-```bash
-grep -R --line-number "leaflet\|react-leaflet\|L.map" frontend || true
-# or check package.json dependencies for 'leaflet' / 'react-leaflet'
-```
+# 4. Backend
+cd src/backend
+python3 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+python ingest.py
 
-5) Search for auth usage (admin or token):
-```bash
-grep -R --line-number "x-api-key\|Authorization\|localStorage.getItem('token')" frontend || true
-```
+# 5. Ollama (optional but recommended)
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull qwen2.5:1.5b
 
-How to map after locating api client:
-- Open the API client file (e.g., `src/api.ts`) — it usually defines baseURL and functions like `ask()`, `getPlaces()`, `rebuild()`.
-- Use grep to find each exported function's callers:
-```bash
-grep -R --line-number "ask(" frontend/src || true
+# 6. Run both services
+# Terminal 1:
+cd src/backend && source venv/bin/activate && python app.py
+
+# Terminal 2 (serve frontend):
+npx serve dist -l 5173
+
+# 7. Open Chromium in kiosk mode
+chromium-browser --kiosk http://localhost:5173
 ```
-- Open those components/pages to see how responses are used (e.g., render map, list).
 
 ---
 
-## Admin / rebuild flow
-- Admin UI calls POST /admin/rebuild with `x-api-key`.
-- Backend validates key and starts an async rebuild (BackgroundTasks or job queue).
-- Rebuild re-ingests `DATASET_JSON`, recomputes embeddings, recreates Chroma collection, and updates dataset hash.
-- Admin UI polls GET /admin/status or GET /admin/hash for completion.
+## 📝 License
 
-Protect admin endpoints (API key + network controls) for kiosk deployments.
-
----
-
-## Docker & deployment notes
-- Persist Chroma DB storage to a Docker volume (CHROMA_PERSIST_DIR).
-- Run backend and frontend in separate containers behind NGINX (TLS).
-- Avoid public exposure of admin endpoints — place behind VPN or internal network.
-- Scale LLM calls using background workers and caching for heavy traffic.
-
----
-
-## Troubleshooting
-- Frontend cannot reach backend: check REACT_APP_API_BASE_URL and FastAPI CORS settings.
-- Stale search/index results: trigger POST /admin/rebuild.
-- High LLM latency or cost: use background tasks, cache results, or configure cheaper models.
-- Chroma persistence issues: verify CHROMA_PERSIST_DIR exists and is writable.
-
----
-
-## Contributing
-- Fork → branch → PR
-- Follow style & tests:
-  - Frontend: eslint / prettier
-  - Backend: ruff / black / pytest
-- Add unit / integration tests for new features and document API changes.
-- When opening PRs, include screenshots for UI changes and request review for data pipeline changes.
-
----
-
-## License
-This repository is licensed under the Apache-2.0 License. See LICENSE.
-
-
+This project is private. All rights reserved.
