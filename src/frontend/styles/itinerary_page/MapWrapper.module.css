@@ -25,7 +25,7 @@
 
 .leftRightControls {
     position: absolute;
-    top: clamp(60px, 8vw, 74px);
+    top: clamp(12px, 1.6vw, 20px);
     left: clamp(12px, 1.6vw, 20px);
     z-index: 50;
     display: flex;
