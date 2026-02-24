@@ -401,7 +401,7 @@ const ChatBot = forwardRef(({
                             placeholder="Ask Pathfinder..."
                             className={styles.chatInput}
                             disabled={loading}
-                            readOnly={true} /* Prevent native OS keyboard from popping up on touch devices */
+                            inputMode="none" /* Prevent native OS keyboard from popping up, allowing physical & custom keyboard */
                             onClick={() => setShowKeyboard(true)}
                         />
                         <button
@@ -467,6 +467,7 @@ const ChatBot = forwardRef(({
                             placeholder="Ask Pathfinder..."
                             className={styles.chatInput}
                             disabled={loading}
+                            inputMode="none" /* Prevent native OS keyboard from popping up, allowing physical & custom keyboard */
                         />
                         <button
                             type="submit"
