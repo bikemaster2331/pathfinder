@@ -34,11 +34,7 @@
 }
 
 :global([data-theme='light']) .homeContainer {
-    background:
-        radial-gradient(1200px 700px at 10% -10%, rgba(255, 255, 255, 0.55), transparent 60%),
-        radial-gradient(900px 600px at 90% 10%, rgba(214, 182, 255, 0.2), transparent 60%),
-        radial-gradient(700px 500px at 50% 100%, rgba(255, 182, 212, 0.16), transparent 65%),
-        linear-gradient(160deg, #eee7ef 0%, #e9e1ed 45%, #e4dce9 100%);
+    background: #fffdf9;
 }
 
 .scrollSpacer {
