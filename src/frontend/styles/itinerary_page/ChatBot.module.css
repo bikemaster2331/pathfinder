@@ -23,6 +23,12 @@
     gap: 8px;
 }
 
+:global([data-theme='light']) .floating {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
 .sheet {
     position: relative;
     left: 0;
@@ -636,4 +642,154 @@
     :global([data-theme='dark']) .sheetHandle {
         background: rgba(255, 255, 255, 0.25);
     }
+}
+
+/* ================================
+   SQUEEKBOARD KEYBOARD THEME
+   ================================ */
+
+.keyboardFixedContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    background: #e2e8f0;
+    padding: 10px 0;
+    z-index: 99999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme='dark']) .keyboardFixedContainer {
+    background: #0f172a;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/*
+  Keyboard input modal
+*/
+.keyboardInputModal {
+    position: fixed;
+    bottom: 440px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 680px;
+    max-width: calc(100vw - 40px);
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    padding: 24px;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+}
+
+:global([data-theme='light']) .keyboardInputModal {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+.keyboardInputModal .chatInput {
+    font-size: 1.25rem;
+    padding: 8px 0;
+}
+
+.keyboardInputModal .sendBtn {
+    width: 44px;
+    height: 44px;
+}
+
+.keyboardInputModal .sendIcon {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+:global(.squeekboardTheme) {
+    background-color: transparent !important;
+    font-family: 'Google Sans Text', 'Google Sans', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    padding: 20px 0 !important;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Force the internal rows to have a max width so it doesn't stretch 1920px wide */
+:global(.squeekboardTheme .hg-rows) {
+    max-width: 1200px !important;
+    width: 100%;
+}
+
+:global(.squeekboardTheme .hg-row) {
+    justify-content: center;
+    margin-bottom: 12px !important;
+}
+
+:global(.squeekboardTheme .hg-button) {
+    height: 80px !important;
+    font-size: 1.8rem !important;
+    font-weight: 400 !important;
+    border-radius: 6px !important;
+    background: #e2e8f0 !important;
+    color: #1e293b !important;
+    border: none !important;
+    box-shadow: 0 4px 0px #cbd5e1, 0 0 0 1px #cbd5e1 !important;
+    transition: all 0.05s ease !important;
+    margin: 0 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+:global(.squeekboardTheme .hg-button:active),
+:global(.squeekboardTheme .hg-activeButton) {
+    background: #cbd5e1 !important;
+    transform: translateY(4px) !important;
+    box-shadow: 0 0px 0px #cbd5e1 !important;
+}
+
+/* Wide keys like shift, backspace, numbers, etc */
+:global(.squeekboardTheme .hg-wide-key) {
+    background: #cbd5e1 !important;
+    box-shadow: 0 4px 0px #94a3b8 !important;
+    font-size: 1.3rem !important;
+    flex-grow: 1.5 !important;
+    max-width: 140px !important;
+}
+
+:global(.squeekboardTheme .hg-wide-key:active) {
+    background: #94a3b8 !important;
+    box-shadow: 0 0px 0px #94a3b8 !important;
+}
+
+/* Spacebar */
+:global(.squeekboardTheme .hg-space-key) {
+    flex-grow: 4 !important;
+    max-width: 600px !important;
+}
+
+/* Dark mode adjustments */
+:global([data-theme='dark'] .squeekboardTheme .hg-button) {
+    background: #334155 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 4px 0px #1e293b !important;
+}
+
+:global([data-theme='dark'] .squeekboardTheme .hg-button:active) {
+    background: #1e293b !important;
+    box-shadow: 0 0px 0px #1e293b !important;
+}
+
+:global([data-theme='dark'] .squeekboardTheme .hg-wide-key) {
+    background: #1e293b !important;
+    box-shadow: 0 4px 0px #0f172a !important;
+}
+
+:global([data-theme='dark'] .squeekboardTheme .hg-wide-key:active) {
+    background: #0f172a !important;
+    box-shadow: 0 0px 0px #0f172a !important;
 }
