@@ -195,13 +195,15 @@
    ================================ */
 
 .bubble {
-    max-width: 85%;
+    max-width: 90%;
     padding: 12px 18px;
     border-radius: 18px;
     font-size: 0.95rem;
     line-height: 1.5;
     word-break: normal;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    text-align: left;
     hyphens: none;
 }
 
