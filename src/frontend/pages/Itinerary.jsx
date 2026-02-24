@@ -7,6 +7,7 @@ import ChatBot from '../components/ChatBot';
 import { TRAVEL_HUBS } from '../constants/location';
 import { optimizeRoute } from '../utils/optimize';
 import defaultBg from '../assets/images/card/catanduanes.png';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // --- CONFIGURATION ---
 const BUDGET_CONFIG = {
@@ -179,6 +180,7 @@ export default function ItineraryPage() {
     const [isMapFullscreen, setIsMapFullscreen] = useState(false);
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
     const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
+    const [isImageFullscreen, setIsImageFullscreen] = useState(false);
 
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
     const mobilePanelToggleLabel = nextMobilePanel === 'preview' ? 'Show preview' : 'Show review';
@@ -511,6 +513,8 @@ export default function ItineraryPage() {
                                     src={selectedLocation?.image || defaultBg}
                                     alt={selectedLocation?.name || 'Catanduanes'}
                                     className={styles.mapExpandedReviewImage}
+                                    style={{ cursor: 'zoom-in' }}
+                                    onClick={() => setIsImageFullscreen(true)}
                                     onError={(e) => { e.currentTarget.src = defaultBg; }}
                                 />
                             </div>
@@ -638,6 +642,82 @@ export default function ItineraryPage() {
                     </div>
                 </ChatBot>
             )}
+
+            {/* FULLSCREEN IMAGE MODAL LAYER */}
+            <AnimatePresence>
+                {isImageFullscreen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsImageFullscreen(false)}
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: 'rgba(0,0,0,0.85)',
+                            backdropFilter: 'blur(12px)',
+                            WebkitBackdropFilter: 'blur(12px)',
+                            zIndex: 9999999, /* Above navbar and modals */
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '24px',
+                            cursor: 'zoom-out'
+                        }}
+                    >
+                        <motion.img
+                            src={selectedLocation?.image || defaultBg}
+                            alt="Fullscreen Destination"
+                            initial={{ scale: 0.9, opacity: 0, y: 30 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 30 }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                            style={{
+                                maxWidth: '100%',
+                                maxHeight: '90vh',
+                                objectFit: 'contain',
+                                borderRadius: '16px',
+                                boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.6)',
+                                cursor: 'default'
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                        <button
+                            onClick={() => setIsImageFullscreen(false)}
+                            title="Close picture"
+                            style={{
+                                position: 'absolute',
+                                top: '24px',
+                                right: '24px',
+                                background: 'rgba(255, 255, 255, 0.15)',
+                                border: '1px solid rgba(255, 255, 255, 0.3)',
+                                color: '#fff',
+                                width: '44px',
+                                height: '44px',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                backdropFilter: 'blur(4px)',
+                                transition: 'all 0.2s ease',
+                                zIndex: 2
+                            }}
+                            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)'}
+                            onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'}
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </div>
     );
 }
