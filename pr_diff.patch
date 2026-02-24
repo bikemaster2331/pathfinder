@@ -1,0 +1,550 @@
+From 03e4c168c53d45b5447736aa754075db7db3110b Mon Sep 17 00:00:00 2001
+From: Marthan Lanuzga <tanlanuzga@gmail.com>
+Date: Tue, 24 Feb 2026 16:29:23 +0800
+Subject: [PATCH 1/7] style(home): remove light mode gradient transition
+
+---
+ src/frontend/styles/homepage/Home.module.css | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/src/frontend/styles/homepage/Home.module.css b/src/frontend/styles/homepage/Home.module.css
+index 857fd75..853dd8a 100644
+--- a/src/frontend/styles/homepage/Home.module.css
++++ b/src/frontend/styles/homepage/Home.module.css
+@@ -34,11 +34,7 @@
+ }
+ 
+ :global([data-theme='light']) .homeContainer {
+-    background:
+-        radial-gradient(1200px 700px at 10% -10%, rgba(255, 255, 255, 0.55), transparent 60%),
+-        radial-gradient(900px 600px at 90% 10%, rgba(214, 182, 255, 0.2), transparent 60%),
+-        radial-gradient(700px 500px at 50% 100%, rgba(255, 182, 212, 0.16), transparent 65%),
+-        linear-gradient(160deg, #eee7ef 0%, #e9e1ed 45%, #e4dce9 100%);
++    background: #fffdf9;
+ }
+ 
+ .scrollSpacer {
+
+From 86c41e9a5c7600eb85a164840234f4de319e78b1 Mon Sep 17 00:00:00 2001
+From: Marthan Lanuzga <tanlanuzga@gmail.com>
+Date: Tue, 24 Feb 2026 16:29:23 +0800
+Subject: [PATCH 2/7] style(map-wrapper): adjust controls positioning rules
+
+---
+ src/frontend/styles/itinerary_page/MapWrapper.module.css | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/frontend/styles/itinerary_page/MapWrapper.module.css b/src/frontend/styles/itinerary_page/MapWrapper.module.css
+index bacee56..eee8abb 100644
+--- a/src/frontend/styles/itinerary_page/MapWrapper.module.css
++++ b/src/frontend/styles/itinerary_page/MapWrapper.module.css
+@@ -25,7 +25,7 @@
+ 
+ .leftRightControls {
+     position: absolute;
+-    top: clamp(60px, 8vw, 74px);
++    top: clamp(12px, 1.6vw, 20px);
+     left: clamp(12px, 1.6vw, 20px);
+     z-index: 50;
+     display: flex;
+
+From b76fb8fc15585fdd4bc58bc51837169f6199cccb Mon Sep 17 00:00:00 2001
+From: Marthan Lanuzga <tanlanuzga@gmail.com>
+Date: Tue, 24 Feb 2026 16:29:23 +0800
+Subject: [PATCH 3/7] style(itinerary-card): refine preview action button
+ styles
+
+---
+ .../styles/itinerary_page/ItineraryCard.module.css     | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
+
+diff --git a/src/frontend/styles/itinerary_page/ItineraryCard.module.css b/src/frontend/styles/itinerary_page/ItineraryCard.module.css
+index ce89434..34f9f7f 100644
+--- a/src/frontend/styles/itinerary_page/ItineraryCard.module.css
++++ b/src/frontend/styles/itinerary_page/ItineraryCard.module.css
+@@ -466,7 +466,6 @@
+ .expandBtn:hover {
+     background: var(--itinerary-card-surface-12);
+     border-color: var(--itinerary-card-surface-20);
+-    transform: translateY(-1px);
+ }
+ 
+ .expandBtn:active {
+@@ -545,7 +544,6 @@
+ .reviewBox.reviewBoxExpanded .addSpot:hover {
+     background: linear-gradient(135deg, var(--itinerary-card-accent-green-dark) 0%, var(--itinerary-card-accent-green-darker) 100%);
+     box-shadow: 0 4px 12px var(--itinerary-card-accent-green-40);
+-    transform: translateY(-2px);
+ }
+ 
+ .reviewBox.reviewBoxExpanded .addSpot:active {
+@@ -570,7 +568,6 @@
+ .reviewBox.reviewBoxExpanded .removeSpotMain:hover {
+     background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
+     box-shadow: 0 4px 12px var(--itinerary-card-accent-red-40);
+-    transform: translateY(-2px);
+ }
+ 
+ .reviewBox.reviewBoxExpanded .removeSpotMain:active {
+@@ -652,7 +649,6 @@
+ .addSpot:hover {
+     background: linear-gradient(135deg, var(--itinerary-card-accent-green-dark) 0%, var(--itinerary-card-accent-green-darker) 100%);
+     box-shadow: 0 4px 12px var(--itinerary-card-accent-green-30);
+-    transform: translateY(-2px);
+ }
+ 
+ .addSpot:active {
+@@ -676,7 +672,6 @@
+ .removeSpotMain:hover {
+     background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
+     box-shadow: 0 4px 12px var(--itinerary-card-accent-red-30);
+-    transform: translateY(-2px);
+ }
+ 
+ .removeSpotMain:active {
+@@ -722,7 +717,7 @@
+ 
+ .bottomButtonRow {
+     display: flex;
+-    gap: 10px;
++    gap: 6px;
+     margin-top: 10px;
+     width: 100%;
+ }
+@@ -792,7 +787,6 @@
+     background: var(--itinerary-card-surface-08);
+     border-color: var(--itinerary-card-surface-20);
+     color: var(--itinerary-card-text-90);
+-    transform: translateY(-1px);
+ }
+ 
+ .optimizeBtnSmall:active {
+@@ -1105,7 +1099,6 @@
+ .saveButton:hover {
+     background: linear-gradient(135deg, var(--itinerary-card-accent-blue-dark) 0%, var(--itinerary-card-accent-blue-darker) 100%);
+     box-shadow: 0 4px 12px var(--itinerary-card-accent-blue-40);
+-    transform: translateY(-2px);
+ }
+ 
+ .saveButton:active {
+@@ -1213,7 +1206,6 @@
+ .modalBtnConfirm:hover {
+     background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
+     box-shadow: 0 4px 12px var(--itinerary-card-accent-red-40);
+-    transform: translateY(-1px);
+ }
+ 
+ .modalBtnConfirm:active {
+
+From 587f0d506c8f1dc407638930f562abbfc58ef385 Mon Sep 17 00:00:00 2001
+From: Marthan Lanuzga <tanlanuzga@gmail.com>
+Date: Tue, 24 Feb 2026 16:29:23 +0800
+Subject: [PATCH 4/7] style(itinerary): update expanded preview layout and
+ sizing
+
+---
+ .../itinerary_page/Itinerary.module.css       | 107 +++++++++++++++++-
+ 1 file changed, 102 insertions(+), 5 deletions(-)
+
+diff --git a/src/frontend/styles/itinerary_page/Itinerary.module.css b/src/frontend/styles/itinerary_page/Itinerary.module.css
+index ec0e607..6b4c0f8 100644
+--- a/src/frontend/styles/itinerary_page/Itinerary.module.css
++++ b/src/frontend/styles/itinerary_page/Itinerary.module.css
+@@ -142,9 +142,9 @@
+     right: auto !important;
+     margin: 4px 0 0 0 !important;
+     /* Kills any weird offsets and adds a small gap */
+-    width: 90% !important;
+-    margin-left: auto !important;
+-    margin-right: auto !important;
++    width: 100% !important;
++    margin-left: 0 !important;
++    margin-right: 0 !important;
+     height: auto !important;
+     max-height: min(72vh, 680px) !important;
+     overflow: hidden !important;
+@@ -157,6 +157,22 @@
+     box-shadow: none;
+ }
+ 
++.mapExpandedPreviewBox.desktopChatPreviewBox {
++    flex: 0 0 auto;
++}
++
++.mapExpandedPreviewExpanded {
++    height: 360px !important;
++    min-height: 360px !important;
++    max-height: 360px !important;
++}
++
++.mapExpandedPreviewCollapsed {
++    height: 64px !important;
++    min-height: 64px !important;
++    max-height: 64px !important;
++}
++
+ :global([data-theme='light']) .desktopChatPreviewBox {
+     border: 1px solid rgba(15, 23, 42, 0.16);
+     background: color-mix(in srgb, var(--itinerary-surface) 92%, #000 8%);
+@@ -396,13 +412,94 @@
+ .mapExpandedPreviewList {
+     flex: 1 1 auto;
+     min-height: 0;
+-    overflow-y: auto;
+-    padding: 10px 10px 12px;
++    overflow: hidden;
++    padding: 10px 10px 6px;
+     display: flex;
+     flex-direction: column;
+     gap: 6px;
+ }
+ 
++.mapExpandedSpotsScroll {
++    flex: 1 1 auto;
++    min-height: 0;
++    overflow-y: auto;
++    overflow-x: hidden;
++    padding-right: 4px;
++}
++
++.mapExpandedSpotsScroll::-webkit-scrollbar {
++    width: 6px;
++}
++
++.mapExpandedSpotsScroll::-webkit-scrollbar-track {
++    background: rgba(148, 163, 184, 0.12);
++    border-radius: 999px;
++}
++
++.mapExpandedSpotsScroll::-webkit-scrollbar-thumb {
++    background: rgba(148, 163, 184, 0.45);
++    border-radius: 999px;
++}
++
++.mapExpandedTopRow {
++    display: flex;
++    align-items: flex-start;
++    justify-content: space-between;
++    gap: 10px;
++}
++
++.mapExpandedTitleHeader {
++    margin-bottom: 0;
++}
++
++.mapExpandedWalletCompact {
++    width: clamp(150px, 42%, 190px);
++    height: auto !important;
++    margin: 0 !important;
++    padding: 8px 10px !important;
++    border-radius: 8px !important;
++    flex: 0 0 auto;
++}
++
++.mapExpandedWalletHeader {
++    margin-bottom: 6px;
++}
++
++.mapExpandedWalletSubtext {
++    font-size: 9px;
++    margin-top: 2px;
++}
++
++.mapExpandedActionRow {
++    margin-top: auto !important;
++    display: flex !important;
++    flex-wrap: nowrap;
++    justify-content: flex-end !important;
++    align-items: flex-end;
++    width: 100%;
++}
++
++.mapExpandedPrimaryAction {
++    width: auto !important;
++    min-width: 84px;
++    flex: 0 0 auto !important;
++    height: 34px;
++    padding: 0 12px !important;
++    font-size: 0.78rem !important;
++    line-height: 1;
++    margin-top: 0 !important;
++    margin-left: 0;
++    margin-right: 9px;
++}
++
++.mapExpandedBackAction {
++    width: 40px !important;
++    min-width: 40px;
++    flex: 0 0 auto !important;
++    height: 34px;
++    padding: 0 10px !important;
++}
++
+ .mapExpandedPreviewItem {
+     display: flex;
+     align-items: flex-start;
+
+From e49ad2375e99ca9fda83323eba8dddce104caeea Mon Sep 17 00:00:00 2001
+From: Marthan Lanuzga <tanlanuzga@gmail.com>
+Date: Tue, 24 Feb 2026 16:29:23 +0800
+Subject: [PATCH 5/7] feat(itinerary-card): simplify preview actions and wallet
+ display
+
+---
+ src/frontend/components/itineraryCard.jsx | 15 ---------------
+ 1 file changed, 15 deletions(-)
+
+diff --git a/src/frontend/components/itineraryCard.jsx b/src/frontend/components/itineraryCard.jsx
+index 3e7caf2..a9d4308 100644
+--- a/src/frontend/components/itineraryCard.jsx
++++ b/src/frontend/components/itineraryCard.jsx
+@@ -723,9 +723,6 @@ const PreferenceCard = ({
+                                 <div className={styles.walletLabel}>
+                                     {timeWallet.label}
+                                 </div>
+-                                <div className={styles.walletSubtext}>
+-                                    {timeWallet.subtext}
+-                                </div>
+                             </div>
+                         </div>
+                         
+@@ -738,10 +735,6 @@ const PreferenceCard = ({
+                                 }}
+                             ></div>
+                         </div>
+-                        <div className={styles.statsRow}>
+-                            <span className={styles.statBadge}>{addedSpots?.length || 0} Stops</span>
+-                            <span className={styles.statBadge}>{totalDistance} km</span>
+-                        </div>
+                     </div>
+                     
+                     
+@@ -906,14 +899,6 @@ const PreferenceCard = ({
+                         </button>
+                     </div>
+ 
+-                    {!isLastDay && (
+-                        <div 
+-                            onClick={handleSaveItinerary}
+-                            className={styles.finishLink}
+-                        >
+-                            (Or finish and save itinerary now)
+-                        </div>
+-                    )}
+                 </div>
+ 
+             </div>
+
+From 899c42249eab4bc725bc439ad1d901a8ce564b04 Mon Sep 17 00:00:00 2001
+From: Marthan Lanuzga <tanlanuzga@gmail.com>
+Date: Tue, 24 Feb 2026 16:29:23 +0800
+Subject: [PATCH 6/7] feat(itinerary): update map expanded preview behavior
+
+---
+ src/frontend/pages/Itinerary.jsx | 119 +++++++++++++------------------
+ 1 file changed, 49 insertions(+), 70 deletions(-)
+
+diff --git a/src/frontend/pages/Itinerary.jsx b/src/frontend/pages/Itinerary.jsx
+index 0b346c9..68173d8 100644
+--- a/src/frontend/pages/Itinerary.jsx
++++ b/src/frontend/pages/Itinerary.jsx
+@@ -39,6 +39,7 @@ const PreviewWidget = ({
+     handleSaveItinerary
+ }) => {
+     const [expanded, setExpanded] = useState(isLatest);
++    const isNextAction = dayCount > 1 && !isLastDay;
+ 
+     // Auto-collapse older widgets when a new one is added to the chat
+     useEffect(() => {
+@@ -98,8 +99,7 @@ const PreviewWidget = ({
+ 
+     return (
+         <aside 
+-            className={`${styles.mapExpandedPreviewBox} ${styles.desktopChatPreviewBox}`} 
+-            style={!expanded ? { height: 'auto', minHeight: 'auto', paddingBottom: '0' } : {}}
++            className={`${styles.mapExpandedPreviewBox} ${styles.desktopChatPreviewBox} ${expanded ? styles.mapExpandedPreviewExpanded : styles.mapExpandedPreviewCollapsed}`}
+         >
+             <div 
+                 className={styles.mapExpandedPreviewHeader} 
+@@ -110,13 +110,6 @@ const PreviewWidget = ({
+                 <div className={styles.mapExpandedPreviewHeaderActions}>
+                     <span className={styles.mapExpandedPreviewCount}>{spots.length} spot{spots.length === 1 ? '' : 's'}</span>
+                     
+-                    {/* Expand/Collapse Chevron */}
+-                    {expanded ? (
+-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+-                    ) : (
+-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+-                    )}
+-
+                     {expanded && (
+                         <button
+                             type="button"
+@@ -129,43 +122,47 @@ const PreviewWidget = ({
+                             </svg>
+                         </button>
+                     )}
++
++                    {/* Expand/Collapse Chevron */}
++                    {expanded ? (
++                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
++                    ) : (
++                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
++                    )}
+                 </div>
+             </div>
+             {expanded && (
+-                <div className={`${styles.mapExpandedPreviewList} ${cardStyles.addedSpotsList}`}>
+-                    <div className={cardStyles.previewHeader}>
+-                        <div className={cardStyles.previewHeaderTitleGroup}>
+-                            <h3 className={`${cardStyles.boxTitle} ${cardStyles.previewHeaderTitle}`}>
+-                                Day {currentDay} of {dayCount}
+-                            </h3>
+-                        </div>
+-                    </div>
+-
+-                    <div className={cardStyles.walletContainer}>
+-                        <div className={cardStyles.walletHeader}>
+-                            <div className={cardStyles.walletStatusGroup}>
+-                                <div className={cardStyles.walletLabel}>{timeWallet.label}</div>
+-                                <div className={cardStyles.walletSubtext}>{timeWallet.subtext}</div>
++                <div className={styles.mapExpandedPreviewList}>
++                    <div className={styles.mapExpandedTopRow}>
++                        <div className={`${cardStyles.previewHeader} ${styles.mapExpandedTitleHeader}`}>
++                            <div className={cardStyles.previewHeaderTitleGroup}>
++                                <h3 className={`${cardStyles.boxTitle} ${cardStyles.previewHeaderTitle}`}>
++                                    Day {currentDay} of {dayCount}
++                                </h3>
+                             </div>
+                         </div>
+-                        <div className={cardStyles.walletBarTrack}>
+-                            <div
+-                                className={cardStyles.walletBarFill}
+-                                style={{
+-                                    width: `${timeWallet.percent}%`,
+-                                    backgroundColor: timeWallet.color,
+-                                }}
+-                            />
+-                        </div>
+-                        <div className={cardStyles.statsRow}>
+-                            <span className={cardStyles.statBadge}>{spots?.length || 0} Stops</span>
+-                            <span className={cardStyles.statBadge}>{totalDistance} km</span>
++                        <div className={`${cardStyles.walletContainer} ${styles.mapExpandedWalletCompact}`}>
++                            <div className={`${cardStyles.walletHeader} ${styles.mapExpandedWalletHeader}`}>
++                                <div className={cardStyles.walletStatusGroup}>
++                                    <div className={cardStyles.walletLabel}>{timeWallet.label}</div>
++                                </div>
++                            </div>
++                            <div className={cardStyles.walletBarTrack}>
++                                <div
++                                    className={cardStyles.walletBarFill}
++                                    style={{
++                                        width: `${timeWallet.percent}%`,
++                                        backgroundColor: timeWallet.color,
++                                    }}
++                                />
++                            </div>
+                         </div>
+                     </div>
+ 
+-                    {spots && spots.length > 0 ? (
+-                        spots.map((spot, index) => (
+-                            <div key={`${spot.name}-${index}`}>
++                    <div className={styles.mapExpandedSpotsScroll}>
++                        {spots && spots.length > 0 ? (
++                            spots.map((spot, index) => (
++                                <div key={`${spot.name}-${index}`}>
+                                 {driveData[index]?.driveTime > 0 && (
+                                     <div
+                                         className={cardStyles.driveTimeLabel}
+@@ -260,19 +257,20 @@ const PreviewWidget = ({
+                                         </button>
+                                     </div>
+                                 </div>
+-                            </div>
+-                        ))
+-                    ) : (
+-                        <p className={cardStyles.previewContent}>
+-                            Day {currentDay} wallet is empty. Select a pin to add.
+-                        </p>
+-                    )}
++                                </div>
++                            ))
++                        ) : (
++                            <p className={cardStyles.previewContent}>
++                                Day {currentDay} wallet is empty. Select a pin to add.
++                            </p>
++                        )}
++                    </div>
+ 
+-                    <div className={cardStyles.bottomButtonRow}>
++                    <div className={`${cardStyles.bottomButtonRow} ${styles.mapExpandedActionRow}`}>
+                         {currentDay > 1 && (
+                             <button
+                                 onClick={handlePreviousDay}
+-                                className={`${cardStyles.saveButton} ${cardStyles.backButton}`}
++                                className={`${cardStyles.saveButton} ${cardStyles.backButton} ${styles.mapExpandedBackAction}`}
+                                 style={{ backgroundColor: '#4B5563' }}
+                                 title="Go back to previous day"
+                             >
+@@ -281,33 +279,14 @@ const PreviewWidget = ({
+                         )}
+ 
+                         <button
+-                            className={cardStyles.saveButton}
+-                            onClick={isLastDay ? handleSaveItinerary : handleSliceAndNext}
+-                            style={{ backgroundColor: isLastDay ? '#2563EB' : undefined, flex: 1 }}
++                            className={`${cardStyles.saveButton} ${cardStyles.previewPrimaryAction} ${styles.mapExpandedPrimaryAction}`}
++                            onClick={isNextAction ? handleSliceAndNext : handleSaveItinerary}
++                            style={{ backgroundColor: isNextAction ? undefined : '#2563EB' }}
+                         >
+-                            {isLastDay ? (
+-                                <>
+-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+-                                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+-                                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+-                                        <polyline points="7 3 7 8 15 8"></polyline>
+-                                    </svg>
+-                                    Save
+-                                </>
+-                            ) : (
+-                                <>
+-                                    Complete Day {currentDay} & Next
+-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 17 5-5-5-5"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/></svg>
+-                                </>
+-                            )}
++                            {isNextAction ? 'Next' : 'Save'}
+                         </button>
+                     </div>
+ 
+-                    {!isLastDay && (
+-                        <div onClick={handleSaveItinerary} className={cardStyles.finishLink}>
+-                            (Or finish and save itinerary now)
+-                        </div>
+-                    )}
+                 </div>
+             )}
+         </aside>
+
+From 3334c449c583963866f5aa233cd5b970c91033bf Mon Sep 17 00:00:00 2001
+From: Marthan Lanuzga <tanlanuzga@gmail.com>
+Date: Tue, 24 Feb 2026 16:29:23 +0800
+Subject: [PATCH 7/7] style(chatbot): apply chat panel style updates
+
+---
+ src/frontend/styles/itinerary_page/ChatBot.module.css | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/frontend/styles/itinerary_page/ChatBot.module.css b/src/frontend/styles/itinerary_page/ChatBot.module.css
+index e2e9551..448fb63 100644
+--- a/src/frontend/styles/itinerary_page/ChatBot.module.css
++++ b/src/frontend/styles/itinerary_page/ChatBot.module.css
+@@ -63,7 +63,7 @@
+     flex: 1;
+     min-height: 0;
+     overflow-y: auto;
+-    padding: 26px 20px 10px;
++    padding: 18px 12px 10px;
+     scroll-behavior: smooth;
+ }
+ 
