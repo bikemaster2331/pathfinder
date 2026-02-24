@@ -26644,7 +26644,7 @@
         "size": 0.5,
         "showAtZoom": 10,
         "id": 405,
-        "image": "/images/palumbanes_island.jpg"
+        "image": "/images/palumbanes.png"
       },
       "geometry": {
         "type": "Point",
@@ -26696,7 +26696,7 @@
         "size": 0.1,
         "showAtZoom": 11,
         "id": 407,
-        "image": "/images/bote_lighthouse.jpg"
+        "image": "/images/bote.png"
       },
       "geometry": {
         "type": "Point",
@@ -26722,7 +26722,7 @@
         "size": 0.2,
         "showAtZoom": 11,
         "id": 408,
-        "image": "/images/sakahon_beach.jpg"
+        "image": "/images/sakahon.png"
       },
       "geometry": {
         "type": "Point",
@@ -26774,7 +26774,7 @@
         "size": 0.2,
         "showAtZoom": 11,
         "id": 410,
-        "image": "/images/east_coast_beach_resort.jpg"
+        "image": "/images/eastcoast.png"
       },
       "geometry": {
         "type": "Point",
@@ -26826,7 +26826,7 @@
         "size": 0.4,
         "showAtZoom": 10,
         "id": 412,
-        "image": "/images/balacay_point.jpg"
+        "image": "/images/balacaypoint.png"
       },
       "geometry": {
         "type": "Point",
@@ -27017,32 +27017,6 @@
         "coordinates": [
           124.20816347114656,
           13.591323543086718
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Rojazz Café",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A relaxed café setting in Virac, great for casual meetups and enjoying local coffee blends.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-20:00",
-        "best_time_of_day": "snack",
-        "min_budget": "low",
-        "size": 0.1,
-        "showAtZoom": 12,
-        "id": 421,
-        "image": "/images/rojazz_cafe.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23471746745183,
-          13.584380431136946
         ]
       }
     },
@@ -27323,7 +27297,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 90,
-        "image": "/images/luyang_cave.jpg"
+        "image": "/images/luyang.png"
       },
       "geometry": {
         "type": "Point",
@@ -27689,7 +27663,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 124,
-        "image": "/images/summit_view_park.jpg"
+        "image": "/images/summit.png"
       },
       "geometry": {
         "type": "Point",
@@ -27741,7 +27715,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 126,
-        "image": "/images/h20_resort.jpg"
+        "image": "/images/h20.png"
       },
       "geometry": {
         "type": "Point",
@@ -27858,32 +27832,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Emerich Inn",
-        "type": "HOTELS & RESORTS",
-        "description": "A practical lodging option in Viga town proper, providing essential amenities for travelers.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 131,
-        "image": "/images/emerich_inn.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.30975236074532,
-          13.87190788627189
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Boto Ni Korakog",
         "type": "VIEWPOINTS",
         "description": "Accessible via a short 15-minute hike; the phallic rock formation is best photographed in the morning light.",
@@ -27897,7 +27845,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 115,
-        "image": "/images/boto_ni_korakog.jpg"
+        "image": "/images/bototo.png"
       },
       "geometry": {
         "type": "Point",
@@ -30178,7 +30126,7 @@
         "showAtZoom": 10,
         "id": 248,
         "original_activity": "dining",
-        "image": "/images/canapino_diner.jpg"
+        "image": "/images/canapino.png"
       },
       "geometry": {
         "type": "Point",
@@ -30575,7 +30523,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 265,
-        "image": "/images/bagasbas_beach_resort.jpg"
+        "image": "/images/bagasbas.png"
       },
       "geometry": {
         "type": "Point",
@@ -30679,7 +30627,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 270,
-        "image": "/images/olivers_riff_mamangal_beach_resort.jpg"
+        "image": "/images/olivers riff.png"
       },
       "geometry": {
         "type": "Point",
@@ -30991,7 +30939,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 304,
-        "image": "/images/blue_cafe.jpg"
+        "image": "/images/bluecafe.png"
       },
       "geometry": {
         "type": "Point",
@@ -31017,7 +30965,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 305,
-        "image": "/images/marilima_beach.jpg"
+        "image": "/images/marilima.png"
       },
       "geometry": {
         "type": "Point",
@@ -31537,39 +31485,13 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 347,
-        "image": "/images/sea_breeze_2001.jpg"
+        "image": "/images/seabreeze.png"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
           124.23278613841805,
           13.581391183012842
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Tandu Coffee",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A coffee shop utilizing local beans, promoting the province's own coffee culture.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "08:00-20:00",
-        "best_time_of_day": "morning",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 349,
-        "image": "/images/tandu_coffee.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23250602142909,
-          13.582913575755228
         ]
       }
     },
@@ -31589,7 +31511,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 351,
-        "image": "/images/teaholic.jpg"
+        "image": "/images/teaholic.png"
       },
       "geometry": {
         "type": "Point",
@@ -31745,7 +31667,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 358,
-        "image": "/images/ardci_skydeck_lounge.jpg"
+        "image": "/images/ardci.png"
       },
       "geometry": {
         "type": "Point",
