@@ -493,6 +493,7 @@
     justify-content: flex-end !important;
     align-items: flex-end;
     width: 100%;
+    transform: translate(8px, -4px);
 }
 
 .mapExpandedPrimaryAction {
