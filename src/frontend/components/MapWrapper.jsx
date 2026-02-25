@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, forwardRef, useMemo } from 'react'; 
+import { useState, useEffect, useRef, forwardRef, useMemo } from 'react';
 import MapBackground from './map';
 import styles from '../styles/itinerary_page/MapWrapper.module.css';
 import DatePicker from "react-datepicker";
@@ -9,8 +9,8 @@ import { format } from "date-fns";
 const TypewriterSpan = ({ text, delay = 25 }) => {
     const [displayedText, setDisplayedText] = useState(text);
     const [isTyping, setIsTyping] = useState(false);
-    
-    const currentTextRef = useRef(text); 
+
+    const currentTextRef = useRef(text);
     const targetTextRef = useRef(text);
 
     targetTextRef.current = text;
@@ -28,27 +28,27 @@ const TypewriterSpan = ({ text, delay = 25 }) => {
             // Only backspace until the current text matches the start of the new text
             // (e.g., "A and B" -> "A, " -> "A, B and C")
             while (
-                !isCancelled && 
-                currentTextRef.current.length > 0 && 
+                !isCancelled &&
+                currentTextRef.current.length > 0 &&
                 !targetTextRef.current.startsWith(currentTextRef.current)
             ) {
                 const newText = currentTextRef.current.slice(0, -1);
                 currentTextRef.current = newText;
                 setDisplayedText(newText);
                 // Faster backspace speed for better UX
-                await new Promise(r => setTimeout(r, 10)); 
+                await new Promise(r => setTimeout(r, 10));
             }
 
             // 2. TYPING LOOP
             while (
-                !isCancelled && 
+                !isCancelled &&
                 currentTextRef.current.length < targetTextRef.current.length
             ) {
                 const nextChar = targetTextRef.current[currentTextRef.current.length];
                 const newText = currentTextRef.current + nextChar;
                 currentTextRef.current = newText;
                 setDisplayedText(newText);
-                await new Promise(r => setTimeout(r, delay)); 
+                await new Promise(r => setTimeout(r, delay));
             }
 
             if (!isCancelled) setIsTyping(false);
@@ -60,9 +60,9 @@ const TypewriterSpan = ({ text, delay = 25 }) => {
     }, [text, delay]);
 
     return (
-        <span 
+        <span
             className={isTyping ? `${styles.typingCursor} ${styles.typingActive}` : ''}
-            style={{ display: 'inline' }} 
+            style={{ display: 'inline' }}
         >
             {displayedText}
         </span>
@@ -72,10 +72,10 @@ const TypewriterSpan = ({ text, delay = 25 }) => {
 // --- 2. EXISTING HELPER COMPONENTS ---
 const CustomDateInput = forwardRef(({ value, onClick, dateRange }, ref) => {
     const [start, end] = dateRange;
-    
+
     let displayText = "Select trip dates";
     let hasValue = false;
-    
+
     if (start && end) {
         displayText = `${format(start, "MMM d")} - ${format(end, "MMM d")}`;
         hasValue = true;
@@ -92,22 +92,22 @@ const CustomDateInput = forwardRef(({ value, onClick, dateRange }, ref) => {
         >
             <span className={styles.dateText}>{displayText}</span>
             <span className={styles.calendarIcon}>
-            <svg 
-                width="18" 
-                height="18" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-            >
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-        </span>
+                <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                >
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+            </span>
         </button>
     );
 });
@@ -173,7 +173,7 @@ const MapWrapper = forwardRef((props, ref) => {
         selectedActivities,
         setSelectedActivities,
         onMarkerClick,
-        selectedLocation, 
+        selectedLocation,
         mapData,
         selectedHub,
         addedSpots,
@@ -247,6 +247,18 @@ const MapWrapper = forwardRef((props, ref) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [isMenuOpen, hasCompletedInitialTripbox, draftActivities, sliderValue, budget, selectedActivities, destination, selectedHub, onHubChange]);
+
+    // Check if data is already populated on mount from localStorage
+    useEffect(() => {
+        // If the trip box information already exists on first render
+        if (isTripBoxComplete && !hasCompletedInitialTripbox) {
+            setHasCompletedInitialTripbox(true);
+            setIsMenuOpen(false); // Auto-minimize
+            if (onInitialTripboxComplete) {
+                onInitialTripboxComplete();
+            }
+        }
+    }, [isTripBoxComplete, hasCompletedInitialTripbox, onInitialTripboxComplete]);
 
     const handleMenuToggle = () => {
         if (!isMenuOpen) {
@@ -345,12 +357,12 @@ const MapWrapper = forwardRef((props, ref) => {
         <div className={styles.mapWrapper}>
             {/* --- MAP CONTAINER --- */}
             <div className={styles.mapSection}>
-                <MapBackground 
+                <MapBackground
                     ref={ref}
-                    selectedActivities={selectedActivities} 
+                    selectedActivities={selectedActivities}
                     selectedLocation={selectedLocation}
                     mapData={mapData}
-                    onMarkerClick={onMarkerClick} 
+                    onMarkerClick={onMarkerClick}
                     selectedHub={selectedHub}
                     addedSpots={addedSpots}
                     budgetFilter={budgetFilter}
@@ -360,159 +372,142 @@ const MapWrapper = forwardRef((props, ref) => {
                     onToggleMenu={handleMenuToggle}
                 />
             </div>
-            <div 
-                className={`${styles.blurOverlay} ${isMenuOpen ? styles.blurOverlayActive : ''}`}
-                onClick={handleOverlayClose}
-            />
+
+
             <div className={styles.leftRightControls} ref={menuRef}>
-                    <div className={`${styles.collapsibleCard} ${isMenuOpen ? styles.cardOpen : ''}`}>
-                        <div className={styles.collapsibleContent}>
-                            
-                            {/* --- COLUMN 1: LEFT CONTROLS (Trip Details & Budget) --- */}
-                            <div className={styles.controlsColumnLeft}>
-                                {/* 1. Trip Details Box */}
-                                <div className={styles.TripBox}>
-                                    <div className={styles.journeyMb}>
-                                        <h2 className={styles.locHelperText}>
-                                            START POINT AND TRIP DATE
-                                        </h2>
-                                        <div className={styles.locFieldWrap}>
-                                            <span className={styles.locFieldIcon} aria-hidden="true">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
-                                                    <path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                                                    <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.8" />
-                                                </svg>
-                                            </span>
-                                            <select 
-                                                className={`${styles.locField} ${destination ? styles.fieldFilled : styles.fieldEmpty}`}
-                                                value={destination} 
-                                                onChange={(e) => {
-                                                    const val = e.target.value;
-                                                    setDestination(val);
-                                                }}
-                                            >
-                                                <option value="" disabled hidden>Set start point here</option>
-                                                <option className={styles.locFieldOption} value="Virac">
-                                                    Virac
-                                                </option>
-                                                <option className={styles.locFieldOption} value="San Andres">
-                                                    San Andres
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div className={styles.dateFieldWrap}>
-                                            <DatePicker
-                                                selectsRange={true}
-                                                startDate={dateRange.start ? new Date(dateRange.start) : null}
-                                                endDate={dateRange.end ? new Date(dateRange.end) : null}
-                                                minDate={new Date()}
-                                                onChange={(update) => {
-                                                    const [start, end] = update;
-                                                    setDateRange({ 
-                                                        start: start ? format(start, 'yyyy-MM-dd') : '', 
-                                                        end: end ? format(end, 'yyyy-MM-dd') : '' 
-                                                    });
-                                                }}
-                                                customInput={
-                                                    <CustomDateInput 
-                                                        dateRange={[
-                                                            dateRange.start ? new Date(dateRange.start) : null, 
-                                                            dateRange.end ? new Date(dateRange.end) : null
-                                                        ]} 
-                                                    />
-                                                }
-                                            />
-                                        </div>
+                <div className={`${styles.collapsibleCard} ${isMenuOpen ? styles.cardOpen : ''}`}>
+                    <div className={styles.collapsibleContent}>
+                        {/* --- COLUMN 1: LEFT CONTROLS (Trip Details & Budget) --- */}
+                        <div className={styles.controlsColumnLeft}>
+                            {/* 1. Trip Details Box */}
+                            <div className={styles.TripBox}>
+                                <div className={styles.journeyMb}>
+                                    <h2 className={styles.locHelperText}>
+                                        START POINT AND TRIP DATE
+                                    </h2>
+                                    <div className={styles.locFieldWrap}>
+                                        <span className={styles.locFieldIcon} aria-hidden="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+                                                <path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                                <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.8" />
+                                            </svg>
+                                        </span>
+                                        <select
+                                            className={`${styles.locField} ${destination ? styles.fieldFilled : styles.fieldEmpty}`}
+                                            value={destination}
+                                            onChange={(e) => {
+                                                const val = e.target.value;
+                                                setDestination(val);
+                                                if (onHubChange) onHubChange(val);
+                                            }}
+                                        >
+                                            <option value="" disabled hidden>Set start point here</option>
+                                            <option className={styles.locFieldOption} value="Virac">Virac</option>
+                                            <option className={styles.locFieldOption} value="San Andres">San Andres</option>
+                                        </select>
                                     </div>
-                                </div>
-
-                                {/* 2. Budget Box */}
-                                <div className={styles.budgetBox}>
-                                    <div className={styles.budgetMb}>
-                                        <h2 className={styles.budgetHelperText}>
-                                            BUDGET SLIDER
-                                        </h2>
-                                        <div className={styles.budgetContainer}>
-                                            <input
-                                                type="range"
-                                                min="0"
-                                                max="100"
-                                                value={sliderValue}
-                                                onChange={(e) => setSliderValue(Number(e.target.value))}
-                                                className={styles.customRange}
-                                            />
-
-                                            <div className={styles.budgetLabelsRow}>
-                                                <div className={`${styles.priceBox} ${sliderValue <= 33 ? styles.activePriceBox : ''}`}>
-                                                    ≤ ₱200
-                                                </div>
-
-                                                <div className={`${styles.priceBox} ${sliderValue > 33 && sliderValue <= 66 ? styles.activePriceBox : ''}`}>
-                                                    ₱200 - ₱600
-                                                </div>
-
-                                                <div className={`${styles.priceBox} ${sliderValue > 66 ? styles.activePriceBox : ''}`}>
-                                                    ₱600+
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className={styles.dateFieldWrap}>
+                                        <DatePicker
+                                            selectsRange={true}
+                                            startDate={dateRange.start ? new Date(dateRange.start) : null}
+                                            endDate={dateRange.end ? new Date(dateRange.end) : null}
+                                            minDate={new Date()}
+                                            onChange={(update) => {
+                                                const [start, end] = update;
+                                                setDateRange({
+                                                    start: start ? format(start, 'yyyy-MM-dd') : '',
+                                                    end: end ? format(end, 'yyyy-MM-dd') : ''
+                                                });
+                                            }}
+                                            customInput={
+                                                <CustomDateInput
+                                                    dateRange={[
+                                                        dateRange.start ? new Date(dateRange.start) : null,
+                                                        dateRange.end ? new Date(dateRange.end) : null
+                                                    ]}
+                                                />
+                                            }
+                                        />
                                     </div>
                                 </div>
                             </div>
 
-                            {/* --- COLUMN 2: RIGHT CONTROLS (Activities) --- */}
-                            <div className={styles.controlsColumnRight}>
-                                <div className={styles.activitiesBox}>
-                                    <div className={styles.activitiesMb}>
-                                        <h2 className={styles.boxHelperText}>CHOOSE ACTIVITIES</h2>
-                                        <div className={styles.activitiesOption}>
-                                            {Object.keys(draftActivities).map((activity) => (
-                                                <label
-                                                    key={activity}
-                                                    className={`${styles.activityTile} ${draftActivities[activity] ? styles.activityTileActive : ''}`}
-                                                >
-                                                    <input 
-                                                        type="checkbox" 
-                                                        className={styles.hiddenCheckbox}
-                                                        checked={draftActivities[activity]}
-                                                        onChange={() => handleActivityChange(activity)}
-                                                    /> 
-                                                    <span className={styles.activityTileIcon} aria-hidden="true">
-                                                        {getActivityIcon(activity)}
-                                                    </span>
-                                                    <span className={styles.activityTileLabel}>{activity}</span>
-                                                </label>
-                                            ))}
+                            {/* 2. Budget Box */}
+                            <div className={styles.budgetBox}>
+                                <div className={styles.budgetMb}>
+                                    <h2 className={styles.budgetHelperText}>BUDGET SLIDER</h2>
+                                    <div className={styles.budgetContainer}>
+                                        <input
+                                            type="range"
+                                            min="0"
+                                            max="100"
+                                            value={sliderValue}
+                                            onChange={(e) => setSliderValue(Number(e.target.value))}
+                                            className={styles.customRange}
+                                        />
+                                        <div className={styles.budgetLabelsRow}>
+                                            <div className={`${styles.priceBox} ${sliderValue <= 33 ? styles.activePriceBox : ''}`}>≤ ₱200</div>
+                                            <div className={`${styles.priceBox} ${sliderValue > 33 && sliderValue <= 66 ? styles.activePriceBox : ''}`}>₱200 - ₱600</div>
+                                            <div className={`${styles.priceBox} ${sliderValue > 66 ? styles.activePriceBox : ''}`}>₱600+</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            {/* --- ROW 2: TRIP SUMMARY (Spans Full Width) --- */}
-                            <div className={styles.tripForecastRow}>
-                                <h2 className={`${styles.boxHelperText} ${styles.tripForecastTitle}`}>TRIP FORECAST</h2>
-                                <div className={styles.tripForecastTextBox}>
-                                    <p className={styles.tripForecastText}>
-                                        {/* --- 3 INDEPENDENT WRITERS --- */}
-                                        <TypewriterSpan text={introText} />
-                                        <TypewriterSpan text={durationText} />
-                                        <TypewriterSpan text={activityText} />
-                                    </p>
-                                </div>
-                            </div>
-
                         </div>
-                        <div className={styles.tripForecastActions}>
-                            <button
-                                type="button"
-                                className={styles.doneBtn}
-                                onClick={handleDoneClick}
-                                disabled={!isTripBoxComplete}
-                            >
-                                Done    
-                            </button>
+
+                        {/* --- COLUMN 2: RIGHT CONTROLS (Activities) --- */}
+                        <div className={styles.controlsColumnRight}>
+                            <div className={styles.activitiesBox}>
+                                <div className={styles.activitiesMb}>
+                                    <h2 className={styles.boxHelperText}>CHOOSE ACTIVITIES</h2>
+                                    <div className={styles.activitiesOption}>
+                                        {Object.keys(draftActivities).map((activity) => (
+                                            <label
+                                                key={activity}
+                                                className={`${styles.activityTile} ${draftActivities[activity] ? styles.activityTileActive : ''}`}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    className={styles.hiddenCheckbox}
+                                                    checked={draftActivities[activity]}
+                                                    onChange={() => handleActivityChange(activity)}
+                                                />
+                                                <span className={styles.activityTileIcon} aria-hidden="true">
+                                                    {getActivityIcon(activity)}
+                                                </span>
+                                                <span className={styles.activityTileLabel}>{activity}</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div className={styles.tripForecastActions}>
+                        <button
+                            type="button"
+                            className={styles.doneBtn}
+                            onClick={handleDoneClick}
+                            disabled={!isTripBoxComplete}
+                        >
+                            Done
+                        </button>
+                    </div>
+                </div>
+
+                {/* --- TRIP SUMMARY (Now Outside on the Right) --- */}
+                <div className={`${styles.tripForecastRow} ${isMenuOpen ? styles.forecastOpen : ''}`}>
+                    <h2 className={`${styles.boxHelperText} ${styles.tripForecastTitle}`}>TRIP FORECAST</h2>
+                    <div className={styles.tripForecastTextBox}>
+                        <p className={styles.tripForecastText}>
+                            {/* --- 3 INDEPENDENT WRITERS --- */}
+                            <TypewriterSpan text={introText} />
+                            <TypewriterSpan text={durationText} />
+                            <TypewriterSpan text={activityText} />
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );

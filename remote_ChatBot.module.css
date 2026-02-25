@@ -658,33 +658,13 @@
     width: 100vw;
     background: #e2e8f0;
     padding: 10px 0;
-    z-index: 999999;
+    z-index: 99999;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
 }
 
 :global([data-theme='dark']) .keyboardFixedContainer {
     background: #0f172a;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
-}
-
-/*
-  Keyboard input modal overlay
-*/
-.keyboardModalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 999998;
-    /* Sits behind the keyboard (999999) and modal (1000000) */
-}
-
-:global([data-theme='light']) .keyboardModalOverlay {
-    background: rgba(255, 255, 255, 0.45);
 }
 
 /*
@@ -709,7 +689,7 @@
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
     padding: 32px;
     /* Increased padding */
-    z-index: 1000000;
+    z-index: 100000;
     display: flex;
     flex-direction: column;
 }
@@ -780,11 +760,13 @@
 
 .keyboardInputModal .sendBtn {
     width: 52px;
+    /* Increased size */
     height: 52px;
 }
 
 .keyboardInputModal .sendIcon {
     width: 24px;
+    /* Increased icon size */
     height: 24px;
 }
 
@@ -873,12 +855,4 @@
 :global([data-theme='dark'] .squeekboardTheme .hg-wide-key:active) {
     background: #0f172a !important;
     box-shadow: 0 0px 0px #0f172a !important;
-}
-
-.modalChatInput {
-    font-size: 1.4rem !important;
-    line-height: 1.5 !important;
-    padding: 12px 0 !important;
-    min-height: 100px !important;
-    max-height: 200px !important;
 }
