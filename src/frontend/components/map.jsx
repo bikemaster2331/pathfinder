@@ -164,32 +164,40 @@ const Map = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         handleChatbotLocations: (locations) => {
-            if (!locations || locations.length === 0 || !map.current) return;
+            if (!locations || !map.current) return;
             if (CLEAN_MAP_SCREENSHOT_MODE) return;
 
-            console.log("📍 Map received locations:", locations);
+            // Strict validation: only keep locations with valid coordinate pairs
+            const validLocations = locations.filter(
+                loc => loc && loc.coordinates && loc.coordinates.length === 2
+                    && !isNaN(loc.coordinates[0]) && !isNaN(loc.coordinates[1])
+            );
+
+            if (validLocations.length === 0) return;
+
+            console.log("📍 Map received locations:", validLocations);
 
             clearGlowingMarkers();
 
-            if (locations.length === 1) {
-                const coords = locations[0].coordinates;
+            if (validLocations.length === 1) {
+                const coords = validLocations[0].coordinates;
 
                 map.current.flyTo({
                     center: coords,
-                    zoom: 14,
+                    zoom: 14.5,
                     speed: 1.5,
                     curve: 1,
                     essential: true
                 });
 
-                addGlowingMarker(locations[0]);
+                addGlowingMarker(validLocations[0]);
 
                 openTimedPopup(
                     coords,
                     `
                         <div style="padding: 4px;">
-                            <strong style="color: #FFD700;">${locations[0].name}</strong><br>
-                            <span style="font-size: 0.85em; color: #999;">${locations[0].type}</span>
+                            <strong style="color: #FFD700;">${validLocations[0].name}</strong><br>
+                            <span style="font-size: 0.85em; color: #999;">${validLocations[0].type}</span>
                         </div>
                     `,
                     { offset: 25 }
@@ -198,14 +206,14 @@ const Map = forwardRef((props, ref) => {
             else {
                 const bounds = new maplibregl.LngLatBounds();
 
-                locations.forEach(loc => {
+                validLocations.forEach(loc => {
                     bounds.extend(loc.coordinates);
                     addGlowingMarker(loc);
                 });
 
                 map.current.fitBounds(bounds, {
-                    padding: { top: 80, bottom: 80, left: 80, right: 80 },
-                    maxZoom: 13
+                    padding: 100,
+                    maxZoom: 14
                 });
             }
         }

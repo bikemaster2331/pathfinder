@@ -102,7 +102,7 @@ class GeoLookup:
                 return self.places_db[match_name]
 
         # Step 3: Fuzzy Fallback (Catches typos like "Mribina")
-        matches = get_close_matches(query, self.place_names, n=1, cutoff=0.8)
+        matches = get_close_matches(query, self.place_names, n=1, cutoff=0.70)
         if matches:
             print(f"[GEO] Fuzzy Match: '{query}' -> '{matches[0]}'")
             return self.places_db[matches[0]]
@@ -916,6 +916,18 @@ class Pipeline:
             ollama_answer = self._generate_with_ollama(user_input, raw_answer)
             if ollama_answer:
                 raw_answer = ollama_answer
+
+        # --- POST-GENERATION MAP SYNC ---
+        # Scan the final AI text for any place names that weren't already
+        # captured during RAG retrieval, so the map highlights everything.
+        seen_names = {p['name'] for p in final_locations}
+        answer_lower = raw_answer.lower()
+        for place_name in self.geo_engine.place_names:
+            if place_name in answer_lower and place_name not in seen_names:
+                loc_data = self.geo_engine.get_coords(place_name)
+                if loc_data:
+                    final_locations.append(loc_data)
+                    seen_names.add(loc_data['name'])
 
         # Cache and enhance
         self.semantic_cache.set(normalized, raw_answer, final_locations)

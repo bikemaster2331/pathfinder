@@ -202,7 +202,8 @@ async def ask_stream_endpoint(request: AskRequest):
             # Send locations as first event
             yield f"data: {json.dumps({'type': 'locations', 'locations': locations})}\n\n"
 
-            # Step 2: Try streaming from Ollama
+            # Step 2: Try streaming from Ollama (accumulate full text for post-scan)
+            full_text = ""
             ollama_response = pipeline._generate_with_ollama(
                 request.question, raw_answer, stream=True
             )
@@ -214,6 +215,7 @@ async def ask_stream_endpoint(request: AskRequest):
                             chunk = json.loads(line)
                             token = chunk.get('response', '')
                             if token:
+                                full_text += token
                                 yield f"data: {json.dumps({'type': 'token', 'token': token})}\n\n"
                             if chunk.get('done', False):
                                 break
@@ -221,7 +223,23 @@ async def ask_stream_endpoint(request: AskRequest):
                             continue
             else:
                 # Fallback: send raw answer as a single chunk
+                full_text = raw_answer
                 yield f"data: {json.dumps({'type': 'token', 'token': raw_answer})}\n\n"
+
+            # --- Post-generation location sync ---
+            # Scan the streamed text for place names not in the initial locations
+            synced_locations = list(locations)
+            seen_names = {loc.get('name', '') for loc in synced_locations}
+            answer_lower = full_text.lower()
+            for place_name in pipeline.geo_engine.place_names:
+                if place_name in answer_lower and place_name not in seen_names:
+                    loc_data = pipeline.geo_engine.get_coords(place_name)
+                    if loc_data:
+                        synced_locations.append(loc_data)
+                        seen_names.add(loc_data['name'])
+
+            # Emit final synced locations before done
+            yield f"data: {json.dumps({'type': 'locations', 'locations': synced_locations})}\n\n"
 
             # Signal completion
             yield f"data: {json.dumps({'type': 'done'})}\n\n"
