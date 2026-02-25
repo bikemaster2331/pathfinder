@@ -8,6 +8,7 @@ const ChatBot = forwardRef(({
     setMessages,
     onLocationResponse,
     variant = 'floating',
+    onKeyboardChange,
     onExpand,
     onHandleToggle,
     onHandleTouchStart,
@@ -24,13 +25,76 @@ const ChatBot = forwardRef(({
     const [loading, setLoading] = useState(false);
     const [showKeyboard, setShowKeyboard] = useState(false);
     const showKeyboardRef = useRef(false);
-    useEffect(() => { showKeyboardRef.current = showKeyboard; }, [showKeyboard]);
+    useEffect(() => { 
+        showKeyboardRef.current = showKeyboard; 
+        if (onKeyboardChange) {
+            onKeyboardChange(showKeyboard);
+        }
+    }, [showKeyboard, onKeyboardChange]);
+    const [isRecording, setIsRecording] = useState(false);
+    const [speechError, setSpeechError] = useState('');
+    const [isKeyboardHovered, setIsKeyboardHovered] = useState(false);
     const [layoutName, setLayoutName] = useState("default");
     const messagesEndRef = useRef(null);
     const textareaRef = useRef(null);
     const modalTextareaRef = useRef(null);
     const keyboardRef = useRef(null);
+    const recognitionRef = useRef(null);
     const modalContainerRef = useRef(null);
+
+    // Focus the modal container so it can catch physical keystrokes
+    useEffect(() => {
+        if (showKeyboard && modalContainerRef.current) {
+            modalContainerRef.current.focus();
+        }
+    }, [showKeyboard]);
+
+    // Handle physical keyboard typing when modal is active
+    const handleGlobalKeyDown = (e) => {
+        if (!showKeyboard) return;
+
+        // Don't capture if user is holding Ctrl/Cmd (shortcuts)
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+        // Handle special keys
+        if (e.key === 'Escape') {
+            setShowKeyboard(false);
+            return;
+        }
+
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleModalSubmit(e);
+            return;
+        }
+
+        if (e.key === 'Backspace') {
+            e.preventDefault();
+            setModalInput(prev => {
+                const newVal = prev.slice(0, -1);
+                if (keyboardRef.current) keyboardRef.current.setInput(newVal);
+                return newVal;
+            });
+            return;
+        }
+
+        // Only capture printable characters (length 1)
+        if (e.key.length === 1) {
+            e.preventDefault();
+            setModalInput(prev => {
+                const newVal = prev + e.key;
+                if (keyboardRef.current) keyboardRef.current.setInput(newVal);
+                return newVal;
+            });
+
+            if (modalTextareaRef.current) {
+                setTimeout(() => {
+                    modalTextareaRef.current.style.height = 'auto';
+                    modalTextareaRef.current.style.height = Math.min(modalTextareaRef.current.scrollHeight, 200) + 'px';
+                }, 0);
+            }
+        }
+    };
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -71,6 +135,74 @@ const ChatBot = forwardRef(({
         };
     }, [showKeyboard]);
 
+    useEffect(() => {
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognitionRef.current = new SpeechRecognition();
+            recognitionRef.current.continuous = false;
+            recognitionRef.current.interimResults = false;
+            recognitionRef.current.lang = 'en-US';
+
+            recognitionRef.current.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                if (showKeyboardRef.current) {
+                    setModalInput(prev => {
+                        const newVal = prev + (prev.endsWith(' ') ? '' : ' ') + transcript;
+                        if (keyboardRef.current) keyboardRef.current.setInput(newVal);
+                        return newVal;
+                    });
+                    if (modalTextareaRef.current) {
+                        modalTextareaRef.current.style.height = 'auto';
+                        modalTextareaRef.current.style.height = Math.min(modalTextareaRef.current.scrollHeight, 200) + 'px';
+                    }
+                } else {
+                    setInput(prev => {
+                        const newVal = prev + (prev.endsWith(' ') ? '' : ' ') + transcript;
+                        return newVal;
+                    });
+                    if (textareaRef.current) {
+                        textareaRef.current.style.height = 'auto';
+                        textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 120) + 'px';
+                    }
+                }
+            };
+
+            recognitionRef.current.onerror = (event) => {
+                console.error("Speech recognition error", event.error);
+                setSpeechError(event.error);
+                setIsRecording(false);
+            };
+
+            recognitionRef.current.onend = () => {
+                setIsRecording(false);
+            };
+        } else {
+            setSpeechError("Speech recognition not supported");
+        }
+
+        return () => {
+            if (recognitionRef.current) recognitionRef.current.abort();
+        };
+    }, []);
+
+    const toggleRecording = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isRecording) {
+            recognitionRef.current?.stop();
+            setIsRecording(false);
+        } else {
+            setSpeechError('');
+            try {
+                recognitionRef.current?.start();
+                setIsRecording(true);
+            } catch (err) {
+                console.error("Failed to start recording:", err);
+            }
+        }
+    };
+
     const handleInputChange = (e) => {
         const val = e.target.value;
         setInput(val);
@@ -86,10 +218,18 @@ const ChatBot = forwardRef(({
         if (keyboardRef.current) {
             keyboardRef.current.setInput(val);
         }
+        if (modalTextareaRef.current) {
+            modalTextareaRef.current.style.height = 'auto';
+            modalTextareaRef.current.style.height = Math.min(modalTextareaRef.current.scrollHeight, 200) + 'px';
+        }
     };
 
     const onChangeKeyboard = (inputVal) => {
         setModalInput(inputVal);
+        if (modalTextareaRef.current) {
+            modalTextareaRef.current.style.height = 'auto';
+            modalTextareaRef.current.style.height = Math.min(modalTextareaRef.current.scrollHeight, 200) + 'px';
+        }
     };
 
     const onKeyPress = (button) => {
@@ -169,6 +309,7 @@ const ChatBot = forwardRef(({
         if (keyboardRef.current) {
             keyboardRef.current.clearInput();
         }
+        if (modalTextareaRef.current) modalTextareaRef.current.style.height = 'auto';
         setShowKeyboard(false);
 
         submitMessage(userMessage);
@@ -239,7 +380,6 @@ const ChatBot = forwardRef(({
                         ) : (
                             <div className={styles.messageList}>
                                 {messages.map((msg, i) => {
-                                    // NEW LOGIC: Render dynamic widget components directly in the flow
                                     if (msg.role === 'widget') {
                                         return (
                                             <div key={i} className={`${styles.messageRow} ${styles.assistantRow} ${styles.inlinePanelRow}`}>
@@ -288,6 +428,30 @@ const ChatBot = forwardRef(({
 
                 <div className={`${styles.inputArea} ${isSheetExpanded ? styles.sheetInputRow : ''}`}>
                     <form onSubmit={handleSubmit} className={styles.inputForm}>
+                        <button
+                            type="button"
+                            onClick={toggleRecording}
+                            aria-label={isRecording ? "Stop recording" : "Start recording"}
+                            title={speechError || "Voice Input"}
+                            style={{
+                                display: 'none', /* Hidden but functionality kept intact */
+                                background: 'none',
+                                border: 'none',
+                                color: isRecording ? '#ef4444' : 'inherit',
+                                cursor: 'pointer',
+                                padding: '8px',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'color 0.2s',
+                                opacity: speechError ? 0.5 : 1
+                            }}
+                        >
+                            {isRecording ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="12" height="12" x="6" y="6" rx="2" /></svg>
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
+                            )}
+                        </button>
                         <textarea
                             ref={textareaRef}
                             rows={1}
@@ -316,49 +480,82 @@ const ChatBot = forwardRef(({
                                 </svg>
                             )}
                         </button>
-                    </form>
+                    </form >
                     {isSheetExpanded && formAccessory && (
                         <div className={styles.sheetAccessory}>
                             {formAccessory}
                         </div>
                     )}
-                </div>
+                </div >
 
                 {isSheet && children}
-            </div>
+            </div >
 
             {showKeyboard && (
-                <div ref={modalContainerRef} className={styles.keyboardInputModal}>
-                    <form onSubmit={handleModalSubmit} className={styles.inputForm}>
-                        <textarea
-                            ref={modalTextareaRef}
-                            rows={1}
-                            value={modalInput}
-                            onChange={handleModalInputChange}
-                            onKeyDown={handleModalKeyDown}
-                            placeholder="Ask Pathfinder..."
-                            className={`${styles.chatInput} ${styles.modalChatInput}`}
-                            disabled={loading}
-                            readOnly={true} /* Prevent native OS keyboard from popping up on touch devices */
-                        />
-                        <button
-                            type="submit"
-                            className={`${styles.sendBtn} ${modalInput.trim() && !loading ? styles.sendBtnActive : ''}`}
-                            disabled={loading || !modalInput.trim()}
-                        >
-                            {loading ? (
-                                <svg className={styles.loadingSpinner} viewBox="0 0 24 24" fill="none">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" strokeDasharray="31.4" strokeDashoffset="10" strokeLinecap="round" />
-                                </svg>
-                            ) : (
-                                <svg className={styles.sendIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-                                    <path d="m21.854 2.147-10.94 10.939" />
-                                </svg>
-                            )}
-                        </button>
-                    </form>
-                </div>
+                <>
+                    <div className={styles.keyboardModalOverlay} aria-hidden="true" onClick={() => setShowKeyboard(false)} />
+                    <div
+                        ref={modalContainerRef}
+                        className={styles.keyboardInputModal}
+                        tabIndex="-1"
+                        onKeyDown={handleGlobalKeyDown}
+                        style={{ outline: 'none' }}
+                    >
+                        <form onSubmit={handleModalSubmit} className={styles.inputForm}>
+                            <button
+                                type="button"
+                                onClick={toggleRecording}
+                                aria-label={isRecording ? "Stop recording" : "Start recording"}
+                                title={speechError || "Voice Input"}
+                                style={{
+                                    display: 'none', /* Hidden but functionality kept intact */
+                                    background: 'none',
+                                    border: 'none',
+                                    color: isRecording ? '#ef4444' : 'inherit',
+                                    cursor: 'pointer',
+                                    padding: '8px',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    transition: 'color 0.2s',
+                                    opacity: speechError ? 0.5 : 1
+                                }}
+                            >
+                                {isRecording ? (
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="12" height="12" x="6" y="6" rx="2" /></svg>
+                                ) : (
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
+                                )}
+                            </button>
+                            <textarea
+                                ref={modalTextareaRef}
+                                rows={1}
+                                value={modalInput}
+                                onChange={handleModalInputChange}
+                                onKeyDown={handleModalKeyDown}
+                                placeholder="Ask Pathfinder..."
+                                className={`${styles.chatInput} ${styles.modalChatInput}`}
+                                disabled={loading}
+                                readOnly={true} /* Prevent native OS keyboard from popping up */
+                            />
+                            <button
+                                type="submit"
+                                className={`${styles.sendBtn} ${modalInput.trim() && !loading ? styles.sendBtnActive : ''}`}
+                                disabled={loading || !modalInput.trim()}
+                            >
+                                {loading ? (
+                                    <svg className={styles.loadingSpinner} viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" strokeDasharray="31.4" strokeDashoffset="10" strokeLinecap="round" />
+                                    </svg>
+                                ) : (
+                                    <svg className={styles.sendIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+                                        <path d="m21.854 2.147-10.94 10.939" />
+                                    </svg>
+                                )}
+                            </button>
+                        </form>
+                    </div>
+                </>
             )}
 
             {showKeyboard && (
@@ -374,19 +571,19 @@ const ChatBot = forwardRef(({
                                 "q w e r t y u i o p",
                                 "a s d f g h j k l",
                                 "{shift} z x c v b n m {bksp}",
-                                "{numbers} {space} . {enter}"
+                                "{numbers} {global} {space} . {enter}"
                             ],
                             shift: [
                                 "Q W E R T Y U I O P",
                                 "A S D F G H J K L",
                                 "{shift} Z X C V B N M {bksp}",
-                                "{numbers} {space} . {enter}"
+                                "{numbers} {global} {space} . {enter}"
                             ],
                             numbers: [
                                 "1 2 3 4 5 6 7 8 9 0",
                                 "@ # $ % & * - + ( )",
                                 "{shift} ! \" ' : ; / ? {bksp}",
-                                "{default} {space} , {enter}"
+                                "{default} {global} {space} , {enter}"
                             ]
                         }}
                         display={{
@@ -395,12 +592,13 @@ const ChatBot = forwardRef(({
                             "{shift}": "⬆",
                             "{space}": " ",
                             "{numbers}": "123",
-                            "{default}": "ABC"
+                            "{default}": "ABC",
+                            "{global}": "🌐"
                         }}
                         buttonTheme={[
                             {
                                 class: "hg-wide-key",
-                                buttons: "{shift} {bksp} {numbers} {default} {enter}"
+                                buttons: "{shift} {bksp} {numbers} {default} {enter} {global}"
                             },
                             {
                                 class: "hg-space-key",

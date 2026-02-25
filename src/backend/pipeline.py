@@ -604,6 +604,13 @@ class Pipeline:
         entities = self.entity_extractor.extract(user_input)
         print(f"[ENTITIES] {entities}")
 
+        requested_count = 5  # default
+        count_match = re.search(r'\b(top|best|give me|show me)?\s*(\d+)\b', user_input.lower())
+        if count_match:
+            n = int(count_match.group(2))
+            if 1 <= n <= 10:  # sanity cap
+                requested_count = n
+
         # 7. Separate towns vs specific places
         target_towns = []
         specific_places_found = []
@@ -621,6 +628,8 @@ class Pipeline:
 
         # 8. Listing detection
         is_browsing = entities.get('is_listing', False)
+        if count_match:
+            is_browsing = True
 
         # ====================================================================
         # NEW: MULTI-PLACE SEARCH LOGIC (Gemini's "Smart Checklist")
@@ -787,11 +796,26 @@ class Pipeline:
             else:
                 if is_browsing:
                     descriptions = []
-                    for loc in final_locations[:10]:  # Limit to 10
-                        desc = f"{loc['name']} ({loc['municipality']})"
-                        descriptions.append(desc)
-
-                    raw_answer = "Here are some options: " + "; ".join(descriptions) + "."
+                    seen = set()
+                    
+                    for i, meta in enumerate(results['metadatas'][0]):
+                        name = meta.get('place_name', '').strip()
+                        conf = 1 - results['distances'][0][i]
+                        
+                        if name and name not in seen and conf >= 0.30 and len(seen) < requested_count:
+                            descriptions.append(name)
+                            seen.add(name)
+                            
+                            # ← This is the key: geo-lookup per place, not per listing entry
+                            loc_data = self.geo_engine.get_coords(name)
+                            if loc_data and loc_data['name'] not in seen_places:
+                                final_locations.append(loc_data)
+                                seen_places.add(loc_data['name'])
+                    
+                    if descriptions:
+                        raw_answer = "Here are some options: " + "; ".join(descriptions) + "."
+                    else:
+                        raw_answer = "I don't have enough information to list spots for that query."
                 else:
                     # Non-browsing successful matches should return factual summaries.
                     deduped_answers = list(dict.fromkeys(answers_found))
