@@ -42,6 +42,7 @@
 
 .scrollSpacer {
     height: 100vh;
+    touch-action: pan-y
 }
 
 html {
