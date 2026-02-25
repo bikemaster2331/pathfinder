@@ -6,10 +6,10 @@
     background-color: var(--app-bg);
     color: var(--app-text);
     font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     position: relative;
     transition: background-color 0.3s ease, color 0.3s ease;
-    -webkit-overflow-scrolling: touch;
 }
 
 .viewerContainer {
@@ -21,8 +21,8 @@
     justify-content: center;
     padding: 0;
     z-index: 2;
-    -webkit-overflow-scrolling: touch;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Ensure data-theme aware background for the gap if any */

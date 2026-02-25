@@ -30,6 +30,7 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
     position: relative;
     overflow-x: clip;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* Essential for Sticky */
 }
@@ -1960,7 +1961,7 @@ html::-webkit-scrollbar {
     border-color: color-mix(in srgb, var(--tech-color) 45%, transparent);
     background: color-mix(in srgb, var(--tech-color) 12%, transparent);
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--tech-color) 14%, transparent),
-                0 4px 10px rgba(0, 0, 0, 0.18);
+        0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
 .techBadgeIcon {
@@ -2101,7 +2102,7 @@ html::-webkit-scrollbar {
 .creatorCardWrap:hover .creatorBack {
     border-color: color-mix(in srgb, var(--creator-accent) 35%, transparent);
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2),
-                0 0 0 1px color-mix(in srgb, var(--creator-accent) 10%, transparent);
+        0 0 0 1px color-mix(in srgb, var(--creator-accent) 10%, transparent);
 }
 
 .creatorAvatar {
@@ -2197,8 +2198,15 @@ html::-webkit-scrollbar {
 }
 
 @keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 .socialIntro {

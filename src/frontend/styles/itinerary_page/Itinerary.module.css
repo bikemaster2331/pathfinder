@@ -22,6 +22,14 @@
     gap: 0;
 }
 
+.itineraryNoSidebar {
+    grid-template-columns: 1fr;
+}
+
+.itineraryNoSidebar .mapArea {
+    grid-column: 1;
+}
+
 .gradientBg {
     position: absolute;
     top: -25%;
@@ -89,40 +97,6 @@
     z-index: 5;
 }
 
-.openAiSidebarBtn {
-    position: absolute;
-    top: calc(10vh + 12px);
-    left: 20px;
-    z-index: 40;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    background: rgba(18, 18, 21, 0.9);
-    border: 1px solid #2c2c31;
-    border-radius: 12px;
-    color: #e2e8f0;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
-    transition: all 0.2s ease;
-}
-
-.openAiSidebarBtn:hover {
-    background: rgba(26, 26, 30, 0.95);
-    transform: translateY(-1px);
-}
-
-:global([data-theme='light']) .openAiSidebarBtn {
-    background: color-mix(in srgb, var(--itinerary-surface) 88%, #000 12%);
-    border: 1px solid rgba(15, 23, 42, 0.18);
-    color: #0f172a;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.14);
-}
-
 .desktopChatHeader {
     display: flex;
     align-items: center;
@@ -133,39 +107,6 @@
     background: rgba(18, 18, 21, 0.9);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-}
-
-.desktopChatHeaderRight {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.desktopChatCloseBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    color: #a1a1aa;
-    padding: 4px;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-}
-
-.desktopChatCloseBtn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #f8fafc;
-}
-
-:global([data-theme='light']) .desktopChatCloseBtn {
-    color: rgba(15, 23, 42, 0.64);
-}
-
-:global([data-theme='light']) .desktopChatCloseBtn:hover {
-    background: rgba(15, 23, 42, 0.08);
-    color: #0f172a;
 }
 
 .desktopChatTitle {

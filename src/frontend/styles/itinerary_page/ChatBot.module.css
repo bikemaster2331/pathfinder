@@ -372,7 +372,6 @@
     line-height: 1.5;
     max-height: 120px;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
 }
 
@@ -756,7 +755,6 @@
     min-height: 88px;
     max-height: 88px;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: rgba(148, 163, 184, 0.55) transparent;
     scrollbar-gutter: stable;
