@@ -30,6 +30,7 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
     position: relative;
     overflow-x: clip;
+    -webkit-overflow-scrolling: touch;
     /* Essential for Sticky */
 }
 

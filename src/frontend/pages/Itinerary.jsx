@@ -347,6 +347,7 @@ export default function ItineraryPage() {
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
     const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
     const [isImageFullscreen, setIsImageFullscreen] = useState(false);
+    const [isAiSidebarOpen, setIsAiSidebarOpen] = useState(false);
 
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
     const mobilePanelToggleLabel = nextMobilePanel === 'preview' ? 'Show preview' : 'Show review';
@@ -700,13 +701,36 @@ export default function ItineraryPage() {
     });
 
     return (
-        <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''}`}>
+        <div className={`${styles.itineraryContainer} ${(isMapFullscreen || (!isMobile && !isAiSidebarOpen)) ? styles.itineraryContainerFullscreen : ''}`}>
             <div className={styles.gradientBg} />
-            {!isMobile && (
+
+            {!isMobile && !isAiSidebarOpen && (
+                <button
+                    className={styles.openAiSidebarBtn}
+                    onClick={() => setIsAiSidebarOpen(true)}
+                    title="Open Pathfinder AI"
+                >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Pathfinder AI</span>
+                </button>
+            )}
+
+            {!isMobile && isAiSidebarOpen && (
                 <aside className={styles.desktopChatContainer}>
                     <div className={styles.desktopChatHeader}>
                         <span className={styles.desktopChatTitle}>PATHFINDER</span>
-                        <span className={styles.desktopChatStatus}>Connected</span>
+                        <div className={styles.desktopChatHeaderRight}>
+                            <span className={styles.desktopChatStatus}>Connected</span>
+                            <button 
+                                className={styles.desktopChatCloseBtn} 
+                                onClick={() => setIsAiSidebarOpen(false)}
+                                aria-label="Close AI Sidebar"
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
                     </div>
                     <div className={styles.desktopChatBody}>
                         <ChatBot
@@ -721,7 +745,7 @@ export default function ItineraryPage() {
             )}
 
             {/* Map Container with Controls */}
-            <div className={`${styles.mapArea} ${isMapFullscreen ? styles.mapAreaFullscreen : ''}`}>
+            <div className={`${styles.mapArea} ${(isMapFullscreen || (!isMobile && !isAiSidebarOpen)) ? styles.mapAreaFullscreen : ''}`}>
                 <MapWrapper
                     ref={mapRef}
                     selectedActivities={selectedActivities}
