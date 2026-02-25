@@ -5,11 +5,12 @@ import cardStyles from '../styles/itinerary_page/ItineraryCard.module.css';
 import PreferenceCard from '../components/itineraryCard';
 import MapWrapper from '../components/MapWrapper';
 import ChatBot from '../components/ChatBot';
-import { TRAVEL_HUBS } from '../constants/location'; 
+import { TRAVEL_HUBS } from '../constants/location';
 import { optimizeRoute } from '../utils/optimize';
 import { calculateDriveTimes, calculateTimeUsage, calculateTotalRoute } from '../utils/distance';
 import { generateItineraryPDF } from '../utils/generatePDF';
 import defaultBg from '../assets/images/card/catanduanes.png';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // --- CONFIGURATION ---
 const BUDGET_CONFIG = {
@@ -20,19 +21,19 @@ const BUDGET_CONFIG = {
 
 // --- NEW: COLLAPSIBLE WIDGET COMPONENT ---
 // This is pulled out so it can manage its own expanded/collapsed state natively in the chat flow.
-const PreviewWidget = ({ 
-    isLatest, 
-    spots, 
-    styles, 
-    cardStyles, 
+const PreviewWidget = ({
+    isLatest,
+    spots,
+    styles,
+    cardStyles,
     activeHub,
     currentDay,
     dayCount,
     isLastDay,
-    handleOptimize, 
-    setSelectedLocation, 
+    handleOptimize,
+    setSelectedLocation,
     handleToggleLock,
-    handleMoveSpot, 
+    handleMoveSpot,
     handleRemoveSpot,
     handlePreviousDay,
     handleSliceAndNext,
@@ -55,7 +56,6 @@ const PreviewWidget = ({
         if (!activeHub || !spots || spots.length === 0) return 0;
         return calculateTotalRoute(activeHub, spots);
     }, [activeHub, spots]);
-
     const timeWallet = useMemo(() => {
         if (!activeHub) {
             return {
@@ -98,32 +98,17 @@ const PreviewWidget = ({
     }, [activeHub, spots]);
 
     return (
-        <aside 
+        <aside
             className={`${styles.mapExpandedPreviewBox} ${styles.desktopChatPreviewBox} ${expanded ? styles.mapExpandedPreviewExpanded : styles.mapExpandedPreviewCollapsed}`}
         >
-            <div 
-                className={styles.mapExpandedPreviewHeader} 
+            <div
+                className={styles.mapExpandedPreviewHeader}
                 onClick={() => setExpanded(!expanded)}
                 style={{ cursor: 'pointer', borderBottom: expanded ? '' : 'none' }}
             >
                 <h3 className={styles.mapExpandedPreviewTitle}>Itinerary Preview</h3>
                 <div className={styles.mapExpandedPreviewHeaderActions}>
                     <span className={styles.mapExpandedPreviewCount}>{spots.length} spot{spots.length === 1 ? '' : 's'}</span>
-                    
-                    {expanded && (
-                        <button
-                            type="button"
-                            onClick={(e) => { e.stopPropagation(); handleOptimize(); }}
-                            className={cardStyles.optimizeBtnSmall}
-                            title="Fix my route order"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
-                                <path d="M230.86,109.25,169.18,86.82,146.75,25.14a19.95,19.95,0,0,0-37.5,0L86.82,86.82,25.14,109.25a19.95,19.95,0,0,0,0,37.5l61.68,22.43,22.43,61.68a19.95,19.95,0,0,0,37.5,0l22.43-61.68,61.68-22.43a19.95,19.95,0,0,0,0-37.5Zm-75.14,39.29a12,12,0,0,0-7.18,7.18L128,212.21l-20.54-56.49a12,12,0,0,0-7.18-7.18L43.79,128l56.49-20.54a12,12,0,0,0,7.18-7.18L128,43.79l20.54,56.49a12,12,0,0,0,7.18,7.18L212.21,128Z" />
-                            </svg>
-                        </button>
-                    )}
-
-                    {/* Expand/Collapse Chevron */}
                     {expanded ? (
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
                     ) : (
@@ -163,100 +148,100 @@ const PreviewWidget = ({
                         {spots && spots.length > 0 ? (
                             spots.map((spot, index) => (
                                 <div key={`${spot.name}-${index}`}>
-                                {driveData[index]?.driveTime > 0 && (
-                                    <div
-                                        className={cardStyles.driveTimeLabel}
-                                        style={{ marginTop: index === 0 ? '0px' : '-4px' }}
-                                    >
-                                        <div className={cardStyles.driveTimeLine}></div>
-                                        <svg className={cardStyles.driveTimeIcon} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
-                                            <circle cx="7" cy="17" r="2"></circle>
-                                            <circle cx="17" cy="17" r="2"></circle>
-                                        </svg>
-                                        {driveData[index].driveTime} min drive
-                                    </div>
-                                )}
-
-                                <div
-                                    className={`${cardStyles.miniSpotItem} ${spot.locked ? cardStyles.miniSpotItemLocked : ''}`}
-                                    onClick={() => setSelectedLocation(spot)}
-                                >
-                                    <div className={cardStyles.spotRow}>
-                                        <div className={cardStyles.visitDurationBadge}>
-                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                                <circle cx="12" cy="12" r="10"></circle>
-                                                <polyline points="12 6 12 12 16 14"></polyline>
+                                    {driveData[index]?.driveTime > 0 && (
+                                        <div
+                                            className={cardStyles.driveTimeLabel}
+                                            style={{ marginTop: index === 0 ? '0px' : '-4px' }}
+                                        >
+                                            <div className={cardStyles.driveTimeLine}></div>
+                                            <svg className={cardStyles.driveTimeIcon} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
+                                                <circle cx="7" cy="17" r="2"></circle>
+                                                <circle cx="17" cy="17" r="2"></circle>
                                             </svg>
-                                            {spot.visit_time_minutes > 0 ? spot.visit_time_minutes : 60}m
+                                            {driveData[index].driveTime} min drive
                                         </div>
-                                        <span className={cardStyles.spotName}>
-                                            {spot.locked && (
-                                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    )}
+
+                                    <div
+                                        className={`${cardStyles.miniSpotItem} ${spot.locked ? cardStyles.miniSpotItemLocked : ''}`}
+                                        onClick={() => setSelectedLocation(spot)}
+                                    >
+                                        <div className={cardStyles.spotRow}>
+                                            <div className={cardStyles.visitDurationBadge}>
+                                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                    <polyline points="12 6 12 12 16 14"></polyline>
                                                 </svg>
-                                            )}
-                                            {spot.name}
-                                        </span>
-                                    </div>
+                                                {spot.visit_time_minutes > 0 ? spot.visit_time_minutes : 60}m
+                                            </div>
+                                            <span className={cardStyles.spotName}>
+                                                {spot.locked && (
+                                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                    </svg>
+                                                )}
+                                                {spot.name}
+                                            </span>
+                                        </div>
 
-                                    <div className={cardStyles.spotActions}>
-                                        <button
-                                            onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, -1); }}
-                                            className={cardStyles.spotActionBtn}
-                                            disabled={index === 0}
-                                            title="Move Up"
-                                        >
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <polyline points="18 15 12 9 6 15"></polyline>
-                                            </svg>
-                                        </button>
-
-                                        <button
-                                            onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, 1); }}
-                                            className={cardStyles.spotActionBtn}
-                                            disabled={index === spots.length - 1}
-                                            title="Move Down"
-                                        >
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                        </button>
-
-                                        <div className={cardStyles.actionDivider}></div>
-
-                                        <button
-                                            className={`${cardStyles.removeBtn} ${cardStyles.lockBtn} ${spot.locked ? cardStyles.lockBtnActive : cardStyles.lockBtnInactive}`}
-                                            onClick={(e) => { e.stopPropagation(); handleToggleLock(spot.name); }}
-                                            title={spot.locked ? "Unlock" : "Anchor"}
-                                        >
-                                            {spot.locked ? (
+                                        <div className={cardStyles.spotActions}>
+                                            <button
+                                                onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, -1); }}
+                                                className={cardStyles.spotActionBtn}
+                                                disabled={index === 0}
+                                                title="Move Up"
+                                            >
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
                                                 </svg>
-                                            ) : (
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <circle cx="12" cy="5" r="3"></circle>
-                                                    <line x1="12" y1="22" x2="12" y2="8"></line>
-                                                    <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
-                                                </svg>
-                                            )}
-                                        </button>
+                                            </button>
 
-                                        <button
-                                            className={`${cardStyles.removeBtn} ${cardStyles.removeSmallBtn}`}
-                                            onClick={(e) => { e.stopPropagation(); handleRemoveSpot(spot.name); }}
-                                            title="Remove"
-                                        >
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                                            </svg>
-                                        </button>
+                                            <button
+                                                onClick={(e) => { e.stopPropagation(); handleMoveSpot(index, 1); }}
+                                                className={cardStyles.spotActionBtn}
+                                                disabled={index === spots.length - 1}
+                                                title="Move Down"
+                                            >
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                            </button>
+
+                                            <div className={cardStyles.actionDivider}></div>
+
+                                            <button
+                                                className={`${cardStyles.removeBtn} ${cardStyles.lockBtn} ${spot.locked ? cardStyles.lockBtnActive : cardStyles.lockBtnInactive}`}
+                                                onClick={(e) => { e.stopPropagation(); handleToggleLock(spot.name); }}
+                                                title={spot.locked ? "Unlock" : "Anchor"}
+                                            >
+                                                {spot.locked ? (
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                    </svg>
+                                                ) : (
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <circle cx="12" cy="5" r="3"></circle>
+                                                        <line x1="12" y1="22" x2="12" y2="8"></line>
+                                                        <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
+                                                    </svg>
+                                                )}
+                                            </button>
+
+                                            <button
+                                                className={`${cardStyles.removeBtn} ${cardStyles.removeSmallBtn}`}
+                                                onClick={(e) => { e.stopPropagation(); handleRemoveSpot(spot.name); }}
+                                                title="Remove"
+                                            >
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                             ))
                         ) : (
@@ -264,7 +249,7 @@ const PreviewWidget = ({
                                 Day {currentDay} wallet is empty. Select a pin to add.
                             </p>
                         )}
-                    </div>
+                    </div >
 
                     <div className={`${cardStyles.bottomButtonRow} ${styles.mapExpandedActionRow}`}>
                         {currentDay > 1 && (
@@ -274,8 +259,8 @@ const PreviewWidget = ({
                                 style={{ backgroundColor: '#4B5563' }}
                                 title="Go back to previous day"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-                            </button>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+                            </button >
                         )}
 
                         <button
@@ -285,11 +270,10 @@ const PreviewWidget = ({
                         >
                             {isNextAction ? 'Next' : 'Save'}
                         </button>
-                    </div>
-
-                </div>
+                    </div >
+                </div >
             )}
-        </aside>
+        </aside >
     );
 };
 
@@ -301,15 +285,21 @@ export default function ItineraryPage() {
     const [storedDays, setStoredDays] = useState({});
     const [currentDay, setCurrentDay] = useState(1);
     const [selectedLocation, setSelectedLocation] = useState(null);
-    const [activeHub, setActiveHub] = useState(null);
+    const [activeHub, setActiveHub] = useState(() => {
+        const saved = sessionStorage.getItem('itinerary_activeHub');
+        return saved ? JSON.parse(saved) : null;
+    });
     const [budgetFilter, setBudgetFilter] = useState(['low', 'medium', 'high']);
     const [selectedActivities, setSelectedActivities] = useState({
         Accommodation: false, Dining: false, Sightseeing: false,
         Shopping: false, Swimming: false, Hiking: false
     });
-    
+
     const [budget, setBudget] = useState(50);
-    const [destination, setDestination] = useState('');
+    const [destination, setDestination] = useState(() => {
+        const saved = sessionStorage.getItem('itinerary_destination');
+        return saved ? saved : '';
+    });
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
 
     const dayCount = useMemo(() => {
@@ -321,24 +311,49 @@ export default function ItineraryPage() {
         return days > 0 ? days : 1;
     }, [dateRange]);
     const isLastDay = currentDay >= dayCount;
-    
+    useEffect(() => {
+        const saved = sessionStorage.getItem('itinerary_dateRange');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            setDateRange({
+                start: parsed.start ? new Date(parsed.start) : '',
+                end: parsed.end ? new Date(parsed.end) : ''
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        if (activeHub) sessionStorage.setItem('itinerary_activeHub', JSON.stringify(activeHub));
+        else sessionStorage.removeItem('itinerary_activeHub');
+    }, [activeHub]);
+
+    useEffect(() => {
+        if (destination) sessionStorage.setItem('itinerary_destination', destination);
+        else sessionStorage.removeItem('itinerary_destination');
+    }, [destination]);
+
+    useEffect(() => {
+        sessionStorage.setItem('itinerary_dateRange', JSON.stringify(dateRange));
+    }, [dateRange]);
     // Chat State Lifted to Parent
     const [chatMessages, setChatMessages] = useState([]);
 
     // SHEET STATE
     const [sheetState, setSheetState] = useState('collapsed');
-    
+
     const [mobilePanel, setMobilePanel] = useState('review');
     const [isMobile, setIsMobile] = useState(false);
     const [isMapFullscreen, setIsMapFullscreen] = useState(false);
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
     const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
-    
+    const [isImageFullscreen, setIsImageFullscreen] = useState(false);
+    const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
     const mobilePanelToggleLabel = nextMobilePanel === 'preview' ? 'Show preview' : 'Show review';
 
     const mapRef = useRef(null);
-    
+
     const sheetRef = useRef(null);
     const touchStartYRef = useRef(0);
     const touchStartHeightRef = useRef(0);
@@ -362,7 +377,7 @@ export default function ItineraryPage() {
             const lastMsg = prev[prev.length - 1];
             // If the last message is already an itinerary widget, don't spam a new one
             if (lastMsg && lastMsg.role === 'widget' && lastMsg.type === 'itinerary') {
-                return prev; 
+                return prev;
             }
             return [...prev, { role: 'widget', type: 'itinerary', id: Date.now() }];
         });
@@ -445,9 +460,11 @@ export default function ItineraryPage() {
         const finalItinerary = { ...storedDays, [currentDay]: addedSpots };
 
         const allSpotsFlat = [];
-        Object.keys(finalItinerary).sort().forEach(day => {
-            allSpotsFlat.push(...finalItinerary[day]);
-        });
+        Object.keys(finalItinerary)
+            .sort((a, b) => Number(a) - Number(b))
+            .forEach(day => {
+                allSpotsFlat.push(...finalItinerary[day]);
+            });
 
         if (!activeHub?.name || allSpotsFlat.length === 0) {
             alert("Please add at least one spot before saving.");
@@ -460,7 +477,7 @@ export default function ItineraryPage() {
         const fullTripDistance = calculateTotalRoute(activeHub, allSpotsFlat);
         const fullTripDriveData = calculateDriveTimes(activeHub, allSpotsFlat);
 
-        generateItineraryPDF({
+        const pdfData = generateItineraryPDF({
             activeHubName: activeHub.name,
             dateRange,
             addedSpots: finalItinerary,
@@ -468,7 +485,7 @@ export default function ItineraryPage() {
             driveData: fullTripDriveData
         });
 
-        navigate('/last');
+        navigate('/last', { state: { pdfData } });
     };
 
     const isSelectedAlreadyAdded = selectedLocation
@@ -477,7 +494,7 @@ export default function ItineraryPage() {
 
     const handleChatbotLocation = (locations) => {
         console.log('Chatbot returned locations:', locations);
-        
+
         if (mapRef.current) {
             mapRef.current.handleChatbotLocations(locations);
         }
@@ -536,7 +553,7 @@ export default function ItineraryPage() {
 
     const handleSheetTouchStart = (event) => {
         if (!sheetRef.current) return;
-        
+
         sheetRef.current.classList.add(styles.isDragging);
         touchStartYRef.current = event.touches[0].clientY;
         touchStartHeightRef.current = sheetRef.current.offsetHeight;
@@ -544,7 +561,7 @@ export default function ItineraryPage() {
 
     const handleSheetTouchMove = (event) => {
         if (!isMobile || !sheetRef.current) return;
-        
+
         if (event.cancelable) event.preventDefault();
 
         const currentY = event.touches[0].clientY;
@@ -553,7 +570,7 @@ export default function ItineraryPage() {
 
         const heights = getSheetHeights();
         const clampedHeight = Math.max(heights.collapsed - 20, Math.min(heights.open + 20, newHeight));
-        
+
         sheetRef.current.style.height = `${clampedHeight}px`;
     };
 
@@ -562,7 +579,7 @@ export default function ItineraryPage() {
 
         sheetRef.current.classList.remove(styles.isDragging);
         const currentHeight = sheetRef.current.offsetHeight;
-        sheetRef.current.style.height = ''; 
+        sheetRef.current.style.height = '';
 
         const heights = getSheetHeights();
         const distCollapsed = Math.abs(currentHeight - heights.collapsed);
@@ -571,7 +588,7 @@ export default function ItineraryPage() {
 
         const touchEndY = event.changedTouches[0].clientY;
         const totalDelta = touchStartYRef.current - touchEndY;
-        
+
         let nextState = 'mid';
 
         if (totalDelta > 80 && sheetState === 'collapsed') nextState = 'mid';
@@ -659,19 +676,19 @@ export default function ItineraryPage() {
             return {
                 ...msg,
                 content: (
-                    <PreviewWidget 
-                        isLatest={index === latestWidgetIndex} 
-                        spots={addedSpots} 
-                        styles={styles} 
-                        cardStyles={cardStyles} 
+                    <PreviewWidget
+                        isLatest={index === latestWidgetIndex}
+                        spots={addedSpots}
+                        styles={styles}
+                        cardStyles={cardStyles}
                         activeHub={activeHub}
                         currentDay={currentDay}
                         dayCount={dayCount}
                         isLastDay={isLastDay}
-                        handleOptimize={handleOptimize} 
-                        setSelectedLocation={setSelectedLocation} 
+                        handleOptimize={handleOptimize}
+                        setSelectedLocation={setSelectedLocation}
                         handleToggleLock={handleToggleLock}
-                        handleMoveSpot={handleMoveSpot} 
+                        handleMoveSpot={handleMoveSpot}
                         handleRemoveSpot={handleRemoveSpot}
                         handlePreviousDay={handlePreviousDay}
                         handleSliceAndNext={handleSliceAndNext}
@@ -684,9 +701,9 @@ export default function ItineraryPage() {
     });
 
     return (
-        <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${!isInitialTripboxCompleted ? styles.itineraryContainerBoot : ''}`}>
+        <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${(!activeHub || !dateRange.start || !dateRange.end) ? styles.itineraryNoSidebar : ''}`}>
             <div className={styles.gradientBg} />
-            {!isMobile && isInitialTripboxCompleted && (
+            {!isMobile && activeHub && dateRange.start && dateRange.end && (
                 <aside className={styles.desktopChatContainer}>
                     <div className={styles.desktopChatHeader}>
                         <span className={styles.desktopChatTitle}>PATHFINDER</span>
@@ -699,14 +716,15 @@ export default function ItineraryPage() {
                             onLocationResponse={handleChatbotLocation}
                             messages={desktopDisplayMessages}
                             setMessages={setChatMessages}
+                            onKeyboardChange={setIsKeyboardOpen}
                         />
                     </div>
                 </aside>
             )}
-            
+
             {/* Map Container with Controls */}
-            <div className={`${styles.mapArea} ${isMapFullscreen ? styles.mapAreaFullscreen : ''} ${!isInitialTripboxCompleted ? styles.mapAreaBoot : ''}`}>
-                <MapWrapper 
+            <div className={`${styles.mapArea} ${isMapFullscreen ? styles.mapAreaFullscreen : ''}`}>
+                <MapWrapper
                     ref={mapRef}
                     selectedActivities={selectedActivities}
                     setSelectedActivities={setSelectedActivities}
@@ -716,7 +734,7 @@ export default function ItineraryPage() {
                     selectedHub={activeHub}
                     addedSpots={addedSpots}
                     budgetFilter={budgetFilter}
-                    budget={budget} 
+                    budget={budget}
                     setBudget={setBudget}
                     destination={destination}
                     setDestination={setDestination}
@@ -730,19 +748,21 @@ export default function ItineraryPage() {
                 />
                 <button
                     type="button"
-                    className={styles.mapExpandedReviewToggle}
+                    className={`${styles.mapExpandedReviewToggle} ${isKeyboardOpen ? styles.mapExpandedReviewToggleBlurred : ''}`}
                     onClick={() => setIsMapExpandedReviewOpen((prev) => !prev)}
                 >
                     {isMapExpandedReviewOpen ? 'Hide Info' : 'Show Info'}
                 </button>
                 {isMapExpandedReviewOpen && (
                     <>
-                        <aside className={styles.mapExpandedReviewBox}>
+                        <aside className={`${styles.mapExpandedReviewBox} ${isKeyboardOpen ? styles.mapExpandedReviewBoxBlurred : ''}`}>
                             <div className={styles.mapExpandedReviewImageWrap}>
                                 <img
                                     src={selectedLocation?.image || defaultBg}
                                     alt={selectedLocation?.name || 'Catanduanes'}
                                     className={styles.mapExpandedReviewImage}
+                                    style={{ cursor: 'zoom-in' }}
+                                    onClick={() => setIsImageFullscreen(true)}
                                     onError={(e) => { e.currentTarget.src = defaultBg; }}
                                 />
                             </div>
@@ -761,8 +781,8 @@ export default function ItineraryPage() {
                                         !selectedLocation
                                             ? null
                                             : isSelectedAlreadyAdded
-                                            ? handleRemoveSpot(selectedLocation.name)
-                                            : handleAddSpot(selectedLocation)
+                                                ? handleRemoveSpot(selectedLocation.name)
+                                                : handleAddSpot(selectedLocation)
                                     )}
                                 >
                                     {!selectedLocation ? 'Select a Spot' : isSelectedAlreadyAdded ? 'Remove Spot' : 'Add Spot'}
@@ -776,21 +796,25 @@ export default function ItineraryPage() {
             {/* Itinerary Card - Right Side */}
             {false && !isMapFullscreen && (
                 <div className={styles.preferenceCardContainer}>
-                    <PreferenceCard 
+                    <PreferenceCard
                         selectedLocation={selectedLocation}
                         setSelectedLocation={setSelectedLocation}
                         addedSpots={addedSpots}
                         setAddedSpots={setAddedSpots}
                         onAddSpot={handleAddSpot}
                         onRemoveSpot={handleRemoveSpot}
-                        activeHubName={activeHub ? activeHub.name : ""} 
+                        activeHubName={activeHub ? activeHub.name : ""}
                         onToggleLock={handleToggleLock}
                         onMoveSpot={handleMoveSpot}
                         dateRange={dateRange}
+                        currentDay={currentDay}
+                        setCurrentDay={setCurrentDay}
+                        storedDays={storedDays}
+                        setStoredDays={setStoredDays}
                     />
                 </div>
             )}
-            
+
             {/* Mobile Bottom Sheet */}
             {isMobile && (
                 <ChatBot
@@ -843,17 +867,21 @@ export default function ItineraryPage() {
                 >
                     <div className={styles.mobileSheetCard}>
                         <div className={styles.mobileSheetContent}>
-                            <PreferenceCard 
+                            <PreferenceCard
                                 selectedLocation={selectedLocation}
                                 setSelectedLocation={setSelectedLocation}
                                 addedSpots={addedSpots}
                                 setAddedSpots={setAddedSpots}
                                 onAddSpot={handleAddSpot}
                                 onRemoveSpot={handleRemoveSpot}
-                                activeHubName={activeHub ? activeHub.name : ""} 
+                                activeHubName={activeHub ? activeHub.name : ""}
                                 onToggleLock={handleToggleLock}
                                 onMoveSpot={handleMoveSpot}
                                 dateRange={dateRange}
+                                currentDay={currentDay}
+                                setCurrentDay={setCurrentDay}
+                                storedDays={storedDays}
+                                setStoredDays={setStoredDays}
                                 mobileMode
                                 activeMobilePanel={mobilePanel}
                                 showPanelToggleInCard={false}
@@ -870,6 +898,82 @@ export default function ItineraryPage() {
                     </div>
                 </ChatBot>
             )}
+
+            {/* FULLSCREEN IMAGE MODAL LAYER */}
+            <AnimatePresence>
+                {isImageFullscreen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsImageFullscreen(false)}
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: 'rgba(0,0,0,0.85)',
+                            backdropFilter: 'blur(12px)',
+                            WebkitBackdropFilter: 'blur(12px)',
+                            zIndex: 9999999, /* Above navbar and modals */
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '24px',
+                            cursor: 'zoom-out'
+                        }}
+                    >
+                        <motion.img
+                            src={selectedLocation?.image || defaultBg}
+                            alt="Fullscreen Destination"
+                            initial={{ scale: 0.9, opacity: 0, y: 30 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 30 }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                            style={{
+                                maxWidth: '100%',
+                                maxHeight: '90vh',
+                                objectFit: 'contain',
+                                borderRadius: '16px',
+                                boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.6)',
+                                cursor: 'default'
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                        <button
+                            onClick={() => setIsImageFullscreen(false)}
+                            title="Close picture"
+                            style={{
+                                position: 'absolute',
+                                top: '24px',
+                                right: '24px',
+                                background: 'rgba(255, 255, 255, 0.15)',
+                                border: '1px solid rgba(255, 255, 255, 0.3)',
+                                color: '#fff',
+                                width: '44px',
+                                height: '44px',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                backdropFilter: 'blur(4px)',
+                                transition: 'all 0.2s ease',
+                                zIndex: 2
+                            }}
+                            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)'}
+                            onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'}
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </div>
     );
 }
