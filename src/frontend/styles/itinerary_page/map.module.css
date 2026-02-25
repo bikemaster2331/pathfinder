@@ -196,10 +196,10 @@
 
 :global([data-theme='light']) .chatbotGlowMarker {
     background: transparent;
-    border: 3px solid #1f2937;
+    border: 3px solid #ffffff;
     box-shadow:
-        0 0 14px rgba(31, 41, 55, 0.3),
-        0 0 26px rgba(31, 41, 55, 0.16);
+        0 0 14px rgba(255, 255, 255, 0.55),
+        0 0 26px rgba(255, 255, 255, 0.25);
 }
 
 
