@@ -8,6 +8,7 @@ const ChatBot = forwardRef(({
     setMessages,
     onLocationResponse,
     variant = 'floating',
+    onKeyboardChange,
     onExpand,
     onHandleToggle,
     onHandleTouchStart,
@@ -24,7 +25,12 @@ const ChatBot = forwardRef(({
     const [loading, setLoading] = useState(false);
     const [showKeyboard, setShowKeyboard] = useState(false);
     const showKeyboardRef = useRef(false);
-    useEffect(() => { showKeyboardRef.current = showKeyboard; }, [showKeyboard]);
+    useEffect(() => { 
+        showKeyboardRef.current = showKeyboard; 
+        if (onKeyboardChange) {
+            onKeyboardChange(showKeyboard);
+        }
+    }, [showKeyboard, onKeyboardChange]);
     const [isRecording, setIsRecording] = useState(false);
     const [speechError, setSpeechError] = useState('');
     const [isKeyboardHovered, setIsKeyboardHovered] = useState(false);

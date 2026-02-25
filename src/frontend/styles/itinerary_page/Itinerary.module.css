@@ -233,6 +233,13 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+.mapExpandedReviewToggleBlurred {
+    filter: blur(4px);
+    opacity: 0.6;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
 .mapExpandedReviewBox {
     position: absolute;
     top: 12px;
@@ -250,6 +257,13 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    transition: all 0.2s ease;
+}
+
+.mapExpandedReviewBoxBlurred {
+    filter: blur(8px);
+    opacity: 0.4;
+    pointer-events: none;
 }
 
 .mapExpandedPreviewBox {

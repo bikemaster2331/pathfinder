@@ -347,6 +347,7 @@ export default function ItineraryPage() {
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
     const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
     const [isImageFullscreen, setIsImageFullscreen] = useState(false);
+    const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
     const mobilePanelToggleLabel = nextMobilePanel === 'preview' ? 'Show preview' : 'Show review';
@@ -715,6 +716,7 @@ export default function ItineraryPage() {
                             onLocationResponse={handleChatbotLocation}
                             messages={desktopDisplayMessages}
                             setMessages={setChatMessages}
+                            onKeyboardChange={setIsKeyboardOpen}
                         />
                     </div>
                 </aside>
@@ -746,14 +748,14 @@ export default function ItineraryPage() {
                 />
                 <button
                     type="button"
-                    className={styles.mapExpandedReviewToggle}
+                    className={`${styles.mapExpandedReviewToggle} ${isKeyboardOpen ? styles.mapExpandedReviewToggleBlurred : ''}`}
                     onClick={() => setIsMapExpandedReviewOpen((prev) => !prev)}
                 >
                     {isMapExpandedReviewOpen ? 'Hide Info' : 'Show Info'}
                 </button>
                 {isMapExpandedReviewOpen && (
                     <>
-                        <aside className={styles.mapExpandedReviewBox}>
+                        <aside className={`${styles.mapExpandedReviewBox} ${isKeyboardOpen ? styles.mapExpandedReviewBoxBlurred : ''}`}>
                             <div className={styles.mapExpandedReviewImageWrap}>
                                 <img
                                     src={selectedLocation?.image || defaultBg}
