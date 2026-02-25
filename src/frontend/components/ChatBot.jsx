@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, forwardRef } from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
+import { motion } from 'framer-motion';
 import styles from '../styles/itinerary_page/ChatBot.module.css';
 
 const ChatBot = forwardRef(({
@@ -243,9 +244,16 @@ const ChatBot = forwardRef(({
                                     if (msg.role === 'widget') {
                                         return (
                                             <div key={i} className={`${styles.messageRow} ${styles.assistantRow} ${styles.inlinePanelRow}`}>
-                                                <div className={styles.inlinePanelCard}>
+                                                <motion.div 
+                                                    className={styles.inlinePanelCard}
+                                                    drag="x" 
+                                                    dragConstraints={{ left: 0, right: 0 }} 
+                                                    dragElastic={0.2}
+                                                    dragDirectionLock
+                                                    style={{ touchAction: "pan-y" }}
+                                                >
                                                     {msg.content}
-                                                </div>
+                                                </motion.div>
                                             </div>
                                         );
                                     }
@@ -274,9 +282,16 @@ const ChatBot = forwardRef(({
 
                                 {isPanel && children && (
                                     <div className={`${styles.messageRow} ${styles.assistantRow} ${styles.inlinePanelRow}`}>
-                                        <div className={styles.inlinePanelCard}>
+                                        <motion.div 
+                                            className={styles.inlinePanelCard}
+                                            drag="x" 
+                                            dragConstraints={{ left: 0, right: 0 }} 
+                                            dragElastic={0.2}
+                                            dragDirectionLock
+                                            style={{ touchAction: "pan-y" }}
+                                        >
                                             {children}
-                                        </div>
+                                        </motion.div>
                                     </div>
                                 )}
 
