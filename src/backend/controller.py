@@ -160,7 +160,7 @@ class Controller:
         # Check for core identifiers
         has_greeting = any(g == clean_text for g in self.greetings)
         if not has_greeting:
-             has_greeting = any(g in clean_text.split() for g in self.greetings)
+            has_greeting = any(g in clean_text.split() for g in self.greetings)
         
         has_question_word = any(q in clean_text.split() for q in self.question_indicator)
         
