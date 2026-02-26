@@ -73,17 +73,20 @@
     "activities": "shopping",
     "budget": "cheap",
     "summary_offline": "Virac Public Market is in the town center and is the go-to spot for souvenirs and local food.",
-    "coordinates": {"lat": 13.578141390225673, "lng": 124.22879470245454},
+    "coordinates": {
+      "lat": 13.578141390225673,
+      "lng": 124.22879470245454
+    },
     "place_name": "Virac Public Market"
   },
   {
     "input": "What are the best tourist spots in Catanduanes?",
-    "output": "Major tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls.",
+    "output": "Major tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadan Blue Lagoon, Bato Church, and Nahulugan Falls.",
     "title": "Top Tourist Spots",
     "topic": "Sightseeing",
     "location": "Various",
     "activities": "sightseeing",
-    "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls."
+    "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadan Blue Lagoon, Bato Church, and Nahulugan Falls."
   },
   {
     "input": "Where is Virac Airport?",
@@ -93,7 +96,10 @@
     "location": "Virac",
     "activities": "transport",
     "summary_offline": "Virac Airport is the main airport located in the capital town of Virac.",
-    "coordinates": {"lat": 13.579601473762152, "lng": 124.21184297254652},
+    "coordinates": {
+      "lat": 13.579601473762152,
+      "lng": 124.21184297254652
+    },
     "place_name": "Virac Airport"
   },
   {
@@ -104,7 +110,10 @@
     "location": "Baras",
     "activities": "surfing",
     "place_name": "Puraran Beach",
-    "coordinates": {"lat": 13.691946453490571, "lng": 124.39881786785304}
+    "coordinates": {
+      "lat": 13.691946453490571,
+      "lng": 124.39881786785304
+    }
   },
   {
     "input": "How do I get to the airport?",
@@ -114,7 +123,10 @@
     "location": "Virac",
     "activities": "transport",
     "summary_offline": "You can reach Virac Airport by tricycle or van from the town center.",
-    "coordinates": {"lat": 13.579601473762152, "lng": 124.21184297254652},
+    "coordinates": {
+      "lat": 13.579601473762152,
+      "lng": 124.21184297254652
+    },
     "place_name": "Virac Airport"
   },
   {
@@ -126,7 +138,10 @@
     "activities": "sightseeing",
     "group_type": "group",
     "summary_offline": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
-    "coordinates": {"lat": 13.668995411184893, "lng": 124.41449841008455},
+    "coordinates": {
+      "lat": 13.668995411184893,
+      "lng": 124.41449841008455
+    },
     "place_name": "Binurong Point"
   },
   {
@@ -138,7 +153,10 @@
     "activities": "swimming",
     "budget": "cheap",
     "summary_offline": "Maribina Falls is a popular attraction in Bato known for its refreshing waters.",
-    "coordinates": {"lat": 13.601708685295064, "lng": 124.2706945272802},
+    "coordinates": {
+      "lat": 13.601708685295064,
+      "lng": 124.2706945272802
+    },
     "place_name": "Maribina Falls"
   },
   {
@@ -150,7 +168,10 @@
     "activities": "swimming",
     "group_type": "family",
     "summary_offline": "Mamangal Beach is known for its wide sandy shoreline and calm, swimming-friendly waters.",
-    "coordinates": {"lat": 13.555007904907587, "lng": 124.14923064840366},
+    "coordinates": {
+      "lat": 13.555007904907587,
+      "lng": 124.14923064840366
+    },
     "place_name": "Mamangal Beach"
   },
   {
@@ -163,7 +184,10 @@
     "budget": "mid",
     "group_type": "family",
     "summary_offline": "Twin Rock Beach Resort is located in Virac.",
-    "coordinates": {"lat": 13.522663495166062, "lng": 124.21269059659129},
+    "coordinates": {
+      "lat": 13.522663495166062,
+      "lng": 124.21269059659129
+    },
     "place_name": "Twin Rock Beach Resort"
   },
   {
@@ -176,7 +200,10 @@
     "budget": "mid",
     "group_type": "family",
     "summary_offline": "The resort offers activities like swimming, ziplining, and various water sports.",
-    "coordinates": {"lat": 13.522663495166062, "lng": 124.21269059659129},
+    "coordinates": {
+      "lat": 13.522663495166062,
+      "lng": 124.21269059659129
+    },
     "place_name": "Twin Rock Beach Resort"
   },
   {
@@ -188,7 +215,10 @@
     "activities": "surfing",
     "skill_level": "intermediate",
     "summary_offline": "The top surfing destination in Catanduanes is Puraran Beach in Baras.",
-    "coordinates": {"lat": 13.691803137745696, "lng": 124.39882862882942},
+    "coordinates": {
+      "lat": 13.691803137745696,
+      "lng": 124.39882862882942
+    },
     "place_name": "Puraran Beach"
   },
   {
@@ -199,7 +229,10 @@
     "summary_offline": "Puraran Beach is located in Baras, Catanduanes. It's a world-class surfing destination known as 'Majestic'.",
     "location": "Baras",
     "activities": "surfing",
-    "coordinates": {"lat": 13.691803137745696, "lng": 124.39882862882942},
+    "coordinates": {
+      "lat": 13.691803137745696,
+      "lng": 124.39882862882942
+    },
     "budget": "low",
     "place_name": "Puraran Beach"
   },
@@ -223,7 +256,10 @@
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "ARDCI Corporate Inn offers comfortable rooms in Virac.",
-    "coordinates": {"lat": 13.5812552, "lng": 124.2301155},
+    "coordinates": {
+      "lat": 13.5812552,
+      "lng": 124.2301155
+    },
     "place_name": "ARDCI Corporate Inn"
   },
   {
@@ -234,7 +270,10 @@
     "location": "Virac",
     "budget": "expensive",
     "summary_offline": "ARDCI Corporate Inn offers comfortable rooms in Virac.",
-    "coordinates": {"lat": 13.5812552, "lng": 124.2301155},
+    "coordinates": {
+      "lat": 13.5812552,
+      "lng": 124.2301155
+    },
     "place_name": "ARDCI Corporate Inn"
   },
   {
@@ -246,7 +285,10 @@
     "activities": "surfing",
     "budget": "mid",
     "summary_offline": "Puraran Beach offers surfing, swimming, and beach activities.",
-    "coordinates": {"lat": 13.691946453490571, "lng": 124.39881786785304},
+    "coordinates": {
+      "lat": 13.691946453490571,
+      "lng": 124.39881786785304
+    },
     "place_name": "Puraran Beach"
   },
   {
@@ -269,18 +311,6 @@
     "summary_offline": "Local delicacies like linubak and fresh seafood are available at Virac Public Market."
   },
   {
-    "input": "Is Catanduanes Midtown Inn near Virac town center?",
-    "output": "Catanduanes Midtown Inn is centrally located in Virac, within walking distance of stores and restaurants.",
-    "title": "Midtown Inn Location",
-    "topic": "Accommodation",
-    "location": "Virac",
-    "activities": "accommodation",
-    "budget": "mid",
-    "summary_offline": "Catanduanes Midtown Inn is near Virac's main establishments.",
-    "coordinates": {"lat": 13.5403305, "lng": 124.1638091},
-    "place_name": "Catanduanes Midtown Inn Resort"
-  },
-  {
     "input": "Where is Nitto Lodge located in Virac?",
     "output": "Nitto Lodge is situated in the town proper of Virac, close to shops and local dining spots.",
     "title": "Nitto Lodge Location",
@@ -289,20 +319,11 @@
     "activities": "accommodation",
     "budget": "cheap",
     "summary_offline": "Nitto Lodge is located in Virac town proper near amenities.",
-    "coordinates": {"lat": 13.5833005, "lng": 124.2054489},
+    "coordinates": {
+      "lat": 13.5833005,
+      "lng": 124.2054489
+    },
     "place_name": "Nitto Lodge"
-  },
-  {
-    "input": "Does Renel's Traveller's Inn have air-conditioned rooms?",
-    "output": "Renel's Traveller's Inn offers both air-conditioned and fan rooms for guests.",
-    "title": "Renel's Traveller's Inn Rooms",
-    "topic": "Facilities",
-    "location": "Virac",
-    "activities": "accommodation",
-    "budget": "cheap",
-    "summary_offline": "Renel's Traveller's Inn provides both air-conditioned and fan rooms.",
-    "coordinates": {"lat": 13.5795156, "lng": 124.2280368},
-    "place_name": "Renel's Traveller's Inn"
   },
   {
     "input": "Is Bagamanoc Guest House near the town center?",
@@ -313,7 +334,10 @@
     "activities": "accommodation",
     "budget": "cheap",
     "summary_offline": "Bagamanoc Guest House is located in the Poblacion area.",
-    "coordinates": {"lat": 13.9415567, "lng": 124.2869733},
+    "coordinates": {
+      "lat": 13.9415567,
+      "lng": 124.2869733
+    },
     "place_name": "Bagamanoc Guest House"
   },
   {
@@ -326,9 +350,12 @@
     "budget": "expensive",
     "group_type": "family",
     "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces.",
-    "coordinates": {"lat": 13.592217696981342, "lng": 124.24844932275295},
+    "coordinates": {
+      "lat": 13.592217696981342,
+      "lng": 124.24844932275295
+    },
     "place_name": "The Lumber Hotel and Resort"
-  }, 
+  },
   {
     "input": "Where is E-Crown Hotel and Resort located?",
     "output": "E-Crown Hotel and Resort is located in Virac, near Maribina Falls.",
@@ -339,7 +366,10 @@
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "E-Crown Hotel and Resort is in Virac, close to Maribina Falls.",
-    "coordinates": {"lat": 13.593886227522459, "lng": 124.25617408469465},
+    "coordinates": {
+      "lat": 13.593886227522459,
+      "lng": 124.25617408469465
+    },
     "place_name": "E-Crown Hotel and Resort"
   },
   {
@@ -352,7 +382,10 @@
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "E-Crown Hotel and Resort has its own restaurant for guests.",
-    "coordinates": {"lat": 13.593886227522459, "lng": 124.25617408469465},
+    "coordinates": {
+      "lat": 13.593886227522459,
+      "lng": 124.25617408469465
+    },
     "place_name": "E-Crown Hotel and Resort"
   },
   {
@@ -365,7 +398,10 @@
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "E-Crown Hotel and Resort is a luxury accommodation located in Virac.",
-    "coordinates": {"lat": 13.593886227522459, "lng": 124.25617408469465},
+    "coordinates": {
+      "lat": 13.593886227522459,
+      "lng": 124.25617408469465
+    },
     "place_name": "E-Crown Hotel and Resort"
   },
   {
@@ -377,7 +413,10 @@
     "activities": "accommodation",
     "budget": "cheap",
     "summary_offline": "Rhaj Inn offers budget-friendly rooms in Virac.",
-    "coordinates": {"lat": 13.5791058, "lng": 124.2262818},
+    "coordinates": {
+      "lat": 13.5791058,
+      "lng": 124.2262818
+    },
     "place_name": "Rhaj Inn"
   },
   {
@@ -389,20 +428,11 @@
     "activities": "accommodation",
     "budget": "mid",
     "summary_offline": "Catanduanes Midtown Inn is located in Virac.",
-    "coordinates": {"lat": 13.582963948330717, "lng": 124.23256205211081},
+    "coordinates": {
+      "lat": 13.582963948330717,
+      "lng": 124.23256205211081
+    },
     "place_name": "Catanduanes Midtown Inn"
-  },
-  {
-    "input": "Where is Angel's Pizza located?",
-    "output": "Angel's Pizza is a restaurant located in Virac.",
-    "title": "Angel's Pizza Location",
-    "topic": "Food",
-    "location": "Virac",
-    "activities": "dining",
-    "budget": "cheap",
-    "summary_offline": "Angel's Pizza is located in Virac.",
-    "coordinates": {"lat": 13.583990389845289, "lng": 124.2341718944488},
-    "place_name": "Angel's Pizza"
   },
   {
     "input": "Where is Hinagasan Falls?",
@@ -413,7 +443,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Hinagasan Falls is located in Virac.",
-    "coordinates": {"lat": 13.600608583794113, "lng": 124.22421715095876},
+    "coordinates": {
+      "lat": 13.600608583794113,
+      "lng": 124.22421715095876
+    },
     "place_name": "Hinagasan Falls"
   },
   {
@@ -425,32 +458,11 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Museo De Catanduanes is located in Virac.",
-    "coordinates": {"lat": 13.607198646951025, "lng": 124.24017941365666},
+    "coordinates": {
+      "lat": 13.607198646951025,
+      "lng": 124.24017941365666
+    },
     "place_name": "Museo De Catanduanes"
-  },
-  {
-    "input": "Where is Casa Remedios Bed & Breakfast?",
-    "output": "Casa Remedios Bed & Breakfast is located in Virac.",
-    "title": "Casa Remedios Bed & Breakfast Location",
-    "topic": "Accommodation",
-    "location": "Virac",
-    "activities": "accommodation",
-    "budget": "mid",
-    "summary_offline": "Casa Remedios Bed & Breakfast is located in Virac.",
-    "coordinates": {"lat": 13.579229296789006, "lng": 124.21667483492335},
-    "place_name": "Casa Remedios Bed & Breakfast"
-  },
-  {
-    "input": "Where is Anika Food Corner?",
-    "output": "Anika Food Corner is a dining establishment located in Virac.",
-    "title": "Anika Food Corner Location",
-    "topic": "Food",
-    "location": "Virac",
-    "activities": "dining",
-    "budget": "cheap",
-    "summary_offline": "Anika Food Corner is located in Virac.",
-    "coordinates": {"lat": 13.579040247054639, "lng": 124.2287243114437},
-    "place_name": "Anika Food Corner"
   },
   {
     "input": "Where is Fleur de Lilies Glamping Farm?",
@@ -461,32 +473,11 @@
     "activities": "accommodation",
     "budget": "mid",
     "summary_offline": "Fleur de Lilies Glamping Farm is located in Virac.",
-    "coordinates": {"lat": 13.522814980924824, "lng": 124.20319514587996},
+    "coordinates": {
+      "lat": 13.522814980924824,
+      "lng": 124.20319514587996
+    },
     "place_name": "Fleur de Lilies Glamping Farm"
-  },
-  {
-    "input": "Where is Appleberry?",
-    "output": "Appleberry is a restaurant and cafe located in Virac.",
-    "title": "Appleberry Location",
-    "topic": "Food",
-    "location": "Virac",
-    "activities": "dining",
-    "budget": "mid",
-    "summary_offline": "Appleberry is located in Virac.",
-    "coordinates": {"lat": 13.578876723518103, "lng": 124.23125085026427},
-    "place_name": "Appleberry"
-  },
-  {
-    "input": "Where is JM Pension House?",
-    "output": "JM Pension House is located in Virac.",
-    "title": "JM Pension House Location",
-    "topic": "Accommodation",
-    "location": "Virac",
-    "activities": "accommodation",
-    "budget": "cheap",
-    "summary_offline": "JM Pension House is located in Virac.",
-    "coordinates": {"lat": 13.578996725549041, "lng": 124.22474125714392},
-    "place_name": "JM Pension House"
   },
   {
     "input": "Where is Twin Rock Beach Resort located?",
@@ -497,7 +488,10 @@
     "activities": "swimming",
     "budget": "mid",
     "summary_offline": "Twin Rock Beach Resort is located in Virac.",
-    "coordinates": {"lat": 13.522906435245654, "lng": 124.20317528575912},
+    "coordinates": {
+      "lat": 13.522906435245654,
+      "lng": 124.20317528575912
+    },
     "place_name": "Twin Rock Beach Resort"
   },
   {
@@ -509,20 +503,11 @@
     "activities": "dining",
     "budget": "cheap",
     "summary_offline": "Jollibee is located in Virac.",
-    "coordinates": {"lat": 13.581175578193937, "lng": 124.22824468638174},
+    "coordinates": {
+      "lat": 13.581175578193937,
+      "lng": 124.22824468638174
+    },
     "place_name": "Jollibee"
-  },
-  {
-    "input": "Where is Mcdonald's Virac?",
-    "output": "Mcdonald's is located in Virac.",
-    "title": "Mcdonald's Location",
-    "topic": "Food",
-    "location": "Virac",
-    "activities": "dining",
-    "budget": "cheap",
-    "summary_offline": "Mcdonald's is located in Virac.",
-    "coordinates": {"lat": 13.57976473515069, "lng": 124.22830760441924},
-    "place_name": "Mcdonald's"
   },
   {
     "input": "Where is Rhaj Inn located?",
@@ -533,7 +518,10 @@
     "activities": "accommodation",
     "budget": "cheap",
     "summary_offline": "Rhaj Inn is located in Virac.",
-    "coordinates": {"lat": 13.5791058, "lng": 124.2262818},
+    "coordinates": {
+      "lat": 13.5791058,
+      "lng": 124.2262818
+    },
     "place_name": "Rhaj Inn"
   },
   {
@@ -545,7 +533,10 @@
     "activities": "accommodation",
     "budget": "cheap",
     "summary_offline": "Pusgo Island is located in Pandan.",
-    "coordinates": {"lat": 13.978580903089881, "lng": 124.3236727113077},
+    "coordinates": {
+      "lat": 13.978580903089881,
+      "lng": 124.3236727113077
+    },
     "place_name": "Pusgo Island"
   },
   {
@@ -669,12 +660,12 @@
   },
   {
     "input": "What are the top landmarks here?",
-    "output": "The top tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls.",
+    "output": "The top tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadan Blue Lagoon, Bato Church, and Nahulugan Falls.",
     "title": "Top Tourist Spots",
     "topic": "Sightseeing",
     "location": "Various",
     "activities": "sightseeing",
-    "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadang Blue Lagoon, Bato Church, and Nahulugan Falls."
+    "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadan Blue Lagoon, Bato Church, and Nahulugan Falls."
   },
   {
     "input": "What is Binurong Point?",
@@ -685,7 +676,10 @@
     "activities": "sightseeing",
     "group_type": "group",
     "summary_offline": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
-    "coordinates": {"lat": 13.668995411184893, "lng": 124.41449841008455},
+    "coordinates": {
+      "lat": 13.668995411184893,
+      "lng": 124.41449841008455
+    },
     "place_name": "Binurong Point"
   },
   {
@@ -697,7 +691,10 @@
     "activities": "swimming",
     "budget": "cheap",
     "summary_offline": "Maribina Falls is a popular attraction in Bato known for its refreshing waters.",
-    "coordinates": {"lat": 13.601708685295064, "lng": 124.2706945272802},
+    "coordinates": {
+      "lat": 13.601708685295064,
+      "lng": 124.2706945272802
+    },
     "place_name": "Maribina Falls"
   },
   {
@@ -711,18 +708,6 @@
     "summary_offline": "Bato Church (St. John the Baptist Church) is one of the oldest stone churches in the Bicol Region, built in the 1800s."
   },
   {
-    "input": "What is Tuwad-Tuwadang Blue Lagoon?",
-    "output": "Tuwad-Tuwadang Blue Lagoon is a scenic spot in Pandan.",
-    "title": "Tuwad-Tuwadang Blue Lagoon Overview",
-    "topic": "Sightseeing",
-    "location": "Pandan",
-    "activities": "sightseeing",
-    "group_type": "group",
-    "summary_offline": "Tuwad-Tuwadang Blue Lagoon is a scenic spot located in Pandan.",
-    "coordinates": {"lat": 14.058643378491052, "lng": 124.12659986379072},
-    "place_name": "Tuwad-Tuwadang Blue Lagoon"
-  },
-  {
     "input": "Where is Nahulugan Falls?",
     "output": "Nahulugan Falls is a waterfall located in Gigmoto.",
     "title": "Nahulugan Falls Overview",
@@ -731,7 +716,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Nahulugan Falls is a waterfall located in Gigmoto.",
-    "coordinates": {"lat": 13.788640961723846, "lng": 124.36779102542982},
+    "coordinates": {
+      "lat": 13.788640961723846,
+      "lng": 124.36779102542982
+    },
     "place_name": "Nahulugan Falls"
   },
   {
@@ -742,10 +730,13 @@
     "location": "Virac",
     "activities": "sightseeing",
     "summary_offline": "Tampad Beach is a scenic spot located in Virac.",
-    "coordinates": {"lat": 13.518763507546256, "lng": 124.20595165635922},
+    "coordinates": {
+      "lat": 13.518763507546256,
+      "lng": 124.20595165635922
+    },
     "place_name": "Tampad Beach"
   },
-{
+  {
     "input": "Where is Ba-haw Falls?",
     "output": "Ba-haw Falls is a waterfall located in San Andres.",
     "title": "Ba-haw Falls Overview",
@@ -912,7 +903,10 @@
     "activities": "swimming",
     "budget": "mid",
     "summary_offline": "Amenia Beach Resort is located in San Andres.",
-    "coordinates": {"lat": 13.573293073630248, "lng": 124.13946144298322},
+    "coordinates": {
+      "lat": 13.573293073630248,
+      "lng": 124.13946144298322
+    },
     "place_name": "Amenia Beach Resort"
   },
   {
@@ -924,7 +918,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Luyang Cave is a scenic spot in San Andres.",
-    "coordinates": {"lat": 13.60572345866787, "lng": 124.13509013677053},
+    "coordinates": {
+      "lat": 13.60572345866787,
+      "lng": 124.13509013677053
+    },
     "place_name": "Luyang Cave"
   },
   {
@@ -936,7 +933,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Codon Lighthouse is located in San Andres.",
-    "coordinates": {"lat": 13.662910203798745, "lng": 124.02606030674717},
+    "coordinates": {
+      "lat": 13.662910203798745,
+      "lng": 124.02606030674717
+    },
     "place_name": "Codon Lighthouse"
   },
   {
@@ -948,7 +948,10 @@
     "activities": "swimming",
     "budget": "mid",
     "summary_offline": "Cumagat Beach & Hilltop Resort is located in Panganiban.",
-    "coordinates": {"lat": 13.94963098536221, "lng": 124.35022267619804},
+    "coordinates": {
+      "lat": 13.94963098536221,
+      "lng": 124.35022267619804
+    },
     "place_name": "Cumagat Beach & Hilltop Resort"
   },
   {
@@ -960,7 +963,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Lolong Point Lighthouse is located in Panganiban.",
-    "coordinates": {"lat": 13.950358787088991, "lng": 124.35430502227162},
+    "coordinates": {
+      "lat": 13.950358787088991,
+      "lng": 124.35430502227162
+    },
     "place_name": "Lolong Point Lighthouse"
   },
   {
@@ -972,7 +978,10 @@
     "activities": "swimming",
     "budget": "cheap",
     "summary_offline": "Tuwad-Tuwadan Blue Lagoon is located in Pandan.",
-    "coordinates": {"lat": 14.058633006081989, "lng": 124.12664279629792},
+    "coordinates": {
+      "lat": 14.058633006081989,
+      "lng": 124.12664279629792
+    },
     "place_name": "Tuwad-Tuwadan Blue Lagoon"
   },
   {
@@ -984,7 +993,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Cagnipa Rolling Hills is located in Pandan.",
-    "coordinates": {"lat": 14.058967828263247, "lng": 124.12870453862769},
+    "coordinates": {
+      "lat": 14.058967828263247,
+      "lng": 124.12870453862769
+    },
     "place_name": "Cagnipa Rolling Hills"
   },
   {
@@ -996,20 +1008,11 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Hiyop Highlands is located in Pandan.",
-    "coordinates": {"lat": 14.069834001868761, "lng": 124.19515607209418},
+    "coordinates": {
+      "lat": 14.069834001868761,
+      "lng": 124.19515607209418
+    },
     "place_name": "Hiyop Highlands"
-  },
-  {
-    "input": "Where is CJ's Travellers Inn?",
-    "output": "CJ's Travellers Inn is located in the municipality of Gigmoto.",
-    "title": "CJ's Travellers Inn Location",
-    "topic": "Accommodation",
-    "location": "Gigmoto",
-    "activities": "accommodation",
-    "budget": "cheap",
-    "summary_offline": "CJ's Travellers Inn is located in Gigmoto.",
-    "coordinates": {"lat": 13.779610603924185, "lng": 124.3902858484338},
-    "place_name": "CJ's Travellers Inn"
   },
   {
     "input": "Where is Ba-haw Falls?",
@@ -1020,7 +1023,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Ba-haw Falls is located in Gigmoto.",
-    "coordinates": {"lat": 13.75387978940785, "lng": 124.38320715026808},
+    "coordinates": {
+      "lat": 13.75387978940785,
+      "lng": 124.38320715026808
+    },
     "place_name": "Ba-haw Falls"
   },
   {
@@ -1032,7 +1038,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Nahulugan Falls is located in Gigmoto.",
-    "coordinates": {"lat": 13.788620122365284, "lng": 124.3677373791043},
+    "coordinates": {
+      "lat": 13.788620122365284,
+      "lng": 124.3677373791043
+    },
     "place_name": "Nahulugan Falls"
   },
   {
@@ -1044,7 +1053,10 @@
     "activities": "swimming",
     "budget": "cheap",
     "summary_offline": "Nupa Green Lagoon is a swimming and scenic spot in Gigmoto.",
-    "coordinates": {"lat": 13.75714325500738, "lng": 124.40409028095019},
+    "coordinates": {
+      "lat": 13.75714325500738,
+      "lng": 124.40409028095019
+    },
     "place_name": "Nupa Green Lagoon"
   },
   {
@@ -1056,7 +1068,10 @@
     "activities": "accommodation",
     "budget": "mid",
     "summary_offline": "Miguilas Inn and Resto Bar is located in Caramoran.",
-    "coordinates": {"lat": 13.98755168209128, "lng": 124.1348645200423},
+    "coordinates": {
+      "lat": 13.98755168209128,
+      "lng": 124.1348645200423
+    },
     "place_name": "Miguilas Inn and Resto Bar"
   },
   {
@@ -1068,7 +1083,10 @@
     "activities": "sightseeing",
     "budget": "mid",
     "summary_offline": "Palumbanes Island is located in Caramoran.",
-    "coordinates": {"lat": 14.024204879590119, "lng": 124.04335345796237},
+    "coordinates": {
+      "lat": 14.024204879590119,
+      "lng": 124.04335345796237
+    },
     "place_name": "Palumbanes Island"
   },
   {
@@ -1080,7 +1098,10 @@
     "activities": "swimming",
     "budget": "cheap",
     "summary_offline": "Toytoy Beach is located in Caramoran.",
-    "coordinates": {"lat": 13.99610361623702, "lng": 124.13075649902726},
+    "coordinates": {
+      "lat": 13.99610361623702,
+      "lng": 124.13075649902726
+    },
     "place_name": "Toytoy Beach"
   },
   {
@@ -1092,7 +1113,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Maribina Falls is located in Bato.",
-    "coordinates": {"lat": 13.60160439150023, "lng": 124.27074817719831},
+    "coordinates": {
+      "lat": 13.60160439150023,
+      "lng": 124.27074817719831
+    },
     "place_name": "Maribina Falls"
   },
   {
@@ -1104,7 +1128,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Bote Lighthouse is located in Bato.",
-    "coordinates": {"lat": 13.55980864586186, "lng": 124.32548666430874},
+    "coordinates": {
+      "lat": 13.55980864586186,
+      "lng": 124.32548666430874
+    },
     "place_name": "Bote Lighthouse"
   },
   {
@@ -1116,7 +1143,10 @@
     "activities": "swimming",
     "budget": "mid",
     "summary_offline": "Sakahon Beach is located in Bato.",
-    "coordinates": {"lat": 13.561646057470904, "lng": 124.32951300039434},
+    "coordinates": {
+      "lat": 13.561646057470904,
+      "lng": 124.32951300039434
+    },
     "place_name": "Sakahon Beach"
   },
   {
@@ -1128,7 +1158,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "The Diocesan Shrine of the Holy Cross is located in Bato.",
-    "coordinates": {"lat": 13.588667855225093, "lng": 124.31519015172765},
+    "coordinates": {
+      "lat": 13.588667855225093,
+      "lng": 124.31519015172765
+    },
     "place_name": "Diocesan Shrine of the Holy Cross"
   },
   {
@@ -1140,7 +1173,10 @@
     "activities": "accommodation",
     "budget": "mid",
     "summary_offline": "East Coast Beach Resort is located in Baras.",
-    "coordinates": {"lat": 13.645130194241856, "lng": 124.34601783087594},
+    "coordinates": {
+      "lat": 13.645130194241856,
+      "lng": 124.34601783087594
+    },
     "place_name": "East Coast Beach Resort"
   },
   {
@@ -1152,7 +1188,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Macutal Falls is located in Baras.",
-    "coordinates": {"lat": 13.67996312734602, "lng": 124.36844252512445},
+    "coordinates": {
+      "lat": 13.67996312734602,
+      "lng": 124.36844252512445
+    },
     "place_name": "Macutal Falls"
   },
   {
@@ -1164,7 +1203,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Balacay Point is a popular scenic spot in Baras.",
-    "coordinates": {"lat": 13.705434883642221, "lng": 124.39530656745467},
+    "coordinates": {
+      "lat": 13.705434883642221,
+      "lng": 124.39530656745467
+    },
     "place_name": "Balacay Point"
   },
   {
@@ -1176,7 +1218,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Binurong Point is a scenic coastal viewpoint in Baras.",
-    "coordinates": {"lat": 13.668953711260698, "lng": 124.41446622143107},
+    "coordinates": {
+      "lat": 13.668953711260698,
+      "lng": 124.41446622143107
+    },
     "place_name": "Binurong Point"
   },
   {
@@ -1188,7 +1233,10 @@
     "activities": "surfing",
     "budget": "mid",
     "summary_offline": "Puraran Beach is located in Baras.",
-    "coordinates": {"lat": 13.691946453490571, "lng": 124.39881786785304}, 
+    "coordinates": {
+      "lat": 13.691946453490571,
+      "lng": 124.39881786785304
+    },
     "place_name": "Puraran Beach"
   },
   {
@@ -1200,7 +1248,10 @@
     "activities": "accommodation",
     "budget": "cheap",
     "summary_offline": "Bagamanoc Guest House is located in Bagamanoc.",
-    "coordinates": {"lat": 13.941644487022801, "lng": 124.28692571592231},
+    "coordinates": {
+      "lat": 13.941644487022801,
+      "lng": 124.28692571592231
+    },
     "place_name": "Bagamanoc Guest House"
   },
   {
@@ -1212,8 +1263,11 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Boto Ni Korakog is a scenic viewpoint in Bagamanoc.",
-    "coordinates": {"lat": 13.953737014066363, "lng": 124.2875854301705},
-    "place_name": "Boto Ni Korakog (Fertility Island)"
+    "coordinates": {
+      "lat": 13.953737014066363,
+      "lng": 124.2875854301705
+    },
+    "place_name": "Boto Ni Korakog"
   },
   {
     "input": "Where is Paday Falls?",
@@ -1224,7 +1278,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Paday Falls is located in Bagamanoc.",
-    "coordinates": {"lat": 13.961655521369819, "lng": 124.27293557115381},
+    "coordinates": {
+      "lat": 13.961655521369819,
+      "lng": 124.27293557115381
+    },
     "place_name": "Paday Falls"
   },
   {
@@ -1236,7 +1293,10 @@
     "activities": "dining",
     "budget": "cheap",
     "summary_offline": "E-Lounge Resto Bar is located in Bagamanoc.",
-    "coordinates": {"lat": 13.94152743708702, "lng": 124.28853571650649},
+    "coordinates": {
+      "lat": 13.94152743708702,
+      "lng": 124.28853571650649
+    },
     "place_name": "E-Lounge Resto Bar"
   },
   {
@@ -1248,7 +1308,10 @@
     "activities": "swimming",
     "budget": "mid",
     "summary_offline": "Dayhagan Beach Resort is located in Bagamanoc.",
-    "coordinates": {"lat": 13.972487048309555, "lng": 124.33526422283471},
+    "coordinates": {
+      "lat": 13.972487048309555,
+      "lng": 124.33526422283471
+    },
     "place_name": "Dayhagan Beach Resort"
   },
   {
@@ -1260,7 +1323,10 @@
     "activities": "accommodation",
     "budget": "mid",
     "summary_offline": "San Miguel River Park is located in San Miguel.",
-    "coordinates": {"lat": 13.705960845800394, "lng": 124.28110917976015},
+    "coordinates": {
+      "lat": 13.705960845800394,
+      "lng": 124.28110917976015
+    },
     "place_name": "San Miguel River Park"
   },
   {
@@ -1272,7 +1338,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Solong Falls is located in San Miguel.",
-    "coordinates": {"lat": 13.654843207001997, "lng": 124.29318572123779},
+    "coordinates": {
+      "lat": 13.654843207001997,
+      "lng": 124.29318572123779
+    },
     "place_name": "Solong Falls"
   },
   {
@@ -1284,7 +1353,10 @@
     "activities": "accommodation",
     "budget": "mid",
     "summary_offline": "Cathy's Spring Resort is located in Viga.",
-    "coordinates": {"lat": 13.828328929168835, "lng": 124.26764279047497},
+    "coordinates": {
+      "lat": 13.828328929168835,
+      "lng": 124.26764279047497
+    },
     "place_name": "Cathy's Spring Resort"
   },
   {
@@ -1296,7 +1368,10 @@
     "activities": "dining",
     "budget": "cheap",
     "summary_offline": "Black Alley is located in Viga.",
-    "coordinates": {"lat": 13.87440986505987, "lng": 124.30991057127426},
+    "coordinates": {
+      "lat": 13.87440986505987,
+      "lng": 124.30991057127426
+    },
     "place_name": "Black Alley"
   },
   {
@@ -1308,7 +1383,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Summit View Park is located in Viga.",
-    "coordinates": {"lat": 13.79084220997509, "lng": 124.2699644422191},
+    "coordinates": {
+      "lat": 13.79084220997509,
+      "lng": 124.2699644422191
+    },
     "place_name": "Summit View Park"
   },
   {
@@ -1320,7 +1398,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Our Lady of the Assumption Parish Church is located in Viga.",
-    "coordinates": {"lat": 13.870935518647837, "lng": 124.30835694171724},
+    "coordinates": {
+      "lat": 13.870935518647837,
+      "lng": 124.30835694171724
+    },
     "place_name": "Our Lady of the Assumption Parish Church"
   },
   {
@@ -1332,7 +1413,10 @@
     "activities": "accommodation",
     "budget": "mid",
     "summary_offline": "H20 Resort is located in Viga.",
-    "coordinates": {"lat": 13.855342610612587, "lng": 124.30744043132205},
+    "coordinates": {
+      "lat": 13.855342610612587,
+      "lng": 124.30744043132205
+    },
     "place_name": "H20 Resort"
   },
   {
@@ -1344,7 +1428,10 @@
     "activities": "dining",
     "budget": "cheap",
     "summary_offline": "Isla Bistro Café is located in Viga.",
-    "coordinates": {"lat": 13.872557403387635, "lng": 124.30883563610679},
+    "coordinates": {
+      "lat": 13.872557403387635,
+      "lng": 124.30883563610679
+    },
     "place_name": "Isla Bistro Café"
   },
   {
@@ -1356,7 +1443,10 @@
     "activities": "sightseeing",
     "budget": "cheap",
     "summary_offline": "Cogon Hills is located in Viga.",
-    "coordinates": {"lat": 13.870805941856277, "lng": 124.4067938419412},
+    "coordinates": {
+      "lat": 13.870805941856277,
+      "lng": 124.4067938419412
+    },
     "place_name": "Cogon Hills"
   },
   {
@@ -1368,7 +1458,10 @@
     "activities": "accommodation",
     "budget": "mid",
     "summary_offline": "Manuria Beach Resort is located in Viga.",
-    "coordinates": {"lat": 13.89992812418886, "lng": 124.36321167641226},
+    "coordinates": {
+      "lat": 13.89992812418886,
+      "lng": 124.36321167641226
+    },
     "place_name": "Manuria Beach Resort"
   },
   {
@@ -1380,7 +1473,10 @@
     "activities": "swimming",
     "budget": "mid",
     "summary_offline": "Minaabat Beach is located in Viga.",
-    "coordinates": {"lat": 13.854510974160771, "lng": 124.41851218045034},
+    "coordinates": {
+      "lat": 13.854510974160771,
+      "lng": 124.41851218045034
+    },
     "place_name": "Minaabat Beach"
   },
   {
@@ -1442,7 +1538,7 @@
     "group_type": "family",
     "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces."
   },
-{
+  {
     "input": "Where is E-Crown Hotel and Resort located?",
     "output": "E-Crown Hotel and Resort is located in Virac, near Maribina Falls.",
     "title": "E-Crown Hotel Location",
@@ -1541,7 +1637,10 @@
     "title": "Baras Location",
     "topic": "General",
     "location": "Catanduanes Province",
-    "coordinates": {"lat": 13.699707877194335, "lng": 124.3637075239967},
+    "coordinates": {
+      "lat": 13.699707877194335,
+      "lng": 124.3637075239967
+    },
     "summary_offline": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines."
   },
   {
@@ -1568,19 +1667,6 @@
     "coordinates": {
       "lat": 13.961655521369819,
       "lng": 124.27293557115381
-    }
-  },
-  {
-    "input": "Where is Boto Ni Korakog (Fertility Island)?",
-    "output": "Boto Ni Korakog (Fertility Island) is a viewpoint located in Bagamanoc.",
-    "title": "Boto Ni Korakog (Fertility Island) Location",
-    "topic": "Sightseeing",
-    "location": "BAGAMANOC",
-    "summary_offline": "Boto Ni Korakog (Fertility Island) is a viewpoint located in Bagamanoc.",
-    "place_name": "Boto Ni Korakog (Fertility Island)",
-    "coordinates": {
-      "lat": 13.953737014066363,
-      "lng": 124.2875854301705
     }
   },
   {
@@ -1766,19 +1852,6 @@
     }
   },
   {
-    "input": "Where is 2838 Tea and Cafe?",
-    "output": "2838 Tea and Cafe is a restaurants and cafes located in Baras.",
-    "title": "2838 Tea and Cafe Location",
-    "topic": "Food",
-    "location": "BARAS",
-    "summary_offline": "2838 Tea and Cafe is a restaurants and cafes located in Baras.",
-    "place_name": "2838 Tea and Cafe",
-    "coordinates": {
-      "lat": 13.659533604564466,
-      "lng": 124.37112167616075
-    }
-  },
-  {
     "input": "Where is Stanza De Benedicto?",
     "output": "Stanza De Benedicto is a viewpoints located in Baras.",
     "title": "Stanza De Benedicto Location",
@@ -1948,13 +2021,13 @@
     }
   },
   {
-    "input": "Where is St. John the Baptist  Church?",
+    "input": "Where is St. John the Baptist Church?",
     "output": "St. John the Baptist  Church is a religious sites located in Bato.",
     "title": "St. John the Baptist  Church Location",
     "topic": "Culture",
     "location": "BATO",
     "summary_offline": "St. John the Baptist  Church is a religious sites located in Bato.",
-    "place_name": "St. John the Baptist  Church",
+    "place_name": "St. John the Baptist Church",
     "coordinates": {
       "lat": 13.610732662974675,
       "lng": 124.29703491581695
@@ -1997,19 +2070,6 @@
     "coordinates": {
       "lat": 13.55833527320848,
       "lng": 124.31850376558778
-    }
-  },
-  {
-    "input": "Where is Cagraray Island?",
-    "output": "Cagraray Island is a viewpoints located in Bato.",
-    "title": "Cagraray Island Location",
-    "topic": "Sightseeing",
-    "location": "BATO",
-    "summary_offline": "Cagraray Island is a viewpoints located in Bato.",
-    "place_name": "Cagraray Island",
-    "coordinates": {
-      "lat": 13.61714945492485,
-      "lng": 124.3494816783378
     }
   },
   {
@@ -2192,19 +2252,6 @@
     "coordinates": {
       "lat": 14.024435372457186,
       "lng": 124.03736114283674
-    }
-  },
-  {
-    "input": "Where is CJ's Travellers Inn?",
-    "output": "CJ's Travellers Inn is a hotels and resorts located in Gigmoto.",
-    "title": "CJ's Travellers Inn Location",
-    "topic": "Accommodation",
-    "location": "GIGMOTO",
-    "summary_offline": "CJ's Travellers Inn is a hotels and resorts located in Gigmoto.",
-    "place_name": "CJ's Travellers Inn",
-    "coordinates": {
-      "lat": 13.779610603924185,
-      "lng": 124.3902858484338
     }
   },
   {
@@ -2598,6 +2645,1237 @@
     }
   },
   {
+    "input": "How do I get to Catanduanes from Manila?",
+    "output": "You can reach Catanduanes by plane or by ferry. The fastest way is flying to Virac Airport from Manila, with flights operated by PAL Express and Cebu Pacific taking about 1 hour. Alternatively, you can take a bus from Manila to Tabaco City in Albay, then board a ferry to Virac Port. The ferry ride takes approximately 2 to 3 hours depending on sea conditions.",
+    "summary_offline": "Fly to Virac Airport from Manila (1 hour, PAL Express/Cebu Pacific), or take a bus to Tabaco City then ferry to Virac Port (2–3 hours by sea).",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Getting to Catanduanes",
+    "topic": "transport",
+    "activities": [
+      "transport"
+    ]
+  },
+  {
+    "input": "What are the ferry schedules from Tabaco to Virac?",
+    "output": "Ferries from Tabaco Port in Albay to Virac Port in Catanduanes typically depart multiple times a day, usually in the early morning and midday. Travel time is around 2 to 3 hours. Schedules may change during typhoon season (July to November), so always check with the local shipping lines before travel. Major operators include Catanduanes Shipping Lines.",
+    "summary_offline": "Ferries from Tabaco Port to Virac Port run multiple times daily, taking 2–3 hours. Check schedules during typhoon season (July–November) as trips may be cancelled.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Ferry Schedule Tabaco to Virac",
+    "topic": "transport",
+    "activities": [
+      "transport"
+    ]
+  },
+  {
+    "input": "How much does it cost to go to Binurong Point? What are the fees?",
+    "output": "Visiting Binurong Point requires paying an environmental fee at the barangay hall and a mandatory local guide fee. The total cost is usually under 300 pesos for a small group, but you should bring extra cash as guide rates can vary depending on your group size. You cannot enter without hiring a registered local guide.",
+    "summary_offline": "Expect an environmental fee and a mandatory guide fee (usually under 300 pesos total for small groups). You cannot hike without a local guide. Bring extra cash.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "Binurong Point Fees and Guides",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "hiking"
+    ]
+  },
+  {
+    "input": "Is there an entrance fee for Puraran Beach? How much is surfing?",
+    "output": "Puraran Beach has a minimal environmental entrance fee, usually under 50 pesos per person. If you want to surf, board rentals and hourly instructor fees are separate and managed by the local surf camps on the beach. Expect to pay around 400 to 500 pesos per hour for a board and instructor combo.",
+    "summary_offline": "Minimal entrance/environmental fee (under 50 pesos). Surfboard rentals with an instructor are separate, usually around 400-500 pesos per hour.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "Puraran Beach Entrance and Surf Rates",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "surfing",
+      "beaches"
+    ]
+  },
+  {
+    "input": "Twin Rock Beach Resort entrance fee for day tour.",
+    "output": "Twin Rock Beach Resort charges a day tour entrance fee which covers access to the beach and basic resort facilities. The fee is generally around 100 pesos for adults, with discounts for children. If you want to use the swimming pool or rent a cottage for the day, those are charged as separate add-on fees.",
+    "summary_offline": "Day tour entrance is around 100 pesos for adults. Cottages and swimming pool access require separate additional fees inside the resort.",
+    "place_name": "Twin Rock Beach Resort",
+    "location": "VIRAC",
+    "title": "Twin Rock Beach Resort Day Tour Fees",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "swimming",
+      "beaches"
+    ]
+  },
+  {
+    "input": "How much to enter Tuwad-Tuwadan Blue Lagoon?",
+    "output": "Accessing Tuwad-Tuwadan Blue Lagoon requires paying an environmental fee at the barangay registration area. Because the trek involves sharp limestone rocks, hiring a local guide is highly recommended and often required by the barangay. Prepare around 200 to 300 pesos to cover both the entrance and the guide.",
+    "summary_offline": "Requires an environmental fee and a local guide fee. Budget around 200 to 300 pesos for the combination to ensure safe trekking.",
+    "place_name": "Tuwad-Tuwadan Blue Lagoon",
+    "location": "PANDAN",
+    "title": "Tuwad-Tuwadan Blue Lagoon Fees",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "swimming"
+    ]
+  },
+  {
+    "input": "Maribina Falls entrance fee and parking.",
+    "output": "Maribina Falls is very budget friendly. There is a nominal entrance fee of around 20 to 30 pesos per person. If you bring a vehicle, a small parking fee applies. You can rent open cottages for a low price if you plan to have a picnic, but bringing your own food has no corkage fee.",
+    "summary_offline": "Minimal entrance fee (20-30 pesos) and a small parking fee. Cottage rentals are cheap, and there is no corkage fee for bringing your own food.",
+    "place_name": "Maribina Falls",
+    "location": "BATO",
+    "title": "Maribina Falls Entrance and Cottage Fees",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "swimming",
+      "falls"
+    ]
+  },
+  {
+    "input": "Do I have to pay to see Cagnipa Rolling Hills?",
+    "output": "Yes, Cagnipa Rolling Hills is situated on private property. The owners collect a small entrance fee, typically around 50 pesos per person, to maintain the area and keep the grass clear for visitors. There are no mandatory guide fees required to walk around the hills.",
+    "summary_offline": "Private property with a small entrance fee (around 50 pesos). No guides are required to explore the area.",
+    "place_name": "Cagnipa Rolling Hills",
+    "location": "PANDAN",
+    "title": "Cagnipa Rolling Hills Entrance Fee",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "How much is the boat going to Palumbanes Island?",
+    "output": "Visiting Palumbanes Island is one of the more expensive activities because you must charter a private motorized boat (bangka) from Caramoran port. Boat rentals range from 1500 to 3000 pesos depending on the size of the boat and your negotiation skills. You will also pay a small environmental fee upon arriving at the island.",
+    "summary_offline": "Requires a private boat charter from Caramoran (1500 to 3000 pesos depending on boat size). Best split among a group to lower individual costs.",
+    "place_name": "Palumbanes Island",
+    "location": "CARAMORAN",
+    "title": "Palumbanes Island Boat Rental Costs",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "beaches",
+      "island"
+    ]
+  },
+  {
+    "input": "Fees for visiting Museo De Catanduanes.",
+    "output": "Museo De Catanduanes inside the Old Capitol Building usually does not have a strict entrance ticket, but they operate on a donation basis. It is highly encouraged to leave a reasonable monetary donation (e.g., 50 to 100 pesos) in the drop box to help maintain the artifacts and support the local tourism office.",
+    "summary_offline": "Operates mostly on a donation basis. Leaving 50 to 100 pesos in the donation box is recommended to support museum maintenance.",
+    "place_name": "Museo De Catanduanes",
+    "location": "VIRAC",
+    "title": "Museo De Catanduanes Donation",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "sightseeing",
+      "museum"
+    ]
+  },
+  {
+    "input": "Entrance and tent pitching fee at Mamangal Beach.",
+    "output": "Mamangal Beach is a public area managed by the local community. There is a very small environmental entrance fee. If you plan to camp overnight, the barangay or local caretakers will charge a tent pitching fee, usually between 100 to 200 pesos per tent, which covers basic security and cleaning.",
+    "summary_offline": "Small entrance fee for day trips. Overnight camping requires a tent pitching fee of roughly 100 to 200 pesos per tent.",
+    "place_name": "Mamangal Beach",
+    "location": "VIRAC",
+    "title": "Mamangal Beach Camping and Entrance Fees",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "beaches",
+      "camping"
+    ]
+  },
+  {
+    "input": "Luyang Cave tour price and guide fee.",
+    "output": "To explore Luyang Cave, you must register at the barangay hall where you will pay a small environmental fee. Hiring a local guide equipped with flashlights is mandatory for safety. The guide fee is usually negotiable but standard rates start around 200 pesos for a small group.",
+    "summary_offline": "Requires a small environmental fee and a mandatory local guide with a flashlight. Guide fees start around 200 pesos per group.",
+    "place_name": "Luyang Cave",
+    "location": "SAN ANDRES",
+    "title": "Luyang Cave Guide and Entrance Fees",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "How much is the hike to Bote Lighthouse?",
+    "output": "The trek to Bote Lighthouse requires registration at the barangay in Bato. You will pay a minimal entrance fee and must hire a local guide, as the forest trail is steep and can be confusing. Expect to budget around 300 to 400 pesos total for the guide and registration fees.",
+    "summary_offline": "Mandatory local guide and registration fee required. Budget around 300 to 400 pesos total for the steep forest trek.",
+    "place_name": "Bote Lighthouse",
+    "location": "BATO",
+    "title": "Bote Lighthouse Trekking Fees",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "hiking"
+    ]
+  },
+  {
+    "input": "Amenia Beach Resort rates for day tour.",
+    "output": "Amenia Beach Resort charges a standard day tour entrance fee, usually around 50 to 100 pesos per person. Cottage rentals are available at varying prices depending on the size and proximity to the beach. Overnight room rates are separate and should be booked directly with the resort.",
+    "summary_offline": "Day tour entrance is around 50 to 100 pesos. Open cottages for rent are available at varying prices.",
+    "place_name": "Amenia Beach Resort",
+    "location": "SAN ANDRES",
+    "title": "Amenia Beach Resort Day Rates",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "beaches"
+    ]
+  },
+  {
+    "input": "Nahulugan Falls entrance fee.",
+    "output": "Nahulugan Falls is managed by the local barangay in Gigmoto. The entrance fee is very affordable, typically around 30 to 50 pesos. They have built a few simple cottages near the water that you can rent for a small fee if you want to stay for lunch.",
+    "summary_offline": "Affordable entrance fee of around 30 to 50 pesos. Simple cottages are available for rent near the falls.",
+    "place_name": "Nahulugan Falls",
+    "location": "GIGMOTO",
+    "title": "Nahulugan Falls Entrance Fee",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "swimming",
+      "falls"
+    ]
+  },
+  {
+    "input": "Are there fees to visit Balacay Point?",
+    "output": "Yes, Balacay Point charges a minimal entrance fee and a parking fee if you bring a motorcycle or car. The total cost is very low, usually under 50 pesos per person. The fee goes toward maintaining the viewing decks and keeping the area clean.",
+    "summary_offline": "Expect a small entrance fee and a vehicle parking fee, usually totaling under 50 pesos per person.",
+    "place_name": "Balacay Point",
+    "location": "BARAS",
+    "title": "Balacay Point Fees",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Batalay Mangrove Eco Park entrance cost.",
+    "output": "Batalay Mangrove Eco Park operates with a minimal entrance fee, often acting as a donation to help the local community maintain the mangrove boardwalk and protect the sanctuary. Budget around 20 to 50 pesos for entry.",
+    "summary_offline": "Minimal entrance fee or donation (20-50 pesos) used for the upkeep of the mangrove boardwalk and sanctuary.",
+    "place_name": "Batalay Mangrove Eco Park",
+    "location": "BATO",
+    "title": "Batalay Mangrove Eco Park Fees",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Carangyan Beach Resort entrance fee and pool.",
+    "output": "Carangyan Beach Resort requires an entrance fee for day guests. If you wish to use their swimming pool rather than just the beach, there is an additional pool use charge. Expect to pay around 150 to 200 pesos to cover both the entrance and pool access.",
+    "summary_offline": "Base entrance fee applies for beach access. Using the resort swimming pool requires an additional add-on fee.",
+    "place_name": "Carangyan Beach Resort",
+    "location": "PANDAN",
+    "title": "Carangyan Beach Resort Entrance and Pool Rates",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "swimming",
+      "beaches"
+    ]
+  },
+  {
+    "input": "Do I pay to visit Batag Beach?",
+    "output": "Batag Beach is largely a public, undeveloped stretch of sand. There are no massive resort entrance fees, but local caretakers or barangay officials may collect a minor environmental or parking fee (usually 20 pesos) to help manage waste left by tourists.",
+    "summary_offline": "Mostly free and public, but expect a minor 20-peso environmental or parking fee collected by locals for cleaning.",
+    "place_name": "Batag Beach Resort",
+    "location": "VIRAC",
+    "title": "Batag Beach Environmental Fee",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "beaches"
+    ]
+  },
+  {
+    "input": "Hinagasan Falls entrance and guides.",
+    "output": "Hinagasan Falls is easily accessible and does not require a long hike, so mandatory guides are usually not enforced. You will just need to pay a small barangay entrance fee of around 20 to 30 pesos upon arrival.",
+    "summary_offline": "No mandatory guide required due to easy access. Just a small barangay entrance fee of 20 to 30 pesos.",
+    "place_name": "Hinagasan Falls",
+    "location": "VIRAC",
+    "title": "Hinagasan Falls Fees",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "falls"
+    ]
+  },
+  {
+    "input": "How much is the guide for Macutal Falls?",
+    "output": "Macutal Falls is located deeper in the wilderness of Baras. You must hire a local guide to navigate the trail safely. Guide fees are negotiated at the jump-off point but generally run around 300 pesos. Do not attempt this trek without paying for a local guide.",
+    "summary_offline": "Mandatory local guide required for safety. Budget around 300 pesos for the guide fee, negotiated at the jump-off point.",
+    "place_name": "Macutal Falls",
+    "location": "BARAS",
+    "title": "Macutal Falls Guide Rates",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "falls",
+      "hiking"
+    ]
+  },
+  {
+    "input": "Sugod Beach entrance fee.",
+    "output": "Sugod Beach is relatively secluded. If you access it through private properties or small resorts, they will charge a day entrance fee ranging from 50 to 100 pesos. Parking fees may also apply if you bring your own vehicle.",
+    "summary_offline": "Day entrance fees range from 50 to 100 pesos depending on where you access the beach. Small parking fees may apply.",
+    "place_name": "Sugod Beach",
+    "location": "CARAMORAN",
+    "title": "Sugod Beach Entrance",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "fees",
+      "beaches"
+    ]
+  },
+  {
+    "input": "How do I get from Virac to Puraran Beach?",
+    "output": "From Virac, you can reach Puraran Beach in Baras by renting a tricycle or motorcycle (habal-habal) for the approximately 40 to 50 kilometer trip, which takes about 1.5 to 2 hours. You can also hire a van or join a group tour. The road passes through scenic mountain terrain so the journey itself is enjoyable. There is no direct public bus route, so private hire or joining a tour is the most convenient option.",
+    "summary_offline": "From Virac, hire a tricycle, habal-habal, or van to reach Puraran Beach in Baras — about 40–50 km taking 1.5 to 2 hours. No direct public bus; private hire or tour is recommended.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "How to Get to Puraran Beach",
+    "topic": "transport",
+    "activities": [
+      "transport",
+      "surfing",
+      "beaches"
+    ]
+  },
+  {
+    "input": "Is there public transportation in Virac town?",
+    "output": "Yes, Virac has tricycles as the main form of local transport. They are available throughout the town and are affordable. For trips outside Virac town center, multicabs and jeepneys serve routes to nearby barangays. For inter-municipality travel across the island, vans for hire and habal-habal motorcycles are the most common options. Grab is not available in Catanduanes.",
+    "summary_offline": "Virac has tricycles for local trips and multicabs/jeepneys for barangay routes. Vans and habal-habal cover inter-municipality travel. Grab is not available.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Public Transportation in Virac",
+    "topic": "transport",
+    "activities": [
+      "transport"
+    ]
+  },
+  {
+    "input": "What time does Virac Airport open? What airlines fly there?",
+    "output": "Virac Airport serves flights from Manila operated by Philippine Airlines (PAL Express) and Cebu Pacific. Flight schedules vary by day and season, typically with one to two flights per day. The airport is a small domestic terminal. It is recommended to arrive at least 1 hour before your flight. Check airline websites for current schedules as these change seasonally.",
+    "summary_offline": "Virac Airport is served by PAL Express and Cebu Pacific from Manila, with 1–2 flights daily. Arrive at least 1 hour early. Check airline websites for current schedules.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Virac Airport Airlines and Schedule",
+    "topic": "transport",
+    "activities": [
+      "transport"
+    ]
+  },
+  {
+    "input": "What is the entrance fee to Binurong Point?",
+    "output": "Binurong Point in Baras charges a small entrance fee, typically around 30 to 50 pesos per person, though fees may change. There is also a parking fee for vehicles. The site is managed by the local barangay. It is best to bring cash as there are no card payment facilities on site.",
+    "summary_offline": "Binurong Point charges roughly 30–50 pesos entrance fee per person. Bring cash — no card facilities. Parking fee applies for vehicles.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "Binurong Point Entrance Fee",
+    "topic": "logistics",
+    "activities": [
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Are there ATMs in Catanduanes? Can I use my card there?",
+    "output": "ATMs are available in Virac town, mainly along the main commercial street near the public market area. BDO, BPI, and Landbank branches have ATMs in Virac. Outside of Virac, most municipalities have limited or no ATM access. It is strongly recommended to withdraw sufficient cash before traveling to remote areas like Baras, Pandan, or Gigmoto, as resorts and small businesses there typically only accept cash.",
+    "summary_offline": "ATMs (BDO, BPI, Landbank) are available in Virac town. Outside Virac, cash is essential — withdraw before heading to Baras, Pandan, or other remote areas.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "ATMs and Cash in Catanduanes",
+    "topic": "logistics",
+    "activities": [
+      "shopping"
+    ]
+  },
+  {
+    "input": "How do I get to Binurong Point from Virac?",
+    "output": "From Virac town proper, travel by private vehicle or habal-habal motorcycle heading to Baras municipality along the East Road. Binurong Point is approximately 25-30 km from Virac, taking about 45 minutes to 1 hour. The road is mostly paved but has narrow sections near Baras. No direct public jeepney goes to Binurong Point — hire a habal-habal in Baras town for the final stretch up to the viewpoint.",
+    "summary_offline": "From Virac: take private car or habal-habal toward Baras via East Road (~25km, 45min). No direct jeepney — hire habal-habal in Baras for the final climb.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "activities": [
+      "transport",
+      "sightseeing"
+    ],
+    "title": "How to get to Binurong Point"
+  },
+  {
+    "input": "How do I get from Virac to Pandan?",
+    "output": "Pandan is located on the northwestern coast of Catanduanes, about 50 to 60 kilometers from Virac. You can reach it by van for hire or habal-habal from Virac, taking approximately 1.5 to 2 hours. There are also shared multicab routes that pass through several towns along the way. Pandan is known for its beaches like Carangyan and Campilan Beach.",
+    "summary_offline": "Pandan is 50–60 km from Virac, about 1.5–2 hours by van or habal-habal. Shared multicabs also ply the route. Known for Carangyan and Campilan Beach.",
+    "place_name": "Carangyan Beach Resort",
+    "location": "PANDAN",
+    "title": "Getting to Pandan from Virac",
+    "topic": "transport",
+    "activities": [
+      "transport",
+      "beaches"
+    ]
+  },
+  {
+    "input": "What is the best time to visit Catanduanes?",
+    "output": "The best time to visit Catanduanes is during the dry season from March to June, when weather is sunny and seas are calm — ideal for beaches and sightseeing. Surfers specifically target October to December for the big swells at Puraran Beach. July to November is typhoon season and travel can be disrupted, though some travelers still visit during this period for the dramatic scenery.",
+    "summary_offline": "Best time for beach trips: March to June (dry season). Best for surfing: October to December (big swells at Puraran). Avoid July–November typhoon season for casual travel.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "Best Time to Visit Catanduanes",
+    "topic": "general",
+    "activities": [
+      "surfing",
+      "beaches",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Are there hotels near Puraran Beach? Where can surfers stay in Baras?",
+    "output": "Several surf camps and inns are located directly at or near Puraran Beach in Baras. Options include Titaay Surfers Inn and Jo Surf Inn, which are popular with surfers for their proximity to the waves. Accommodation is generally simple and budget-friendly, with basic rooms and meals available. Booking in advance is recommended during peak surf season from October to December.",
+    "summary_offline": "Titaay Surfers Inn and Jo Surf Inn are located near Puraran Beach in Baras — budget-friendly surf camps with basic rooms and meals. Book ahead during October–December peak season.",
+    "place_name": "Titaay Surfers Inn",
+    "location": "BARAS",
+    "title": "Accommodation near Puraran Beach",
+    "topic": "accommodation",
+    "activities": [
+      "accommodation",
+      "surfing"
+    ]
+  },
+  {
+    "input": "Where can I buy pasalubong or souvenirs in Catanduanes?",
+    "output": "The best place to buy pasalubong in Catanduanes is Virac Public Market and the shops along the main road in Virac town center. Popular souvenirs include latik (a local rice cake delicacy), sinapot (banana chips), pili nut products, and locally woven items. Some shops near the airport also carry packaged local goods. For fresh produce and local products, the public market opens early morning daily.",
+    "summary_offline": "Buy pasalubong at Virac Public Market and shops along the main road — latik, sinapot, pili nuts, and woven goods. Market opens early morning daily.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "Pasalubong and Souvenirs in Catanduanes",
+    "topic": "shopping",
+    "activities": [
+      "shopping"
+    ]
+  },
+  {
+    "input": "Where can I rent a motorcycle or motorbike in Virac?",
+    "output": "Motorcycle rentals are available in Virac through local operators near the town center and public market area. Habal-habal drivers can also be hired for full-day or half-day tours. Renting a motorbike yourself gives the most flexibility for exploring the island at your own pace. Always bring a valid license and wear a helmet as it is required by law.",
+    "summary_offline": "Motorcycle rentals and habal-habal for hire are available near Virac town center and public market. Bring a valid license and helmet. Full-day and half-day hire options available.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "Motorcycle Rental in Virac",
+    "topic": "transport",
+    "activities": [
+      "transport"
+    ]
+  },
+  {
+    "input": "Most Instagrammable spots in Catanduanes",
+    "output": "Catanduanes has several stunning spots perfect for photos and social media. Binurong Point in Baras offers dramatic cliffside views of the Pacific Ocean. Puraran Beach has the iconic Majestic rock formation and powerful surf. Tuwad-Tuwadan Blue Lagoon has surreal teal waters. The rolling hills of Gigmoto and the heritage stone churches like Bato Church and Our Lady of the Gate Parish in Pandan are also visually striking. For sunset shots, the viewpoints along the eastern coast are excellent.",
+    "summary_offline": "Top Instagrammable spots: Binurong Point (cliffside views), Puraran Beach (Majestic rock), Tuwad-Tuwadan Blue Lagoon (teal waters), rolling hills in Gigmoto, heritage churches in Bato and Pandan.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "Instagrammable Spots in Catanduanes",
+    "topic": "sightseeing",
+    "activities": [
+      "sightseeing",
+      "aesthetic"
+    ]
+  },
+  {
+    "input": "Best sunset view in Catanduanes",
+    "output": "For sunsets, the western coast of Catanduanes faces the sunset direction and offers the best views. Pandan town's beaches like Campilan and Mambang Beach are excellent sunset spots. In Virac, elevated viewpoints and beachfront resorts facing west catch the golden hour well. Binurong Point on the eastern coast offers dramatic Pacific sunrise views instead. ARDCI Skydeck Lounge in Virac is also a popular elevated spot for watching the sky change colors over the town.",
+    "summary_offline": "Best sunsets: Campilan Beach and Mambang Beach in Pandan (west-facing), ARDCI Skydeck Lounge in Virac. For sunrise, Binurong Point on the eastern Pacific coast is iconic.",
+    "place_name": "Campilan Beach",
+    "location": "PANDAN",
+    "title": "Best Sunset Views in Catanduanes",
+    "topic": "sightseeing",
+    "activities": [
+      "sightseeing",
+      "aesthetic"
+    ]
+  },
+  {
+    "input": "Aesthetic cafes in Virac Catanduanes",
+    "output": "Virac has a growing cafe scene with several aesthetically pleasing spots. DAKILA Cafe has a distinctive character and is popular among locals and tourists alike. ARDCI Skydeck Lounge offers elevated views of the town alongside food and drinks. Panyero Cafe, Little Bliss Cafe, and Isla Bistro Cafe are known for their relaxed atmosphere and photogenic interiors. Twin Bar and Cafe and Taller's Brew are also popular chill spots in town.",
+    "summary_offline": "Aesthetic cafes in Virac: DAKILA Cafe, ARDCI Skydeck Lounge (with views), Panyero Cafe, Little Bliss Cafe, Isla Bistro Cafe, Twin Bar and Cafe, and Taller's Brew.",
+    "place_name": "ARDCI Skydeck Lounge",
+    "location": "VIRAC",
+    "title": "Aesthetic Cafes in Virac",
+    "topic": "dining",
+    "activities": [
+      "dining",
+      "aesthetic"
+    ]
+  },
+  {
+    "input": "Where can I take the best photos in Binurong Point?",
+    "output": "Binurong Point is one of the most photogenic locations in Catanduanes. The cliffside overlooks offer sweeping Pacific Ocean panoramas with lush greenery in the foreground. Early morning visits before 8am give the best light with fewer crowds. The tiered viewing areas give different angles — the lower platforms get you closer to the dramatic rock formations and waves crashing below. A wide-angle lens or phone panorama works best here.",
+    "summary_offline": "Best photos at Binurong Point: arrive before 8am for golden light and fewer crowds. Use the tiered viewing platforms for different angles of the cliffs and Pacific. Wide-angle shots work best.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "Photography Tips at Binurong Point",
+    "topic": "sightseeing",
+    "activities": [
+      "sightseeing",
+      "aesthetic",
+      "photography"
+    ]
+  },
+  {
+    "input": "What does Puraran Beach look like? Is it as beautiful in person?",
+    "output": "Puraran Beach lives up to its reputation. The beach features dark golden sand, crystal-clear water, and the famous Majestic rock formation rising from the sea — a genuinely striking sight. The waves here are powerful and consistent, making it one of Southeast Asia's top surf destinations. Outside of peak surf season, the water calms enough for swimming and paddling. The surrounding area is lush and relatively undeveloped, giving it a raw, unspoiled feel that photographs well.",
+    "summary_offline": "Puraran Beach has dark golden sand, clear water, and the iconic Majestic rock formation. One of Southeast Asia's top surf spots. Lush, unspoiled surroundings — genuinely beautiful in person.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "What Puraran Beach Looks Like",
+    "topic": "beaches",
+    "activities": [
+      "beaches",
+      "surfing",
+      "swimming",
+      "aesthetic"
+    ]
+  },
+  {
+    "input": "Chill beach vibes in Catanduanes not too crowded",
+    "output": "For a relaxed, uncrowded beach experience, try Campilan Beach and Mambang Beach in Pandan — both are calm, scenic, and far less visited than the famous spots. In Virac, Barefoot Beach and Marilima Beach have a laid-back atmosphere. Cagnipa Cove in Pandan is a quieter spot with beautiful natural scenery. For total seclusion, smaller coves along the northern coast near Gigmoto and Caramoran see very few tourists.",
+    "summary_offline": "For chill uncrowded beach vibes: Campilan and Mambang Beach in Pandan, Barefoot Beach and Marilima Beach in Virac, or Cagnipa Cove in Pandan. Northern coast near Gigmoto is nearly untouched.",
+    "place_name": "Campilan Beach",
+    "location": "PANDAN",
+    "title": "Quiet Uncrowded Beaches in Catanduanes",
+    "topic": "beaches",
+    "activities": [
+      "beaches",
+      "swimming",
+      "aesthetic"
+    ]
+  },
+  {
+    "input": "Beautiful waterfalls in Catanduanes",
+    "output": "Catanduanes has several scenic waterfalls worth visiting. Maribina Falls in Bato is one of the most well-known, with impressive multi-tiered drops surrounded by forest. Nahulugan Falls is another popular cascade known for its clear pools. Paday Falls and Hinagasan Falls in Virac are closer to town and easier to reach. These waterfall sites typically require a short hike through vegetation and are best visited during or just after the rainy season when water flow is strongest.",
+    "summary_offline": "Notable waterfalls: Maribina Falls in Bato (multi-tiered, most famous), Nahulugan Falls (clear pools), Paday Falls and Hinagasan Falls near Virac (easy access). Best flow after rainy season.",
+    "place_name": "Maribina Falls",
+    "location": "BATO",
+    "title": "Best Waterfalls in Catanduanes",
+    "topic": "sightseeing",
+    "activities": [
+      "sightseeing",
+      "hiking",
+      "swimming",
+      "aesthetic"
+    ]
+  },
+  {
+    "input": "Unique and unusual things to see in Catanduanes",
+    "output": "Beyond the beaches, Catanduanes has some genuinely unusual sights. Tuwad-Tuwadan Blue Lagoon near Viga has striking turquoise water that looks almost unreal. The Batalay Mangrove Eco Park offers a different kind of natural beauty with kayaking through dense mangrove tunnels. Codon Lighthouse is a historic structure with panoramic views. The island's rolling hills, particularly in Gigmoto and Baras, create a landscape unlike anywhere else in the Bicol region.",
+    "summary_offline": "Unusual sights: Tuwad-Tuwadan Blue Lagoon (surreal turquoise water), Batalay Mangrove Eco Park (kayaking mangrove tunnels), Codon Lighthouse (historic panoramic views), rolling hills in Gigmoto and Baras.",
+    "place_name": "Tuwad-Tuwadan Blue Lagoon",
+    "location": "VIGA",
+    "title": "Unique Unusual Attractions in Catanduanes",
+    "topic": "sightseeing",
+    "activities": [
+      "sightseeing",
+      "aesthetic",
+      "kayaking"
+    ]
+  },
+  {
+    "input": "Best spots for sunrise photos in Catanduanes",
+    "output": "The eastern coast of Catanduanes faces the Pacific Ocean and catches dramatic sunrises. Binurong Point in Baras is the most famous sunrise viewpoint — the cliffs lit by morning light with ocean below is a classic shot. Puraran Beach also has a striking eastern-facing shoreline for sunrise shots. For an elevated town view at dawn, ARDCI Skydeck Lounge in Virac opens for early visitors.",
+    "summary_offline": "Best sunrise shots: Binurong Point in Baras (cliffs with Pacific below), Puraran Beach (eastern-facing shoreline), ARDCI Skydeck Lounge in Virac (elevated town view at dawn).",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "Best Sunrise Photo Spots Catanduanes",
+    "topic": "sightseeing",
+    "activities": [
+      "sightseeing",
+      "aesthetic",
+      "photography"
+    ]
+  },
+  {
+    "input": "Old churches and heritage sites in Catanduanes",
+    "output": "Catanduanes has several centuries-old Spanish colonial churches. Bato Church (Saint John the Baptist Parish) in Bato is one of the oldest and most architecturally striking, built in the 18th century with thick volcanic stone walls. Our Lady of the Gate Parish in Pandan and the local churches in Virac are also heritage structures. Museo de Catanduanes in Virac houses artifacts and exhibits on the island's history and culture.",
+    "summary_offline": "Heritage sites: Bato Church (18th-century Spanish colonial, volcanic stone walls), Our Lady of the Gate Parish in Pandan, and Museo de Catanduanes in Virac (island history and artifacts).",
+    "place_name": "Museo De Catanduanes",
+    "location": "VIRAC",
+    "title": "Heritage Churches and History Sites Catanduanes",
+    "topic": "sightseeing",
+    "activities": [
+      "sightseeing",
+      "aesthetic",
+      "culture"
+    ]
+  },
+  {
+    "input": "Romantic spots in Catanduanes for couples",
+    "output": "Catanduanes offers several naturally romantic settings. Binurong Point at sunrise or sunset creates a dramatic backdrop for couples. Puraran Beach in the off-season is quiet and secluded. Campilan Beach in Pandan is a peaceful, uncrowded stretch ideal for walks. In Virac, ARDCI Skydeck Lounge and Twin Bar and Cafe offer intimate evening atmospheres. E-Crown Hotel and Resort in Virac is a well-regarded option for couples looking for a comfortable stay with good views.",
+    "summary_offline": "Romantic spots: Binurong Point (dramatic cliffside views), Puraran Beach in quiet season, Campilan Beach in Pandan, ARDCI Skydeck Lounge and Twin Bar and Cafe in Virac for evening atmosphere.",
+    "place_name": "E-Crown Hotel and Resort",
+    "location": "VIRAC",
+    "title": "Romantic Spots in Catanduanes for Couples",
+    "topic": "sightseeing",
+    "activities": [
+      "sightseeing",
+      "aesthetic",
+      "beaches"
+    ],
+    "group_type": "couple"
+  },
+  {
+    "input": "Catanduanes beach with clear water good for photos",
+    "output": "For crystal clear water ideal for photos, Puraran Beach in Baras has clear conditions outside of heavy surf season. Cagnipa Cove in Pandan is a sheltered cove with calm, clear turquoise water — very photogenic. Tuwad-Tuwadan Blue Lagoon near Viga has striking electric-blue water that photographs beautifully. Among Virac beaches, Barefoot Beach and Tampad Beach offer clean, clear water on calm days.",
+    "summary_offline": "Clear water best for photos: Puraran Beach (outside surf season), Cagnipa Cove in Pandan (calm turquoise cove), Tuwad-Tuwadan Blue Lagoon (electric blue), Barefoot Beach and Tampad Beach in Virac.",
+    "place_name": "Cagnipa Cove",
+    "location": "PANDAN",
+    "title": "Catanduanes Clear Water Beaches for Photos",
+    "topic": "beaches",
+    "activities": [
+      "beaches",
+      "swimming",
+      "aesthetic",
+      "photography"
+    ]
+  },
+  {
+    "input": "Is it safe to swim at Puraran Beach?",
+    "output": "Swimming at Puraran Beach requires caution. During peak surf season from October to December, waves can be extremely powerful and dangerous for non-swimmers. Outside of this period, from January to September, the waters are generally calmer and safer for casual swimming. The beach has no permanent lifeguards, so assess the conditions yourself and avoid swimming alone. The right side of the beach away from the main surf break is usually calmer.",
+    "summary_offline": "Puraran Beach is safe for casual swimming January–September when waves are calm. Avoid swimming October–December during peak surf season — waves are powerful and dangerous. No permanent lifeguards.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "Is Puraran Beach Safe for Swimming",
+    "topic": "safety",
+    "activities": [
+      "swimming",
+      "surfing",
+      "beaches"
+    ]
+  },
+  {
+    "input": "Is Catanduanes safe for solo female travelers?",
+    "output": "Catanduanes is generally considered safe for solo female travelers. It is a relatively peaceful island province with low crime rates compared to urban areas. Locals are known for being friendly and hospitable to tourists. Standard precautions apply: travel with others when visiting remote waterfalls or trails, avoid isolated areas at night, and keep your belongings secure in public spaces. Virac town and beach resort areas are well-frequented and generally safe.",
+    "summary_offline": "Catanduanes is generally safe for solo female travelers — peaceful, friendly locals, low crime. Use standard precautions: travel with others at remote sites, avoid isolated areas at night.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Safety for Solo Female Travelers Catanduanes",
+    "topic": "safety",
+    "activities": [
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "How much does a trip to Catanduanes cost? Budget breakdown",
+    "output": "A budget trip to Catanduanes is very doable. Budget accommodation in Virac runs 400 to 800 pesos per night for basic rooms. Mid-range hotels cost 1,200 to 2,500 pesos. Food at local eateries and carinderias is 80 to 150 pesos per meal. A habal-habal to Binurong Point or other destinations costs 300 to 600 pesos for a day hire. Total daily budget for a comfortable mid-range trip is approximately 1,500 to 2,500 pesos per person excluding airfare.",
+    "summary_offline": "Budget breakdown: accommodation 400–800/night (budget) or 1,200–2,500/night (mid-range), meals 80–150 pesos, habal-habal hire 300–600/day. Daily budget roughly 1,500–2,500 pesos per person excluding airfare.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Budget Breakdown for Catanduanes Trip",
+    "topic": "budget",
+    "activities": [
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Is Binurong Point dangerous? Is the hike hard?",
+    "output": "Binurong Point is generally safe to visit. The main viewpoint areas have railings and designated viewing platforms. The path from the entrance to the viewpoints involves some uphill walking on concrete and dirt trails, but it is not technically difficult — most reasonably fit visitors can manage it. Wear proper footwear as some sections can be slippery, especially after rain. Avoid getting too close to cliff edges and stay within the marked areas.",
+    "summary_offline": "Binurong Point is safe and manageable for most visitors. The uphill walk to viewpoints is moderate, not technical. Wear proper footwear as paths can be slippery after rain. Stay within marked areas near cliff edges.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "Is Binurong Point Safe and Difficult",
+    "topic": "safety",
+    "activities": [
+      "sightseeing",
+      "hiking"
+    ]
+  },
+  {
+    "input": "Is surfing at Puraran safe for beginners?",
+    "output": "Puraran Beach is not recommended for beginner surfers during peak season. The waves here, known as Majestic, are powerful and hollow — designed for intermediate to experienced surfers. During the off-season from March to August, smaller swells do occur and some local instructors offer beginner lessons when conditions permit. If you are a complete beginner, it is better to take lessons at a calmer beach first before attempting Puraran.",
+    "summary_offline": "Puraran Beach is for intermediate to advanced surfers during peak season. Off-season (March–August) has smaller swells and some local instructors offer beginner lessons. Not recommended for absolute beginners in peak season.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "Is Puraran Safe for Beginner Surfers",
+    "topic": "safety",
+    "activities": [
+      "surfing"
+    ],
+    "skill_level": "beginner"
+  },
+  {
+    "input": "Are there jellyfish or dangerous marine life at Catanduanes beaches?",
+    "output": "Jellyfish sightings are occasional at some Catanduanes beaches, particularly during certain seasons. The risk varies by location and time of year. Sea urchins can be found on rocky reef areas so water shoes are useful when wading near rocks. There are no known crocodile or shark attack issues at the popular swimming beaches. Local beach staff and resort owners are the best source of real-time information about current sea conditions and any hazards.",
+    "summary_offline": "Occasional jellyfish at some beaches, sea urchins near rocky areas (wear water shoes). No known crocodile or shark issues at popular beaches. Ask local resort staff for current sea conditions.",
+    "place_name": "Twin Rock Beach Resort",
+    "location": "VIRAC",
+    "title": "Marine Hazards at Catanduanes Beaches",
+    "topic": "safety",
+    "activities": [
+      "swimming",
+      "beaches"
+    ]
+  },
+  
+  {
+    "input": "Is the road to Baras and Puraran Beach dangerous?",
+    "output": "The road from Virac to Baras and Puraran Beach is mostly paved and passes through hilly terrain with sharp curves and elevated sections. During dry season it is manageable, but during heavy rain and typhoon season sections can become slippery or damaged. Driving at night on this route is not advisable due to limited lighting and winding roads. Hire experienced local drivers who know the route well, especially if you are unfamiliar with mountain driving.",
+    "summary_offline": "The Virac to Baras road is mostly paved but hilly with sharp curves. Manageable in dry season; avoid at night or during heavy rain. Hire local drivers familiar with the route.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "Road Safety Virac to Puraran Beach",
+    "topic": "safety",
+    "activities": [
+      "transport"
+    ]
+  },
+  {
+    "input": "How do I get to Catanduanes from Manila? Ferry or plane?",
+    "output": "There are two ways to reach Catanduanes. By air, Cebu Pacific and SkyJet Airlines operate flights from Manila to Virac Airport (VIC), taking approximately 1 hour. This is the most convenient option. By sea, you can take a bus or van to Tabaco City in Albay (Bicol region), then board a 2-3 hour RoRo ferry to Virac Port. The ferry option is significantly cheaper but takes a full day of travel.",
+    "summary_offline": "Reach Catanduanes by plane (Manila to Virac, 1hr via Cebu Pacific/SkyJet) or by bus to Tabaco City then RoRo ferry to Virac Port (2-3hrs, cheaper but full-day travel).",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "How to Get to Catanduanes from Manila",
+    "topic": "navigation",
+    "activities": [
+      "transport",
+      "commute",
+      "ferry",
+      "plane"
+    ]
+  },
+  {
+    "input": "What is the entrance fee at Binurong Point?",
+    "output": "Binurong Point charges approximately 30 to 50 pesos entrance fee per person. There is also a small parking fee for vehicles. No card facilities are available, so bring exact cash. The site is managed by the local barangay and fees may vary slightly depending on the season.",
+    "summary_offline": "Binurong Point entrance fee: roughly 30–50 pesos per person. Small parking fee for vehicles. Cash only, no card facilities.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "Binurong Point Entrance Fee and Cost",
+    "topic": "budget",
+    "activities": [
+      "sightseeing",
+      "viewpoint",
+      "budget"
+    ]
+  },
+  {
+    "input": "How do I get to Binurong Point from Virac?",
+    "output": "From Virac town proper, travel by private vehicle or habal-habal motorcycle toward Baras municipality along the East Road. Binurong Point is approximately 25 to 30 kilometers from Virac, taking about 45 minutes to 1 hour. The road is mostly paved but has narrow sections near Baras. No direct public jeepney goes to Binurong Point — hire a habal-habal in Baras town for the final stretch up to the viewpoint.",
+    "summary_offline": "From Virac: take private car or habal-habal toward Baras via East Road (~25–30km, 45min–1hr). No direct jeepney — hire habal-habal in Baras for the final climb.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "How to Get to Binurong Point from Virac",
+    "topic": "navigation",
+    "activities": [
+      "transport",
+      "sightseeing",
+      "viewpoint"
+    ]
+  },
+  {
+    "input": "What is the best time of year to visit Catanduanes?",
+    "output": "The best time to visit Catanduanes is between March and June. These dry season months offer clear skies, calm seas ideal for swimming and island hopping, and manageable road conditions for exploring. Avoid October to December, which falls squarely within typhoon season — Catanduanes is known as the 'Land of the Howling Winds' and is one of the most typhoon-prone islands in the Philippines. If you want to watch professional surfing, visit Puraran Beach in August to October.",
+    "summary_offline": "Best time to visit: March to June (dry season, calm seas, clear skies). Avoid October–December (typhoon season). Surfers visit Puraran in August–October.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Best Time to Visit Catanduanes",
+    "topic": "general",
+    "activities": [
+      "general",
+      "weather",
+      "planning"
+    ]
+  },
+  {
+    "input": "Budget accommodation in Catanduanes. Cheapest places to stay.",
+    "output": "For budget travelers, Rhaj Inn and Nitto Lodge in Virac offer clean, basic rooms starting at around 400 to 600 pesos per night. E-Crown Hotel and Resort is a mid-range option at 800 to 1,500 pesos with more amenities. For a completely different experience, some surf camps at Puraran Beach offer dormitory-style beds for as low as 250 pesos per night.",
+    "summary_offline": "Budget stays in Virac: Rhaj Inn and Nitto Lodge (400–600/night). Mid-range: E-Crown Hotel (800–1,500/night). Puraran surf camp dorms from 250/night.",
+    "place_name": "Rhaj Inn",
+    "location": "VIRAC",
+    "title": "Budget Accommodation in Catanduanes",
+    "topic": "accommodation",
+    "activities": [
+      "accommodation",
+      "budget",
+      "hotel"
+    ]
+  },
+  {
+    "input": "Best beaches in Catanduanes for swimming and snorkeling.",
+    "output": "Twin Rock Beach Resort in Virac is the top choice for calm, safe swimming with clear water and resort amenities. LouCa Beach Resort in Caramoran offers stunning white sand and excellent snorkeling around its rock formations. For a more local beach feel, Batag Beach in Viga is quiet, clean, and uncrowded. Marilima Beach in Virac is also excellent for calm swimming and picnics.",
+    "summary_offline": "Best swimming beaches: Twin Rock Beach Resort (Virac, calm water), LouCa Beach Resort (Caramoran, snorkeling), Batag Beach (Viga, quiet), Marilima Beach (Virac, picnics).",
+    "place_name": "Twin Rock Beach Resort",
+    "location": "VIRAC",
+    "title": "Best Beaches for Swimming and Snorkeling",
+    "topic": "beaches",
+    "activities": [
+      "swimming",
+      "beach",
+      "snorkeling"
+    ]
+  },
+  {
+    "input": "Is there a hospital or medical clinic in Catanduanes for emergencies?",
+    "output": "The main hospital in Catanduanes is the Catanduanes Provincial Hospital located in Virac. It handles general emergencies and surgeries. For minor injuries or illnesses, several private clinics and pharmacies are located along the Virac town center. Outside of Virac, medical facilities are extremely limited — only small rural health units. For serious emergencies in remote municipalities, patients are typically transported back to Virac.",
+    "summary_offline": "Main hospital: Catanduanes Provincial Hospital in Virac (emergencies, surgery). Private clinics in Virac town. Outside Virac, only rural health units — go to Virac for serious cases.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Hospital and Medical Facilities in Catanduanes",
+    "topic": "safety",
+    "activities": [
+      "safety",
+      "emergency",
+      "medical"
+    ]
+  },
+  {
+    "input": "What is there to do in Gigmoto? Is it worth visiting?",
+    "output": "Gigmoto is absolutely worth a visit for adventurous travelers willing to make the long journey. The top attraction is Nahulugan Falls, one of the tallest and most pristine waterfalls in the island. Gigmoto Cove is a stunningly calm and isolated bay ideal for swimming and kayaking. The town is very remote and roads can be rough, so a private vehicle with a good driver is highly recommended.",
+    "summary_offline": "Gigmoto highlights: Nahulugan Falls (tall, pristine, uncrowded) and Gigmoto Cove (calm bay, swimming, kayaking). Requires a private vehicle. Roads can be rough.",
+    "place_name": "Nahulugan Falls",
+    "location": "GIGMOTO",
+    "title": "What to Do in Gigmoto",
+    "topic": "nature",
+    "activities": [
+      "swimming",
+      "falls",
+      "sightseeing",
+      "hiking"
+    ]
+  },
+  {
+    "input": "Are there activities for kids in Catanduanes? Family friendly spots.",
+    "output": "Catanduanes is very family-friendly. Maribina Falls in Bato is perfect for children — the parking area is right next to the shallow, calm pools. Twin Rock Beach Resort has a safe, calm beach area ideal for kids. For a fun cultural experience, visit the Virac Public Market in the morning for fresh tropical fruits and local snacks. The Bato Church ruins are fascinating for older children interested in history.",
+    "summary_offline": "Family-friendly spots: Maribina Falls (calm pools, easy access), Twin Rock Beach (safe swimming for kids), Virac Public Market (cultural), Bato Church (history). All low-risk activities.",
+    "place_name": "Maribina Falls",
+    "location": "BATO",
+    "title": "Family Friendly Activities for Kids",
+    "topic": "family",
+    "activities": [
+      "sightseeing",
+      "swimming",
+      "beach",
+      "falls"
+    ],
+    "group_type": "family"
+  },
+  {
+    "input": "Is Puraran Beach accessible? How do I get there from Virac?",
+    "output": "Puraran Beach is located in Baras municipality, approximately 30 kilometers east of Virac. The drive takes about 1 hour via the East Road. Public jeepneys going to Baras depart from the Virac terminal, but the last trip back is in the early afternoon, so many visitors opt to rent a habal-habal for the full day for more flexibility. The resort road inside Baras to Puraran itself is a short dirt path.",
+    "summary_offline": "Puraran Beach is ~30km east of Virac via East Road (1hr). Public jeepney from Virac terminal to Baras available but limited returns — rent habal-habal for full-day flexibility.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "How to Get to Puraran Beach from Virac",
+    "topic": "navigation",
+    "activities": [
+      "transport",
+      "surfing",
+      "beach"
+    ]
+  },
+  {
+    "input": "Where can I eat cheap and authentic local food in Virac?",
+    "output": "The most affordable and authentic Catanduanes food is found in the carinderias inside the Virac Public Market. Lunch combos with rice, fish, and a local vegetable dish cost as little as 60 to 80 pesos. Sea Breeze 2001 Restaurant is a local favorite for proper sit-down meals at affordable prices, serving fresh seafood, Laing, and Bicol Express. For breakfast, the food stalls near the Virac bus terminal offer hot lugaw and pandesal.",
+    "summary_offline": "Cheapest authentic food: Virac Public Market carinderias (60–80 pesos/meal). Proper sit-down local restaurant: Sea Breeze 2001 (seafood, Laing, Bicol Express). Breakfast: stalls near bus terminal.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "Cheap Authentic Local Food in Virac",
+    "topic": "dining",
+    "activities": [
+      "dining",
+      "food",
+      "lunch",
+      "budget"
+    ]
+  },
+  {
+    "input": "What is there to see in Bato municipality?",
+    "output": "Bato is one of the most historically and naturally rich municipalities in Catanduanes. The crown jewel is St. John the Baptist Church (Bato Church), a stunning 1883 Spanish colonial stone church located right on the river bank. Maribina Falls is just minutes away and is the most accessible waterfall on the island. Bato is also famous for its production of Tapuy, a local rice wine you can find in the Bato market.",
+    "summary_offline": "Bato highlights: Bato Church (1883 Spanish stone architecture), Maribina Falls (most accessible waterfall), and Tapuy rice wine from local markets.",
+    "place_name": "St. John the Baptist Church",
+    "location": "BATO",
+    "title": "What to Do and See in Bato",
+    "topic": "culture",
+    "activities": [
+      "sightseeing",
+      "history",
+      "falls",
+      "church"
+    ]
+  },
+  {
+    "input": "Is it safe to swim at Twin Rock Beach Resort? What is the entrance fee?",
+    "output": "Twin Rock Beach Resort is one of the safest beaches in Catanduanes for swimming. The water is generally calm with minimal waves and good visibility. Entrance fee is approximately 50 pesos for day visitors, which is credited toward food and drinks at their restaurant. The resort has staff present during operating hours, beach chairs for rent, and a small store on-site.",
+    "summary_offline": "Twin Rock Beach: safe, calm swimming water. Entrance: ~50 pesos (credited to food/drinks). Beach chairs for rent, on-site restaurant, staff present during hours.",
+    "place_name": "Twin Rock Beach Resort",
+    "location": "VIRAC",
+    "title": "Twin Rock Beach Resort Safety and Entrance Fee",
+    "topic": "beaches",
+    "activities": [
+      "swimming",
+      "beach",
+      "resort",
+      "budget"
+    ]
+  },
+  {
+    "input": "Is there nightlife in Virac? Bars and live music.",
+    "output": "Virac has a modest but enjoyable nightlife scene. Taller's Brew is the most popular craft beer spot, frequented by both locals and tourists, and occasionally hosts live acoustic music on weekends. The ARDCI Skydeck Lounge is the most upscale option for evening cocktails with a view. Most establishments close by 11 PM, and the scene is relaxed rather than club-oriented. Catanduanes is not a party island — nightlife is low-key and social.",
+    "summary_offline": "Virac nightlife is low-key. Top spots: Taller's Brew (craft beer, live acoustic on weekends), ARDCI Skydeck (cocktails, city views). Most close by 11PM. Not a party destination.",
+    "place_name": "Taller's Brew",
+    "location": "VIRAC",
+    "title": "Nightlife, Bars and Live Music in Virac",
+    "topic": "dining",
+    "activities": [
+      "dining",
+      "drinks",
+      "bar",
+      "nightlife"
+    ]
+  },
+  {
+    "input": "What can I do in Pandan municipality? Tourist spots in Pandan.",
+    "output": "Pandan is home to some of the most spectacular natural attractions in the north. Tuwad-Tuwadan Blue Lagoon is the most famous — a stunning turquoise lagoon accessible via a moderate hike over limestone rocks. La Prisa Campsite offers beachfront camping and river swimming. Bagasawang Beach in nearby Bagamanoc has raw, isolated beauty with strong waves popular with local surfers.",
+    "summary_offline": "Pandan highlights: Tuwad-Tuwadan Blue Lagoon (turquoise water, moderate hike), La Prisa Campsite (beachfront camping), and Bagasawang Beach (isolated, surfer vibes).",
+    "place_name": "Tuwad-Tuwadan Blue Lagoon",
+    "location": "PANDAN",
+    "title": "Tourist Spots and Activities in Pandan",
+    "topic": "nature",
+    "activities": [
+      "swimming",
+      "hiking",
+      "beach",
+      "camping"
+    ]
+  },
+  {
+    "input": "Can I go whale watching or dolphin watching in Catanduanes?",
+    "output": "Yes, dolphin watching is possible in Catanduanes, particularly in the waters around Caramoran and Gigmoto on the eastern coast. Local fishermen in Caramoran occasionally offer informal boat rides to spot spinner dolphins in the early morning. Whale sightings are rare but have been reported. This is not a formalized tourist activity yet, so you will need to arrange directly with local boat operators at the port.",
+    "summary_offline": "Dolphin watching possible in Caramoran and Gigmoto waters. Arrange directly with local boat operators at Caramoran port — best in early morning. Informal activity, not yet organized tourism.",
+    "place_name": "Caramoran",
+    "location": "CARAMORAN",
+    "title": "Whale and Dolphin Watching in Catanduanes",
+    "topic": "nature",
+    "activities": [
+      "swimming",
+      "boat",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "What is Maribina Falls like? Is it worth visiting?",
+    "output": "Maribina Falls is the most accessible and most visited waterfall in Catanduanes, located in Bato municipality. The falls cascade into a wide, shallow swimming area with clear, cool freshwater. What makes it unique is that the parking area is right beside the pools — no hiking required. There is a small entrance fee of around 30 to 50 pesos. It can get crowded on weekends and holidays, so an early morning visit on a weekday is recommended for a peaceful experience.",
+    "summary_offline": "Maribina Falls: wide cascade with clear swimming pools, zero hiking needed (parking beside the falls). Entrance ~30–50 pesos. Crowded on weekends — visit weekday mornings for best experience.",
+    "place_name": "Maribina Falls",
+    "location": "BATO",
+    "title": "Maribina Falls Overview and Visitor Tips",
+    "topic": "nature",
+    "activities": [
+      "swimming",
+      "falls",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Are there any good coffee shops in Virac aside from ARDCI?",
+    "output": "Yes, Virac has a growing cafe scene. Panyero Cafe is a local favorite known for its strong brewed Catanduanes coffee and relaxed ambiance. Taller's Brew doubles as a coffee and craft beer spot, popular with younger locals in the afternoons. Chill Cafe is a small, Instagram-friendly spot downtown with affordable drinks. All three offer Wi-Fi and are good for sitting down with a laptop.",
+    "summary_offline": "Good cafes in Virac beyond ARDCI: Panyero Cafe (local Catanduanes coffee, relaxed), Taller's Brew (coffee and craft beer), Chill Cafe (Instagram-friendly, affordable, Wi-Fi).",
+    "place_name": "Panyero Cafe",
+    "location": "VIRAC",
+    "title": "Coffee Shops in Virac",
+    "topic": "dining",
+    "activities": [
+      "dining",
+      "coffee",
+      "cafe"
+    ]
+  },
+  {
+    "input": "Is LouCa Beach Resort worth visiting? What can I do there?",
+    "output": "LouCa Beach Resort in Caramoran is one of the most beautiful and underrated beach resorts in Catanduanes. The beach features powdery white sand and clear blue water with excellent visibility for snorkeling around the rock formations just offshore. The resort offers kayak rentals, a beachfront restaurant, and clean, comfortable cottages. It is significantly less crowded than resorts near Virac, making it ideal for a quiet, scenic day trip or overnight stay.",
+    "summary_offline": "LouCa Beach Resort (Caramoran): white sand, crystal water, excellent snorkeling around rocks. Kayak rentals, beachfront restaurant, comfortable cottages. Less crowded than Virac-area resorts.",
+    "place_name": "LouCa Beach Resort",
+    "location": "CARAMORAN",
+    "title": "LouCa Beach Resort Overview",
+    "topic": "beaches",
+    "activities": [
+      "swimming",
+      "beach",
+      "snorkeling",
+      "resort"
+    ]
+  },
+  {
+    "input": "What is a realistic daily budget for traveling in Catanduanes?",
+    "output": "A realistic daily budget for Catanduanes depends on your travel style. Budget travelers spending on a hostel or surf dorm, market meals, and habal-habal rides can get by on 700 to 1,200 pesos per day. Mid-range travelers using a guesthouse, proper restaurants, and private vehicles should budget 2,000 to 3,500 pesos per day. This excludes airfare. Key cost drivers are vehicle rentals (motorbike 500-800/day, van 2,000-3,500/day) and resort entrance fees.",
+    "summary_offline": "Daily budget: 700–1,200 pesos (budget: dorm, carinderia, habal-habal). 2,000–3,500 pesos (mid-range: guesthouse, restaurant, private vehicle). Excludes flights. Vehicle rental is biggest cost driver.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Daily Travel Budget for Catanduanes",
+    "topic": "budget",
+    "activities": [
+      "budget",
+      "planning",
+      "accommodation"
+    ]
+  },
+  {
+    "input": "Cheap places to eat in Virac Catanduanes",
+    "output": "For affordable meals in Virac, the area around the public market has several carinderias serving Filipino meals for 80 to 120 pesos. Buddy's Mami House is a local favorite for inexpensive noodle dishes. Mcdonald's and Jollibee in Virac are options for fast food at standard prices. For local flavors at low cost, look for eateries serving fresh seafood near the waterfront — many offer grilled fish and rice meals at very reasonable prices.",
+    "summary_offline": "Cheap eats in Virac: carinderias near the public market (80–120 pesos), Buddy's Mami House for noodles, waterfront eateries for affordable fresh seafood. Jollibee and McDonald's also available.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "Cheap Affordable Food in Virac",
+    "topic": "dining",
+    "activities": [
+      "dining",
+      "food"
+    ]
+  },
+  {
+    "input": "How crowded does Puraran Beach get?",
+    "output": "Puraran Beach sees moderate tourist traffic year-round, with peak crowds during the surf season from October to December when surfers from around the Philippines and abroad congregate. During the off-season, the beach is noticeably quieter and more relaxed. Holy Week and major Philippine holidays also bring more visitors. Compared to popular beach destinations in Palawan or Cebu, Puraran remains significantly less crowded and retains a genuine local character.",
+    "summary_offline": "Puraran Beach peaks October–December (surf season) and during Holy Week. Off-season is quiet and relaxed. Far less crowded than Palawan or Cebu — retains a local, unspoiled character.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "How Crowded is Puraran Beach",
+    "topic": "general",
+    "activities": [
+      "surfing",
+      "beaches",
+      "swimming"
+    ]
+  },
+  {
+    "input": "Is Catanduanes expensive compared to other Philippine destinations?",
+    "output": "Catanduanes is generally more affordable than popular destinations like Palawan, Siargao, or Boracay. Accommodation, food, and local transport are priced for the local market. The main cost consideration is airfare, which can be pricier since the island is only accessible by plane or ferry. Once on the island, daily expenses for a comfortable trip are very reasonable. The relative lack of tourist infrastructure also means fewer inflated tourist prices.",
+    "summary_offline": "Catanduanes is more affordable than Palawan, Siargao, or Boracay. Airfare is the main expense. Once on the island, accommodation, food, and transport are reasonably priced — fewer tourist markups.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Is Catanduanes Expensive Compared to Other Destinations",
+    "topic": "budget",
+    "activities": [
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Best budget accommodation in Catanduanes",
+    "output": "For budget travelers, Virac has several affordable options including Nitto Lodge, Rhaj Inn, and Casa Dueña Travellers Inn. Sofeca Travellers Inn and North Travel Lodge are also budget-friendly choices in the town area. In Baras near the surf, basic rooms at Titaay Surfers Inn and Jo Surf Inn are affordable and convenient for beach access. Most budget accommodations are clean and functional with air conditioning and basic amenities.",
+    "summary_offline": "Budget accommodation in Virac: Nitto Lodge, Rhaj Inn, Casa Dueña, Sofeca Travellers Inn, North Travel Lodge. Near Puraran in Baras: Titaay Surfers Inn and Jo Surf Inn. Clean, basic, affordable.",
+    "place_name": "Nitto Lodge",
+    "location": "VIRAC",
+    "title": "Best Budget Accommodation Catanduanes",
+    "topic": "accommodation",
+    "activities": [
+      "accommodation"
+    ]
+  },
+  {
+    "input": "Is Catanduanes safe from typhoons? When to avoid visiting?",
+    "output": "Catanduanes is one of the most typhoon-exposed provinces in the Philippines, sitting directly in the path of Pacific typhoons. The typhoon season runs from July to November, with the most intense activity in September and October. During this period, travel disruptions including cancelled flights and ferry suspensions are common. If you visit during this time, be flexible with your schedule and monitor weather updates closely. January to June offers the most stable weather.",
+    "summary_offline": "Catanduanes is highly typhoon-prone — avoid July to November especially September–October. Flights and ferries frequently cancel during storms. January to June is safest for travel.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Typhoon Risk and When to Avoid Catanduanes",
+    "topic": "safety",
+    "activities": [
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Half day trip from Virac what can I do",
+    "output": "For a half-day trip from Virac, you can visit Hinagasan Falls or Paday Falls — both are relatively close and reachable within 30 to 45 minutes. The Museo de Catanduanes in town takes about an hour to explore. A morning beach session at Twin Rock Beach Resort or Mamangal Beach is also easy from Virac. If you have a full half-day, a morning run to Tampad Beach for a swim and back is very doable.",
+    "summary_offline": "Half-day from Virac: Hinagasan or Paday Falls (30–45 min away), Museo de Catanduanes (1 hour), morning beach at Twin Rock or Mamangal Beach, or a swim at Tampad Beach.",
+    "place_name": "Hinagasan Falls",
+    "location": "VIRAC",
+    "title": "Half Day Trips from Virac",
+    "topic": "itinerary",
+    "activities": [
+      "sightseeing",
+      "swimming",
+      "hiking"
+    ]
+  },
+  {
+    "input": "What to do in Catanduanes on a rainy day?",
+    "output": "On a rainy day in Catanduanes, indoor and covered activities are your best bet. Museo de Catanduanes in Virac is a worthwhile indoor visit to learn about the island's history and culture. The cafes in Virac — DAKILA Cafe, Panyero Cafe, Little Bliss Cafe — are great for spending a relaxed few hours. If the rain is light, waterfalls like Hinagasan Falls and Maribina Falls are actually more spectacular with higher water flow. Shopping for pasalubong at Virac Public Market is also a good rainy day activity.",
+    "summary_offline": "Rainy day activities: Museo de Catanduanes (indoor history), cafe-hopping in Virac (DAKILA, Panyero, Little Bliss), visit waterfalls like Hinagasan (more impressive with rain), pasalubong shopping at Virac market.",
+    "place_name": "Museo De Catanduanes",
+    "location": "VIRAC",
+    "title": "Rainy Day Activities in Catanduanes",
+    "topic": "general",
+    "activities": [
+      "sightseeing",
+      "dining",
+      "shopping",
+      "culture"
+    ]
+  },
+  {
+    "input": "What is near Virac town center walking distance",
+    "output": "Within walking distance or a short tricycle ride from Virac town center, you can find the Museo de Catanduanes, the main cathedral and plaza, Virac Public Market, and numerous cafes and restaurants. Mamangal Beach and Barefoot Beach are among the nearest beaches to the town center, reachable in about 10 to 15 minutes by tricycle. The town itself is compact and easy to explore on foot.",
+    "summary_offline": "Near Virac town center: Museo de Catanduanes, town plaza and cathedral, Public Market, cafes and restaurants. Mamangal Beach and Barefoot Beach are 10–15 minutes by tricycle — the nearest beaches.",
+    "place_name": "Museo De Catanduanes",
+    "location": "VIRAC",
+    "title": "What is Near Virac Town Center",
+    "topic": "general",
+    "activities": [
+      "sightseeing",
+      "shopping",
+      "beaches"
+    ]
+  },
+  {
+    "input": "One day itinerary in Catanduanes",
+    "output": "For one full day in Catanduanes starting from Virac, a good route is: morning at Binurong Point for sunrise views (leave by 5am for the drive), then stop at Puraran Beach on the way back for a swim, lunch at a local eatery in Baras or back in Virac, afternoon visit to a waterfall like Hinagasan Falls, and end with dinner and cafe-hopping in Virac town. This covers the island's highlights in one day but requires an early start and private transport.",
+    "summary_offline": "1-day Catanduanes: 5am depart for Binurong Point sunrise → Puraran Beach swim → lunch → Hinagasan Falls → evening in Virac town. Requires early start and private transport.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "One Day Itinerary Catanduanes",
+    "topic": "itinerary",
+    "activities": [
+      "sightseeing",
+      "swimming",
+      "beaches",
+      "hiking"
+    ]
+  },
+  {
+    "input": "3 day itinerary Catanduanes",
+    "output": "Day 1: Explore Virac town — Museo de Catanduanes, local cafes, Mamangal Beach for the afternoon. Day 2: Early departure to Binurong Point for sunrise, then Puraran Beach for swimming and lunch, explore Baras area, return to Virac. Day 3: Head to Pandan for Campilan Beach and Carangyan Beach, optional stop at Maribina Falls in Bato on the way back. This covers the three main clusters of the island's highlights.",
+    "summary_offline": "3-day itinerary: Day 1 — Virac town and Mamangal Beach. Day 2 — Binurong Point sunrise and Puraran Beach. Day 3 — Pandan beaches (Campilan, Carangyan) and Maribina Falls in Bato.",
+    "place_name": "Campilan Beach",
+    "location": "PANDAN",
+    "title": "3 Day Itinerary Catanduanes",
+    "topic": "itinerary",
+    "activities": [
+      "sightseeing",
+      "swimming",
+      "beaches",
+      "hiking"
+    ]
+  },
+  {
+    "input": "Beaches near Virac not too far",
+    "output": "The nearest beaches to Virac town are Mamangal Beach, Barefoot Beach, Marilima Beach, and Oliver's Riff Mamangal Beach Resort — all within 10 to 20 minutes from the town center. Twin Rock Beach Resort and Tampad Beach are slightly further but still within 30 minutes. LouCa Beach Resort, Batag Beach Resort, Sunset Coast Beach Resort, and Regina's Beachfront Resort are also short drives and have facilities.",
+    "summary_offline": "Beaches closest to Virac: Mamangal Beach, Barefoot Beach, Marilima Beach (10–20 min). Slightly further: Twin Rock, Tampad Beach (30 min). With facilities: LouCa, Batag, Sunset Coast, Regina's.",
+    "place_name": "Mamangal Beach",
+    "location": "VIRAC",
+    "title": "Beaches Near Virac Town",
+    "topic": "beaches",
+    "activities": [
+      "beaches",
+      "swimming"
+    ]
+  },
+  {
+    "input": "Quick stop worth it near the airport Virac",
+    "output": "If you have time near Virac Airport, the town center is just a short tricycle ride away and worth a quick visit. The Museo de Catanduanes is a 30-minute stop for island context. Several cafes including DAKILA Cafe and Panyero Cafe are easy stops. The nearest beach to the airport area is in the Mamangal direction, about 15 minutes away. For a quick meal, the carinderia strip near the public market offers fast, authentic Filipino food.",
+    "summary_offline": "Near Virac Airport: town center is a short ride away — Museo de Catanduanes (30 min), DAKILA Cafe or Panyero Cafe, Mamangal Beach (15 min), carinderia strip near Public Market for fast local food.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "What to Do Near Virac Airport Quick Stop",
+    "topic": "general",
+    "activities": [
+      "sightseeing",
+      "dining"
+    ]
+  },
+  {
+    "input": "Activities for a family with kids in Catanduanes",
+    "output": "Catanduanes has several family-friendly options. Twin Rock Beach Resort in Virac has calm swimming areas suitable for children with facilities for families. Mamangal Beach is another calm, shallow option near Virac. The Museo de Catanduanes is educational and appropriate for older kids. A visit to Binurong Point is manageable for families with older children who can handle light walking. Waterfall visits like Hinagasan Falls are an adventure that kids usually enjoy.",
+    "summary_offline": "Family-friendly options: Twin Rock Beach Resort and Mamangal Beach (calm swimming, facilities), Museo de Catanduanes (educational), Binurong Point (light walking for older kids), Hinagasan Falls (adventure).",
+    "place_name": "Twin Rock Beach Resort",
+    "location": "VIRAC",
+    "title": "Family Activities Kids Catanduanes",
+    "topic": "general",
+    "activities": [
+      "swimming",
+      "beaches",
+      "sightseeing"
+    ],
+    "group_type": "family"
+  },
+  {
+    "input": "Is there anything to do in Catanduanes at night?",
+    "output": "Nightlife in Catanduanes is low-key, centered mostly in Virac town. ARDCI Skydeck Lounge and Nicole's Grill Resto Bar are popular evening spots for drinks and food with atmosphere. Twin Bar and Cafe and Taller's Brew are chill spots that stay open into the evening. Most beach resorts are quiet at night. For a cultural evening, check if there are any local festivals or events happening — Catanduanes has several annual celebrations tied to town fiestas.",
+    "summary_offline": "Nighttime in Virac: ARDCI Skydeck Lounge, Nicole's Grill Resto Bar, Twin Bar and Cafe, and Taller's Brew for evening drinks and food. Beach resorts are quiet. Check for local fiestas.",
+    "place_name": "ARDCI Skydeck Lounge",
+    "location": "VIRAC",
+    "title": "Nightlife and Evening Activities Catanduanes",
+    "topic": "dining",
+    "activities": [
+      "dining",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Can I do a day trip to Pandan from Virac?",
+    "output": "Yes, a day trip to Pandan from Virac is doable but requires an early start. The drive is about 1.5 to 2 hours each way. Leaving Virac by 6 to 7am gives you enough time to enjoy Campilan Beach, Carangyan Beach Resort, and possibly Cagnipa Cove before heading back. Private transport hire is the most efficient option for this trip. If time allows, a stop at Maribina Falls in Bato on the return adds another highlight.",
+    "summary_offline": "Pandan day trip from Virac: leave by 6–7am (1.5–2 hours drive each way). Fit in Campilan Beach, Carangyan Beach, Cagnipa Cove. Return via Maribina Falls in Bato if time allows. Private transport recommended.",
+    "place_name": "Carangyan Beach Resort",
+    "location": "PANDAN",
+    "title": "Day Trip to Pandan from Virac",
+    "topic": "itinerary",
+    "activities": [
+      "beaches",
+      "swimming",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Best spots to visit if I only have 2 hours in Virac",
+    "output": "With only 2 hours in Virac, prioritize based on your interest. For history: Museo de Catanduanes takes about 45 minutes. For food: the carinderia strip near the market for a quick authentic meal, then a coffee at Panyero Cafe or DAKILA Cafe. For a beach glimpse: a quick visit to Mamangal Beach is 15 minutes from town. If you want a viewpoint: ARDCI Skydeck Lounge for an elevated view of the town without traveling far.",
+    "summary_offline": "2 hours in Virac: Museo de Catanduanes (45 min), quick meal at market carinderias + coffee at Panyero or DAKILA Cafe, OR Mamangal Beach (15 min from town), OR ARDCI Skydeck Lounge for town views.",
+    "place_name": "Museo De Catanduanes",
+    "location": "VIRAC",
+    "title": "Best Spots with 2 Hours in Virac",
+    "topic": "itinerary",
+    "activities": [
+      "sightseeing",
+      "dining"
+    ]
+  },
+  {
+    "input": "Weekend trip to Catanduanes from Manila what to expect",
+    "output": "A weekend trip from Manila is tight but achievable. Fly out Friday evening or Saturday morning to Virac. Day 1: settle in, explore Virac town and nearby beaches. Day 2: early morning drive to Binurong Point and Puraran Beach — the highlight of the island. Evening flight back or stay Sunday for a relaxed morning before flying out. Pack light, book accommodation and transport in advance, and be flexible with weather and flight schedules.",
+    "summary_offline": "Weekend from Manila: fly Friday or Saturday morning. Day 1 — Virac town and beaches. Day 2 — Binurong Point and Puraran Beach. Book everything in advance and stay flexible with weather.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Weekend Trip Catanduanes from Manila",
+    "topic": "itinerary",
+    "activities": [
+      "sightseeing",
+      "beaches",
+      "transport"
+    ]
+  },
+  {
     "input": "Where is Pandan Seashore Park?",
     "output": "Pandan Seashore Park is a hotels and resorts located in Pandan.",
     "title": "Pandan Seashore Park Location",
@@ -2975,19 +4253,6 @@
     }
   },
   {
-    "input": "Where is Ericsson Beach?",
-    "output": "Ericsson Beach is a hotels and resorts located in San andres.",
-    "title": "Ericsson Beach Location",
-    "topic": "Accommodation",
-    "location": "SAN ANDRES",
-    "summary_offline": "Ericsson Beach is a hotels and resorts located in San andres.",
-    "place_name": "Ericsson Beach",
-    "coordinates": {
-      "lat": 13.569451079584018,
-      "lng": 124.1428227093613
-    }
-  },
-  {
     "input": "Where is Bagasbas Beach Resort?",
     "output": "Bagasbas Beach Resort is a hotels and resorts located in San andres.",
     "title": "Bagasbas Beach Resort Location",
@@ -3313,19 +4578,6 @@
     }
   },
   {
-    "input": "Where is Angel's Pizza?",
-    "output": "Angel's Pizza is a restaurants and cafes located in Virac.",
-    "title": "Angel's Pizza Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Angel's Pizza is a restaurants and cafes located in Virac.",
-    "place_name": "Angel's Pizza",
-    "coordinates": {
-      "lat": 13.583990389845289,
-      "lng": 124.2341718944488
-    }
-  },
-  {
     "input": "Where is Hinagasan Falls?",
     "output": "Hinagasan Falls is a falls located in Virac.",
     "title": "Hinagasan Falls Location",
@@ -3352,32 +4604,6 @@
     }
   },
   {
-    "input": "Where is Casa Remedios Bed & Breakfast?",
-    "output": "Casa Remedios Bed & Breakfast is a hotels and resorts located in Virac.",
-    "title": "Casa Remedios Bed & Breakfast Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Casa Remedios Bed & Breakfast is a hotels and resorts located in Virac.",
-    "place_name": "Casa Remedios Bed & Breakfast",
-    "coordinates": {
-      "lat": 13.579229296789006,
-      "lng": 124.21667483492335
-    }
-  },
-  {
-    "input": "Where is Anika Food Corner?",
-    "output": "Anika Food Corner is a restaurants and cafes located in Virac.",
-    "title": "Anika Food Corner Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Anika Food Corner is a restaurants and cafes located in Virac.",
-    "place_name": "Anika Food Corner",
-    "coordinates": {
-      "lat": 13.579040247054639,
-      "lng": 124.2287243114437
-    }
-  },
-  {
     "input": "Where is Fleur de Lilies Glamping Farm?",
     "output": "Fleur de Lilies Glamping Farm is a hotels and resorts located in Virac.",
     "title": "Fleur de Lilies Glamping Farm Location",
@@ -3388,32 +4614,6 @@
     "coordinates": {
       "lat": 13.522814980924824,
       "lng": 124.20319514587996
-    }
-  },
-  {
-    "input": "Where is Appleberry?",
-    "output": "Appleberry is a restaurants and cafes located in Virac.",
-    "title": "Appleberry Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Appleberry is a restaurants and cafes located in Virac.",
-    "place_name": "Appleberry",
-    "coordinates": {
-      "lat": 13.578876723518103,
-      "lng": 124.23125085026427
-    }
-  },
-  {
-    "input": "Where is Hamapayo Pension House?",
-    "output": "Hamapayo Pension House is a hotels and resorts located in Virac.",
-    "title": "Hamapayo Pension House Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Hamapayo Pension House is a hotels and resorts located in Virac.",
-    "place_name": "Hamapayo Pension House",
-    "coordinates": {
-      "lat": 13.58891972772742,
-      "lng": 124.2083954979506
     }
   },
   {
@@ -3440,32 +4640,6 @@
     "coordinates": {
       "lat": 13.594221210744385,
       "lng": 124.26111675211118
-    }
-  },
-  {
-    "input": "Where is Blossoms Restaurant?",
-    "output": "Blossoms Restaurant is a restaurants and cafes located in Virac.",
-    "title": "Blossoms Restaurant Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Blossoms Restaurant is a restaurants and cafes located in Virac.",
-    "place_name": "Blossoms Restaurant",
-    "coordinates": {
-      "lat": 13.581741965345147,
-      "lng": 124.23228091542933
-    }
-  },
-  {
-    "input": "Where is JM Pension House?",
-    "output": "JM Pension House is a hotels and resorts located in Virac.",
-    "title": "JM Pension House Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "JM Pension House is a hotels and resorts located in Virac.",
-    "place_name": "JM Pension House",
-    "coordinates": {
-      "lat": 13.578996725549041,
-      "lng": 124.22474125714392
     }
   },
   {
@@ -3505,84 +4679,6 @@
     "coordinates": {
       "lat": 13.581306526011169,
       "lng": 124.21342438651737
-    }
-  },
-  {
-    "input": "Where is Marem Pension House?",
-    "output": "Marem Pension House is a hotels and resorts located in Virac.",
-    "title": "Marem Pension House Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Marem Pension House is a hotels and resorts located in Virac.",
-    "place_name": "Marem Pension House",
-    "coordinates": {
-      "lat": 13.585027658792676,
-      "lng": 124.23616359366518
-    }
-  },
-  {
-    "input": "Where is Cafe De Au?",
-    "output": "Cafe De Au is a restaurants and cafes located in Virac.",
-    "title": "Cafe De Au Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Cafe De Au is a restaurants and cafes located in Virac.",
-    "place_name": "Cafe De Au",
-    "coordinates": {
-      "lat": 13.581121990552765,
-      "lng": 124.23238685211084
-    }
-  },
-  {
-    "input": "Where is Queen Maricel Inn?",
-    "output": "Queen Maricel Inn is a hotels and resorts located in Virac.",
-    "title": "Queen Maricel Inn Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Queen Maricel Inn is a hotels and resorts located in Virac.",
-    "place_name": "Queen Maricel Inn",
-    "coordinates": {
-      "lat": 13.578029967508437,
-      "lng": 124.21637442753692
-    }
-  },
-  {
-    "input": "Where is Cafe Norte?",
-    "output": "Cafe Norte is a restaurants and cafes located in Virac.",
-    "title": "Cafe Norte Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Cafe Norte is a restaurants and cafes located in Virac.",
-    "place_name": "Cafe Norte",
-    "coordinates": {
-      "lat": 13.586445787269987,
-      "lng": 124.23851286560539
-    }
-  },
-  {
-    "input": "Where is Rakdell Inn?",
-    "output": "Rakdell Inn is a hotels and resorts located in Virac.",
-    "title": "Rakdell Inn Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Rakdell Inn is a hotels and resorts located in Virac.",
-    "place_name": "Rakdell Inn",
-    "coordinates": {
-      "lat": 13.583461583441721,
-      "lng": 124.23250090566795
-    }
-  },
-  {
-    "input": "Where is Cafe Ubaldita?",
-    "output": "Cafe Ubaldita is a restaurants and cafes located in Virac.",
-    "title": "Cafe Ubaldita Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Cafe Ubaldita is a restaurants and cafes located in Virac.",
-    "place_name": "Cafe Ubaldita",
-    "coordinates": {
-      "lat": 13.58417333027359,
-      "lng": 124.20754195211089
     }
   },
   {
@@ -3638,19 +4734,6 @@
     }
   },
   {
-    "input": "Where is Cathy's Restaurant and Catering Services?",
-    "output": "Cathy's Restaurant and Catering Services is a restaurants and cafes located in Virac.",
-    "title": "Cathy's Restaurant and Catering Services Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Cathy's Restaurant and Catering Services is a restaurants and cafes located in Virac.",
-    "place_name": "Cathy's Restaurant and Catering Services",
-    "coordinates": {
-      "lat": 13.585544780249219,
-      "lng": 124.23717188404729
-    }
-  },
-  {
     "input": "Where is LouCa Beach Resort?",
     "output": "LouCa Beach Resort is a hotels and resorts located in Virac.",
     "title": "LouCa Beach Resort Location",
@@ -3687,32 +4770,6 @@
     "coordinates": {
       "lat": 13.53976642609727,
       "lng": 124.16488424391362
-    }
-  },
-  {
-    "input": "Where is Renel's Travellers Inn?",
-    "output": "Renel's Travellers Inn is a hotels and resorts located in Virac.",
-    "title": "Renel's Travellers Inn Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Renel's Travellers Inn is a hotels and resorts located in Virac.",
-    "place_name": "Renel's Travellers Inn",
-    "coordinates": {
-      "lat": 13.579801222500484,
-      "lng": 124.22802496911423
-    }
-  },
-  {
-    "input": "Where is Fernando's Asian Cuisine?",
-    "output": "Fernando's Asian Cuisine is a restaurants and cafes located in Virac.",
-    "title": "Fernando's Asian Cuisine Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Fernando's Asian Cuisine is a restaurants and cafes located in Virac.",
-    "place_name": "Fernando's Asian Cuisine",
-    "coordinates": {
-      "lat": 13.581024021555177,
-      "lng": 124.2284358008955
     }
   },
   {
@@ -3755,58 +4812,6 @@
     }
   },
   {
-    "input": "Where is Gottsaa Milktea House?",
-    "output": "Gottsaa Milktea House is a restaurants and cafes located in Virac.",
-    "title": "Gottsaa Milktea House Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Gottsaa Milktea House is a restaurants and cafes located in Virac.",
-    "place_name": "Gottsaa Milktea House",
-    "coordinates": {
-      "lat": 13.58163263436696,
-      "lng": 124.21368576560516
-    }
-  },
-  {
-    "input": "Where is Tampad Beach Resort?",
-    "output": "Tampad Beach Resort is a hotels and resorts located in Virac.",
-    "title": "Tampad Beach Resort Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Tampad Beach Resort is a hotels and resorts located in Virac.",
-    "place_name": "Tampad Beach Resort",
-    "coordinates": {
-      "lat": 13.519176854919204,
-      "lng": 124.2059355539561
-    }
-  },
-  {
-    "input": "Where is Jillian's Kitchenette?",
-    "output": "Jillian's Kitchenette is a restaurants and cafes located in Virac.",
-    "title": "Jillian's Kitchenette Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Jillian's Kitchenette is a restaurants and cafes located in Virac.",
-    "place_name": "Jillian's Kitchenette",
-    "coordinates": {
-      "lat": 13.581343446088963,
-      "lng": 124.21364651691626
-    }
-  },
-  {
-    "input": "Where is Villa Toledo Travel Lodge?",
-    "output": "Villa Toledo Travel Lodge is a hotels and resorts located in Virac.",
-    "title": "Villa Toledo Travel Lodge Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Villa Toledo Travel Lodge is a hotels and resorts located in Virac.",
-    "place_name": "Villa Toledo Travel Lodge",
-    "coordinates": {
-      "lat": 13.584315171613417,
-      "lng": 124.2337979614973
-    }
-  },
-  {
     "input": "Where is Jollibee?",
     "output": "Jollibee is a restaurants and cafes located in Virac.",
     "title": "Jollibee Location",
@@ -3817,19 +4822,6 @@
     "coordinates": {
       "lat": 13.581175578193937,
       "lng": 124.22824468638174
-    }
-  },
-  {
-    "input": "Where is Kasiram Grill and Restaurant?",
-    "output": "Kasiram Grill and Restaurant is a restaurants and cafes located in Virac.",
-    "title": "Kasiram Grill and Restaurant Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Kasiram Grill and Restaurant is a restaurants and cafes located in Virac.",
-    "place_name": "Kasiram Grill and Restaurant",
-    "coordinates": {
-      "lat": 13.584004790641492,
-      "lng": 124.20834340885116
     }
   },
   {
@@ -3846,32 +4838,6 @@
     }
   },
   {
-    "input": "Where is Kemji Garden & Resto?",
-    "output": "Kemji Garden & Resto is a restaurants and cafes located in Virac.",
-    "title": "Kemji Garden & Resto Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Kemji Garden & Resto is a restaurants and cafes located in Virac.",
-    "place_name": "Kemji Garden & Resto",
-    "coordinates": {
-      "lat": 13.58109037731797,
-      "lng": 124.21505708798185
-    }
-  },
-  {
-    "input": "Where is Virac Hometel?",
-    "output": "Virac Hometel is a hotels and resorts located in Virac.",
-    "title": "Virac Hometel Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Virac Hometel is a hotels and resorts located in Virac.",
-    "place_name": "Virac Hometel",
-    "coordinates": {
-      "lat": 13.58179833090802,
-      "lng": 124.22695947921794
-    }
-  },
-  {
     "input": "Where is Mcdonald’s?",
     "output": "Mcdonald’s is a restaurants and cafes located in Virac.",
     "title": "Mcdonald’s Location",
@@ -3882,32 +4848,6 @@
     "coordinates": {
       "lat": 13.57976473515069,
       "lng": 124.22830760441924
-    }
-  },
-  {
-    "input": "Where is Island Homestay?",
-    "output": "Island Homestay is a hotels and resorts located in Virac.",
-    "title": "Island Homestay Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Island Homestay is a hotels and resorts located in Virac.",
-    "place_name": "Island Homestay",
-    "coordinates": {
-      "lat": 13.570722658596491,
-      "lng": 124.20375708955693
-    }
-  },
-  {
-    "input": "Where is Monj Bistro?",
-    "output": "Monj Bistro is a restaurants and cafes located in Virac.",
-    "title": "Monj Bistro Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Monj Bistro is a restaurants and cafes located in Virac.",
-    "place_name": "Monj Bistro",
-    "coordinates": {
-      "lat": 13.585892587436463,
-      "lng": 124.23758206645816
     }
   },
   {
@@ -3924,110 +4864,6 @@
     }
   },
   {
-    "input": "Where is On D’ Wings - Calatagan?",
-    "output": "On D’ Wings - Calatagan is a restaurants and cafes located in Virac.",
-    "title": "On D’ Wings - Calatagan Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "On D’ Wings - Calatagan is a restaurants and cafes located in Virac.",
-    "place_name": "On D’ Wings - Calatagan",
-    "coordinates": {
-      "lat": 13.591323543086718,
-      "lng": 124.20816347114656
-    }
-  },
-  {
-    "input": "Where is Moonwalk Villa Resort?",
-    "output": "Moonwalk Villa Resort is a hotels and resorts located in Virac.",
-    "title": "Moonwalk Villa Resort Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Moonwalk Villa Resort is a hotels and resorts located in Virac.",
-    "place_name": "Moonwalk Villa Resort",
-    "coordinates": {
-      "lat": 13.584791411940643,
-      "lng": 124.22011962003668
-    }
-  },
-  {
-    "input": "Where is One Two Sawa Eatery?",
-    "output": "One Two Sawa Eatery is a restaurants and cafes located in Virac.",
-    "title": "One Two Sawa Eatery Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "One Two Sawa Eatery is a restaurants and cafes located in Virac.",
-    "place_name": "One Two Sawa Eatery",
-    "coordinates": {
-      "lat": 13.584357089503174,
-      "lng": 124.2318788097814
-    }
-  },
-  {
-    "input": "Where is Kasa Inndustria Mountain Resort?",
-    "output": "Kasa Inndustria Mountain Resort is a hotels and resorts located in Virac.",
-    "title": "Kasa Inndustria Mountain Resort Location",
-    "topic": "Accommodation",
-    "location": "VIRAC",
-    "summary_offline": "Kasa Inndustria Mountain Resort is a hotels and resorts located in Virac.",
-    "place_name": "Kasa Inndustria Mountain Resort",
-    "coordinates": {
-      "lat": 13.580627725044849,
-      "lng": 124.19121548423095
-    }
-  },
-  {
-    "input": "Where is Oyana Café?",
-    "output": "Oyana Café is a restaurants and cafes located in Virac.",
-    "title": "Oyana Café Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Oyana Café is a restaurants and cafes located in Virac.",
-    "place_name": "Oyana Café",
-    "coordinates": {
-      "lat": 13.581512234467635,
-      "lng": 124.23283705395751
-    }
-  },
-  {
-    "input": "Where is Queen Maricel Inn Ramen House?",
-    "output": "Queen Maricel Inn Ramen House is a restaurants and cafes located in Virac.",
-    "title": "Queen Maricel Inn Ramen House Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Queen Maricel Inn Ramen House is a restaurants and cafes located in Virac.",
-    "place_name": "Queen Maricel Inn Ramen House",
-    "coordinates": {
-      "lat": 13.578005408414093,
-      "lng": 124.21626513676992
-    }
-  },
-  {
-    "input": "Where is Rojazz Café?",
-    "output": "Rojazz Café is a restaurants and cafes located in Virac.",
-    "title": "Rojazz Café Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Rojazz Café is a restaurants and cafes located in Virac.",
-    "place_name": "Rojazz Café",
-    "coordinates": {
-      "lat": 13.584380431136946,
-      "lng": 124.23471746745183
-    }
-  },
-  {
-    "input": "Where is Saturday’s Restaurant?",
-    "output": "Saturday’s Restaurant is a restaurants and cafes located in Virac.",
-    "title": "Saturday’s Restaurant Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Saturday’s Restaurant is a restaurants and cafes located in Virac.",
-    "place_name": "Saturday’s Restaurant",
-    "coordinates": {
-      "lat": 13.581020152106651,
-      "lng": 124.2145987011342
-    }
-  },
-  {
     "input": "Where is Sea Breeze 2001?",
     "output": "Sea Breeze 2001 is a restaurants and cafes located in Virac.",
     "title": "Sea Breeze 2001 Location",
@@ -4038,19 +4874,6 @@
     "coordinates": {
       "lat": 13.581391183012842,
       "lng": 124.23278613841805
-    }
-  },
-  {
-    "input": "Where is Sizzling House?",
-    "output": "Sizzling House is a restaurants and cafes located in Virac.",
-    "title": "Sizzling House Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Sizzling House is a restaurants and cafes located in Virac.",
-    "place_name": "Sizzling House",
-    "coordinates": {
-      "lat": 13.580889392708748,
-      "lng": 124.22861573676987
     }
   },
   {
@@ -4080,58 +4903,6 @@
     }
   },
   {
-    "input": "Where is The Hungry Bar?",
-    "output": "The Hungry Bar is a restaurants and cafes located in Virac.",
-    "title": "The Hungry Bar Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "The Hungry Bar is a restaurants and cafes located in Virac.",
-    "place_name": "The Hungry Bar",
-    "coordinates": {
-      "lat": 13.585363997380046,
-      "lng": 124.23812822997121
-    }
-  },
-  {
-    "input": "Where is The Prime Resto Bar?",
-    "output": "The Prime Resto Bar is a restaurants and cafes located in Virac.",
-    "title": "The Prime Resto Bar Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "The Prime Resto Bar is a restaurants and cafes located in Virac.",
-    "place_name": "The Prime Resto Bar",
-    "coordinates": {
-      "lat": 13.578715324713569,
-      "lng": 124.23135543325206
-    }
-  },
-  {
-    "input": "Where is Thirstea - Virac Town Center?",
-    "output": "Thirstea - Virac Town Center is a restaurants and cafes located in Virac.",
-    "title": "Thirstea - Virac Town Center Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Thirstea - Virac Town Center is a restaurants and cafes located in Virac.",
-    "place_name": "Thirstea - Virac Town Center",
-    "coordinates": {
-      "lat": 13.580913253521903,
-      "lng": 124.22858500408107
-    }
-  },
-  {
-    "input": "Where is Timo-Tea Milktea &Coffee Hub?",
-    "output": "Timo-Tea Milktea &Coffee Hub is a restaurants and cafes located in Virac.",
-    "title": "Timo-Tea Milktea &Coffee Hub Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Timo-Tea Milktea &Coffee Hub is a restaurants and cafes located in Virac.",
-    "place_name": "Timo-Tea Milktea &Coffee Hub",
-    "coordinates": {
-      "lat": 13.580706648306267,
-      "lng": 124.23222698978235
-    }
-  },
-  {
     "input": "Where is Twin Bar & Café?",
     "output": "Twin Bar & Café is a restaurants and cafes located in Virac.",
     "title": "Twin Bar & Café Location",
@@ -4145,19 +4916,6 @@
     }
   },
   {
-    "input": "Where is Virac Hometel?",
-    "output": "Virac Hometel is a restaurants and cafes located in Virac.",
-    "title": "Virac Hometel Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Virac Hometel is a restaurants and cafes located in Virac.",
-    "place_name": "Virac Hometel",
-    "coordinates": {
-      "lat": 13.58185832768708,
-      "lng": 124.22699813697473
-    }
-  },
-  {
     "input": "Where is ARDCI Skydeck Lounge?",
     "output": "ARDCI Skydeck Lounge is a restaurants and cafes located in Virac.",
     "title": "ARDCI Skydeck Lounge Location",
@@ -4168,110 +4926,6 @@
     "coordinates": {
       "lat": 13.581368173193223,
       "lng": 124.22987346487102
-    }
-  },
-  {
-    "input": "Where is Niño Bistro?",
-    "output": "Niño Bistro is a restaurants and cafes located in Virac.",
-    "title": "Niño Bistro Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Niño Bistro is a restaurants and cafes located in Virac.",
-    "place_name": "Niño Bistro",
-    "coordinates": {
-      "lat": 13.579295434170184,
-      "lng": 124.22802865470325
-    }
-  },
-  {
-    "input": "Where is Peymus Resto?",
-    "output": "Peymus Resto is a restaurants and cafes located in Virac.",
-    "title": "Peymus Resto Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Peymus Resto is a restaurants and cafes located in Virac.",
-    "place_name": "Peymus Resto",
-    "coordinates": {
-      "lat": 13.579402204846764,
-      "lng": 124.22762197909927
-    }
-  },
-  {
-    "input": "Where is Miekoys Pizza?",
-    "output": "Miekoys Pizza is a restaurants and cafes located in Virac.",
-    "title": "Miekoys Pizza Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Miekoys Pizza is a restaurants and cafes located in Virac.",
-    "place_name": "Miekoys Pizza",
-    "coordinates": {
-      "lat": 13.587613305309315,
-      "lng": 124.2394488840288
-    }
-  },
-  {
-    "input": "Where is On D' Wings - Francia?",
-    "output": "On D' Wings - Francia is a restaurants and cafes located in Virac.",
-    "title": "On D' Wings - Francia Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "On D' Wings - Francia is a restaurants and cafes located in Virac.",
-    "place_name": "On D' Wings - Francia",
-    "coordinates": {
-      "lat": 13.586624201844174,
-      "lng": 124.23853542327583
-    }
-  },
-  {
-    "input": "Where is 2838 Tea & Cafe - Francia?",
-    "output": "2838 Tea & Cafe - Francia is a restaurants and cafes located in Virac.",
-    "title": "2838 Tea & Cafe - Francia Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "2838 Tea & Cafe - Francia is a restaurants and cafes located in Virac.",
-    "place_name": "2838 Tea & Cafe - Francia",
-    "coordinates": {
-      "lat": 13.585508339157613,
-      "lng": 124.23804189685526
-    }
-  },
-  {
-    "input": "Where is Mizuna Restaurant?",
-    "output": "Mizuna Restaurant is a restaurants and cafes located in Virac.",
-    "title": "Mizuna Restaurant Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Mizuna Restaurant is a restaurants and cafes located in Virac.",
-    "place_name": "Mizuna Restaurant",
-    "coordinates": {
-      "lat": 13.582915375540159,
-      "lng": 124.21335317171304
-    }
-  },
-  {
-    "input": "Where is Haring Manok - Calatagan?",
-    "output": "Haring Manok - Calatagan is a restaurants and cafes located in Virac.",
-    "title": "Haring Manok - Calatagan Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Haring Manok - Calatagan is a restaurants and cafes located in Virac.",
-    "place_name": "Haring Manok - Calatagan",
-    "coordinates": {
-      "lat": 13.584063653051224,
-      "lng": 124.20860121139492
-    }
-  },
-  {
-    "input": "Where is Haring Manok - Rawis?",
-    "output": "Haring Manok - Rawis is a restaurants and cafes located in Virac.",
-    "title": "Haring Manok - Rawis Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Haring Manok - Rawis is a restaurants and cafes located in Virac.",
-    "place_name": "Haring Manok - Rawis",
-    "coordinates": {
-      "lat": 13.585907954596866,
-      "lng": 124.2376342850281
     }
   },
   {
