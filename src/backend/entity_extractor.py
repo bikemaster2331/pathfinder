@@ -176,9 +176,6 @@ class EntityExtractor:
         # Default fallback: Return None (Let RAG search everywhere)
         return None
     
-    # ========================================================================
-    # NEW METHOD 2: Listing Intent Detection (Multi-Signal)
-    # ========================================================================
     def _detect_listing_intent(self, query, found_places):
         """Detect if user wants a list/browsing experience"""
         query_lower = query.lower()
