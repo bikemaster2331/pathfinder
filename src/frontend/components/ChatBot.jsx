@@ -7,6 +7,7 @@ const ChatBot = forwardRef(({
     messages = [],
     setMessages,
     onLocationResponse,
+    activePin = null,
     variant = 'floating',
     onKeyboardChange,
     onExpand,
@@ -261,7 +262,10 @@ const ChatBot = forwardRef(({
             const res = await fetch(`${baseUrl}/ask`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: userMessage })
+                body: JSON.stringify({
+                    question: userMessage,
+                    active_pin: activePin || null
+                })
             });
 
             if (!res.ok) {
