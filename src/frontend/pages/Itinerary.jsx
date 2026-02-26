@@ -347,6 +347,7 @@ export default function ItineraryPage() {
     }, [dateRange]);
     // Chat State Lifted to Parent
     const [chatMessages, setChatMessages] = useState([]);
+    const [activePin, setActivePin] = useState(null);
 
     // SHEET STATE
     const [sheetState, setSheetState] = useState('collapsed');
@@ -727,6 +728,7 @@ export default function ItineraryPage() {
                             messages={desktopDisplayMessages}
                             setMessages={setChatMessages}
                             onKeyboardChange={setIsKeyboardOpen}
+                            activePin={activePin}
                         />
                     </div>
                 </aside>
@@ -738,7 +740,10 @@ export default function ItineraryPage() {
                     ref={mapRef}
                     selectedActivities={selectedActivities}
                     setSelectedActivities={setSelectedActivities}
-                    onMarkerClick={setSelectedLocation}
+                    onMarkerClick={(spot) => {
+                        setSelectedLocation(spot);
+                        setActivePin(spot?.name || null);  // track which pin was clicked
+                    }}
                     selectedLocation={selectedLocation}
                     mapData={allSpots}
                     selectedHub={activeHub}
@@ -832,6 +837,7 @@ export default function ItineraryPage() {
                     variant="sheet"
                     messages={chatMessages}
                     setMessages={setChatMessages}
+                    activePin={activePin}
                     containerClassName={`${styles.mobileSheet} ${styles[`mobileSheet${sheetState}`]}`}
                     formAccessory={
                         sheetState !== 'collapsed' ? (
