@@ -63,6 +63,7 @@ app.add_middleware(
 # --- DATA MODELS ---
 class AskRequest(BaseModel):
     question: str
+    active_pin: str | None = None
 
 class PlaceInfo(BaseModel):
     name: str = ""
@@ -149,7 +150,7 @@ async def ask_endpoint(request: AskRequest):
         print(f"❓ Processing: {request.question}")
         
         # 2. Run AI Task in separate thread (Prevents freezing)
-        result = await run_in_threadpool(pipeline.ask, request.question)
+        result = await run_in_threadpool(pipeline.ask, request.question, request.active_pin)
         
         # 3. SAFETY CHECK: Ensure result is valid
         if not isinstance(result, dict):
