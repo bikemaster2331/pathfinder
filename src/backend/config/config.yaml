@@ -94,6 +94,7 @@ messages:
 keywords:
   accommodation:
     - stay
+    - staycation
     - hotel
     - hotels
     - resort
@@ -101,16 +102,59 @@ keywords:
     - guesthouse
     - lodging
     - accommodation
+    - accomodation
+    - room
+    - rooms
+    - hostel
+    - motel
+    - bnb
+    - airbnb
+    - camping
+    - glamping
+    - tent
+    - tulugan
+    - matutulugan
+    - overnight
 
   dining: 
     - eat
     - food
     - restaurant
+    - resto
     - dining
     - kain
+    - kainan
+    - chibog
+    - gutom
+    - hungry
+    - foodtrip
     - coffee
     - cafe
     - delicacies
+    - breakfast
+    - lunch
+    - dinner
+    - snack
+    - merienda
+    - dessert
+    - sweets
+    - bakery
+    - carinderia
+    - karinderya
+    - eatery
+    - seafood
+
+  nightlife:
+    - drink
+    - drinks
+    - bar
+    - beer
+    - inom
+    - inuman
+    - party
+    - club
+    - chill
+    - nightlife
 
   sightseeing:
     - visit
@@ -118,62 +162,139 @@ keywords:
     - tour
     - scenic
     - view
+    - viewpoint
+    - overlook
     - landmark
     - tourist spot
     - sightseeing
+    - pasyal
+    - gala
+    - lakwatsa
+    - sunset
+    - sunrise
+    - museum
+    - church
+    - history
+    - heritage
+    - culture
 
   shopping:
     - shop
     - souvenir
     - pasalubong
     - market
+    - palengke
     - mall
     - buy
-    - shopping
+    - bili
+    - bilihan
+    - tiangge
+    - craft
+    - abaca
+    - local product
 
   swimming:
     - swim
     - swimming
     - langoy
+    - ligo
+    - maliligo
     - pool
     - falls
+    - talon
+    - waterfall
+    - waterfalls
+    - dive
+    - diving
+    - freediving
+    - snorkel
+    - snorkeling
+    - cliff diving
+    - cliff jump
+    - spring
 
   hiking:
     - hike
     - hiking
     - trek
+    - trekking
     - mountain
+    - bundok
+    - climb
+    - akyat
     - trail
     - summit
+    - peak
+    - walk
+    - nature
 
   photography:
     - photo
     - photography
     - camera
     - instagram
+    - ig worthy
+    - aesthetic
     - picture
+    - pics
     - shot
-    
+    - selfie
+    - groufie
+    - cinematic
+    - vlog
+    - video
+    - shoot
+
   surfing:
     - surf
     - surfing
     - waves
+    - alon
+    - swell
+    - break
+    - board
+    - longboard
     - puraran
+    - majestic
 
   beaches:
     - beach
+    - beaches
     - dalampasigan
+    - dagat
     - sand
-    - beaches 
+    - shoreline
+    - coast
+    - coastal
+    - cove
+    - bay
+    - island
 
   transport:
     - how to get
     - transportation
+    - transport
+    - commute
     - tricycle
     - van
+    - jeep
+    - jeepney
+    - bus
     - ferry
-    - commute
+    - boat
+    - roro
     - airport
+    - terminal
+    - port
+    - rent
+    - rental
+    - habal
+    - habal-habal
+    - drive
+    - ride
+    - sakay
+    - pamasahe
+    - directions
 
 # Protected Place Names (for translation)
 protected_places:
