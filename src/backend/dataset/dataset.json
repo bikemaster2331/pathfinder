@@ -698,8 +698,8 @@
     "place_name": "Maribina Falls"
   },
   {
-    "input": "What is Bato Church?",
-    "output": "Bato Church (St. John the Baptist Church) is one of the oldest stone churches in Bicol, built in the 1800s using coral stones.",
+    "input": "Where is Bato Church?",
+    "output": "Bato Church (St. John the Baptist Church) is one of the oldest stone churches in Bicol, built in the 1800s using coral stones. It is located in Bato Municipality",
     "title": "Bato Church Overview",
     "topic": "Sightseeing",
     "location": "Bato",
@@ -735,16 +735,6 @@
       "lng": 124.20595165635922
     },
     "place_name": "Tampad Beach"
-  },
-  {
-    "input": "Where is Ba-haw Falls?",
-    "output": "Ba-haw Falls is a waterfall located in San Andres.",
-    "title": "Ba-haw Falls Overview",
-    "topic": "Sightseeing",
-    "location": "San Andres",
-    "activities": "sightseeing",
-    "budget": "cheap",
-    "summary_offline": "Ba-haw Falls is a waterfall located in San Andres."
   },
   {
     "input": "What activities are available at Twin Rock Resort?",
@@ -798,6 +788,424 @@
     "skill_level": "intermediate",
     "group_type": "group",
     "summary_offline": "The top surfing destination in Catanduanes is Puraran Beach in Baras."
+  },
+  {
+    "input": "Is there Grab or Angkas in Catanduanes?",
+    "output": "No, Grab and Angkas are not available in Catanduanes. The island relies entirely on traditional transport: tricycles for short trips within Virac town, habal-habal (motorcycle taxis) for longer routes and inter-barangay travel, and multicabs or vans for hire for inter-municipality trips. You must negotiate fares directly with drivers. Having small bills and basic Tagalog or Bicolano phrases helps.",
+    "summary_offline": "No Grab or Angkas in Catanduanes. Use tricycles (in-town), habal-habal (longer routes), or vans for hire (inter-municipality). Negotiate fares directly with drivers.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Is There Grab or Angkas in Catanduanes",
+    "topic": "transport",
+    "activities": [
+      "transport",
+      "commute"
+    ]
+  },
+  {
+    "input": "What is the last ferry from Catanduanes back to Tabaco?",
+    "output": "Ferry departures from Virac Port to Tabaco City in Albay are typically scheduled in the morning and early afternoon, with the last trip usually around 1 to 2 PM. However, schedules change seasonally and can be cancelled entirely during bad weather, particularly during typhoon season from July to November. Always verify the schedule directly at Virac Port or with Catanduanes Shipping Lines the day before you plan to leave. Never assume the last trip will operate — have a contingency plan.",
+    "summary_offline": "Last ferry from Virac to Tabaco is usually around 1–2 PM. Schedules change seasonally and cancel during bad weather. Always verify at Virac Port the day before departure.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Last Ferry Virac to Tabaco Schedule",
+    "topic": "transport",
+    "activities": [
+      "transport",
+      "commute",
+      "ferry"
+    ]
+  },
+  {
+    "input": "What if I miss the last ferry or my flight gets cancelled in Catanduanes?",
+    "output": "Being stranded in Catanduanes due to a cancelled flight or missed ferry is a real possibility, especially during typhoon season. The practical response is to immediately book an extra night at your accommodation before rooms fill up, as other stranded travelers will be doing the same. Monitor PAGASA weather advisories and airline announcements daily during your stay. Keep your schedule flexible by at least one extra day buffer if traveling June to November. Rhaj Inn and Nitto Lodge in Virac are affordable fallback options for unplanned overnight stays.",
+    "summary_offline": "If stranded: book an extra night immediately before rooms fill. Keep a 1-day buffer in your schedule June–November. Monitor PAGASA and airline updates daily. Rhaj Inn and Nitto Lodge are affordable backup stays.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "What to Do If Stranded in Catanduanes",
+    "topic": "logistics",
+    "activities": [
+      "transport",
+      "safety",
+      "planning"
+    ]
+  },
+  {
+    "input": "How do I get from Virac Port to the town center or my hotel?",
+    "output": "Virac Port is very close to the town center — about a 5 to 10 minute tricycle ride. Tricycles wait at the port exit for arriving passengers and fares are typically 20 to 40 pesos per person for the short town run. If you have heavy luggage or are going farther out to a beach resort, negotiate a full hire rate with a tricycle or habal-habal driver directly at the port. No formal taxi service exists at the port.",
+    "summary_offline": "Virac Port to town center: 5–10 min tricycle ride (20–40 pesos per person). Tricycles wait at the port exit. For beach resorts or heavy luggage, negotiate a full hire rate directly.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Getting from Virac Port to Town",
+    "topic": "transport",
+    "activities": [
+      "transport",
+      "commute"
+    ]
+  },
+  {
+    "input": "How much is the ferry from Tabaco to Virac?",
+    "output": "The ferry ticket from Tabaco City, Albay to Virac Port, Catanduanes typically costs around 200 to 350 pesos per person for a standard passenger seat. Prices may vary slightly by operator and class of travel. Cargo and vehicle ferry fees are separate and significantly higher. It is best to purchase tickets at the Tabaco Port terminal directly on the day of travel, as online booking for this route is not consistently available.",
+    "summary_offline": "Ferry Tabaco to Virac: roughly 200–350 pesos per person. Buy tickets at Tabaco Port terminal on the day. Vehicle and cargo fees are separate and much higher.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Ferry Ticket Price Tabaco to Virac",
+    "topic": "transport",
+    "activities": [
+      "transport",
+      "ferry",
+      "budget"
+    ]
+  },
+  {
+    "input": "Is the tap water safe to drink in Catanduanes?",
+    "output": "Tap water in Catanduanes is generally not recommended for drinking without treatment. Most locals and hotels use filtered water or commercially bottled water for drinking and cooking. In Virac town, water supply is more reliable but the quality varies. Outside Virac in rural municipalities, tap water quality is inconsistent. Always drink bottled or filtered water during your stay. Convenience stores and sari-sari stores throughout the island sell bottled water at affordable prices.",
+    "summary_offline": "Tap water is not safe to drink in Catanduanes. Use bottled or filtered water throughout your stay — available at convenience stores and sari-sari stores island-wide.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Is Tap Water Safe in Catanduanes",
+    "topic": "safety",
+    "activities": [
+      "safety",
+      "health",
+      "general"
+    ]
+  },
+  {
+    "input": "Are there jellyfish at Catanduanes beaches? When is jellyfish season?",
+    "output": "Jellyfish are occasionally present at Catanduanes beaches, with sightings more common between July and October when currents shift. Box jellyfish and moon jellyfish are the most frequently seen types. The risk is real but not constant — beaches can be clear for weeks and then see a brief bloom. Before entering the water, ask resort staff or local fishermen if jellyfish have been spotted recently. Water shoes and rash guards offer partial protection. If stung, rinse with seawater (not fresh water), remove tentacles carefully without rubbing, and seek medical help in Virac for severe reactions.",
+    "summary_offline": "Jellyfish possible at beaches, most common July–October. Ask locals before swimming. Water shoes and rash guards help. For stings: rinse with seawater, remove tentacles carefully, see a doctor for severe reactions.",
+    "place_name": "Twin Rock Beach Resort",
+    "location": "VIRAC",
+    "title": "Jellyfish Risk and Season at Catanduanes Beaches",
+    "topic": "safety",
+    "activities": [
+      "safety",
+      "swimming",
+      "beaches",
+      "health"
+    ]
+  },
+  {
+    "input": "Are sea urchins a problem at Catanduanes beaches?",
+    "output": "Sea urchins are present on rocky reef sections at many Catanduanes beaches, particularly around coral formations. They are a minor but real hazard when wading near rocks. Water shoes are strongly recommended if you plan to walk on rocky areas or enter the water near reefs. Popular sandy stretches like the main swimming area at Twin Rock and Mamangal Beach are generally urchin-free, but reef edges and rock pools can have concentrations. If stepped on, do not try to remove spines with tools — soak the affected area in warm water and seek medical attention in Virac.",
+    "summary_offline": "Sea urchins found near rocky reef sections and coral areas. Wear water shoes when wading near rocks. Sandy swimming areas at Twin Rock and Mamangal are generally clear. For punctures, soak in warm water and see a doctor in Virac.",
+    "place_name": "Twin Rock Beach Resort",
+    "location": "VIRAC",
+    "title": "Sea Urchin Hazard at Catanduanes Beaches",
+    "topic": "safety",
+    "activities": [
+      "safety",
+      "swimming",
+      "beaches",
+      "health"
+    ]
+  },
+  {
+    "input": "Is it safe to hike in Catanduanes during rainy season?",
+    "output": "Hiking during rainy season (July to November) in Catanduanes carries elevated risk. Trails to waterfalls like Bote Lighthouse and Macutal Falls become extremely slippery and flash flooding is possible in river valleys. Hiking to viewpoints like Binurong Point is manageable in light rain but dangerous in a typhoon or heavy downpour. Always check PAGASA weather forecasts before any hiking excursion during this period. Hire a local guide who knows when conditions are too dangerous — they will not take you if it is genuinely unsafe.",
+    "summary_offline": "Hiking in rainy season (July–November) is risky — slippery trails and flash flood risk near rivers. Check PAGASA forecasts daily. Local guides at Bote Lighthouse and Macutal Falls will refuse to proceed in unsafe conditions.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "Safety for Hiking in Rainy Season Catanduanes",
+    "topic": "safety",
+    "activities": [
+      "safety",
+      "hiking",
+      "sightseeing"
+    ]
+  },
+  {
+    "input": "Are there mosquitoes or insects I should worry about in Catanduanes?",
+    "output": "Mosquitoes are present in Catanduanes, especially near standing water, forested areas, and rice fields. Dengue fever cases do occur in the province so insect repellent is recommended, particularly for evening and early morning hours. Bring your own repellent as supply in local stores can be limited outside Virac. Lightweight long sleeves and pants are useful for jungle treks and waterfall visits. Sand flies (niknik) can also be a nuisance at some beaches during certain wind conditions — a fine-mesh repellent like Cutprotex or DEET-based products help.",
+    "summary_offline": "Mosquitoes and dengue risk exist — bring repellent (DEET-based). Sand flies (niknik) possible at some beaches. Long sleeves recommended for forest treks and waterfall visits. Repellent availability is limited outside Virac.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Insects and Mosquito Risk in Catanduanes",
+    "topic": "safety",
+    "activities": [
+      "safety",
+      "health",
+      "hiking",
+      "beaches"
+    ]
+  },
+  {
+    "input": "What should I know about rip currents in Catanduanes?",
+    "output": "Rip currents are a real danger at open-ocean facing beaches in Catanduanes, especially Puraran Beach during surf season and exposed stretches along the eastern coast. Calmer, sheltered beaches like Twin Rock Beach Resort and Mamangal Beach have much lower rip current risk. If caught in a rip current, do not swim directly against it — swim parallel to the shore until out of the current, then swim back in diagonally. Always ask locals or resort staff about current conditions before entering any unfamiliar water. There are no permanent lifeguards at most beaches.",
+    "summary_offline": "Rip currents present at eastern coast and surf beaches, especially Puraran during peak season. Safer at Twin Rock and Mamangal. If caught: swim parallel to shore, not against the current. No permanent lifeguards at most beaches.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "Rip Current Risk at Catanduanes Beaches",
+    "topic": "safety",
+    "activities": [
+      "safety",
+      "swimming",
+      "beaches"
+    ]
+  },
+  {
+    "input": "Where do locals actually eat in Virac? Not tourist spots.",
+    "output": "For genuinely local eating, skip the main road restaurants and head to the carinderia strip inside and around Virac Public Market. The stalls open from 5 AM and serve fresh breakfast of rice, tuyo (dried fish), and hot soup for under 60 pesos. For lunch, the market interior has rotating daily specials of fish, vegetable dishes, and Laing served with rice for 80 to 100 pesos. Sea Breeze 2001 is where local families and government workers eat — proper Filipino meals at honest prices. Buddy's Mami House is the after-drinking spot for locals, popular for hot mami noodle soup late at night.",
+    "summary_offline": "Locals eat at: Virac Public Market carinderia strip (breakfast from 5am, 60–80 pesos), Sea Breeze 2001 (family Filipino meals), Buddy's Mami House (late-night mami noodles). Skip the main road restaurants for authentic pricing.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "Where Locals Actually Eat in Virac",
+    "topic": "dining",
+    "activities": [
+      "dining",
+      "food",
+      "budget",
+      "culture"
+    ]
+  },
+  {
+    "input": "What do locals in Catanduanes typically eat for breakfast?",
+    "output": "A typical Catandunganon breakfast is sinangag (garlic fried rice), a fried egg, and either tuyo (dried salted fish) or bangus (milkfish). Champorado (chocolate rice porridge) is popular with kids. Hot pandesal from local bakeries is a common morning staple. The food stalls near the Virac bus terminal and the public market area open as early as 5 AM and serve these dishes for 40 to 80 pesos. Tapsilog-style combinations are available at basic carinderias. Local residents typically eat early — by 7 AM the main morning rush is already over.",
+    "summary_offline": "Local breakfast: sinangag, fried egg, tuyo or bangus. Champorado and pandesal also common. Food stalls near Virac terminal and public market open by 5am. Meals cost 40–80 pesos. Morning rush done by 7am.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "Local Breakfast Foods in Catanduanes",
+    "topic": "dining",
+    "activities": [
+      "dining",
+      "food",
+      "culture",
+      "budget"
+    ]
+  },
+  {
+    "input": "Is there a local drink or food I should try in Catanduanes?",
+    "output": "Catanduanes has several distinctly local food items worth seeking out. Tapuy is a traditional rice wine from Bato — mildly sweet and fermented, best tried at the Bato market. Linubak is a local rice cake made with banana and coconut, sold as pasalubong. Fresh coconut wine (tuba) is available from local vendors, particularly in rural areas. For seafood, the province is known for exceptional crabs and fresh squid. Laing (taro leaves in coconut milk with chili) is the signature Bicol dish and almost every local restaurant serves their own version.",
+    "summary_offline": "Must-try local food and drink: Tapuy (rice wine from Bato), Linubak (rice cake pasalubong), Tuba (coconut wine), fresh crabs and squid, and Laing (Bicol taro and coconut dish). All widely available in Virac and Bato markets.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "Local Food and Drinks to Try in Catanduanes",
+    "topic": "dining",
+    "activities": [
+      "dining",
+      "food",
+      "culture"
+    ]
+  },
+  {
+    "input": "Is there a local market or wet market worth visiting in Catanduanes?",
+    "output": "Virac Public Market is the social and commercial heart of the island and absolutely worth a visit, especially in the early morning. The wet market section opens at dawn and fishermen bring in fresh catch directly from the boats — you can buy whole fish, crabs, and shellfish at prices far below Manila. The dry goods section has pasalubong items, local snacks, and handicrafts. Bato market is smaller but worth visiting for local produce and Tapuy rice wine. Markets in other municipalities are primarily for locals and much more basic.",
+    "summary_offline": "Virac Public Market is best visited at dawn for fresh fish direct from boats. Buy crabs, shellfish, pasalubong, and local snacks at local prices. Bato market is worth a stop for Tapuy rice wine and local produce.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "Local Market Experience in Catanduanes",
+    "topic": "shopping",
+    "activities": [
+      "shopping",
+      "culture",
+      "food",
+      "dining"
+    ]
+  },
+  {
+    "input": "What are the local festivals in Catanduanes?",
+    "output": "Catanduanes has several annual festivals tied to town fiestas and cultural heritage. The Catandungan Festival in October celebrates the province's identity with street dancing, cultural shows, and local crafts exhibits in Virac. Each municipality holds its own patron saint fiesta — Bato's fiesta in June is particularly lively. The Puraran Surfing Competition draws local and national surfers around October to December during peak swell season. Checking the local government calendar before your trip helps you time your visit with a festival for a more immersive cultural experience.",
+    "summary_offline": "Key festivals: Catandungan Festival in October (Virac), Bato town fiesta in June, and the Puraran Surfing Competition October–December. Check the local government calendar to align your visit with events.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Local Festivals and Events in Catanduanes",
+    "topic": "culture",
+    "activities": [
+      "culture",
+      "sightseeing",
+      "general"
+    ]
+  },
+  {
+    "input": "How do locals get around Catanduanes? What transport do residents use?",
+    "output": "Most Catandunganon residents use habal-habal motorcycles for daily travel, particularly outside Virac town. Tricycles are the dominant mode within town centers. For longer inter-municipality trips, multicabs (small jeepney-style vans) and passenger jeepneys operate fixed routes at fixed fares. Owning a personal motorcycle is extremely common on the island. Residents generally do not use the vans-for-hire that tourists use — those are priced for visitors. Asking a local to recommend a habal-habal driver they trust is the best way to find reliable and fairly priced transport.",
+    "summary_offline": "Locals use: habal-habal motorcycles (most common), tricycles (in-town), multicabs/jeepneys (inter-municipality fixed routes). Vans-for-hire are tourist-priced. Ask locals to recommend trusted habal-habal drivers for fair rates.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "How Locals Get Around Catanduanes",
+    "topic": "transport",
+    "activities": [
+      "transport",
+      "culture",
+      "commute"
+    ]
+  },
+  {
+    "input": "Which beach in Catanduanes is best for swimming today? How do I know if conditions are good?",
+    "output": "Beach conditions in Catanduanes change daily with wind direction, tide, and season. As a general rule: calm days with light wind favor all beaches, while strong easterly winds make the Pacific-facing beaches like Puraran rough and dangerous for swimming. For real-time conditions, the most reliable method is to ask your accommodation's staff or a local habal-habal driver in the morning — they track sea conditions daily. The PAGASA website and Windy.com (which shows wave and wind direction) are useful free tools. As a safe default: Twin Rock Beach Resort and Mamangal Beach are sheltered enough to remain swimmable on most normal days.",
+    "summary_offline": "Check Windy.com or PAGASA in the morning, or ask accommodation staff and local drivers for real-time conditions. Default safe swimming: Twin Rock Beach Resort and Mamangal Beach — both sheltered and calm on most days.",
+    "place_name": "Twin Rock Beach Resort",
+    "location": "VIRAC",
+    "title": "How to Know Which Beach Has Best Conditions Today",
+    "topic": "beaches",
+    "activities": [
+      "swimming",
+      "beaches",
+      "safety",
+      "planning"
+    ]
+  },
+  {
+    "input": "Is Puraran Beach good for swimming today or is it too rough?",
+    "output": "Whether Puraran Beach is safe for swimming on any given day depends on wind and swell conditions. During peak surf season from October to December, the waves at Puraran can be extremely powerful — swimming is dangerous and not recommended for non-surfers. Outside this season, from January to September, swells are generally smaller and the right side of the beach away from the main break is calmer for swimming. Check Windy.com for Catanduanes east coast wave heights before going — above 1.5 meters of swell height, swimming is not safe. Ask local surf camp staff on arrival, as they monitor conditions daily.",
+    "summary_offline": "Puraran swimming: avoid October–December (dangerous surf). January–September: calmer. Check Windy.com for east coast swell — above 1.5m is unsafe for swimming. Swim on the right side away from the main surf break. Ask surf camp staff on arrival.",
+    "place_name": "Puraran Beach",
+    "location": "BARAS",
+    "title": "Is Puraran Beach Safe for Swimming Today",
+    "topic": "beaches",
+    "activities": [
+      "swimming",
+      "beaches",
+      "safety",
+      "surfing"
+    ]
+  },
+  {
+    "input": "How do I check the weather in Catanduanes right now?",
+    "output": "For real-time weather in Catanduanes, use PAGASA at pagasa.dost.gov.ph for official Philippine weather forecasts and typhoon updates — this is the most important source during typhoon season. Windy.com is excellent for checking wind direction, wave heights, and sea conditions in detail — useful before beach or hiking days. Weather.com and AccuWeather both cover Catanduanes with reasonable accuracy. For typhoon paths and landfall predictions, check Typhoon2000.com. Local Facebook groups for Catanduanes tourism also post real-time condition reports from residents.",
+    "summary_offline": "Weather sources: PAGASA (official, typhoon alerts), Windy.com (wind and wave conditions), Weather.com or AccuWeather (daily forecast), Typhoon2000.com (typhoon tracking). Local Catanduanes Facebook groups post real-time conditions.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "How to Check Weather in Catanduanes",
+    "topic": "general",
+    "activities": [
+      "safety",
+      "planning",
+      "general",
+      "weather"
+    ]
+  },
+  {
+    "input": "What is the best beach for snorkeling right now? Does it depend on weather?",
+    "output": "Snorkeling quality in Catanduanes is highly weather-dependent. Strong winds and rough seas stir up sediment and dramatically reduce underwater visibility. For the best snorkeling conditions, you need calm winds (under 15 kph) and clear skies. LouCa Beach Resort in Caramoran consistently offers the best snorkeling on calm days, with clear water and visible reef life around offshore rock formations. Puraran Beach also has interesting underwater terrain but only when swell is minimal. Check Windy.com for wind speed before planning a snorkeling day — anything above 20 kph wind speed at the surface means murky water.",
+    "summary_offline": "Best snorkeling on calm days with wind under 15 kph. Top spot: LouCa Beach Resort in Caramoran (clearest water around reef rocks). Check Windy.com — above 20 kph wind means poor visibility. Puraran Beach also good when swell is minimal.",
+    "place_name": "LouCa Beach Resort",
+    "location": "CARAMORAN",
+    "title": "Best Snorkeling Beach Today Weather Dependent",
+    "topic": "beaches",
+    "activities": [
+      "swimming",
+      "snorkeling",
+      "beaches",
+      "planning"
+    ]
+  },
+  {
+    "input": "Is it a good day to go to Binurong Point? What conditions are ideal?",
+    "output": "Binurong Point is best visited on dry, clear days with low wind. The ideal conditions are early morning with clear skies — you get the best light for photos and avoid midday heat on the exposed cliffs. Rain makes the trail slippery and fog can obscure the Pacific views entirely, making the trip pointless. Check PAGASA or Windy.com the night before for rain probability. Avoid visiting during or immediately after typhoons when trail erosion and unstable cliffs are a safety concern. If it rained the night before but cleared up by morning, conditions are usually fine.",
+    "summary_offline": "Best conditions for Binurong Point: early morning, clear skies, dry trail. Rain makes it slippery and fog blocks the view. Check PAGASA the night before. Rain the previous night is fine if it cleared — avoid only during active rain or post-typhoon unstable trails.",
+    "place_name": "Binurong Point",
+    "location": "BARAS",
+    "title": "Best Conditions for Visiting Binurong Point",
+    "topic": "sightseeing",
+    "activities": [
+      "sightseeing",
+      "hiking",
+      "safety",
+      "planning"
+    ]
+  },
+  {
+    "input": "Is it safe to take a ferry today? How do I know if the ferry is cancelled?",
+    "output": "Ferry cancellations happen regularly in Catanduanes during rough seas and typhoon advisories. PAGASA issues sea advisories — when a Gale Warning or Storm Warning is in effect for the Catanduanes area, ferries will likely be suspended. To confirm if your specific trip is operating: check directly at Virac Port the morning of your travel, call Catanduanes Shipping Lines if you have their number, or ask your hotel staff who typically know the status early in the morning. Do not assume the ferry is running just because the weather looks calm locally — offshore sea conditions between Tabaco and Catanduanes can be rougher than they appear on shore.",
+    "summary_offline": "Check PAGASA sea advisories — Gale or Storm Warnings usually cancel ferries. Confirm at Virac Port the morning of departure or ask hotel staff. Don't judge conditions by how the shore looks — open water between Tabaco and Catanduanes can be rougher.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Is the Ferry Safe Today How to Check Cancellations",
+    "topic": "transport",
+    "activities": [
+      "transport",
+      "ferry",
+      "safety",
+      "planning"
+    ]
+  },
+  {
+    "input": "What are emergency numbers in Catanduanes?",
+    "output": "For emergencies in Catanduanes, key contacts include: Catanduanes Provincial Hospital in Virac at (052) 811-1423 for medical emergencies. The Philippine National Police (PNP) Catanduanes Provincial Office can be reached at (052) 811-1064. The Bureau of Fire Protection (BFP) Virac is at (052) 811-1462. The Provincial Disaster Risk Reduction and Management Office (PDRRMO) monitors typhoon and disaster situations. In remote areas with no signal, your best immediate resource is the nearest barangay hall or local guides who can relay your situation. Always save your hotel's number as your primary contact.",
+    "summary_offline": "Emergency contacts: Catanduanes Provincial Hospital (052) 811-1423, PNP Provincial Office (052) 811-1064, BFP Virac (052) 811-1462. In remote areas with no signal, go to the nearest barangay hall. Save your hotel number as primary contact.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Emergency Contact Numbers Catanduanes",
+    "topic": "safety",
+    "activities": [
+      "safety",
+      "emergency",
+      "medical",
+      "general"
+    ]
+  },
+  {
+    "input": "Is there mobile signal in Catanduanes? Which network is best?",
+    "output": "Mobile signal in Catanduanes is patchy outside Virac and the main town centers. Globe and Smart both have coverage in Virac and along major highways, but signal drops significantly in remote barangays, mountain trails, and some coastal areas. For inter-island travel research, Smart/DITO tends to perform slightly better in rural Catanduanes areas based on traveler reports. WiFi at accommodations in Virac is generally available but speeds vary. In remote spots like deep Baras trails or Gigmoto, you should expect little to no signal — download offline maps (Google Maps offline or maps.me) before heading out.",
+    "summary_offline": "Mobile signal is patchy outside Virac. Globe and Smart both work in town centers. Signal drops in remote trails, Gigmoto, and deep Baras. Download offline maps before leaving Virac. WiFi at Virac accommodations is generally available but slow.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Mobile Signal and Internet in Catanduanes",
+    "topic": "logistics",
+    "activities": [
+      "general",
+      "planning",
+      "safety"
+    ]
+  },
+  {
+    "input": "Where can I buy medicine or basic supplies in Catanduanes?",
+    "output": "Pharmacies and drugstores in Virac town carry common medications, basic first aid supplies, and over-the-counter drugs. Mercury Drug, Rose Pharmacy, and several independent pharmacies are located along the main commercial street near Virac Public Market. Outside Virac, small sari-sari stores carry limited basics like paracetamol and antiseptic. For prescription medications or specialist drugs, Virac is the only reliable source on the island — bring an adequate supply from Manila or Legazpi if you require specific medicines.",
+    "summary_offline": "Mercury Drug, Rose Pharmacy, and independent pharmacies near Virac Public Market carry medicine and first aid supplies. Outside Virac, only basic meds at sari-sari stores. Bring sufficient prescription drugs from Manila — specialty medication is unavailable outside Virac.",
+    "place_name": "Virac Public Market",
+    "location": "VIRAC",
+    "title": "Where to Buy Medicine and Supplies in Catanduanes",
+    "topic": "logistics",
+    "activities": [
+      "safety",
+      "health",
+      "general",
+      "shopping"
+    ]
+  },
+  {
+    "input": "What should I pack for a trip to Catanduanes?",
+    "output": "Essential items for Catanduanes: reef-safe sunscreen (regular sunscreen damages coral and is increasingly restricted), insect repellent with DEET, water shoes for rocky reef areas, a waterproof dry bag for beach and boat trips, cash in small denominations (ATMs exist only in Virac and card payment is rare outside of large hotels), a portable power bank (power outages occur especially during typhoon season), offline maps downloaded before you go, and lightweight rain gear if visiting between June and November. A basic first aid kit with antiseptic, bandages, and oral rehydration salts is practical for remote hiking days.",
+    "summary_offline": "Pack: reef-safe sunscreen, DEET repellent, water shoes, waterproof dry bag, cash in small bills, power bank (outages possible), downloaded offline maps, rain gear (June–November), basic first aid kit. Card payment is rare outside Virac hotels.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "What to Pack for Catanduanes Trip",
+    "topic": "logistics",
+    "activities": [
+      "planning",
+      "general",
+      "safety"
+    ]
+  },
+  {
+    "input": "Can I use my credit card in Catanduanes?",
+    "output": "Credit card acceptance in Catanduanes is very limited. A handful of larger hotels in Virac like E-Crown Hotel and Resort and The Lumber Hotel may accept cards, but most restaurants, resorts, habal-habal drivers, tour guides, and smaller guesthouses are cash only. ATMs in Virac (BDO, BPI, Landbank) are the main way to access cash — but they occasionally run out of money during peak season or after holidays. The strong advice is to withdraw sufficient cash in Legazpi or Manila before arriving, as the consequences of an empty ATM on an island are significant.",
+    "summary_offline": "Credit cards accepted only at a few larger hotels in Virac. Most places are cash only. Withdraw sufficient cash before arriving — ATMs (BDO, BPI, Landbank in Virac) occasionally run out during peak season or after holidays.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Can I Use Credit Card in Catanduanes",
+    "topic": "logistics",
+    "activities": [
+      "budget",
+      "planning",
+      "general"
+    ]
+  },
+  {
+    "input": "Are there electricity outages in Catanduanes? Should I bring a power bank?",
+    "output": "Power outages (brownouts) are common in Catanduanes, particularly during typhoon season and in rural municipalities. Virac has relatively stable electricity but planned and unplanned outages do occur. Outside Virac, some areas rely on generators or have limited power hours. Bringing a fully charged power bank is strongly recommended. Larger hotels have backup generators that kick in during outages. If you are staying at a budget guesthouse or surf camp, assume your power might not be available for periods and charge devices whenever you have the opportunity.",
+    "summary_offline": "Brownouts are common, especially during typhoon season. Virac is more stable but outages still happen. Rural areas may have limited power hours. Bring a power bank. Charge devices whenever possible. Larger hotels have backup generators.",
+    "place_name": "Virac Town Center",
+    "location": "VIRAC",
+    "title": "Power Outages Brownouts in Catanduanes",
+    "topic": "logistics",
+    "activities": [
+      "planning",
+      "general",
+      "safety"
+    ]
   },
   {
     "input": "Who created Pathfinder?",
@@ -2021,19 +2429,6 @@
     }
   },
   {
-    "input": "Where is St. John the Baptist Church?",
-    "output": "St. John the Baptist  Church is a religious sites located in Bato.",
-    "title": "St. John the Baptist  Church Location",
-    "topic": "Culture",
-    "location": "BATO",
-    "summary_offline": "St. John the Baptist  Church is a religious sites located in Bato.",
-    "place_name": "St. John the Baptist Church",
-    "coordinates": {
-      "lat": 13.610732662974675,
-      "lng": 124.29703491581695
-    }
-  },
-  {
     "input": "Where is Sakahon Beach?",
     "output": "Sakahon Beach is a hotels and resorts located in Bato.",
     "title": "Sakahon Beach Location",
@@ -2135,19 +2530,6 @@
     "coordinates": {
       "lat": 13.885858386503344,
       "lng": 124.16179072332014
-    }
-  },
-  {
-    "input": "Where is St. John the Baptist Church?",
-    "output": "St. John the Baptist Church is a religious sites located in Caramoran.",
-    "title": "St. John the Baptist Church Location",
-    "topic": "Culture",
-    "location": "CARAMORAN",
-    "summary_offline": "St. John the Baptist Church is a religious sites located in Caramoran.",
-    "place_name": "St. John the Baptist Church",
-    "coordinates": {
-      "lat": 13.983298993332824,
-      "lng": 124.13504960530524
     }
   },
   {
@@ -2268,19 +2650,6 @@
     }
   },
   {
-    "input": "Where is Ba-haw Falls?",
-    "output": "Ba-haw Falls is a falls located in Gigmoto.",
-    "title": "Ba-haw Falls Location",
-    "topic": "Nature",
-    "location": "GIGMOTO",
-    "summary_offline": "Ba-haw Falls is a falls located in Gigmoto.",
-    "place_name": "Ba-haw Falls",
-    "coordinates": {
-      "lat": 13.75387978940785,
-      "lng": 124.38320715026808
-    }
-  },
-  {
     "input": "Where is Bantayaw Point?",
     "output": "Bantayaw Point is a viewpoints located in Gigmoto.",
     "title": "Bantayaw Point Location",
@@ -2317,19 +2686,6 @@
     "coordinates": {
       "lat": 13.779120861045081,
       "lng": 124.39075791718393
-    }
-  },
-  {
-    "input": "Where is Gigmoto Inasal?",
-    "output": "Gigmoto Inasal is a restaurants and cafes located in Gigmoto.",
-    "title": "Gigmoto Inasal Location",
-    "topic": "Food",
-    "location": "GIGMOTO",
-    "summary_offline": "Gigmoto Inasal is a restaurants and cafes located in Gigmoto.",
-    "place_name": "Gigmoto Inasal",
-    "coordinates": {
-      "lat": 13.78079612966451,
-      "lng": 124.3918824809052
     }
   },
   {
@@ -3122,19 +3478,6 @@
     ]
   },
   {
-    "input": "Aesthetic cafes in Virac Catanduanes",
-    "output": "Virac has a growing cafe scene with several aesthetically pleasing spots. DAKILA Cafe has a distinctive character and is popular among locals and tourists alike. ARDCI Skydeck Lounge offers elevated views of the town alongside food and drinks. Panyero Cafe, Little Bliss Cafe, and Isla Bistro Cafe are known for their relaxed atmosphere and photogenic interiors. Twin Bar and Cafe and Taller's Brew are also popular chill spots in town.",
-    "summary_offline": "Aesthetic cafes in Virac: DAKILA Cafe, ARDCI Skydeck Lounge (with views), Panyero Cafe, Little Bliss Cafe, Isla Bistro Cafe, Twin Bar and Cafe, and Taller's Brew.",
-    "place_name": "ARDCI Skydeck Lounge",
-    "location": "VIRAC",
-    "title": "Aesthetic Cafes in Virac",
-    "topic": "dining",
-    "activities": [
-      "dining",
-      "aesthetic"
-    ]
-  },
-  {
     "input": "Where can I take the best photos in Binurong Point?",
     "output": "Binurong Point is one of the most photogenic locations in Catanduanes. The cliffside overlooks offer sweeping Pacific Ocean panoramas with lush greenery in the foreground. Early morning visits before 8am give the best light with fewer crowds. The tiered viewing areas give different angles — the lower platforms get you closer to the dramatic rock formations and waves crashing below. A wide-angle lens or phone panorama works best here.",
     "summary_offline": "Best photos at Binurong Point: arrive before 8am for golden light and fewer crowds. Use the tiered viewing platforms for different angles of the cliffs and Pacific. Wide-angle shots work best.",
@@ -3602,20 +3945,6 @@
     ]
   },
   {
-    "input": "Are there any good coffee shops in Virac aside from ARDCI?",
-    "output": "Yes, Virac has a growing cafe scene. Panyero Cafe is a local favorite known for its strong brewed Catanduanes coffee and relaxed ambiance. Taller's Brew doubles as a coffee and craft beer spot, popular with younger locals in the afternoons. Chill Cafe is a small, Instagram-friendly spot downtown with affordable drinks. All three offer Wi-Fi and are good for sitting down with a laptop.",
-    "summary_offline": "Good cafes in Virac beyond ARDCI: Panyero Cafe (local Catanduanes coffee, relaxed), Taller's Brew (coffee and craft beer), Chill Cafe (Instagram-friendly, affordable, Wi-Fi).",
-    "place_name": "Panyero Cafe",
-    "location": "VIRAC",
-    "title": "Coffee Shops in Virac",
-    "topic": "dining",
-    "activities": [
-      "dining",
-      "coffee",
-      "cafe"
-    ]
-  },
-  {
     "input": "Is LouCa Beach Resort worth visiting? What can I do there?",
     "output": "LouCa Beach Resort in Caramoran is one of the most beautiful and underrated beach resorts in Catanduanes. The beach features powdery white sand and clear blue water with excellent visibility for snorkeling around the rock formations just offshore. The resort offers kayak rentals, a beachfront restaurant, and clean, comfortable cottages. It is significantly less crowded than resorts near Virac, making it ideal for a quiet, scenic day trip or overnight stay.",
     "summary_offline": "LouCa Beach Resort (Caramoran): white sand, crystal water, excellent snorkeling around rocks. Kayak rentals, beachfront restaurant, comfortable cottages. Less crowded than Virac-area resorts.",
@@ -3708,49 +4037,6 @@
     ]
   },
   {
-    "input": "Half day trip from Virac what can I do",
-    "output": "For a half-day trip from Virac, you can visit Hinagasan Falls or Paday Falls — both are relatively close and reachable within 30 to 45 minutes. The Museo de Catanduanes in town takes about an hour to explore. A morning beach session at Twin Rock Beach Resort or Mamangal Beach is also easy from Virac. If you have a full half-day, a morning run to Tampad Beach for a swim and back is very doable.",
-    "summary_offline": "Half-day from Virac: Hinagasan or Paday Falls (30–45 min away), Museo de Catanduanes (1 hour), morning beach at Twin Rock or Mamangal Beach, or a swim at Tampad Beach.",
-    "place_name": "Hinagasan Falls",
-    "location": "VIRAC",
-    "title": "Half Day Trips from Virac",
-    "topic": "itinerary",
-    "activities": [
-      "sightseeing",
-      "swimming",
-      "hiking"
-    ]
-  },
-  {
-    "input": "What to do in Catanduanes on a rainy day?",
-    "output": "On a rainy day in Catanduanes, indoor and covered activities are your best bet. Museo de Catanduanes in Virac is a worthwhile indoor visit to learn about the island's history and culture. The cafes in Virac — DAKILA Cafe, Panyero Cafe, Little Bliss Cafe — are great for spending a relaxed few hours. If the rain is light, waterfalls like Hinagasan Falls and Maribina Falls are actually more spectacular with higher water flow. Shopping for pasalubong at Virac Public Market is also a good rainy day activity.",
-    "summary_offline": "Rainy day activities: Museo de Catanduanes (indoor history), cafe-hopping in Virac (DAKILA, Panyero, Little Bliss), visit waterfalls like Hinagasan (more impressive with rain), pasalubong shopping at Virac market.",
-    "place_name": "Museo De Catanduanes",
-    "location": "VIRAC",
-    "title": "Rainy Day Activities in Catanduanes",
-    "topic": "general",
-    "activities": [
-      "sightseeing",
-      "dining",
-      "shopping",
-      "culture"
-    ]
-  },
-  {
-    "input": "What is near Virac town center walking distance",
-    "output": "Within walking distance or a short tricycle ride from Virac town center, you can find the Museo de Catanduanes, the main cathedral and plaza, Virac Public Market, and numerous cafes and restaurants. Mamangal Beach and Barefoot Beach are among the nearest beaches to the town center, reachable in about 10 to 15 minutes by tricycle. The town itself is compact and easy to explore on foot.",
-    "summary_offline": "Near Virac town center: Museo de Catanduanes, town plaza and cathedral, Public Market, cafes and restaurants. Mamangal Beach and Barefoot Beach are 10–15 minutes by tricycle — the nearest beaches.",
-    "place_name": "Museo De Catanduanes",
-    "location": "VIRAC",
-    "title": "What is Near Virac Town Center",
-    "topic": "general",
-    "activities": [
-      "sightseeing",
-      "shopping",
-      "beaches"
-    ]
-  },
-  {
     "input": "One day itinerary in Catanduanes",
     "output": "For one full day in Catanduanes starting from Virac, a good route is: morning at Binurong Point for sunrise views (leave by 5am for the drive), then stop at Puraran Beach on the way back for a swim, lunch at a local eatery in Baras or back in Virac, afternoon visit to a waterfall like Hinagasan Falls, and end with dinner and cafe-hopping in Virac town. This covers the island's highlights in one day but requires an early start and private transport.",
     "summary_offline": "1-day Catanduanes: 5am depart for Binurong Point sunrise → Puraran Beach swim → lunch → Hinagasan Falls → evening in Virac town. Requires early start and private transport.",
@@ -3794,19 +4080,6 @@
     ]
   },
   {
-    "input": "Quick stop worth it near the airport Virac",
-    "output": "If you have time near Virac Airport, the town center is just a short tricycle ride away and worth a quick visit. The Museo de Catanduanes is a 30-minute stop for island context. Several cafes including DAKILA Cafe and Panyero Cafe are easy stops. The nearest beach to the airport area is in the Mamangal direction, about 15 minutes away. For a quick meal, the carinderia strip near the public market offers fast, authentic Filipino food.",
-    "summary_offline": "Near Virac Airport: town center is a short ride away — Museo de Catanduanes (30 min), DAKILA Cafe or Panyero Cafe, Mamangal Beach (15 min), carinderia strip near Public Market for fast local food.",
-    "place_name": "Virac Airport",
-    "location": "VIRAC",
-    "title": "What to Do Near Virac Airport Quick Stop",
-    "topic": "general",
-    "activities": [
-      "sightseeing",
-      "dining"
-    ]
-  },
-  {
     "input": "Activities for a family with kids in Catanduanes",
     "output": "Catanduanes has several family-friendly options. Twin Rock Beach Resort in Virac has calm swimming areas suitable for children with facilities for families. Mamangal Beach is another calm, shallow option near Virac. The Museo de Catanduanes is educational and appropriate for older kids. A visit to Binurong Point is manageable for families with older children who can handle light walking. Waterfall visits like Hinagasan Falls are an adventure that kids usually enjoy.",
     "summary_offline": "Family-friendly options: Twin Rock Beach Resort and Mamangal Beach (calm swimming, facilities), Museo de Catanduanes (educational), Binurong Point (light walking for older kids), Hinagasan Falls (adventure).",
@@ -3846,19 +4119,6 @@
       "beaches",
       "swimming",
       "sightseeing"
-    ]
-  },
-  {
-    "input": "Best spots to visit if I only have 2 hours in Virac",
-    "output": "With only 2 hours in Virac, prioritize based on your interest. For history: Museo de Catanduanes takes about 45 minutes. For food: the carinderia strip near the market for a quick authentic meal, then a coffee at Panyero Cafe or DAKILA Cafe. For a beach glimpse: a quick visit to Mamangal Beach is 15 minutes from town. If you want a viewpoint: ARDCI Skydeck Lounge for an elevated view of the town without traveling far.",
-    "summary_offline": "2 hours in Virac: Museo de Catanduanes (45 min), quick meal at market carinderias + coffee at Panyero or DAKILA Cafe, OR Mamangal Beach (15 min from town), OR ARDCI Skydeck Lounge for town views.",
-    "place_name": "Museo De Catanduanes",
-    "location": "VIRAC",
-    "title": "Best Spots with 2 Hours in Virac",
-    "topic": "itinerary",
-    "activities": [
-      "sightseeing",
-      "dining"
     ]
   },
   {
@@ -3925,19 +4185,6 @@
     "coordinates": {
       "lat": 13.94963098536221,
       "lng": 124.35022267619804
-    }
-  },
-  {
-    "input": "Where is Panyero Café?",
-    "output": "Panyero Café is a restaurants and cafes located in Panganiban.",
-    "title": "Panyero Café Location",
-    "topic": "Food",
-    "location": "PANGANIBAN",
-    "summary_offline": "Panyero Café is a restaurants and cafes located in Panganiban.",
-    "place_name": "Panyero Café",
-    "coordinates": {
-      "lat": 13.907878958291017,
-      "lng": 124.2996761367774
     }
   },
   {
@@ -4042,19 +4289,6 @@
     "coordinates": {
       "lat": 13.573293073630248,
       "lng": 124.13946144298322
-    }
-  },
-  {
-    "input": "Where is Canapino Diner?",
-    "output": "Canapino Diner is a restaurants and cafes located in San andres.",
-    "title": "Canapino Diner Location",
-    "topic": "Food",
-    "location": "SAN ANDRES",
-    "summary_offline": "Canapino Diner is a restaurants and cafes located in San andres.",
-    "place_name": "Canapino Diner",
-    "coordinates": {
-      "lat": 13.572931099633045,
-      "lng": 124.14044111946026
     }
   },
   {
@@ -4679,19 +4913,6 @@
     "coordinates": {
       "lat": 13.581306526011169,
       "lng": 124.21342438651737
-    }
-  },
-  {
-    "input": "Where is Canapino Diner?",
-    "output": "Canapino Diner is a restaurants and cafes located in Virac.",
-    "title": "Canapino Diner Location",
-    "topic": "Food",
-    "location": "VIRAC",
-    "summary_offline": "Canapino Diner is a restaurants and cafes located in Virac.",
-    "place_name": "Canapino Diner",
-    "coordinates": {
-      "lat": 13.58138852108624,
-      "lng": 124.22841093861653
     }
   },
   {
