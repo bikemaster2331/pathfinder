@@ -723,7 +723,12 @@ class Pipeline:
         Returns (entities, context_note, clarification).
         context_note is a string for Scenario C (ambiguous), None otherwise.
         """
-        has_reference     = any(w in query_lower for w in self.REFERENCE_WORDS)
+        # FIX: use word boundary regex so 'it' doesn't match substrings like
+        # 'capital', 'activity', 'visit', 'historic', etc.
+        has_reference = any(
+            re.search(r'\b' + re.escape(w) + r'\b', query_lower)
+            for w in self.REFERENCE_WORDS
+        )
         has_place_already = bool(entities['places'])
 
         # Not a follow-up — pass through untouched
@@ -850,6 +855,18 @@ class Pipeline:
         if context_note:
             print(f"[CONTEXT] Will prepend assumption note for: '{context_note}'")
 
+        # ── Budget signal override ─────────────────────────────────────────
+        # If the query contains cost/price/fee words, treat the intent as 'budget'
+        # regardless of what else the entity extractor detected. This prevents
+        # "how much does it cost to stay there" from activating the accommodation
+        # filter (via 'stay') and blocking budget/fee entries for a tourist spot.
+        BUDGET_SIGNALS = ['how much', 'magkano', 'cost', 'price', 'fee', 'entrance',
+                          'bayad', 'libre', 'expensive', 'cheap', 'afford']
+        if any(sig in query_lower for sig in BUDGET_SIGNALS):
+            if 'budget' not in entities.get('activities', []):
+                entities['activities'] = ['budget']
+                print(f"[ENTITIES] Budget signal detected — overriding activity to ['budget']")
+
         # ── Separate towns vs specific places ─────────────────────────────
         target_towns          = []
         specific_places_found = []
@@ -972,7 +989,14 @@ class Pipeline:
                           f"loc={meta.get('location', '?')} | "
                           f"activities_tag='{meta.get('activities_tag', '')[:25]}'")
 
-                    if not self._passes_activity_filter(meta, required_keywords):
+                    # FIX: Skip activity filter when a specific place is already resolved.
+                    # When specific_places_found is set, the where_filter already scoped
+                    # ChromaDB to that exact place. Running activity filter here risks
+                    # dropping the only 3 Puraran/Maribina docs because their activities_tag
+                    # is 'surfing' not 'dining'. The user asked about the place — trust
+                    # semantic match, not tag matching.
+                    # Activity filter only makes sense for browsing (no locked place).
+                    if not specific_places_found and not self._passes_activity_filter(meta, required_keywords):
                         continue
 
                     if specific_places_found:
@@ -993,11 +1017,28 @@ class Pipeline:
                     print(f"[FILTER] ✓ Kept '{place_name_tag}'")
                     place_key = meta.get('place_name', '').strip()
                     if not place_key:
-                        print(f"[FILTER] ✗ Skipped — empty place_name")
+                        # FIX: General/province-level entries have no place_name (e.g. "where is
+                        # catanduanes located", "is catanduanes safe"). Their conf=0.9+ answers
+                        # were being silently dropped. Collect the answer — just skip geo lookup
+                        # since there is no specific pin to show for a province-level fact.
+                        print(f"[FILTER] ✓ Kept (no pin) — general/province-level entry")
+                        answers_found.append(meta.get('summary_offline', meta['answer']))
                         continue
-                
+
+                    # FIX: Suppress specific-place pins when query is clearly general
+                    # (no target place or town) and general entries already have high
+                    # confidence answers. Prevents unrelated hotel/airport pins from
+                    # appearing on answers like "where is catanduanes located".
+                    is_general_query = not specific_places_found and not target_towns
+                    if is_general_query and answers_found:
+                        # We already have general entries answering the question.
+                        # Still collect the answer text but skip the geo pin.
+                        print(f"[FILTER] ✓ Kept text only (no pin) — general query, specific place suppressed")
+                        answers_found.append(meta.get('summary_offline', meta['answer']))
+                        continue
+
                     answers_found.append(meta.get('summary_offline', meta['answer']))
-                    
+
                     if not is_browsing:   # ← ONLY do geo lookup in specific mode
                         place_key = meta.get('place_name')
                         if place_key:
@@ -1018,24 +1059,34 @@ class Pipeline:
                 final_locations = []
             else:
                 if is_browsing:
-                    descriptions = []
-                    seen         = set()
-
+                    # FIX: Best-conf-per-place aggregation before dedup.
+                    # Old code was first-seen: if a place had 3 entries and the activity
+                    # filter happened to skip its highest-conf entry, the place got
+                    # represented by a weaker entry. Now we pick the best-passing entry
+                    # per place first, then rank unique places by that best score.
+                    place_best = {}  # place_name → (best_conf, index)
                     for i, meta in enumerate(results['metadatas'][0]):
                         name = meta.get('place_name', '').strip()
                         conf = 1 - results['distances'][0][i]
-
+                        if not name or conf < 0.30:
+                            continue
                         if not self._passes_activity_filter(meta, required_keywords):
                             continue
+                        if name not in place_best or conf > place_best[name][0]:
+                            place_best[name] = (conf, i)
 
-                        if name and name not in seen and conf >= 0.30 and len(seen) < requested_count:
-                            descriptions.append(name)
-                            seen.add(name)
+                    # Sort places by their best confidence, take top requested_count
+                    ranked_places = sorted(place_best.items(), key=lambda x: x[1][0], reverse=True)
+                    ranked_places = ranked_places[:requested_count]
+                    print(f"[BROWSING] Best-conf per place: {[(n, f'{c:.3f}') for n,(c,_) in ranked_places]}")
 
-                            loc_data = self.geo_engine.get_coords(name)
-                            if loc_data and loc_data['name'] not in seen_places:
-                                final_locations.append(loc_data)
-                                seen_places.add(loc_data['name'])
+                    descriptions = []
+                    for name, (conf, _) in ranked_places:
+                        descriptions.append(name)
+                        loc_data = self.geo_engine.get_coords(name)
+                        if loc_data and loc_data['name'] not in seen_places:
+                            final_locations.append(loc_data)
+                            seen_places.add(loc_data['name'])
 
                     print(f"[BROWSING] Final descriptions ({len(descriptions)}): {descriptions}")
 
@@ -1062,9 +1113,23 @@ class Pipeline:
         if context_note:
             raw_answer = f"(Assuming you mean {context_note}) " + raw_answer
 
-        # Cache and background enhance
-        is_context_query = any(w in query_lower for w in self.REFERENCE_WORDS)
-        is_vague_query = not specific_places_found and not target_towns and not entities.get('activities')
+        # FIX: use word boundary regex — same fix as _resolve_context.
+        # Previously 'it' in REFERENCE_WORDS matched 'capital', 'activity', etc.
+        # causing valid queries to skip the cache unnecessarily.
+        is_context_query = any(
+            re.search(r'\b' + re.escape(w) + r'\b', query_lower)
+            for w in self.REFERENCE_WORDS
+        )
+        # FIX: old is_vague_query was too aggressive — it classified ANY province-level
+        # query (no place, no town, no activity) as vague and skipped caching entirely.
+        # "where is catanduanes", "how do i get to catanduanes", "historic sites in
+        # catanduanes" all hit this. Now: only skip caching if we actually have NO answer.
+        is_vague_query = (
+            not specific_places_found
+            and not target_towns
+            and not entities.get('activities')
+            and not answers_found  # ← only truly vague if we found nothing useful
+        )
         if not is_context_query and not is_vague_query:
             self.semantic_cache.set(normalized, raw_answer, final_locations, requested_count)
         else:
