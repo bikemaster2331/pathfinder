@@ -29019,32 +29019,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Gigmoto Inasal",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A local grill house specializing in chicken inasal, perfect for a hearty, smoky lunch after visiting the nearby falls.",
-        "municipality": "GIGMOTO",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "10:00-20:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 210,
-        "image": "/images/gigmoto_inasal.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.3918824809052,
-          13.78079612966451
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Bestea X E-fren Fries",
         "type": "RESTAURANTS & CAFES",
         "description": "A quick-service snack stop offering fries and milk tea, popular with local students and travelers needing a sugar fix.",
@@ -29617,32 +29591,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Panyero Café",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A cozy coffee spot in Panganiban, ideal for a caffeine break while traversing the northern loop.",
-        "municipality": "PANGANIBAN",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "08:00-20:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 239,
-        "image": "/images/panyero_cafe.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2996761367774,
-          13.907878958291017
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Enerking Garden Resort",
         "type": "HOTELS & RESORTS",
         "description": "A garden-themed resort in Panganiban offering a green, relaxing environment for overnight stays.",
@@ -29793,33 +29741,6 @@
         "coordinates": [
           124.30441513824577,
           13.910962045093433
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Canapino Diner",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A reliable dining stop in San Andres serving a mix of local favorites and diner staples, popular with travelers waiting for the ferry.",
-        "municipality": "SAN ANDRES",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "07:00-20:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 248,
-        "original_activity": "dining",
-        "image": "/images/canapino.png"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.14044111946026,
-          13.572931099633045
         ]
       }
     },
