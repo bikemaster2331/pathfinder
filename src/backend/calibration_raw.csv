@@ -1,0 +1,58 @@
+query,category,expected,top1_score,top2_score,top3_score,top1_title,top1_place,top1_doc,verdict
+Where is Puraran Beach?,specific_place,perfect,1.0,1.0,0.7921,Puraran Beach Location,Puraran Beach,Where is Puraran Beach?,HIGH
+Where is Binurong Point located?,specific_place,perfect,0.9714,0.9714,0.8803,Binurong Point Location,Binurong Point,Where is Binurong Point?,HIGH
+Where is Nitto Lodge?,specific_place,perfect,0.8883,0.8883,0.7366,Nitto Lodge Location,,Where is Nitto Lodge located in Virac?,HIGH
+Where is Twin Rock Beach Resort?,specific_place,perfect,1.0,1.0,0.9919,Twin Rock Resort Location,Twin Rock Beach Resort,Where is Twin Rock Beach Resort?,HIGH
+Where is Maribina Falls?,specific_place,perfect,1.0,1.0,0.9565,Maribina Falls Location,Maribina Falls,Where is Maribina Falls?,HIGH
+Where is E-Crown Hotel and Resort?,specific_place,perfect,0.9879,0.9879,0.8763,E-Crown Hotel Location,E-Crown Hotel and Resort,Where is E-Crown Hotel and Resort located?,HIGH
+Where is Tuwad-Tuwadan Blue Lagoon?,specific_place,perfect,1.0,1.0,0.7804,Tuwad-Tuwadan Blue Lagoon Location,Tuwad-Tuwadan Blue Lagoon,Where is Tuwad-Tuwadan Blue Lagoon?,HIGH
+Where is Virac Airport?,specific_place,perfect,1.0,0.8016,0.6947,Virac Airport Location,Virac Airport,Where is Virac Airport?,HIGH
+Where is Rhaj Inn?,specific_place,perfect,1.0,0.9859,0.7231,Rhaj Inn Location,Rhaj Inn,Where is Rhaj Inn?,HIGH
+Where is Nahulugan Falls?,specific_place,perfect,1.0,1.0,1.0,Nahulugan Falls Overview,Nahulugan Falls,Where is Nahulugan Falls?,HIGH
+hotels in virac,browsing,perfect,0.6951,0.656,0.6551,Getting from Virac Port to Town,Virac Town Center,How do I get from Virac Port to the town center or my hotel?,MEDIUM
+beaches in catanduanes for swimming,browsing,perfect,0.8733,0.8313,0.8015,Best Beaches for Swimming and Snorkeling,Twin Rock Beach Resort,Best beaches in Catanduanes for swimming and snorkeling.,HIGH
+waterfalls near virac,browsing,perfect,0.6535,0.6474,0.5873,Best Waterfalls in Catanduanes,Maribina Falls,Beautiful waterfalls in Catanduanes,MEDIUM
+where to eat cheap in virac,browsing,perfect,0.887,0.885,0.7651,Cheap Affordable Food in Virac,Virac Public Market,Cheap places to eat in Virac Catanduanes,HIGH
+tourist spots in baras,browsing,perfect,0.7657,0.6597,0.6426,Baras Location,,Where is Baras located?,MEDIUM
+coffee shops virac,browsing,perfect,0.6932,0.6684,0.6408,Virac Public Market Location,Virac Public Market,Where is Virac Public Market?,MEDIUM
+resorts in pandan catanduanes,browsing,perfect,0.6761,0.6703,0.6349,Tourist Spots and Activities in Pandan,Tuwad-Tuwadan Blue Lagoon,What can I do in Pandan municipality? Tourist spots in Pandan.,MEDIUM
+accommodation in bato,browsing,partial,0.6682,0.575,0.537,What to Do and See in Bato,St. John the Baptist Church,What is there to see in Bato municipality?,MEDIUM
+restaurants in gigmoto,browsing,partial,0.63,0.5468,0.5468,What to Do in Gigmoto,Nahulugan Falls,What is there to do in Gigmoto? Is it worth visiting?,LOW
+budget hotels catanduanes,browsing,perfect,0.85,0.777,0.6979,Best Budget Accommodation Catanduanes,Nitto Lodge,Best budget accommodation in Catanduanes,HIGH
+how much is the entrance fee at Binurong Point,budget,perfect,0.9097,0.9046,0.8309,Binurong Point Entrance Fee and Cost,Binurong Point,What is the entrance fee at Binurong Point?,HIGH
+how much does it cost to surf at Puraran,budget,perfect,0.7119,0.6943,0.6082,Puraran Beach Entrance and Surf Rates,Puraran Beach,Is there an entrance fee for Puraran Beach? How much is surfing?,MEDIUM
+how much is the ferry from tabaco to virac,budget,perfect,0.9324,0.8034,0.5932,Ferry Ticket Price Tabaco to Virac,Virac Town Center,How much is the ferry from Tabaco to Virac?,HIGH
+how much is a stay per night in e-crown hotel,budget,none,0.6783,0.6783,0.6569,E-Crown Hotel Location,E-Crown Hotel and Resort,Is E-Crown Hotel and Resort a luxury option?,MEDIUM
+how much is Twin Rock Beach Resort entrance fee,budget,perfect,0.8654,0.7751,0.7287,Twin Rock Beach Resort Day Tour Fees,Twin Rock Beach Resort,Twin Rock Beach Resort entrance fee for day tour.,HIGH
+how much is maribina falls entrance,budget,perfect,0.8074,0.728,0.728,Maribina Falls Entrance and Cottage Fees,Maribina Falls,Maribina Falls entrance fee and parking.,HIGH
+how much is habal-habal hire in virac,budget,partial,0.4247,0.4176,0.404,Virac Public Market Location,Virac Public Market,Where is Virac Public Market?,VERY_LOW
+cost of visiting tuwad-tuwadan blue lagoon,budget,perfect,0.8399,0.7089,0.7089,Tuwad-Tuwadan Blue Lagoon Fees,Tuwad-Tuwadan Blue Lagoon,How much to enter Tuwad-Tuwadan Blue Lagoon?,HIGH
+price of guided tour binurong point,budget,perfect,0.7689,0.7114,0.6873,Binurong Point Fees and Guides,Binurong Point,How much does it cost to go to Binurong Point? What are the fees?,MEDIUM
+how much is the boat to palumbanes island,budget,perfect,0.8484,0.6887,0.6887,Palumbanes Island Boat Rental Costs,Palumbanes Island,How much is the boat going to Palumbanes Island?,HIGH
+is there grab in catanduanes,logistics,perfect,0.8259,0.532,0.5309,Is There Grab or Angkas in Catanduanes,Virac Town Center,Is there Grab or Angkas in Catanduanes?,HIGH
+what time is the last ferry from catanduanes,logistics,perfect,0.8384,0.6325,0.6137,Last Ferry Virac to Tabaco Schedule,Virac Town Center,What is the last ferry from Catanduanes back to Tabaco?,HIGH
+is the tap water safe to drink,logistics,perfect,0.8912,0.3997,0.3063,Is Tap Water Safe in Catanduanes,Virac Town Center,Is the tap water safe to drink in Catanduanes?,HIGH
+are there jellyfish in catanduanes beaches,logistics,perfect,0.8641,0.86,0.6586,Jellyfish Risk and Season at Catanduanes Beaches,Twin Rock Beach Resort,Are there jellyfish at Catanduanes beaches? When is jellyfish season?,HIGH
+how do i get from virac to puraran beach,transport,perfect,0.9834,0.9113,0.7284,How to Get to Puraran Beach,Puraran Beach,How do I get from Virac to Puraran Beach?,HIGH
+how do i get to catanduanes from manila,transport,perfect,0.9852,0.8703,0.7695,Getting to Catanduanes,Virac Airport,How do I get to Catanduanes from Manila?,HIGH
+is there mobile signal in baras catanduanes,logistics,perfect,0.7617,0.4664,0.4664,Mobile Signal and Internet in Catanduanes,Virac Town Center,Is there mobile signal in Catanduanes? Which network is best?,MEDIUM
+what to do if my flight gets cancelled,logistics,perfect,0.6131,0.3949,0.372,What to Do If Stranded in Catanduanes,Virac Town Center,What if I miss the last ferry or my flight gets cancelled in Catanduanes?,LOW
+is it safe to swim at puraran beach,safety,perfect,0.9884,0.7471,0.7409,Is Puraran Beach Safe for Swimming,Puraran Beach,Is it safe to swim at Puraran Beach?,HIGH
+emergency numbers catanduanes,safety,perfect,0.9251,0.5632,0.4349,Emergency Contact Numbers Catanduanes,Virac Town Center,What are emergency numbers in Catanduanes?,HIGH
+what is catanduanes known for,general,perfect,0.9114,0.7053,0.6517,Catanduanes Overview,,What is Catanduanes known for?,HIGH
+best time to visit catanduanes,general,perfect,0.9446,0.8804,0.7042,Best Time to Visit Catanduanes,Puraran Beach,What is the best time to visit Catanduanes?,HIGH
+is catanduanes safe for tourists,general,perfect,0.9679,0.7287,0.7216,Safety for Tourists,,Is Catanduanes safe for tourists?,HIGH
+things to do in catanduanes,general,perfect,0.7702,0.7649,0.7174,Family Friendly Activities for Kids,Maribina Falls,Are there activities for kids in Catanduanes? Family friendly spots.,MEDIUM
+one day itinerary catanduanes,general,perfect,0.9629,0.9076,0.6383,One Day Itinerary Catanduanes,Binurong Point,One day itinerary in Catanduanes,HIGH
+what language do they speak in catanduanes,general,perfect,0.8114,0.7099,0.6979,Local Language,,What language do people speak in Catanduanes?,HIGH
+how much is the room rate at e-crown hotel,edge_no_answer,none,0.677,0.677,0.6634,E-Crown Hotel Location,E-Crown Hotel and Resort,Where is E-Crown Hotel and Resort located?,MEDIUM
+does puraran beach have wifi,edge_no_answer,none,0.6868,0.6746,0.6426,Pacific Surfers WiFi,,Does Pacific Surfers Paradise Resort offer WiFi?,MEDIUM
+what is the phone number of twin rock resort,edge_no_answer,none,0.7702,0.7702,0.7683,Twin Rock Resort Location,Twin Rock Beach Resort,Where is Twin Rock Beach Resort?,MEDIUM
+is there a doctor at binurong point,edge_no_answer,none,0.6379,0.6379,0.6074,Binurong Point Location,Binurong Point,Where is Binurong Point?,LOW
+can i bring my pet dog to mamangal beach,edge_no_answer,none,0.5529,0.485,0.4665,Activities at Mamangal Beach,,What can I do in Mamangal Beach?,LOW
+what is the room number of the manager at lumber,edge_no_answer,none,0.5183,0.5183,0.3915,The Lumber Amenities,The Lumber Hotel and Resort,What amenities does The Lumber Hotel and Resort offer?,LOW
+how to go to puraran,alias,perfect,0.6605,0.6333,0.5869,How to Get to Puraran Beach,Puraran Beach,How do I get from Virac to Puraran Beach?,MEDIUM
+majestic surf spot catanduanes,alias,perfect,0.7866,0.7866,0.6213,Puraran Beach Surfing,Puraran Beach,Where can I surf in Catanduanes?,MEDIUM
+e-crown hotel virac,alias,perfect,0.7953,0.7953,0.6982,E-Crown Hotel Location,E-Crown Hotel and Resort,Where is E-Crown Hotel and Resort located?,MEDIUM
+bato church catanduanes,alias,perfect,0.8439,0.6125,0.6005,Bato Church Overview,,Where is Bato Church?,HIGH
+fertility island catanduanes,alias,partial,0.6481,0.6068,0.5635,Catanduanes Location,,Where is Catanduanes located?,LOW
