@@ -3,74 +3,100 @@
     "input": "What is Catanduanes known for?",
     "output": "Catanduanes is known for its beautiful beaches, mountains, and surfing spots.",
     "title": "Catanduanes Overview",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "The province of Catanduanes is known for its beautiful beaches, mountains, and world-class surfing spots."
+    "summary_offline": "The province of Catanduanes is known for its beautiful beaches, mountains, and world-class surfing spots.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Where is Catanduanes located?",
     "output": "Catanduanes is an island province in the Bicol Region of the Philippines.",
     "title": "Catanduanes Location",
-    "topic": "Geography",
+    "topic": "geography",
     "location": "Bicol Region",
-    "summary_offline": "Catanduanes is an island province situated in the Bicol Region of the Philippines."
+    "summary_offline": "Catanduanes is an island province situated in the Bicol Region of the Philippines.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What is the capital of Catanduanes?",
     "output": "The capital municipality of Catanduanes is Virac.",
     "title": "Capital of Catanduanes",
-    "topic": "Geography",
+    "topic": "geography",
     "location": "Virac",
-    "summary_offline": "The capital of Catanduanes is the municipality of Virac."
+    "summary_offline": "The capital of Catanduanes is the municipality of Virac.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Is Catanduanes safe for tourists?",
     "output": "Catanduanes is generally safe and peaceful for tourists.",
     "title": "Safety for Tourists",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "Catanduanes is considered a safe and peaceful destination for tourists."
+    "summary_offline": "Catanduanes is considered a safe and peaceful destination for tourists.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What is the weather like in Catanduanes?",
     "output": "Catanduanes has tropical weather, alternating between sunny and rainy seasons.",
     "title": "Weather",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "The province experiences typical tropical weather, alternating between sunny and rainy seasons."
+    "summary_offline": "The province experiences typical tropical weather, alternating between sunny and rainy seasons.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What language do people speak in Catanduanes?",
     "output": "The primary languages spoken are Bicolano, Filipino, and English.",
     "title": "Local Language",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "The languages spoken are Bicolano, Filipino, and English."
+    "summary_offline": "The languages spoken are Bicolano, Filipino, and English.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What is the main industry of Catanduanes?",
     "output": "The main industries are abaca production, fishing, and agriculture.",
     "title": "Main Industry",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "The main industries are abaca production, fishing, and agriculture."
+    "summary_offline": "The main industries are abaca production, fishing, and agriculture.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Is Catanduanes a good place for family trips?",
     "output": "Catanduanes is a family-friendly destination with peaceful beaches and nature sites.",
     "title": "Family Travel Suitability",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
     "group_type": "family",
-    "summary_offline": "Catanduanes is a family-friendly destination known for its peaceful environment, beaches, and nature sites."
+    "summary_offline": "Catanduanes is a family-friendly destination known for its peaceful environment, beaches, and nature sites.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Where is Virac Public Market?",
     "output": "Virac Public Market is located in the town proper near the port and offers local souvenirs, fresh seafood, and native delicacies.",
     "title": "Virac Public Market Location",
-    "topic": "Shopping",
+    "topic": "shopping",
     "location": "Virac",
-    "activities": "shopping",
+    "activities": [
+      "shopping"
+    ],
     "budget": "cheap",
     "summary_offline": "Virac Public Market is in the town center and is the go-to spot for souvenirs and local food.",
     "coordinates": {
@@ -83,18 +109,22 @@
     "input": "What are the best tourist spots in Catanduanes?",
     "output": "Major tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadan Blue Lagoon, Bato Church, and Nahulugan Falls.",
     "title": "Top Tourist Spots",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "Various",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadan Blue Lagoon, Bato Church, and Nahulugan Falls."
   },
   {
     "input": "Where is Virac Airport?",
     "output": "Virac Airport is located in the capital town of Virac and serves as the main gateway to the province.",
     "title": "Virac Airport Location",
-    "topic": "Transport",
+    "topic": "transport",
     "location": "Virac",
-    "activities": "transport",
+    "activities": [
+      "transport"
+    ],
     "summary_offline": "Virac Airport is the main airport located in the capital town of Virac.",
     "coordinates": {
       "lat": 13.579601473762152,
@@ -106,9 +136,12 @@
     "input": "Which are the most visited beaches in Catanduanes?",
     "output": "Puraran Beach is a popular destination famous for surfing.",
     "title": "Top Beach - Puraran",
-    "topic": "Swimming",
+    "topic": "swimming",
     "location": "Baras",
-    "activities": "surfing",
+    "activities": [
+      "surfing",
+      "swimming"
+    ],
     "place_name": "Puraran Beach",
     "coordinates": {
       "lat": 13.691946453490571,
@@ -119,9 +152,11 @@
     "input": "How do I get to the airport?",
     "output": "Virac Airport is accessible by tricycle or van from the town center of Virac.",
     "title": "Transport to Airport",
-    "topic": "Transport",
+    "topic": "transport",
     "location": "Virac",
-    "activities": "transport",
+    "activities": [
+      "transport"
+    ],
     "summary_offline": "You can reach Virac Airport by tricycle or van from the town center.",
     "coordinates": {
       "lat": 13.579601473762152,
@@ -133,9 +168,11 @@
     "input": "What is Binurong Point?",
     "output": "Binurong Point is a scenic cliffside destination overlooking the Pacific Ocean in Baras.",
     "title": "Binurong Point Overview",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "Baras",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "group_type": "group",
     "summary_offline": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
     "coordinates": {
@@ -148,9 +185,12 @@
     "input": "What is Maribina Falls?",
     "output": "Maribina Falls is a waterfall in Bato known for its refreshing waters suitable for swimming.",
     "title": "Maribina Falls Overview",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "Bato",
-    "activities": "swimming",
+    "activities": [
+      "sightseeing",
+      "swimming"
+    ],
     "budget": "cheap",
     "summary_offline": "Maribina Falls is a popular attraction in Bato known for its refreshing waters.",
     "coordinates": {
@@ -163,9 +203,11 @@
     "input": "What is Mamangal Beach known for?",
     "output": "Mamangal Beach is known for its wide sandy shore and calm waters.",
     "title": "Mamangal Beach Overview",
-    "topic": "Swimming",
+    "topic": "swimming",
     "location": "Virac",
-    "activities": "swimming",
+    "activities": [
+      "swimming"
+    ],
     "group_type": "family",
     "summary_offline": "Mamangal Beach is known for its wide sandy shoreline and calm, swimming-friendly waters.",
     "coordinates": {
@@ -178,9 +220,12 @@
     "input": "Where is Twin Rock Beach Resort?",
     "output": "Twin Rock Beach Resort is located in Igang, Virac.",
     "title": "Twin Rock Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "swimming",
+    "activities": [
+      "accommodation",
+      "swimming"
+    ],
     "budget": "mid",
     "group_type": "family",
     "summary_offline": "Twin Rock Beach Resort is located in Virac.",
@@ -194,9 +239,11 @@
     "input": "What activities are available at Twin Rock Resort?",
     "output": "Twin Rock Resort offers swimming, ziplining, and various water sports.",
     "title": "Twin Rock Resort Activities",
-    "topic": "Swimming",
+    "topic": "swimming",
     "location": "Virac",
-    "activities": "swimming",
+    "activities": [
+      "swimming"
+    ],
     "budget": "mid",
     "group_type": "family",
     "summary_offline": "The resort offers activities like swimming, ziplining, and various water sports.",
@@ -210,9 +257,11 @@
     "input": "Where can I surf in Catanduanes?",
     "output": "Puraran Beach in Baras is the most popular surfing spot in Catanduanes.",
     "title": "Puraran Beach Surfing",
-    "topic": "Surfing",
+    "topic": "surfing",
     "location": "Baras",
-    "activities": "surfing",
+    "activities": [
+      "surfing"
+    ],
     "skill_level": "intermediate",
     "summary_offline": "The top surfing destination in Catanduanes is Puraran Beach in Baras.",
     "coordinates": {
@@ -228,7 +277,10 @@
     "topic": "beaches",
     "summary_offline": "Puraran Beach is located in Baras, Catanduanes. It's a world-class surfing destination known as 'Majestic'.",
     "location": "Baras",
-    "activities": "surfing",
+    "activities": [
+      "beaches",
+      "surfing"
+    ],
     "coordinates": {
       "lat": 13.691803137745696,
       "lng": 124.39882862882942
@@ -240,9 +292,11 @@
     "input": "Is there camping in Catanduanes?",
     "output": "Camping is allowed at sites like Binurong Point and Puraran Beach.",
     "title": "Camping Spots",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Various",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Camping is permitted at various scenic sites including Binurong Point and Puraran Beach."
   },
@@ -250,9 +304,11 @@
     "input": "What are the room rates at ARDCI Corporate Inn?",
     "output": "ARDCI Corporate Inn offers standard to premium rooms for travelers staying in Virac.",
     "title": "ARDCI Corporate Inn Rates",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "ARDCI Corporate Inn offers comfortable rooms in Virac.",
@@ -266,7 +322,7 @@
     "input": "Is ARDCI Corporate Inn budget-friendly?",
     "output": "ARDCI Corporate Inn is a mid-to-high range hotel offering comfort and amenities.",
     "title": "ARDCI Corporate Inn Rates",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
     "budget": "expensive",
     "summary_offline": "ARDCI Corporate Inn offers comfortable rooms in Virac.",
@@ -274,15 +330,20 @@
       "lat": 13.5812552,
       "lng": 124.2301155
     },
-    "place_name": "ARDCI Corporate Inn"
+    "place_name": "ARDCI Corporate Inn",
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "What activities are available at Puraran Beach?",
     "output": "Puraran Beach offers surfing, swimming, and beach access.",
     "title": "Puraran Activities",
-    "topic": "Activities",
+    "topic": "activities",
     "location": "Baras",
-    "activities": "surfing",
+    "activities": [
+      "surfing"
+    ],
     "budget": "mid",
     "summary_offline": "Puraran Beach offers surfing, swimming, and beach activities.",
     "coordinates": {
@@ -295,18 +356,24 @@
     "input": "Where can I eat in Catanduanes?",
     "output": "Local restaurants and cafes in downtown Virac serve Filipino cuisine and fresh seafood.",
     "title": "Dining in Virac",
-    "topic": "Food",
+    "topic": "food",
     "location": "Virac",
-    "activities": "food",
+    "activities": [
+      "dining",
+      "food"
+    ],
     "summary_offline": "Local restaurants and cafes in downtown Virac serve Filipino cuisine and fresh seafood."
   },
   {
     "input": "Where can I find local food in Catanduanes?",
     "output": "Local delicacies like linubak and fresh seafood are available at Virac Public Market and nearby eateries.",
     "title": "Local Cuisine",
-    "topic": "Food",
+    "topic": "food",
     "location": "Virac",
-    "activities": "food",
+    "activities": [
+      "dining",
+      "food"
+    ],
     "budget": "cheap",
     "summary_offline": "Local delicacies like linubak and fresh seafood are available at Virac Public Market."
   },
@@ -314,9 +381,11 @@
     "input": "Where is Nitto Lodge located in Virac?",
     "output": "Nitto Lodge is situated in the town proper of Virac, close to shops and local dining spots.",
     "title": "Nitto Lodge Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Nitto Lodge is located in Virac town proper near amenities.",
     "coordinates": {
@@ -329,9 +398,11 @@
     "input": "Is Bagamanoc Guest House near the town center?",
     "output": "Bagamanoc Guest House is located in Poblacion, Bagamanoc, right in the center of town.",
     "title": "Bagamanoc Guest House Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Bagamanoc",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Bagamanoc Guest House is located in the Poblacion area.",
     "coordinates": {
@@ -344,9 +415,12 @@
     "input": "What amenities does The Lumber Hotel and Resort offer?",
     "output": "The Lumber Hotel and Resort in Virac features a swimming pool, restaurant, and function rooms.",
     "title": "The Lumber Amenities",
-    "topic": "Facilities",
+    "topic": "facilities",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation",
+      "general"
+    ],
     "budget": "expensive",
     "group_type": "family",
     "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces.",
@@ -360,9 +434,11 @@
     "input": "Where is E-Crown Hotel and Resort located?",
     "output": "E-Crown Hotel and Resort is located in Virac, near Maribina Falls.",
     "title": "E-Crown Hotel Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "E-Crown Hotel and Resort is in Virac, close to Maribina Falls.",
@@ -376,9 +452,12 @@
     "input": "Does E-Crown Hotel and Resort have a restaurant?",
     "output": "E-Crown Hotel and Resort features an in-house restaurant serving local and international dishes.",
     "title": "E-Crown Hotel Restaurant",
-    "topic": "Food",
+    "topic": "food",
     "location": "Virac",
-    "activities": "food",
+    "activities": [
+      "dining",
+      "food"
+    ],
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "E-Crown Hotel and Resort has its own restaurant for guests.",
@@ -392,9 +471,11 @@
     "input": "Is E-Crown Hotel and Resort a luxury option?",
     "output": "E-Crown Hotel and Resort is considered a luxury accommodation located in Virac.",
     "title": "E-Crown Hotel Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "E-Crown Hotel and Resort is a luxury accommodation located in Virac.",
@@ -408,9 +489,11 @@
     "input": "What are the room rates at Rhaj Inn?",
     "output": "Rhaj Inn offers budget-friendly rooms in Virac.",
     "title": "Rhaj Inn Rates",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Rhaj Inn offers budget-friendly rooms in Virac.",
     "coordinates": {
@@ -423,9 +506,11 @@
     "input": "Where is Catanduanes Midtown Inn located?",
     "output": "Catanduanes Midtown Inn is located in the municipality of Virac.",
     "title": "Catanduanes Midtown Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "mid",
     "summary_offline": "Catanduanes Midtown Inn is located in Virac.",
     "coordinates": {
@@ -438,9 +523,12 @@
     "input": "Where is Hinagasan Falls?",
     "output": "Hinagasan Falls is a natural waterfall located in Virac.",
     "title": "Hinagasan Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Virac",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Hinagasan Falls is located in Virac.",
     "coordinates": {
@@ -453,9 +541,11 @@
     "input": "Where is Museo De Catanduanes?",
     "output": "Museo De Catanduanes is a cultural viewpoint and museum located in Virac.",
     "title": "Museo De Catanduanes Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "Virac",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Museo De Catanduanes is located in Virac.",
     "coordinates": {
@@ -468,9 +558,11 @@
     "input": "Where is Fleur de Lilies Glamping Farm?",
     "output": "Fleur de Lilies Glamping Farm is located in Virac.",
     "title": "Fleur de Lilies Glamping Farm Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "mid",
     "summary_offline": "Fleur de Lilies Glamping Farm is located in Virac.",
     "coordinates": {
@@ -483,9 +575,12 @@
     "input": "Where is Twin Rock Beach Resort located?",
     "output": "Twin Rock Beach Resort is a major destination in Virac.",
     "title": "Twin Rock Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "swimming",
+    "activities": [
+      "accommodation",
+      "swimming"
+    ],
     "budget": "mid",
     "summary_offline": "Twin Rock Beach Resort is located in Virac.",
     "coordinates": {
@@ -498,9 +593,11 @@
     "input": "Where is Jollibee Virac?",
     "output": "Jollibee is located in the center of Virac.",
     "title": "Jollibee Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "Virac",
-    "activities": "dining",
+    "activities": [
+      "dining"
+    ],
     "budget": "cheap",
     "summary_offline": "Jollibee is located in Virac.",
     "coordinates": {
@@ -513,9 +610,11 @@
     "input": "Where is Rhaj Inn located?",
     "output": "Rhaj Inn is located in the municipality of Virac.",
     "title": "Rhaj Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Rhaj Inn is located in Virac.",
     "coordinates": {
@@ -528,9 +627,11 @@
     "input": "Where is Pusgo Island?",
     "output": "Pusgo Island is located in Pandan.",
     "title": "Pusgo Island Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Bagamanoc",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Pusgo Island is located in Pandan.",
     "coordinates": {
@@ -543,81 +644,110 @@
     "input": "What should I wear in Catanduanes?",
     "output": "Light clothing, slippers, and sunscreen are ideal for tropical weather.",
     "title": "Attire/Clothing",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "Recommended attire includes light clothing, slippers, and sunscreen due to the tropical climate."
+    "summary_offline": "Recommended attire includes light clothing, slippers, and sunscreen due to the tropical climate.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What is the population of Catanduanes?",
     "output": "The population of Catanduanes is approximately 275,000 residents.",
     "title": "Population",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "The province has a population of approximately 275,000 residents."
+    "summary_offline": "The province has a population of approximately 275,000 residents.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What is the main industry of Catanduanes?",
     "output": "The main industries are abaca production, fishing, and agriculture.",
     "title": "Main Industry",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "The main industries are abaca production, fishing, and agriculture."
+    "summary_offline": "The main industries are abaca production, fishing, and agriculture.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What is abaca?",
     "output": "Abaca is a natural fiber used for ropes and handicrafts, for which Catanduanes is known.",
     "title": "Abaca Fiber",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "Abaca is a natural fiber, commonly used for ropes and handicrafts, which the island is famous for producing."
+    "summary_offline": "Abaca is a natural fiber, commonly used for ropes and handicrafts, which the island is famous for producing.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Is Catanduanes a good place for family trips?",
     "output": "Catanduanes is a family-friendly destination with peaceful beaches and nature.",
     "title": "Family Travel Suitability",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
     "group_type": "family",
-    "summary_offline": "Catanduanes is a family-friendly destination known for its peaceful environment, beaches, and nature sites."
+    "summary_offline": "Catanduanes is a family-friendly destination known for its peaceful environment, beaches, and nature sites.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Can foreigners visit Catanduanes?",
     "output": "Foreign tourists are welcome to visit and explore Catanduanes.",
     "title": "Foreign Tourist Welcome",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "Foreign tourists are welcome to visit and explore the province."
+    "summary_offline": "Foreign tourists are welcome to visit and explore the province.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What are the major challenges for tourism in Catanduanes?",
     "output": "Major challenges include vulnerability to natural calamities (typhoons) and the resulting diversion of funds from promotion to rehabilitation.",
     "title": "Major Tourism Challenges",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "Major challenges include the province's vulnerability to natural calamities (typhoons) and the diversion of funds from promotion to rehabilitation."
+    "summary_offline": "Major challenges include the province's vulnerability to natural calamities (typhoons) and the diversion of funds from promotion to rehabilitation.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "How does poor internet connectivity affect tourism?",
     "output": "Poor internet affects promotional posts, limits guest access to information, and can disrupt online booking reliability.",
     "title": "Internet Connectivity Issues",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "Poor internet affects promotional posts, guest access to information, and can disrupt online booking reliability."
+    "summary_offline": "Poor internet affects promotional posts, guest access to information, and can disrupt online booking reliability.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Is the tourism office open to collaboration with researchers or startups?",
     "output": "The Provincial Tourism Office is open to collaborations with outside technical teams, universities, or startups to develop tourism solutions.",
     "title": "Office Collaboration Policy",
-    "topic": "General",
+    "topic": "general",
     "location": "Virac",
-    "summary_offline": "The Provincial Tourism Office is open to collaborations with outside technical teams, universities, or startups to develop tourism solutions."
+    "summary_offline": "The Provincial Tourism Office is open to collaborations with outside technical teams, universities, or startups to develop tourism solutions.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Saan ako pwedeng lumangoy sa Catanduanes?",
     "output": "Ang mga lugar para sa paglangoy ay Puraran Beach, Twin Rock Beach, Balite Beach, at Mamangal Beach.",
     "title": "Swimming Spots (Tagalog)",
     "topic": "swimming",
-    "activities": "swimming",
+    "activities": [
+      "swimming"
+    ],
     "location": "Various",
     "summary_offline": "Swimming spots: Puraran Beach, Twin Rock Beach, Balite Beach, Mamangal Beach"
   },
@@ -626,7 +756,9 @@
     "output": "You can swim at Puraran Beach, Twin Rock Beach, Balite Beach, and Mamangal Beach. All feature crystal-clear waters and beautiful scenery.",
     "title": "Swimming Spots",
     "topic": "swimming",
-    "activities": "swimming",
+    "activities": [
+      "swimming"
+    ],
     "location": "Various",
     "summary_offline": "Swimming spots: Puraran Beach, Twin Rock Beach, Balite Beach, Mamangal Beach"
   },
@@ -635,7 +767,9 @@
     "output": "Para sa paglangoy: Puraran Beach (may waves) o Twin Rock Beach (kalmadong tubig). May Balite Beach din malapit sa bayan.",
     "title": "Swimming Recommendation (Casual Tagalog)",
     "topic": "swimming",
-    "activities": "swimming",
+    "activities": [
+      "swimming"
+    ],
     "location": "Various",
     "summary_offline": "Recommended swimming beaches based on preference"
   },
@@ -644,7 +778,10 @@
     "output": "Puraran Beach at Mamangal Beach ay maganda para sa snorkeling. May makikita kang colorful fish at coral formations.",
     "title": "Snorkeling Beaches",
     "topic": "swimming",
-    "activities": "snorkeling",
+    "activities": [
+      "snorkeling",
+      "swimming"
+    ],
     "location": "Various",
     "summary_offline": "Puraran and Mamangal beaches are good for snorkeling"
   },
@@ -653,7 +790,9 @@
     "output": "Ang Puraran Beach (tinawag na 'Majestic') ay sikat na surf spot. Ginaganap ang mga international surfing competition tuwing Oktubre hanggang Marso.",
     "title": "Surfing Locations (Tagalog)",
     "topic": "surfing",
-    "activities": "surfing",
+    "activities": [
+      "surfing"
+    ],
     "group_type": "group",
     "skill_level": "intermediate",
     "summary_offline": "Puraran Beach (Majestic) - world-class surfing, Oct-Mar season"
@@ -662,18 +801,22 @@
     "input": "What are the top landmarks here?",
     "output": "The top tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadan Blue Lagoon, Bato Church, and Nahulugan Falls.",
     "title": "Top Tourist Spots",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "Various",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "summary_offline": "Recommended tourist spots include Binurong Point, Puraran Beach, Tuwad-Tuwadan Blue Lagoon, Bato Church, and Nahulugan Falls."
   },
   {
     "input": "What is Binurong Point?",
     "output": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
     "title": "Binurong Point Overview",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "Baras",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "group_type": "group",
     "summary_offline": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
     "coordinates": {
@@ -686,9 +829,12 @@
     "input": "What is Maribina Falls?",
     "output": "Maribina Falls is a popular waterfall in Bato known for its refreshing waters.",
     "title": "Maribina Falls Overview",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "Bato",
-    "activities": "swimming",
+    "activities": [
+      "sightseeing",
+      "swimming"
+    ],
     "budget": "cheap",
     "summary_offline": "Maribina Falls is a popular attraction in Bato known for its refreshing waters.",
     "coordinates": {
@@ -701,9 +847,11 @@
     "input": "Where is Bato Church?",
     "output": "Bato Church (St. John the Baptist Church) is one of the oldest stone churches in Bicol, built in the 1800s using coral stones. It is located in Bato Municipality",
     "title": "Bato Church Overview",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "Bato",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Bato Church (St. John the Baptist Church) is one of the oldest stone churches in the Bicol Region, built in the 1800s."
   },
@@ -711,9 +859,11 @@
     "input": "Where is Nahulugan Falls?",
     "output": "Nahulugan Falls is a waterfall located in Gigmoto.",
     "title": "Nahulugan Falls Overview",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "Gigmoto",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Nahulugan Falls is a waterfall located in Gigmoto.",
     "coordinates": {
@@ -726,9 +876,11 @@
     "input": "Where is Tampad Beach?",
     "output": "Tampad Beach is a scenic spot located in Virac.",
     "title": "Tampad Beach Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "Virac",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "summary_offline": "Tampad Beach is a scenic spot located in Virac.",
     "coordinates": {
       "lat": 13.518763507546256,
@@ -740,9 +892,11 @@
     "input": "What activities are available at Twin Rock Resort?",
     "output": "Twin Rock Resort offers swimming, ziplining, and water sports.",
     "title": "Twin Rock Resort Activities",
-    "topic": "Swimming",
+    "topic": "swimming",
     "location": "Virac",
-    "activities": "swimming",
+    "activities": [
+      "swimming"
+    ],
     "budget": "mid",
     "group_type": "family",
     "summary_offline": "The resort offers activities like swimming, ziplining, and various water sports."
@@ -751,9 +905,11 @@
     "input": "What can I do in Mamangal Beach?",
     "output": "Mamangal Beach offers picnic spots, swimming, and seaside views.",
     "title": "Activities at Mamangal Beach",
-    "topic": "Swimming",
+    "topic": "swimming",
     "location": "Virac",
-    "activities": "swimming",
+    "activities": [
+      "swimming"
+    ],
     "group_type": "family",
     "summary_offline": "Activities include swimming, picnicking, and enjoying the seaside scenery."
   },
@@ -761,9 +917,11 @@
     "input": "Can I swim in Maribina Falls?",
     "output": "Visitors are welcome to swim and relax at Maribina Falls.",
     "title": "Swimming at Maribina Falls",
-    "topic": "Swimming",
+    "topic": "swimming",
     "location": "Bato",
-    "activities": "swimming",
+    "activities": [
+      "swimming"
+    ],
     "budget": "cheap",
     "summary_offline": "Visitors are welcome to swim and relax in the waters of Maribina Falls."
   },
@@ -771,9 +929,11 @@
     "input": "What activities can I do in Puraran Beach?",
     "output": "Activities available at Puraran Beach include surfing, swimming, sunbathing, and photography.",
     "title": "Activities at Puraran Beach",
-    "topic": "Surfing",
+    "topic": "surfing",
     "location": "Baras",
-    "activities": "surfing",
+    "activities": [
+      "surfing"
+    ],
     "skill_level": "beginner",
     "group_type": "group",
     "summary_offline": "Activities available at Puraran Beach include surfing, swimming, sunbathing, and photography."
@@ -782,9 +942,11 @@
     "input": "Where can I surf in Catanduanes?",
     "output": "Puraran Beach in Baras is the most popular surfing spot in Catanduanes.",
     "title": "Puraran Beach Surfing",
-    "topic": "Surfing",
+    "topic": "surfing",
     "location": "Baras",
-    "activities": "surfing",
+    "activities": [
+      "surfing"
+    ],
     "skill_level": "intermediate",
     "group_type": "group",
     "summary_offline": "The top surfing destination in Catanduanes is Puraran Beach in Baras."
@@ -798,8 +960,8 @@
     "title": "Is There Grab or Angkas in Catanduanes",
     "topic": "transport",
     "activities": [
-      "transport",
-      "commute"
+      "commute",
+      "transport"
     ]
   },
   {
@@ -811,9 +973,9 @@
     "title": "Last Ferry Virac to Tabaco Schedule",
     "topic": "transport",
     "activities": [
-      "transport",
       "commute",
-      "ferry"
+      "ferry",
+      "transport"
     ]
   },
   {
@@ -825,9 +987,9 @@
     "title": "What to Do If Stranded in Catanduanes",
     "topic": "logistics",
     "activities": [
-      "transport",
+      "planning",
       "safety",
-      "planning"
+      "transport"
     ]
   },
   {
@@ -839,8 +1001,8 @@
     "title": "Getting from Virac Port to Town",
     "topic": "transport",
     "activities": [
-      "transport",
-      "commute"
+      "commute",
+      "transport"
     ]
   },
   {
@@ -852,9 +1014,9 @@
     "title": "Ferry Ticket Price Tabaco to Virac",
     "topic": "transport",
     "activities": [
-      "transport",
+      "budget",
       "ferry",
-      "budget"
+      "transport"
     ]
   },
   {
@@ -866,9 +1028,9 @@
     "title": "Is Tap Water Safe in Catanduanes",
     "topic": "safety",
     "activities": [
-      "safety",
+      "general",
       "health",
-      "general"
+      "safety"
     ]
   },
   {
@@ -880,10 +1042,10 @@
     "title": "Jellyfish Risk and Season at Catanduanes Beaches",
     "topic": "safety",
     "activities": [
-      "safety",
-      "swimming",
       "beaches",
-      "health"
+      "health",
+      "safety",
+      "swimming"
     ]
   },
   {
@@ -895,10 +1057,10 @@
     "title": "Sea Urchin Hazard at Catanduanes Beaches",
     "topic": "safety",
     "activities": [
-      "safety",
-      "swimming",
       "beaches",
-      "health"
+      "health",
+      "safety",
+      "swimming"
     ]
   },
   {
@@ -910,8 +1072,8 @@
     "title": "Safety for Hiking in Rainy Season Catanduanes",
     "topic": "safety",
     "activities": [
-      "safety",
       "hiking",
+      "safety",
       "sightseeing"
     ]
   },
@@ -924,10 +1086,10 @@
     "title": "Insects and Mosquito Risk in Catanduanes",
     "topic": "safety",
     "activities": [
-      "safety",
+      "beaches",
       "health",
       "hiking",
-      "beaches"
+      "safety"
     ]
   },
   {
@@ -939,9 +1101,9 @@
     "title": "Rip Current Risk at Catanduanes Beaches",
     "topic": "safety",
     "activities": [
+      "beaches",
       "safety",
-      "swimming",
-      "beaches"
+      "swimming"
     ]
   },
   {
@@ -953,10 +1115,11 @@
     "title": "Where Locals Actually Eat in Virac",
     "topic": "dining",
     "activities": [
+      "budget",
+      "culture",
       "dining",
       "food",
-      "budget",
-      "culture"
+      "sightseeing"
     ]
   },
   {
@@ -968,10 +1131,11 @@
     "title": "Local Breakfast Foods in Catanduanes",
     "topic": "dining",
     "activities": [
+      "budget",
+      "culture",
       "dining",
       "food",
-      "culture",
-      "budget"
+      "sightseeing"
     ]
   },
   {
@@ -983,9 +1147,10 @@
     "title": "Local Food and Drinks to Try in Catanduanes",
     "topic": "dining",
     "activities": [
+      "culture",
       "dining",
       "food",
-      "culture"
+      "sightseeing"
     ]
   },
   {
@@ -997,10 +1162,11 @@
     "title": "Local Market Experience in Catanduanes",
     "topic": "shopping",
     "activities": [
-      "shopping",
       "culture",
+      "dining",
       "food",
-      "dining"
+      "shopping",
+      "sightseeing"
     ]
   },
   {
@@ -1013,8 +1179,8 @@
     "topic": "culture",
     "activities": [
       "culture",
-      "sightseeing",
-      "general"
+      "general",
+      "sightseeing"
     ]
   },
   {
@@ -1026,9 +1192,10 @@
     "title": "How Locals Get Around Catanduanes",
     "topic": "transport",
     "activities": [
-      "transport",
+      "commute",
       "culture",
-      "commute"
+      "sightseeing",
+      "transport"
     ]
   },
   {
@@ -1040,10 +1207,10 @@
     "title": "How to Know Which Beach Has Best Conditions Today",
     "topic": "beaches",
     "activities": [
-      "swimming",
       "beaches",
+      "planning",
       "safety",
-      "planning"
+      "swimming"
     ]
   },
   {
@@ -1055,10 +1222,10 @@
     "title": "Is Puraran Beach Safe for Swimming Today",
     "topic": "beaches",
     "activities": [
-      "swimming",
       "beaches",
       "safety",
-      "surfing"
+      "surfing",
+      "swimming"
     ]
   },
   {
@@ -1070,9 +1237,9 @@
     "title": "How to Check Weather in Catanduanes",
     "topic": "general",
     "activities": [
-      "safety",
-      "planning",
       "general",
+      "planning",
+      "safety",
       "weather"
     ]
   },
@@ -1085,10 +1252,10 @@
     "title": "Best Snorkeling Beach Today Weather Dependent",
     "topic": "beaches",
     "activities": [
-      "swimming",
-      "snorkeling",
       "beaches",
-      "planning"
+      "planning",
+      "snorkeling",
+      "swimming"
     ]
   },
   {
@@ -1100,10 +1267,10 @@
     "title": "Best Conditions for Visiting Binurong Point",
     "topic": "sightseeing",
     "activities": [
-      "sightseeing",
       "hiking",
+      "planning",
       "safety",
-      "planning"
+      "sightseeing"
     ]
   },
   {
@@ -1115,10 +1282,10 @@
     "title": "Is the Ferry Safe Today How to Check Cancellations",
     "topic": "transport",
     "activities": [
-      "transport",
       "ferry",
+      "planning",
       "safety",
-      "planning"
+      "transport"
     ]
   },
   {
@@ -1130,10 +1297,10 @@
     "title": "Emergency Contact Numbers Catanduanes",
     "topic": "safety",
     "activities": [
-      "safety",
       "emergency",
+      "general",
       "medical",
-      "general"
+      "safety"
     ]
   },
   {
@@ -1151,6 +1318,22 @@
     ]
   },
   {
+    "input": "What if my flight is cancelled in Catanduanes?",
+    "output": "Flight cancellations at Virac Airport (VRC) are common, often due to zero visibility, strong crosswinds, or typhoons. If your flight is cancelled, immediately proceed to the airline counter to rebook or request a refund. Note that the next available flight might be days away. Your primary alternative is the 'land-and-sea' route: take a van or jeep to San Andres or Virac Port, catch a Roro or Fastcraft ferry to Tabaco City, Albay, and then take a bus or van to Manila (10-12 hours total). If the cancellation is weather-related (Force Majeure), airlines generally do not provide free hotel accommodations, so ensure you have emergency funds for an extra night's stay. Always monitor the PAGASA weather updates and airline advisories 24 hours before your flight.",
+    "summary_offline": "Cancellations at Virac Airport are frequent due to weather. Rebook immediately at the counter. If no flights are available, use the ferry-to-Albay and bus-to-Manila route via San Andres or Virac Port. Airlines usually don't pay for hotels during weather-related delays. Have extra cash for unplanned stays.",
+    "place_name": "Virac Airport",
+    "location": "VIRAC",
+    "title": "Flight Cancellations and Alternative Routes",
+    "topic": "logistics",
+    "activities": [
+      "emergency",
+      "planning",
+      "safety",
+      "transport",
+      "transportation"
+    ]
+  },
+  {
     "input": "Where can I buy medicine or basic supplies in Catanduanes?",
     "output": "Pharmacies and drugstores in Virac town carry common medications, basic first aid supplies, and over-the-counter drugs. Mercury Drug, Rose Pharmacy, and several independent pharmacies are located along the main commercial street near Virac Public Market. Outside Virac, small sari-sari stores carry limited basics like paracetamol and antiseptic. For prescription medications or specialist drugs, Virac is the only reliable source on the island — bring an adequate supply from Manila or Legazpi if you require specific medicines.",
     "summary_offline": "Mercury Drug, Rose Pharmacy, and independent pharmacies near Virac Public Market carry medicine and first aid supplies. Outside Virac, only basic meds at sari-sari stores. Bring sufficient prescription drugs from Manila — specialty medication is unavailable outside Virac.",
@@ -1159,9 +1342,10 @@
     "title": "Where to Buy Medicine and Supplies in Catanduanes",
     "topic": "logistics",
     "activities": [
-      "safety",
-      "health",
       "general",
+      "health",
+      "planning",
+      "safety",
       "shopping"
     ]
   },
@@ -1174,8 +1358,8 @@
     "title": "What to Pack for Catanduanes Trip",
     "topic": "logistics",
     "activities": [
-      "planning",
       "general",
+      "planning",
       "safety"
     ]
   },
@@ -1189,8 +1373,8 @@
     "topic": "logistics",
     "activities": [
       "budget",
-      "planning",
-      "general"
+      "general",
+      "planning"
     ]
   },
   {
@@ -1202,8 +1386,8 @@
     "title": "Power Outages Brownouts in Catanduanes",
     "topic": "logistics",
     "activities": [
-      "planning",
       "general",
+      "planning",
       "safety"
     ]
   },
@@ -1211,25 +1395,33 @@
     "input": "Who created Pathfinder?",
     "output": "Pathfinder was developed by researchers from the Computer Engineering Department at Catanduanes State University.",
     "title": "Pathfinder Creators",
-    "topic": "General",
+    "topic": "general",
     "location": "Virac",
-    "summary_offline": "Pathfinder was created by researchers from Catanduanes State University's Computer Engineering Department."
+    "summary_offline": "Pathfinder was created by researchers from Catanduanes State University's Computer Engineering Department.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Can you give me recommendations?",
     "output": "I recommend Puraran Beach for surfing, Bato Church for history, and Twin Rock Beach Resort for swimming.",
     "title": "Pathfinder Capabilities",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "I recommend Puraran Beach for surfing, Bato Church for history, and Twin Rock Beach Resort for swimming."
+    "summary_offline": "I recommend Puraran Beach for surfing, Bato Church for history, and Twin Rock Beach Resort for swimming.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What activities are available at Puraran Surf Beach Resort?",
     "output": "Puraran Surf Beach Resort is ideal for surfing, surfing lessons, and other wave-related activities.",
     "title": "Puraran Beach Surf Activities",
-    "topic": "Surfing",
+    "topic": "surfing",
     "location": "Baras",
-    "activities": "surfing",
+    "activities": [
+      "surfing"
+    ],
     "skill_level": "beginner",
     "summary_offline": "Puraran Beach is ideal for surfing and surfing lessons."
   },
@@ -1237,9 +1429,12 @@
     "input": "Where can I camp?",
     "output": "Camping is permitted at various scenic sites including Binurong Point or Puraran Beach.",
     "title": "Camping Spots",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Various",
-    "activities": "camping",
+    "activities": [
+      "accommodation",
+      "camping"
+    ],
     "budget": "cheap",
     "summary_offline": "Camping is permitted at various scenic sites including Binurong Point or Puraran Beach."
   },
@@ -1247,9 +1442,11 @@
     "input": "What are the room rates at ARDCI Corporate Inn?",
     "output": "ARDCI Corporate Inn offers comfortable mid-to-high range rooms for travelers staying in Virac.",
     "title": "ARDCI Corporate Inn Rates",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "expensive",
     "summary_offline": "ARDCI Corporate Inn offers comfortable mid-to-high range rooms in Virac."
   },
@@ -1257,9 +1454,12 @@
     "input": "Does ARDCI Corporate Inn serve breakfast?",
     "output": "ARDCI Corporate Inn provides breakfast and comfortable rooms.",
     "title": "ARDCI Corporate Inn Breakfast",
-    "topic": "Food",
+    "topic": "food",
     "location": "Virac",
-    "activities": "food",
+    "activities": [
+      "dining",
+      "food"
+    ],
     "budget": "expensive",
     "summary_offline": "Breakfast is available for guests staying at ARDCI Corporate Inn."
   },
@@ -1267,27 +1467,35 @@
     "input": "How far is Pacific Surfers Paradise Resort from the Airport?",
     "output": "Pacific Surfers Paradise Resort in Puraran, Baras is about 30 to 35 minutes from Virac Airport by car.",
     "title": "Pacific Surfers Distance from Airport",
-    "topic": "Travel",
+    "topic": "travel",
     "location": "Baras",
-    "activities": "transport",
+    "activities": [
+      "transport"
+    ],
     "summary_offline": "The resort is around 35 minutes away from the Airport."
   },
   {
     "input": "Can I get WiFi at Pacific Surfers Paradise Resort?",
     "output": "Pacific Surfers Paradise Resort provides WiFi access in select areas for guests.",
     "title": "Pacific Surfers WiFi",
-    "topic": "Facilities",
+    "topic": "facilities",
     "location": "Baras",
-    "activities": "facilities",
+    "activities": [
+      "facilities",
+      "general"
+    ],
     "summary_offline": "WiFi is available in common areas at Pacific Surfers Paradise Resort."
   },
   {
     "input": "Does Pacific Surfers Paradise Resort offer WiFi?",
     "output": "Pacific Surfers Paradise Resort provides WiFi access in select areas for guests.",
     "title": "Pacific Surfers WiFi",
-    "topic": "Facilities",
+    "topic": "facilities",
     "location": "Baras",
-    "activities": "facilities",
+    "activities": [
+      "facilities",
+      "general"
+    ],
     "budget": "mid",
     "group_type": "group",
     "summary_offline": "WiFi is available in common areas at Pacific Surfers Paradise Resort."
@@ -1296,9 +1504,12 @@
     "input": "Does Catanduanes Midtown Inn have parking space?",
     "output": "Catanduanes Midtown Inn offers free on-site parking for guests.",
     "title": "Midtown Inn Parking",
-    "topic": "Facilities",
+    "topic": "facilities",
     "location": "Virac",
-    "activities": "facilities",
+    "activities": [
+      "facilities",
+      "general"
+    ],
     "budget": "mid",
     "summary_offline": "Free parking is available at Catanduanes Midtown Inn."
   },
@@ -1306,9 +1517,12 @@
     "input": "Where is Amenia Beach Resort?",
     "output": "Amenia Beach Resort is located in San Andres, Catanduanes.",
     "title": "Amenia Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "San Andres",
-    "activities": "swimming",
+    "activities": [
+      "accommodation",
+      "swimming"
+    ],
     "budget": "mid",
     "summary_offline": "Amenia Beach Resort is located in San Andres.",
     "coordinates": {
@@ -1321,9 +1535,12 @@
     "input": "Where is Luyang Cave?",
     "output": "Luyang Cave is a historical and natural viewpoint located in San Andres.",
     "title": "Luyang Cave Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "San Andres",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Luyang Cave is a scenic spot in San Andres.",
     "coordinates": {
@@ -1336,9 +1553,12 @@
     "input": "Where is Codon Lighthouse?",
     "output": "Codon Lighthouse is a scenic viewpoint located in San Andres.",
     "title": "Codon Lighthouse Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "San Andres",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Codon Lighthouse is located in San Andres.",
     "coordinates": {
@@ -1351,9 +1571,12 @@
     "input": "Where is Cumagat Beach & Hilltop Resort?",
     "output": "Cumagat Beach & Hilltop Resort is located in Panganiban.",
     "title": "Cumagat Beach & Hilltop Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Panganiban",
-    "activities": "swimming",
+    "activities": [
+      "accommodation",
+      "swimming"
+    ],
     "budget": "mid",
     "summary_offline": "Cumagat Beach & Hilltop Resort is located in Panganiban.",
     "coordinates": {
@@ -1366,9 +1589,12 @@
     "input": "Where is Lolong Point Lighthouse?",
     "output": "Lolong Point Lighthouse is a scenic viewpoint located in Panganiban.",
     "title": "Lolong Point Lighthouse Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Panganiban",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Lolong Point Lighthouse is located in Panganiban.",
     "coordinates": {
@@ -1381,9 +1607,12 @@
     "input": "Where is Tuwad-Tuwadan Blue Lagoon?",
     "output": "Tuwad-Tuwadan Blue Lagoon is a famous natural pool and resort located in Pandan.",
     "title": "Tuwad-Tuwadan Blue Lagoon Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Pandan",
-    "activities": "swimming",
+    "activities": [
+      "hiking",
+      "swimming"
+    ],
     "budget": "cheap",
     "summary_offline": "Tuwad-Tuwadan Blue Lagoon is located in Pandan.",
     "coordinates": {
@@ -1396,9 +1625,12 @@
     "input": "Where is Cagnipa Rolling Hills?",
     "output": "Cagnipa Rolling Hills is a scenic viewpoint located in Pandan.",
     "title": "Cagnipa Rolling Hills Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Pandan",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Cagnipa Rolling Hills is located in Pandan.",
     "coordinates": {
@@ -1411,9 +1643,12 @@
     "input": "Where is Hiyop Highlands?",
     "output": "Hiyop Highlands is a scenic viewpoint located in Pandan.",
     "title": "Hiyop Highlands Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Pandan",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Hiyop Highlands is located in Pandan.",
     "coordinates": {
@@ -1426,9 +1661,12 @@
     "input": "Where is Ba-haw Falls?",
     "output": "Ba-haw Falls is a natural waterfall destination in Gigmoto.",
     "title": "Ba-haw Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Gigmoto",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Ba-haw Falls is located in Gigmoto.",
     "coordinates": {
@@ -1441,9 +1679,12 @@
     "input": "Where is Nahulugan Falls?",
     "output": "Nahulugan Falls is one of the famous natural attractions in Gigmoto.",
     "title": "Nahulugan Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Gigmoto",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Nahulugan Falls is located in Gigmoto.",
     "coordinates": {
@@ -1456,9 +1697,12 @@
     "input": "Where is Nupa Green Lagoon?",
     "output": "Nupa Green Lagoon is a scenic natural spot located in Gigmoto.",
     "title": "Nupa Green Lagoon Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Gigmoto",
-    "activities": "swimming",
+    "activities": [
+      "hiking",
+      "swimming"
+    ],
     "budget": "cheap",
     "summary_offline": "Nupa Green Lagoon is a swimming and scenic spot in Gigmoto.",
     "coordinates": {
@@ -1471,9 +1715,11 @@
     "input": "Where is Miguilas Inn and Resto Bar?",
     "output": "Miguilas Inn and Resto Bar is located in the municipality of Caramoran.",
     "title": "Miguilas Inn and Resto Bar Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Caramoran",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "mid",
     "summary_offline": "Miguilas Inn and Resto Bar is located in Caramoran.",
     "coordinates": {
@@ -1486,9 +1732,12 @@
     "input": "Where is Palumbanes Island?",
     "output": "Palumbanes Island is a scenic destination located in Caramoran.",
     "title": "Palumbanes Island Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Caramoran",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "mid",
     "summary_offline": "Palumbanes Island is located in Caramoran.",
     "coordinates": {
@@ -1501,9 +1750,12 @@
     "input": "Where is Toytoy Beach?",
     "output": "Toytoy Beach is a coastal destination located in Caramoran.",
     "title": "Toytoy Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Caramoran",
-    "activities": "swimming",
+    "activities": [
+      "accommodation",
+      "swimming"
+    ],
     "budget": "cheap",
     "summary_offline": "Toytoy Beach is located in Caramoran.",
     "coordinates": {
@@ -1516,9 +1768,12 @@
     "input": "Where is Maribina Falls?",
     "output": "Maribina Falls is a popular natural waterfall located in Bato.",
     "title": "Maribina Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Bato",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Maribina Falls is located in Bato.",
     "coordinates": {
@@ -1531,9 +1786,12 @@
     "input": "Where is Bote Lighthouse?",
     "output": "Bote Lighthouse is a scenic viewpoint and historical site in Bato.",
     "title": "Bote Lighthouse Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Bato",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Bote Lighthouse is located in Bato.",
     "coordinates": {
@@ -1546,9 +1804,12 @@
     "input": "Where is Sakahon Beach?",
     "output": "Sakahon Beach is a resort destination located in the municipality of Bato.",
     "title": "Sakahon Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Bato",
-    "activities": "swimming",
+    "activities": [
+      "accommodation",
+      "swimming"
+    ],
     "budget": "mid",
     "summary_offline": "Sakahon Beach is located in Bato.",
     "coordinates": {
@@ -1561,9 +1822,11 @@
     "input": "Where is the Diocesan Shrine of the Holy Cross?",
     "output": "The Diocesan Shrine of the Holy Cross is a major religious site located in Bato.",
     "title": "Diocesan Shrine of the Holy Cross Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "Bato",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "The Diocesan Shrine of the Holy Cross is located in Bato.",
     "coordinates": {
@@ -1576,9 +1839,11 @@
     "input": "Where is East Coast Beach Resort located?",
     "output": "East Coast Beach Resort is located in the municipality of Baras.",
     "title": "East Coast Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Baras",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "mid",
     "summary_offline": "East Coast Beach Resort is located in Baras.",
     "coordinates": {
@@ -1591,9 +1856,12 @@
     "input": "Where is Macutal Falls?",
     "output": "Macutal Falls is a natural waterfall destination located in Baras.",
     "title": "Macutal Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Baras",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Macutal Falls is located in Baras.",
     "coordinates": {
@@ -1606,9 +1874,12 @@
     "input": "Where is Balacay Point?",
     "output": "Balacay Point is a scenic viewpoint located in Baras.",
     "title": "Balacay Point Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Baras",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Balacay Point is a popular scenic spot in Baras.",
     "coordinates": {
@@ -1621,9 +1892,12 @@
     "input": "Where is Binurong Point?",
     "output": "Binurong Point is a famous Batanes-like viewpoint located in Baras.",
     "title": "Binurong Point Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Baras",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Binurong Point is a scenic coastal viewpoint in Baras.",
     "coordinates": {
@@ -1636,9 +1910,12 @@
     "input": "Where is Puraran Beach?",
     "output": "Puraran Beach is a world-class surfing destination located in Baras.",
     "title": "Puraran Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Baras",
-    "activities": "surfing",
+    "activities": [
+      "accommodation",
+      "surfing"
+    ],
     "budget": "mid",
     "summary_offline": "Puraran Beach is located in Baras.",
     "coordinates": {
@@ -1651,9 +1928,11 @@
     "input": "Where is Bagamanoc Guest House?",
     "output": "Bagamanoc Guest House is located in the municipality of Bagamanoc.",
     "title": "Bagamanoc Guest House Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Bagamanoc",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Bagamanoc Guest House is located in Bagamanoc.",
     "coordinates": {
@@ -1666,9 +1945,12 @@
     "input": "Where is Boto Ni Korakog?",
     "output": "Boto Ni Korakog, also known as Fertility Island, is a unique rock formation and viewpoint in Bagamanoc.",
     "title": "Boto Ni Korakog Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Bagamanoc",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Boto Ni Korakog is a scenic viewpoint in Bagamanoc.",
     "coordinates": {
@@ -1681,9 +1963,12 @@
     "input": "Where is Paday Falls?",
     "output": "Paday Falls is a natural waterfall located in Bagamanoc.",
     "title": "Paday Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Bagamanoc",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Paday Falls is located in Bagamanoc.",
     "coordinates": {
@@ -1696,9 +1981,11 @@
     "input": "Where is E-Lounge Resto Bar located?",
     "output": "E-Lounge Resto Bar is a dining and relaxation spot located in Bagamanoc.",
     "title": "E-Lounge Resto Bar Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "Bagamanoc",
-    "activities": "dining",
+    "activities": [
+      "dining"
+    ],
     "budget": "cheap",
     "summary_offline": "E-Lounge Resto Bar is located in Bagamanoc.",
     "coordinates": {
@@ -1711,9 +1998,12 @@
     "input": "Where is Dayhagan Beach Resort?",
     "output": "Dayhagan Beach Resort is a coastal destination located in Bagamanoc.",
     "title": "Dayhagan Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Bagamanoc",
-    "activities": "swimming",
+    "activities": [
+      "accommodation",
+      "swimming"
+    ],
     "budget": "mid",
     "summary_offline": "Dayhagan Beach Resort is located in Bagamanoc.",
     "coordinates": {
@@ -1726,9 +2016,11 @@
     "input": "Where is San Miguel River Park?",
     "output": "San Miguel River Park is located in the municipality of San Miguel.",
     "title": "San Miguel River Park Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "San Miguel",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "mid",
     "summary_offline": "San Miguel River Park is located in San Miguel.",
     "coordinates": {
@@ -1741,9 +2033,12 @@
     "input": "Where is Solong Falls?",
     "output": "Solong Falls is a natural waterfall located in San Miguel.",
     "title": "Solong Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "San Miguel",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Solong Falls is located in San Miguel.",
     "coordinates": {
@@ -1756,9 +2051,11 @@
     "input": "Where is Cathy's Spring Resort located?",
     "output": "Cathy's Spring Resort is located in the municipality of Viga.",
     "title": "Cathy's Spring Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Viga",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "mid",
     "summary_offline": "Cathy's Spring Resort is located in Viga.",
     "coordinates": {
@@ -1771,9 +2068,11 @@
     "input": "Where is Black Alley located?",
     "output": "Black Alley is a restaurant and cafe located in Viga.",
     "title": "Black Alley Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "Viga",
-    "activities": "dining",
+    "activities": [
+      "dining"
+    ],
     "budget": "cheap",
     "summary_offline": "Black Alley is located in Viga.",
     "coordinates": {
@@ -1786,9 +2085,12 @@
     "input": "Where is Summit View Park?",
     "output": "Summit View Park is a scenic viewpoint located in Viga.",
     "title": "Summit View Park Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Viga",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Summit View Park is located in Viga.",
     "coordinates": {
@@ -1801,9 +2103,11 @@
     "input": "Where is Our Lady of the Assumption Parish Church?",
     "output": "Our Lady of the Assumption Parish Church is a religious site located in Viga.",
     "title": "Our Lady of the Assumption Parish Church Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "Viga",
-    "activities": "sightseeing",
+    "activities": [
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Our Lady of the Assumption Parish Church is located in Viga.",
     "coordinates": {
@@ -1816,9 +2120,11 @@
     "input": "Where is H20 Resort?",
     "output": "H20 Resort is located in the municipality of Viga.",
     "title": "H20 Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Viga",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "mid",
     "summary_offline": "H20 Resort is located in Viga.",
     "coordinates": {
@@ -1831,9 +2137,11 @@
     "input": "Where is Isla Bistro Café?",
     "output": "Isla Bistro Café is a restaurant located in Viga.",
     "title": "Isla Bistro Café Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "Viga",
-    "activities": "dining",
+    "activities": [
+      "dining"
+    ],
     "budget": "cheap",
     "summary_offline": "Isla Bistro Café is located in Viga.",
     "coordinates": {
@@ -1846,9 +2154,12 @@
     "input": "Where is Cogon Hills?",
     "output": "Cogon Hills is a popular scenic viewpoint located in Viga.",
     "title": "Cogon Hills Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "Viga",
-    "activities": "sightseeing",
+    "activities": [
+      "hiking",
+      "sightseeing"
+    ],
     "budget": "cheap",
     "summary_offline": "Cogon Hills is located in Viga.",
     "coordinates": {
@@ -1861,9 +2172,11 @@
     "input": "Where is Manuria Beach Resort?",
     "output": "Manuria Beach Resort is located in Viga.",
     "title": "Manuria Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Viga",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "mid",
     "summary_offline": "Manuria Beach Resort is located in Viga.",
     "coordinates": {
@@ -1876,9 +2189,12 @@
     "input": "Where is Minaabat Beach?",
     "output": "Minaabat Beach is a resort destination located in Viga.",
     "title": "Minaabat Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Viga",
-    "activities": "swimming",
+    "activities": [
+      "accommodation",
+      "swimming"
+    ],
     "budget": "mid",
     "summary_offline": "Minaabat Beach is located in Viga.",
     "coordinates": {
@@ -1891,9 +2207,11 @@
     "input": "Where is Nitto Lodge located in Virac?",
     "output": "Nitto Lodge is situated in the town proper of Virac, close to shops and local dining spots.",
     "title": "Nitto Lodge Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Nitto Lodge is located in Virac town proper near amenities."
   },
@@ -1901,17 +2219,23 @@
     "input": "How do I use this map?",
     "output": "You can use the map by asking to show you locations (e.g., 'Where is Puraran Beach?'), or by clicking the filter buttons to see specific types of places like surfing spots or hotels.",
     "title": "Map Usage Instructions",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "You can ask for locations to see them on the map, or use the filter buttons to explore categories."
+    "summary_offline": "You can ask for locations to see them on the map, or use the filter buttons to explore categories.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Does Renel's Traveller's Inn have air-conditioned rooms?",
     "output": "Renel's Traveller's Inn offers both air-conditioned and fan rooms for guests.",
     "title": "Renel's Traveller's Inn Rooms",
-    "topic": "Facilities",
+    "topic": "facilities",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation",
+      "general"
+    ],
     "budget": "cheap",
     "summary_offline": "Renel's Traveller's Inn provides both air-conditioned and fan rooms."
   },
@@ -1919,9 +2243,11 @@
     "input": "Is Bagamanoc Guest House near the town center?",
     "output": "Bagamanoc Guest House is located in Poblacion, Bagamanoc, right in the center of town.",
     "title": "Bagamanoc Guest House Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Bagamanoc",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Bagamanoc Guest House is located in the Poblacion area."
   },
@@ -1929,9 +2255,12 @@
     "input": "How close is Sonia's Island Stay to Virac Airport?",
     "output": "Sonia's Island Stay is only around five minutes from Virac Airport, making it convenient for travelers with early or late flights.",
     "title": "Sonia's Island Stay Proximity to Airport",
-    "topic": "Travel",
+    "topic": "travel",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation",
+      "transport"
+    ],
     "budget": "mid",
     "summary_offline": "Sonia's Island Stay is about five minutes from Virac Airport."
   },
@@ -1939,9 +2268,12 @@
     "input": "What amenities does The Lumber Hotel and Resort offer?",
     "output": "The Lumber Hotel and Resort in Virac features a swimming pool, restaurant, and function rooms.",
     "title": "The Lumber Amenities",
-    "topic": "Facilities",
+    "topic": "facilities",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation",
+      "general"
+    ],
     "budget": "expensive",
     "group_type": "family",
     "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces."
@@ -1950,9 +2282,11 @@
     "input": "Where is E-Crown Hotel and Resort located?",
     "output": "E-Crown Hotel and Resort is located in Virac, near Maribina Falls.",
     "title": "E-Crown Hotel Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "E-Crown Hotel and Resort is in Virac, close to Maribina Falls."
@@ -1961,9 +2295,12 @@
     "input": "Does E-Crown Hotel and Resort have a restaurant?",
     "output": "E-Crown Hotel and Resort features an in-house restaurant serving local and international dishes.",
     "title": "E-Crown Hotel Restaurant",
-    "topic": "Food",
+    "topic": "food",
     "location": "Virac",
-    "activities": "food",
+    "activities": [
+      "dining",
+      "food"
+    ],
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "E-Crown Hotel and Resort has its own restaurant for guests."
@@ -1972,9 +2309,11 @@
     "input": "Is E-Crown Hotel and Resort a luxury option?",
     "output": "E-Crown Hotel and Resort is considered a luxury accommodation located in Virac.",
     "title": "E-Crown Hotel Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "expensive",
     "group_type": "couple",
     "summary_offline": "E-Crown Hotel and Resort is a luxury accommodation located in Virac."
@@ -1983,9 +2322,11 @@
     "input": "What are the room rates at Rhaj Inn?",
     "output": "Rhaj Inn offers budget-friendly rooms in Virac.",
     "title": "Rhaj Inn Rates",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Rhaj Inn offers budget-friendly rooms in Virac."
   },
@@ -1993,9 +2334,11 @@
     "input": "I want a cheap hotel",
     "output": "Rhaj Inn offers budget-friendly rooms in Virac.",
     "title": "Rhaj Inn Rates",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
-    "activities": "accommodation",
+    "activities": [
+      "accommodation"
+    ],
     "budget": "cheap",
     "summary_offline": "Rhaj Inn offers budget-friendly rooms in Virac."
   },
@@ -2003,1002 +2346,1239 @@
     "input": "Who are you?",
     "output": "I am Pathfinder, an AI-enhanced IoT map board system designed to promote smart tourism in Catanduanes.",
     "title": "Pathfinder Identity",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "I am Pathfinder, an AI-enhanced IoT map board designed to assist tourists with personalized information and navigation."
+    "summary_offline": "I am Pathfinder, an AI-enhanced IoT map board designed to assist tourists with personalized information and navigation.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What does Pathfinder do?",
     "output": "The system aims to provide tourists with automated information, real-time updates on attractions, personalized recommendations based on visitor preferences, and seamless navigation support throughout the province.",
     "title": "Pathfinder System Goals",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "The goal is to provide intelligent, interactive guidance including real-time updates, personalized recommendations, and seamless navigation support for visitors."
+    "summary_offline": "The goal is to provide intelligent, interactive guidance including real-time updates, personalized recommendations, and seamless navigation support for visitors.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "What technology is Pathfinder built on?",
     "output": "Pathfinder is built using a Raspberry Pi platform, AI algorithms, Natural Language Processing (NLP) for the chatbot, and a local database.",
     "title": "Pathfinder Technology",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "The system uses a Raspberry Pi platform, AI, and NLP to provide intelligent assistance."
+    "summary_offline": "The system uses a Raspberry Pi platform, AI, and NLP to provide intelligent assistance.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Is this project related to Catanduanes State University?",
     "output": "Pathfinder was developed by researchers from the Computer Engineering Department at Catanduanes State University.",
     "title": "Pathfinder Development Source",
-    "topic": "General",
+    "topic": "general",
     "location": "Virac",
-    "summary_offline": "Pathfinder was developed by researchers from the Computer Engineering Department at Catanduanes State University."
+    "summary_offline": "Pathfinder was developed by researchers from the Computer Engineering Department at Catanduanes State University.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "How do I use this map?",
     "output": "You can use the map by asking to show you locations (e.g., 'Where is Puraran Beach?'), or by clicking the filter buttons to see specific types of places like surfing spots or hotels.",
     "title": "Map Usage Instructions",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
-    "summary_offline": "You can ask for locations to see them on the map, or use the filter buttons to explore categories."
+    "summary_offline": "You can ask for locations to see them on the map, or use the filter buttons to explore categories.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Where is Baras located?",
     "output": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines.",
     "title": "Baras Location",
-    "topic": "General",
+    "topic": "general",
     "location": "Catanduanes Province",
     "coordinates": {
       "lat": 13.699707877194335,
       "lng": 124.3637075239967
     },
-    "summary_offline": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines."
+    "summary_offline": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines.",
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Where is Bagamanoc Guest House?",
     "output": "Bagamanoc Guest House is a hotels and resorts located in Bagamanoc.",
     "title": "Bagamanoc Guest House Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BAGAMANOC",
     "summary_offline": "Bagamanoc Guest House is a hotels and resorts located in Bagamanoc.",
     "place_name": "Bagamanoc Guest House",
     "coordinates": {
       "lat": 13.941644487022801,
       "lng": 124.28692571592231
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Paday Falls?",
     "output": "Paday Falls is a falls located in Bagamanoc.",
     "title": "Paday Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "BAGAMANOC",
     "summary_offline": "Paday Falls is a falls located in Bagamanoc.",
     "place_name": "Paday Falls",
     "coordinates": {
       "lat": 13.961655521369819,
       "lng": 124.27293557115381
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is E-Lounge Resto Bar?",
     "output": "E-Lounge Resto Bar is a restaurants and cafes located in Bagamanoc.",
     "title": "E-Lounge Resto Bar Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "BAGAMANOC",
     "summary_offline": "E-Lounge Resto Bar is a restaurants and cafes located in Bagamanoc.",
     "place_name": "E-Lounge Resto Bar",
     "coordinates": {
       "lat": 13.94152743708702,
       "lng": 124.28853571650649
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Palestina Rolling Hills?",
     "output": "Palestina Rolling Hills is a viewpoints located in Bagamanoc.",
     "title": "Palestina Rolling Hills Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "BAGAMANOC",
     "summary_offline": "Palestina Rolling Hills is a viewpoints located in Bagamanoc.",
     "place_name": "Palestina Rolling Hills",
     "coordinates": {
       "lat": 13.978003,
       "lng": 124.328999
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Villa Felina?",
     "output": "Villa Felina is a hotels and resorts located in Bagamanoc.",
     "title": "Villa Felina Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BAGAMANOC",
     "summary_offline": "Villa Felina is a hotels and resorts located in Bagamanoc.",
     "place_name": "Villa Felina",
     "coordinates": {
       "lat": 13.942121489713058,
       "lng": 124.28616998496803
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Emmans Eatery?",
     "output": "Emmans Eatery is a restaurants and cafes located in Bagamanoc.",
     "title": "Emmans Eatery Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "BAGAMANOC",
     "summary_offline": "Emmans Eatery is a restaurants and cafes located in Bagamanoc.",
     "place_name": "Emmans Eatery",
     "coordinates": {
       "lat": 13.941215405901008,
       "lng": 124.28818189474178
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Dayhagan Beach Resort?",
     "output": "Dayhagan Beach Resort is a hotels and resorts located in Bagamanoc.",
     "title": "Dayhagan Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BAGAMANOC",
     "summary_offline": "Dayhagan Beach Resort is a hotels and resorts located in Bagamanoc.",
     "place_name": "Dayhagan Beach Resort",
     "coordinates": {
       "lat": 13.972487048309555,
       "lng": 124.33526422283471
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Costa Marina?",
     "output": "Costa Marina is a hotels and resorts located in Bagamanoc.",
     "title": "Costa Marina Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BAGAMANOC",
     "summary_offline": "Costa Marina is a hotels and resorts located in Bagamanoc.",
     "place_name": "Costa Marina",
     "coordinates": {
       "lat": 13.954434403876908,
       "lng": 124.28401107910794
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is East Coast Beach Resort?",
     "output": "East Coast Beach Resort is a hotels and resorts located in Baras.",
     "title": "East Coast Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BARAS",
     "summary_offline": "East Coast Beach Resort is a hotels and resorts located in Baras.",
     "place_name": "East Coast Beach Resort",
     "coordinates": {
       "lat": 13.645130194241856,
       "lng": 124.34601783087594
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Macutal Falls?",
     "output": "Macutal Falls is a falls located in Baras.",
     "title": "Macutal Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "BARAS",
     "summary_offline": "Macutal Falls is a falls located in Baras.",
     "place_name": "Macutal Falls",
     "coordinates": {
       "lat": 13.67996312734602,
       "lng": 124.36844252512445
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Balacay Point?",
     "output": "Balacay Point is a viewpoints located in Baras.",
     "title": "Balacay Point Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "BARAS",
     "summary_offline": "Balacay Point is a viewpoints located in Baras.",
     "place_name": "Balacay Point",
     "coordinates": {
       "lat": 13.705434883642221,
       "lng": 124.39530656745467
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Alon Stay?",
     "output": "Alon Stay is a hotels and resorts located in Baras.",
     "title": "Alon Stay Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BARAS",
     "summary_offline": "Alon Stay is a hotels and resorts located in Baras.",
     "place_name": "Alon Stay",
     "coordinates": {
       "lat": 13.689745330816304,
       "lng": 124.39327067294845
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Abihao Point?",
     "output": "Abihao Point is a viewpoints located in Baras.",
     "title": "Abihao Point Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "BARAS",
     "summary_offline": "Abihao Point is a viewpoints located in Baras.",
     "place_name": "Abihao Point",
     "coordinates": {
       "lat": 13.6552093470827,
       "lng": 124.39929844046483
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Dela Villa's Balacay Inn?",
     "output": "Dela Villa's Balacay Inn is a hotels and resorts located in Baras.",
     "title": "Dela Villa's Balacay Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BARAS",
     "summary_offline": "Dela Villa's Balacay Inn is a hotels and resorts located in Baras.",
     "place_name": "Dela Villa's Balacay Inn",
     "coordinates": {
       "lat": 13.703861778807893,
       "lng": 124.38796879884181
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Binurong Point?",
     "output": "Binurong Point is a viewpoints located in Baras.",
     "title": "Binurong Point Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "BARAS",
     "summary_offline": "Binurong Point is a viewpoints located in Baras.",
     "place_name": "Binurong Point",
     "coordinates": {
       "lat": 13.668953711260698,
       "lng": 124.41446622143107
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Jo Surf Inn?",
     "output": "Jo Surf Inn is a hotels and resorts located in Baras.",
     "title": "Jo Surf Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BARAS",
     "summary_offline": "Jo Surf Inn is a hotels and resorts located in Baras.",
     "place_name": "Jo Surf Inn",
     "coordinates": {
       "lat": 13.688157832362895,
       "lng": 124.39591621513217
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Stanza De Benedicto?",
     "output": "Stanza De Benedicto is a viewpoints located in Baras.",
     "title": "Stanza De Benedicto Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "BARAS",
     "summary_offline": "Stanza De Benedicto is a viewpoints located in Baras.",
     "place_name": "Stanza De Benedicto",
     "coordinates": {
       "lat": 13.682383103603602,
       "lng": 124.40601723349695
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is TasTea?",
     "output": "TasTea is a restaurants and cafes located in Baras.",
     "title": "TasTea Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "BARAS",
     "summary_offline": "TasTea is a restaurants and cafes located in Baras.",
     "place_name": "TasTea",
     "coordinates": {
       "lat": 13.659490190945245,
       "lng": 124.37109158385094
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Titaay Surfers Inn?",
     "output": "Titaay Surfers Inn is a hotels and resorts located in Baras.",
     "title": "Titaay Surfers Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BARAS",
     "summary_offline": "Titaay Surfers Inn is a hotels and resorts located in Baras.",
     "place_name": "Titaay Surfers Inn",
     "coordinates": {
       "lat": 13.688946131910923,
       "lng": 124.39426625732916
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is L'Astrolabe?",
     "output": "L'Astrolabe is a hotels and resorts located in Baras.",
     "title": "L'Astrolabe Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BARAS",
     "summary_offline": "L'Astrolabe is a hotels and resorts located in Baras.",
     "place_name": "L'Astrolabe",
     "coordinates": {
       "lat": 13.69095675710196,
       "lng": 124.38856451657799
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Villa Andrea Inn?",
     "output": "Villa Andrea Inn is a hotels and resorts located in Bato.",
     "title": "Villa Andrea Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BATO",
     "summary_offline": "Villa Andrea Inn is a hotels and resorts located in Bato.",
     "place_name": "Villa Andrea Inn",
     "coordinates": {
       "lat": 13.626112095688503,
       "lng": 124.33393918775872
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Kape't Tagpuan Sa Isla?",
     "output": "Kape't Tagpuan Sa Isla is a restaurants and cafes located in Bato.",
     "title": "Kape't Tagpuan Sa Isla Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "BATO",
     "summary_offline": "Kape't Tagpuan Sa Isla is a restaurants and cafes located in Bato.",
     "place_name": "Kape't Tagpuan Sa Isla",
     "coordinates": {
       "lat": 13.607682886467666,
       "lng": 124.29981496225444
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Balongbong Falls?",
     "output": "Balongbong Falls is a falls located in Bato.",
     "title": "Balongbong Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "BATO",
     "summary_offline": "Balongbong Falls is a falls located in Bato.",
     "place_name": "Balongbong Falls",
     "coordinates": {
       "lat": 13.621558812195497,
       "lng": 124.29485801735287
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Batalay Mangrove Eco Park?",
     "output": "Batalay Mangrove Eco Park is a viewpoints located in Bato.",
     "title": "Batalay Mangrove Eco Park Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "BATO",
     "summary_offline": "Batalay Mangrove Eco Park is a viewpoints located in Bato.",
     "place_name": "Batalay Mangrove Eco Park",
     "coordinates": {
       "lat": 13.59293699334864,
       "lng": 124.30880035575444
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Diocesan Shrine of the Holy Cross?",
     "output": "Diocesan Shrine of the Holy Cross is a religious sites located in Bato.",
     "title": "Diocesan Shrine of the Holy Cross Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "BATO",
     "summary_offline": "Diocesan Shrine of the Holy Cross is a religious sites located in Bato.",
     "place_name": "Diocesan Shrine of the Holy Cross",
     "coordinates": {
       "lat": 13.588667855225093,
       "lng": 124.31519015172765
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Poseidon Cove Beach Resort?",
     "output": "Poseidon Cove Beach Resort is a hotels and resorts located in Bato.",
     "title": "Poseidon Cove Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BATO",
     "summary_offline": "Poseidon Cove Beach Resort is a hotels and resorts located in Bato.",
     "place_name": "Poseidon Cove Beach Resort",
     "coordinates": {
       "lat": 13.563919705786883,
       "lng": 124.33224886190959
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Little Bliss Cafe?",
     "output": "Little Bliss Cafe is a restaurants and cafes located in Bato.",
     "title": "Little Bliss Cafe Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "BATO",
     "summary_offline": "Little Bliss Cafe is a restaurants and cafes located in Bato.",
     "place_name": "Little Bliss Cafe",
     "coordinates": {
       "lat": 13.607170580187129,
       "lng": 124.29861953643294
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Maribina Falls?",
     "output": "Maribina Falls is a falls located in Bato.",
     "title": "Maribina Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "BATO",
     "summary_offline": "Maribina Falls is a falls located in Bato.",
     "place_name": "Maribina Falls",
     "coordinates": {
       "lat": 13.60160439150023,
       "lng": 124.27074817719831
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Bote Lighthouse?",
     "output": "Bote Lighthouse is a viewpoints located in Bato.",
     "title": "Bote Lighthouse Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "BATO",
     "summary_offline": "Bote Lighthouse is a viewpoints located in Bato.",
     "place_name": "Bote Lighthouse",
     "coordinates": {
       "lat": 13.55980864586186,
       "lng": 124.32548666430874
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Sakahon Beach?",
     "output": "Sakahon Beach is a hotels and resorts located in Bato.",
     "title": "Sakahon Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BATO",
     "summary_offline": "Sakahon Beach is a hotels and resorts located in Bato.",
     "place_name": "Sakahon Beach",
     "coordinates": {
       "lat": 13.561646057470904,
       "lng": 124.32951300039434
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Mount Pinagkaayonan (Lantad)?",
     "output": "Mount Pinagkaayonan (Lantad) is a viewpoints located in Bato.",
     "title": "Mount Pinagkaayonan (Lantad) Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "BATO",
     "summary_offline": "Mount Pinagkaayonan (Lantad) is a viewpoints located in Bato.",
     "place_name": "Mount Pinagkaayonan (Lantad)",
     "coordinates": {
       "lat": 13.606679398378262,
       "lng": 124.27824218655604
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Bitaogan Beach?",
     "output": "Bitaogan Beach is a hotels and resorts located in Bato.",
     "title": "Bitaogan Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BATO",
     "summary_offline": "Bitaogan Beach is a hotels and resorts located in Bato.",
     "place_name": "Bitaogan Beach",
     "coordinates": {
       "lat": 13.55833527320848,
       "lng": 124.31850376558778
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Carorian Wonders?",
     "output": "Carorian Wonders is a hotels and resorts located in Bato.",
     "title": "Carorian Wonders Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "BATO",
     "summary_offline": "Carorian Wonders is a hotels and resorts located in Bato.",
     "place_name": "Carorian Wonders",
     "coordinates": {
       "lat": 13.58025643862461,
       "lng": 124.34231555615987
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is St. Anthony of Padua Parish Church?",
     "output": "St. Anthony of Padua Parish Church is a religious sites located in Bato.",
     "title": "St. Anthony of Padua Parish Church Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "BATO",
     "summary_offline": "St. Anthony of Padua Parish Church is a religious sites located in Bato.",
     "place_name": "St. Anthony of Padua Parish Church",
     "coordinates": {
       "lat": 13.596889143817018,
       "lng": 124.28389014002626
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Miguilas Inn and Resto Bar?",
     "output": "Miguilas Inn and Resto Bar is a hotels and resorts located in Caramoran.",
     "title": "Miguilas Inn and Resto Bar Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "CARAMORAN",
     "summary_offline": "Miguilas Inn and Resto Bar is a hotels and resorts located in Caramoran.",
     "place_name": "Miguilas Inn and Resto Bar",
     "coordinates": {
       "lat": 13.98755168209128,
       "lng": 124.1348645200423
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Natotoo Falls?",
     "output": "Natotoo Falls is a falls located in Caramoran.",
     "title": "Natotoo Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "CARAMORAN",
     "summary_offline": "Natotoo Falls is a falls located in Caramoran.",
     "place_name": "Natotoo Falls",
     "coordinates": {
       "lat": 13.879262767642187,
       "lng": 124.15298682487371
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Mt. Sadab?",
     "output": "Mt. Sadab is a viewpoints located in Caramoran.",
     "title": "Mt. Sadab Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "CARAMORAN",
     "summary_offline": "Mt. Sadab is a viewpoints located in Caramoran.",
     "place_name": "Mt. Sadab",
     "coordinates": {
       "lat": 13.885858386503344,
       "lng": 124.16179072332014
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Coco Beach Resort?",
     "output": "Coco Beach Resort is a hotels and resorts located in Caramoran.",
     "title": "Coco Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "CARAMORAN",
     "summary_offline": "Coco Beach Resort is a hotels and resorts located in Caramoran.",
     "place_name": "Coco Beach Resort",
     "coordinates": {
       "lat": 13.981994139846373,
       "lng": 124.13097456746102
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Talahid Falls?",
     "output": "Talahid Falls is a falls located in Caramoran.",
     "title": "Talahid Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "CARAMORAN",
     "summary_offline": "Talahid Falls is a falls located in Caramoran.",
     "place_name": "Talahid Falls",
     "coordinates": {
       "lat": 13.792830659039126,
       "lng": 124.14030596560987
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Palumbanes Island?",
     "output": "Palumbanes Island is a viewpoints located in Caramoran.",
     "title": "Palumbanes Island Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "CARAMORAN",
     "summary_offline": "Palumbanes Island is a viewpoints located in Caramoran.",
     "place_name": "Palumbanes Island",
     "coordinates": {
       "lat": 14.024204879590119,
       "lng": 124.04335345796237
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Toytoy Beach?",
     "output": "Toytoy Beach is a hotels and resorts located in Caramoran.",
     "title": "Toytoy Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "CARAMORAN",
     "summary_offline": "Toytoy Beach is a hotels and resorts located in Caramoran.",
     "place_name": "Toytoy Beach",
     "coordinates": {
       "lat": 13.99610361623702,
       "lng": 124.13075649902726
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Sugod Beach?",
     "output": "Sugod Beach is a hotels and resorts located in Caramoran.",
     "title": "Sugod Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "CARAMORAN",
     "summary_offline": "Sugod Beach is a hotels and resorts located in Caramoran.",
     "place_name": "Sugod Beach",
     "coordinates": {
       "lat": 13.884837183543102,
       "lng": 124.13127081527215
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Minabobo Creek Resort?",
     "output": "Minabobo Creek Resort is a hotels and resorts located in Caramoran.",
     "title": "Minabobo Creek Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "CARAMORAN",
     "summary_offline": "Minabobo Creek Resort is a hotels and resorts located in Caramoran.",
     "place_name": "Minabobo Creek Resort",
     "coordinates": {
       "lat": 13.84708042893852,
       "lng": 124.13486478779596
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Tignob Beach?",
     "output": "Tignob Beach is a hotels and resorts located in Caramoran.",
     "title": "Tignob Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "CARAMORAN",
     "summary_offline": "Tignob Beach is a hotels and resorts located in Caramoran.",
     "place_name": "Tignob Beach",
     "coordinates": {
       "lat": 14.018106591467156,
       "lng": 124.02259826506386
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Bitaog Beach?",
     "output": "Bitaog Beach is a hotels and resorts located in Caramoran.",
     "title": "Bitaog Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "CARAMORAN",
     "summary_offline": "Bitaog Beach is a hotels and resorts located in Caramoran.",
     "place_name": "Bitaog Beach",
     "coordinates": {
       "lat": 14.024435372457186,
       "lng": 124.03736114283674
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Hot Palace?",
     "output": "Hot Palace is a restaurants and cafes located in Gigmoto.",
     "title": "Hot Palace Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "GIGMOTO",
     "summary_offline": "Hot Palace is a restaurants and cafes located in Gigmoto.",
     "place_name": "Hot Palace",
     "coordinates": {
       "lat": 13.781121506344725,
       "lng": 124.39053261163247
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Bantayaw Point?",
     "output": "Bantayaw Point is a viewpoints located in Gigmoto.",
     "title": "Bantayaw Point Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "GIGMOTO",
     "summary_offline": "Bantayaw Point is a viewpoints located in Gigmoto.",
     "place_name": "Bantayaw Point",
     "coordinates": {
       "lat": 13.831429593366844,
       "lng": 124.40960689786668
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is San Pedro Calungsod Parish?",
     "output": "San Pedro Calungsod Parish is a religious sites located in Gigmoto.",
     "title": "San Pedro Calungsod Parish Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "GIGMOTO",
     "summary_offline": "San Pedro Calungsod Parish is a religious sites located in Gigmoto.",
     "place_name": "San Pedro Calungsod Parish",
     "coordinates": {
       "lat": 13.83394417704535,
       "lng": 124.39999675568755
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Melfel Inn?",
     "output": "Melfel Inn is a hotels and resorts located in Gigmoto.",
     "title": "Melfel Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "GIGMOTO",
     "summary_offline": "Melfel Inn is a hotels and resorts located in Gigmoto.",
     "place_name": "Melfel Inn",
     "coordinates": {
       "lat": 13.779120861045081,
       "lng": 124.39075791718393
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Nahulugan Falls?",
     "output": "Nahulugan Falls is a falls located in Gigmoto.",
     "title": "Nahulugan Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "GIGMOTO",
     "summary_offline": "Nahulugan Falls is a falls located in Gigmoto.",
     "place_name": "Nahulugan Falls",
     "coordinates": {
       "lat": 13.788620122365284,
       "lng": 124.3677373791043
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Nupa Green Lagoon?",
     "output": "Nupa Green Lagoon is a viewpoints located in Gigmoto.",
     "title": "Nupa Green Lagoon Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "GIGMOTO",
     "summary_offline": "Nupa Green Lagoon is a viewpoints located in Gigmoto.",
     "place_name": "Nupa Green Lagoon",
     "coordinates": {
       "lat": 13.75714325500738,
       "lng": 124.40409028095019
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Bestea X E-fren Fries?",
     "output": "Bestea X E-fren Fries is a restaurants and cafes located in Gigmoto.",
     "title": "Bestea X E-fren Fries Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "GIGMOTO",
     "summary_offline": "Bestea X E-fren Fries is a restaurants and cafes located in Gigmoto.",
     "place_name": "Bestea X E-fren Fries",
     "coordinates": {
       "lat": 13.779500510605716,
       "lng": 124.39129813987927
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is DON N ' MALYN'S Carinderia?",
     "output": "DON N ' MALYN'S Carinderia is a restaurants and cafes located in Gigmoto.",
     "title": "DON N ' MALYN'S Carinderia Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "GIGMOTO",
     "summary_offline": "DON N ' MALYN'S Carinderia is a restaurants and cafes located in Gigmoto.",
     "place_name": "DON N ' MALYN'S Carinderia",
     "coordinates": {
       "lat": 13.780174269134601,
       "lng": 124.39144035716262
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Muraw Beach?",
     "output": "Muraw Beach is a hotels and resorts located in Pandan.",
     "title": "Muraw Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "Muraw Beach is a hotels and resorts located in Pandan.",
     "place_name": "Muraw Beach",
     "coordinates": {
       "lat": 14.057362637200878,
       "lng": 124.12930324842857
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Andercas?",
     "output": "Andercas is a restaurants and cafes located in Pandan.",
     "title": "Andercas Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "PANDAN",
     "summary_offline": "Andercas is a restaurants and cafes located in Pandan.",
     "place_name": "Andercas",
     "coordinates": {
       "lat": 14.045417649184326,
       "lng": 124.16887783456134
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Hinik-Hinik Falls?",
     "output": "Hinik-Hinik Falls is a falls located in Pandan.",
     "title": "Hinik-Hinik Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "PANDAN",
     "summary_offline": "Hinik-Hinik Falls is a falls located in Pandan.",
     "place_name": "Hinik-Hinik Falls",
     "coordinates": {
       "lat": 14.019267,
       "lng": 124.231355
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Cagnipa Rolling Hills?",
     "output": "Cagnipa Rolling Hills is a viewpoints located in Pandan.",
     "title": "Cagnipa Rolling Hills Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANDAN",
     "summary_offline": "Cagnipa Rolling Hills is a viewpoints located in Pandan.",
     "place_name": "Cagnipa Rolling Hills",
     "coordinates": {
       "lat": 14.058967828263247,
       "lng": 124.12870453862769
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Saint Ignatius of Loyola Parish Church?",
     "output": "Saint Ignatius of Loyola Parish Church is a religious sites located in Pandan.",
     "title": "Saint Ignatius of Loyola Parish Church Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "PANDAN",
     "summary_offline": "Saint Ignatius of Loyola Parish Church is a religious sites located in Pandan.",
     "place_name": "Saint Ignatius of Loyola Parish Church",
     "coordinates": {
       "lat": 14.04460992198803,
       "lng": 124.16878323678067
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Hiyop Highlands?",
     "output": "Hiyop Highlands is a viewpoints located in Pandan.",
     "title": "Hiyop Highlands Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANDAN",
     "summary_offline": "Hiyop Highlands is a viewpoints located in Pandan.",
     "place_name": "Hiyop Highlands",
     "coordinates": {
       "lat": 14.069834001868761,
       "lng": 124.19515607209418
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Tuwad-Tuwadan Blue Lagoon?",
     "output": "Tuwad-Tuwadan Blue Lagoon is a hotels and resorts located in Pandan.",
     "title": "Tuwad-Tuwadan Blue Lagoon Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "Tuwad-Tuwadan Blue Lagoon is a hotels and resorts located in Pandan.",
     "place_name": "Tuwad-Tuwadan Blue Lagoon",
     "coordinates": {
       "lat": 14.058633006081989,
       "lng": 124.12664279629792
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Bhem's Kitchen?",
     "output": "Bhem's Kitchen is a restaurants and cafes located in Pandan.",
     "title": "Bhem's Kitchen Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "PANDAN",
     "summary_offline": "Bhem's Kitchen is a restaurants and cafes located in Pandan.",
     "place_name": "Bhem's Kitchen",
     "coordinates": {
       "lat": 14.04822784104875,
       "lng": 124.1691568239435
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Linampawan Falls?",
     "output": "Linampawan Falls is a falls located in Pandan.",
     "title": "Linampawan Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "PANDAN",
     "summary_offline": "Linampawan Falls is a falls located in Pandan.",
     "place_name": "Linampawan Falls",
     "coordinates": {
       "lat": 14.014603,
       "lng": 124.238823
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Paraiso ni Honesto?",
     "output": "Paraiso ni Honesto is a viewpoints located in Pandan.",
     "title": "Paraiso ni Honesto Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANDAN",
     "summary_offline": "Paraiso ni Honesto is a viewpoints located in Pandan.",
     "place_name": "Paraiso ni Honesto",
     "coordinates": {
       "lat": 14.083943574020907,
       "lng": 124.19383756087414
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is La Prisa Campsite?",
     "output": "La Prisa Campsite is a viewpoints located in Pandan.",
     "title": "La Prisa Campsite Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANDAN",
     "summary_offline": "La Prisa Campsite is a viewpoints located in Pandan.",
     "place_name": "La Prisa Campsite",
     "coordinates": {
       "lat": 14.044124141098605,
       "lng": 124.24557100979199
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Sitio Concepcion?",
     "output": "Sitio Concepcion is a hotels and resorts located in Pandan.",
     "title": "Sitio Concepcion Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "Sitio Concepcion is a hotels and resorts located in Pandan.",
     "place_name": "Sitio Concepcion",
     "coordinates": {
       "lat": 14.062874048095829,
       "lng": 124.21957776035022
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Catanduanes Halfway Resort Hotel?",
     "output": "Catanduanes Halfway Resort Hotel is a viewpoints located in Pandan.",
     "title": "Catanduanes Halfway Resort Hotel Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANDAN",
     "summary_offline": "Catanduanes Halfway Resort Hotel is a viewpoints located in Pandan.",
     "place_name": "Catanduanes Halfway Resort Hotel",
     "coordinates": {
       "lat": 14.067248666931913,
       "lng": 124.22564617010536
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Balay Victoria?",
     "output": "Balay Victoria is a hotels and resorts located in Pandan.",
     "title": "Balay Victoria Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "Balay Victoria is a hotels and resorts located in Pandan.",
     "place_name": "Balay Victoria",
     "coordinates": {
       "lat": 14.043967758271375,
       "lng": 124.17151978571643
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Maturin Rock Formation?",
     "output": "Maturin Rock Formation is a viewpoints located in Pandan.",
     "title": "Maturin Rock Formation Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANDAN",
     "summary_offline": "Maturin Rock Formation is a viewpoints located in Pandan.",
     "place_name": "Maturin Rock Formation",
     "coordinates": {
       "lat": 14.112195035591208,
       "lng": 124.28345005313469
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Carangyan Beach Resort?",
     "output": "Carangyan Beach Resort is a hotels and resorts located in Pandan.",
     "title": "Carangyan Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "Carangyan Beach Resort is a hotels and resorts located in Pandan.",
     "place_name": "Carangyan Beach Resort",
     "coordinates": {
       "lat": 14.055886730928483,
       "lng": 124.15446928280349
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Pandan Lighthouse?",
     "output": "Pandan Lighthouse is a viewpoints located in Pandan.",
     "title": "Pandan Lighthouse Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANDAN",
     "summary_offline": "Pandan Lighthouse is a viewpoints located in Pandan.",
     "place_name": "Pandan Lighthouse",
     "coordinates": {
       "lat": 14.06538134011241,
       "lng": 124.17479976209289
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is North Travel Lodge?",
     "output": "North Travel Lodge is a hotels and resorts located in Pandan.",
     "title": "North Travel Lodge Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "North Travel Lodge is a hotels and resorts located in Pandan.",
     "place_name": "North Travel Lodge",
     "coordinates": {
       "lat": 14.042249909431563,
       "lng": 124.17084337640102
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Yabu-Yabuhan?",
     "output": "Yabu-Yabuhan is a viewpoints located in Pandan.",
     "title": "Yabu-Yabuhan Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANDAN",
     "summary_offline": "Yabu-Yabuhan is a viewpoints located in Pandan.",
     "place_name": "Yabu-Yabuhan",
     "coordinates": {
       "lat": 14.063824,
       "lng": 124.17692
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Cagnipa Cove?",
     "output": "Cagnipa Cove is a hotels and resorts located in Pandan.",
     "title": "Cagnipa Cove Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "Cagnipa Cove is a hotels and resorts located in Pandan.",
     "place_name": "Cagnipa Cove",
     "coordinates": {
       "lat": 14.060299980132276,
       "lng": 124.12740634956491
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "How do I get to Catanduanes from Manila?",
@@ -3047,10 +3627,10 @@
     "title": "Puraran Beach Entrance and Surf Rates",
     "topic": "budget",
     "activities": [
+      "beaches",
       "budget",
       "fees",
-      "surfing",
-      "beaches"
+      "surfing"
     ]
   },
   {
@@ -3062,10 +3642,10 @@
     "title": "Twin Rock Beach Resort Day Tour Fees",
     "topic": "budget",
     "activities": [
+      "beaches",
       "budget",
       "fees",
-      "swimming",
-      "beaches"
+      "swimming"
     ]
   },
   {
@@ -3092,9 +3672,9 @@
     "topic": "budget",
     "activities": [
       "budget",
+      "falls",
       "fees",
-      "swimming",
-      "falls"
+      "swimming"
     ]
   },
   {
@@ -3120,9 +3700,9 @@
     "title": "Palumbanes Island Boat Rental Costs",
     "topic": "budget",
     "activities": [
+      "beaches",
       "budget",
       "fees",
-      "beaches",
       "island"
     ]
   },
@@ -3137,8 +3717,8 @@
     "activities": [
       "budget",
       "fees",
-      "sightseeing",
-      "museum"
+      "museum",
+      "sightseeing"
     ]
   },
   {
@@ -3150,10 +3730,11 @@
     "title": "Mamangal Beach Camping and Entrance Fees",
     "topic": "budget",
     "activities": [
-      "budget",
-      "fees",
+      "accommodation",
       "beaches",
-      "camping"
+      "budget",
+      "camping",
+      "fees"
     ]
   },
   {
@@ -3193,9 +3774,9 @@
     "title": "Amenia Beach Resort Day Rates",
     "topic": "budget",
     "activities": [
+      "beaches",
       "budget",
-      "fees",
-      "beaches"
+      "fees"
     ]
   },
   {
@@ -3208,9 +3789,9 @@
     "topic": "budget",
     "activities": [
       "budget",
+      "falls",
       "fees",
-      "swimming",
-      "falls"
+      "swimming"
     ]
   },
   {
@@ -3250,10 +3831,10 @@
     "title": "Carangyan Beach Resort Entrance and Pool Rates",
     "topic": "budget",
     "activities": [
+      "beaches",
       "budget",
       "fees",
-      "swimming",
-      "beaches"
+      "swimming"
     ]
   },
   {
@@ -3265,9 +3846,9 @@
     "title": "Batag Beach Environmental Fee",
     "topic": "budget",
     "activities": [
+      "beaches",
       "budget",
-      "fees",
-      "beaches"
+      "fees"
     ]
   },
   {
@@ -3280,8 +3861,9 @@
     "topic": "budget",
     "activities": [
       "budget",
+      "falls",
       "fees",
-      "falls"
+      "swimming"
     ]
   },
   {
@@ -3294,9 +3876,10 @@
     "topic": "budget",
     "activities": [
       "budget",
-      "fees",
       "falls",
-      "hiking"
+      "fees",
+      "hiking",
+      "swimming"
     ]
   },
   {
@@ -3308,9 +3891,9 @@
     "title": "Sugod Beach Entrance",
     "topic": "budget",
     "activities": [
+      "beaches",
       "budget",
-      "fees",
-      "beaches"
+      "fees"
     ]
   },
   {
@@ -3322,9 +3905,9 @@
     "title": "How to Get to Puraran Beach",
     "topic": "transport",
     "activities": [
-      "transport",
+      "beaches",
       "surfing",
-      "beaches"
+      "transport"
     ]
   },
   {
@@ -3360,6 +3943,7 @@
     "title": "Binurong Point Entrance Fee",
     "topic": "logistics",
     "activities": [
+      "planning",
       "sightseeing"
     ]
   },
@@ -3372,6 +3956,7 @@
     "title": "ATMs and Cash in Catanduanes",
     "topic": "logistics",
     "activities": [
+      "planning",
       "shopping"
     ]
   },
@@ -3382,10 +3967,11 @@
     "place_name": "Binurong Point",
     "location": "BARAS",
     "activities": [
-      "transport",
-      "sightseeing"
+      "sightseeing",
+      "transport"
     ],
-    "title": "How to get to Binurong Point"
+    "title": "How to get to Binurong Point",
+    "topic": "transport"
   },
   {
     "input": "How do I get from Virac to Pandan?",
@@ -3396,8 +3982,8 @@
     "title": "Getting to Pandan from Virac",
     "topic": "transport",
     "activities": [
-      "transport",
-      "beaches"
+      "beaches",
+      "transport"
     ]
   },
   {
@@ -3409,9 +3995,10 @@
     "title": "Best Time to Visit Catanduanes",
     "topic": "general",
     "activities": [
-      "surfing",
       "beaches",
-      "sightseeing"
+      "general",
+      "sightseeing",
+      "surfing"
     ]
   },
   {
@@ -3460,8 +4047,9 @@
     "title": "Instagrammable Spots in Catanduanes",
     "topic": "sightseeing",
     "activities": [
-      "sightseeing",
-      "aesthetic"
+      "aesthetic",
+      "photography",
+      "sightseeing"
     ]
   },
   {
@@ -3473,8 +4061,9 @@
     "title": "Best Sunset Views in Catanduanes",
     "topic": "sightseeing",
     "activities": [
-      "sightseeing",
-      "aesthetic"
+      "aesthetic",
+      "photography",
+      "sightseeing"
     ]
   },
   {
@@ -3486,9 +4075,9 @@
     "title": "Photography Tips at Binurong Point",
     "topic": "sightseeing",
     "activities": [
-      "sightseeing",
       "aesthetic",
-      "photography"
+      "photography",
+      "sightseeing"
     ]
   },
   {
@@ -3500,10 +4089,11 @@
     "title": "What Puraran Beach Looks Like",
     "topic": "beaches",
     "activities": [
+      "aesthetic",
       "beaches",
+      "photography",
       "surfing",
-      "swimming",
-      "aesthetic"
+      "swimming"
     ]
   },
   {
@@ -3515,9 +4105,10 @@
     "title": "Quiet Uncrowded Beaches in Catanduanes",
     "topic": "beaches",
     "activities": [
+      "aesthetic",
       "beaches",
-      "swimming",
-      "aesthetic"
+      "photography",
+      "swimming"
     ]
   },
   {
@@ -3529,10 +4120,11 @@
     "title": "Best Waterfalls in Catanduanes",
     "topic": "sightseeing",
     "activities": [
-      "sightseeing",
+      "aesthetic",
       "hiking",
-      "swimming",
-      "aesthetic"
+      "photography",
+      "sightseeing",
+      "swimming"
     ]
   },
   {
@@ -3544,9 +4136,11 @@
     "title": "Unique Unusual Attractions in Catanduanes",
     "topic": "sightseeing",
     "activities": [
-      "sightseeing",
       "aesthetic",
-      "kayaking"
+      "kayaking",
+      "photography",
+      "sightseeing",
+      "swimming"
     ]
   },
   {
@@ -3558,9 +4152,9 @@
     "title": "Best Sunrise Photo Spots Catanduanes",
     "topic": "sightseeing",
     "activities": [
-      "sightseeing",
       "aesthetic",
-      "photography"
+      "photography",
+      "sightseeing"
     ]
   },
   {
@@ -3572,9 +4166,10 @@
     "title": "Heritage Churches and History Sites Catanduanes",
     "topic": "sightseeing",
     "activities": [
-      "sightseeing",
       "aesthetic",
-      "culture"
+      "culture",
+      "photography",
+      "sightseeing"
     ]
   },
   {
@@ -3586,9 +4181,10 @@
     "title": "Romantic Spots in Catanduanes for Couples",
     "topic": "sightseeing",
     "activities": [
-      "sightseeing",
       "aesthetic",
-      "beaches"
+      "beaches",
+      "photography",
+      "sightseeing"
     ],
     "group_type": "couple"
   },
@@ -3601,10 +4197,10 @@
     "title": "Catanduanes Clear Water Beaches for Photos",
     "topic": "beaches",
     "activities": [
-      "beaches",
-      "swimming",
       "aesthetic",
-      "photography"
+      "beaches",
+      "photography",
+      "swimming"
     ]
   },
   {
@@ -3616,9 +4212,10 @@
     "title": "Is Puraran Beach Safe for Swimming",
     "topic": "safety",
     "activities": [
-      "swimming",
+      "beaches",
+      "safety",
       "surfing",
-      "beaches"
+      "swimming"
     ]
   },
   {
@@ -3630,6 +4227,7 @@
     "title": "Safety for Solo Female Travelers Catanduanes",
     "topic": "safety",
     "activities": [
+      "safety",
       "sightseeing"
     ]
   },
@@ -3642,6 +4240,7 @@
     "title": "Budget Breakdown for Catanduanes Trip",
     "topic": "budget",
     "activities": [
+      "budget",
       "sightseeing"
     ]
   },
@@ -3654,8 +4253,9 @@
     "title": "Is Binurong Point Safe and Difficult",
     "topic": "safety",
     "activities": [
-      "sightseeing",
-      "hiking"
+      "hiking",
+      "safety",
+      "sightseeing"
     ]
   },
   {
@@ -3667,6 +4267,7 @@
     "title": "Is Puraran Safe for Beginner Surfers",
     "topic": "safety",
     "activities": [
+      "safety",
       "surfing"
     ],
     "skill_level": "beginner"
@@ -3680,11 +4281,11 @@
     "title": "Marine Hazards at Catanduanes Beaches",
     "topic": "safety",
     "activities": [
-      "swimming",
-      "beaches"
+      "beaches",
+      "safety",
+      "swimming"
     ]
   },
-  
   {
     "input": "Is the road to Baras and Puraran Beach dangerous?",
     "output": "The road from Virac to Baras and Puraran Beach is mostly paved and passes through hilly terrain with sharp curves and elevated sections. During dry season it is manageable, but during heavy rain and typhoon season sections can become slippery or damaged. Driving at night on this route is not advisable due to limited lighting and winding roads. Hire experienced local drivers who know the route well, especially if you are unfamiliar with mountain driving.",
@@ -3694,6 +4295,7 @@
     "title": "Road Safety Virac to Puraran Beach",
     "topic": "safety",
     "activities": [
+      "safety",
       "transport"
     ]
   },
@@ -3706,10 +4308,10 @@
     "title": "How to Get to Catanduanes from Manila",
     "topic": "navigation",
     "activities": [
-      "transport",
       "commute",
       "ferry",
-      "plane"
+      "plane",
+      "transport"
     ]
   },
   {
@@ -3721,9 +4323,9 @@
     "title": "Binurong Point Entrance Fee and Cost",
     "topic": "budget",
     "activities": [
+      "budget",
       "sightseeing",
-      "viewpoint",
-      "budget"
+      "viewpoint"
     ]
   },
   {
@@ -3735,8 +4337,8 @@
     "title": "How to Get to Binurong Point from Virac",
     "topic": "navigation",
     "activities": [
-      "transport",
       "sightseeing",
+      "transport",
       "viewpoint"
     ]
   },
@@ -3750,8 +4352,8 @@
     "topic": "general",
     "activities": [
       "general",
-      "weather",
-      "planning"
+      "planning",
+      "weather"
     ]
   },
   {
@@ -3777,9 +4379,10 @@
     "title": "Best Beaches for Swimming and Snorkeling",
     "topic": "beaches",
     "activities": [
-      "swimming",
       "beach",
-      "snorkeling"
+      "beaches",
+      "snorkeling",
+      "swimming"
     ]
   },
   {
@@ -3791,9 +4394,9 @@
     "title": "Hospital and Medical Facilities in Catanduanes",
     "topic": "safety",
     "activities": [
-      "safety",
       "emergency",
-      "medical"
+      "medical",
+      "safety"
     ]
   },
   {
@@ -3805,10 +4408,10 @@
     "title": "What to Do in Gigmoto",
     "topic": "nature",
     "activities": [
-      "swimming",
       "falls",
+      "hiking",
       "sightseeing",
-      "hiking"
+      "swimming"
     ]
   },
   {
@@ -3820,10 +4423,12 @@
     "title": "Family Friendly Activities for Kids",
     "topic": "family",
     "activities": [
-      "sightseeing",
-      "swimming",
       "beach",
-      "falls"
+      "beaches",
+      "falls",
+      "general",
+      "sightseeing",
+      "swimming"
     ],
     "group_type": "family"
   },
@@ -3836,9 +4441,10 @@
     "title": "How to Get to Puraran Beach from Virac",
     "topic": "navigation",
     "activities": [
-      "transport",
+      "beach",
+      "beaches",
       "surfing",
-      "beach"
+      "transport"
     ]
   },
   {
@@ -3850,10 +4456,10 @@
     "title": "Cheap Authentic Local Food in Virac",
     "topic": "dining",
     "activities": [
+      "budget",
       "dining",
       "food",
-      "lunch",
-      "budget"
+      "lunch"
     ]
   },
   {
@@ -3865,10 +4471,11 @@
     "title": "What to Do and See in Bato",
     "topic": "culture",
     "activities": [
-      "sightseeing",
-      "history",
+      "church",
       "falls",
-      "church"
+      "history",
+      "sightseeing",
+      "swimming"
     ]
   },
   {
@@ -3880,10 +4487,12 @@
     "title": "Twin Rock Beach Resort Safety and Entrance Fee",
     "topic": "beaches",
     "activities": [
-      "swimming",
+      "accommodation",
       "beach",
+      "beaches",
+      "budget",
       "resort",
-      "budget"
+      "swimming"
     ]
   },
   {
@@ -3895,9 +4504,9 @@
     "title": "Nightlife, Bars and Live Music in Virac",
     "topic": "dining",
     "activities": [
+      "bar",
       "dining",
       "drinks",
-      "bar",
       "nightlife"
     ]
   },
@@ -3910,10 +4519,12 @@
     "title": "Tourist Spots and Activities in Pandan",
     "topic": "nature",
     "activities": [
-      "swimming",
-      "hiking",
+      "accommodation",
       "beach",
-      "camping"
+      "beaches",
+      "camping",
+      "hiking",
+      "swimming"
     ]
   },
   {
@@ -3925,9 +4536,11 @@
     "title": "Whale and Dolphin Watching in Catanduanes",
     "topic": "nature",
     "activities": [
-      "swimming",
       "boat",
-      "sightseeing"
+      "hiking",
+      "sightseeing",
+      "swimming",
+      "transport"
     ]
   },
   {
@@ -3939,9 +4552,10 @@
     "title": "Maribina Falls Overview and Visitor Tips",
     "topic": "nature",
     "activities": [
-      "swimming",
       "falls",
-      "sightseeing"
+      "hiking",
+      "sightseeing",
+      "swimming"
     ]
   },
   {
@@ -3953,10 +4567,12 @@
     "title": "LouCa Beach Resort Overview",
     "topic": "beaches",
     "activities": [
-      "swimming",
+      "accommodation",
       "beach",
+      "beaches",
+      "resort",
       "snorkeling",
-      "resort"
+      "swimming"
     ]
   },
   {
@@ -3968,9 +4584,9 @@
     "title": "Daily Travel Budget for Catanduanes",
     "topic": "budget",
     "activities": [
+      "accommodation",
       "budget",
-      "planning",
-      "accommodation"
+      "planning"
     ]
   },
   {
@@ -3995,8 +4611,9 @@
     "title": "How Crowded is Puraran Beach",
     "topic": "general",
     "activities": [
-      "surfing",
       "beaches",
+      "general",
+      "surfing",
       "swimming"
     ]
   },
@@ -4009,6 +4626,7 @@
     "title": "Is Catanduanes Expensive Compared to Other Destinations",
     "topic": "budget",
     "activities": [
+      "budget",
       "sightseeing"
     ]
   },
@@ -4033,6 +4651,7 @@
     "title": "Typhoon Risk and When to Avoid Catanduanes",
     "topic": "safety",
     "activities": [
+      "safety",
       "sightseeing"
     ]
   },
@@ -4045,10 +4664,11 @@
     "title": "One Day Itinerary Catanduanes",
     "topic": "itinerary",
     "activities": [
-      "sightseeing",
-      "swimming",
       "beaches",
-      "hiking"
+      "hiking",
+      "planning",
+      "sightseeing",
+      "swimming"
     ]
   },
   {
@@ -4060,10 +4680,11 @@
     "title": "3 Day Itinerary Catanduanes",
     "topic": "itinerary",
     "activities": [
-      "sightseeing",
-      "swimming",
       "beaches",
-      "hiking"
+      "hiking",
+      "planning",
+      "sightseeing",
+      "swimming"
     ]
   },
   {
@@ -4088,9 +4709,10 @@
     "title": "Family Activities Kids Catanduanes",
     "topic": "general",
     "activities": [
-      "swimming",
       "beaches",
-      "sightseeing"
+      "general",
+      "sightseeing",
+      "swimming"
     ],
     "group_type": "family"
   },
@@ -4117,8 +4739,9 @@
     "topic": "itinerary",
     "activities": [
       "beaches",
-      "swimming",
-      "sightseeing"
+      "planning",
+      "sightseeing",
+      "swimming"
     ]
   },
   {
@@ -4130,8 +4753,9 @@
     "title": "Weekend Trip Catanduanes from Manila",
     "topic": "itinerary",
     "activities": [
-      "sightseeing",
       "beaches",
+      "planning",
+      "sightseeing",
       "transport"
     ]
   },
@@ -4139,1027 +4763,1264 @@
     "input": "Where is Pandan Seashore Park?",
     "output": "Pandan Seashore Park is a hotels and resorts located in Pandan.",
     "title": "Pandan Seashore Park Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "Pandan Seashore Park is a hotels and resorts located in Pandan.",
     "place_name": "Pandan Seashore Park",
     "coordinates": {
       "lat": 14.052562896257582,
       "lng": 124.16753375572294
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Campilan Beach?",
     "output": "Campilan Beach is a hotels and resorts located in Pandan.",
     "title": "Campilan Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "Campilan Beach is a hotels and resorts located in Pandan.",
     "place_name": "Campilan Beach",
     "coordinates": {
       "lat": 14.06499,
       "lng": 124.175032
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Mambang Beach?",
     "output": "Mambang Beach is a hotels and resorts located in Pandan.",
     "title": "Mambang Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANDAN",
     "summary_offline": "Mambang Beach is a hotels and resorts located in Pandan.",
     "place_name": "Mambang Beach",
     "coordinates": {
       "lat": 14.052390127026989,
       "lng": 124.16012018656308
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Cumagat Beach & Hilltop Resort?",
     "output": "Cumagat Beach & Hilltop Resort is a hotels and resorts located in Panganiban.",
     "title": "Cumagat Beach & Hilltop Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANGANIBAN",
     "summary_offline": "Cumagat Beach & Hilltop Resort is a hotels and resorts located in Panganiban.",
     "place_name": "Cumagat Beach & Hilltop Resort",
     "coordinates": {
       "lat": 13.94963098536221,
       "lng": 124.35022267619804
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Lolong Point Lighthouse?",
     "output": "Lolong Point Lighthouse is a viewpoints located in Panganiban.",
     "title": "Lolong Point Lighthouse Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANGANIBAN",
     "summary_offline": "Lolong Point Lighthouse is a viewpoints located in Panganiban.",
     "place_name": "Lolong Point Lighthouse",
     "coordinates": {
       "lat": 13.950358787088991,
       "lng": 124.35430502227162
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Enerking Garden Resort?",
     "output": "Enerking Garden Resort is a hotels and resorts located in Panganiban.",
     "title": "Enerking Garden Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANGANIBAN",
     "summary_offline": "Enerking Garden Resort is a hotels and resorts located in Panganiban.",
     "place_name": "Enerking Garden Resort",
     "coordinates": {
       "lat": 13.906841559179071,
       "lng": 124.30081900978871
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Ernest Eatery?",
     "output": "Ernest Eatery is a restaurants and cafes located in Panganiban.",
     "title": "Ernest Eatery Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "PANGANIBAN",
     "summary_offline": "Ernest Eatery is a restaurants and cafes located in Panganiban.",
     "place_name": "Ernest Eatery",
     "coordinates": {
       "lat": 13.906363558118793,
       "lng": 124.30351882198518
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Banquerohan Bridge?",
     "output": "Banquerohan Bridge is a viewpoints located in Panganiban.",
     "title": "Banquerohan Bridge Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "PANGANIBAN",
     "summary_offline": "Banquerohan Bridge is a viewpoints located in Panganiban.",
     "place_name": "Banquerohan Bridge",
     "coordinates": {
       "lat": 13.89438097388749,
       "lng": 124.30837962465417
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Angeles Homestay?",
     "output": "Angeles Homestay is a hotels and resorts located in Panganiban.",
     "title": "Angeles Homestay Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANGANIBAN",
     "summary_offline": "Angeles Homestay is a hotels and resorts located in Panganiban.",
     "place_name": "Angeles Homestay",
     "coordinates": {
       "lat": 13.907665802542967,
       "lng": 124.29556399563526
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Tarahid KTV Bar?",
     "output": "Tarahid KTV Bar is a restaurants and cafes located in Panganiban.",
     "title": "Tarahid KTV Bar Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "PANGANIBAN",
     "summary_offline": "Tarahid KTV Bar is a restaurants and cafes located in Panganiban.",
     "place_name": "Tarahid KTV Bar",
     "coordinates": {
       "lat": 13.91212173717216,
       "lng": 124.30487585340553
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is The Rezidence?",
     "output": "The Rezidence is a hotels and resorts located in Panganiban.",
     "title": "The Rezidence Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "PANGANIBAN",
     "summary_offline": "The Rezidence is a hotels and resorts located in Panganiban.",
     "place_name": "The Rezidence",
     "coordinates": {
       "lat": 13.910962045093433,
       "lng": 124.30441513824577
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Amenia Beach Resort?",
     "output": "Amenia Beach Resort is a hotels and resorts located in San andres.",
     "title": "Amenia Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Amenia Beach Resort is a hotels and resorts located in San andres.",
     "place_name": "Amenia Beach Resort",
     "coordinates": {
       "lat": 13.573293073630248,
       "lng": 124.13946144298322
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Mount Cagmasoso?",
     "output": "Mount Cagmasoso is a viewpoints located in San andres.",
     "title": "Mount Cagmasoso Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "SAN ANDRES",
     "summary_offline": "Mount Cagmasoso is a viewpoints located in San andres.",
     "place_name": "Mount Cagmasoso",
     "coordinates": {
       "lat": 13.623480169988486,
       "lng": 124.13286350211467
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Our Lady of Sorrows Parish Church?",
     "output": "Our Lady of Sorrows Parish Church is a religious sites located in San andres.",
     "title": "Our Lady of Sorrows Parish Church Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "SAN ANDRES",
     "summary_offline": "Our Lady of Sorrows Parish Church is a religious sites located in San andres.",
     "place_name": "Our Lady of Sorrows Parish Church",
     "coordinates": {
       "lat": 13.611589791787962,
       "lng": 124.09348830280368
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Balin's Seaview Beach Resort?",
     "output": "Balin's Seaview Beach Resort is a hotels and resorts located in San andres.",
     "title": "Balin's Seaview Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Balin's Seaview Beach Resort is a hotels and resorts located in San andres.",
     "place_name": "Balin's Seaview Beach Resort",
     "coordinates": {
       "lat": 13.572623438011778,
       "lng": 124.13993686420447
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Liz & Bel Café?",
     "output": "Liz & Bel Café is a restaurants and cafes located in San andres.",
     "title": "Liz & Bel Café Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "SAN ANDRES",
     "summary_offline": "Liz & Bel Café is a restaurants and cafes located in San andres.",
     "place_name": "Liz & Bel Café",
     "coordinates": {
       "lat": 13.599281935446907,
       "lng": 124.09564860978172
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Luyang Cave?",
     "output": "Luyang Cave is a viewpoints located in San andres.",
     "title": "Luyang Cave Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "SAN ANDRES",
     "summary_offline": "Luyang Cave is a viewpoints located in San andres.",
     "place_name": "Luyang Cave",
     "coordinates": {
       "lat": 13.60572345866787,
       "lng": 124.13509013677053
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Nicole's Grill Resto Bar?",
     "output": "Nicole's Grill Resto Bar is a restaurants and cafes located in San andres.",
     "title": "Nicole's Grill Resto Bar Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "SAN ANDRES",
     "summary_offline": "Nicole's Grill Resto Bar is a restaurants and cafes located in San andres.",
     "place_name": "Nicole's Grill Resto Bar",
     "coordinates": {
       "lat": 13.570704014196755,
       "lng": 124.142135365605
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Codon Lighthouse?",
     "output": "Codon Lighthouse is a viewpoints located in San andres.",
     "title": "Codon Lighthouse Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "SAN ANDRES",
     "summary_offline": "Codon Lighthouse is a viewpoints located in San andres.",
     "place_name": "Codon Lighthouse",
     "coordinates": {
       "lat": 13.662910203798745,
       "lng": 124.02606030674717
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Casa Dueña Travellers Inn?",
     "output": "Casa Dueña Travellers Inn is a hotels and resorts located in San andres.",
     "title": "Casa Dueña Travellers Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Casa Dueña Travellers Inn is a hotels and resorts located in San andres.",
     "place_name": "Casa Dueña Travellers Inn",
     "coordinates": {
       "lat": 13.599401731389687,
       "lng": 124.09595898058178
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Emmalyn's Paradise Resort?",
     "output": "Emmalyn's Paradise Resort is a hotels and resorts located in San andres.",
     "title": "Emmalyn's Paradise Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Emmalyn's Paradise Resort is a hotels and resorts located in San andres.",
     "place_name": "Emmalyn's Paradise Resort",
     "coordinates": {
       "lat": 13.600789202838738,
       "lng": 124.06048702747073
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Liebe Max Beach Resort?",
     "output": "Liebe Max Beach Resort is a hotels and resorts located in San andres.",
     "title": "Liebe Max Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Liebe Max Beach Resort is a hotels and resorts located in San andres.",
     "place_name": "Liebe Max Beach Resort",
     "coordinates": {
       "lat": 13.601924342216595,
       "lng": 124.08432027699324
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Liz & Bel Tourist Inn?",
     "output": "Liz & Bel Tourist Inn is a hotels and resorts located in San andres.",
     "title": "Liz & Bel Tourist Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Liz & Bel Tourist Inn is a hotels and resorts located in San andres.",
     "place_name": "Liz & Bel Tourist Inn",
     "coordinates": {
       "lat": 13.599278991548179,
       "lng": 124.09568675395776
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Wuppertaler Travellers Inn?",
     "output": "Wuppertaler Travellers Inn is a hotels and resorts located in San andres.",
     "title": "Wuppertaler Travellers Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Wuppertaler Travellers Inn is a hotels and resorts located in San andres.",
     "place_name": "Wuppertaler Travellers Inn",
     "coordinates": {
       "lat": 13.598845133261927,
       "lng": 124.0989190144737
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Camping Herold Beach?",
     "output": "Camping Herold Beach is a hotels and resorts located in San andres.",
     "title": "Camping Herold Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Camping Herold Beach is a hotels and resorts located in San andres.",
     "place_name": "Camping Herold Beach",
     "coordinates": {
       "lat": 13.599400700827006,
       "lng": 124.05438592186414
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Kibanggas Beach?",
     "output": "Kibanggas Beach is a hotels and resorts located in San andres.",
     "title": "Kibanggas Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Kibanggas Beach is a hotels and resorts located in San andres.",
     "place_name": "Kibanggas Beach",
     "coordinates": {
       "lat": 13.645637469518293,
       "lng": 124.03760255562867
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Monte Cielo?",
     "output": "Monte Cielo is a hotels and resorts located in San andres.",
     "title": "Monte Cielo Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Monte Cielo is a hotels and resorts located in San andres.",
     "place_name": "Monte Cielo",
     "coordinates": {
       "lat": 13.566109000530673,
       "lng": 124.14518862955885
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Bagasbas Beach Resort?",
     "output": "Bagasbas Beach Resort is a hotels and resorts located in San andres.",
     "title": "Bagasbas Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Bagasbas Beach Resort is a hotels and resorts located in San andres.",
     "place_name": "Bagasbas Beach Resort",
     "coordinates": {
       "lat": 13.579008198224741,
       "lng": 124.12497455931305
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Talaga Pebble Beach?",
     "output": "Talaga Pebble Beach is a hotels and resorts located in San andres.",
     "title": "Talaga Pebble Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Talaga Pebble Beach is a hotels and resorts located in San andres.",
     "place_name": "Talaga Pebble Beach",
     "coordinates": {
       "lat": 13.70849707986902,
       "lng": 124.09648307885134
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Blue Horizon Beach?",
     "output": "Blue Horizon Beach is a hotels and resorts located in San andres.",
     "title": "Blue Horizon Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "Blue Horizon Beach is a hotels and resorts located in San andres.",
     "place_name": "Blue Horizon Beach",
     "coordinates": {
       "lat": 13.564625399431703,
       "lng": 124.14563924065551
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is La Playa Resort?",
     "output": "La Playa Resort is a hotels and resorts located in San andres.",
     "title": "La Playa Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN ANDRES",
     "summary_offline": "La Playa Resort is a hotels and resorts located in San andres.",
     "place_name": "La Playa Resort",
     "coordinates": {
       "lat": 13.569200023674027,
       "lng": 124.14289013881685
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Mamangal Beach",
     "output": "Mamangal Beach is a hotels and resorts located in Virac.",
     "title": "Mamangal Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
     "summary_offline": "Mamangal Beach is a hotels and resorts located in Virac.",
     "place_name": "Mamangal Beach",
     "coordinates": {
       "lat": 13.55636633190002,
       "lng": 124.14885591109632
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Oliver's Riff Mamangal Beach Resort?",
     "output": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in Virac.",
     "title": "Oliver's Riff Mamangal Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "Virac",
     "summary_offline": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in Virac.",
     "place_name": "Oliver's Riff Mamangal Beach Resort",
     "coordinates": {
       "lat": 13.555835876169589,
       "lng": 124.14868968279221
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is San Miguel River Park?",
     "output": "San Miguel River Park is a hotels and resorts located in San miguel.",
     "title": "San Miguel River Park Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "SAN MIGUEL",
     "summary_offline": "San Miguel River Park is a hotels and resorts located in San miguel.",
     "place_name": "San Miguel River Park",
     "coordinates": {
       "lat": 13.705960845800394,
       "lng": 124.28110917976015
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Solong Falls?",
     "output": "Solong Falls is a falls located in San miguel.",
     "title": "Solong Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "SAN MIGUEL",
     "summary_offline": "Solong Falls is a falls located in San miguel.",
     "place_name": "Solong Falls",
     "coordinates": {
       "lat": 13.654843207001997,
       "lng": 124.29318572123779
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Cathy's Spring Resort?",
     "output": "Cathy's Spring Resort is a hotels and resorts located in Viga.",
     "title": "Cathy's Spring Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIGA",
     "summary_offline": "Cathy's Spring Resort is a hotels and resorts located in Viga.",
     "place_name": "Cathy's Spring Resort",
     "coordinates": {
       "lat": 13.828328929168835,
       "lng": 124.26764279047497
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Black Alley?",
     "output": "Black Alley is a restaurants and cafes located in Viga.",
     "title": "Black Alley Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIGA",
     "summary_offline": "Black Alley is a restaurants and cafes located in Viga.",
     "place_name": "Black Alley",
     "coordinates": {
       "lat": 13.87440986505987,
       "lng": 124.30991057127426
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Summit View Park?",
     "output": "Summit View Park is a viewpoints located in Viga.",
     "title": "Summit View Park Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "VIGA",
     "summary_offline": "Summit View Park is a viewpoints located in Viga.",
     "place_name": "Summit View Park",
     "coordinates": {
       "lat": 13.79084220997509,
       "lng": 124.2699644422191
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Our Lady of the Assumption Parish Church?",
     "output": "Our Lady of the Assumption Parish Church is a religious sites located in Viga.",
     "title": "Our Lady of the Assumption Parish Church Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "VIGA",
     "summary_offline": "Our Lady of the Assumption Parish Church is a religious sites located in Viga.",
     "place_name": "Our Lady of the Assumption Parish Church",
     "coordinates": {
       "lat": 13.870935518647837,
       "lng": 124.30835694171724
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is H20 Resort?",
     "output": "H20 Resort is a hotels and resorts located in Viga.",
     "title": "H20 Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIGA",
     "summary_offline": "H20 Resort is a hotels and resorts located in Viga.",
     "place_name": "H20 Resort",
     "coordinates": {
       "lat": 13.855342610612587,
       "lng": 124.30744043132205
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Isla Bistro Café?",
     "output": "Isla Bistro Café is a restaurants and cafes located in Viga.",
     "title": "Isla Bistro Café Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIGA",
     "summary_offline": "Isla Bistro Café is a restaurants and cafes located in Viga.",
     "place_name": "Isla Bistro Café",
     "coordinates": {
       "lat": 13.872557403387635,
       "lng": 124.30883563610679
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Cogon Hills?",
     "output": "Cogon Hills is a viewpoints located in Viga.",
     "title": "Cogon Hills Location",
-    "topic": "Sightseeing",
+    "topic": "sightseeing",
     "location": "VIGA",
     "summary_offline": "Cogon Hills is a viewpoints located in Viga.",
     "place_name": "Cogon Hills",
     "coordinates": {
       "lat": 13.870805941856277,
       "lng": 124.4067938419412
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Our Lady of Mount Carmel Parish Church?",
     "output": "Our Lady of Mount Carmel Parish Church is a religious sites located in Viga.",
     "title": "Our Lady of Mount Carmel Parish Church Location",
-    "topic": "Culture",
+    "topic": "culture",
     "location": "VIGA",
     "summary_offline": "Our Lady of Mount Carmel Parish Church is a religious sites located in Viga.",
     "place_name": "Our Lady of Mount Carmel Parish Church",
     "coordinates": {
       "lat": 13.893931145649418,
       "lng": 124.37173817132177
-    }
+    },
+    "activities": [
+      "sightseeing"
+    ]
   },
   {
     "input": "Where is Manuria Beach Resort?",
     "output": "Manuria Beach Resort is a hotels and resorts located in Viga.",
     "title": "Manuria Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIGA",
     "summary_offline": "Manuria Beach Resort is a hotels and resorts located in Viga.",
     "place_name": "Manuria Beach Resort",
     "coordinates": {
       "lat": 13.89992812418886,
       "lng": 124.36321167641226
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Jac's Eatery?",
     "output": "Jac's Eatery is a restaurants and cafes located in Viga.",
     "title": "Jac's Eatery Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIGA",
     "summary_offline": "Jac's Eatery is a restaurants and cafes located in Viga.",
     "place_name": "Jac's Eatery",
     "coordinates": {
       "lat": 13.871750292208265,
       "lng": 124.31147248971916
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Minaabat Beach?",
     "output": "Minaabat Beach is a hotels and resorts located in Viga.",
     "title": "Minaabat Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIGA",
     "summary_offline": "Minaabat Beach is a hotels and resorts located in Viga.",
     "place_name": "Minaabat Beach",
     "coordinates": {
       "lat": 13.854510974160771,
       "lng": 124.41851218045034
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Tapsihan sa Ilaya?",
     "output": "Tapsihan sa Ilaya is a restaurants and cafes located in Viga.",
     "title": "Tapsihan sa Ilaya Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIGA",
     "summary_offline": "Tapsihan sa Ilaya is a restaurants and cafes located in Viga.",
     "place_name": "Tapsihan sa Ilaya",
     "coordinates": {
       "lat": 13.867210183769927,
       "lng": 124.30876720184392
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Sofeca Travellers Inn?",
     "output": "Sofeca Travellers Inn is a hotels and resorts located in Viga.",
     "title": "Sofeca Travellers Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIGA",
     "summary_offline": "Sofeca Travellers Inn is a hotels and resorts located in Viga.",
     "place_name": "Sofeca Travellers Inn",
     "coordinates": {
       "lat": 13.872631201214197,
       "lng": 124.31609046329228
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Torres Inn?",
     "output": "Torres Inn is a hotels and resorts located in Viga.",
     "title": "Torres Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIGA",
     "summary_offline": "Torres Inn is a hotels and resorts located in Viga.",
     "place_name": "Torres Inn",
     "coordinates": {
       "lat": 13.894427912854093,
       "lng": 124.37185679687455
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Villa Amacepia Resort?",
     "output": "Villa Amacepia Resort is a hotels and resorts located in Viga.",
     "title": "Villa Amacepia Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIGA",
     "summary_offline": "Villa Amacepia Resort is a hotels and resorts located in Viga.",
     "place_name": "Villa Amacepia Resort",
     "coordinates": {
       "lat": 13.866419737445327,
       "lng": 124.30851490399891
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Kubo Suzara?",
     "output": "Kubo Suzara is a hotels and resorts located in Viga.",
     "title": "Kubo Suzara Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIGA",
     "summary_offline": "Kubo Suzara is a hotels and resorts located in Viga.",
     "place_name": "Kubo Suzara",
     "coordinates": {
       "lat": 13.887407737570227,
       "lng": 124.3519918151362
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Catanduanes Midtown Inn?",
     "output": "Catanduanes Midtown Inn is a hotels and resorts located in Virac.",
     "title": "Catanduanes Midtown Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Catanduanes Midtown Inn is a hotels and resorts located in Virac.",
     "place_name": "Catanduanes Midtown Inn",
     "coordinates": {
       "lat": 13.582963948330717,
       "lng": 124.23256205211081
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Hinagasan Falls?",
     "output": "Hinagasan Falls is a falls located in Virac.",
     "title": "Hinagasan Falls Location",
-    "topic": "Nature",
+    "topic": "nature",
     "location": "VIRAC",
     "summary_offline": "Hinagasan Falls is a falls located in Virac.",
     "place_name": "Hinagasan Falls",
     "coordinates": {
       "lat": 13.600608583794113,
       "lng": 124.22421715095876
-    }
+    },
+    "activities": [
+      "hiking"
+    ]
   },
   {
     "input": "Where is Museo De Catanduanes?",
     "output": "Museo De Catanduanes is a photography located in Virac.",
     "title": "Museo De Catanduanes Location",
-    "topic": "General",
+    "topic": "general",
     "location": "VIRAC",
     "summary_offline": "Museo De Catanduanes is a photography located in Virac.",
     "place_name": "Museo De Catanduanes",
     "coordinates": {
       "lat": 13.607198646951025,
       "lng": 124.24017941365666
-    }
+    },
+    "activities": [
+      "general"
+    ]
   },
   {
     "input": "Where is Fleur de Lilies Glamping Farm?",
     "output": "Fleur de Lilies Glamping Farm is a hotels and resorts located in Virac.",
     "title": "Fleur de Lilies Glamping Farm Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Fleur de Lilies Glamping Farm is a hotels and resorts located in Virac.",
     "place_name": "Fleur de Lilies Glamping Farm",
     "coordinates": {
       "lat": 13.522814980924824,
       "lng": 124.20319514587996
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is ARDCI Cafe?",
     "output": "ARDCI Cafe is a restaurants and cafes located in Virac.",
     "title": "ARDCI Cafe Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "ARDCI Cafe is a restaurants and cafes located in Virac.",
     "place_name": "ARDCI Cafe",
     "coordinates": {
       "lat": 13.58145932101771,
       "lng": 124.23009272327565
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Happy Island Inn?",
     "output": "Happy Island Inn is a hotels and resorts located in Virac.",
     "title": "Happy Island Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Happy Island Inn is a hotels and resorts located in Virac.",
     "place_name": "Happy Island Inn",
     "coordinates": {
       "lat": 13.594221210744385,
       "lng": 124.26111675211118
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Blue Café?",
     "output": "Blue Café is a restaurants and cafes located in Virac.",
     "title": "Blue Café Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Blue Café is a restaurants and cafes located in Virac.",
     "place_name": "Blue Café",
     "coordinates": {
       "lat": 13.581175578193937,
       "lng": 124.22824468638174
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Marilima Beach?",
     "output": "Marilima Beach is a hotels and resorts located in Virac.",
     "title": "Marilima Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Marilima Beach is a hotels and resorts located in Virac.",
     "place_name": "Marilima Beach",
     "coordinates": {
       "lat": 13.538906979988818,
       "lng": 124.16804587161822
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Buddy's Mami House?",
     "output": "Buddy's Mami House is a restaurants and cafes located in Virac.",
     "title": "Buddy's Mami House Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Buddy's Mami House is a restaurants and cafes located in Virac.",
     "place_name": "Buddy's Mami House",
     "coordinates": {
       "lat": 13.581306526011169,
       "lng": 124.21342438651737
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Batag Beach Resort?",
     "output": "Batag Beach Resort is a hotels and resorts located in Virac.",
     "title": "Batag Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Batag Beach Resort is a hotels and resorts located in Virac.",
     "place_name": "Batag Beach Resort",
     "coordinates": {
       "lat": 13.540203971830607,
       "lng": 124.16374122931133
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Carrie's Pizza, Pasta and More?",
     "output": "Carrie's Pizza, Pasta and More is a restaurants and cafes located in Virac.",
     "title": "Carrie's Pizza, Pasta and More Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Carrie's Pizza, Pasta and More is a restaurants and cafes located in Virac.",
     "place_name": "Carrie's Pizza, Pasta and More",
     "coordinates": {
       "lat": 13.58077624646006,
       "lng": 124.21429182327564
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Sunset Coast Beach Resort?",
     "output": "Sunset Coast Beach Resort is a hotels and resorts located in Virac.",
     "title": "Sunset Coast Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Sunset Coast Beach Resort is a hotels and resorts located in Virac.",
     "place_name": "Sunset Coast Beach Resort",
     "coordinates": {
       "lat": 13.552637355513973,
       "lng": 124.15569366555616
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is LouCa Beach Resort?",
     "output": "LouCa Beach Resort is a hotels and resorts located in Virac.",
     "title": "LouCa Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "LouCa Beach Resort is a hotels and resorts located in Virac.",
     "place_name": "LouCa Beach Resort",
     "coordinates": {
       "lat": 13.548539798350518,
       "lng": 124.15769502783087
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is DAKILA' Café?",
     "output": "DAKILA' Café is a restaurants and cafes located in Virac.",
     "title": "DAKILA' Café Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "DAKILA' Café is a restaurants and cafes located in Virac.",
     "place_name": "DAKILA' Café",
     "coordinates": {
       "lat": 13.57920899426178,
       "lng": 124.22758444046303
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Regina's Beachfront Resort?",
     "output": "Regina's Beachfront Resort is a hotels and resorts located in Virac.",
     "title": "Regina's Beachfront Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Regina's Beachfront Resort is a hotels and resorts located in Virac.",
     "place_name": "Regina's Beachfront Resort",
     "coordinates": {
       "lat": 13.53976642609727,
       "lng": 124.16488424391362
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Rhaj Inn?",
     "output": "Rhaj Inn is a hotels and resorts located in Virac.",
     "title": "Rhaj Inn Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Rhaj Inn is a hotels and resorts located in Virac.",
     "place_name": "Rhaj Inn",
     "coordinates": {
       "lat": 13.579034249718445,
       "lng": 124.22621632327555
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Fleur De Lilies Glamping Farm?",
     "output": "Fleur De Lilies Glamping Farm is a restaurants and cafes located in Virac.",
     "title": "Fleur De Lilies Glamping Farm Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Fleur De Lilies Glamping Farm is a restaurants and cafes located in Virac.",
     "place_name": "Fleur De Lilies Glamping Farm",
     "coordinates": {
       "lat": 13.522814980924824,
       "lng": 124.20319514587996
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Twin Rock Beach Resort?",
     "output": "Twin Rock Beach Resort is a hotels and resorts located in Virac.",
     "title": "Twin Rock Beach Resort Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Twin Rock Beach Resort is a hotels and resorts located in Virac.",
     "place_name": "Twin Rock Beach Resort",
     "coordinates": {
       "lat": 13.522906435245654,
       "lng": 124.20317528575912
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Jollibee?",
     "output": "Jollibee is a restaurants and cafes located in Virac.",
     "title": "Jollibee Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Jollibee is a restaurants and cafes located in Virac.",
     "place_name": "Jollibee",
     "coordinates": {
       "lat": 13.581175578193937,
       "lng": 124.22824468638174
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Barefoot Beach?",
     "output": "Barefoot Beach is a hotels and resorts located in Virac.",
     "title": "Barefoot Beach Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Barefoot Beach is a hotels and resorts located in Virac.",
     "place_name": "Barefoot Beach",
     "coordinates": {
       "lat": 13.551155461290714,
       "lng": 124.15447590238682
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Mcdonald’s?",
     "output": "Mcdonald’s is a restaurants and cafes located in Virac.",
     "title": "Mcdonald’s Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Mcdonald’s is a restaurants and cafes located in Virac.",
     "place_name": "Mcdonald’s",
     "coordinates": {
       "lat": 13.57976473515069,
       "lng": 124.22830760441924
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Isla Be Back Staycation?",
     "output": "Isla Be Back Staycation is a hotels and resorts located in Virac.",
     "title": "Isla Be Back Staycation Location",
-    "topic": "Accommodation",
+    "topic": "accommodation",
     "location": "VIRAC",
     "summary_offline": "Isla Be Back Staycation is a hotels and resorts located in Virac.",
     "place_name": "Isla Be Back Staycation",
     "coordinates": {
       "lat": 13.585740419849598,
       "lng": 124.2164396295645
-    }
+    },
+    "activities": [
+      "accommodation"
+    ]
   },
   {
     "input": "Where is Sea Breeze 2001?",
     "output": "Sea Breeze 2001 is a restaurants and cafes located in Virac.",
     "title": "Sea Breeze 2001 Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Sea Breeze 2001 is a restaurants and cafes located in Virac.",
     "place_name": "Sea Breeze 2001",
     "coordinates": {
       "lat": 13.581391183012842,
       "lng": 124.23278613841805
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Taller’s Brew?",
     "output": "Taller’s Brew is a restaurants and cafes located in Virac.",
     "title": "Taller’s Brew Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Taller’s Brew is a restaurants and cafes located in Virac.",
     "place_name": "Taller’s Brew",
     "coordinates": {
       "lat": 13.595368163992209,
       "lng": 124.20498736560553
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Teaholic?",
     "output": "Teaholic is a restaurants and cafes located in Virac.",
     "title": "Teaholic Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Teaholic is a restaurants and cafes located in Virac.",
     "place_name": "Teaholic",
     "coordinates": {
       "lat": 13.57863950521635,
       "lng": 124.23128159444029
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Twin Bar & Café?",
     "output": "Twin Bar & Café is a restaurants and cafes located in Virac.",
     "title": "Twin Bar & Café Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Twin Bar & Café is a restaurants and cafes located in Virac.",
     "place_name": "Twin Bar & Café",
     "coordinates": {
       "lat": 13.578752378869426,
       "lng": 124.2299290521109
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is ARDCI Skydeck Lounge?",
     "output": "ARDCI Skydeck Lounge is a restaurants and cafes located in Virac.",
     "title": "ARDCI Skydeck Lounge Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "ARDCI Skydeck Lounge is a restaurants and cafes located in Virac.",
     "place_name": "ARDCI Skydeck Lounge",
     "coordinates": {
       "lat": 13.581368173193223,
       "lng": 124.22987346487102
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   },
   {
     "input": "Where is Mayan Café?",
     "output": "Mayan Café is a restaurants and cafes located in Virac.",
     "title": "Mayan Café Location",
-    "topic": "Food",
+    "topic": "food",
     "location": "VIRAC",
     "summary_offline": "Mayan Café is a restaurants and cafes located in Virac.",
     "place_name": "Mayan Café",
     "coordinates": {
       "lat": 13.583952428716442,
       "lng": 124.23418504723898
-    }
+    },
+    "activities": [
+      "dining"
+    ]
   }
 ]
