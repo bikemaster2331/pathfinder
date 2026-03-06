@@ -11,56 +11,56 @@ from pathlib import Path
 from contextlib import asynccontextmanager
 from fastapi.concurrency import run_in_threadpool
 
-# --- PATH CONFIGURATION ---
-BASE_DIR = Path(__file__).parent 
+
+BASE_DIR = Path(__file__).parent
 DATASET = BASE_DIR / "dataset" / "dataset.json"
 CONFIG = BASE_DIR / "config" / "config.yaml"
 
-# Global state
+
 pipeline = None
 itinerary_list = []
 
-# --- LIFESPAN (SMART STARTUP) ---
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global pipeline
     print("🚀 Pathfinder API is starting up...")
-    
+
     try:
-        # Initialize Pipeline
+
         pipeline = Pipeline(
             dataset_path=str(DATASET),
             config_path=str(CONFIG)
         )
-        
-        # RENDER FIX: Check if brain is empty (ephemeral storage)
+
+
         if pipeline.collection.count() == 0:
             print("⚠️ Brain is empty. Rebuilding index...")
-            # Run rebuild in threadpool to avoid blocking startup
+
             await run_in_threadpool(pipeline.rebuild_index)
             print(f"✅ Rebuild Complete! Loaded {pipeline.collection.count()} facts.")
         else:
             print(f"🧠 Brain loaded. Contains {pipeline.collection.count()} facts.")
-            
+
     except Exception as e:
         print(f"❌ CRITICAL ERROR: Failed to start pipeline: {e}")
         pipeline = None
-    
+
     yield
     print("🛑 Pathfinder API is shutting down...")
 
 app = FastAPI(title="Pathfinder API", version="1.0.0", lifespan=lifespan)
 
-# --- CORS CONFIGURATION ---
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# --- DATA MODELS ---
+
 class AskRequest(BaseModel):
     question: str
     active_pin: str | None = None
@@ -78,7 +78,7 @@ class AskResponse(BaseModel):
 class ItineraryItem(BaseModel):
     place_name: str
 
-# --- ENDPOINTS ---
+
 
 @app.get("/")
 def home():
@@ -142,17 +142,17 @@ def get_all_places():
 
 @app.post("/ask", response_model=AskResponse)
 async def ask_endpoint(request: AskRequest):
-    # 1. Check if Brain is Ready
+
     if pipeline is None:
         raise HTTPException(status_code=503, detail="System is waking up. Please try again in 10 seconds.")
-    
+
     try:
         print(f"❓ Processing: {request.question}")
-        
-        # 2. Run AI Task in separate thread (Prevents freezing)
+
+
         result = await run_in_threadpool(pipeline.ask, request.question, request.active_pin)
-        
-        # 3. SAFETY CHECK: Ensure result is valid
+
+
         if not isinstance(result, dict):
             print(f"⚠️ Unexpected result format: {result}")
             return {
@@ -175,7 +175,7 @@ async def ask_endpoint(request: AskRequest):
 
     except Exception as e:
         print(f"❌ Error processing request: {e}")
-        # Return a friendly error instead of crashing the server
+
         return {
             "answer": "I encountered an error processing that request. Please try asking differently.",
             "locations": []
