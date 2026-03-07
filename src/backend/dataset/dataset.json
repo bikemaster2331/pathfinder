@@ -272,10 +272,10 @@
   },
   {
     "input": "Where is Puraran Beach?",
-    "output": "Puraran Beach is located in Baras, Catanduanes. It's a world-class surfing destination known as 'Majestic'",
+    "output": "Puraran Beach is located in Baras, Catanduanes. It's a world-class surfing destination known for its fine golden sand, clear waters, dramatic rock formations, and surfable waves—especially during the monsoon season.",
     "title": "Puraran Beach Location",
     "topic": "beaches",
-    "summary_offline": "Puraran Beach is located in Baras, Catanduanes. It's a world-class surfing destination known as 'Majestic'.",
+    "summary_offline": "Puraran Beach is located in Baras, Catanduanes. It's a world-class surfing destination known for its fine golden sand, clear waters, dramatic rock formations, and surfable waves—especially during the monsoon season.",
     "location": "Baras",
     "activities": [
       "beaches",
@@ -1248,7 +1248,7 @@
     "output": "Snorkeling quality in Catanduanes is highly weather-dependent. Strong winds and rough seas stir up sediment and dramatically reduce underwater visibility. For the best snorkeling conditions, you need calm winds (under 15 kph) and clear skies. LouCa Beach Resort in Caramoran consistently offers the best snorkeling on calm days, with clear water and visible reef life around offshore rock formations. Puraran Beach also has interesting underwater terrain but only when swell is minimal. Check Windy.com for wind speed before planning a snorkeling day — anything above 20 kph wind speed at the surface means murky water.",
     "summary_offline": "Best snorkeling on calm days with wind under 15 kph. Top spot: LouCa Beach Resort in Caramoran (clearest water around reef rocks). Check Windy.com — above 20 kph wind means poor visibility. Puraran Beach also good when swell is minimal.",
     "place_name": "LouCa Beach Resort",
-    "location": "CARAMORAN",
+    "location": "VIRAC",
     "title": "Best Snorkeling Beach Today Weather Dependent",
     "topic": "beaches",
     "activities": [
@@ -1733,7 +1733,7 @@
     "output": "Palumbanes Island is a scenic destination located in Caramoran.",
     "title": "Palumbanes Island Location",
     "topic": "nature",
-    "location": "Caramoran",
+    "location": "CARAMORAN",
     "activities": [
       "hiking",
       "sightseeing"
@@ -2752,6 +2752,22 @@
     "input": "Where is Kape't Tagpuan Sa Isla?",
     "output": "Kape't Tagpuan Sa Isla is a restaurants and cafes located in Bato.",
     "title": "Kape't Tagpuan Sa Isla Location",
+    "topic": "food",
+    "location": "BATO",
+    "summary_offline": "Kape't Tagpuan Sa Isla is a restaurants and cafes located in Bato.",
+    "place_name": "Kape't Tagpuan Sa Isla",
+    "coordinates": {
+      "lat": 13.607682886467666,
+      "lng": 124.29981496225444
+    },
+    "activities": [
+      "dining"
+    ]
+  },
+  {
+    "input": "Restaurants in Bato",
+    "output": "Kape't Tagpuan Sa Isla is a restaurants and cafes located in Bato.",
+    "title": "Restaurants in Bato",
     "topic": "food",
     "location": "BATO",
     "summary_offline": "Kape't Tagpuan Sa Isla is a restaurants and cafes located in Bato.",
@@ -3961,7 +3977,7 @@
     ]
   },
   {
-    "input": "How do I get to Binurong Point from Virac?",
+    "input": "How do I get to Binurong Point?",
     "output": "From Virac town proper, travel by private vehicle or habal-habal motorcycle heading to Baras municipality along the East Road. Binurong Point is approximately 25-30 km from Virac, taking about 45 minutes to 1 hour. The road is mostly paved but has narrow sections near Baras. No direct public jeepney goes to Binurong Point — hire a habal-habal in Baras town for the final stretch up to the viewpoint.",
     "summary_offline": "From Virac: take private car or habal-habal toward Baras via East Road (~25km, 45min). No direct jeepney — hire habal-habal in Baras for the final climb.",
     "place_name": "Binurong Point",
@@ -4563,7 +4579,7 @@
     "output": "LouCa Beach Resort in Caramoran is one of the most beautiful and underrated beach resorts in Catanduanes. The beach features powdery white sand and clear blue water with excellent visibility for snorkeling around the rock formations just offshore. The resort offers kayak rentals, a beachfront restaurant, and clean, comfortable cottages. It is significantly less crowded than resorts near Virac, making it ideal for a quiet, scenic day trip or overnight stay.",
     "summary_offline": "LouCa Beach Resort (Caramoran): white sand, crystal water, excellent snorkeling around rocks. Kayak rentals, beachfront restaurant, comfortable cottages. Less crowded than Virac-area resorts.",
     "place_name": "LouCa Beach Resort",
-    "location": "CARAMORAN",
+    "location": "VIRAC",
     "title": "LouCa Beach Resort Overview",
     "topic": "beaches",
     "activities": [
@@ -6022,5 +6038,2529 @@
     "activities": [
       "dining"
     ]
+  },
+  {
+    "input": "How much is the entrance fee at Puraran Beach?",
+    "output": "Puraran Beach charges around PHP 50 per person as an environmental fee. Surfboard rental typically costs PHP 200–350 per hour, and surf lessons with a local instructor range from PHP 500–800 per session.",
+    "title": "Puraran Beach Entrance Fee",
+    "topic": "budget",
+    "location": "BARAS",
+    "activities": [
+      "surfing",
+      "swimming",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Puraran Beach",
+    "summary_offline": "Puraran Beach entrance is around PHP 50 environmental fee. Surfboard rental PHP 200–350/hour, surf lessons PHP 500–800/session.",
+    "coordinates": {
+      "lat": 13.691946453490571,
+      "lng": 124.39881786785304
+    }
+  },
+  {
+    "input": "What is the entrance fee at Binurong Point?",
+    "output": "Binurong Point currently has no official entrance fee. However, a minimal community donation of PHP 20–50 is appreciated. Hiring a habal-habal (motorcycle) from Gigmoto proper to the viewpoint costs around PHP 100–150 per person.",
+    "title": "Binurong Point Entrance Fee",
+    "topic": "budget",
+    "location": "GIGMOTO",
+    "activities": [
+      "sightseeing",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Binurong Point",
+    "summary_offline": "No entrance fee at Binurong Point. Community donation of PHP 20–50 appreciated. Habal-habal from Gigmoto costs PHP 100–150.",
+    "coordinates": {
+      "lat": 13.668995411184893,
+      "lng": 124.41449841008455
+    }
+  },
+  {
+    "input": "How much does it cost to visit Twin Rock Beach Resort for a day?",
+    "output": "Twin Rock Beach Resort charges a day-use fee of around PHP 150–200 per person, which typically includes access to the beach and pool area. Overnight cottage and room rates range from PHP 1,500–4,000 depending on the accommodation type.",
+    "title": "Twin Rock Beach Resort Day Use Fee",
+    "topic": "budget",
+    "location": "VIRAC",
+    "activities": [
+      "swimming",
+      "accommodation",
+      "budget"
+    ],
+    "budget": "mid",
+    "place_name": "Twin Rock Beach Resort",
+    "summary_offline": "Twin Rock day use fee around PHP 150–200/person. Overnight rooms PHP 1,500–4,000.",
+    "coordinates": {
+      "lat": 13.522663495166062,
+      "lng": 124.21269059659129
+    }
+  },
+  {
+    "input": "Is there an entrance fee at Maribina Falls?",
+    "output": "Maribina Falls charges a small entrance fee of about PHP 30–50 per person. A local guide is recommended and costs around PHP 150–250 for the trek, which takes 30–45 minutes each way through the forest.",
+    "title": "Maribina Falls Entrance Fee",
+    "topic": "budget",
+    "location": "VIRAC",
+    "activities": [
+      "hiking",
+      "swimming",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Maribina Falls",
+    "summary_offline": "Maribina Falls entrance fee is PHP 30–50. Local guide PHP 150–250. Trek is 30–45 minutes each way.",
+    "coordinates": {
+      "lat": 13.601708685295064,
+      "lng": 124.2706945272802
+    }
+  },
+  {
+    "input": "What is the entrance fee at Nahulugan Falls?",
+    "output": "Nahulugan Falls has an entrance fee of approximately PHP 50 per person. Visitors are advised to hire a local guide for around PHP 200 as the trail can be slippery. The natural pool at the base is free to swim in.",
+    "title": "Nahulugan Falls Entrance Fee",
+    "topic": "budget",
+    "location": "BATO",
+    "activities": [
+      "hiking",
+      "swimming",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Nahulugan Falls",
+    "summary_offline": "Nahulugan Falls entrance is PHP 50. Guide recommended at PHP 200. Natural pool is free to swim.",
+    "coordinates": {
+      "lat": 13.788640961723846,
+      "lng": 124.36779102542982
+    }
+  },
+  {
+    "input": "How much is the entrance fee at Tuwad-Tuwadan Blue Lagoon?",
+    "output": "Tuwad-Tuwadan Blue Lagoon charges around PHP 30–50 per person. It is one of the more affordable day trips from the Pandan or Caramoran area and offers snorkeling and swimming in crystal-clear waters.",
+    "title": "Tuwad-Tuwadan Blue Lagoon Fee",
+    "topic": "budget",
+    "location": "CARAMORAN",
+    "activities": [
+      "swimming",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Tuwad-Tuwadan Blue Lagoon",
+    "summary_offline": "Tuwad-Tuwadan Blue Lagoon entrance is PHP 30–50 per person. Good for swimming and snorkeling.",
+    "coordinates": {
+      "lat": 14.058633006081989,
+      "lng": 124.12664279629792
+    }
+  },
+  {
+    "input": "Is there an entrance fee at Luyang Cave?",
+    "output": "Luyang Cave charges an entrance fee of around PHP 50–100 per person. A mandatory guide fee of PHP 150–200 is also collected at the barangay. Bring your own flashlight or headlamp as the cave interior is dark.",
+    "title": "Luyang Cave Entrance Fee",
+    "topic": "budget",
+    "location": "BATO",
+    "activities": [
+      "sightseeing",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Luyang Cave",
+    "summary_offline": "Luyang Cave entrance PHP 50–100 plus guide fee PHP 150–200. Bring a flashlight.",
+    "coordinates": {
+      "lat": 13.60572345866787,
+      "lng": 124.13509013677053
+    }
+  },
+  {
+    "input": "Is Museo De Catanduanes free?",
+    "output": "Museo De Catanduanes is free to enter, though a voluntary donation is appreciated. The museum is government-managed and showcases the history, culture, and natural heritage of Catanduanes. No reservation is needed.",
+    "title": "Museo De Catanduanes Entrance Fee",
+    "topic": "budget",
+    "location": "VIRAC",
+    "activities": [
+      "sightseeing",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Museo De Catanduanes",
+    "summary_offline": "Museo De Catanduanes is free. Voluntary donations accepted. No reservation needed.",
+    "coordinates": {
+      "lat": 13.607198646951025,
+      "lng": 124.24017941365666
+    }
+  },
+  {
+    "input": "How much does it cost to visit Macutal Falls?",
+    "output": "Visiting Macutal Falls involves a guide fee of PHP 250–350 as the trail requires local knowledge. There may be a minimal barangay fee of PHP 30–50. The trek takes about 45 minutes to 1 hour from the jump-off point.",
+    "title": "Macutal Falls Fees",
+    "topic": "budget",
+    "location": "GIGMOTO",
+    "activities": [
+      "hiking",
+      "swimming",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Macutal Falls",
+    "summary_offline": "Macutal Falls guide fee PHP 250–350. Barangay fee around PHP 30–50. Trek is 45 mins to 1 hour.",
+    "coordinates": {
+      "lat": 13.67996312734602,
+      "lng": 124.36844252512445
+    }
+  },
+  {
+    "input": "How much does a boat trip to Palumbanes Island cost?",
+    "output": "A boat charter to Palumbanes Island from the nearest jump-off typically costs PHP 600–1,200 per boat depending on the season and negotiation. Splitting the cost among a group of 4–6 makes it very affordable. Bring your own food and water as there are no vendors on the island.",
+    "title": "Palumbanes Island Boat Trip Cost",
+    "topic": "budget",
+    "location": "CARAMORAN",
+    "activities": [
+      "swimming",
+      "sightseeing",
+      "budget"
+    ],
+    "budget": "mid",
+    "place_name": "Palumbanes Island",
+    "summary_offline": "Boat charter to Palumbanes Island costs PHP 600–1,200 per boat. Bring food and water, no vendors on island.",
+    "coordinates": {
+      "lat": 14.024204879590119,
+      "lng": 124.04335345796237
+    }
+  },
+  {
+    "input": "What is the entrance fee at Mamangal Beach?",
+    "output": "Mamangal Beach is a free public beach with no entrance fee. It is one of the most popular and accessible beaches near Virac. Facilities are basic, so bring your own supplies. Nearby food stalls sell local snacks for around PHP 30–100.",
+    "title": "Mamangal Beach Entrance Fee",
+    "topic": "budget",
+    "location": "VIRAC",
+    "activities": [
+      "swimming",
+      "beaches",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Mamangal Beach",
+    "summary_offline": "Mamangal Beach is free. Basic facilities, bring your own supplies. Nearby snacks from PHP 30–100.",
+    "coordinates": {
+      "lat": 13.555007904907587,
+      "lng": 124.14923064840366
+    }
+  },
+  {
+    "input": "How much is the entrance to Hinagasan Falls?",
+    "output": "Hinagasan Falls has a minimal entrance fee of around PHP 30–50 per person collected by the local barangay. The falls are accessible without a guide, though the trail can be slippery after rain.",
+    "title": "Hinagasan Falls Entrance Fee",
+    "topic": "budget",
+    "location": "VIRAC",
+    "activities": [
+      "hiking",
+      "swimming",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Hinagasan Falls",
+    "summary_offline": "Hinagasan Falls entrance fee PHP 30–50. Accessible without guide but trail can be slippery.",
+    "coordinates": {
+      "lat": 13.600608583794113,
+      "lng": 124.22421715095876
+    }
+  },
+  {
+    "input": "How much is the entrance fee at Cagnipa Rolling Hills?",
+    "output": "Cagnipa Rolling Hills charges around PHP 50 per person as an entrance or environmental fee. The viewpoint offers one of the best panoramic views of the northern tip of Catanduanes and is well worth the small fee.",
+    "title": "Cagnipa Rolling Hills Fee",
+    "topic": "budget",
+    "location": "CARAMORAN",
+    "activities": [
+      "sightseeing",
+      "photography",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Cagnipa Rolling Hills",
+    "summary_offline": "Cagnipa Rolling Hills entrance fee PHP 50. Panoramic view of northern Catanduanes.",
+    "coordinates": {
+      "lat": 14.058967828263247,
+      "lng": 124.12870453862769
+    }
+  },
+  {
+    "input": "What is the entrance fee at Campilan Beach?",
+    "output": "Campilan Beach is a free public beach in Caramoran. No entrance fee is collected. The beach is known for its white sand and calm waters, making it ideal for a budget-friendly swim.",
+    "title": "Campilan Beach Entrance Fee",
+    "topic": "budget",
+    "location": "CARAMORAN",
+    "activities": [
+      "swimming",
+      "beaches",
+      "budget"
+    ],
+    "budget": "cheap",
+    "place_name": "Campilan Beach",
+    "summary_offline": "Campilan Beach is free. White sand, calm water. No entrance fee.",
+    "coordinates": {
+      "lat": 14.06499,
+      "lng": 124.175032
+    }
+  },
+  {
+    "input": "How do I get from Virac to Puraran Beach?",
+    "output": "From Virac to Puraran Beach, you can take a van or jeepney bound for Baras at the Virac terminal. The ride takes approximately 1.5 to 2 hours. From Baras proper, hire a habal-habal (motorcycle taxi) for the last stretch to Puraran. You can also rent a multicab or van for hire for around PHP 1,500–2,500 for the whole vehicle.",
+    "title": "Route from Virac to Puraran Beach",
+    "topic": "transport",
+    "location": "BARAS",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Puraran Beach",
+    "summary_offline": "Virac to Puraran: van/jeepney to Baras (1.5–2 hrs) then habal-habal. Van for hire PHP 1,500–2,500.",
+    "coordinates": {
+      "lat": 13.691946453490571,
+      "lng": 124.39881786785304
+    }
+  },
+  {
+    "input": "How do I get to Binurong Point from Virac?",
+    "output": "From Virac, take a van or bus heading north toward Gigmoto. The trip takes about 2 to 3 hours depending on stops. From Gigmoto town proper, hire a habal-habal for the climb up to Binurong Point viewpoint, costing around PHP 100–150 per person. Vans for hire from Virac to Gigmoto cost PHP 2,000–3,000.",
+    "title": "Route from Virac to Binurong Point",
+    "topic": "transport",
+    "location": "GIGMOTO",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Binurong Point",
+    "summary_offline": "Virac to Binurong Point: van/bus north to Gigmoto (2–3 hrs), then habal-habal PHP 100–150. Van for hire PHP 2,000–3,000.",
+    "coordinates": {
+      "lat": 13.668995411184893,
+      "lng": 124.41449841008455
+    }
+  },
+  {
+    "input": "How do I get to Twin Rock Beach Resort from Virac?",
+    "output": "Twin Rock Beach Resort is located in Bgy. Magnesia del Norte, Virac, about 30–40 minutes from the town center. You can take a tricycle or habal-habal from Virac for around PHP 80–150, or rent a vehicle. The resort is well-signposted from the main road.",
+    "title": "Route from Virac to Twin Rock Beach Resort",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Twin Rock Beach Resort",
+    "summary_offline": "Twin Rock is 30–40 mins from Virac town. Tricycle or habal-habal PHP 80–150.",
+    "coordinates": {
+      "lat": 13.522663495166062,
+      "lng": 124.21269059659129
+    }
+  },
+  {
+    "input": "How do I get to Maribina Falls from Virac?",
+    "output": "From Virac, take a tricycle or habal-habal toward Cavinitan or San Jose. Maribina Falls is roughly 45 minutes from Virac proper. Ask drivers for 'Maribina' — most locals know it. The tricycle fare is around PHP 50–80 one-way.",
+    "title": "Route from Virac to Maribina Falls",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Maribina Falls",
+    "summary_offline": "Virac to Maribina Falls: tricycle or habal-habal, 45 mins, PHP 50–80 one-way.",
+    "coordinates": {
+      "lat": 13.601708685295064,
+      "lng": 124.2706945272802
+    }
+  },
+  {
+    "input": "How do I reach Nahulugan Falls from Virac?",
+    "output": "Nahulugan Falls is located in Bato municipality. From Virac, take a van or bus toward Bato (about 1 hour). From Bato town proper, hire a habal-habal to the falls jump-off point for PHP 100–150. Local guides can be arranged at the barangay hall.",
+    "title": "Route from Virac to Nahulugan Falls",
+    "topic": "transport",
+    "location": "BATO",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Nahulugan Falls",
+    "summary_offline": "Virac to Nahulugan Falls: van/bus to Bato (1 hr), then habal-habal PHP 100–150.",
+    "coordinates": {
+      "lat": 13.788640961723846,
+      "lng": 124.36779102542982
+    }
+  },
+  {
+    "input": "How do I get from Virac to Tuwad-Tuwadan Blue Lagoon?",
+    "output": "Tuwad-Tuwadan Blue Lagoon is in the northern part of Catanduanes near Caramoran. From Virac, take a van or bus heading north and alight at the nearest junction in Caramoran (about 2.5–3 hours). A habal-habal from Caramoran proper to the lagoon costs around PHP 100–200.",
+    "title": "Route from Virac to Tuwad-Tuwadan Blue Lagoon",
+    "topic": "transport",
+    "location": "CARAMORAN",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Tuwad-Tuwadan Blue Lagoon",
+    "summary_offline": "Virac to Tuwad-Tuwadan: van north to Caramoran (2.5–3 hrs), then habal-habal PHP 100–200.",
+    "coordinates": {
+      "lat": 14.058633006081989,
+      "lng": 124.12664279629792
+    }
+  },
+  {
+    "input": "How do I get to Luyang Cave from Virac?",
+    "output": "Luyang Cave is in the western part of Catanduanes near San Andres or Bato. From Virac, take a bus or van heading toward San Andres (about 1–1.5 hours). Ask to be dropped off near the Luyang Cave junction, then hire a habal-habal for the last stretch.",
+    "title": "Route from Virac to Luyang Cave",
+    "topic": "transport",
+    "location": "BATO",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Luyang Cave",
+    "summary_offline": "Virac to Luyang Cave: bus/van to San Andres direction (1–1.5 hrs), then habal-habal.",
+    "coordinates": {
+      "lat": 13.60572345866787,
+      "lng": 124.13509013677053
+    }
+  },
+  {
+    "input": "How do I get from Virac to Mamangal Beach?",
+    "output": "Mamangal Beach is located south of Virac town and is accessible by tricycle from the town center. The ride takes about 40–50 minutes and costs PHP 60–100 one-way. It is one of the easier beaches to reach without renting a private vehicle.",
+    "title": "Route from Virac to Mamangal Beach",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Mamangal Beach",
+    "summary_offline": "Mamangal Beach is 40–50 mins from Virac by tricycle, PHP 60–100 one-way.",
+    "coordinates": {
+      "lat": 13.555007904907587,
+      "lng": 124.14923064840366
+    }
+  },
+  {
+    "input": "How do I get to Macutal Falls from Virac?",
+    "output": "Macutal Falls is in the Gigmoto area. From Virac, take a north-bound van toward Gigmoto (about 2–2.5 hours). From Gigmoto, hire a habal-habal or ask a guide to lead you to the trailhead. It is best to arrange a guide beforehand through your accommodation.",
+    "title": "Route from Virac to Macutal Falls",
+    "topic": "transport",
+    "location": "GIGMOTO",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Macutal Falls",
+    "summary_offline": "Virac to Macutal Falls: van to Gigmoto (2–2.5 hrs), then habal-habal or guide to trailhead.",
+    "coordinates": {
+      "lat": 13.67996312734602,
+      "lng": 124.36844252512445
+    }
+  },
+  {
+    "input": "How do I get to Cagnipa Rolling Hills from Virac?",
+    "output": "Cagnipa Rolling Hills is near Caramoran in the north. From Virac, take a van or bus heading north to Caramoran (around 2.5–3 hours). From Caramoran town, take a habal-habal toward Cagnipa for PHP 80–120. The rolling hills are visible from the road on clear days.",
+    "title": "Route from Virac to Cagnipa Rolling Hills",
+    "topic": "transport",
+    "location": "CARAMORAN",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Cagnipa Rolling Hills",
+    "summary_offline": "Virac to Cagnipa Rolling Hills: van north to Caramoran (2.5–3 hrs), then habal-habal PHP 80–120.",
+    "coordinates": {
+      "lat": 14.058967828263247,
+      "lng": 124.12870453862769
+    }
+  },
+  {
+    "input": "How do I get to Campilan Beach from Virac?",
+    "output": "Campilan Beach is in Caramoran, roughly 2.5–3 hours north of Virac. Take a northbound van or bus from the Virac terminal. The beach is close to Caramoran town proper — a short tricycle or habal-habal ride from the drop-off point.",
+    "title": "Route from Virac to Campilan Beach",
+    "topic": "transport",
+    "location": "CARAMORAN",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Campilan Beach",
+    "summary_offline": "Virac to Campilan Beach: van/bus north to Caramoran (2.5–3 hrs), short tricycle ride to beach.",
+    "coordinates": {
+      "lat": 14.06499,
+      "lng": 124.175032
+    }
+  },
+  {
+    "input": "How do I get to Museo De Catanduanes from Virac Airport?",
+    "output": "Museo De Catanduanes is located near the Virac town center, about 1.5–2 km from the airport. From the airport, take a tricycle (PHP 30–50) or walk in about 20 minutes. It is on the main road heading into town, easy to find.",
+    "title": "Route from Virac Airport to Museo De Catanduanes",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Museo De Catanduanes",
+    "summary_offline": "Museo De Catanduanes is 1.5–2 km from Virac Airport. Tricycle PHP 30–50 or 20-min walk.",
+    "coordinates": {
+      "lat": 13.607198646951025,
+      "lng": 124.24017941365666
+    }
+  },
+  {
+    "input": "How do I get from the Virac port to the town center?",
+    "output": "The Virac port (San Andres Wharf or Virac Wharf) is a short distance from the town center. Tricycles are available at the port exit for around PHP 20–40. The ride takes about 5–10 minutes. On foot it is roughly a 10–15 minute walk.",
+    "title": "Route from Virac Port to Town Center",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Virac Town Center",
+    "summary_offline": "Virac port to town center: tricycle PHP 20–40, 5–10 mins. Walk is 10–15 mins.",
+    "coordinates": {
+      "lat": 13.578141390225673,
+      "lng": 124.22879470245454
+    }
+  },
+  {
+    "input": "How do I get to Hinagasan Falls from Virac?",
+    "output": "Hinagasan Falls is accessible from Virac by taking a tricycle or habal-habal toward Barangay Cavinitan or Hiyop in Virac. The journey is around 30–40 minutes from town. Local tricycle drivers know the route and charge PHP 50–80.",
+    "title": "Route from Virac to Hinagasan Falls",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Hinagasan Falls",
+    "summary_offline": "Virac to Hinagasan Falls: tricycle or habal-habal, 30–40 mins, PHP 50–80.",
+    "coordinates": {
+      "lat": 13.600608583794113,
+      "lng": 124.22421715095876
+    }
+  },
+  {
+    "input": "How do I get from Virac to Palumbanes Island?",
+    "output": "To reach Palumbanes Island, travel from Virac to the western coast near San Andres or Bato municipality (about 1–1.5 hours by van). From the nearest coastal barangay, arrange a boat with local fishermen — a charter typically costs PHP 600–1,200 for the whole boat depending on the departure point. The boat ride takes about 20–40 minutes.",
+    "title": "Route from Virac to Palumbanes Island",
+    "topic": "transport",
+    "location": "CARAMORAN",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Palumbanes Island",
+    "summary_offline": "Virac to Palumbanes Island: van to western coast (1–1.5 hrs), then boat charter PHP 600–1,200.",
+    "coordinates": {
+      "lat": 14.024204879590119,
+      "lng": 124.04335345796237
+    }
+  },
+  {
+    "input": "What are the operating hours of Museo De Catanduanes?",
+    "output": "Museo De Catanduanes is open Monday to Friday from 8:00 AM to 5:00 PM. It is closed on weekends and public holidays. Entry is free and no advance reservation is required. Best visited in the morning when it is less crowded.",
+    "title": "Museo De Catanduanes Hours",
+    "topic": "sightseeing",
+    "location": "VIRAC",
+    "activities": [
+      "sightseeing"
+    ],
+    "place_name": "Museo De Catanduanes",
+    "summary_offline": "Museo De Catanduanes open Mon–Fri, 8 AM–5 PM. Closed weekends and holidays.",
+    "coordinates": {
+      "lat": 13.607198646951025,
+      "lng": 124.24017941365666
+    }
+  },
+  {
+    "input": "What time does Puraran Beach open?",
+    "output": "Puraran Beach is a natural beach and is accessible any time, though most tourism activity runs from 6:00 AM to 6:00 PM. Surf shops and rental operators typically open from 7:00 AM to 5:00 PM. Arriving early in the morning ensures the best surf conditions and fewer crowds.",
+    "title": "Puraran Beach Hours",
+    "topic": "surfing",
+    "location": "BARAS",
+    "activities": [
+      "surfing",
+      "swimming"
+    ],
+    "place_name": "Puraran Beach",
+    "summary_offline": "Puraran Beach accessible all day. Surf shops open 7 AM–5 PM. Best surfing in the morning.",
+    "coordinates": {
+      "lat": 13.691946453490571,
+      "lng": 124.39881786785304
+    }
+  },
+  {
+    "input": "What are the operating hours of Twin Rock Beach Resort?",
+    "output": "Twin Rock Beach Resort is generally open daily from 7:00 AM to 10:00 PM for day use visitors. Overnight guests have 24-hour access. The restaurant on site serves breakfast from 7:00 AM and closes after dinner around 9:00–10:00 PM.",
+    "title": "Twin Rock Beach Resort Hours",
+    "topic": "accommodation",
+    "location": "VIRAC",
+    "activities": [
+      "swimming",
+      "accommodation"
+    ],
+    "place_name": "Twin Rock Beach Resort",
+    "summary_offline": "Twin Rock Resort open daily 7 AM–10 PM for day use. Overnight guests have 24-hr access.",
+    "coordinates": {
+      "lat": 13.522663495166062,
+      "lng": 124.21269059659129
+    }
+  },
+  {
+    "input": "What time does Virac Public Market open and close?",
+    "output": "Virac Public Market opens as early as 4:00 AM for fish and produce vendors, with the market in full swing from 5:00 AM to 9:00 AM. Most stalls close by noon. Some dry goods vendors operate until 5:00–6:00 PM. It is busiest in the early morning.",
+    "title": "Virac Public Market Hours",
+    "topic": "shopping",
+    "location": "VIRAC",
+    "activities": [
+      "shopping"
+    ],
+    "place_name": "Virac Public Market",
+    "summary_offline": "Virac Public Market open from 4–5 AM, busiest until 9 AM. Most stalls close by noon.",
+    "coordinates": {
+      "lat": 13.578141390225673,
+      "lng": 124.22879470245454
+    }
+  },
+  {
+    "input": "What time does Maribina Falls close?",
+    "output": "Maribina Falls is accessible from sunrise to sunset, roughly 6:00 AM to 5:00 PM. The barangay may restrict entry after 4:00 PM to ensure visitors can return before dark. It is not advisable to visit after rain due to slippery trails.",
+    "title": "Maribina Falls Hours",
+    "topic": "nature",
+    "location": "VIRAC",
+    "activities": [
+      "hiking",
+      "swimming"
+    ],
+    "place_name": "Maribina Falls",
+    "summary_offline": "Maribina Falls open 6 AM–5 PM. Last entry around 4 PM. Avoid after heavy rain.",
+    "coordinates": {
+      "lat": 13.601708685295064,
+      "lng": 124.2706945272802
+    }
+  },
+  {
+    "input": "When is the best time to visit Binurong Point?",
+    "output": "Binurong Point is accessible any time of day, but the best time to visit is early morning between 6:00 AM and 9:00 AM for clear views before clouds roll in. The viewpoint has no strict closing time, but it is safer to leave before dusk. Most organized tours depart from Gigmoto by 7:00 AM.",
+    "title": "Binurong Point Best Time to Visit",
+    "topic": "sightseeing",
+    "location": "GIGMOTO",
+    "activities": [
+      "sightseeing",
+      "photography"
+    ],
+    "place_name": "Binurong Point",
+    "summary_offline": "Binurong Point best visited 6–9 AM for clear views. No strict closing time but leave before dusk.",
+    "coordinates": {
+      "lat": 13.668995411184893,
+      "lng": 124.41449841008455
+    }
+  },
+  {
+    "input": "What are the hours of Luyang Cave?",
+    "output": "Luyang Cave is accessible from approximately 7:00 AM to 4:00 PM daily. Guides are usually available at the barangay hall during these hours. Visiting after 4:00 PM is discouraged due to limited visibility and safety concerns inside the cave.",
+    "title": "Luyang Cave Hours",
+    "topic": "sightseeing",
+    "location": "BATO",
+    "activities": [
+      "sightseeing"
+    ],
+    "place_name": "Luyang Cave",
+    "summary_offline": "Luyang Cave open 7 AM–4 PM. Guides available at barangay hall. No visits after 4 PM.",
+    "coordinates": {
+      "lat": 13.60572345866787,
+      "lng": 124.13509013677053
+    }
+  },
+  {
+    "input": "What are the opening hours of Nahulugan Falls?",
+    "output": "Nahulugan Falls is open to visitors from 6:00 AM to 5:00 PM. The last entry is typically at 3:00 PM to allow enough time for the trek and return before sunset. The barangay guide post operates during these hours.",
+    "title": "Nahulugan Falls Hours",
+    "topic": "nature",
+    "location": "BATO",
+    "activities": [
+      "hiking",
+      "swimming"
+    ],
+    "place_name": "Nahulugan Falls",
+    "summary_offline": "Nahulugan Falls open 6 AM–5 PM. Last entry 3 PM for safe return before sunset.",
+    "coordinates": {
+      "lat": 13.788640961723846,
+      "lng": 124.36779102542982
+    }
+  },
+  {
+    "input": "What time does Cagnipa Rolling Hills open?",
+    "output": "Cagnipa Rolling Hills has no strict gate hours and is accessible from dawn to dusk. Sunrise visits (around 5:30–6:30 AM) are especially popular for the golden light over the hills. The area is generally safe during daylight hours.",
+    "title": "Cagnipa Rolling Hills Hours",
+    "topic": "sightseeing",
+    "location": "CARAMORAN",
+    "activities": [
+      "sightseeing",
+      "photography"
+    ],
+    "place_name": "Cagnipa Rolling Hills",
+    "summary_offline": "Cagnipa Rolling Hills accessible dawn to dusk. Sunrise visits 5:30–6:30 AM are most popular.",
+    "coordinates": {
+      "lat": 14.058967828263247,
+      "lng": 124.12870453862769
+    }
+  },
+  {
+    "input": "What are the opening hours of Tuwad-Tuwadan Blue Lagoon?",
+    "output": "Tuwad-Tuwadan Blue Lagoon is open daily from around 6:00 AM to 5:00 PM. It is best visited in the morning when the water is calmest and most vibrant. There is no enforced closing gate but visitors are advised to leave before dark.",
+    "title": "Tuwad-Tuwadan Blue Lagoon Hours",
+    "topic": "swimming",
+    "location": "CARAMORAN",
+    "activities": [
+      "swimming"
+    ],
+    "place_name": "Tuwad-Tuwadan Blue Lagoon",
+    "summary_offline": "Tuwad-Tuwadan Blue Lagoon open 6 AM–5 PM. Best in the morning. Leave before dark.",
+    "coordinates": {
+      "lat": 14.058633006081989,
+      "lng": 124.12664279629792
+    }
+  },
+  {
+    "input": "What time do surf shops at Puraran open?",
+    "output": "Surf shops and instructors at Puraran Beach typically open from 7:00 AM to 5:00 PM. Board rentals are available throughout the day. Surf lessons are usually conducted in the morning from 7:00 AM to 11:00 AM when waves are more consistent.",
+    "title": "Puraran Beach Surf Shop Hours",
+    "topic": "surfing",
+    "location": "BARAS",
+    "activities": [
+      "surfing"
+    ],
+    "place_name": "Puraran Beach",
+    "summary_offline": "Puraran surf shops open 7 AM–5 PM. Lessons offered 7–11 AM. Board rentals all day.",
+    "coordinates": {
+      "lat": 13.691946453490571,
+      "lng": 124.39881786785304
+    }
+  },
+  {
+    "input": "What time does the Virac port operate ferries?",
+    "output": "The Virac port typically has ferry departures to Tabaco City, Albay in the early morning from 5:00 AM to 7:00 AM. Return trips from Tabaco to Virac depart in the afternoon around 12:00 PM to 2:00 PM. Schedules may vary and are weather-dependent, so confirm with the shipping lines directly.",
+    "title": "Virac Port Ferry Hours",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Virac Town Center",
+    "summary_offline": "Virac port ferries to Tabaco depart 5–7 AM. Return from Tabaco around 12–2 PM. Weather-dependent.",
+    "coordinates": {
+      "lat": 13.578141390225673,
+      "lng": 124.22879470245454
+    }
+  },
+  {
+    "input": "What are the operating hours of Virac Airport?",
+    "output": "Virac Airport (VRC) handles flights daily, typically from around 6:00 AM to 6:00 PM. Cebu Pacific and Philippine Airlines operate the Virac-Manila route. Always check current flight schedules as they change seasonally. The airport terminal is small but has a waiting area and basic food stalls.",
+    "title": "Virac Airport Operating Hours",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "place_name": "Virac Airport",
+    "summary_offline": "Virac Airport open approx 6 AM–6 PM. CebPac and PAL serve Virac-Manila route. Check current schedules.",
+    "coordinates": {
+      "lat": 13.579601473762152,
+      "lng": 124.21184297254652
+    }
+  },
+  {
+    "input": "What is a habal-habal and how do I use it in Catanduanes?",
+    "output": "A habal-habal is a motorcycle taxi used widely in Catanduanes for reaching places that regular vehicles cannot access — waterfalls, viewpoints, and remote beaches. You ride pillion behind the driver. Negotiate the fare before boarding; typical rates are PHP 50–200 depending on distance. Always hold on firmly and wear closed shoes.",
+    "title": "Habal-Habal in Catanduanes",
+    "topic": "transport",
+    "location": "Catanduanes Province",
+    "activities": [
+      "transport"
+    ],
+    "summary_offline": "Habal-habal is a motorcycle taxi for remote areas. Fare PHP 50–200. Negotiate before boarding."
+  },
+  {
+    "input": "What types of transportation are available in Catanduanes?",
+    "output": "Catanduanes has four main modes of land transport: tricycles for short trips within town (PHP 10–50), habal-habal (motorcycle taxis) for rural and inter-barangay routes (PHP 50–200), multicabs (shared minivans) for inter-municipality routes (PHP 50–150), and vans for hire (PHP 1,500–3,500 per trip for the whole vehicle). Boats and bancas are used for island-hopping and coastal access.",
+    "title": "Transportation Options in Catanduanes",
+    "topic": "transport",
+    "location": "Catanduanes Province",
+    "activities": [
+      "transport"
+    ],
+    "summary_offline": "Catanduanes transport: tricycles (in-town), habal-habal (rural), multicabs (inter-municipality), vans for hire. Boats for island trips."
+  },
+  {
+    "input": "Can I rent a motorcycle in Catanduanes?",
+    "output": "Yes, motorcycle rentals are available in Virac for around PHP 500–800 per day. Some guesthouses and travel shops in Virac town center offer this service. A valid driver's license is required. Renting a motorcycle is a popular option for visitors who want to explore the island at their own pace.",
+    "title": "Motorcycle Rental in Catanduanes",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "summary_offline": "Motorcycle rental in Virac costs PHP 500–800/day. License required. Available at some guesthouses."
+  },
+  {
+    "input": "Can I rent a car or van in Catanduanes?",
+    "output": "Van rentals and multicab hires are available through guesthouses, travel agencies, or driver contacts in Virac. A full-day van hire (with driver) costs PHP 2,500–4,500 depending on destination and negotiation. This is ideal for groups going to multiple spots in one day.",
+    "title": "Van Hire in Catanduanes",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "summary_offline": "Van hire with driver PHP 2,500–4,500/day. Available through guesthouses and travel agencies in Virac."
+  },
+  {
+    "input": "How do I get from Manila to Catanduanes?",
+    "output": "The two main options are: (1) By air — fly from Manila (NAIA) to Virac Airport (VRC) with Cebu Pacific or Philippine Airlines. Flight time is about 1 hour. (2) By sea — take a bus from Manila to Tabaco City, Albay, then a ferry from Tabaco Port to Virac Port (about 3–4 hours). The ferry trip takes approximately 2–3 hours depending on the vessel.",
+    "title": "How to Get to Catanduanes from Manila",
+    "topic": "transport",
+    "location": "Catanduanes Province",
+    "activities": [
+      "transport"
+    ],
+    "summary_offline": "Manila to Catanduanes: fly to Virac Airport (1 hr) or bus to Tabaco then ferry (3–4 hrs total)."
+  },
+  {
+    "input": "How long is the ferry ride from Tabaco to Virac?",
+    "output": "The ferry ride from Tabaco City port (Albay) to Virac port typically takes 2 to 3 hours depending on sea conditions and the type of vessel. Faster RORO ferries may take under 2 hours. Ticket prices range from PHP 200–500 per person.",
+    "title": "Tabaco to Virac Ferry Duration",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport"
+    ],
+    "summary_offline": "Tabaco to Virac ferry is 2–3 hours. Ticket PHP 200–500. Faster vessels under 2 hours."
+  },
+  {
+    "input": "What is the best time of year to visit Catanduanes?",
+    "output": "The best time to visit Catanduanes is during the dry season from March to June, when skies are clear and seas are calm. July to October is typhoon season — Catanduanes is one of the most typhoon-prone provinces in the Philippines, so travel during these months carries risk. Surfers specifically come for the big swells from August to December.",
+    "title": "Best Time to Visit Catanduanes",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general"
+    ],
+    "summary_offline": "Best time to visit: March–June (dry season). Typhoon season July–October. Surfers prefer August–December."
+  },
+  {
+    "input": "Is Catanduanes safe for solo travelers?",
+    "output": "Catanduanes is generally considered safe for solo travelers. The island has a low crime rate and locals are known for being friendly and helpful. As with any rural destination, basic precautions apply: avoid remote areas at night, keep valuables secure, and always inform your accommodation of your plans for the day.",
+    "title": "Catanduanes Safety for Solo Travelers",
+    "topic": "safety",
+    "location": "Catanduanes Province",
+    "activities": [
+      "safety",
+      "general"
+    ],
+    "summary_offline": "Catanduanes is generally safe for solo travelers. Low crime rate. Avoid remote areas at night."
+  },
+  {
+    "input": "Is there WiFi or mobile signal in Catanduanes?",
+    "output": "Mobile signal is available in most populated areas of Catanduanes, particularly in Virac and municipal centers. Globe and Smart are the main providers. Signal can be weak or absent in remote barangays and mountain areas. Most accommodations in Virac offer WiFi, though speeds may be slow. Download offline maps before exploring.",
+    "title": "Mobile Signal and WiFi in Catanduanes",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general"
+    ],
+    "summary_offline": "Globe and Smart signal in main towns. Weak in remote areas. Virac has WiFi in most accommodations. Download offline maps."
+  },
+  {
+    "input": "What is the currency used in Catanduanes and are there ATMs?",
+    "output": "The Philippine Peso (PHP) is the currency used. ATMs are available in Virac town center from BDO, Landbank, and Metrobank. Outside of Virac, ATMs are scarce. It is strongly recommended to withdraw enough cash before exploring other municipalities as most tourist spots and small establishments do not accept cards.",
+    "title": "ATMs and Currency in Catanduanes",
+    "topic": "general",
+    "location": "VIRAC",
+    "activities": [
+      "budget",
+      "general"
+    ],
+    "summary_offline": "Philippine Peso used. ATMs (BDO, Landbank, Metrobank) in Virac only. Bring cash for other municipalities."
+  },
+  {
+    "input": "What language do people speak in Catanduanes?",
+    "output": "The main language spoken in Catanduanes is Viracnon (also called Catandunganon), a regional language distinct from other Bicolano dialects. Filipino (Tagalog) is also widely understood, and English is spoken in tourist areas, hotels, and restaurants. Basic Tagalog phrases go a long way with locals.",
+    "title": "Language in Catanduanes",
+    "topic": "culture",
+    "location": "Catanduanes Province",
+    "activities": [
+      "culture",
+      "general"
+    ],
+    "summary_offline": "Main language is Viracnon (Catandunganon). Filipino and English also spoken. Tagalog works well with locals."
+  },
+  {
+    "input": "What local food should I try in Catanduanes?",
+    "output": "Catanduanes is known for several local delicacies: laing (taro leaves in coconut milk), Catanduanes pili nut products, bicol express, freshly caught seafood, pastillas (milk candy), and tinumok (ground coconut wrapped in taro leaves). The Virac Public Market is the best place to find fresh local produce and snacks.",
+    "title": "Local Food to Try in Catanduanes",
+    "topic": "food",
+    "location": "Catanduanes Province",
+    "activities": [
+      "dining"
+    ],
+    "summary_offline": "Must-try: laing, pili nut products, bicol express, fresh seafood, pastillas, tinumok. Best found at Virac Public Market."
+  },
+  {
+    "input": "What souvenirs can I buy in Catanduanes?",
+    "output": "Popular souvenirs from Catanduanes include pili nut products (candy, oil, snacks), woven baskets and bags made from abaca or rattan, dried seafood, pastillas, local honey, and bottled laing. The Virac Public Market and souvenir shops near the town center are the best places to shop.",
+    "title": "Souvenirs from Catanduanes",
+    "topic": "shopping",
+    "location": "VIRAC",
+    "activities": [
+      "shopping"
+    ],
+    "summary_offline": "Best souvenirs: pili products, woven abaca goods, dried seafood, pastillas, local honey. Buy at Virac market."
+  },
+  {
+    "input": "Is Catanduanes good for snorkeling?",
+    "output": "Yes, Catanduanes has several good snorkeling spots. Tuwad-Tuwadan Blue Lagoon, Cagnipa Cove, Palumbanes Island, and parts of the coastline near Pandan and Caramoran are known for clear waters and coral reefs. Bring your own gear as rentals are not always available at remote spots.",
+    "title": "Snorkeling in Catanduanes",
+    "topic": "swimming",
+    "location": "Catanduanes Province",
+    "activities": [
+      "swimming",
+      "sightseeing"
+    ],
+    "summary_offline": "Best snorkeling: Tuwad-Tuwadan, Cagnipa Cove, Palumbanes Island. Bring your own gear."
+  },
+  {
+    "input": "What is the weather like in Catanduanes?",
+    "output": "Catanduanes has a tropical climate with two seasons: dry (March to June) and wet (July to February). The province is one of the first in the Philippines to feel the impact of typhoons from the Pacific. Average temperatures range from 24–32°C year-round. Humidity is high, especially from June to October.",
+    "title": "Catanduanes Weather",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general"
+    ],
+    "summary_offline": "Tropical climate. Dry: March–June. Wet/typhoon-prone: July–February. Temperatures 24–32°C."
+  },
+  {
+    "input": "What is a typical budget for a 3-day trip to Catanduanes?",
+    "output": "A budget traveler can get by on PHP 1,500–2,500 per day covering a basic guesthouse (PHP 500–800/night), meals (PHP 200–400/day), local transport (PHP 200–400/day), and entrance fees (PHP 100–200/day). A comfortable mid-range trip runs PHP 3,000–5,000 per day. Exclude airfare and ferry in these estimates.",
+    "title": "Budget for a Trip to Catanduanes",
+    "topic": "budget",
+    "location": "Catanduanes Province",
+    "activities": [
+      "budget",
+      "general"
+    ],
+    "budget": "mid",
+    "summary_offline": "Budget trip: PHP 1,500–2,500/day. Mid-range: PHP 3,000–5,000/day. Excludes transport to the island."
+  },
+  {
+    "input": "Are there hospitals or clinics in Catanduanes?",
+    "output": "The main hospital in Catanduanes is Catanduanes Provincial Hospital in Virac. There are also rural health units (RHUs) in each municipality. For serious medical cases, patients are typically transferred to Legazpi City or Manila. It is highly recommended to bring any prescription medications as options are limited.",
+    "title": "Medical Facilities in Catanduanes",
+    "topic": "safety",
+    "location": "VIRAC",
+    "activities": [
+      "safety",
+      "general"
+    ],
+    "summary_offline": "Catanduanes Provincial Hospital in Virac. Rural health units in each municipality. Bring your own medications."
+  },
+  {
+    "input": "Is it safe to swim at Catanduanes beaches?",
+    "output": "Most beaches in Catanduanes are safe for swimming during the dry season. However, some beaches like Puraran are known for strong currents and are primarily for surfing, not leisure swimming. Always check with locals about current conditions and avoid swimming alone or after dark. Jellyfish and sea urchins can be present in some areas.",
+    "title": "Beach Safety in Catanduanes",
+    "topic": "safety",
+    "location": "Catanduanes Province",
+    "activities": [
+      "swimming",
+      "safety"
+    ],
+    "summary_offline": "Most beaches safe during dry season. Puraran has strong currents — surfing beach. Ask locals about conditions. Avoid swimming alone."
+  },
+  {
+    "input": "What are the top tourist attractions in Catanduanes?",
+    "output": "The top tourist attractions in Catanduanes are: Puraran Beach (world-class surfing), Binurong Point (dramatic viewpoint), Tuwad-Tuwadan Blue Lagoon (crystal-clear waters), Nahulugan Falls, Maribina Falls, Luyang Cave, Cagnipa Rolling Hills, Twin Rock Beach Resort, Mamangal Beach, Museo De Catanduanes, and Palumbanes Island.",
+    "title": "Top Tourist Attractions in Catanduanes",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "sightseeing",
+      "general"
+    ],
+    "summary_offline": "Top attractions: Puraran Beach, Binurong Point, Tuwad-Tuwadan, Nahulugan Falls, Maribina Falls, Luyang Cave, Cagnipa Hills, Twin Rock, Mamangal Beach, Museo De Catanduanes."
+  },
+  {
+    "input": "What is Catanduanes known for?",
+    "output": "Catanduanes is nicknamed the 'Land of the Howling Winds' and is famous for its world-class surfing at Puraran Beach, stunning waterfalls, diverse coastlines, rolling hills, and unspoiled natural scenery. It is also known for its pili nuts, resilient people, and being one of the most typhoon-exposed islands in the Philippines.",
+    "title": "What Catanduanes Is Known For",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general"
+    ],
+    "summary_offline": "Catanduanes: 'Land of the Howling Winds.' Famous for Puraran surfing, waterfalls, pili nuts, rolling hills, and coastal scenery."
+  },
+  {
+    "input": "What are the municipalities of Catanduanes?",
+    "output": "Catanduanes has 11 municipalities: Virac (the capital), Baras, Bato, Caramoran, Gigmoto, Pandan, Panganiban, San Andres, San Miguel, Viga, and Bagamanoc. Each municipality has its own distinct attractions, from coastal beaches to inland waterfalls.",
+    "title": "Municipalities of Catanduanes",
+    "topic": "geography",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general"
+    ],
+    "summary_offline": "Catanduanes has 11 municipalities: Virac, Baras, Bato, Caramoran, Gigmoto, Pandan, Panganiban, San Andres, San Miguel, Viga, Bagamanoc."
+  },
+  {
+    "input": "Can I do island hopping in Catanduanes?",
+    "output": "Yes, island hopping is possible in Catanduanes. Notable nearby islands include Palumbanes Island, Pusgo Island, and smaller islets off the western coast. Boat charters can be arranged through local fishermen or travel agencies in Virac. Prices range from PHP 600–2,000 per boat depending on the destination and number of stops.",
+    "title": "Island Hopping in Catanduanes",
+    "topic": "swimming",
+    "location": "Catanduanes Province",
+    "activities": [
+      "swimming",
+      "sightseeing"
+    ],
+    "summary_offline": "Island hopping available to Palumbanes, Pusgo, and nearby islets. Boat charter PHP 600–2,000. Arrange through local fishermen."
+  },
+  {
+    "input": "What are good day trips from Virac?",
+    "output": "Great day trips from Virac include: Maribina Falls (45 mins), Hinagasan Falls (40 mins), Mamangal Beach (50 mins), Twin Rock Beach Resort (35 mins), Museo De Catanduanes (in town), Summit View Park (30 mins), and Batalay Mangrove Eco Park (30 mins). For longer days, Nahulugan Falls (1 hr) and Puraran Beach (1.5–2 hrs) are popular.",
+    "title": "Day Trips from Virac",
+    "topic": "sightseeing",
+    "location": "VIRAC",
+    "activities": [
+      "sightseeing",
+      "general"
+    ],
+    "summary_offline": "Day trips from Virac: Maribina Falls, Hinagasan Falls, Mamangal Beach, Twin Rock, Museo De Catanduanes, Summit View Park. Puraran Beach for longer trips."
+  },
+  {
+    "input": "Is Catanduanes worth visiting?",
+    "output": "Yes, Catanduanes is worth visiting for those seeking an off-the-beaten-path Philippine island experience. It offers world-class surfing, untouched waterfalls, rolling hills, clear lagoons, and a laid-back local culture. It receives far fewer tourists than Palawan or Siargao, making it ideal for travelers who want fewer crowds and more authenticity.",
+    "title": "Is Catanduanes Worth Visiting?",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general"
+    ],
+    "summary_offline": "Catanduanes is an off-the-beaten-path gem: surfing, waterfalls, hills, lagoons, fewer crowds than Palawan or Siargao."
+  },
+  {
+    "input": "What is the elevation and terrain of Catanduanes?",
+    "output": "Catanduanes is a mountainous island with a rugged interior and diverse coastal terrain. The highest peak is Mount Cagmasoso at approximately 700–800 meters above sea level. The interior is covered in tropical forest, with rolling hills in the north, river valleys, and a dramatic eastern coastline facing the Pacific Ocean.",
+    "title": "Catanduanes Terrain and Elevation",
+    "topic": "geography",
+    "location": "Catanduanes Province",
+    "activities": [
+      "hiking",
+      "general"
+    ],
+    "summary_offline": "Mountainous island. Highest point Mount Cagmasoso ~700–800m. Tropical forest interior, rolling hills in north, Pacific coastline."
+  },
+  {
+    "input": "Are there convenience stores in Catanduanes?",
+    "output": "There are no large chain convenience stores like 7-Eleven in Catanduanes. However, Virac has several sari-sari stores (small neighborhood shops), mini-marts, and a public market that sell basic supplies, snacks, and toiletries. Outside Virac, supplies become more limited, so stock up before heading to remote areas.",
+    "title": "Convenience Stores in Catanduanes",
+    "topic": "general",
+    "location": "VIRAC",
+    "activities": [
+      "shopping",
+      "general"
+    ],
+    "summary_offline": "No 7-Eleven in Catanduanes. Virac has sari-sari stores and mini-marts. Stock up before heading to remote areas."
+  },
+  {
+    "input": "Where is The Lumber Hotel and Resort located?",
+    "output": "The Lumber Hotel and Resort is located along the main road in Virac, Catanduanes. It is one of the most prominent hotels in the capital and is easily accessible from the Virac town center, port, and airport.",
+    "title": "The Lumber Hotel Location",
+    "topic": "accommodation",
+    "location": "VIRAC",
+    "place_name": "The Lumber Hotel and Resort",
+    "activities": [
+      "accommodation",
+      "general"
+    ],
+    "budget": "expensive",
+    "summary_offline": "The Lumber Hotel and Resort is on the main road in Virac — prominent, accessible from port and airport."
+  },
+  {
+    "input": "How much does a room cost at The Lumber Hotel and Resort?",
+    "output": "The Lumber Hotel and Resort is one of the more upscale accommodations in Catanduanes. Room rates typically range from PHP 2,500–5,000 per night depending on room type and season. It offers standard, deluxe, and suite options. Rates include access to hotel facilities. Book directly or via online booking platforms — advance booking is recommended during peak season (April to June and Christmas holidays).",
+    "title": "The Lumber Hotel Room Rates",
+    "topic": "budget",
+    "location": "VIRAC",
+    "place_name": "The Lumber Hotel and Resort",
+    "activities": [
+      "accommodation",
+      "budget",
+      "fees"
+    ],
+    "budget": "expensive",
+    "summary_offline": "The Lumber Hotel rates: PHP 2,500–5,000/night. Standard to suite options. Book in advance for peak season (Apr–Jun, Dec)."
+  },
+  {
+    "input": "What amenities does The Lumber Hotel and Resort have?",
+    "output": "The Lumber Hotel and Resort features a swimming pool, restaurant and bar, function rooms for events, air-conditioned rooms with private bathrooms, and parking. It is one of the few hotels in Catanduanes with a full-service restaurant on-site. The hotel is suitable for families, business travelers, and groups. It is considered the most complete hotel facility in Virac.",
+    "title": "The Lumber Hotel Amenities",
+    "topic": "facilities",
+    "location": "VIRAC",
+    "place_name": "The Lumber Hotel and Resort",
+    "activities": [
+      "accommodation",
+      "facilities",
+      "dining"
+    ],
+    "budget": "expensive",
+    "group_type": "family",
+    "summary_offline": "The Lumber Hotel: pool, restaurant, bar, function rooms, parking. Most complete hotel in Virac. Good for families, business, and groups."
+  },
+  {
+    "input": "Is The Lumber Hotel the best hotel in Catanduanes?",
+    "output": "The Lumber Hotel and Resort is widely considered one of the top hotel options in Virac and Catanduanes for travelers wanting full amenities. Its swimming pool, restaurant, and central location make it stand out. For beach-front experience, Twin Rock Beach Resort is also highly rated. For surfers, the resorts in Puraran are more convenient. The Lumber is best for those who prioritize comfort and facilities while based in Virac.",
+    "title": "Is The Lumber Hotel the Best in Catanduanes",
+    "topic": "accommodation",
+    "location": "VIRAC",
+    "place_name": "The Lumber Hotel and Resort",
+    "activities": [
+      "accommodation",
+      "general"
+    ],
+    "budget": "expensive",
+    "summary_offline": "The Lumber Hotel is top-tier in Virac for amenities (pool, restaurant, central location). Twin Rock is best for beachfront; Puraran resorts for surfers."
+  },
+  {
+    "input": "How do I get to Hinik-Hinik Falls from Virac?",
+    "output": "To reach Hinik-Hinik Falls from Virac, take a van or bus heading to Caramoran (approximately 1.5 to 2 hours, PHP 100–150). From Caramoran town, hire a habal-habal or ask locals for directions to the falls. A local guide is recommended as the trail is not heavily marked. Bring water, insect repellent, and sturdy footwear for the hike.",
+    "title": "Hinik-Hinik Falls Directions",
+    "topic": "transport",
+    "location": "CARAMORAN",
+    "place_name": "Hinik-Hinik Falls",
+    "activities": [
+      "transport",
+      "hiking",
+      "falls"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Virac to Hinik-Hinik Falls: van to Caramoran (1.5–2 hrs, PHP 100–150) then habal-habal. Get a local guide — trail is unmarked."
+  },
+  {
+    "input": "What is the entrance fee at Hinik-Hinik Falls?",
+    "output": "Hinik-Hinik Falls is a barangay-managed natural site. Entrance fees are minimal — typically PHP 30–50 per person for the environmental fee. A local guide fee may also apply (PHP 100–200 per group). Exact fees can vary so confirm at the barangay hall before your visit. Bring cash as no electronic payments are accepted.",
+    "title": "Hinik-Hinik Falls Entrance Fee",
+    "topic": "budget",
+    "location": "CARAMORAN",
+    "place_name": "Hinik-Hinik Falls",
+    "activities": [
+      "falls",
+      "fees",
+      "budget"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Hinik-Hinik Falls fees: ~PHP 30–50 entrance + PHP 100–200 guide fee. Cash only. Confirm at barangay hall."
+  },
+  {
+    "input": "Is Hinik-Hinik Falls worth visiting?",
+    "output": "Hinik-Hinik Falls is worth visiting for travelers who enjoy off-the-beaten-path nature experiences. Because it is in Caramoran and less visited than Maribina or Nahulugan Falls, you are likely to have it nearly to yourself. The falls are set in lush forested terrain. The main downside is the longer travel time from Virac and the rougher roads to Caramoran. Best combined with a visit to Tuwad-Tuwadan Blue Lagoon which is also in Caramoran.",
+    "title": "Is Hinik-Hinik Falls Worth Visiting",
+    "topic": "nature",
+    "location": "CARAMORAN",
+    "place_name": "Hinik-Hinik Falls",
+    "activities": [
+      "hiking",
+      "sightseeing",
+      "falls"
+    ],
+    "summary_offline": "Hinik-Hinik Falls: quiet, off-the-beaten-path. Worth it if you enjoy uncrowded nature. Combine with Tuwad-Tuwadan Lagoon — both in Caramoran."
+  },
+  {
+    "input": "Where is La Prisa Campsite in Catanduanes?",
+    "output": "La Prisa Campsite is a camping destination in Catanduanes offering an outdoor overnight stay experience in a natural setting. It caters to travelers who want a camping-style accommodation option beyond standard hotels. Contact the property directly for exact location, directions, and booking as its remote setting may require advance coordination.",
+    "title": "La Prisa Campsite Location",
+    "topic": "accommodation",
+    "location": "Catanduanes Province",
+    "place_name": "La Prisa Campsite",
+    "activities": [
+      "camping",
+      "accommodation",
+      "general"
+    ],
+    "budget": "cheap",
+    "summary_offline": "La Prisa Campsite: camping accommodation in Catanduanes. Contact property directly for location and booking — remote setting requires advance coordination."
+  },
+  {
+    "input": "Is there camping available in Catanduanes?",
+    "output": "Yes, camping is available in Catanduanes. La Prisa Campsite is one option for organized camping. Some travelers also camp near waterfall sites and clifftop areas with permission from barangay authorities. Fleur de Lilies Glamping Farm offers a glamping (tent with comfort) alternative. For beach camping, ask at the barangay level for permitted sites. Always leave no trace and be aware of weather conditions — typhoon season is not suitable for camping.",
+    "title": "Camping in Catanduanes",
+    "topic": "accommodation",
+    "location": "Catanduanes Province",
+    "place_name": "La Prisa Campsite",
+    "activities": [
+      "camping",
+      "accommodation",
+      "general"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Camping in Catanduanes: La Prisa Campsite (organized), Fleur de Lilies (glamping), or barangay-permitted sites near falls/beaches. Avoid typhoon season."
+  },
+  {
+    "input": "What is Hiyop Highlands?",
+    "output": "Hiyop Highlands is a highland destination in Catanduanes known for its cool temperatures, scenic landscape, and views over the island. It is suitable for travelers seeking mountain and highland scenery as a contrast to the coastal attractions. The area offers trekking and photography opportunities.",
+    "title": "Hiyop Highlands Overview",
+    "topic": "nature",
+    "location": "Catanduanes Province",
+    "place_name": "Hiyop Highlands",
+    "activities": [
+      "hiking",
+      "sightseeing",
+      "photography",
+      "viewpoint"
+    ],
+    "summary_offline": "Hiyop Highlands: cool highland destination with scenic views over Catanduanes. Good for trekking and photography."
+  },
+  {
+    "input": "How do I get to Hiyop Highlands?",
+    "output": "Hiyop Highlands is best reached by private vehicle or rented motorcycle from Virac. The road to the highlands involves uphill driving on rural roads. Habal-habal hire from the nearest town is also an option. Ask locals at the barangay level for the most current road conditions and directions — signage can be limited. Bring a jacket as temperatures are noticeably cooler at altitude.",
+    "title": "Hiyop Highlands Directions",
+    "topic": "transport",
+    "location": "Catanduanes Province",
+    "place_name": "Hiyop Highlands",
+    "activities": [
+      "transport",
+      "hiking",
+      "planning"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Hiyop Highlands: reach by private vehicle or habal-habal. Uphill rural roads. Ask locals for directions. Bring a jacket — noticeably cooler at altitude."
+  },
+  {
+    "input": "What is Pandan Lighthouse?",
+    "output": "Pandan Lighthouse is a lighthouse located in the municipality of Pandan in northwestern Catanduanes. Like other lighthouses on the island, it serves as a navigation beacon for vessels and offers scenic views of the coastline. Pandan is one of the island's more remote municipalities, about 2–3 hours from Virac. Visiting the lighthouse is best combined with exploring the Pandan Seashore Park nearby.",
+    "title": "Pandan Lighthouse Overview",
+    "topic": "sightseeing",
+    "location": "PANDAN",
+    "place_name": "Pandan Lighthouse",
+    "activities": [
+      "sightseeing",
+      "viewpoint",
+      "photography"
+    ],
+    "summary_offline": "Pandan Lighthouse is in Pandan municipality (~2–3 hrs from Virac). Scenic coastline views. Combine with Pandan Seashore Park nearby."
+  },
+  {
+    "input": "How far is Pandan from Virac?",
+    "output": "Pandan municipality is approximately 70–80 km from Virac by road, making it one of the farthest municipalities from the capital. Travel time is about 2 to 3 hours by van or private vehicle due to winding mountain and coastal roads. Vans depart from the Virac terminal heading to Pandan but may have limited schedules. Check departure times at the terminal. A full-day trip is needed to visit Pandan and return.",
+    "title": "Distance Virac to Pandan",
+    "topic": "navigation",
+    "location": "PANDAN",
+    "activities": [
+      "transport",
+      "planning"
+    ],
+    "summary_offline": "Pandan is ~70–80 km from Virac, 2–3 hrs by road. Limited van schedules from Virac terminal. Allocate a full day for a Pandan visit and return."
+  },
+  {
+    "input": "Where is TasTea café in Virac?",
+    "output": "TasTea is a café in Virac, Catanduanes known for its milk teas, local drinks, and café snacks. It is a popular spot with younger locals and tourists looking for a relaxed spot in town. Located in the Virac town area, it is within walking distance of the main commercial strip.",
+    "title": "TasTea Café Virac",
+    "topic": "dining",
+    "location": "VIRAC",
+    "place_name": "TasTea",
+    "activities": [
+      "dining",
+      "food"
+    ],
+    "budget": "cheap",
+    "summary_offline": "TasTea is a café in Virac serving milk teas and snacks. Popular with locals and tourists. Near Virac's main commercial area."
+  },
+  {
+    "input": "What does TasTea serve? Is it good?",
+    "output": "TasTea in Virac is known primarily for its milk teas, fruit teas, and local refreshments. It also serves light café snacks and pastries. It is a good option for a mid-afternoon break or a sweet drink after sightseeing in Virac. The prices are affordable, making it popular with locals and budget travelers.",
+    "title": "TasTea Menu and Review",
+    "topic": "dining",
+    "location": "VIRAC",
+    "place_name": "TasTea",
+    "activities": [
+      "dining",
+      "food"
+    ],
+    "budget": "cheap",
+    "summary_offline": "TasTea serves milk teas, fruit teas, and light snacks. Affordable prices, popular for a refreshment stop in Virac."
+  },
+  {
+    "input": "Where is Kape't Tagpuan Sa Isla café?",
+    "output": "Kape't Tagpuan Sa Isla is a café in Catanduanes that serves local coffee and light meals in a relaxed setting. The name translates roughly to 'Coffee Meetup on the Island,' reflecting its casual, community-oriented atmosphere. It is located in the Virac area and is a good spot for a local coffee experience.",
+    "title": "Kape't Tagpuan Sa Isla Café",
+    "topic": "dining",
+    "location": "VIRAC",
+    "place_name": "Kape't Tagpuan Sa Isla",
+    "activities": [
+      "dining",
+      "food"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Kape't Tagpuan Sa Isla: local coffee shop in Virac with casual atmosphere. Good for a local coffee experience and light meals."
+  },
+  {
+    "input": "What cafes are there in Virac Catanduanes?",
+    "output": "Virac has a growing café scene. Notable cafes include: Little Bliss Cafe (known for cozy ambiance and all-day breakfast), Liz & Bel Café (local favorites, good coffee), TasTea (milk teas and refreshments), Kape't Tagpuan Sa Isla (local coffee, relaxed setting), ARDCI Café (inside ARDCI area, good for a quick coffee), Blue Café, Mayan Café, and Teaholic. Most are concentrated along or near the main road in Virac. Coffee culture has grown significantly — expect good espresso-based drinks at most.",
+    "title": "Cafes in Virac Catanduanes",
+    "topic": "dining",
+    "location": "VIRAC",
+    "activities": [
+      "dining",
+      "food",
+      "general"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Virac cafes: Little Bliss Cafe, Liz & Bel Café, TasTea, Kape't Tagpuan, ARDCI Café, Blue Café, Mayan Café, Teaholic. Most near the main road."
+  },
+  {
+    "input": "Where is Little Bliss Cafe in Virac?",
+    "output": "Little Bliss Cafe is a popular café in Virac, Catanduanes known for its cozy atmosphere, all-day breakfast options, and quality coffee. It is well-regarded among tourists and locals as a comfortable spot to start the morning or rest between sightseeing. Located in the Virac town area, it is conveniently accessible.",
+    "title": "Little Bliss Cafe Virac",
+    "topic": "dining",
+    "location": "VIRAC",
+    "place_name": "Little Bliss Cafe",
+    "activities": [
+      "dining",
+      "food"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Little Bliss Cafe: cozy Virac café known for all-day breakfast and coffee. Popular with tourists. In the Virac town area."
+  },
+  {
+    "input": "Where is Sea Breeze 2001 restaurant in Virac?",
+    "output": "Sea Breeze 2001 is one of the most established local restaurants in Virac, popular with local families, government workers, and regular visitors. It serves Filipino cuisine at honest prices and has been a Virac dining institution for years. Located in Virac proper, it is a reliable choice for a sit-down Filipino meal.",
+    "title": "Sea Breeze 2001 Restaurant Virac",
+    "topic": "dining",
+    "location": "VIRAC",
+    "place_name": "Sea Breeze 2001",
+    "activities": [
+      "dining",
+      "food"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Sea Breeze 2001: established Virac restaurant serving Filipino food at local prices. Popular with families and workers. Reliable sit-down dining."
+  },
+  {
+    "input": "Where is Buddy's Mami House in Virac?",
+    "output": "Buddy's Mami House is a casual eatery in Virac known for its noodle soup dishes (mami) and affordable local meals. It's a go-to for locals wanting a quick, inexpensive hot meal. Located in the Virac town area, it's particularly popular for breakfast and lunch.",
+    "title": "Buddy's Mami House Virac",
+    "topic": "dining",
+    "location": "VIRAC",
+    "place_name": "Buddy's Mami House",
+    "activities": [
+      "dining",
+      "food"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Buddy's Mami House: casual Virac eatery known for noodle soup and affordable local meals. Popular for breakfast and lunch."
+  },
+  {
+    "input": "Where is Solong Falls in Catanduanes?",
+    "output": "Solong Falls is a waterfall located in Catanduanes. It is one of the less-visited falls on the island, making it a good option for travelers seeking a quieter nature experience. Getting there requires local transport and a short hike. Ask at the nearest barangay for directions and guide availability.",
+    "title": "Solong Falls Location",
+    "topic": "nature",
+    "location": "Catanduanes Province",
+    "place_name": "Solong Falls",
+    "activities": [
+      "hiking",
+      "sightseeing",
+      "falls"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Solong Falls: less-visited waterfall in Catanduanes. Requires local transport and short hike. Ask barangay for directions."
+  },
+  {
+    "input": "Where is Paday Falls in Catanduanes?",
+    "output": "Paday Falls is a waterfall destination in Catanduanes offering a natural swimming area and lush forested surroundings. It is accessed via local transport and a short trail. Entrance fees are minimal. Paday Falls is a good secondary waterfall visit when exploring the southern part of the island around Bato.",
+    "title": "Paday Falls Location",
+    "topic": "nature",
+    "location": "Catanduanes Province",
+    "place_name": "Paday Falls",
+    "activities": [
+      "hiking",
+      "swimming",
+      "falls"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Paday Falls: natural waterfall with swimming area. Accessed by local transport + short trail. Good secondary visit when exploring southern Catanduanes."
+  },
+  {
+    "input": "Solo travel tips for Catanduanes",
+    "output": "Tips for solo travel in Catanduanes: rent a motorcycle if you are comfortable riding (most flexible option), or hire a tricycle or habal-habal for shorter trips. Join group van tours organized by accommodations for major sights like Binurong Point — this saves cost and lets you meet other travelers. Book accommodation in advance for peak months. Download offline maps (Google Maps works offline). Bring enough cash from Virac before heading out. Learn basic Tagalog phrases — it goes a long way in rural areas.",
+    "title": "Solo Travel Tips Catanduanes",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "transport",
+      "general"
+    ],
+    "summary_offline": "Solo tips: rent motorcycle for flexibility, or habal-habal for short trips. Join group tours at Binurong Point. Download offline maps. Bring cash from Virac. Learn basic Tagalog."
+  },
+  {
+    "input": "Is it easy to travel around Catanduanes alone?",
+    "output": "Getting around Catanduanes solo is manageable but requires planning. Vans and buses connect Virac to main municipalities on somewhat regular schedules. Habal-habal (motorcycle taxis) are available in most towns. Renting a motorcycle is the most flexible option for solo travel. For remote sites like Binurong Point, hiring a driver-guide for the day is easiest. Public transport runs during daytime — do not count on late evening transport outside Virac.",
+    "title": "Getting Around Catanduanes Solo",
+    "topic": "transport",
+    "location": "Catanduanes Province",
+    "activities": [
+      "transport",
+      "planning",
+      "general"
+    ],
+    "summary_offline": "Solo transport: vans/buses for main towns, habal-habal for short trips, motorcycle rental for flexibility. Remote sites need a hired driver. No late evening transport outside Virac."
+  },
+  {
+    "input": "Can a solo female traveler visit Catanduanes?",
+    "output": "Yes, Catanduanes is a welcoming destination for solo female travelers. The island's rural, community-oriented culture means locals are generally respectful and helpful. Virac is safe to walk during the day. Avoid isolated areas alone after dark. Use established accommodations rather than informal stays. When hiking to remote falls or viewpoints, always hire a local guide — both for safety and navigation. Several solo female travel bloggers have written positively about visiting Catanduanes.",
+    "title": "Solo Female Travel in Catanduanes",
+    "topic": "safety",
+    "location": "Catanduanes Province",
+    "activities": [
+      "safety",
+      "general",
+      "planning"
+    ],
+    "summary_offline": "Safe for solo female travelers. Respectful rural community, helpful locals. Hire guides for remote hikes. Avoid isolated areas after dark. Use established accommodations."
+  },
+  {
+    "input": "Is Catanduanes good for couples or a honeymoon?",
+    "output": "Catanduanes is an excellent destination for couples and honeymooners who enjoy nature. The island's secluded beaches, dramatic viewpoints like Binurong Point at sunrise, and peaceful waterfalls create very romantic settings. Twin Rock Beach Resort and Fleur de Lilies Glamping Farm are particularly popular for couples. The island's unhurried pace, scenic roads, and absence of crowds add to the intimacy. Book a beachfront cottage at Twin Rock or a glamping tent for a memorable experience.",
+    "title": "Catanduanes for Couples and Honeymoon",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general",
+      "accommodation",
+      "sightseeing"
+    ],
+    "group_type": "couple",
+    "summary_offline": "Excellent for couples: Binurong Point sunrise, Twin Rock beachfront, Fleur de Lilies glamping. Peaceful, uncrowded, and scenic — great honeymoon destination."
+  },
+  {
+    "input": "What are the most romantic spots in Catanduanes?",
+    "output": "The most romantic spots in Catanduanes: Binurong Point at sunrise (dramatic cliffs and sea views best enjoyed at first light), Twin Rock Beach at sunset with the twin rock formations in the water, Tuwad-Tuwadan Blue Lagoon for a private swimming experience, any of the quieter waterfalls like Macutal Falls, and a sunset dinner at a restaurant along the Virac coastline. The island's natural beauty and seclusion make almost every scenic spot feel intimate.",
+    "title": "Romantic Spots in Catanduanes",
+    "topic": "sightseeing",
+    "location": "Catanduanes Province",
+    "activities": [
+      "sightseeing",
+      "aesthetic",
+      "photography"
+    ],
+    "group_type": "couple",
+    "summary_offline": "Romantic spots: Binurong Point sunrise, Twin Rock sunset, Tuwad-Tuwadan Lagoon, Macutal Falls, Virac coastline dinner. Island seclusion makes everything feel intimate."
+  },
+  {
+    "input": "How much money should I bring to Catanduanes for 3 days?",
+    "output": "For a 3-day budget trip: accommodation PHP 600–1,500/night (budget inn), transport PHP 500–1,000 total (vans + habal-habal), food PHP 300–600/day (local eateries), entrance fees PHP 200–500 total, miscellaneous PHP 500. Total budget: approximately PHP 4,000–7,000 for 3 days. For a mid-range trip with hotel, van hire, and restaurant meals, budget PHP 10,000–15,000. Always bring extra cash — ATMs are only in Virac and can run out.",
+    "title": "Budget for 3 Days in Catanduanes",
+    "topic": "budget",
+    "location": "Catanduanes Province",
+    "activities": [
+      "budget",
+      "planning",
+      "general"
+    ],
+    "summary_offline": "3-day budget: PHP 4,000–7,000 (backpacker) or PHP 10,000–15,000 (mid-range). Bring extra cash — ATMs only in Virac and can run out."
+  },
+  {
+    "input": "What is the cheapest way to travel in Catanduanes?",
+    "output": "The cheapest way to travel in Catanduanes: stay at budget inns in Virac (PHP 600–1,200/night), use public vans and buses between towns (PHP 30–150 per trip), hire habal-habal for local trips (PHP 30–100), eat at carinderias and the public market (PHP 80–150 per meal), and bring your own water bottle. Coming by ferry from Tabaco is much cheaper than flying. The main cost-saver is avoiding private van hire — using public transport takes longer but cuts transport costs significantly.",
+    "title": "Cheapest Way to Travel Catanduanes",
+    "topic": "budget",
+    "location": "Catanduanes Province",
+    "activities": [
+      "budget",
+      "planning",
+      "transport"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Cheapest travel: budget inns (PHP 600–1,200), public vans (PHP 30–150), habal-habal (PHP 30–100), carinderias (PHP 80–150/meal). Ferry over flying. Avoid private van hire."
+  },
+  {
+    "input": "Are there entrance fees at the waterfalls in Catanduanes?",
+    "output": "Most waterfalls in Catanduanes charge a small entrance or environmental fee managed by the local barangay. Typical fees: Maribina Falls PHP 20–50 per person, Nahulugan Falls PHP 30–50, Macutal Falls PHP 30–50, Hinik-Hinik Falls PHP 30–50, Hinagasan Falls PHP 20–30. Some also charge a guide fee (PHP 100–200 per group). Exact fees can change — confirm on arrival. Always bring cash in small bills.",
+    "title": "Waterfall Entrance Fees in Catanduanes",
+    "topic": "budget",
+    "location": "Catanduanes Province",
+    "activities": [
+      "fees",
+      "hiking",
+      "budget",
+      "falls"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Waterfall fees: Maribina PHP 20–50, Nahulugan PHP 30–50, Macutal PHP 30–50, Hinagasan PHP 20–30. Plus guide fee PHP 100–200/group. Bring small bills."
+  },
+  {
+    "input": "Where is the van terminal in Virac?",
+    "output": "The main van and bus terminal in Virac is located near the town center, within walking distance of the port area. Vans to various municipalities (Bato, Baras, Caramoran, Pandan, etc.) depart from this terminal throughout the day, with most routes running from early morning until early afternoon. For early-morning departures to distant municipalities, arrive at the terminal by 6–7 AM to secure a seat.",
+    "title": "Van Terminal in Virac",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport",
+      "planning",
+      "commute"
+    ],
+    "summary_offline": "Virac van/bus terminal is near the town center and port. Vans to all municipalities. Most routes run 6 AM–early afternoon. Arrive early for distant towns."
+  },
+  {
+    "input": "How much does a tricycle cost in Virac?",
+    "output": "Tricycles in Virac charge PHP 10–20 per person for short routes within the town center. For longer in-town trips or if you hire the whole tricycle (special trip), expect PHP 50–150 depending on distance. Tricycles are the main short-distance transport within Virac town. They do not usually travel to tourist spots outside town — for those, use habal-habal or hire a van.",
+    "title": "Tricycle Fares in Virac",
+    "topic": "transport",
+    "location": "VIRAC",
+    "activities": [
+      "transport",
+      "commute",
+      "budget"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Tricycle in Virac: PHP 10–20/person for short routes, PHP 50–150 for special trips. Town-only transport — use habal-habal or van for tourist sites."
+  },
+  {
+    "input": "How much does it cost to rent a motorcycle in Catanduanes?",
+    "output": "Motorcycle rentals in Catanduanes typically cost PHP 500–800 per day for a standard 110–125cc motorcycle. Some accommodations and rental shops offer them informally — ask your hotel or inn. An international or Philippine driver's license is technically required. Check the motorcycle condition carefully before renting — tire quality and brakes matter on Catanduanes' winding mountain roads. Fuel up in Virac before heading to remote areas as petrol stations are scarce outside the capital.",
+    "title": "Motorcycle Rental in Catanduanes",
+    "topic": "transport",
+    "location": "Catanduanes Province",
+    "activities": [
+      "transport",
+      "planning"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Motorcycle rental: PHP 500–800/day. Ask at your inn. Check tires and brakes carefully. Fill up fuel in Virac — petrol stations scarce outside capital."
+  },
+  {
+    "input": "Can I hire a van with driver in Catanduanes? How much?",
+    "output": "Yes, hiring a private van with driver is common and recommended for day trips to multiple sites. Rates typically range from PHP 2,500–4,500 for a full day depending on destinations, distance, and negotiation. Most accommodations in Virac can arrange van hire or recommend trusted drivers. A van can usually accommodate 6–8 people, making it cost-effective for groups. For Binurong Point, Puraran, and waterfall routes, a whole-day van hire is the most convenient option.",
+    "title": "Van Hire in Catanduanes",
+    "topic": "transport",
+    "location": "Catanduanes Province",
+    "activities": [
+      "transport",
+      "planning"
+    ],
+    "budget": "mid",
+    "summary_offline": "Van hire with driver: PHP 2,500–4,500/day. Fits 6–8 people. Ask your hotel to arrange. Best option for Binurong Point, Puraran, and multi-stop day trips."
+  },
+  {
+    "input": "When is the best time to visit Catanduanes?",
+    "output": "The best time to visit Catanduanes is from March to June (dry season). April and May offer the most reliable sunny weather, calm seas, and the best conditions for beach activities, waterfall hikes, and cliff viewpoints. The typhoon season runs from August to November — seas are rough, some roads may be impassable after storms, and flights/ferries face cancellations. December to February brings cooler, sometimes rainy weather but is still manageable. March to June is the safest bet.",
+    "title": "Best Time to Visit Catanduanes",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "general",
+      "weather"
+    ],
+    "summary_offline": "Best time: March–June (dry, sunny, calm seas). Peak is April–May. Avoid Aug–Nov typhoon season. Dec–Feb is cooler and wetter but manageable."
+  },
+  {
+    "input": "What is the weather in Catanduanes in December?",
+    "output": "December in Catanduanes is cooler and can be rainy, but the typhoon season is winding down. Expect occasional showers but generally more settled weather compared to September–November. Seas are calmer in December, making ferry travel more reliable. It is a reasonable time to visit with thinner crowds. Pack a light rain jacket and layers for cooler evenings.",
+    "title": "Catanduanes Weather in December",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "weather",
+      "general"
+    ],
+    "summary_offline": "December: cooler, occasional showers, typhoon season winding down. Calmer seas than Oct–Nov. Light crowds. Bring a rain jacket."
+  },
+  {
+    "input": "What is the weather in Catanduanes in April?",
+    "output": "April is one of the best months to visit Catanduanes. The weather is dry, hot, and sunny with minimal rainfall. Seas are calm, making it ideal for swimming, surfing, island hopping, and beach activities. Most waterfalls are accessible and the trails are dry. It is also peak tourist season so accommodation books fast — reserve well in advance.",
+    "title": "Catanduanes Weather in April",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "weather",
+      "general"
+    ],
+    "summary_offline": "April: best month — dry, sunny, calm seas. Ideal for beaches, surfing, island hopping, and trails. Peak tourist season — book accommodation in advance."
+  },
+  {
+    "input": "Is there a hospital in Catanduanes?",
+    "output": "Yes. The main public hospital is Catanduanes Provincial Hospital, located in Virac. It handles most medical emergencies on the island. There are also rural health units (RHUs) in other municipalities for basic healthcare. For serious cases requiring specialist care, patients are transferred to Legazpi City in Albay via ferry or air. Always bring a personal first aid kit and any prescription medications as some drugs may not be available locally.",
+    "title": "Hospital in Catanduanes",
+    "topic": "safety",
+    "location": "VIRAC",
+    "activities": [
+      "safety",
+      "health",
+      "medical"
+    ],
+    "summary_offline": "Main hospital: Catanduanes Provincial Hospital in Virac. RHUs in each municipality for basic care. Serious cases airlifted/ferried to Legazpi. Bring your own meds and first aid."
+  },
+  {
+    "input": "Are there pharmacies in Catanduanes?",
+    "output": "Yes, pharmacies are available in Virac town center, including Mercury Drug and other local pharmacies along the main road. Common medications, wound care, and basic medical supplies are available. In smaller municipalities, only small sari-sari stores may stock limited over-the-counter medicines. Bring enough supply of any prescription medication for your entire trip as specialty drugs may not be available on the island.",
+    "title": "Pharmacies in Catanduanes",
+    "topic": "safety",
+    "location": "VIRAC",
+    "activities": [
+      "safety",
+      "health",
+      "planning"
+    ],
+    "summary_offline": "Pharmacies in Virac: Mercury Drug and local pharmacies on main road. Limited meds in smaller towns. Bring all prescription meds from Manila — specialty drugs unavailable locally."
+  },
+  {
+    "input": "When is the best time for surfing in Catanduanes?",
+    "output": "The best surfing season in Catanduanes is from September to December when swells from Pacific typhoons generate the most powerful and consistent waves at Puraran Beach. October and November are peak surf months with waves regularly reaching 6–10 feet. For beginners and intermediate surfers, the shoulder months of July–August and January–February also offer good rideable waves. April to June is the flattest period — not ideal for surfing but perfect for beach relaxation.",
+    "title": "Best Time for Surfing in Catanduanes",
+    "topic": "surfing",
+    "location": "BARAS",
+    "place_name": "Puraran Beach",
+    "activities": [
+      "surfing",
+      "planning",
+      "weather"
+    ],
+    "skill_level": "intermediate",
+    "summary_offline": "Best surf: Sep–Dec (peak Oct–Nov, waves 6–10 ft). Shoulder: Jul–Aug and Jan–Feb. Apr–Jun is flattest. Puraran Beach is the primary surf site."
+  },
+  {
+    "input": "Are there surf lessons in Catanduanes?",
+    "output": "Yes, surf lessons are available at Puraran Beach in Baras. Most surf resorts there — including Pacific Surfers Paradise Resort, Jo Surf Inn, and Titaay Surfers Inn — offer beginner and intermediate surf lessons with local instructors. Lesson rates typically range from PHP 500–1,000 per session including board rental. Instructors are experienced with the local breaks. The best time for lessons is early morning (6–10 AM) when winds are lighter.",
+    "title": "Surf Lessons in Catanduanes",
+    "topic": "surfing",
+    "location": "BARAS",
+    "place_name": "Puraran Beach",
+    "activities": [
+      "surfing",
+      "budget"
+    ],
+    "skill_level": "beginner",
+    "budget": "mid",
+    "summary_offline": "Surf lessons at Puraran Beach: Pacific Surfers, Jo Surf Inn, Titaay Surfers Inn. PHP 500–1,000/session with board. Best lessons in the morning (6–10 AM)."
+  },
+  {
+    "input": "What is Jo Surf Inn in Puraran?",
+    "output": "Jo Surf Inn is one of the surf camp accommodations located at Puraran Beach in Baras, Catanduanes. It caters primarily to surfers and offers budget-friendly rooms or dormitory-style accommodations close to the waves. The inn provides surf board rentals and can arrange surf lessons with local instructors. It is part of the cluster of small surf resorts that make up the Puraran surf community.",
+    "title": "Jo Surf Inn Puraran",
+    "topic": "accommodation",
+    "location": "BARAS",
+    "place_name": "Jo Surf Inn",
+    "activities": [
+      "surfing",
+      "accommodation"
+    ],
+    "budget": "cheap",
+    "skill_level": "beginner",
+    "summary_offline": "Jo Surf Inn: budget surf camp at Puraran Beach. Board rentals and surf lessons. Part of Puraran's surf resort cluster."
+  },
+  {
+    "input": "What is Titaay Surfers Inn?",
+    "output": "Titaay Surfers Inn is a surf accommodation located at Puraran Beach in Baras, Catanduanes. It offers rooms and basic facilities for surfers staying at the Puraran break. Surfboard rentals and access to the beach are the main draws. It is part of the small community of surf-focused lodging options at Puraran, suited for budget-conscious surfers.",
+    "title": "Titaay Surfers Inn",
+    "topic": "accommodation",
+    "location": "BARAS",
+    "place_name": "Titaay Surfers Inn",
+    "activities": [
+      "surfing",
+      "accommodation"
+    ],
+    "budget": "cheap",
+    "skill_level": "intermediate",
+    "summary_offline": "Titaay Surfers Inn: budget surf lodging at Puraran Beach. Surfboard rentals, beach access. Good for budget surfers in the Puraran community."
+  },
+  {
+    "input": "Anong pinaka-magandang beach sa Catanduanes?",
+    "output": "Ang pinaka-popular na beach sa Catanduanes para sa surfing ay ang Puraran Beach sa Baras — ito ay world-class surfing destination. Para sa pamilya at swimming, ang Twin Rock Beach Resort sa Virac ang pinakaligtas at pinakamaginhawa. Para sa mas tahimik at hindi masyadong sikat, ang Mamangal Beach, Campilan Beach, at Toytoy Beach ay magagandang pagpipilian.",
+    "title": "Pinaka-magandang Beach sa Catanduanes",
+    "topic": "beaches",
+    "location": "Catanduanes Province",
+    "activities": [
+      "beaches",
+      "swimming",
+      "surfing",
+      "sightseeing"
+    ],
+    "summary_offline": "Best beaches: Puraran (surfing), Twin Rock (family swimming), Mamangal/Campilan/Toytoy (quieter options)."
+  },
+  {
+    "input": "Magkano ang pasahe papunta Catanduanes?",
+    "output": "Ang pasahe papunta Catanduanes ay depende sa paraan ng biyahe. Via eroplano: ang Cebu Pacific at SkyJet ay may flights mula NAIA papunta Virac Airport (VIC), karaniwang PHP 1,500–4,000 one-way depende sa book-ahead. Via ferry: bus o van papunta Tabaco City, Albay (PHP 300–500 mula Manila via Philtranco/DLTB), tapos RoRo ferry Tabaco-Virac (PHP 200–350 per person). Ang ferry ay mas mura pero mas matagal ang biyahe.",
+    "title": "Pasahe Papunta Catanduanes",
+    "topic": "transport",
+    "location": "Catanduanes Province",
+    "activities": [
+      "transport",
+      "planning",
+      "ferry",
+      "plane"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Pasahe: eroplano (PHP 1,500–4,000 one-way via Cebu Pacific/SkyJet) o bus to Tabaco (PHP 300–500) + ferry (PHP 200–350). Ferry mas mura, mas matagal."
+  },
+  {
+    "input": "Saan pwedeng manggaling ng cash sa Catanduanes?",
+    "output": "May mga ATM sa Virac na mula sa BDO, Landbank, at Metrobank. Ito ang pinaka-maaasahang paraan para mag-withdraw ng pera. Sa ibang munisipyo (Bato, Baras, Caramoran, etc.) ay wala pang ATM kaya kailangan mag-withdraw muna sa Virac bago lumayo. Sa peak season at pagkatapos ng holidays, minsan ang ATM ay walang pera — mas mabuting mag-withdraw ng malaki bago umalis ng Virac.",
+    "title": "Saan Mag-withdraw ng Pera sa Catanduanes",
+    "topic": "budget",
+    "location": "VIRAC",
+    "activities": [
+      "budget",
+      "planning",
+      "general"
+    ],
+    "summary_offline": "ATMs sa Virac: BDO, Landbank, Metrobank. Walang ATM sa ibang munisipyo. Mag-withdraw ng sapat bago lumayo — minsan walang pera sa ATM sa peak season."
+  },
+  {
+    "input": "Pwede bang lumusong sa mga talon sa Catanduanes?",
+    "output": "Oo, maraming mga talon sa Catanduanes na pwedeng lumusong o lumangoy. Ang Maribina Falls ay may mababaw at malalim na pool na angkop para sa lahat ng edad. Ang Nahulugan Falls ay may mas malalim na pool. Ang Macutal Falls ay may magandang swimming area. Mahalaga na sumunod sa mga alituntunin ng barangay at huwag lumangoy kung may malakas na ulan o baha.",
+    "title": "Swimming sa mga Talon ng Catanduanes",
+    "topic": "swimming",
+    "location": "Catanduanes Province",
+    "activities": [
+      "swimming",
+      "hiking",
+      "falls"
+    ],
+    "summary_offline": "Malusong na talon: Maribina Falls (mababaw at malalim na pool), Nahulugan Falls, Macutal Falls. Huwag lumusong kung may ulan o baha."
+  },
+  {
+    "input": "Are there bars in Catanduanes?",
+    "output": "Catanduanes has a modest but enjoyable nightlife scene, mostly centered in Virac. Notable spots: E-Lounge Resto Bar (popular for drinks and light food), Miguilas Inn and Resto Bar (known for local drinks and casual atmosphere), Black Alley (bar with drinks), ARDCI Skydeck Lounge (elevated bar with a view), and Tarahid KTV Bar for karaoke. Most bars operate until 10 PM–midnight. It is not a party island — the nightlife is low-key and local.",
+    "title": "Bars and Nightlife in Catanduanes",
+    "topic": "dining",
+    "location": "VIRAC",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks",
+      "general"
+    ],
+    "summary_offline": "Virac bars: E-Lounge Resto Bar, Miguilas Inn and Resto Bar, Black Alley, ARDCI Skydeck Lounge, Tarahid KTV. Low-key nightlife, closes by 10 PM–midnight. Not a party island."
+  },
+  {
+    "input": "Where can I watch the sunset in Catanduanes?",
+    "output": "Best sunset spots in Catanduanes: Cagnipa Rolling Hills for open sky panoramas, Twin Rock Beach Resort (the twin rocks silhouette beautifully at sunset), Mamangal Beach for a western-facing beach sunset, ARDCI Skydeck Lounge in Virac for an elevated view over the town and coast, and the Virac Port area for harbor sunset views. Binurong Point is technically east-facing and better for sunrise, not sunset.",
+    "title": "Best Sunset Spots in Catanduanes",
+    "topic": "sightseeing",
+    "location": "Catanduanes Province",
+    "activities": [
+      "sightseeing",
+      "aesthetic",
+      "photography",
+      "viewpoint"
+    ],
+    "summary_offline": "Best sunsets: Cagnipa Rolling Hills, Twin Rock Beach, Mamangal Beach, ARDCI Skydeck Lounge, Virac Port. Binurong Point is a sunrise spot, not sunset."
+  },
+  {
+    "input": "What are Pathfinder's capabilities?",
+    "output": "Pathfinder is an AI travel guide for Catanduanes. I can help you find tourist spots, beaches, waterfalls, and natural attractions; recommend accommodations from budget inns to surf resorts; provide transport directions and fare estimates; suggest itineraries for different trip lengths; answer questions about food, dining, safety, budget, and local culture; and give real-time location pins for places. I specialize in Catanduanes — ask me anything about the island.",
+    "title": "Pathfinder Capabilities Overview",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general"
+    ],
+    "summary_offline": "Pathfinder helps with: tourist spots, accommodation, transport, itineraries, food, safety, and budget for Catanduanes. Ask me anything about the island."
+  },
+  {
+    "input": "Who made Pathfinder?",
+    "output": "Pathfinder was developed by researchers from the Computer Engineering Department at Catanduanes State University as a smart travel guide for Catanduanes province.",
+    "title": "Pathfinder Developers",
+    "topic": "general",
+    "location": "Virac",
+    "activities": [
+      "general"
+    ],
+    "summary_offline": "Pathfinder was developed by researchers from Catanduanes State University's Computer Engineering Department."
+  },
+  {
+    "input": "Give me recommendations for Catanduanes",
+    "output": "Great picks for Catanduanes: Binurong Point for some of the most dramatic coastal views in the Philippines, Puraran Beach for world-class surfing, Tuwad-Tuwadan Blue Lagoon for stunning turquoise waters, Maribina Falls for the most accessible waterfall swim, Luyang Cave for a unique cave exploration, and Cagnipa Rolling Hills for sweeping grassland panoramas. For food, try the local carinderia breakfast at Virac Public Market and fresh seafood in the evening. Let me know your interests and I can be more specific.",
+    "title": "Pathfinder Top Picks Catanduanes",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "sightseeing",
+      "general"
+    ],
+    "summary_offline": "Top picks: Binurong Point, Puraran Beach, Tuwad-Tuwadan Lagoon, Maribina Falls, Luyang Cave, Cagnipa Hills. Food: market carinderia breakfast + fresh seafood dinner."
+  },
+  {
+    "input": "How do I get to Bote Lighthouse from Virac?",
+    "output": "Bote Lighthouse is located in Bato, about 45 minutes to 1 hour from Virac by van or bus heading south. Alight at Bato town proper then take a habal-habal (PHP 50–80) to the lighthouse trailhead. The hike to the top takes 20–30 minutes through forested terrain. No official shuttle — arrange a habal-habal driver to wait or return at a set time.",
+    "title": "Bote Lighthouse Directions",
+    "topic": "transport",
+    "location": "BATO",
+    "place_name": "Bote Lighthouse",
+    "activities": [
+      "transport",
+      "hiking",
+      "sightseeing"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Bote Lighthouse is in Bato, ~1 hr from Virac by van/bus then habal-habal (PHP 50–80). Hike takes 20–30 mins to the top."
+  },
+  {
+    "input": "What can I do at Bote Lighthouse?",
+    "output": "Bote Lighthouse offers one of the best panoramic views of the eastern coast of Catanduanes. Activities include the short hike up, photography of the coastline and lighthouse structure, and birdwatching. The view at sunrise is particularly striking. There is no swimming at this site — it's a cliff-top viewpoint. Bring water as there are no vendors.",
+    "title": "Bote Lighthouse Activities",
+    "topic": "activities",
+    "location": "BATO",
+    "place_name": "Bote Lighthouse",
+    "activities": [
+      "sightseeing",
+      "hiking",
+      "photography"
+    ],
+    "summary_offline": "Bote Lighthouse: panoramic coastal views, photography, short hike. Best at sunrise. No swimming, no vendors — bring water."
+  },
+  {
+    "input": "What time does Bote Lighthouse open? Are there fees?",
+    "output": "Bote Lighthouse is accessible during daylight hours (roughly 6 AM to 5 PM). There is no formal entrance fee for the lighthouse area, but a small donation or guide tip is appreciated by locals who may assist. The lighthouse structure itself is maintained by the Philippine Coast Guard and entry inside may be restricted.",
+    "title": "Bote Lighthouse Hours and Fees",
+    "topic": "budget",
+    "location": "BATO",
+    "place_name": "Bote Lighthouse",
+    "activities": [
+      "sightseeing",
+      "fees",
+      "budget"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Bote Lighthouse open daylight hours (6 AM–5 PM). No formal entrance fee but bring tip for local guides. Interior access may be restricted."
+  },
+  {
+    "input": "How do I get to Balacay Point from Virac?",
+    "output": "Balacay Point is in Baras, about 1 hour from Virac. Take a van or bus heading to Baras (PHP 50–80), then hire a habal-habal from Baras town to the trailhead (PHP 80–120). The trail is steep in some parts — sturdy footwear is recommended. The site has limited signage so ask locals or arrange a guide at the barangay.",
+    "title": "Balacay Point Directions",
+    "topic": "transport",
+    "location": "BARAS",
+    "place_name": "Balacay Point",
+    "activities": [
+      "transport",
+      "hiking",
+      "sightseeing"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Balacay Point is in Baras (~1 hr from Virac). Van to Baras then habal-habal (PHP 80–120) to trailhead. Trail is steep — wear sturdy shoes."
+  },
+  {
+    "input": "What is Balacay Point like? What can I see there?",
+    "output": "Balacay Point is a dramatic cliffside viewpoint in Baras offering views of the open Pacific Ocean and rugged coastline. It's less visited than Binurong Point, making it ideal for those wanting a quieter experience. The rocky cliffs are striking and there are small coves visible below. Sunrise visits are recommended. The trail passes through rural community areas — be respectful of local property.",
+    "title": "Balacay Point Description",
+    "topic": "sightseeing",
+    "location": "BARAS",
+    "place_name": "Balacay Point",
+    "activities": [
+      "sightseeing",
+      "hiking",
+      "photography",
+      "aesthetic"
+    ],
+    "summary_offline": "Balacay Point: dramatic Pacific cliffs in Baras, less crowded than Binurong Point. Great for sunrise, photography, and quiet coastal views."
+  },
+  {
+    "input": "Best time to visit Balacay Point?",
+    "output": "The best time to visit Balacay Point is during the dry season (March to June) when trails are less slippery and visibility is clearest. Early morning (6–9 AM) gives the best light for photography and avoids midday heat. Avoid visiting during or after heavy rain as the trail becomes muddy and unsafe. The typhoon months (August–October) are not recommended.",
+    "title": "Balacay Point Best Time to Visit",
+    "topic": "sightseeing",
+    "location": "BARAS",
+    "place_name": "Balacay Point",
+    "activities": [
+      "sightseeing",
+      "planning",
+      "safety"
+    ],
+    "summary_offline": "Visit Balacay Point March–June, mornings 6–9 AM. Avoid rainy season — trail gets slippery. Not recommended during typhoon months."
+  },
+  {
+    "input": "What is Fleur de Lilies Glamping Farm like?",
+    "output": "Fleur de Lilies Glamping Farm is a unique glamping destination in Catanduanes offering tent-style accommodation in a farm setting. It's ideal for travelers who want a nature-immersed stay without roughing it completely. The property has garden areas, farm animals, and a relaxed rural atmosphere. It appeals to couples and small groups looking for something different from standard hotel accommodation.",
+    "title": "Fleur de Lilies Glamping Farm Overview",
+    "topic": "accommodation",
+    "location": "VIRAC",
+    "place_name": "Fleur de Lilies Glamping Farm",
+    "activities": [
+      "accommodation",
+      "camping",
+      "general"
+    ],
+    "summary_offline": "Fleur de Lilies Glamping Farm: tent-style stays in a farm setting. Good for couples and small groups wanting nature without roughing it."
+  },
+  {
+    "input": "How much does it cost to stay at Fleur de Lilies Glamping Farm?",
+    "output": "Fleur de Lilies Glamping Farm rates are in the mid-range category. Expect to pay approximately PHP 1,500–3,000 per night depending on the tent type and season. It's advisable to contact them directly to confirm current rates and availability. Booking in advance is recommended especially on weekends and holidays.",
+    "title": "Fleur de Lilies Rates",
+    "topic": "budget",
+    "location": "VIRAC",
+    "place_name": "Fleur de Lilies Glamping Farm",
+    "activities": [
+      "accommodation",
+      "budget",
+      "fees"
+    ],
+    "budget": "mid",
+    "summary_offline": "Fleur de Lilies Glamping Farm rates: approx PHP 1,500–3,000/night. Book in advance for weekends. Confirm rates directly."
+  },
+  {
+    "input": "What activities are available at Fleur de Lilies Glamping Farm?",
+    "output": "Activities at Fleur de Lilies Glamping Farm include farm exploration, star-gazing at night away from city lights, and relaxing in the natural surroundings. Some guests use it as a base for day trips to Hinagasan Falls and other Virac attractions. The farm setting gives opportunities for photography and peaceful walks. It is not a beach property.",
+    "title": "Fleur de Lilies Activities",
+    "topic": "activities",
+    "location": "VIRAC",
+    "place_name": "Fleur de Lilies Glamping Farm",
+    "activities": [
+      "accommodation",
+      "camping",
+      "photography",
+      "general"
+    ],
+    "summary_offline": "Fleur de Lilies: farm walks, star-gazing, photography, day trip base for Virac attractions. Not a beach property."
+  },
+  {
+    "input": "What are the amenities at Nitto Lodge in Virac?",
+    "output": "Nitto Lodge is a budget accommodation in Virac with basic room amenities including air-conditioning and private bathroom. It is within walking distance of the Virac town center, making it convenient for accessing restaurants, the public market, and transport terminals. It does not have a swimming pool or restaurant on-site, but many dining options are nearby.",
+    "title": "Nitto Lodge Amenities",
+    "topic": "facilities",
+    "location": "VIRAC",
+    "place_name": "Nitto Lodge",
+    "activities": [
+      "accommodation",
+      "general"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Nitto Lodge: budget inn in Virac with AC and private bath. No pool or restaurant. Walking distance to market and dining."
+  },
+  {
+    "input": "How much is a room at Nitto Lodge?",
+    "output": "Nitto Lodge is one of the more affordable options in Virac, with room rates typically ranging from PHP 600–1,200 per night for standard rooms. It is a good option for solo travelers or budget-conscious pairs who prioritize location over amenities.",
+    "title": "Nitto Lodge Room Rates",
+    "topic": "budget",
+    "location": "VIRAC",
+    "place_name": "Nitto Lodge",
+    "activities": [
+      "accommodation",
+      "budget"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Nitto Lodge rooms: approx PHP 600–1,200/night. Good budget option in Virac for solo travelers."
+  },
+  {
+    "input": "Where exactly is ARDCI Corporate Inn located?",
+    "output": "ARDCI Corporate Inn is located in Virac, the capital of Catanduanes. It is situated near the town center and within reasonable distance of the Virac port and government offices. The inn caters primarily to business travelers and government guests but accepts tourists.",
+    "title": "ARDCI Corporate Inn Location",
+    "topic": "accommodation",
+    "location": "VIRAC",
+    "place_name": "ARDCI Corporate Inn",
+    "activities": [
+      "accommodation",
+      "general"
+    ],
+    "summary_offline": "ARDCI Corporate Inn is in Virac near the town center, port, and government offices. Caters to business travelers but accepts tourists."
+  },
+  {
+    "input": "What amenities does ARDCI Corporate Inn offer?",
+    "output": "ARDCI Corporate Inn offers air-conditioned rooms with private bathrooms, and some units have amenities suited for business travelers like work desks. The inn has a functional, no-frills setup. Confirm breakfast inclusion and WiFi availability when booking as these may vary by room type.",
+    "title": "ARDCI Corporate Inn Amenities",
+    "topic": "facilities",
+    "location": "VIRAC",
+    "place_name": "ARDCI Corporate Inn",
+    "activities": [
+      "accommodation",
+      "general"
+    ],
+    "budget": "mid",
+    "summary_offline": "ARDCI Corporate Inn: AC rooms, private bath, work desks. Functional mid-budget option. Confirm WiFi and breakfast when booking."
+  },
+  {
+    "input": "What are the rates at Catanduanes Midtown Inn?",
+    "output": "Catanduanes Midtown Inn offers mid-range accommodation in Virac with room rates typically between PHP 1,200–2,500 per night depending on room type. Standard rooms include air-conditioning and private bathrooms. The inn is centrally located, making it easy to access Virac's restaurants and transport options.",
+    "title": "Catanduanes Midtown Inn Rates",
+    "topic": "budget",
+    "location": "VIRAC",
+    "place_name": "Catanduanes Midtown Inn",
+    "activities": [
+      "accommodation",
+      "budget"
+    ],
+    "budget": "mid",
+    "summary_offline": "Catanduanes Midtown Inn rates: PHP 1,200–2,500/night. Mid-range, AC rooms, central Virac location."
+  },
+  {
+    "input": "What amenities does Catanduanes Midtown Inn have?",
+    "output": "Catanduanes Midtown Inn features air-conditioned rooms with private bathrooms and basic hotel amenities. Its central location in Virac is a key advantage. Confirm WiFi availability and parking with the property before arrival.",
+    "title": "Catanduanes Midtown Inn Amenities",
+    "topic": "facilities",
+    "location": "VIRAC",
+    "place_name": "Catanduanes Midtown Inn",
+    "activities": [
+      "accommodation",
+      "general"
+    ],
+    "budget": "mid",
+    "summary_offline": "Catanduanes Midtown Inn: AC, private bath, central Virac location near market and transport. Confirm WiFi and parking on booking."
+  },
+  {
+    "input": "2 day itinerary in Catanduanes",
+    "output": "Day 1: Arrive at Virac, check in, then spend the afternoon exploring Virac town — Museo De Catanduanes, Virac Public Market, and dinner at a local restaurant. Day 2: Early start (5 AM) to Binurong Point for sunrise views, then drive south to Puraran Beach for a swim or surf lesson, lunch in Baras, stop at Maribina Falls in the afternoon, return to Virac for evening dinner.",
+    "title": "2-Day Catanduanes Itinerary",
+    "topic": "itinerary",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "sightseeing",
+      "swimming",
+      "surfing",
+      "hiking"
+    ],
+    "summary_offline": "2 days: Day 1 Virac orientation (Museo, market). Day 2: Binurong Point sunrise → Puraran Beach → Maribina Falls."
+  },
+  {
+    "input": "3 day itinerary in Catanduanes",
+    "output": "Day 1: Arrive in Virac, rest and explore town (market, Museo, dinner). Day 2: North route — Binurong Point sunrise, Puraran Beach surfing or swimming, lunch in Baras, return via Luyang Cave. Day 3: South route — Maribina Falls morning, Nahulugan Falls, Bato Church, Bote Lighthouse, back to Virac.",
+    "title": "3-Day Catanduanes Itinerary",
+    "topic": "itinerary",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "sightseeing",
+      "swimming",
+      "surfing",
+      "hiking",
+      "culture"
+    ],
+    "summary_offline": "3 days: Day 1 Virac. Day 2 North (Binurong Point, Puraran, Luyang Cave). Day 3 South (Maribina Falls, Nahulugan, Bato Church)."
+  },
+  {
+    "input": "What is a good itinerary for surfers visiting Catanduanes?",
+    "output": "Base yourself in Puraran Beach in Baras — most surf resorts offer 3–7 night packages. Spend mornings surfing (best waves 6–11 AM), afternoons exploring Binurong Point, or relaxing on the beach. Day trip to Nahulugan Falls for a break from the water. Peak surf season September to December.",
+    "title": "Surfer Itinerary Catanduanes",
+    "topic": "itinerary",
+    "location": "BARAS",
+    "place_name": "Puraran Beach",
+    "activities": [
+      "surfing",
+      "planning",
+      "sightseeing"
+    ],
+    "skill_level": "intermediate",
+    "summary_offline": "Surfer itinerary: base at Puraran, surf mornings, Binurong Point afternoons. Day trips to Nahulugan Falls and Luyang Cave. Peak surf Sep–Dec."
+  },
+  {
+    "input": "Nature and hiking itinerary for Catanduanes",
+    "output": "Day 1: Maribina Falls, Nahulugan Falls, Bato Church. Day 2: Binurong Point hike at sunrise, Luyang Cave. Day 3: Cagnipa Rolling Hills, Tuwad-Tuwadan Blue Lagoon. Day 4 optional: Bote Lighthouse, Balacay Point, Palumbanes Island by boat.",
+    "title": "Nature Itinerary Catanduanes",
+    "topic": "itinerary",
+    "location": "Catanduanes Province",
+    "activities": [
+      "hiking",
+      "sightseeing",
+      "planning"
+    ],
+    "summary_offline": "Nature itinerary: Day 1 South falls + Bato Church. Day 2 Binurong Point + Luyang Cave. Day 3 Cagnipa Hills + Tuwad Lagoon. Day 4 Bote/Balacay/Palumbanes."
+  },
+  {
+    "input": "Weekend itinerary in Catanduanes, 2 nights 3 days",
+    "output": "Arrive Friday evening, check in to a Virac hotel and have dinner downtown. Saturday: rent a motorcycle or hire a van, morning at Binurong Point, Puraran Beach for lunch and swim, evening back in Virac. Sunday: Maribina Falls morning, quick stop at Nahulugan Falls, lunch in Bato, depart afternoon.",
+    "title": "Weekend Trip to Catanduanes",
+    "topic": "itinerary",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "sightseeing",
+      "swimming",
+      "transport"
+    ],
+    "summary_offline": "Weekend (Fri–Sun): Fri check-in Virac. Sat Binurong Point + Puraran Beach. Sun Maribina + Nahulugan Falls, depart afternoon."
+  },
+  {
+    "input": "Is 4 days enough for Catanduanes?",
+    "output": "Yes, 4 days is comfortable. Day 1 Virac arrival and orientation, Day 2 north route (Binurong Point, Puraran Beach, Luyang Cave), Day 3 south route (Maribina Falls, Nahulugan Falls, Bato Church, Bote Lighthouse), Day 4 morning buffer and departure. For surfers, 5–7 days is ideal.",
+    "title": "Is 4 Days Enough Catanduanes",
+    "topic": "itinerary",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "general"
+    ],
+    "summary_offline": "4 days comfortably covers: Virac, north route (Binurong, Puraran, Cave), south route (Falls, Bato). For surfers, 5–7 days is better."
+  },
+  {
+    "input": "Is Catanduanes good for families with young children?",
+    "output": "Catanduanes is generally family-friendly. Maribina Falls in Bato has calm shallow pools. Twin Rock Beach Resort has a protected beach cove safe for kids. Road conditions in rural areas can be rough — bring padding for habal-habal rides with small children.",
+    "title": "Family Travel with Kids in Catanduanes",
+    "topic": "family",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general",
+      "swimming",
+      "planning"
+    ],
+    "group_type": "family",
+    "summary_offline": "Family-friendly: Maribina Falls (calm pools), Twin Rock (safe cove), Virac Market. Rural roads are rough — prepare for bumpy rides with kids."
+  },
+  {
+    "input": "What are the safest beaches in Catanduanes for kids?",
+    "output": "Twin Rock Beach Resort in Virac has the calmest, most sheltered beach on the island. Mamangal Beach in Virac is also relatively calm. Puraran Beach has strong surf and rip currents — not suitable for unsupervised young children.",
+    "title": "Safe Beaches for Kids in Catanduanes",
+    "topic": "family",
+    "location": "Catanduanes Province",
+    "place_name": "Twin Rock Beach Resort",
+    "activities": [
+      "swimming",
+      "beaches",
+      "safety"
+    ],
+    "group_type": "family",
+    "summary_offline": "Safest for kids: Twin Rock Beach Resort (sheltered cove). Mamangal Beach also calm. Avoid Puraran for young kids — strong surf and rip currents."
+  },
+  {
+    "input": "Is there a playground or indoor activity for kids in Catanduanes?",
+    "output": "Indoor or structured playground facilities are very limited in Catanduanes. For rainy days, there are no malls — a rest day at the hotel pool or a visit to Museo De Catanduanes works well. Pack games and entertainment for downtime.",
+    "title": "Indoor Activities for Kids Catanduanes",
+    "topic": "family",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general",
+      "planning"
+    ],
+    "group_type": "family",
+    "summary_offline": "No malls or playgrounds in Catanduanes. Kids enjoy Luyang Cave, market visit, Twin Rock swimming. Pack entertainment for rainy days."
+  },
+  {
+    "input": "Can I bring a baby or toddler to Catanduanes?",
+    "output": "Yes, but plan carefully. There are no specialty baby stores — bring all diapers, formula, and supplies from Manila. Roads to remote sites can be very rough. Stick to Virac and Twin Rock Beach Resort. Avoid remote waterfalls and cliffside hikes with toddlers. Provincial hospital is in Virac only.",
+    "title": "Traveling with a Baby in Catanduanes",
+    "topic": "family",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "safety",
+      "general"
+    ],
+    "group_type": "family",
+    "summary_offline": "Bring all baby supplies from Manila — none available locally. Stick to Virac and Twin Rock. Avoid rough trails. Provincial hospital is in Virac only."
+  },
+  {
+    "input": "What accommodation in Catanduanes is most family-friendly?",
+    "output": "Twin Rock Beach Resort in Virac is the most recommended family accommodation — safe calm beach, swimming pool, and family room options. E-Crown Hotel and Resort in Virac also caters well to families with pool access.",
+    "title": "Family-Friendly Accommodation Catanduanes",
+    "topic": "family",
+    "location": "Catanduanes Province",
+    "place_name": "Twin Rock Beach Resort",
+    "activities": [
+      "accommodation",
+      "swimming"
+    ],
+    "group_type": "family",
+    "budget": "mid",
+    "summary_offline": "Best family accommodation: Twin Rock Beach Resort (calm beach, pool, family rooms), E-Crown Hotel (pool). Both in Virac."
+  },
+  {
+    "input": "Where can I snorkel in Catanduanes?",
+    "output": "Best snorkeling: Palumbanes Island off the west coast (boat from Bato), LouCa Beach Resort in San Andres, Campilan Beach in Caramoran. Avoid Puraran Beach for snorkeling — the surf makes it unsuitable. Gear rental is limited — bring your own if possible.",
+    "title": "Snorkeling Spots in Catanduanes",
+    "topic": "activities",
+    "location": "Catanduanes Province",
+    "activities": [
+      "snorkeling",
+      "swimming",
+      "beaches"
+    ],
+    "summary_offline": "Best snorkeling: Palumbanes Island (boat from Bato), LouCa Beach Resort (San Andres), Campilan Beach (Caramoran). Bring your own gear — rentals are scarce."
+  },
+  {
+    "input": "Can I go kayaking in Catanduanes?",
+    "output": "Kayaking is possible at Tuwad-Tuwadan Blue Lagoon in Caramoran — calm water ideal for casual paddlers. Some beach resorts offer kayak rentals. Sea kayaking should only be done with local guides. No dedicated kayaking outfitter — confirm availability before your trip.",
+    "title": "Kayaking in Catanduanes",
+    "topic": "activities",
+    "location": "Catanduanes Province",
+    "place_name": "Tuwad-Tuwadan Blue Lagoon",
+    "activities": [
+      "kayaking",
+      "swimming",
+      "sightseeing"
+    ],
+    "summary_offline": "Kayaking: best at Tuwad-Tuwadan Blue Lagoon (calm water). Some resorts have rentals. Sea kayaking needs local guide. Confirm ahead."
+  },
+  {
+    "input": "Best photography spots in Catanduanes",
+    "output": "Top photography spots: Binurong Point (sunrise cliffs), Puraran Beach (wave action), Cagnipa Rolling Hills (grassland panoramas), Maribina Falls (lush waterfall), Tuwad-Tuwadan Blue Lagoon (turquoise reflections), Virac Public Market (morning color and activity).",
+    "title": "Photography Spots Catanduanes",
+    "topic": "activities",
+    "location": "Catanduanes Province",
+    "activities": [
+      "photography",
+      "sightseeing",
+      "aesthetic"
+    ],
+    "summary_offline": "Top photo spots: Binurong Point (sunrise cliffs), Puraran Beach (waves), Cagnipa Hills (grasslands), Maribina Falls, Tuwad Lagoon (turquoise water), Virac Market."
+  },
+  {
+    "input": "Is island hopping available in Catanduanes?",
+    "output": "Island hopping is available near Bato. Palumbanes Island is the main destination, accessible by boat from the Bato coast (PHP 600–1,200). Snorkeling and white sand beach. Best months are March to June. Rough seas June–November.",
+    "title": "Island Hopping in Catanduanes",
+    "topic": "activities",
+    "location": "BATO",
+    "place_name": "Palumbanes Island",
+    "activities": [
+      "sightseeing",
+      "swimming",
+      "snorkeling",
+      "boat"
+    ],
+    "budget": "mid",
+    "summary_offline": "Island hopping: mainly Palumbanes Island from Bato (PHP 600–1,200 boat). Snorkeling, white sand beach. Best March–June."
+  },
+  {
+    "input": "What outdoor activities can I do in Catanduanes?",
+    "output": "Catanduanes offers: surfing (Puraran), waterfall hiking (Maribina, Nahulugan, Macutal, Hinagasan), cliff hiking (Binurong Point, Balacay Point), cave exploration (Luyang Cave), snorkeling (Palumbanes Island, Campilan), kayaking (Tuwad-Tuwadan), island hopping (Bato), grassland trekking (Cagnipa Hills), and photography throughout.",
+    "title": "Outdoor Activities in Catanduanes",
+    "topic": "activities",
+    "location": "Catanduanes Province",
+    "activities": [
+      "surfing",
+      "hiking",
+      "swimming",
+      "sightseeing",
+      "snorkeling",
+      "kayaking"
+    ],
+    "summary_offline": "Activities: surfing, waterfall hikes, cliff hikes, cave exploration, snorkeling, kayaking, island hopping, grassland trekking."
+  },
+  {
+    "input": "Where can I buy pasalubong in Catanduanes?",
+    "output": "Best pasalubong spots: Virac Public Market and pasalubong shops on the main road in Virac. Look for pili nut candies, dried laing, coconut vinegar, and woven abaca products. Buy pili directly from local processors for the freshest quality.",
+    "title": "Where to Buy Pasalubong in Catanduanes",
+    "topic": "shopping",
+    "location": "VIRAC",
+    "place_name": "Virac Public Market",
+    "activities": [
+      "shopping",
+      "general"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Pasalubong: Virac Public Market and main road shops. Pili nut candies, dried laing, coconut vinegar, abaca weavings."
+  },
+  {
+    "input": "What souvenirs should I buy in Catanduanes?",
+    "output": "Top souvenirs: pili nut brittle and pastries, abaca weavings and bags, native coconut vinegar (sinamak), dried seafood (danggit, pusit), bottled laing. Buy at Virac Public Market for best prices.",
+    "title": "Souvenirs from Catanduanes",
+    "topic": "shopping",
+    "location": "VIRAC",
+    "activities": [
+      "shopping",
+      "culture"
+    ],
+    "summary_offline": "Best souvenirs: pili nut brittle, abaca woven bags, coconut vinegar (sinamak), dried seafood, bottled laing. Best prices at Virac Public Market."
+  },
+  {
+    "input": "Where can I buy pili nuts in Catanduanes?",
+    "output": "Virac Public Market has multiple stalls selling pili brittle, tarts, pastillas, and raw pili nuts. Some highway producers sell directly. Buy in bulk at the market — significantly cheaper than airport prices.",
+    "title": "Pili Nuts Catanduanes",
+    "topic": "shopping",
+    "location": "VIRAC",
+    "place_name": "Virac Public Market",
+    "activities": [
+      "shopping",
+      "food"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Buy pili nuts at Virac Public Market — brittle, tarts, pastillas, raw nuts. Much cheaper than Manila airport prices."
+  },
+  {
+    "input": "Is there a mall in Catanduanes?",
+    "output": "There is no SM, Robinsons, or large shopping mall in Catanduanes. The main commercial area is Virac town proper with department stores, groceries, and pharmacies. Stock up on branded goods before arriving from Legazpi or Manila.",
+    "title": "Mall in Catanduanes",
+    "topic": "shopping",
+    "location": "Catanduanes Province",
+    "activities": [
+      "shopping",
+      "general",
+      "planning"
+    ],
+    "summary_offline": "No malls in Catanduanes. Shop at Virac town center. Stock up on branded goods before arriving."
+  },
+  {
+    "input": "Where can I buy groceries or supplies in Catanduanes?",
+    "output": "Groceries available at Virac town center stores and Virac Public Market (freshest produce and seafood). Outside Virac, only small sari-sari stores. No 7-Eleven or Alfamart. Stock up in Virac before heading to remote areas.",
+    "title": "Groceries in Catanduanes",
+    "topic": "shopping",
+    "location": "VIRAC",
+    "activities": [
+      "shopping",
+      "planning",
+      "general"
+    ],
+    "summary_offline": "Groceries: Virac town stores and Public Market. No 7-Eleven. Stock up in Virac before going to remote areas."
+  },
+  {
+    "input": "How big is Catanduanes island?",
+    "output": "Catanduanes has a total land area of approximately 1,512 square kilometers. It is roughly 100 km from north to south and about 50 km wide. The island has 11 municipalities: Virac (capital), Bagamanoc, Baras, Bato, Caramoran, Gigmoto, Pandan, Panganiban, San Andres, San Miguel, and Viga.",
+    "title": "Catanduanes Island Size",
+    "topic": "geography",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general"
+    ],
+    "summary_offline": "Catanduanes: 1,512 sq km. ~100 km long, 50 km wide. 11 municipalities including Virac (capital)."
+  },
+  {
+    "input": "What direction is Catanduanes from Manila?",
+    "output": "Catanduanes is located southeast of Manila, approximately 450 km away. It lies off the northeastern tip of the Bicol Peninsula in the Philippine Sea. Fly southeast to reach Virac, or travel by bus to Tabaco City then take a ferry eastward to Virac Port.",
+    "title": "Catanduanes Direction from Manila",
+    "topic": "geography",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general",
+      "transport"
+    ],
+    "summary_offline": "Catanduanes is ~450 km southeast of Manila. Fly Manila→Virac, or bus to Tabaco City then ferry east."
+  },
+  {
+    "input": "What is the climate like in Catanduanes? Is it always raining?",
+    "output": "The dry season runs March to June — best time to visit. July to November is typhoon season with heavy rainfall and rough seas. December to February is cooler and can be rainy but typhoon risk drops. Despite its rain reputation, the dry months offer excellent weather.",
+    "title": "Catanduanes Climate",
+    "topic": "geography",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "general",
+      "weather"
+    ],
+    "summary_offline": "Climate: March–June = dry season. July–Nov = typhoon season. Dec–Feb cooler and wetter but manageable. Best visit: March–June."
+  },
+  {
+    "input": "What is the emergency number in Catanduanes?",
+    "output": "Dial 911 for the national emergency hotline. Catanduanes Provincial Hospital Virac: (052) 811-1260. PNP Virac: (052) 811-1335. Bureau of Fire Protection Virac: (052) 811-1034. Save these before arriving.",
+    "title": "Emergency Numbers Catanduanes",
+    "topic": "safety",
+    "location": "VIRAC",
+    "activities": [
+      "safety",
+      "emergency",
+      "planning"
+    ],
+    "summary_offline": "Emergency: 911. Provincial Hospital Virac: (052) 811-1260. PNP: (052) 811-1335. BFP: (052) 811-1034."
+  },
+  {
+    "input": "Are there jellyfish in Catanduanes beaches?",
+    "output": "Jellyfish are occasionally present when currents shift. Stings are usually minor. Rinse with seawater (not freshwater); apply vinegar for box jellyfish stings. Ask resort staff about current conditions before swimming.",
+    "title": "Jellyfish in Catanduanes",
+    "topic": "safety",
+    "location": "Catanduanes Province",
+    "activities": [
+      "safety",
+      "swimming",
+      "beaches"
+    ],
+    "summary_offline": "Jellyfish occasionally present. Rinse with seawater + vinegar for box jellyfish. Ask resort staff about conditions."
+  },
+  {
+    "input": "What should I do if a typhoon hits while I am in Catanduanes?",
+    "output": "Secure accommodation immediately, cancel all outdoor activities, monitor PAGASA (pagasa.dost.gov.ph), stay indoors away from windows. Flights and ferries will be suspended. Keep cash on hand — signal and power may go out.",
+    "title": "What to Do During Typhoon in Catanduanes",
+    "topic": "safety",
+    "location": "Catanduanes Province",
+    "activities": [
+      "safety",
+      "emergency",
+      "planning"
+    ],
+    "summary_offline": "Typhoon: book extra nights immediately, cancel outdoor trips, monitor PAGASA, stay indoors. Flights/ferries suspend. Keep cash."
+  },
+  {
+    "input": "Are there rip currents at Catanduanes beaches?",
+    "output": "Yes, especially at Puraran Beach — a surfing beach with strong Pacific swells. Not for casual swimmers. Twin Rock Beach Resort and Mamangal Beach have calmer waters. Always ask locals about conditions.",
+    "title": "Rip Currents in Catanduanes",
+    "topic": "safety",
+    "location": "Catanduanes Province",
+    "activities": [
+      "safety",
+      "swimming",
+      "beaches",
+      "surfing"
+    ],
+    "summary_offline": "Rip currents at Puraran — surf beach only. Safer: Twin Rock, Mamangal. Ask locals about conditions. Avoid open beaches in typhoon season."
+  },
+  {
+    "input": "Which network has signal in Catanduanes? Globe or Smart?",
+    "output": "Both Globe and Smart have coverage, strongest in Virac and along main roads. Signal weakens in remote areas like Puraran Beach. Smart tends to be slightly better in mountainous eastern areas. Download offline maps before heading remote.",
+    "title": "Mobile Network Coverage Catanduanes",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "general"
+    ],
+    "summary_offline": "Both Globe and Smart work in Virac and main towns. Signal weakens remotely. Download offline maps before going remote."
+  },
+  {
+    "input": "Are there power outages in Catanduanes?",
+    "output": "Power outages (brownouts) are common, especially during typhoon season and in rural areas. Most hotels have generators. Bring a power bank — essential for remote stays like Puraran Beach.",
+    "title": "Power Outages in Catanduanes",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "general"
+    ],
+    "summary_offline": "Power outages common in typhoon season and rural areas. Hotels usually have generators. Bring a power bank."
+  },
+  {
+    "input": "Can I use GCash in Catanduanes?",
+    "output": "GCash works in Catanduanes with mobile data or WiFi. Some Virac establishments accept it for payment. However, many small businesses, habal-habal drivers, and market stalls are cash-only. ATMs (BDO, Landbank, Metrobank) are only in Virac.",
+    "title": "GCash in Catanduanes",
+    "topic": "general",
+    "location": "Catanduanes Province",
+    "activities": [
+      "planning",
+      "budget",
+      "general"
+    ],
+    "summary_offline": "GCash works in Virac with signal. Many vendors are cash-only. ATMs only in Virac. Always carry PHP in small bills."
+  },
+  {
+    "input": "Are there any festivals in Catanduanes?",
+    "output": "Main festival: Catandungan Festival in October — local dances, costumes, and traditions. Virac also celebrates its patron saint fiesta. Smaller barangay fiestas happen throughout the year. Book accommodation early during festivals.",
+    "title": "Festivals in Catanduanes",
+    "topic": "culture",
+    "location": "Catanduanes Province",
+    "activities": [
+      "culture",
+      "sightseeing",
+      "planning"
+    ],
+    "summary_offline": "Catandungan Festival (October) is the main festival. Virac patron saint fiesta + barangay fiestas year-round. Book early."
+  },
+  {
+    "input": "What is the history of Bato Church in Catanduanes?",
+    "output": "Bato Church (Saint John the Baptist Parish) in Bato is one of the oldest Spanish colonial churches in Catanduanes, dating back to the 17th century. Built from local stone, it has survived typhoons and earthquakes and remains an active place of worship and cultural heritage site.",
+    "title": "Bato Church History",
+    "topic": "culture",
+    "location": "BATO",
+    "activities": [
+      "culture",
+      "sightseeing",
+      "history"
+    ],
+    "summary_offline": "Bato Church: 17th-century Spanish colonial stone church, still active. One of Catanduanes' oldest heritage sites."
+  },
+  {
+    "input": "What language do locals speak in Catanduanes? Will they understand me?",
+    "output": "The primary local language is Viracnon (a Bicolano dialect) alongside Filipino. English is understood in Virac and among tourism workers. Basic Tagalog goes a long way in rural areas. Locals are generally warm and patient with visitors.",
+    "title": "Language in Catanduanes",
+    "topic": "culture",
+    "location": "Catanduanes Province",
+    "activities": [
+      "general",
+      "culture"
+    ],
+    "summary_offline": "Local language: Viracnon + Filipino. English spoken in Virac. Basic Tagalog works everywhere. Locals are welcoming."
+  },
+  {
+    "input": "What is the local food in Catanduanes?",
+    "output": "Local food is rooted in Bicolano cuisine. Must-try: laing (taro leaves in coconut cream), bicol express (pork with chili and coconut milk), sinantolan, fresh seafood (tanigue, kinilaw), pili nut desserts, and tinumok.",
+    "title": "Local Food in Catanduanes",
+    "topic": "food",
+    "location": "Catanduanes Province",
+    "activities": [
+      "dining",
+      "food",
+      "culture"
+    ],
+    "summary_offline": "Must-try: laing, bicol express, sinantolan, fresh seafood, pili nut desserts, tinumok. Bicolano cuisine — generally spicy and coconut-milk based."
+  },
+  {
+    "input": "Where can I get breakfast in Virac?",
+    "output": "Virac Public Market carinderias open from 4–5 AM serving rice, tuyo, and hot soup under PHP 100. Main road cafes open by 7 AM. Some hotels include breakfast.",
+    "title": "Breakfast in Virac",
+    "topic": "food",
+    "location": "VIRAC",
+    "place_name": "Virac Public Market",
+    "activities": [
+      "dining",
+      "food"
+    ],
+    "budget": "cheap",
+    "summary_offline": "Breakfast in Virac: Public Market carinderias open 4–5 AM (under PHP 100). Main road cafes open 7 AM. Some hotels include breakfast."
+  },
+  {
+    "input": "Are there vegetarian food options in Catanduanes?",
+    "output": "Vegetarian options are limited but available. Laing is naturally vegetarian (ask if no shrimp paste). Fresh vegetables, rice, tofu, and fruit available at the public market. Bring snacks for remote areas.",
+    "title": "Vegetarian Food in Catanduanes",
+    "topic": "food",
+    "location": "Catanduanes Province",
+    "activities": [
+      "dining",
+      "food",
+      "planning"
+    ],
+    "summary_offline": "Vegetarian: laing (ask if bagoong-free), vegetables, tofu, fruit. Public market is best source. Bring snacks for remote areas."
+  },
+  {
+    "input": "How far is Virac to Puraran Beach? How long does the drive take?",
+    "output": "Puraran Beach is approximately 35–40 km from Virac, 1.5–2 hours by road. Van to Baras (PHP 80–120, ~1.5 hrs) then habal-habal to beach (PHP 80–120). Roads are winding.",
+    "title": "Distance Virac to Puraran Beach",
+    "topic": "navigation",
+    "location": "BARAS",
+    "place_name": "Puraran Beach",
+    "activities": [
+      "transport",
+      "planning"
+    ],
+    "summary_offline": "Virac to Puraran: ~35–40 km, 1.5–2 hrs. Van to Baras (PHP 80–120) then habal-habal (PHP 80–120). Winding roads."
+  },
+  {
+    "input": "How far is Virac to Binurong Point? How long is the drive?",
+    "output": "Binurong Point is about 50–55 km from Virac, 2–3 hours by road. Most visitors hire a private van with driver (PHP 2,500–4,500 for the day). Road is scenic but winding and partially unpaved.",
+    "title": "Distance Virac to Binurong Point",
+    "topic": "navigation",
+    "location": "BARAS",
+    "place_name": "Binurong Point",
+    "activities": [
+      "transport",
+      "planning"
+    ],
+    "summary_offline": "Virac to Binurong Point: ~50–55 km, 2–3 hrs. Best with private van (PHP 2,500–4,500/day). Winding, partially unpaved."
+  },
+  {
+    "input": "How far is Virac to Bato? How long does it take?",
+    "output": "Bato is approximately 25–30 km south of Virac, 45 minutes to 1 hour by van (PHP 50–80). Hub for Maribina Falls, Nahulugan Falls, Palumbanes Island, and Bote Lighthouse.",
+    "title": "Distance Virac to Bato",
+    "topic": "navigation",
+    "location": "BATO",
+    "activities": [
+      "transport",
+      "planning"
+    ],
+    "summary_offline": "Virac to Bato: ~25–30 km, 45 min–1 hr by van (PHP 50–80). Hub for Maribina Falls, Nahulugan Falls, Palumbanes Island."
+  },
+  {
+    "input": "Ano ang pinakamagandang lugar sa Catanduanes?",
+    "output": "Ang pinakamagandang lugar sa Catanduanes: Binurong Point (dramatic tanawin ng dagat), Puraran Beach (world-class surfing), Tuwad-Tuwadan Blue Lagoon (malinaw na tubig), Maribina Falls at Nahulugan Falls (magagandang talon), at Luyang Cave (cave exploration).",
+    "title": "Pinakamagandang Lugar sa Catanduanes",
+    "topic": "sightseeing",
+    "location": "Catanduanes Province",
+    "activities": [
+      "sightseeing",
+      "general"
+    ],
+    "summary_offline": "Pinakamagandang lugar: Binurong Point, Puraran Beach, Tuwad-Tuwadan Lagoon, Maribina at Nahulugan Falls, Luyang Cave."
+  },
+  {
+    "input": "Magkano ang budget para sa isang araw sa Catanduanes?",
+    "output": "Budget traveler: PHP 800–1,500/araw (pagkain, habal-habal, entrance fees). Mid-range: PHP 2,000–3,500 kasama accommodation at private transport. Dalhin ang cash — kakaunti ang GCash o card sa labas ng Virac.",
+    "title": "Budget Para sa Catanduanes",
+    "topic": "budget",
+    "location": "Catanduanes Province",
+    "activities": [
+      "budget",
+      "planning",
+      "general"
+    ],
+    "summary_offline": "Budget: PHP 800–1,500/araw (budget), PHP 2,000–3,500/araw (mid-range). Dalhin ang cash — limitado ang GCash sa labas ng Virac."
+  },
+  {
+    "input": "Paano pumunta sa Catanduanes mula Manila?",
+    "output": "Via eroplano: Cebu Pacific o SkyJet mula NAIA papunta Virac Airport (VIC), mga 1 oras. Via ferry: bus/van to Tabaco City, Albay (10–12 oras) tapos RoRo ferry Tabaco-Virac (2–3 oras). Eroplano mas komportable; ferry mas mura.",
+    "title": "Paano Pumunta sa Catanduanes mula Manila",
+    "topic": "navigation",
+    "location": "Catanduanes Province",
+    "activities": [
+      "transport",
+      "planning"
+    ],
+    "summary_offline": "Manila to Catanduanes: eroplano (1 oras) o bus to Tabaco + ferry (10–12 oras total). Eroplano mas komportable, ferry mas mura."
   }
 ]
