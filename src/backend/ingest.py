@@ -1,13 +1,13 @@
 from pipeline import Pipeline
 from pathlib import Path
 import sys
-import shutil # NEW: Used to delete folders
+import shutil
 import os
 
-BASE_DIR = Path(__file__).parent 
+BASE_DIR = Path(__file__).parent
 DATASET_FILE = BASE_DIR / "dataset" / "dataset.json"
 CONFIG = BASE_DIR / "config" / "config.yaml"
-CHROMA_STORAGE = BASE_DIR / "chroma_storage" # NEW: Path to storage
+CHROMA_STORAGE = BASE_DIR / "chroma_storage"
 
 def main():
     print("========================================")
@@ -22,7 +22,7 @@ def main():
         except Exception as e:
             print(f"⚠️  Warning: Could not delete folder (Is the app running?): {e}")
 
-    # 2. Initialize Pipeline (This creates a fresh 'chroma_storage' folder)
+
     print("⚙️  Initializing fresh Pipeline...")
     try:
         pipeline = Pipeline(
@@ -33,10 +33,10 @@ def main():
         print(f"Failed to initialize pipeline: {e}")
         sys.exit(1)
 
-    # 3. Force the rebuild
-    # Now this is purely for ingesting the data, as the folder is already empty
+
+
     pipeline.rebuild_index()
-    
+
     print("========================================")
     print("   DONE. System is clean and updated.   ")
     print("========================================")

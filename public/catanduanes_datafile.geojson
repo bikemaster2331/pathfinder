@@ -25954,32 +25954,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Renel's Traveller's Inn",
-        "type": "HOTELS & RESORTS",
-        "description": "A backpacker staple that feels less like a hotel and more like a homestay, offering basic fan rooms.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 28,
-        "image": "/images/renels_travellers_inn.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2280368,
-          13.5795156
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Bagamanoc Guest House",
         "type": "HOTELS & RESORTS",
         "description": "A vital waystation in the remote north, providing a simple, domestic roof after a long road trip.",
@@ -26110,32 +26084,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Angel's Pizza",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A slice of familiarity for city dwellers, bringing standardized comfort food to the island.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-21:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 36,
-        "image": "/images/angels_pizza.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2341718944488,
-          13.583990389845289
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Hinagasan Falls",
         "type": "FALLS",
         "description": "Tucked away in the capital's interior, requiring a short trek for a secluded nature experience.",
@@ -26214,32 +26162,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Anika Food Corner",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A no-frills, open-air canteen favored by locals for its affordable, home-cooked staples.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "06:00-19:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 40,
-        "image": "/images/anika_food_corner.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2287243114437,
-          13.579040247054639
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Fleur de Lilies",
         "type": "HOTELS & RESORTS",
         "description": "A modern agritourism site offering a curated, photogenic camping experience.",
@@ -26260,32 +26182,6 @@
         "coordinates": [
           124.20319514587996,
           13.522814980924824
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Appleberry",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A local institution for pastries and comfort food, often packed with students.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-20:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 42,
-        "image": "/images/appleberry.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23125085026427,
-          13.578876723518103
         ]
       }
     },
@@ -26422,32 +26318,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Angel's Pizza",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A slice of familiarity for city dwellers, bringing the standardized comfort of a national pizza chain to the island.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-21:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 36,
-        "image": "/images/angels_pizza.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2341718944488,
-          13.583990389845289
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Hinagasan Falls",
         "type": "FALLS",
         "description": "Tucked away in the capital's interior, offering a more secluded and raw nature experience compared to Maribina.",
@@ -26494,32 +26364,6 @@
         "coordinates": [
           124.24017941365666,
           13.607198646951025
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Casa Remedios Bed & Breakfast",
-        "type": "HOTELS & RESORTS",
-        "description": "A converted residential space that retains the warmth of a family home, just minutes from the airport.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 39,
-        "image": "/images/casa_remedios_bed_breakfast.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.21667483492335,
-          13.579229296789006
         ]
       }
     },
@@ -26863,33 +26707,6 @@
         ]
       }
     },
-
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Cafe Ubaldita",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A charming café in Virac known for its homey ambiance and delicious selection of pastries and brewed coffee.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-21:00",
-        "best_time_of_day": "snack",
-        "min_budget": "medium",
-        "size": 0.1,
-        "showAtZoom": 12,
-        "id": 415,
-        "image": "/images/cafe_ubaldita.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.20754195211089,
-          13.58417333027359
-        ]
-      }
-    },
     {
       "type": "Feature",
       "properties": {
@@ -26997,32 +26814,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "On D’ Wings - Calatagan",
-        "type": "RESTAURANTS & CAFES",
-        "description": "The Calatagan branch of the famous wings joint, serving spicy and savory chicken wings to students and locals.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-21:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.1,
-        "showAtZoom": 12,
-        "id": 420,
-        "image": "/images/on_d_wings_calatagan.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.20816347114656,
-          13.591323543086718
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Taller’s Brew",
         "type": "RESTAURANTS & CAFES",
         "description": "A coffee shop in Virac that takes pride in its brewing methods, offering a fix for serious coffee lovers.",
@@ -27043,32 +26834,6 @@
         "coordinates": [
           124.20498736560553,
           13.595368163992209
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Anika Food Corner",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A no-frills, open-air canteen favored by locals for its affordable, home-cooked Bicolano staples.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "07:00-19:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 40,
-        "image": "/images/anika_food_corner.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2287243114437,
-          13.579040247054639
         ]
       }
     },
@@ -27101,58 +26866,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Appleberry",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A local institution for pastries and comfort food, often packed with students seeking sweet treats.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-20:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 42,
-        "image": "/images/appleberry.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23125085026427,
-          13.578876723518103
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "JM Pension House",
-        "type": "HOTELS & RESORTS",
-        "description": "A straightforward budget lodge providing the bare essentials for travelers who plan to spend their days out exploring rather than staying indoors.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 43,
-        "image": "/images/jm_pension_house.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.22474125714392,
-          13.578996725549041
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Jollibee",
         "type": "RESTAURANTS & CAFES",
         "description": "The frantic, joyous energy of the country's most beloved bee, serving as a chaotic but comforting slice of air-conditioned familiarity in the town center.",
@@ -27179,7 +26892,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Mcdonald's",
+        "name": "Mcdonald’s",
         "type": "RESTAURANTS & CAFES",
         "description": "A standardized beacon of American fast food, offering a consistent, air-conditioned refuge and reliable Wi-Fi in the heart of the capital.",
         "municipality": "VIRAC",
@@ -28577,32 +28290,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "2838 Tea and Cafe",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A roadside stop offering cold refreshments and milk tea.",
-        "municipality": "BARAS",
-        "visit_time_minutes": 30,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-19:00",
-        "best_time_of_day": "midday",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 169,
-        "image": "/images/2838_tea_and_cafe.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.37112167616075,
-          13.659533604564466
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Stanza De Benedicto",
         "type": "VIEWPOINTS",
         "description": "A scenic location offering elevated views of the coastline.",
@@ -29332,32 +29019,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Gigmoto Inasal",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A local grill house specializing in chicken inasal, perfect for a hearty, smoky lunch after visiting the nearby falls.",
-        "municipality": "GIGMOTO",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "10:00-20:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 210,
-        "image": "/images/gigmoto_inasal.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.3918824809052,
-          13.78079612966451
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Bestea X E-fren Fries",
         "type": "RESTAURANTS & CAFES",
         "description": "A quick-service snack stop offering fries and milk tea, popular with local students and travelers needing a sugar fix.",
@@ -29930,32 +29591,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Panyero Café",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A cozy coffee spot in Panganiban, ideal for a caffeine break while traversing the northern loop.",
-        "municipality": "PANGANIBAN",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "08:00-20:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 239,
-        "image": "/images/panyero_cafe.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2996761367774,
-          13.907878958291017
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Enerking Garden Resort",
         "type": "HOTELS & RESORTS",
         "description": "A garden-themed resort in Panganiban offering a green, relaxing environment for overnight stays.",
@@ -30106,33 +29741,6 @@
         "coordinates": [
           124.30441513824577,
           13.910962045093433
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Canapino Diner",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A reliable dining stop in San Andres serving a mix of local favorites and diner staples, popular with travelers waiting for the ferry.",
-        "municipality": "SAN ANDRES",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "07:00-20:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 248,
-        "original_activity": "dining",
-        "image": "/images/canapino.png"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.14044111946026,
-          13.572931099633045
         ]
       }
     },
@@ -30484,32 +30092,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Ericsson Beach",
-        "type": "HOTELS & RESORTS",
-        "description": "A local favorite for beach outings, known for its wide sandy area that accommodates large family groups.",
-        "municipality": "SAN ANDRES",
-        "visit_time_minutes": 120,
-        "category": "beach",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "afternoon",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 264,
-        "image": "/images/ericsson_beach.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.1428227093613,
-          13.569451079584018
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Bagasbas Beach Resort",
         "type": "HOTELS & RESORTS",
         "description": "A classic resort in San Andres offering cottage rentals and karaoke, defining the typical Filipino beach experience.",
@@ -30822,32 +30404,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Hamapayo Pension House",
-        "type": "HOTELS & RESORTS",
-        "description": "A budget-friendly lodging option in Virac offering simple, clean rooms for travelers who plan to spend most of their time outdoors.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 299,
-        "image": "/images/hamapayo_pension_house.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2083954979506,
-          13.58891972772742
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "ARDCI Cafe",
         "type": "RESTAURANTS & CAFES",
         "description": "A modern cafe and bakery located within the corporate building, offering air-conditioned comfort and reliable Wi-Fi for digital nomads.",
@@ -30894,32 +30450,6 @@
         "coordinates": [
           124.26111675211118,
           13.594221210744385
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Blossoms Restaurant",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A long-standing local restaurant known for its catering services and family-style Filipino platters.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-20:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 302,
-        "image": "/images/blossoms_restaurant.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23228091542933,
-          13.581741965345147
         ]
       }
     },
@@ -31004,84 +30534,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Marem Pension House",
-        "type": "HOTELS & RESORTS",
-        "description": "A centrally located pension house providing easy access to the Virac commercial district.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 307,
-        "image": "/images/marem_pension_house.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23616359366518,
-          13.585027658792676
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Queen Maricel Inn",
-        "type": "HOTELS & RESORTS",
-        "description": "A well-known hotel in the capital offering hotel-grade amenities and function halls for events.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 309,
-        "image": "/images/queen_maricel_inn.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.21637442753692,
-          13.578029967508437
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Rakdell Inn",
-        "type": "HOTELS & RESORTS",
-        "description": "One of the older, established hotels in Virac, known for its reliability and central location.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 311,
-        "image": "/images/rakdell_inn.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23250090566795,
-          13.583461583441721
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Batag Beach Resort",
         "type": "HOTELS & RESORTS",
         "description": "A coastal resort with rock formations and cottages, offering a rugged beach experience near the arch.",
@@ -31160,84 +30612,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Fernando's Asian Cuisine",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A restaurant specializing in diverse Asian dishes, offering a break from traditional Bicolano fare.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-21:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 322,
-        "image": "/images/fernandos_asian_cuisine.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2284358008955,
-          13.581024021555177
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Villa Toledo Travel Lodge",
-        "type": "HOTELS & RESORTS",
-        "description": "A travel lodge designed for short stays, popular with business travelers visiting the capital.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 329,
-        "image": "/images/villa_toledo_travel_lodge.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2337979614973,
-          13.584315171613417
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Kasiram Grill and Restaurant",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A lively dining spot specializing in grilled meats and seafood, best enjoyed with a cold drink in the evening.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 90,
-        "category": "food",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "10:00-22:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 331,
-        "image": "/images/kasiram_grill_and_restaurant.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.20834340885116,
-          13.584004790641492
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Barefoot Beach",
         "type": "HOTELS & RESORTS",
         "description": "A simple beach area focusing on the natural sand-between-your-toes experience without heavy infrastructure.",
@@ -31258,214 +30632,6 @@
         "coordinates": [
           124.15447590238682,
           13.551155461290714
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Kemji Garden & Resto",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A resort and restaurant complex that serves as a social hub in Virac, featuring pools and event spaces.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 120,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "07:00-22:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 333,
-        "image": "/images/kemji_garden_resto.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.21505708798185,
-          13.58109037731797
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Virac Hometel",
-        "type": "HOTELS & RESORTS",
-        "description": "A hybrid hotel-hostel accommodation offering flexible room rates for different types of travelers.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 334,
-        "image": "/images/virac_hometel.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.22695947921794,
-          13.58179833090802
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Island Homestay",
-        "type": "HOTELS & RESORTS",
-        "description": "A residential-style lodging that offers a 'home away from home' vibe for longer stays.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 336,
-        "image": "/images/island_homestay.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.20375708955693,
-          13.570722658596491
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Monj Bistro",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A bistro serving heavy meals and drinks, a good option for group dinners in the town proper.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-22:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 337,
-        "image": "/images/monj_bistro.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23758206645816,
-          13.585892587436463
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Moonwalk Villa Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "A resort offering swimming pools and cottages, frequently used for birthdays and local celebrations.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 340,
-        "image": "/images/moonwalk_villa_resort.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.22011962003668,
-          13.584791411940643
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "One Two Sawa Eatery",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A popular 'unli-rice' or buffet style eatery where quantity and affordability are the main draws.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "07:00-20:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 341,
-        "image": "/images/one_two_sawa_eatery.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2318788097814,
-          13.584357089503174
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Kasa Inndustria Mountain Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "A hillside resort providing a cooler climate and views of the town, distinguishing itself from the typical beach-side options.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 120,
-        "category": "accommodation",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "08:00-20:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 342,
-        "image": "/images/kasa_inndustria_mountain_resort.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.19121548423095,
-          13.580627725044849
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Oyana Café",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A stylish cafe offering a modern menu, becoming a favorite workspace for locals and visitors.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-21:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 343,
-        "image": "/images/oyana_cafe.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23283705395751,
-          13.581512234467635
         ]
       }
     },
@@ -31524,87 +30690,9 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "The Hungry Bar",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A casual dining spot in Virac serving hearty meals and comfort food, good for groups looking for a filling dinner.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-22:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 352,
-        "image": "/images/the_hungry_bar.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23812822997121,
-          13.585363997380046
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "The Prime Resto Bar",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A popular nightlife anchor in the capital, offering a mix of dining and social drinking in a lively atmosphere.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 90,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "16:00-02:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 353,
-        "image": "/images/the_prime_resto_bar.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23135543325206,
-          13.578715324713569
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Thirstea - Virac Town Center",
-        "type": "RESTAURANTS & CAFES",
-        "description": "Conveniently located in the town center, this milk tea stop is a standard meeting point for students and shoppers.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 30,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-20:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 354,
-        "image": "/images/thirstea_virac_town_center.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.22858500408107,
-          13.580913253521903
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Timo-Tea Milktea & Coffee Hub",
         "type": "RESTAURANTS & CAFES",
-        "description": "A cozy beverage hub offering a quiet corner for coffee lovers amidst the bustle of Virac.",
+        "description": "A cozy beverage hub offering a quiet corner for Milktea lovers amidst the bustle of Virac.",
         "municipality": "VIRAC",
         "visit_time_minutes": 45,
         "category": "food",
@@ -31674,214 +30762,6 @@
         "coordinates": [
           124.22987346487102,
           13.581368173193223
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Niño Bistro",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A small bistro offering curated dishes in an intimate setting, ideal for dates or quiet meals.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-21:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 359,
-        "image": "/images/nino_bistro.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.22802865470325,
-          13.579295434170184
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Peymus Resto",
-        "type": "RESTAURANTS & CAFES",
-        "description": "Known for serving local favorites, this restaurant provides a reliable taste of home-cooked Bicolano meals.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "08:00-20:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 360,
-        "image": "/images/peymus_resto.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.22762197909927,
-          13.579402204846764
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Miekoys Pizza",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A local pizzeria offering a distinct alternative to the national chains, with a focus on generous toppings.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 45,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-21:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 361,
-        "image": "/images/miekoys_pizza.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2394488840288,
-          13.587613305309315
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "On D' Wings - Francia",
-        "type": "RESTAURANTS & CAFES",
-        "description": "The Francia branch of the popular wing joint, delivering the same spicy comfort food closer to the eastern side of town.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-21:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 362,
-        "image": "/images/on_d_wings_francia.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23853542327583,
-          13.586624201844174
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "2838 Tea & Cafe - Francia",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A satellite branch of 2838, providing its signature beverages to residents in the Francia neighborhood.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 30,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-19:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 363,
-        "image": "/images/2838_tea_cafe_francia.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23804189685526,
-          13.585508339157613
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Mizuna Restaurant",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A dining establishment offering Japanese-inspired cuisine, standing out in a town dominated by local grills.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-21:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 364,
-        "image": "/images/mizuna_restaurant.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.21335317171304,
-          13.582915375540159
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Haring Manok - Calatagan",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A grab-and-go roasted chicken stand, essential for quick lunches or bringing dinner back to the hotel.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 30,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-20:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 365,
-        "image": "/images/haring_manok_calatagan.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.20860121139492,
-          13.584063653051224
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Haring Manok - Rawis",
-        "type": "RESTAURANTS & CAFES",
-        "description": "The Rawis branch of the popular chicken chain, serving the eastern side of the capital.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 30,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-20:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 366,
-        "image": "/images/haring_manok_rawis.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2376342850281,
-          13.585907954596866
         ]
       }
     },

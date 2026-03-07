@@ -766,9 +766,9 @@
 }
 
 .optimizeBtnSmall {
-    background: var(--itinerary-card-surface-05);
+    background: transparent;
     backdrop-filter: blur(8px);
-    border: 1px solid var(--itinerary-card-surface-12);
+    border: 0px;
     border-radius: 8px;
     color: var(--itinerary-card-text-70);
     font-size: 0.70rem;
@@ -817,7 +817,7 @@
 
 .walletLabel {
     font-weight: 600;
-    font-size: 14px;
+    font-size: 10px;
     letter-spacing: -0.01em;
     color: var(--itinerary-walletlabel-text);
 }

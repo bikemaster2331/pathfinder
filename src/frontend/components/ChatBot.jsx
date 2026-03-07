@@ -7,6 +7,8 @@ const ChatBot = forwardRef(({
     messages = [],
     setMessages,
     onLocationResponse,
+    activePin = null,
+    setActivePin,
     variant = 'floating',
     onKeyboardChange,
     onExpand,
@@ -261,7 +263,10 @@ const ChatBot = forwardRef(({
             const res = await fetch(`${baseUrl}/ask`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: userMessage })
+                body: JSON.stringify({
+                    question: userMessage,
+                    active_pin: activePin || null
+                })
             });
 
             if (!res.ok) {
@@ -272,6 +277,11 @@ const ChatBot = forwardRef(({
             const data = await res.json();
 
             setMessages(prev => [...prev, { role: 'assistant', content: data.answer }]);
+
+            // -------------- AUTO-PIN LOGIC --------------
+            if (data.locations && data.locations.length === 1 && setActivePin) {
+                setActivePin(data.locations[0].name);
+            }
 
             if (onLocationResponse && data.locations?.length > 0) {
                 onLocationResponse(data.locations);
