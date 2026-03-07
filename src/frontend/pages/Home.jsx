@@ -385,7 +385,7 @@ export default function Home() {
     };
 
     useEffect(() => {
-        const timer = setInterval(() => { paginate(1); }, 8000);
+        const timer = setInterval(() => { paginate(1); }, 4000);
         return () => clearInterval(timer);
     }, [page]);
 
