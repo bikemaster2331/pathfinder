@@ -104,11 +104,11 @@ html {
 .headline,
 .headlineAccent {
     font-family: 'HelveticaCustom', 'Manrope', sans-serif;
-    font-size: 7.5rem;
+    font-size: 6.2rem;
     font-weight: 550;
     line-height: 0.9;
     letter-spacing: -0.04em;
-    margin: 96px 0 24px 0;
+    margin: 72px 0 18px 0;
     background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -129,12 +129,12 @@ html {
 
 .subheadline {
     font-family: 'HelveticaCustom', 'Manrope', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.12rem;
     letter-spacing: -0.03em;
-    line-height: 1.4;
+    line-height: 1.32;
     color: rgb(131, 131, 131);
     font-weight: 400;
-    margin: 0 auto 24px;
+    margin: 0 auto 18px;
 }
 
 :global([data-theme='light']) .subheadline {
@@ -149,10 +149,10 @@ html {
 
 .ctaGroup {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 90px;
+    margin-bottom: 64px;
 }
 
 .primaryCta {
@@ -161,14 +161,19 @@ html {
     gap: 6px;
     background: white;
     color: #000000;
-    padding: 12px 16px;
+    padding: 10px 14px;
     border: none;
-    border-radius: 56px;
-    font-size: 14px;
+    border-radius: 48px;
+    font-size: 13px;
     line-height: 1;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.7, 0, 0.5, 1);
+}
+
+:global([data-theme='light']) .primaryCta {
+    background: #020617;
+    color: #ffffff;
 }
 
 .primaryCta:hover {
@@ -189,9 +194,9 @@ html {
     background: rgba(138, 138, 138, 0.1);
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.22);
-    padding: 9px 16px;
-    border-radius: 56px;
-    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 48px;
+    font-size: 12px;
     line-height: 1;
     font-weight: 600;
     cursor: pointer;
@@ -220,14 +225,14 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 28px;
     padding: 0 24px;
 }
 
 .badgeImage {
     max-width: 100%;
     height: auto;
-    max-height: 120px;
+    max-height: 96px;
     object-fit: contain;
     opacity: 0.85;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -240,8 +245,11 @@ html {
     filter: drop-shadow(0 8px 24px var(--home-shadow-strong));
 }
 
+/* ========================================
+   HERO IMAGE CAROUSEL UPDATES
+======================================== */
 .visualWrapper {
-    margin-top: 180px;
+    margin-top: 90px;
     width: 100%;
     height: 100%;
     max-width: 1220px;
@@ -251,110 +259,14 @@ html {
 
 .imageContainer {
     position: relative;
-    width: 100%;
+    width: min(92%, 1080px);
+    margin: 0 auto;
     aspect-ratio: 16 / 9;
-    border-radius: 24px;
-    overflow: hidden;
-    border: 1px solid var(--home-border);
-    box-shadow:
-        0 20px 60px var(--home-shadow-strong),
-        0 0 0 1px rgba(15, 23, 42, 0.06);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
-}
-
-.heroImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 24px;
-}
-
-.imageContainer:hover {
-    transform: scale(1.02);
-}
-
-.navArrow {
-    position: absolute;
-    bottom: 18px;
-    transform: none;
-    z-index: 10;
-    background: var(--home-nav-arrow-bg);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--home-nav-arrow-border);
-    border-radius: 999px;
-    width: 42px;
-    height: 42px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navArrowLeft {
-    right: 48px;
-}
-
-.navArrowRight {
-    right: 0;
-}
-
-.navArrow:hover {
-    background: var(--home-nav-arrow-bg-hover);
-    border-color: var(--home-nav-arrow-border-hover);
-    transform: scale(1.1);
-}
-
-.navArrow:active {
-    transform: scale(0.95);
-    will-change: transform;
-}
-
-.slideIndicators {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 15;
-    padding: 8px 16px;
-    background: var(--home-glass);
-    backdrop-filter: blur(12px);
-    border-radius: 100px;
-    border: 1px solid var(--home-border);
-}
-
-.indicatorDot {
-    width: 8px;
-    height: 8px;
-    border-radius: 4px;
-    background: rgba(15, 23, 42, 0.35);
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0;
-}
-
-.indicatorDot:hover {
-    background: rgba(15, 23, 42, 0.55);
-}
-
-.indicatorDotActive {
-    width: 32px;
-    background: #0b0b0b;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25);
-}
-
-:global([data-theme='dark']) .slideIndicators {
-    background: #ffffff;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-}
-
-:global([data-theme='dark']) .indicatorDotActive {
-    box-shadow: none;
+    align-items: center;
+    perspective: 1000px;
+    /* REMOVED overflow: hidden, borders, and shadows here so cards can stack and spread out */
 }
 
 .slideshowImage {
@@ -362,7 +274,32 @@ html {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    will-change: transform;
+    border-radius: 12px;
+    border: 1px solid var(--home-border);
+    user-select: none;
+    -webkit-user-drag: none;
+    transform-origin: center;
+    transition: filter 0.25s ease, box-shadow 0.25s ease;
+}
+
+.slideshowImageActive {
+    filter: none;
+}
+
+.slideshowImageBlurred {
+    filter: none brightness(0.84);
+    box-shadow:
+        0 20px 60px var(--home-shadow-strong),
+        0 0 0 1px rgba(15, 23, 42, 0.06),
+        inset 0 0 0 999px rgba(0, 0, 0, 0.12);
+}
+
+.cursorPrev {
+    cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA4MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBvcGFjaXR5PSIwLjk5Ij48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iNDAiIHJ4PSIyMCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjZTJlOGYwIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB4PSI0MCIgeT0iMjQiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMwZjE3MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlByZXY8L3RleHQ+PC9nPjwvc3ZnPg==') 40 20, pointer !important;
+}
+
+.cursorNext {
+    cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA4MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBvcGFjaXR5PSIwLjk5Ij48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iNDAiIHJ4PSIyMCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjZTJlOGYwIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB4PSI0MCIgeT0iMjQiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMwZjE3MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk5leHQ8L3RleHQ+PC9nPjwvc3ZnPg==') 40 20, pointer !important;
 }
 
 .locationCard {
@@ -376,7 +313,8 @@ html {
     padding: 8px 12px;
     display: flex;
     align-items: center;
-    z-index: 20;
+    z-index: 50;
+    /* Increased to stay above stacked cards */
     pointer-events: none;
     max-width: 360px;
 }
@@ -463,7 +401,7 @@ html {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-.testimonialCardLast > :not(.testimonialEllipsis) {
+.testimonialCardLast> :not(.testimonialEllipsis) {
     filter: blur(1.2px);
     opacity: 0.78;
 }
@@ -640,7 +578,6 @@ html {
     min-height: 300vh;
     width: 100%;
     position: relative;
-    /* Do NOT use align-items: start here */
 }
 
 /* LEFT PANEL - STICKY TITLES */
@@ -716,6 +653,7 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 20px;
     margin-bottom: 0px;
 }
 
@@ -982,7 +920,6 @@ html {
     width: 88%;
     max-width: 760px;
     background: #111111;
-    /* Dark theme to match your style */
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
@@ -1026,7 +963,6 @@ html {
 .mockupStatus {
     font-size: 0.8rem;
     color: #10B981;
-    /* Green dot equivalent */
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -1071,7 +1007,6 @@ html {
     border-radius: 14px;
     width: 85%;
     margin-top: -8px;
-    /* Pulled up slightly to look attached to the bubble */
 }
 
 .routeDay {
@@ -1392,7 +1327,6 @@ html {
 
 /* ================================================================
    ADD THESE CSS RULES to your Home.module.css
-   (append to the bottom, or integrate alongside existing rules)
    ================================================================ */
 
 /* --------------------------------
@@ -1445,6 +1379,237 @@ html {
     gap: 18px;
     width: min(100%, 1180px);
     max-width: none;
+}
+
+.prismLayout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin: 0;
+}
+
+.prismColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 756px;
+}
+
+.prismCard {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    border: none;
+    background:
+        radial-gradient(140% 120% at 10% 0%, rgba(24, 88, 52, 0.36), transparent 58%),
+        radial-gradient(120% 100% at 90% 100%, rgba(10, 46, 27, 0.28), transparent 62%),
+        linear-gradient(155deg, rgba(5, 16, 10, 0.98), rgba(3, 9, 6, 0.96));
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 0 0 1px rgba(67, 170, 104, 0.12),
+        0 22px 54px rgba(0, 0, 0, 0.42),
+        0 0 42px rgba(46, 164, 95, 0.18);
+}
+
+.prismColumn:nth-child(3) .prismCard,
+.prismColumn:nth-child(3) .prismPortraitCard,
+.prismColumn:nth-child(3) .prismJoinCard {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.prismBrandCard {
+    flex: 280 1 0;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.prismBrandTitle {
+    margin: 0;
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: clamp(1.8rem, 2vw, 2.8rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: #f4f8ff;
+}
+
+.prismPalette {
+    display: flex;
+    gap: 10px;
+}
+
+.prismPalette span {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.3), 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+.prismPalette span:nth-child(1) { background: #ff6d52; }
+.prismPalette span:nth-child(2) { background: #ffc35a; }
+.prismPalette span:nth-child(3) { background: #53d8e6; }
+.prismPalette span:nth-child(4) { background: #4f8dff; }
+
+.prismTaglineCard {
+    flex: 440 1 0;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.prismTagline {
+    margin: 0;
+    color: #d8e6ff;
+    font-size: 1.6rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.prismAlbumArt {
+    margin-top: 26px;
+    width: 80%;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(186, 214, 255, 0.28);
+    align-self: center;
+    position: relative;
+}
+
+.prismAlbumArt img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.prismAlbumArt span {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #f5f8ff;
+}
+
+.prismHeroCard {
+    flex: 600 1 0;
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.prismLogo {
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: clamp(3.2rem, 5vw, 6.2rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ff7752, #ffd169 35%, #f8f8df 60%, #51d9ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.prismCrystal {
+    width: 300px;
+    height: 300px;
+    border-radius: 42% 58% 48% 52% / 49% 46% 54% 51%;
+    margin: 10px auto 12px;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.9), rgba(173, 227, 255, 0.2) 45%, transparent 70%),
+        conic-gradient(from 30deg, rgba(255, 174, 125, 0.5), rgba(124, 214, 255, 0.5), rgba(248, 242, 214, 0.5), rgba(255, 174, 125, 0.5));
+    border: 1px solid rgba(214, 235, 255, 0.6);
+    filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.35));
+}
+
+.prismPlayerCard {
+    flex: 140 1 0;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.prismPlayerMeta {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    color: #b5cdf3;
+    font-size: 0.84rem;
+    letter-spacing: 0.01em;
+}
+
+.prismPlayerControls {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.prismPlayerControls button {
+    border-radius: 10px;
+    border: 1px solid rgba(170, 208, 255, 0.24);
+    background: rgba(12, 33, 67, 0.78);
+    color: #eaf3ff;
+    min-height: 34px;
+    cursor: pointer;
+}
+
+.prismPortraitCard {
+    flex: 450 1 0;
+}
+
+.prismPortraitCard img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.prismJoinCard {
+    flex: 230 1 0;
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background:
+        radial-gradient(170% 110% at 50% 0%, rgba(28, 106, 62, 0.34), transparent 64%),
+        linear-gradient(155deg, rgba(4, 16, 10, 0.99), rgba(2, 9, 6, 0.97));
+}
+
+.prismJoinCount {
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+    font-size: clamp(3rem, 4vw, 5rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: #ffd26f;
+}
+
+.prismJoinLabel {
+    margin-top: 6px;
+    font-size: 1.35rem;
+    color: #f2f7ff;
+}
+
+.prismJoinButton {
+    margin-top: 18px;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    background: linear-gradient(90deg, #47cbff, #5a8eff);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 /* Stats row — 3 cards in a horizontal row */
@@ -1745,17 +1910,17 @@ html {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: min(100%, 1120px);
-    margin: 0 auto;
+    width: min(100%, 1200px);
+    margin: 0 0 10px 0;
 }
 
 .projectGrid {
     display: grid;
-    grid-template-columns: minmax(0, 2.9fr) minmax(280px, 1fr);
+    grid-template-columns: minmax(0, 2.9fr) minmax(300px, 1fr);
     gap: 16px;
     align-items: stretch;
-    width: min(100%, 850px);
-    margin-right: auto;
+    width: 100%;
+    max-width: none;
 }
 
 .repoCard {
@@ -1899,11 +2064,18 @@ html {
     background: var(--home-glass);
     backdrop-filter: blur(16px);
     border-radius: 22px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     padding: 24px;
     height: 100%;
     justify-content: flex-start;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: none;
     opacity: 0.92;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 0 0 1px rgba(67, 170, 104, 0.12),
+        0 22px 54px rgba(0, 0, 0, 0.42),
+        0 0 42px rgba(46, 164, 95, 0.16);
 }
 
 .techLabel {
@@ -1950,7 +2122,7 @@ html {
     border-color: color-mix(in srgb, var(--tech-color) 45%, transparent);
     background: color-mix(in srgb, var(--tech-color) 12%, transparent);
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--tech-color) 14%, transparent),
-                0 4px 10px rgba(0, 0, 0, 0.18);
+        0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
 .techBadgeIcon {
@@ -2091,7 +2263,7 @@ html {
 .creatorCardWrap:hover .creatorBack {
     border-color: color-mix(in srgb, var(--creator-accent) 35%, transparent);
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2),
-                0 0 0 1px color-mix(in srgb, var(--creator-accent) 10%, transparent);
+        0 0 0 1px color-mix(in srgb, var(--creator-accent) 10%, transparent);
 }
 
 .creatorAvatar {
@@ -2187,8 +2359,15 @@ html {
 }
 
 @keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 .socialIntro {
@@ -2288,6 +2467,14 @@ html {
 }
 
 @media (max-width: 1024px) {
+    .prismLayout {
+        grid-template-columns: 1fr;
+    }
+
+    .prismColumn {
+        height: auto;
+    }
+
     .contributeLayout {
         width: min(100%, 980px);
     }
@@ -2307,6 +2494,35 @@ html {
    ---------------------------------------------------------------- */
 
 @media (max-width: 768px) {
+    .prismBrandCard,
+    .prismTaglineCard,
+    .prismHeroCard,
+    .prismPortraitCard,
+    .prismJoinCard {
+        flex: 0 0 auto;
+    }
+
+    .prismPlayerCard {
+        flex: 0 0 auto;
+    }
+
+    .prismHeroCard {
+        padding: 20px 16px;
+    }
+
+    .prismCrystal {
+        width: 220px;
+        height: 220px;
+    }
+
+    .prismTagline {
+        font-size: 1.2rem;
+    }
+
+    .prismAlbumArt {
+        width: 100%;
+    }
+
     .featureChips {
         gap: 8px;
         margin-bottom: 24px;
@@ -2448,7 +2664,6 @@ html {
     width: 60vw;
     height: 80vh;
     max-width: none;
-    margin-top: 36px;
     position: relative;
 }
 
@@ -2502,11 +2717,9 @@ html {
 .guideMapVignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-        ellipse 90% 85% at 50% 50%,
-        transparent 42%,
-        rgba(0, 0, 0, 0.48) 100%
-    );
+    background: radial-gradient(ellipse 90% 85% at 50% 50%,
+            transparent 42%,
+            rgba(0, 0, 0, 0.48) 100%);
     pointer-events: none;
     z-index: 2;
 }
@@ -2514,13 +2727,11 @@ html {
 .guideMapScanlines {
     position: absolute;
     inset: 0;
-    background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 0, 0, 0.06) 2px,
-        rgba(0, 0, 0, 0.06) 3px
-    );
+    background-image: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.06) 2px,
+            rgba(0, 0, 0, 0.06) 3px);
     pointer-events: none;
     z-index: 3;
     mix-blend-mode: multiply;
@@ -2599,8 +2810,15 @@ html {
 }
 
 @keyframes pinFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 .guidePinDot {
@@ -2652,9 +2870,17 @@ html {
     border-radius: 50%;
 }
 
-.guideChatDots span:nth-child(1) { background: #ff5f57; }
-.guideChatDots span:nth-child(2) { background: #febc2e; }
-.guideChatDots span:nth-child(3) { background: #28c840; }
+.guideChatDots span:nth-child(1) {
+    background: #ff5f57;
+}
+
+.guideChatDots span:nth-child(2) {
+    background: #febc2e;
+}
+
+.guideChatDots span:nth-child(3) {
+    background: #28c840;
+}
 
 .guideChatTitle {
     font-size: 0.82rem;
@@ -2936,9 +3162,19 @@ html {
         aspect-ratio: 4 / 3;
     }
 
-    .guidePinA { top: 24%; left: 16%; }
-    .guidePinB { top: 48%; left: 42%; }
-    .guidePinC { display: none; }
+    .guidePinA {
+        top: 24%;
+        left: 16%;
+    }
+
+    .guidePinB {
+        top: 48%;
+        left: 42%;
+    }
+
+    .guidePinC {
+        display: none;
+    }
 
     .guideChatFloat {
         width: calc(100% - 24px);
