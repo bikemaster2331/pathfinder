@@ -8,6 +8,7 @@ const ChatBot = forwardRef(({
     setMessages,
     onLocationResponse,
     activePin = null,
+    setActivePin,
     variant = 'floating',
     onKeyboardChange,
     onExpand,
@@ -276,6 +277,11 @@ const ChatBot = forwardRef(({
             const data = await res.json();
 
             setMessages(prev => [...prev, { role: 'assistant', content: data.answer }]);
+
+            // -------------- AUTO-PIN LOGIC --------------
+            if (data.locations && data.locations.length === 1 && setActivePin) {
+                setActivePin(data.locations[0].name);
+            }
 
             if (onLocationResponse && data.locations?.length > 0) {
                 onLocationResponse(data.locations);
