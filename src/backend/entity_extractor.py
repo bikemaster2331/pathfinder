@@ -136,6 +136,24 @@ class EntityExtractor:
             if re.search(pattern, cleaned):
                 found.append(topic)
 
+        # Snorkeling should be explicit so downstream routing/filtering can
+        # distinguish it from the broader "swimming" bucket.
+        has_snorkel = bool(re.search(r'\bsnorkel(?:ing)?\b', cleaned))
+        has_non_snorkel_swim = bool(re.search(
+            r'\b(swim|swimming|langoy|ligo|maliligo|pool|falls?|talon|'
+            r'waterfall|waterfalls|dive|diving|freediving|cliff diving|'
+            r'cliff jump|spring)\b',
+            cleaned
+        ))
+
+        if has_snorkel and 'snorkeling' not in found:
+            found.append('snorkeling')
+
+        # If query is snorkel-only, avoid broadening to "swimming" just because
+        # snorkeling is currently listed under swimming keywords in config.
+        if has_snorkel and not has_non_snorkel_swim and 'swimming' in found:
+            found = [act for act in found if act != 'swimming']
+
         return found
 
     def _extract_budget(self, query_lower):
