@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import styles from '../styles/homepage/Home.module.css';
 import chatStyles from '../styles/itinerary_page/ChatBot.module.css';
-import { motion, AnimatePresence, wrap } from 'framer-motion';
+import { motion, wrap } from 'framer-motion';
 import SharedNavbar from '../components/navbar';
 import badges from '../assets/images/card/badges.png';
 import mapScreenshot from '../assets/images/card/map.png';
@@ -15,34 +15,40 @@ const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg
 const imageEntries = Object.entries(imageModules).sort(([a], [b]) => a.localeCompare(b));
 const IMAGES = imageEntries.map(([, src]) => src);
 
-const slideVariants = {
-    enter: (direction) => ({
-        x: direction > 0 ? 1200 : -1200,
-        opacity: 0,
-        scale: 0.95,
-        filter: "blur(10px)"
-    }),
-    center: {
-        zIndex: 1,
-        x: 0,
-        opacity: 1,
-        scale: 1,
-        filter: "blur(0px)"
-    },
-    exit: (direction) => ({
-        zIndex: 0,
-        x: direction < 0 ? 1200 : -1200,
-        opacity: 0,
-        scale: 0.95,
-        filter: "blur(10px)"
-    })
+// ─── NEW ANGLED CAROUSEL VARIANTS ───
+const angledVariants = {
+    animate: (offset) => {
+        const isCenter = offset === 0;
+        const isLeft = offset === -1;
+        const isRight = offset === 1;
+        const isFarLeft = offset < -1;
+        const isFarRight = offset > 1;
+
+        if (isCenter) {
+            return { x: "0%", y: "0%", scale: 1.01, rotate: 0, filter: "brightness(1)", opacity: 1, zIndex: 10 };
+        } else if (isLeft) {
+            return { x: "-100%", y: "5%", scale: 0.88, rotate: -2, filter: "brightness(0.65)", opacity: 1, zIndex: 5 };
+        } else if (isRight) {
+            return { x: "100%", y: "5%", scale: 0.88, rotate: 2, filter: "brightness(0.65)", opacity: 1, zIndex: 5 };
+        } else if (isFarLeft) {
+            return { x: "-200%", y: "10%", scale: 0.75, rotate: -4, filter: "brightness(0.6)", opacity: 0, zIndex: 0 };
+        } else if (isFarRight) {
+            return { x: "200%", y: "10%", scale: 0.75, rotate: 4, filter: "brightness(0.6)", opacity: 0, zIndex: 0 };
+        }
+    }
 };
 
-const slideTransition = {
-    x: { type: "spring", stiffness: 400, damping: 40, mass: 0.5 },
-    opacity: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] },
-    scale: { duration: 0.3, ease: [0.34, 1.56, 0.64, 1] },
-    filter: { duration: 0.5 }
+const angledTransition = {
+    duration: 1.2,
+    ease: [0.34, 1.1, 0.64, 1] // easeOutBack: slightly overshoots its target then slowly settles back
+};
+
+// Helper to calculate circular offset (shortest path)
+const getOffset = (index, currentIndex, length) => {
+    let offset = (index - currentIndex) % length;
+    if (offset > Math.floor(length / 2)) offset -= length;
+    if (offset < -Math.floor(length / 2)) offset += length;
+    return offset;
 };
 
 const SWIPE_CONFIDENCE_THRESHOLD = 8000;
@@ -137,259 +143,106 @@ const TECH_STACK = [
     { name: 'JavaScript', color: '#F7DF1E', Icon: TechJavaScriptIcon },
 ];
 
-const SOCIAL_LINKS = [
-    {
-        name: 'Facebook',
-        handle: '@PathfinderCatanduanes',
-        url: 'https://facebook.com',
-        Icon: FacebookIcon,
-        color: '#1877F2',
-        bg: 'rgba(24,119,242,0.08)',
-        border: 'rgba(24,119,242,0.2)',
-    },
-    {
-        name: 'Instagram',
-        handle: '@pathfinder.ph',
-        url: 'https://instagram.com',
-        Icon: InstagramIcon,
-        color: '#E1306C',
-        bg: 'rgba(225,48,108,0.08)',
-        border: 'rgba(225,48,108,0.2)',
-    },
-    {
-        name: 'GitHub',
-        handle: '@pathfinder-ph',
-        url: 'https://github.com',
-        Icon: GitHubIcon,
-        color: '#ffffff',
-        bg: 'rgba(255,255,255,0.06)',
-        border: 'rgba(255,255,255,0.14)',
-    },
-    {
-        name: 'YouTube',
-        handle: '@PathfinderCatanduanes',
-        url: 'https://youtube.com',
-        Icon: YouTubeIcon,
-        color: '#FF0000',
-        bg: 'rgba(255,0,0,0.08)',
-        border: 'rgba(255,0,0,0.2)',
-    },
-    {
-        name: 'X (Twitter)',
-        handle: '@pathfinder_ph',
-        url: 'https://x.com',
-        Icon: TwitterXIcon,
-        color: '#ffffff',
-        bg: 'rgba(255,255,255,0.06)',
-        border: 'rgba(255,255,255,0.14)',
-    },
-];
-
-// Roulette Card Component
-const RouletteCard = ({ title, description, icon, index, withSlider = false }) => {
-    const [[cardPage, cardDirection], setCardPage] = useState([0, 0]);
-    const cardImageIndex = wrap(0, IMAGES.length, cardPage);
-
-    useEffect(() => {
-        if (!withSlider) return;
-        const timer = setInterval(() => {
-            setCardPage(([prev]) => [prev + 1, 1]);
-        }, 3200);
-        return () => clearInterval(timer);
-    }, [withSlider]);
-
-    return (
-        <motion.div
-            className={styles.rouletteCard}
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ scale: 1.02, x: 8, transition: { duration: 0.2 } }}
-        >
-            {withSlider ? (
-                <div className={styles.cardSlideWrap}>
-                    <AnimatePresence initial={false} custom={cardDirection} mode="popLayout">
-                        <motion.img
-                            key={cardPage}
-                            src={IMAGES[cardImageIndex]}
-                            custom={cardDirection}
-                            variants={slideVariants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={slideTransition}
-                            drag="x"
-                            dragConstraints={{ left: 0, right: 0 }}
-                            dragElastic={0.2}
-                            dragDirectionLock
-                            style={{ touchAction: "pan-y" }}
-                            onDragEnd={(e, { offset, velocity }) => {
-                                const swipe = getSwipePower(offset.x, velocity.x);
-                                if (swipe < -SWIPE_CONFIDENCE_THRESHOLD) {
-                                    setCardPage(([prev]) => [prev + 1, 1]);
-                                } else if (swipe > SWIPE_CONFIDENCE_THRESHOLD) {
-                                    setCardPage(([prev]) => [prev - 1, -1]);
-                                }
-                            }}
-                            alt={title}
-                            className={styles.cardSlideImage}
-                        />
-                    </AnimatePresence>
-                </div>
-            ) : (
-                <div className={styles.cardIcon}>{icon}</div>
-            )}
-            <h3 className={styles.cardTitle}>{title}</h3>
-            <p className={styles.cardDescription}>{description}</p>
-        </motion.div>
-    );
-};
-
 // Reviews Bento Section
 const ReviewsBento = () => {
-    const [expandedStat, setExpandedStat] = useState(null);
-
-    const STATS = [
-        {
-            value: '200+',
-            label: 'Destinations',
-            accent: '#22d3ee',
-            detail: 'Sourced from the Catanduanes Provincial Tourism Office database — covering beaches, waterfalls, heritage sites, surf spots, and hidden gems across all 11 municipalities of the island.',
-            icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        },
-        {
-            value: '24/7',
-            label: 'AI Planning',
-            accent: '#a78bfa',
-            detail: 'Our AI travel assistant is always available — build custom multi-day itineraries, get real-time recommendations, and plan your entire Catanduanes trip anytime, from anywhere.',
-            icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        },
-        {
-            value: '152k',
-            label: 'Explorers',
-            accent: '#34d399',
-            detail: 'Total recorded tourist arrivals in Catanduanes — domestic and international travelers including backpackers, families, surfers, and adventurers exploring the island.',
-            icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        },
-    ];
-
-    const SPOTS = ['Puraran', 'Binurong Point', 'Twin Rock', 'Nahulugan Falls', 'Gigmoto', 'Bato Church', 'Virac', 'Batalay Cove', 'Igang Beach', 'Maribina Falls', 'Balacay Point', 'Panganiban'];
-
+    const coverImage = IMAGES[1] ?? IMAGES[0];
+    const portraitImage = IMAGES[5] ?? IMAGES[0];
+    const albumImage = IMAGES[7] ?? IMAGES[0];
 
     return (
         <div className={styles.bentoGrid}>
-            <AnimatePresence mode="wait">
-                {expandedStat !== null ? (
+            <div className={styles.prismLayout}>
+                <div className={styles.prismColumn}>
                     <motion.div
-                        key={`expanded-${expandedStat}`}
-                        className={styles.bentoExpanded}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                        style={{ '--stat-accent': STATS[expandedStat].accent }}
-                        onClick={() => setExpandedStat(null)}
-                    >
-                        <div className={styles.bentoExpandedHeader}>
-                            <div className={styles.bentoExpandedIcon} style={{ color: STATS[expandedStat].accent }}>
-                                {STATS[expandedStat].icon}
-                            </div>
-                            <div>
-                                <span className={styles.bentoExpandedValue} style={{ color: STATS[expandedStat].accent }}>
-                                    {STATS[expandedStat].value}
-                                </span>
-                                <span className={styles.bentoExpandedLabel}>{STATS[expandedStat].label}</span>
-                            </div>
-                            <span className={styles.bentoExpandedClose}>✕</span>
-                        </div>
-                        <p className={styles.bentoExpandedDetail}>
-                            {STATS[expandedStat].detail}
-                        </p>
-                        <span className={styles.bentoExpandedHint}>Click anywhere to close</span>
-                    </motion.div>
-                ) : (
-                    <motion.div
-                        key="stats-row"
-                        className={styles.bentoStatsRow}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        className={`${styles.prismCard} ${styles.prismBrandCard}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.5 }}
                     >
-                        {STATS.map((stat, i) => (
-                            <motion.div
-                                key={stat.label}
-                                className={styles.bentoStatCard}
-                                initial={{ opacity: 0, y: 24 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.3 }}
-                                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                style={{ '--stat-accent': stat.accent }}
-                                onClick={() => setExpandedStat(i)}
-                                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                            >
-                                <div className={styles.bentoStatIcon} style={{ color: stat.accent }}>
-                                    {stat.icon}
-                                </div>
-                                <span className={styles.bentoStatValue} style={{ color: stat.accent }}>{stat.value}</span>
-                                <span className={styles.bentoStatLabel}>{stat.label}</span>
-                                <span className={styles.bentoStatTap}>Tap to learn more</span>
-                            </motion.div>
-                        ))}
+                        <h3 className={styles.prismBrandTitle}>Pathfinder</h3>
+                        <h3 className={styles.prismBrandTitle}>Bento Grid</h3>
+                        <div className={styles.prismPalette}>
+                            <span />
+                            <span />
+                            <span />
+                            <span />
+                        </div>
                     </motion.div>
-                )}
-            </AnimatePresence>
 
-            {/* Marquee strip */}
-            <motion.div
-                className={styles.bentoMarqueeCard}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.7, delay: 0.3 }}
-            >
-                <div className={styles.marqueeTrack}>
-                    {[...SPOTS, ...SPOTS].map((spot, i) => (
-                        <span key={i} className={styles.marqueeItem}>
-                            {spot}
-                            <span className={styles.marqueeDot} />
-                        </span>
-                    ))}
-                </div>
-            </motion.div>
-
-            {/* Category Pills */}
-            <motion.div
-                className={styles.bentoCategoryRow}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-            >
-                {[
-                    { label: 'Beaches', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.553 4.18A2 2 0 0 1 20 6a2 2 0 0 1-2 2"/><path d="M2 21h20"/><path d="M6 12c1-.5 2-1 4-1s3 .5 4 1 2.5 1 4 1"/><path d="M3 18c1-.5 2-1 4-1s3 .5 4 1 2.5 1 4 1 3-.5 4-1"/></svg>, accent: '#22d3ee' },
-                    { label: 'Waterfalls', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 2v11l5 5 5-5V2"/><path d="M2 22h20"/></svg>, accent: '#34d399' },
-                    { label: 'Heritage', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/></svg>, accent: '#facc15' },
-                    { label: 'Surf Spots', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12h2l3-3 3 3 3-3 3 3h6"/><circle cx="18" cy="5" r="3"/></svg>, accent: '#f472b6' },
-                    { label: 'Food', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3v7"/><path d="M12 3v7"/><path d="M10 3v18"/><path d="M17 3c0 4-1 7-3 7"/><path d="M17 3v18"/></svg>, accent: '#fb923c' },
-                    { label: 'Hiking', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>, accent: '#a78bfa' },
-                ].map((cat, i) => (
-                    <motion.span
-                        key={cat.label}
-                        className={styles.bentoCategoryPill}
-                        style={{ '--cat-accent': cat.accent }}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 0.45 + i * 0.05 }}
-                        whileHover={{ scale: 1.06, transition: { duration: 0.15 } }}
+                    <motion.div
+                        className={`${styles.prismCard} ${styles.prismTaglineCard}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.55, delay: 0.06 }}
                     >
-                        <span className={styles.bentoCategoryIcon} style={{ color: cat.accent }}>{cat.icon}</span>
-                        {cat.label}
-                    </motion.span>
-                ))}
-            </motion.div>
+                        <p className={styles.prismTagline}>
+                            Explore Catanduanes with 200+ destinations and instant AI itinerary suggestions.
+                        </p>
+                        <div className={styles.prismAlbumArt}>
+                            <img src={albumImage} alt="Pathfinder travel card preview" />
+                            <span>Pathfinder</span>
+                        </div>
+                    </motion.div>
+                </div>
+
+                <div className={styles.prismColumn}>
+                    <motion.div
+                        className={`${styles.prismCard} ${styles.prismHeroCard}`}
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.55, delay: 0.08 }}
+                    >
+                        <div className={styles.prismLogo}>PATHFINDER</div>
+                        <div className={styles.prismCrystal} />
+                    </motion.div>
+
+                    <motion.div
+                        className={`${styles.prismCard} ${styles.prismPlayerCard}`}
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.5, delay: 0.14 }}
+                    >
+                        <div className={styles.prismPlayerMeta}>
+                            <span>Virac, Catanduanes</span>
+                            <span>Top pick today</span>
+                        </div>
+                        <div className={styles.prismPlayerControls}>
+                            <button type="button" aria-label="Previous">◀</button>
+                            <button type="button" aria-label="Play">▶</button>
+                            <button type="button" aria-label="Pause">❚❚</button>
+                            <button type="button" aria-label="Next">▶▶</button>
+                        </div>
+                    </motion.div>
+                </div>
+
+                <div className={styles.prismColumn}>
+                    <motion.div
+                        className={`${styles.prismCard} ${styles.prismPortraitCard}`}
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.55, delay: 0.12 }}
+                    >
+                        <img src={portraitImage ?? coverImage} alt="Traveler portrait" />
+                    </motion.div>
+
+                    <motion.div
+                        className={`${styles.prismCard} ${styles.prismJoinCard}`}
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.5, delay: 0.18 }}
+                    >
+                        <span className={styles.prismJoinCount}>200+</span>
+                        <span className={styles.prismJoinLabel}>Destinations</span>
+                        <button type="button" className={styles.prismJoinButton}>Plan Trip Now</button>
+                    </motion.div>
+                </div>
+            </div>
 
         </div>
     );
@@ -464,7 +317,6 @@ const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag
 
 export default function Home() {
     const navigate = useNavigate();
-    const imageRef = useRef(null);
     
     const guideRef = useRef(null);
     const reviewsRef = useRef(null);
@@ -490,7 +342,7 @@ export default function Home() {
     useEffect(() => {
         const options = {
             root: null,
-            rootMargin: "-20% 0px -80% 0px",
+            rootMargin: "-50% 0px -50% 0px",
             threshold: 0
         };
 
@@ -533,9 +385,9 @@ export default function Home() {
     };
 
     useEffect(() => {
-        const timer = setInterval(() => { paginate(1); }, 4000);
+        const timer = setInterval(() => { paginate(1); }, 8000);
         return () => clearInterval(timer);
-    }, [page]); 
+    }, [page]);
 
     useEffect(() => {
         if (activeTestimonial === null) return;
@@ -619,51 +471,47 @@ export default function Home() {
                     </motion.div>
                 </motion.div>
 
-                <motion.div
-                    ref={imageRef}
-                    className={styles.visualWrapper}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ amount: 0.5, once: true }}
-                    transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-                >
+                <div className={styles.visualWrapper}>
                     <div className={styles.imageColumn}>
                         <div className={styles.imageContainer}>
-                            <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                                <motion.img
-                                    key={page}
-                                    src={IMAGES[imageIndex]}
-                                    custom={direction}
-                                    variants={slideVariants}
-                                    initial="enter"
-                                    animate="center"
-                                    exit="exit"
-                                    transition={slideTransition}
-                                    drag="x"
-                                    dragConstraints={{ left: 0, right: 0 }}
-                                    dragElastic={0.2}
-                                    dragDirectionLock
-                                    style={{ touchAction: "pan-y" }}
-                                    onDragEnd={(e, { offset, velocity }) => {
-                                        const swipe = getSwipePower(offset.x, velocity.x);
-                                        if (swipe < -SWIPE_CONFIDENCE_THRESHOLD) { paginate(1); }
-                                        else if (swipe > SWIPE_CONFIDENCE_THRESHOLD) { paginate(-1); }
-                                    }}
-                                    alt="Catanduanes Slideshow"
-                                    className={styles.slideshowImage}
-                                />
-                            </AnimatePresence>
-
-                            <div className={styles.slideIndicators}>
-                                {IMAGES.map((_, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => setPage([idx, idx > imageIndex ? 1 : -1])}
-                                        className={`${styles.indicatorDot} ${idx === imageIndex ? styles.indicatorDotActive : ''}`}
-                                        aria-label={`Go to slide ${idx + 1}`}
+                            {/* ── NEW ANGLED CAROUSEL RENDERING ── */}
+                            {IMAGES.map((src, index) => {
+                                const offset = getOffset(index, imageIndex, IMAGES.length);
+                                const isActive = offset === 0;
+                                const isLeft = offset === -1;
+                                const isRight = offset === 1;
+                                return (
+                                    <motion.img
+                                        key={index}
+                                        src={src}
+                                        custom={offset}
+                                        variants={angledVariants}
+                                        initial={false}
+                                        animate="animate"
+                                        transition={angledTransition}
+                                        drag={isActive ? "x" : false}
+                                        dragConstraints={{ left: 0, right: 0 }}
+                                        dragElastic={0}
+                                        dragDirectionLock
+                                        style={{ touchAction: "pan-y" }}
+                                        onDragEnd={(e, { offset: dragOffset, velocity }) => {
+                                            if (!isActive) return;
+                                            const swipe = getSwipePower(dragOffset.x, velocity.x);
+                                            if (swipe < -SWIPE_CONFIDENCE_THRESHOLD || dragOffset.x < -30) {
+                                                paginate(1);
+                                            } else if (swipe > SWIPE_CONFIDENCE_THRESHOLD || dragOffset.x > 30) {
+                                                paginate(-1);
+                                            }
+                                        }}
+                                        onClick={() => {
+                                            if (isLeft) paginate(-1);
+                                            if (isRight) paginate(1);
+                                        }}
+                                        alt={`Slide ${index + 1}`}
+                                        className={`${styles.slideshowImage} ${isLeft ? styles.cursorPrev : ''} ${isRight ? styles.cursorNext : ''}`}
                                     />
-                                ))}
-                            </div>
+                                );
+                            })}
 
                             <motion.div
                                 className={styles.locationCard}
@@ -676,20 +524,9 @@ export default function Home() {
                                 </div>
                             </motion.div>
                         </div>
-                        <div className={styles.outsideNavArrows}>
-                            <button className={`${styles.navArrow} ${styles.navArrowLeft}`} onClick={() => paginate(-1)} aria-label="Previous image">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="15 18 9 12 15 6"></polyline>
-                                </svg>
-                            </button>
-                            <button className={`${styles.navArrow} ${styles.navArrowRight}`} onClick={() => paginate(1)} aria-label="Next image">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </button>
-                        </div>
+
                     </div>
-                </motion.div>
+                </div>
 
                 <motion.section
                     className={`${styles.testimonialsSection} ${activeTestimonial !== null ? styles.testimonialsActive : ''}`}
@@ -817,158 +654,139 @@ export default function Home() {
                         SECTION 1: GUIDE — Chat mockup + features
                     ======================================== */}
                     <div id="guide" ref={guideRef} className={styles.scrollSection}>
-    <p className={styles.scrollSectionSubtitle}>Intelligent trip planning at your fingertips</p>
+                        <div className={styles.guideShowcase}>
+                            <motion.div
+                                className={styles.guideMapFrame}
+                                initial={{ opacity: 0, y: 32, scale: 0.97 }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                <img src={mapScreenshot} alt="Pathfinder map view" className={styles.guideMapImage} />
+                                <div className={styles.guideMapVignette} />
+                                <div className={styles.guideMapScanlines} />
 
-    {/* ── NEW GUIDE SHOWCASE ── */}
-    <div className={styles.guideShowcase}>
+                                <motion.div
+                                    className={`${styles.guidePin} ${styles.guidePinA}`}
+                                    initial={{ opacity: 0, scale: 0.6 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.75, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
+                                >
+                                    <span className={styles.guidePinDot} style={{ background: '#fb7185' }} />
+                                    Puraran
+                                </motion.div>
 
-        {/* ── MAP PRODUCT SCREENSHOT ── */}
-        <motion.div
-            className={styles.guideMapFrame}
-            initial={{ opacity: 0, y: 32, scale: 0.97 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        >
-            {/* Actual map screenshot */}
-            <img src={mapScreenshot} alt="Pathfinder map view" className={styles.guideMapImage} />
+                                <motion.div
+                                    className={`${styles.guidePin} ${styles.guidePinB}`}
+                                    initial={{ opacity: 0, scale: 0.6 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.9, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
+                                >
+                                    <span className={styles.guidePinDot} style={{ background: '#22d3ee' }} />
+                                    Binurong Point
+                                </motion.div>
 
-            {/* Atmospheric overlays */}
-            <div className={styles.guideMapVignette} />
-            <div className={styles.guideMapScanlines} />
+                                <motion.div
+                                    className={`${styles.guidePin} ${styles.guidePinC}`}
+                                    initial={{ opacity: 0, scale: 0.6 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 1.05, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
+                                >
+                                    <span className={styles.guidePinDot} style={{ background: '#facc15' }} />
+                                    Twin Rock
+                                </motion.div>
 
-            {/* Floating pin cards — scattered over map */}
-            <motion.div
-                className={`${styles.guidePin} ${styles.guidePinA}`}
-                initial={{ opacity: 0, scale: 0.6 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.75, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
-            >
-                <span className={styles.guidePinDot} style={{ background: '#fb7185' }} />
-                Puraran
-            </motion.div>
-
-            <motion.div
-                className={`${styles.guidePin} ${styles.guidePinB}`}
-                initial={{ opacity: 0, scale: 0.6 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.9, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
-            >
-                <span className={styles.guidePinDot} style={{ background: '#22d3ee' }} />
-                Binurong Point
-            </motion.div>
-
-            <motion.div
-                className={`${styles.guidePin} ${styles.guidePinC}`}
-                initial={{ opacity: 0, scale: 0.6 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 1.05, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
-            >
-                <span className={styles.guidePinDot} style={{ background: '#facc15' }} />
-                Twin Rock
-            </motion.div>
-            {/* ── CHAT WINDOW — overlay inside the map frame ── */}
-            <motion.div
-                className={styles.guideChatFloat}
-                initial={{ opacity: 0, y: 28, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: 0.35, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-            >
-                {/* Chat header */}
-                <div className={styles.guideChatHeader}>
-                    <div className={styles.guideChatDots}>
-                        <span /><span /><span />
+                                <motion.div
+                                    className={styles.guideChatFloat}
+                                    initial={{ opacity: 0, y: 28, scale: 0.96 }}
+                                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{ delay: 0.35, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+                                >
+                                    <div className={styles.guideChatHeader}>
+                                        <div className={styles.guideChatDots}>
+                                            <span /><span /><span />
+                                        </div>
+                                        <span className={styles.guideChatTitle}>Pathfinder AI</span>
+                                        <span className={styles.guideChatOnline}>● Online</span>
+                                    </div>
+                                    <div className={styles.guideChatBody}>
+                                        <motion.div
+                                            className={styles.guideMsgUser}
+                                            initial={{ opacity: 0, x: 16 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: false, margin: '-80px' }}
+                                            transition={{ duration: 0.45 }}
+                                        >
+                                            <TypewriterText
+                                                as="span"
+                                                className={styles.guideMsgTypewriter}
+                                                text="Build me a 3-day itinerary for hidden beaches."
+                                                speed={25}
+                                                startDelay={600}
+                                            />
+                                        </motion.div>
+                                        <motion.div
+                                            className={styles.guideMsgAi}
+                                            initial={{ opacity: 0, x: -16 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: false, margin: '-80px' }}
+                                            transition={{ duration: 0.45, delay: 0.55 }}
+                                        >
+                                            <TypewriterText
+                                                as="span"
+                                                className={styles.guideMsgTypewriter}
+                                                text="Found 4 hidden beaches — added to your map. Here's Day 1:"
+                                                speed={20}
+                                                startDelay={1800}
+                                            />
+                                        </motion.div>
+                                        <motion.div
+                                            className={styles.guideMsgCard}
+                                            initial={{ opacity: 0, y: 14 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: false, margin: '-80px' }}
+                                            transition={{ duration: 0.45, delay: 0.95 }}
+                                        >
+                                            <div className={styles.guideMsgCardLabel}>Day 1 — Eastern Coast</div>
+                                            <div className={styles.guideMsgStop}>
+                                                <span className={styles.guideMsgTime}>9:00 AM</span>
+                                                <span className={styles.guideMsgStopDot} style={{ background: '#fb7185' }} />
+                                                <span className={styles.guideMsgPlace}>Puraran Surf Camp</span>
+                                            </div>
+                                            <div className={styles.guideMsgStop}>
+                                                <span className={styles.guideMsgTime}>1:00 PM</span>
+                                                <span className={styles.guideMsgStopDot} style={{ background: '#22d3ee' }} />
+                                                <span className={styles.guideMsgPlace}>Binurong Point Hike</span>
+                                            </div>
+                                            <div className={styles.guideMsgStop}>
+                                                <span className={styles.guideMsgTime}>5:00 PM</span>
+                                                <span className={styles.guideMsgStopDot} style={{ background: '#facc15' }} />
+                                                <span className={styles.guideMsgPlace}>Twin Rock Sunset</span>
+                                            </div>
+                                        </motion.div>
+                                    </div>
+                                    <div className={styles.guideChatInput}>
+                                        <span className={styles.guideChatInputPlaceholder}>Ask Pathfinder anything...</span>
+                                        <button className={styles.guideChatSend} aria-label="Send" disabled tabIndex={-1}>
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/>
+                                                <path d="m21.854 2.147-10.94 10.939"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        </div>
                     </div>
-                    <span className={styles.guideChatTitle}>Pathfinder AI</span>
-                    <span className={styles.guideChatOnline}>● Online</span>
-                </div>
-
-                {/* Messages */}
-                <div className={styles.guideChatBody}>
-                    <motion.div
-                        className={styles.guideMsgUser}
-                        initial={{ opacity: 0, x: 16 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false, margin: '-80px' }}
-                        transition={{ duration: 0.45 }}
-                    >
-                        <TypewriterText
-                            as="span"
-                            className={styles.guideMsgTypewriter}
-                            text="Build me a 3-day itinerary for hidden beaches."
-                            speed={25}
-                            startDelay={600}
-                        />
-                    </motion.div>
-
-                    <motion.div
-                        className={styles.guideMsgAi}
-                        initial={{ opacity: 0, x: -16 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false, margin: '-80px' }}
-                        transition={{ duration: 0.45, delay: 0.55 }}
-                    >
-                        <TypewriterText
-                            as="span"
-                            className={styles.guideMsgTypewriter}
-                            text="Found 4 hidden beaches — added to your map. Here's Day 1:"
-                            speed={20}
-                            startDelay={1800}
-                        />
-                    </motion.div>
-
-                    <motion.div
-                        className={styles.guideMsgCard}
-                        initial={{ opacity: 0, y: 14 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: false, margin: '-80px' }}
-                        transition={{ duration: 0.45, delay: 0.95 }}
-                    >
-                        <div className={styles.guideMsgCardLabel}>Day 1 — Eastern Coast</div>
-                        <div className={styles.guideMsgStop}>
-                            <span className={styles.guideMsgTime}>9:00 AM</span>
-                            <span className={styles.guideMsgStopDot} style={{ background: '#fb7185' }} />
-                            <span className={styles.guideMsgPlace}>Puraran Surf Camp</span>
-                        </div>
-                        <div className={styles.guideMsgStop}>
-                            <span className={styles.guideMsgTime}>1:00 PM</span>
-                            <span className={styles.guideMsgStopDot} style={{ background: '#22d3ee' }} />
-                            <span className={styles.guideMsgPlace}>Binurong Point Hike</span>
-                        </div>
-                        <div className={styles.guideMsgStop}>
-                            <span className={styles.guideMsgTime}>5:00 PM</span>
-                            <span className={styles.guideMsgStopDot} style={{ background: '#facc15' }} />
-                            <span className={styles.guideMsgPlace}>Twin Rock Sunset</span>
-                        </div>
-                    </motion.div>
-                </div>
-
-                {/* Input bar */}
-                <div className={styles.guideChatInput}>
-                    <span className={styles.guideChatInputPlaceholder}>Ask Pathfinder anything...</span>
-                    <button className={styles.guideChatSend} aria-label="Send" disabled tabIndex={-1}>
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/>
-                            <path d="m21.854 2.147-10.94 10.939"/>
-                        </svg>
-                    </button>
-                </div>
-            </motion.div>
-        </motion.div>
-
-    </div>
-</div>
-
 
                     {/* ========================================
                         SECTION 2: REVIEWS — Framer-style bento
                     ======================================== */}
                     <div id="reviews" ref={reviewsRef} className={styles.scrollSection}>
-                        <p className={styles.scrollSectionSubtitle}>Explore the island with every click</p>
                         <ReviewsBento />
                     </div>
 
@@ -977,7 +795,6 @@ export default function Home() {
                     ======================================== */}
                     <div id="collaborate" ref={collaborateRef} className={styles.scrollSection}>
                         <div className={styles.contributeLayout}>
-                            <p className={styles.scrollSectionSubtitle}>Open source</p>
                             <p className={styles.contributeNote}>
                                 Pathfinder operates in direct partnership with the <a href="https://www.facebook.com/catanduanestourismpromotion/" target="_blank" rel="noopener noreferrer" className={styles.inlineLink}>Catanduanes Provincial Tourism Office</a>, relying on validated, updated, and locally sourced data to promote responsible tourism through a transparent open-source platform. Contributions, issues, and feature requests are welcome.
                             </p> 
@@ -1124,31 +941,6 @@ export default function Home() {
                                             </div>
                                         </motion.div>
                                     ))}
-                                </div>
-                            </motion.div>
-
-                            {/* ── Footer Exit: Connect Links ── */}
-                            <motion.div
-                                className={`${styles.techStack} ${styles.connectFooter}`}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 0.55, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                                <span className={styles.techLabel}>Connect</span>
-                                <div className={styles.techBadges}>
-                                    <a href="https://www.facebook.com/catanduanestourismpromotion/" target="_blank" rel="noopener noreferrer" className={styles.techBadgeLink}>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                                        Catanduanes Tourism
-                                    </a>
-                                    <a href="https://www.itsmorefuninthephilippines.com/" target="_blank" rel="noopener noreferrer" className={styles.techBadgeLink}>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                                        It's More Fun in the Philippines
-                                    </a>
-                                    <a href="https://tourism.gov.ph/" target="_blank" rel="noopener noreferrer" className={styles.techBadgeLink}>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 7l10 5 10-5"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                                        Department of Tourism
-                                    </a>
                                 </div>
                             </motion.div>
                         </div>
