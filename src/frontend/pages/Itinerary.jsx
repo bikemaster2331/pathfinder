@@ -355,6 +355,7 @@ export default function ItineraryPage() {
     const [mobilePanel, setMobilePanel] = useState('review');
     const [isMobile, setIsMobile] = useState(false);
     const [isMapFullscreen, setIsMapFullscreen] = useState(false);
+    const [isChatMinimized, setIsChatMinimized] = useState(false);
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
     const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
     const [isImageFullscreen, setIsImageFullscreen] = useState(false);
@@ -712,13 +713,35 @@ export default function ItineraryPage() {
     });
 
     return (
-        <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${(!activeHub || !dateRange.start || !dateRange.end) ? styles.itineraryNoSidebar : ''}`}>
+        <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${(!activeHub || !dateRange.start || !dateRange.end) ? styles.itineraryNoSidebar : ''} ${isChatMinimized ? styles.itineraryContainerChatMinimized : ''}`}>
             <div className={styles.gradientBg} />
             {!isMobile && activeHub && dateRange.start && dateRange.end && (
-                <aside className={styles.desktopChatContainer}>
+                <aside 
+                    className={`${styles.desktopChatContainer} ${isChatMinimized ? styles.desktopChatContainerMinimized : ''}`}
+                    onClick={isChatMinimized ? () => setIsChatMinimized(false) : undefined}
+                    title={isChatMinimized ? 'Restore chat' : undefined}
+                >
                     <div className={styles.desktopChatHeader}>
                         <span className={styles.desktopChatTitle}>PATHFINDER</span>
-                        <span className={styles.desktopChatStatus}>Connected</span>
+                        <div className={styles.windowControls}>
+                            {/* Minimize */}
+                            <button
+                                className={styles.windowBtnIcon}
+                                onClick={() => setIsChatMinimized(true)}
+                                title="Minimize chat"
+                                aria-label="Minimize chat"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/></svg>
+                            </button>
+                            {/* Close (placeholder) */}
+                            <button
+                                className={styles.windowBtnIcon}
+                                title="Close (coming soon)"
+                                aria-label="Close"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                            </button>
+                        </div>
                     </div>
                     <div className={styles.desktopChatBody}>
                         <ChatBot
@@ -729,6 +752,7 @@ export default function ItineraryPage() {
                             setMessages={setChatMessages}
                             onKeyboardChange={setIsKeyboardOpen}
                             activePin={activePin}
+                            setActivePin={setActivePin}
                         />
                     </div>
                 </aside>
@@ -838,6 +862,7 @@ export default function ItineraryPage() {
                     messages={chatMessages}
                     setMessages={setChatMessages}
                     activePin={activePin}
+                    setActivePin={setActivePin}
                     containerClassName={`${styles.mobileSheet} ${styles[`mobileSheet${sheetState}`]}`}
                     formAccessory={
                         sheetState !== 'collapsed' ? (
