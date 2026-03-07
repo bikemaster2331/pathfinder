@@ -41,9 +41,9 @@ gemini:
     {candidates}
 
     Your job:
+    - IMPORTANT: Never shorten or modify place names. "Bagasbas Beach Resort" must never be written as "Bagasbas Beach".
     - Read all facts carefully.
     - If any facts answer the tourist's question, write a natural, friendly 2-3 sentence response.
-    - Include specific place names from the facts. The facts are formatted as [Place Name]: description — use the place names EXACTLY as written between the brackets, but write them WITHOUT the brackets in your response.
     - Use ONLY information from the facts. Do not add anything else.
     - If none of the facts are relevant to the question at all, respond with exactly: no answer
 
@@ -71,7 +71,7 @@ gemini:
     If you detect any profanity in any language, return "I am unable to process that language. Please ask your question politely so I can assist you with Catanduanes tourism.
     If the Facts are completely unrelated to the user question return "Please ask about Catanduanes Tourism"
 groq:
-  model_name: "llama-3.1-8b-instant"
+  model_name: "llama-3.3-70b-versatile"
 
 profanity:
   - gago
