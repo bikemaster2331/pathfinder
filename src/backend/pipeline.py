@@ -274,7 +274,7 @@ class SemanticCache:
                         # Enhanced entries are allowed to diverge slightly (Gemini adds/removes pins)
                         if version == 'raw' and stored_count != requested_count:
                             print(f"[CACHE] Similarity OK ({similarity:.3f}) but count mismatch: "
-                                  f"stored={stored_count} requested={requested_count} — skipping")
+                                f"stored={stored_count} requested={requested_count} — skipping")
                             continue
 
                     answer  = metadata.get('answer', '')
@@ -444,8 +444,10 @@ class BackgroundEnhancer:
             'timestamp':  time.time()
         }
         self.job_queue.put(job)
-        print(f"[ENHANCER] Queued | tier={rag_tier} | "
-              f"candidates={len(candidates or [])} | '{query[:50]}...'")
+        print(
+            f"[ENHANCER] Queued | tier={rag_tier} | "
+            f"candidates={len(candidates or [])} | '{query[:50]}...'"
+        )
 
     def _worker_loop(self):
         # ("WORKER LOOP": Continuously drains the job queue.
@@ -462,10 +464,19 @@ class BackgroundEnhancer:
                     # Resolve pins from Gemini's text — these replace RAG pins entirely
                     # since Gemini's answer is more accurate than what survived the filters.
                     resolved = self._resolve_places_from_enhanced(enhanced, job.get('candidates', []))
-                    success  = self.cache.update(job['query'], enhanced,
-                                                 places=resolved if resolved else None)
-                    print(f"[ENHANCER] ✓ Cache update: {success}"
-                          + (f" | {len(resolved)} pins resolved" if resolved else " | no pins resolved"))
+                    success = self.cache.update(
+                        job['query'],
+                        enhanced,
+                        places=resolved if resolved else None,
+                    )
+                    print(
+                        f"[ENHANCER] ✓ Cache update: {success}"
+                        + (
+                            f" | {len(resolved)} pins resolved"
+                            if resolved
+                            else " | no pins resolved"
+                        )
+                    )
                 else:
                     # None = either "no answer" (discard silently) or API failure.
                     # _enhance_with_gemini logs the reason itself.
