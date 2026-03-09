@@ -25,7 +25,7 @@
 
 .leftRightControls {
     position: absolute;
-    top: clamp(12px, 1.6vw, 20px);
+    top: 0;
     left: clamp(12px, 1.6vw, 20px);
     z-index: 50;
     display: flex;
@@ -53,12 +53,6 @@
     flex-direction: column;
     position: relative;
 }
-
-.collapsibleCard:hover {
-    transform: scale(1.02);
-}
-
-
 
 .cardOpen {
     opacity: 1;
@@ -559,7 +553,7 @@
     border-color: var(--itinerary-map-border-strong);
     color: var(--itinerary-map-text);
     box-shadow: 0 4px 12px var(--itinerary-map-shadow);
-    transform: none;
+    transform: scale(1.01);
 }
 
 :global([data-theme='dark']) .activityTile {
@@ -651,7 +645,7 @@
     background: #ffffff;
     border-color: #9ca3af;
     color: #111827;
-    transform: none;
+    transform: scale(1.01);
 }
 
 :global([data-theme='light']) .activityTileActive {

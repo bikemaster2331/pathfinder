@@ -15,7 +15,7 @@ const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg
 const imageEntries = Object.entries(imageModules).sort(([a], [b]) => a.localeCompare(b));
 const IMAGES = imageEntries.map(([, src]) => src);
 
-// ─── NEW ANGLED CAROUSEL VARIANTS ───
+// ─── ANGLED CAROUSEL VARIANTS ───────────────────────────────────────────────
 const angledVariants = {
     animate: (offset) => {
         const isCenter = offset === 0;
@@ -40,10 +40,9 @@ const angledVariants = {
 
 const angledTransition = {
     duration: 1.2,
-    ease: [0.34, 1.1, 0.64, 1] // easeOutBack: slightly overshoots its target then slowly settles back
+    ease: [0.34, 1.1, 0.64, 1]
 };
 
-// Helper to calculate circular offset (shortest path)
 const getOffset = (index, currentIndex, length) => {
     let offset = (index - currentIndex) % length;
     if (offset > Math.floor(length / 2)) offset -= length;
@@ -59,7 +58,7 @@ const INACTIVE_STICKY_OPACITY = 0.1;
 const ACTIVE_STICKY_SCALE = 1.5;
 const INACTIVE_STICKY_SCALE = 0.6;
 
-// Social Media Icons
+// ─── SOCIAL ICONS ────────────────────────────────────────────────────────────
 const FacebookIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -86,6 +85,7 @@ const TwitterXIcon = () => (
     </svg>
 );
 
+// ─── TECH STACK ICONS ────────────────────────────────────────────────────────
 const TechReactIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="1.7" fill="currentColor" />
@@ -94,7 +94,6 @@ const TechReactIcon = () => (
         <ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(120 12 12)" />
     </svg>
 );
-
 const TechPythonIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M12 3c3 0 3 1.8 3 3v2.4H9.5A2.5 2.5 0 0 0 7 10.9v4.2A2.9 2.9 0 0 1 4 12.2v-2.4C4 6.3 7 3 12 3Z" fill="currentColor" opacity="0.9" />
@@ -103,7 +102,6 @@ const TechPythonIcon = () => (
         <circle cx="13.8" cy="18.2" r="0.9" fill="#0b0b0b" />
     </svg>
 );
-
 const TechViteIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M5.5 4.5 11.6 20a.6.6 0 0 0 1.1 0L18.5 4.5a.55.55 0 0 0-.72-.7L12 6 6.2 3.8a.55.55 0 0 0-.7.7Z" fill="url(#vite-grad-a)" />
@@ -120,14 +118,12 @@ const TechViteIcon = () => (
         </defs>
     </svg>
 );
-
 const TechLeafletIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M5 13.8c0-4.8 3.9-8.7 8.7-8.7h5.3v5.3c0 4.8-3.9 8.7-8.7 8.7H5v-5.3Z" fill="currentColor" opacity="0.9" />
         <path d="M7.5 17.5c4-1.3 6.8-4.1 8.1-8.1" stroke="#0b0b0b" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
 );
-
 const TechJavaScriptIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <rect x="3" y="3" width="18" height="18" rx="2.8" fill="currentColor" />
@@ -143,112 +139,296 @@ const TECH_STACK = [
     { name: 'JavaScript', color: '#F7DF1E', Icon: TechJavaScriptIcon },
 ];
 
-// Reviews Bento Section
+// ─── REPLACE the entire ReviewsBento function in Home.jsx with this ──────────
+// No new imports needed — uses existing: motion, useState, useEffect, styles, IMAGES
+
 const ReviewsBento = () => {
-    const coverImage = IMAGES[1] ?? IMAGES[0];
-    const portraitImage = IMAGES[5] ?? IMAGES[0];
-    const albumImage = IMAGES[7] ?? IMAGES[0];
+    const portraitImage = IMAGES[3] ?? IMAGES[1] ?? IMAGES[0];
+    const albumImage    = IMAGES[6] ?? IMAGES[2] ?? IMAGES[0];
+    const wideImage     = IMAGES[1] ?? IMAGES[0];
+
+    // ── Cycling destination text ───────────────────────────────────────────
+    const DESTS = [
+        { name: 'Puraran Beach',    tag: 'Surf' },
+        { name: 'Binurong Point',   tag: 'Trek' },
+        { name: 'Twin Rock Beach',  tag: 'Swim' },
+        { name: 'Batalay Cove',     tag: 'Dive' },
+        { name: 'Maribina Falls',   tag: 'Hike' },
+        { name: 'Bato Church',      tag: 'Tour' },
+    ];
+    const [destIdx, setDestIdx] = useState(0);
+    const [fading, setFading]   = useState(false);
+
+    useEffect(() => {
+        const t = setInterval(() => {
+            setFading(true);
+            setTimeout(() => {
+                setDestIdx(i => (i + 1) % DESTS.length);
+                setFading(false);
+            }, 340);
+        }, 2600);
+        return () => clearInterval(t);
+    }, []);
+
+    // ── Count-up for stat ──────────────────────────────────────────────────
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        let raf;
+        const t0 = performance.now();
+        const dur = 1800;
+        const tick = now => {
+            const p = Math.min((now - t0) / dur, 1);
+            setCount(Math.round((1 - Math.pow(1 - p, 3)) * 200));
+            if (p < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+    }, []);
+
+    // ── Progress bar animation reset ──────────────────────────────────────
+    const [progress, setProgress] = useState(0);
+    useEffect(() => {
+        setProgress(0);
+        const t = setTimeout(() => setProgress(100), 60);
+        return () => clearTimeout(t);
+    }, [destIdx]);
 
     return (
         <div className={styles.bentoGrid}>
             <div className={styles.prismLayout}>
+
+                {/* ══════════════════════════════════════
+                    COLUMN 1 — Brand identity + Stats
+                ══════════════════════════════════════ */}
                 <div className={styles.prismColumn}>
+
+                    {/* Card A — Wordmark */}
                     <motion.div
                         className={`${styles.prismCard} ${styles.prismBrandCard}`}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.55 }}
                     >
-                        <h3 className={styles.prismBrandTitle}>Pathfinder</h3>
-                        <h3 className={styles.prismBrandTitle}>Bento Grid</h3>
-                        <div className={styles.prismPalette}>
-                            <span />
-                            <span />
-                            <span />
-                            <span />
+                        <div className={styles.prismAuroraA} aria-hidden="true" />
+                        <div className={styles.prismNoise}   aria-hidden="true" />
+
+                        <div className={styles.prismBrandTopRow}>
+                            <span className={styles.prismEyebrow}>AI Travel</span>
+                            <span className={styles.prismSpinStar} aria-hidden="true">✦</span>
+                        </div>
+
+                        <div className={styles.prismWordmark}>
+                            <span>PATH</span>
+                            <span>FINDER</span>
+                        </div>
+
+                        <div className={styles.prismBrandBottom}>
+                            <span className={styles.prismLocLine}>
+                                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}}>
+                                    <path d="M20 10c0 6-8 13-8 13s-8-7-8-13a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                Catanduanes, PH
+                            </span>
+                            <div className={styles.prismSwatches}>
+                                <span style={{ background: '#ff6d52' }} />
+                                <span style={{ background: '#ffc35a' }} />
+                                <span style={{ background: '#53d8e6' }} />
+                                <span style={{ background: '#4f8dff' }} />
+                            </div>
                         </div>
                     </motion.div>
 
+                    {/* Card B — Destination stats */}
                     <motion.div
-                        className={`${styles.prismCard} ${styles.prismTaglineCard}`}
+                        className={`${styles.prismCard} ${styles.prismStatsCard}`}
                         initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.55, delay: 0.06 }}
-                    >
-                        <p className={styles.prismTagline}>
-                            Explore Catanduanes with 200+ destinations and instant AI itinerary suggestions.
-                        </p>
-                        <div className={styles.prismAlbumArt}>
-                            <img src={albumImage} alt="Pathfinder travel card preview" />
-                            <span>Pathfinder</span>
-                        </div>
-                    </motion.div>
-                </div>
-
-                <div className={styles.prismColumn}>
-                    <motion.div
-                        className={`${styles.prismCard} ${styles.prismHeroCard}`}
-                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.55, delay: 0.08 }}
                     >
-                        <div className={styles.prismLogo}>PATHFINDER</div>
-                        <div className={styles.prismCrystal} />
+                        <div className={styles.prismNoise} aria-hidden="true" />
+
+                        <div className={styles.prismStatRow}>
+                            <span className={styles.prismStatNum}>{count}+</span>
+                            <span className={styles.prismStatLabel}>Destinations</span>
+                        </div>
+                        <div className={styles.prismStatDivider} />
+                        <div className={styles.prismStatRow}>
+                            <span className={styles.prismStatNum}>12</span>
+                            <span className={styles.prismStatLabel}>Municipalities</span>
+                        </div>
+                        <div className={styles.prismStatDivider} />
+                        <div className={styles.prismStatRow}>
+                            <span className={styles.prismStatNumAlt}>RAG</span>
+                            <span className={styles.prismStatLabel}>AI Pipeline</span>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* ══════════════════════════════════════
+                    COLUMN 2 — Hero orb + Mini player
+                ══════════════════════════════════════ */}
+                <div className={styles.prismColumn}>
+
+                    {/* Card C — Centerpiece */}
+                    <motion.div
+                        className={`${styles.prismCard} ${styles.prismHeroCard}`}
+                        initial={{ opacity: 0, y: 28 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.15 }}
+                        transition={{ duration: 0.65, delay: 0.05 }}
+                    >
+                        <div className={styles.prismAuroraB}  aria-hidden="true" />
+                        <div className={styles.prismGridBg}   aria-hidden="true" />
+                        <div className={styles.prismNoise}    aria-hidden="true" />
+
+                        {/* Header */}
+                        <div className={styles.prismHeroHeader}>
+                            <span className={styles.prismLivePill}>
+                                <span className={styles.prismLiveDot} />
+                                Live
+                            </span>
+                            <span className={styles.prismHeroEye}>Now Exploring</span>
+                        </div>
+
+                        {/* Ghost word */}
+                        <div className={styles.prismGhostWord} aria-hidden="true">
+                            CATANDUANES
+                        </div>
+
+                        {/* Morphing orb */}
+                        <div className={styles.prismOrbWrap} aria-hidden="true">
+                            <div className={styles.prismOrbCore} />
+                            <div className={styles.prismOrbRing1} />
+                            <div className={styles.prismOrbRing2} />
+                        </div>
+
+                        {/* Footer — cycling destination */}
+                        <div className={styles.prismHeroFooter}>
+                            <span className={styles.prismHeroDestLabel}>Destination</span>
+                            <div className={styles.prismHeroDestRow}>
+                                <span
+                                    className={styles.prismHeroDestName}
+                                    style={{
+                                        opacity: fading ? 0 : 1,
+                                        transform: fading ? 'translateY(6px)' : 'translateY(0)',
+                                        transition: 'opacity 0.32s ease, transform 0.32s ease',
+                                    }}
+                                >
+                                    {DESTS[destIdx].name}
+                                </span>
+                                <span
+                                    className={styles.prismHeroDestTag}
+                                    style={{
+                                        opacity: fading ? 0 : 1,
+                                        transition: 'opacity 0.32s ease 0.06s',
+                                    }}
+                                >
+                                    {DESTS[destIdx].tag}
+                                </span>
+                            </div>
+                            {/* Thin progress bar */}
+                            <div className={styles.prismHeroProgress}>
+                                <div
+                                    className={styles.prismHeroProgressFill}
+                                    style={{
+                                        width: `${progress}%`,
+                                        transition: progress === 100 ? 'width 2.5s linear' : 'none',
+                                    }}
+                                />
+                            </div>
+                        </div>
                     </motion.div>
 
+                    {/* Card D — Mini player */}
                     <motion.div
                         className={`${styles.prismCard} ${styles.prismPlayerCard}`}
-                        initial={{ opacity: 0, y: 24 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.5, delay: 0.14 }}
                     >
-                        <div className={styles.prismPlayerMeta}>
-                            <span>Virac, Catanduanes</span>
-                            <span>Top pick today</span>
+                        <div className={styles.prismNoise} aria-hidden="true" />
+
+                        <div className={styles.prismPlayerRow}>
+                            <div className={styles.prismPlayerThumb}>
+                                <img src={albumImage} alt="destination" />
+                            </div>
+                            <div className={styles.prismPlayerMeta}>
+                                <span className={styles.prismPlayerTitle}>Virac, Catanduanes</span>
+                                <span className={styles.prismPlayerSub}>Top pick today</span>
+                            </div>
+                            <span className={styles.prismPlayerStar} aria-hidden="true">✦</span>
                         </div>
-                        <div className={styles.prismPlayerControls}>
-                            <button type="button" aria-label="Previous">◀</button>
-                            <button type="button" aria-label="Play">▶</button>
-                            <button type="button" aria-label="Pause">❚❚</button>
-                            <button type="button" aria-label="Next">▶▶</button>
+
+                        <div className={styles.prismPlayerTrack}>
+                            <div className={styles.prismPlayerFill} />
+                        </div>
+
+                        <div className={styles.prismPlayerCtrl}>
+                            <button type="button" aria-label="Previous">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+                            </button>
+                            <button type="button" className={styles.prismPlayerPlayBtn} aria-label="Play">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            </button>
+                            <button type="button" aria-label="Next">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/></svg>
+                            </button>
                         </div>
                     </motion.div>
                 </div>
 
+                {/* ══════════════════════════════════════
+                    COLUMN 3 — Cinematic photo + CTA
+                ══════════════════════════════════════ */}
                 <div className={styles.prismColumn}>
+
+                    {/* Card E — Full-bleed photo */}
                     <motion.div
-                        className={`${styles.prismCard} ${styles.prismPortraitCard}`}
-                        initial={{ opacity: 0, y: 24 }}
+                        className={`${styles.prismCard} ${styles.prismPhotoCard}`}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.55, delay: 0.12 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
                     >
-                        <img src={portraitImage ?? coverImage} alt="Traveler portrait" />
+                        <img src={portraitImage} alt="Catanduanes scenery" className={styles.prismPhotoImg} />
+                        <div className={styles.prismPhotoVignette} aria-hidden="true" />
+                        <div className={styles.prismPhotoOverlay}>
+                            <span className={styles.prismPhotoTag}>Featured</span>
+                            <span className={styles.prismPhotoPlace}>Catanduanes</span>
+                        </div>
                     </motion.div>
 
+                    {/* Card F — CTA */}
                     <motion.div
-                        className={`${styles.prismCard} ${styles.prismJoinCard}`}
-                        initial={{ opacity: 0, y: 24 }}
+                        className={`${styles.prismCard} ${styles.prismCtaCard}`}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.5, delay: 0.18 }}
                     >
-                        <span className={styles.prismJoinCount}>200+</span>
-                        <span className={styles.prismJoinLabel}>Destinations</span>
-                        <button type="button" className={styles.prismJoinButton}>Plan Trip Now</button>
+                        <div className={styles.prismAuroraC}  aria-hidden="true" />
+                        <div className={styles.prismNoise}    aria-hidden="true" />
+
+                        <span className={styles.prismCtaNum}>{count}+</span>
+                        <span className={styles.prismCtaSub}>Destinations</span>
+                        <p className={styles.prismCtaCopy}>
+                            Explore the island with AI-powered itineraries.
+                        </p>
+                        <button type="button" className={styles.prismCtaBtn}>
+                            Plan Trip Now
+                        </button>
                     </motion.div>
                 </div>
-            </div>
 
+            </div>
         </div>
     );
 };
 
-// Typewriter component — types text character-by-character when scrolled into view
+// ─── TYPEWRITER COMPONENT ────────────────────────────────────────────────────
 const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag = 'p', style }) => {
     const [displayed, setDisplayed] = useState('');
     const [started, setStarted] = useState(false);
@@ -291,7 +471,6 @@ const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag
         };
     }, [started, text, speed, startDelay]);
 
-    // Split on \n to render real <br /> elements
     const renderParts = (str) => {
         const parts = str.split('\n');
         return parts.map((part, i) => (
@@ -304,9 +483,7 @@ const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag
 
     return (
         <Tag ref={ref} className={className} style={{ position: 'relative', ...style }}>
-            {/* Invisible full text to reserve space */}
             <span style={{ visibility: 'hidden' }} aria-hidden="true">{renderParts(text)}</span>
-            {/* Visible typed text overlaid on top */}
             <span style={{ position: 'absolute', top: 0, left: 0, right: 0 }}>
                 {renderParts(displayed)}
                 {started && !done && <span className={styles.typewriterCursor}>|</span>}
@@ -315,43 +492,47 @@ const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag
     );
 };
 
+// ─── HOME COMPONENT ──────────────────────────────────────────────────────────
 export default function Home() {
     const navigate = useNavigate();
-    
+
     const guideRef = useRef(null);
     const reviewsRef = useRef(null);
     const collaborateRef = useRef(null);
+    const sectionRatiosRef = useRef({ guide: 0, reviews: 0, collaborate: 0 });
 
     const [[page, direction], setPage] = useState([0, 0]);
     const imageIndex = wrap(0, IMAGES.length, page);
     const [expandedTestimonials, setExpandedTestimonials] = useState({});
     const [activeTestimonial, setActiveTestimonial] = useState(null);
     const suppressNextOpenRef = useRef(false);
-    
+
     const [activeSection, setActiveSection] = useState('guide');
     const [activeCreator, setActiveCreator] = useState(null);
 
-    const getStickyTitleAnimation = (sectionId) => {
-        const isActive = activeSection === sectionId;
-        return {
-            opacity: isActive ? ACTIVE_STICKY_OPACITY : INACTIVE_STICKY_OPACITY,
-            scale: isActive ? ACTIVE_STICKY_SCALE : INACTIVE_STICKY_SCALE
-        };
-    };
 
+    // ── Intersection observer for section tracking + past-section marking ──
     useEffect(() => {
         const options = {
             root: null,
-            rootMargin: "-50% 0px -50% 0px",
-            threshold: 0
+            rootMargin: "-45% 0px -45% 0px",
+            threshold: [0, 0.25, 0.5, 0.75, 1],
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setActiveSection(entry.target.id);
+                const id = entry.target.id;
+
+                if (id in sectionRatiosRef.current) {
+                    sectionRatiosRef.current[id] = entry.isIntersecting
+                        ? entry.intersectionRatio
+                        : 0;
                 }
             });
+
+            const nextActive = Object.entries(sectionRatiosRef.current)
+                .sort((a, b) => b[1] - a[1])[0]?.[0];
+            if (nextActive) setActiveSection(nextActive);
         }, options);
 
         if (guideRef.current) observer.observe(guideRef.current);
@@ -364,6 +545,26 @@ export default function Home() {
             if (collaborateRef.current) observer.unobserve(collaborateRef.current);
         };
     }, []);
+
+    // ── Helpers ───────────────────────────────────────────────────────────
+    const getStickyTitleAnimation = (sectionId) => {
+        const isActive = activeSection === sectionId;
+        return {
+            opacity: isActive ? ACTIVE_STICKY_OPACITY : INACTIVE_STICKY_OPACITY,
+            scale: isActive ? ACTIVE_STICKY_SCALE : INACTIVE_STICKY_SCALE,
+        };
+    };
+
+    // Returns the opacity the dim overlay should have for a given section ID.
+    // A section dims when: it has been scrolled past AND the user is currently
+    // scrolling upward. Both conditions are driven by state → triggers re-renders.
+    const SECTION_ORDER = ['guide', 'reviews', 'collaborate'];
+
+    const getDimOpacity = (id) => {
+        const currentIdx = SECTION_ORDER.indexOf(activeSection);
+        const thisIdx = SECTION_ORDER.indexOf(id);
+        return thisIdx < currentIdx ? 1 : 0;
+    };
 
     const paginate = (newDirection) => {
         setPage([page + newDirection, newDirection]);
@@ -410,13 +611,13 @@ export default function Home() {
         visible: (custom) => ({
             opacity: 1,
             y: 0,
-            transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: custom || 0 }
-        })
+            transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: custom || 0 },
+        }),
     };
 
     const staggerContainer = {
         hidden: { opacity: 0 },
-        visible: { opacity: 1 }
+        visible: { opacity: 1 },
     };
 
     const handleTestimonialsCapture = (event) => {
@@ -432,9 +633,13 @@ export default function Home() {
         event.stopPropagation();
     };
 
+    // ── Render ────────────────────────────────────────────────────────────
     return (
         <div className={styles.homeContainer}>
-            {/* PAGE 1 - HERO SECTION */}
+
+            {/* ══════════════════════════════════════════
+                PAGE 1 — HERO SECTION
+            ══════════════════════════════════════════ */}
             <main className={styles.heroSection}>
                 <motion.div
                     variants={staggerContainer}
@@ -471,10 +676,10 @@ export default function Home() {
                     </motion.div>
                 </motion.div>
 
+                {/* ── Carousel ── */}
                 <div className={styles.visualWrapper}>
                     <div className={styles.imageColumn}>
                         <div className={styles.imageContainer}>
-                            {/* ── NEW ANGLED CAROUSEL RENDERING ── */}
                             {IMAGES.map((src, index) => {
                                 const offset = getOffset(index, imageIndex, IMAGES.length);
                                 const isActive = offset === 0;
@@ -524,10 +729,10 @@ export default function Home() {
                                 </div>
                             </motion.div>
                         </div>
-
                     </div>
                 </div>
 
+                {/* ── Testimonials ── */}
                 <motion.section
                     className={`${styles.testimonialsSection} ${activeTestimonial !== null ? styles.testimonialsActive : ''}`}
                     initial={{ opacity: 0 }}
@@ -585,9 +790,12 @@ export default function Home() {
                 </motion.section>
             </main>
 
-            {/* STICKY SCROLL SECTIONS */}
+            {/* ══════════════════════════════════════════
+                STICKY SCROLL SECTIONS
+            ══════════════════════════════════════════ */}
             <div className={styles.stickyContainer}>
-                {/* LEFT PANEL - STICKY TITLES */}
+
+                {/* ── LEFT PANEL — sticky titles ── */}
                 <div className={styles.stickyPanel}>
                     <motion.div className={styles.stickyContent} layout>
                         <motion.div className={styles.stickyTitleGroup} layout transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
@@ -608,6 +816,7 @@ export default function Home() {
                                 </div>
                             </motion.div>
                         </motion.div>
+
                         <motion.div className={styles.stickyTitleGroup} layout animate={{ marginTop: (activeSection === 'guide' || activeSection === 'reviews') ? 40 : 12 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
                             <motion.h2 className={styles.stickyTitle} animate={getStickyTitleAnimation('reviews')} transition={{ duration: 0.15 }}>
                                 What's<br />Beyond
@@ -626,6 +835,7 @@ export default function Home() {
                                 </div>
                             </motion.div>
                         </motion.div>
+
                         <motion.div className={styles.stickyTitleGroup} layout animate={{ marginTop: (activeSection === 'reviews' || activeSection === 'collaborate') ? 40 : 12 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
                             <motion.h2 className={styles.stickyTitle} animate={getStickyTitleAnimation('collaborate')} transition={{ duration: 0.15 }}>
                                 Work<br />With Us
@@ -647,13 +857,25 @@ export default function Home() {
                     </motion.div>
                 </div>
 
-                {/* RIGHT PANEL - SCROLLING CONTENT */}
+                {/* ── RIGHT PANEL — scrolling content ── */}
                 <div className={styles.scrollPanel}>
 
-                    {/* ========================================
-                        SECTION 1: GUIDE — Chat mockup + features
-                    ======================================== */}
-                    <div id="guide" ref={guideRef} className={styles.scrollSection}>
+                    {/* ══════════════════════════════════
+                        SECTION 1: GUIDE
+                    ══════════════════════════════════ */}
+                    <div id="guide" ref={guideRef} className={styles.scrollSection} style={{ position: 'relative' }}>
+                        {/*
+                            Dim overlay — only visible when the user has scrolled past this
+                            section AND is currently scrolling back up. Both conditions are
+                            pure React state, so Framer Motion correctly re-evaluates them.
+                        */}
+                        <motion.div
+                            className={styles.sectionDimOverlay}
+                            animate={{ opacity: getDimOpacity('guide') }}
+                            transition={{ duration: 0.35 }}
+                            style={{ pointerEvents: 'none' }}
+                        />
+
                         <div className={styles.guideShowcase}>
                             <motion.div
                                 className={styles.guideMapFrame}
@@ -666,35 +888,15 @@ export default function Home() {
                                 <div className={styles.guideMapVignette} />
                                 <div className={styles.guideMapScanlines} />
 
-                                <motion.div
-                                    className={`${styles.guidePin} ${styles.guidePinA}`}
-                                    initial={{ opacity: 0, scale: 0.6 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.75, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
-                                >
+                                <motion.div className={`${styles.guidePin} ${styles.guidePinA}`} initial={{ opacity: 0, scale: 0.6 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.75, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}>
                                     <span className={styles.guidePinDot} style={{ background: '#fb7185' }} />
                                     Puraran
                                 </motion.div>
-
-                                <motion.div
-                                    className={`${styles.guidePin} ${styles.guidePinB}`}
-                                    initial={{ opacity: 0, scale: 0.6 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.9, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
-                                >
+                                <motion.div className={`${styles.guidePin} ${styles.guidePinB}`} initial={{ opacity: 0, scale: 0.6 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.9, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}>
                                     <span className={styles.guidePinDot} style={{ background: '#22d3ee' }} />
                                     Binurong Point
                                 </motion.div>
-
-                                <motion.div
-                                    className={`${styles.guidePin} ${styles.guidePinC}`}
-                                    initial={{ opacity: 0, scale: 0.6 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 1.05, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
-                                >
+                                <motion.div className={`${styles.guidePin} ${styles.guidePinC}`} initial={{ opacity: 0, scale: 0.6 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 1.05, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}>
                                     <span className={styles.guidePinDot} style={{ background: '#facc15' }} />
                                     Twin Rock
                                 </motion.div>
@@ -707,50 +909,18 @@ export default function Home() {
                                     transition={{ delay: 0.35, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     <div className={styles.guideChatHeader}>
-                                        <div className={styles.guideChatDots}>
-                                            <span /><span /><span />
-                                        </div>
+                                        <div className={styles.guideChatDots}><span /><span /><span /></div>
                                         <span className={styles.guideChatTitle}>Pathfinder AI</span>
                                         <span className={styles.guideChatOnline}>● Online</span>
                                     </div>
                                     <div className={styles.guideChatBody}>
-                                        <motion.div
-                                            className={styles.guideMsgUser}
-                                            initial={{ opacity: 0, x: 16 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: false, margin: '-80px' }}
-                                            transition={{ duration: 0.45 }}
-                                        >
-                                            <TypewriterText
-                                                as="span"
-                                                className={styles.guideMsgTypewriter}
-                                                text="Build me a 3-day itinerary for hidden beaches."
-                                                speed={25}
-                                                startDelay={600}
-                                            />
+                                        <motion.div className={styles.guideMsgUser} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, margin: '-80px' }} transition={{ duration: 0.45 }}>
+                                            <TypewriterText as="span" className={styles.guideMsgTypewriter} text="Build me a 3-day itinerary for hidden beaches." speed={25} startDelay={600} />
                                         </motion.div>
-                                        <motion.div
-                                            className={styles.guideMsgAi}
-                                            initial={{ opacity: 0, x: -16 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: false, margin: '-80px' }}
-                                            transition={{ duration: 0.45, delay: 0.55 }}
-                                        >
-                                            <TypewriterText
-                                                as="span"
-                                                className={styles.guideMsgTypewriter}
-                                                text="Found 4 hidden beaches — added to your map. Here's Day 1:"
-                                                speed={20}
-                                                startDelay={1800}
-                                            />
+                                        <motion.div className={styles.guideMsgAi} initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, margin: '-80px' }} transition={{ duration: 0.45, delay: 0.55 }}>
+                                            <TypewriterText as="span" className={styles.guideMsgTypewriter} text="Found 4 hidden beaches — added to your map. Here's Day 1:" speed={20} startDelay={1800} />
                                         </motion.div>
-                                        <motion.div
-                                            className={styles.guideMsgCard}
-                                            initial={{ opacity: 0, y: 14 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: false, margin: '-80px' }}
-                                            transition={{ duration: 0.45, delay: 0.95 }}
-                                        >
+                                        <motion.div className={styles.guideMsgCard} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, margin: '-80px' }} transition={{ duration: 0.45, delay: 0.95 }}>
                                             <div className={styles.guideMsgCardLabel}>Day 1 — Eastern Coast</div>
                                             <div className={styles.guideMsgStop}>
                                                 <span className={styles.guideMsgTime}>9:00 AM</span>
@@ -783,24 +953,45 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* ========================================
-                        SECTION 2: REVIEWS — Framer-style bento
-                    ======================================== */}
-                    <div id="reviews" ref={reviewsRef} className={styles.scrollSection}>
+                    {/* ══════════════════════════════════
+                        SECTION 2: REVIEWS
+                    ══════════════════════════════════ */}
+                    <div id="reviews" ref={reviewsRef} className={styles.scrollSection} style={{ position: 'relative' }}>
+                        <motion.div
+                            className={styles.sectionDimOverlay}
+                            animate={{ opacity: getDimOpacity('reviews') }}
+                            transition={{ duration: 0.35 }}
+                            style={{ pointerEvents: 'none' }}
+                        />
                         <ReviewsBento />
                     </div>
 
-                    {/* ========================================
-                        SECTION 3: COLLABORATE — Social links
-                    ======================================== */}
-                    <div id="collaborate" ref={collaborateRef} className={styles.scrollSection}>
+                    {/* ══════════════════════════════════
+                        SECTION 3: COLLABORATE
+                    ══════════════════════════════════ */}
+                    <div id="collaborate" ref={collaborateRef} className={styles.scrollSection} style={{ position: 'relative' }}>
+                        <motion.div
+                            className={styles.sectionDimOverlay}
+                            animate={{ opacity: getDimOpacity('collaborate') }}
+                            transition={{ duration: 0.35 }}
+                            style={{ pointerEvents: 'none' }}
+                        />
                         <div className={styles.contributeLayout}>
-                            <p className={styles.contributeNote}>
-                                Pathfinder operates in direct partnership with the <a href="https://www.facebook.com/catanduanestourismpromotion/" target="_blank" rel="noopener noreferrer" className={styles.inlineLink}>Catanduanes Provincial Tourism Office</a>, relying on validated, updated, and locally sourced data to promote responsible tourism through a transparent open-source platform. Contributions, issues, and feature requests are welcome.
-                            </p> 
+                            <motion.p
+                                className={styles.contributeNote}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.3 }}
+                                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                Pathfinder operates in direct partnership with the{' '}
+                                <a href="https://www.facebook.com/catanduanestourismpromotion/" target="_blank" rel="noopener noreferrer" className={styles.inlineLink}>
+                                    Catanduanes Provincial Tourism Office
+                                </a>
+                                , relying on validated, updated, and locally sourced data to promote responsible tourism through a transparent open-source platform. Contributions, issues, and feature requests are welcome.
+                            </motion.p>
 
                             <div className={styles.projectGrid}>
-                                {/* ── 1. Project: GitHub Repo Card ── */}
                                 <motion.a
                                     href="https://github.com/bikemaster2331/pathfinder"
                                     target="_blank"
@@ -824,7 +1015,6 @@ export default function Home() {
                                         </div>
                                         <div className={styles.repoArrow}>↗</div>
                                     </div>
-
                                     <div className={styles.repoStats}>
                                         <span className={styles.repoStat}>
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -837,7 +1027,6 @@ export default function Home() {
                                     </div>
                                 </motion.a>
 
-                                {/* ── 2. Tech Stack Card ── */}
                                 <motion.div
                                     className={`${styles.techStack} ${styles.techCard}`}
                                     initial={{ opacity: 0, y: 20 }}
@@ -849,9 +1038,7 @@ export default function Home() {
                                     <div className={`${styles.techBadges} ${styles.techBadgesCentered}`}>
                                         {TECH_STACK.map((tech) => (
                                             <span key={tech.name} className={styles.techBadge} style={{ '--tech-color': tech.color }}>
-                                                <span className={styles.techBadgeIcon}>
-                                                    <tech.Icon />
-                                                </span>
+                                                <span className={styles.techBadgeIcon}><tech.Icon /></span>
                                                 {tech.name}
                                             </span>
                                         ))}
@@ -859,7 +1046,6 @@ export default function Home() {
                                 </motion.div>
                             </div>
 
-                            {/* ── Meet the Creators ── */}
                             <motion.div
                                 className={styles.creatorsSection}
                                 initial={{ opacity: 0, y: 20 }}
@@ -870,33 +1056,11 @@ export default function Home() {
                                 <span className={styles.techLabel}>Creators</span>
                                 <div className={styles.creatorsGrid}>
                                     {[
-                                        {
-                                            name: 'Tan', role: 'Core Dev', accent: '#22d3ee',
-                                            email: 'tanlanuzga@gmail.com',
-                                            github: 'https://github.com/bikemaster2331',
-                                            stats: { commits: '240+', prs: '38', lines: '12k+' },
-                                            bio: 'Full-stack architect. Built the AI pipeline, RAG system, frontend, backend, map engine, and itinerary planner.'
-                                        },
-                                        {
-                                            name: 'Roi', role: 'Hardware', accent: '#a78bfa',
-                                            stats: { commits: '85', prs: '14', lines: '4k+' },
-                                            bio: 'Raspberry Pi deployment, hardware setup, and embedded systems integration.'
-                                        },
-                                        {
-                                            name: 'Zed', role: 'Full Stack', accent: '#34d399',
-                                            stats: { commits: '120', prs: '22', lines: '7k+' },
-                                            bio: 'Full-stack development and hardware integration. Bridged software with RPi infrastructure.'
-                                        },
-                                        {
-                                            name: 'Pat', role: 'Hardware', accent: '#fb923c',
-                                            stats: { commits: '45', prs: '8', lines: '2k+' },
-                                            bio: 'Raspberry Pi configuration, networking, and hardware infrastructure.'
-                                        },
-                                        {
-                                            name: 'Lee', role: 'Researcher', accent: '#f472b6',
-                                            stats: { commits: '30', prs: '6', lines: '1k+' },
-                                            bio: 'Destination data sourcing, tourism research, and documentation.'
-                                        },
+                                        { name: 'Tan', role: 'Core Dev', accent: '#22d3ee', email: 'tanlanuzga@gmail.com', github: 'https://github.com/bikemaster2331', bio: 'Full-stack architect. Built the AI pipeline, RAG system, frontend, backend, map engine, and itinerary planner.' },
+                                        { name: 'Roi', role: 'Hardware', accent: '#a78bfa', bio: 'Raspberry Pi deployment, hardware setup, and embedded systems integration.' },
+                                        { name: 'Zed', role: 'Full Stack', accent: '#34d399', bio: 'Full-stack development and hardware integration. Bridged software with RPi infrastructure.' },
+                                        { name: 'Pat', role: 'Hardware', accent: '#fb923c', bio: 'Raspberry Pi configuration, networking, and hardware infrastructure.' },
+                                        { name: 'Lee', role: 'Researcher', accent: '#f472b6', bio: 'Destination data sourcing, tourism research, and documentation.' },
                                     ].map((creator, i) => (
                                         <motion.div
                                             key={creator.name}
@@ -909,7 +1073,6 @@ export default function Home() {
                                             onClick={() => setActiveCreator(activeCreator === i ? null : i)}
                                         >
                                             <div className={`${styles.creatorFlipper} ${activeCreator === i ? styles.creatorFlipped : ''}`}>
-                                                {/* Front face */}
                                                 <div className={styles.creatorFront}>
                                                     <div className={styles.creatorAvatar}>
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -920,8 +1083,6 @@ export default function Home() {
                                                     <span className={styles.creatorName}>{creator.name}</span>
                                                     <span className={styles.creatorRole}>{creator.role}</span>
                                                 </div>
-
-                                                {/* Back face */}
                                                 <div className={styles.creatorBack}>
                                                     <span className={styles.creatorBackName}>{creator.name}</span>
                                                     <p className={styles.creatorBio}>{creator.bio}</p>
@@ -945,6 +1106,7 @@ export default function Home() {
                             </motion.div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -28316,9 +28316,9 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "TasTea",
+        "name": "Thirstea",
         "type": "RESTAURANTS & CAFES",
-        "description": "A small, vibrant kiosk serving milk teas and frappes.",
+        "description": "A small, vibrant restaurant serving milk teas and frappes.",
         "municipality": "BARAS",
         "visit_time_minutes": 30,
         "category": "food",
@@ -28334,8 +28334,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          124.37109158385094,
-          13.659490190945245
+          124.22855561589566,
+          13.580947228286526
         ]
       }
     },
@@ -28518,32 +28518,6 @@
         "coordinates": [
           124.33224886190959,
           13.563919705786883
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Little Bliss Cafe",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A quaint cafe spot offering a cozy interior and comfort snacks.",
-        "municipality": "BATO",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-20:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 182,
-        "image": "/images/little_bliss_cafe.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.29861953643294,
-          13.607170580187129
         ]
       }
     },

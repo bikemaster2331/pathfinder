@@ -187,7 +187,8 @@ const MapWrapper = forwardRef((props, ref) => {
         onHubChange,
         isMapFullscreen,
         onToggleMapFullscreen,
-        onInitialTripboxComplete
+        onInitialTripboxComplete,
+        onMenuStateChange
     } = props;
 
     const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -208,6 +209,10 @@ const MapWrapper = forwardRef((props, ref) => {
             setDraftActivities(selectedActivities);
         }
     }, [selectedActivities, isMenuOpen]);
+
+    useEffect(() => {
+        if (onMenuStateChange) onMenuStateChange(isMenuOpen);
+    }, [isMenuOpen, onMenuStateChange]);
 
     const commitDraftFilters = () => {
         const activityKeys = Object.keys({ ...selectedActivities, ...draftActivities });

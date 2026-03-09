@@ -11,6 +11,7 @@ import { calculateDriveTimes, calculateTimeUsage, calculateTotalRoute } from '..
 import { generateItineraryPDF } from '../utils/generatePDF';
 import defaultBg from '../assets/images/card/catanduanes.png';
 import { motion, AnimatePresence } from 'framer-motion';
+import { House, Sun, CreditCard, Clock3, MapPin } from 'lucide-react';
 
 // --- CONFIGURATION ---
 const BUDGET_CONFIG = {
@@ -310,7 +311,19 @@ export default function ItineraryPage() {
         const saved = sessionStorage.getItem('itinerary_destination');
         return saved ? saved : '';
     });
-    const [dateRange, setDateRange] = useState({ start: '', end: '' });
+    const [dateRange, setDateRange] = useState(() => {
+        const saved = sessionStorage.getItem('itinerary_dateRange');
+        if (!saved) return { start: '', end: '' };
+        try {
+            const parsed = JSON.parse(saved);
+            return {
+                start: parsed?.start || '',
+                end: parsed?.end || ''
+            };
+        } catch {
+            return { start: '', end: '' };
+        }
+    });
 
     const dayCount = useMemo(() => {
         if (!dateRange.start || !dateRange.end) return 1;
@@ -321,17 +334,6 @@ export default function ItineraryPage() {
         return days > 0 ? days : 1;
     }, [dateRange]);
     const isLastDay = currentDay >= dayCount;
-    useEffect(() => {
-        const saved = sessionStorage.getItem('itinerary_dateRange');
-        if (saved) {
-            const parsed = JSON.parse(saved);
-            setDateRange({
-                start: parsed.start ? new Date(parsed.start) : '',
-                end: parsed.end ? new Date(parsed.end) : ''
-            });
-        }
-    }, []);
-
     useEffect(() => {
         if (activeHub) sessionStorage.setItem('itinerary_activeHub', JSON.stringify(activeHub));
         else sessionStorage.removeItem('itinerary_activeHub');
@@ -357,6 +359,8 @@ export default function ItineraryPage() {
     const [isMapFullscreen, setIsMapFullscreen] = useState(false);
     const [isChatMinimized, setIsChatMinimized] = useState(false);
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
+    const [isMapExpandedReviewExpanded, setIsMapExpandedReviewExpanded] = useState(false);
+    const [isTripMenuOpen, setIsTripMenuOpen] = useState(true);
     const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
     const [isImageFullscreen, setIsImageFullscreen] = useState(false);
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
@@ -503,6 +507,67 @@ export default function ItineraryPage() {
     const isSelectedAlreadyAdded = selectedLocation
         ? addedSpots.some((spot) => spot.name === selectedLocation.name)
         : false;
+
+    const mapExpandedMetaItems = useMemo(() => {
+        if (!selectedLocation) return [];
+
+        const exposureRaw = String(selectedLocation.outdoor_exposure || 'outdoor').toLowerCase();
+        const budgetRaw = String(selectedLocation.min_budget || 'low').toLowerCase();
+        const bestTimeRaw = String(selectedLocation.best_time_of_day || 'any').toLowerCase();
+        const municipalityRaw = String(selectedLocation.municipality || 'Catanduanes');
+
+        let budgetLabel = 'Low';
+        if (budgetRaw.includes('high') || budgetRaw.includes('₱₱₱')) budgetLabel = 'High';
+        else if (budgetRaw.includes('medium') || budgetRaw.includes('₱₱')) budgetLabel = 'Medium';
+
+        let timeLabel = 'Anytime';
+        if (bestTimeRaw === 'any') timeLabel = 'All Day';
+        else if (bestTimeRaw.includes('morning')) timeLabel = 'Morning';
+        else if (bestTimeRaw.includes('noon') || bestTimeRaw.includes('midday') || bestTimeRaw.includes('lunch')) timeLabel = 'Midday';
+        else if (bestTimeRaw.includes('sunset')) timeLabel = 'Sunset';
+        else if (bestTimeRaw.includes('night')) timeLabel = 'Night';
+        else if (bestTimeRaw.includes('evening')) timeLabel = 'Evening';
+        else if (bestTimeRaw.includes('dinner')) timeLabel = 'Dinner';
+        else timeLabel = bestTimeRaw.charAt(0).toUpperCase() + bestTimeRaw.slice(1);
+
+        const exposureLabel = exposureRaw.charAt(0).toUpperCase() + exposureRaw.slice(1);
+        const locationLabel = municipalityRaw
+            .toLowerCase()
+            .replace(/\b\w/g, (char) => char.toUpperCase());
+        const environmentValueClass = exposureRaw === 'indoor'
+            ? styles.mapExpandedMetaValueEnvironmentIndoor
+            : exposureRaw === 'shaded'
+                ? styles.mapExpandedMetaValueEnvironmentShaded
+                : styles.mapExpandedMetaValueEnvironmentOutdoor;
+        const costValueClass = budgetLabel === 'High'
+            ? styles.mapExpandedMetaValueCostHigh
+            : budgetLabel === 'Medium'
+                ? styles.mapExpandedMetaValueCostMedium
+                : styles.mapExpandedMetaValueCostLow;
+        const timeValueClass = timeLabel === 'Morning'
+            ? styles.mapExpandedMetaValueTimeMorning
+            : timeLabel === 'Midday'
+                ? styles.mapExpandedMetaValueTimeMidday
+                : timeLabel === 'Sunset'
+                    ? styles.mapExpandedMetaValueTimeSunset
+                    : timeLabel === 'Evening'
+                        ? styles.mapExpandedMetaValueTimeEvening
+                        : timeLabel === 'Dinner'
+                            ? styles.mapExpandedMetaValueTimeDinner
+                            : timeLabel === 'Night'
+                                ? styles.mapExpandedMetaValueTimeNight
+                                : styles.mapExpandedMetaValueTimeAllDay;
+        const environmentIcon = exposureRaw === 'indoor'
+            ? <House aria-hidden="true" />
+            : <Sun aria-hidden="true" />;
+
+        return [
+            { key: 'location', label: 'Location', value: locationLabel, icon: <MapPin aria-hidden="true" />, valueClass: styles.mapExpandedMetaValueLocation },
+            { key: 'cost', label: 'Cost Level', value: budgetLabel, icon: <CreditCard aria-hidden="true" />, valueClass: costValueClass },
+            { key: 'time', label: 'Best Time', value: timeLabel, icon: <Clock3 aria-hidden="true" />, valueClass: timeValueClass },
+            { key: 'environment', label: 'Environment', value: exposureLabel, icon: environmentIcon, valueClass: environmentValueClass }
+        ];
+    }, [selectedLocation, styles.mapExpandedMetaValueCostHigh, styles.mapExpandedMetaValueCostLow, styles.mapExpandedMetaValueCostMedium, styles.mapExpandedMetaValueEnvironmentIndoor, styles.mapExpandedMetaValueEnvironmentOutdoor, styles.mapExpandedMetaValueEnvironmentShaded, styles.mapExpandedMetaValueLocation, styles.mapExpandedMetaValueTimeAllDay, styles.mapExpandedMetaValueTimeDinner, styles.mapExpandedMetaValueTimeEvening, styles.mapExpandedMetaValueTimeMidday, styles.mapExpandedMetaValueTimeMorning, styles.mapExpandedMetaValueTimeNight, styles.mapExpandedMetaValueTimeSunset]);
 
     const handleChatbotLocation = (locations) => {
         console.log('Chatbot returned locations:', locations);
@@ -676,8 +741,16 @@ export default function ItineraryPage() {
     useEffect(() => {
         if (selectedLocation) {
             setIsMapExpandedReviewOpen(true);
+            setIsMapExpandedReviewExpanded(false);
         }
     }, [selectedLocation]);
+
+    useEffect(() => {
+        if (isTripMenuOpen) {
+            setIsMapExpandedReviewOpen(false);
+            setIsMapExpandedReviewExpanded(false);
+        }
+    }, [isTripMenuOpen]);
 
     // --- MAP CHAT MESSAGES TO REACT COMPONENTS ---
     // Finds the last widget so we can auto-expand only the newest one
@@ -784,17 +857,26 @@ export default function ItineraryPage() {
                     isMapFullscreen={isMapFullscreen}
                     onToggleMapFullscreen={() => setIsMapFullscreen((prev) => !prev)}
                     onInitialTripboxComplete={() => setIsInitialTripboxCompleted(true)}
+                    onMenuStateChange={setIsTripMenuOpen}
                 />
-                <button
-                    type="button"
-                    className={`${styles.mapExpandedReviewToggle} ${isKeyboardOpen ? styles.mapExpandedReviewToggleBlurred : ''}`}
-                    onClick={() => setIsMapExpandedReviewOpen((prev) => !prev)}
-                >
-                    {isMapExpandedReviewOpen ? 'Hide Info' : 'Show Info'}
-                </button>
-                {isMapExpandedReviewOpen && (
+                {!isTripMenuOpen && (
+                    <button
+                        type="button"
+                        className={`${styles.mapExpandedReviewToggle} ${isKeyboardOpen ? styles.mapExpandedReviewToggleBlurred : ''}`}
+                        onClick={() => {
+                            setIsMapExpandedReviewOpen((prev) => {
+                                const next = !prev;
+                                if (!next) setIsMapExpandedReviewExpanded(false);
+                                return next;
+                            });
+                        }}
+                    >
+                        {isMapExpandedReviewOpen ? 'Hide Info' : 'Show Info'}
+                    </button>
+                )}
+                {!isTripMenuOpen && isMapExpandedReviewOpen && (
                     <>
-                        <aside className={`${styles.mapExpandedReviewBox} ${isKeyboardOpen ? styles.mapExpandedReviewBoxBlurred : ''}`}>
+                        <aside className={`${styles.mapExpandedReviewBox} ${isMapExpandedReviewExpanded ? styles.mapExpandedReviewBoxExpanded : ''} ${isKeyboardOpen ? styles.mapExpandedReviewBoxBlurred : ''}`}>
                             <div className={styles.mapExpandedReviewImageWrap}>
                                 <img
                                     src={selectedLocation?.image || defaultBg}
@@ -809,12 +891,41 @@ export default function ItineraryPage() {
                                 <h3 className={styles.mapExpandedReviewTitle}>
                                     {selectedLocation?.name || 'Select a destination'}
                                 </h3>
-                                <p className={styles.mapExpandedReviewDesc}>
-                                    {selectedLocation?.description || 'Select Add spot to include this destination in your itinerary.'}
+                                <p
+                                    className={styles.mapExpandedReviewDesc}
+                                    onClick={() => setIsMapExpandedReviewExpanded((prev) => !prev)}
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            setIsMapExpandedReviewExpanded((prev) => !prev);
+                                        }
+                                    }}
+                                >
+                                    {selectedLocation?.description || 'Select a map pin to load destination details in this card. Use "Add Spot" to include it in your itinerary'}
                                 </p>
+                                {isMapExpandedReviewExpanded && mapExpandedMetaItems.length > 0 && (
+                                    <div className={styles.mapExpandedMetaHandler}>
+                                        {mapExpandedMetaItems.map((item) => (
+                                            <div key={item.key} className={styles.mapExpandedMetaBox}>
+                                                <span className={styles.mapExpandedMetaLabel}>{item.label}</span>
+                                                <div className={styles.mapExpandedMetaRow}>
+                                                    {item.icon}
+                                                    <span className={`${styles.mapExpandedMetaValue} ${item.valueClass || ''}`}>{item.value}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                                 <button
                                     type="button"
-                                    className={styles.mapExpandedReviewBtn}
+                                    className={`${styles.mapExpandedReviewBtn} ${!selectedLocation
+                                        ? styles.mapExpandedReviewBtnDisabled
+                                        : isSelectedAlreadyAdded
+                                            ? styles.mapExpandedReviewBtnRemove
+                                            : styles.mapExpandedReviewBtnAdd
+                                        }`}
                                     disabled={!selectedLocation}
                                     onClick={() => (
                                         !selectedLocation
@@ -824,7 +935,7 @@ export default function ItineraryPage() {
                                                 : handleAddSpot(selectedLocation)
                                     )}
                                 >
-                                    {!selectedLocation ? 'Select a Spot' : isSelectedAlreadyAdded ? 'Remove Spot' : 'Add Spot'}
+                                    {!selectedLocation ? 'Add Spot' : isSelectedAlreadyAdded ? 'Remove Spot' : 'Add Spot'}
                                 </button>
                             </div>
                         </aside>

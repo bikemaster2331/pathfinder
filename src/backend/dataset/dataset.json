@@ -2685,22 +2685,6 @@
     ]
   },
   {
-    "input": "Where is TasTea?",
-    "output": "TasTea is a restaurants and cafes located in Baras.",
-    "title": "TasTea Location",
-    "topic": "food",
-    "location": "BARAS",
-    "summary_offline": "TasTea is a restaurants and cafes located in Baras.",
-    "place_name": "TasTea",
-    "coordinates": {
-      "lat": 13.659490190945245,
-      "lng": 124.37109158385094
-    },
-    "activities": [
-      "dining"
-    ]
-  },
-  {
     "input": "Where is Titaay Surfers Inn?",
     "output": "Titaay Surfers Inn is a hotels and resorts located in Baras.",
     "title": "Titaay Surfers Inn Location",
@@ -2842,22 +2826,6 @@
     },
     "activities": [
       "accommodation"
-    ]
-  },
-  {
-    "input": "Where is Little Bliss Cafe?",
-    "output": "Little Bliss Cafe is a restaurants and cafes located in Bato.",
-    "title": "Little Bliss Cafe Location",
-    "topic": "food",
-    "location": "BATO",
-    "summary_offline": "Little Bliss Cafe is a restaurants and cafes located in Bato.",
-    "place_name": "Little Bliss Cafe",
-    "coordinates": {
-      "lat": 13.607170580187129,
-      "lng": 124.29861953643294
-    },
-    "activities": [
-      "dining"
     ]
   },
   {
@@ -7244,32 +7212,32 @@
     "summary_offline": "Pandan is ~70–80 km from Virac, 2–3 hrs by road. Limited van schedules from Virac terminal. Allocate a full day for a Pandan visit and return."
   },
   {
-    "input": "Where is TasTea café in Virac?",
-    "output": "TasTea is a café in Virac, Catanduanes known for its milk teas, local drinks, and café snacks. It is a popular spot with younger locals and tourists looking for a relaxed spot in town. Located in the Virac town area, it is within walking distance of the main commercial strip.",
-    "title": "TasTea Café Virac",
+    "input": "Where is Thirstea café in Virac?",
+    "output": "Thirstea is a café in Virac, Catanduanes known for its milk teas, local drinks, and café snacks. It is a popular spot with younger locals and tourists looking for a relaxed spot in town. Located in the Virac town area, it is within walking distance of the main commercial strip.",
+    "title": "Thirstea Café Virac",
     "topic": "dining",
     "location": "VIRAC",
-    "place_name": "TasTea",
+    "place_name": "Thirstea",
     "activities": [
       "dining",
       "food"
     ],
     "budget": "cheap",
-    "summary_offline": "TasTea is a café in Virac serving milk teas and snacks. Popular with locals and tourists. Near Virac's main commercial area."
+    "summary_offline": "Thirstea is a café in Virac serving milk teas and snacks. Popular with locals and tourists. Near Virac's main commercial area."
   },
   {
-    "input": "What does TasTea serve? Is it good?",
-    "output": "TasTea in Virac is known primarily for its milk teas, fruit teas, and local refreshments. It also serves light café snacks and pastries. It is a good option for a mid-afternoon break or a sweet drink after sightseeing in Virac. The prices are affordable, making it popular with locals and budget travelers.",
-    "title": "TasTea Menu and Review",
+    "input": "What does Thirstea serve? Is it good?",
+    "output": "Thirstea in Virac is known primarily for its milk teas, fruit teas, and local refreshments. It also serves light café snacks and pastries. It is a good option for a mid-afternoon break or a sweet drink after sightseeing in Virac. The prices are affordable, making it popular with locals and budget travelers.",
+    "title": "Thirstea Menu and Review",
     "topic": "dining",
     "location": "VIRAC",
-    "place_name": "TasTea",
+    "place_name": "Thirstea",
     "activities": [
       "dining",
       "food"
     ],
     "budget": "cheap",
-    "summary_offline": "TasTea serves milk teas, fruit teas, and light snacks. Affordable prices, popular for a refreshment stop in Virac."
+    "summary_offline": "Thirstea serves milk teas, fruit teas, and light snacks. Affordable prices, popular for a refreshment stop in Virac."
   },
   {
     "input": "Where is Kape't Tagpuan Sa Isla café?",
@@ -7287,7 +7255,7 @@
   },
   {
     "input": "What cafes are there in Virac Catanduanes?",
-    "output": "Virac has a growing café scene. Notable cafes include: Little Bliss Cafe (known for cozy ambiance and all-day breakfast), Liz & Bel Café (local favorites, good coffee), TasTea (milk teas and refreshments), Kape't Tagpuan Sa Isla (local coffee, relaxed setting), ARDCI Café (inside ARDCI area, good for a quick coffee), Blue Café, Mayan Café, and Teaholic. Most are concentrated along or near the main road in Virac. Coffee culture has grown significantly — expect good espresso-based drinks at most.",
+    "output": "Virac has a growing café scene. Notable cafes include: Liz & Bel Café (local favorites, good coffee), Thirstea (milk teas and refreshments), Kape't Tagpuan Sa Isla (local coffee, relaxed setting), ARDCI Café (inside ARDCI area, good for a quick coffee), Blue Café, Mayan Café, and Teaholic. Most are concentrated along or near the main road in Virac. Coffee culture has grown significantly — expect good espresso-based drinks at most.",
     "title": "Cafes in Virac Catanduanes",
     "topic": "dining",
     "location": "VIRAC",
@@ -7297,21 +7265,7 @@
       "general"
     ],
     "budget": "cheap",
-    "summary_offline": "Virac cafes: Little Bliss Cafe, Liz & Bel Café, TasTea, Kape't Tagpuan, ARDCI Café, Blue Café, Mayan Café, Teaholic. Most near the main road."
-  },
-  {
-    "input": "Where is Little Bliss Cafe in Virac?",
-    "output": "Little Bliss Cafe is a popular café in Virac, Catanduanes known for its cozy atmosphere, all-day breakfast options, and quality coffee. It is well-regarded among tourists and locals as a comfortable spot to start the morning or rest between sightseeing. Located in the Virac town area, it is conveniently accessible.",
-    "title": "Little Bliss Cafe Virac",
-    "topic": "dining",
-    "location": "VIRAC",
-    "place_name": "Little Bliss Cafe",
-    "activities": [
-      "dining",
-      "food"
-    ],
-    "budget": "cheap",
-    "summary_offline": "Little Bliss Cafe: cozy Virac café known for all-day breakfast and coffee. Popular with tourists. In the Virac town area."
+    "summary_offline": "Virac cafes: Liz & Bel Café, Thirstea, Kape't Tagpuan, ARDCI Café, Blue Café, Mayan Café, Teaholic. Most near the main road."
   },
   {
     "input": "Where is Sea Breeze 2001 restaurant in Virac?",

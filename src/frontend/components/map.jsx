@@ -466,7 +466,7 @@ const Map = forwardRef((props, ref) => {
                     source: previewSourceId,
                     layout: { 'line-join': 'round', 'line-cap': 'round' },
                     paint: {
-                        'line-color': '#9CA3AF', // Gray color
+                        'line-color': ' #305dda', // Green color
                         'line-width': 3,
                         'line-dasharray': [2, 2], // Dashed line
                         'line-opacity': 0.7
