@@ -388,32 +388,8 @@ export default function ItineraryPage() {
     const [isChatMinimized, setIsChatMinimized] = useState(true);
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
     const [isMapExpandedReviewExpanded, setIsMapExpandedReviewExpanded] = useState(false);
-    const [isTripMenuOpen, setIsTripMenuOpen] = useState(() => {
-        const savedHub = sessionStorage.getItem('itinerary_activeHub');
-        const savedDate = sessionStorage.getItem('itinerary_dateRange');
-        if (savedHub && savedDate) {
-            try {
-                const dates = JSON.parse(savedDate);
-                return !(dates.start && dates.end);
-            } catch {
-                return true;
-            }
-        }
-        return true;
-    });
-    const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(() => {
-        const savedHub = sessionStorage.getItem('itinerary_activeHub');
-        const savedDate = sessionStorage.getItem('itinerary_dateRange');
-        if (savedHub && savedDate) {
-            try {
-                const dates = JSON.parse(savedDate);
-                return !!(dates.start && dates.end);
-            } catch {
-                return false;
-            }
-        }
-        return false;
-    });
+    const [isTripMenuOpen, setIsTripMenuOpen] = useState(true);
+    const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
     const [isImageFullscreen, setIsImageFullscreen] = useState(false);
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
