@@ -26449,32 +26449,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Miguilas Inn and Resto Bar",
-        "type": "HOTELS & RESORTS",
-        "description": "A convenient stopover in the northern loop offering accommodation and hearty local meals for travelers exploring Caramoran.",
-        "municipality": "CARAMORAN",
-        "visit_time_minutes": 60,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "07:00-21:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.1,
-        "showAtZoom": 12,
-        "id": 404,
-        "image": "/images/miguilas_inn_and_resto_bar.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.1348645200423,
-          13.98755168209128
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Palumbanes Island",
         "type": "VIEWPOINTS",
         "description": "A stunning group of islands known as 'Parompong', famous for pristine waters and the beautiful Bitaog Beach.",
@@ -27363,32 +27337,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Summit View Park",
-        "type": "VIEWPOINTS",
-        "description": "Situated on one of the highest peaks in Viga, offering a sweeping, windy vantage point of the coconut canopy.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 30,
-        "category": "viewpoint",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "morning",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 124,
-        "image": "/images/summit.png"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2699644422191,
-          13.79084220997509
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Our Lady of the Assumption Parish Church",
         "type": "RELIGIOUS SITES",
         "description": "A centuries-old structure that dominates the town plaza, featuring a distinct, weathered facade.",
@@ -27774,7 +27722,7 @@
         "showAtZoom": 10,
         "id": 124,
         "original_activity": "sightseeing",
-        "image": "/images/summit_view_park.jpg"
+        "image": "/images/summitview.png"
       },
       "geometry": {
         "type": "Point",
