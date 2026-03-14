@@ -12,6 +12,7 @@ import { generateItineraryPDF } from '../utils/generatePDF';
 import defaultBg from '../assets/images/card/catanduanes.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import { House, Sun, CreditCard, Clock3, MapPin } from 'lucide-react';
+import { generateItinerary } from '../utils/generateItinerary';
 
 // --- CONFIGURATION ---
 const BUDGET_CONFIG = {
@@ -22,6 +23,7 @@ const BUDGET_CONFIG = {
 
 // --- NEW: COLLAPSIBLE WIDGET COMPONENT ---
 // This is pulled out so it can manage its own expanded/collapsed state natively in the chat flow.
+
 const PreviewWidget = ({
     isLatest,
     spots,
@@ -32,6 +34,7 @@ const PreviewWidget = ({
     dayCount,
     isLastDay,
     handleOptimize,
+    handleGenerate,
     setSelectedLocation,
     handleToggleLock,
     handleMoveSpot,
@@ -109,7 +112,9 @@ const PreviewWidget = ({
             >
                 <h3 className={styles.mapExpandedPreviewTitle}>Itinerary Preview</h3>
                 <div className={styles.mapExpandedPreviewHeaderActions}>
-                    <span className={styles.mapExpandedPreviewCount}>{spots.length} spot{spots.length === 1 ? '' : 's'}</span>
+                    {spots && spots.length > 0 && (
+                        <span className={styles.mapExpandedPreviewCount}>{spots.length} spot{spots.length === 1 ? '' : 's'}</span>
+                    )}
                     <button
                         onClick={(e) => { e.stopPropagation(); handleOptimize(); }}
                         className={cardStyles.optimizeBtnSmall}
@@ -117,7 +122,7 @@ const PreviewWidget = ({
                         style={{ padding: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sparkle-icon lucide-sparkle">
-                            <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/>
+                            <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
                         </svg>
                     </button>
                     {expanded ? (
@@ -137,22 +142,24 @@ const PreviewWidget = ({
                                 </h3>
                             </div>
                         </div>
-                        <div className={`${cardStyles.walletContainer} ${styles.mapExpandedWalletCompact}`}>
-                            <div className={`${cardStyles.walletHeader} ${styles.mapExpandedWalletHeader}`}>
-                                <div className={cardStyles.walletStatusGroup}>
-                                    <div className={cardStyles.walletLabel}>{timeWallet.label}</div>
+                        {spots && spots.length > 0 && (
+                            <div className={`${cardStyles.walletContainer} ${styles.mapExpandedWalletCompact}`}>
+                                <div className={`${cardStyles.walletHeader} ${styles.mapExpandedWalletHeader}`}>
+                                    <div className={cardStyles.walletStatusGroup}>
+                                        <div className={cardStyles.walletLabel}>{timeWallet.label}</div>
+                                    </div>
+                                </div>
+                                <div className={cardStyles.walletBarTrack}>
+                                    <div
+                                        className={cardStyles.walletBarFill}
+                                        style={{
+                                            width: `${timeWallet.percent}%`,
+                                            backgroundColor: timeWallet.color,
+                                        }}
+                                    />
                                 </div>
                             </div>
-                            <div className={cardStyles.walletBarTrack}>
-                                <div
-                                    className={cardStyles.walletBarFill}
-                                    style={{
-                                        width: `${timeWallet.percent}%`,
-                                        backgroundColor: timeWallet.color,
-                                    }}
-                                />
-                            </div>
-                        </div>
+                        )}
                     </div>
 
                     <div className={styles.mapExpandedSpotsScroll}>
@@ -257,27 +264,48 @@ const PreviewWidget = ({
                             ))
                         ) : (
                             <p className={cardStyles.previewContent}>
-                                Day {currentDay} wallet is empty. Select a pin to add.
+                                Day {currentDay} is empty. Select a map pin or generate a plan to begin.
                             </p>
                         )}
                     </div >
 
                     <div className={`${cardStyles.bottomButtonRow} ${styles.mapExpandedActionRow}`}>
-                        {currentDay > 1 && (
+                        {currentDay > 1 ? (
                             <button
                                 onClick={handlePreviousDay}
                                 className={`${cardStyles.saveButton} ${cardStyles.backButton} ${styles.mapExpandedBackAction}`}
-                                style={{ backgroundColor: '#4B5563' }}
+                                style={{ backgroundColor: '#4B5563', marginRight: 'auto' }}
                                 title="Go back to previous day"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
                             </button >
+                        ) : (
+                            <div style={{ marginRight: 'auto' }}></div>
                         )}
 
                         <button
-                            className={`${cardStyles.saveButton} ${cardStyles.previewPrimaryAction} ${styles.mapExpandedPrimaryAction}`}
+                            className={`${cardStyles.saveButton} ${styles.mapExpandedPrimaryAction}`}
+                            onClick={handleGenerate}
+                            style={{ backgroundColor: '#0ea5e9', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', width: 'auto' }}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pickaxe-icon lucide-pickaxe">
+                                <path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999" />
+                                <path d="M15.973 4.027A13 13 0 0 0 5.902 2.373c-1.398.342-1.092 2.158.277 2.601a19.9 19.9 0 0 1 5.822 3.024" />
+                                <path d="M16.001 11.999a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069" />
+                                <path d="M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z" />
+                            </svg>
+                            Generate
+                        </button>
+
+                        <button
+                            className={`${cardStyles.saveButton} ${styles.mapExpandedPrimaryAction}`}
                             onClick={isNextAction ? handleSliceAndNext : handleSaveItinerary}
-                            style={{ backgroundColor: isNextAction ? undefined : '#2563EB' }}
+                            style={{
+                                backgroundColor: isNextAction ? 'transparent' : '#2563EB',
+                                border: isNextAction ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
+                                color: isNextAction ? 'rgba(255, 255, 255, 0.8)' : '#ffffff',
+                                padding: '0 12px'
+                            }}
                         >
                             {isNextAction ? 'Next' : 'Save'}
                         </button>
@@ -348,7 +376,7 @@ export default function ItineraryPage() {
         sessionStorage.setItem('itinerary_dateRange', JSON.stringify(dateRange));
     }, [dateRange]);
     // Chat State Lifted to Parent
-    const [chatMessages, setChatMessages] = useState([]);
+    const [chatMessages, setChatMessages] = useState([{ role: 'widget', type: 'itinerary', id: 'init-widget' }]);
     const [activePin, setActivePin] = useState(null);
 
     // SHEET STATE
@@ -424,6 +452,25 @@ export default function ItineraryPage() {
         if (!activeHub || !addedSpots || addedSpots.length < 2) return;
         const newOrder = optimizeRoute(activeHub, addedSpots);
         setAddedSpots(newOrder);
+    };
+
+    const handleGenerate = () => {
+        const result = generateItinerary({
+            hub: activeHub,
+            dayCount,
+            budgetFilter,
+            selectedActivities,
+            allSpots,
+        });
+
+        if (Object.keys(result).length === 0) {
+            alert("No spots match your current filters. Try expanding your budget or activities.");
+            return;
+        }
+
+        setStoredDays(result);
+        setAddedSpots(result[1] || []);
+        setCurrentDay(1);
     };
 
     const handleAddSpot = (spot) => {
@@ -771,6 +818,7 @@ export default function ItineraryPage() {
                         dayCount={dayCount}
                         isLastDay={isLastDay}
                         handleOptimize={handleOptimize}
+                        handleGenerate={handleGenerate}
                         setSelectedLocation={setSelectedLocation}
                         handleToggleLock={handleToggleLock}
                         handleMoveSpot={handleMoveSpot}
@@ -789,7 +837,7 @@ export default function ItineraryPage() {
         <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${(!activeHub || !dateRange.start || !dateRange.end) ? styles.itineraryNoSidebar : ''} ${isChatMinimized ? styles.itineraryContainerChatMinimized : ''}`}>
             <div className={styles.gradientBg} />
             {!isMobile && activeHub && dateRange.start && dateRange.end && (
-                <aside 
+                <aside
                     className={`${styles.desktopChatContainer} ${isChatMinimized ? styles.desktopChatContainerMinimized : ''}`}
                     onClick={isChatMinimized ? () => setIsChatMinimized(false) : undefined}
                     title={isChatMinimized ? 'Restore chat' : undefined}
@@ -804,7 +852,7 @@ export default function ItineraryPage() {
                                 title="Minimize chat"
                                 aria-label="Minimize chat"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /></svg>
                             </button>
                             {/* Close (placeholder) */}
                             <button
@@ -812,7 +860,7 @@ export default function ItineraryPage() {
                                 title="Close (coming soon)"
                                 aria-label="Close"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                             </button>
                         </div>
                     </div>
