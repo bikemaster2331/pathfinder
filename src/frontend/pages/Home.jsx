@@ -6,7 +6,7 @@ import { motion, wrap } from 'framer-motion';
 import SharedNavbar from '../components/navbar';
 import badges from '../assets/images/card/badges.png';
 import mapScreenshot from '../assets/images/card/map.png';
-
+import gsap from 'gsap';
 
 const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg,svg}', {
     eager: true,
@@ -571,6 +571,37 @@ export default function Home() {
         return () => document.removeEventListener('pointerdown', handleOutsideClick, true);
     }, [activeTestimonial]);
 
+    const glowRefs = useRef([]);
+
+    useEffect(() => {
+        const glows = glowRefs.current.filter(Boolean);
+        if (!glows.length) return;
+
+        gsap.set(glows, { opacity: 0, transform: 'rotate(-35deg) translateY(-60%)' });
+
+        const tl = gsap.timeline({ repeat: -1 });
+
+        glows.forEach((el, i) => {
+            const start = i * 0.7;
+            tl.to(el, {
+                opacity: 1,
+                transform: 'rotate(-35deg) translateY(0%)',
+                duration: 3,
+                ease: 'sine.inOut',
+            }, start);
+            tl.to(el, {
+                opacity: 0,
+                transform: 'rotate(-35deg) translateY(-60%)',
+                duration: 3,
+                ease: 'power2.in',
+            }, start + 2.5);
+        });
+
+        tl.to({}, { duration: 0 }, 20);
+
+        return () => tl.kill();
+    }, []);
+
     const fadeInUp = {
         hidden: { opacity: 0, y: 40 },
         visible: (custom) => ({
@@ -601,24 +632,13 @@ export default function Home() {
     // ── Render ────────────────────────────────────────────────────────────
     return (
         <div className={styles.homeContainer}>
-            <div className={styles.ambientGlow1}></div>
-            <div className={styles.ambientGlow2}></div>
-            <div className={styles.ambientGlow3}></div>
-            <div className={styles.ambientGlow4}></div>
-            <div className={styles.ambientGlow5}></div>
-            <div className={styles.ambientGlow6}></div>
-            <div className={styles.ambientGlow7}></div>
-            <div className={styles.ambientGlow8}></div>
-            <div className={styles.ambientGlow9}></div>
-            <div className={styles.ambientGlow10}></div>
-            <div className={styles.ambientGlow11}></div>
-            <div className={styles.ambientGlow12}></div>
-            <div className={styles.ambientGlow13}></div>
-            <div className={styles.ambientGlow14}></div>
-            <div className={styles.ambientGlow15}></div>
-            <div className={styles.ambientGlow16}></div>
-            <div className={styles.ambientGlow17}></div>
-            <div className={styles.ambientGlow18}></div>
+            {Array.from({ length: 18 }, (_, i) => (
+                <div
+                    key={i}
+                    className={styles[`ambientGlow${i + 1}`]}
+                    ref={el => { glowRefs.current[i] = el; }}
+                />
+            ))}
 
             {/* ══════════════════════════════════════════
                 PAGE 1 — HERO SECTION
