@@ -6,7 +6,6 @@ import { motion, wrap } from 'framer-motion';
 import SharedNavbar from '../components/navbar';
 import badges from '../assets/images/card/badges.png';
 import mapScreenshot from '../assets/images/card/map.png';
-import gsap from 'gsap';
 
 
 const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg,svg}', {
@@ -465,9 +464,6 @@ export default function Home() {
     const guideRef = useRef(null);
     const reviewsRef = useRef(null);
     const collaborateRef = useRef(null);
-    const headlineRef = useRef(null);
-    const headlineAccentRef = useRef(null);
-    const glowRefs = useRef([]);
     const sectionRatiosRef = useRef({ guide: 0, reviews: 0, collaborate: 0 });
 
     const [[page, direction], setPage] = useState([0, 0]);
@@ -575,39 +571,6 @@ export default function Home() {
         return () => document.removeEventListener('pointerdown', handleOutsideClick, true);
     }, [activeTestimonial]);
 
-    // ── GSAP master timeline ──────────────────────────────────────────────
-    useEffect(() => {
-        const glows = glowRefs.current.filter(Boolean);
-        if (!glows.length) return;
-
-        gsap.set(glows, { opacity: 0, rotate: -35, yPercent: -60 });
-
-        const SWEEP_IN = 2.88;
-        const SWEEP_OUT = 1.8;
-        const STAGGER = 1;
-        const TOTAL = 27;
-
-        const tl = gsap.timeline({ repeat: -1 });
-
-        glows.forEach((el, i) => {
-            const start = i * STAGGER;
-            tl.to(el, { opacity: 1, yPercent: 0, duration: SWEEP_IN, ease: 'power2.out' }, start);
-            tl.to(el, { opacity: 0, yPercent: -60, duration: SWEEP_OUT, ease: 'power2.in' }, start + SWEEP_IN);
-        });
-
-        // Last glow peaks at 17 + 2.88 = ~19.88s → headline fires at 20s
-        tl.to([headlineRef.current, headlineAccentRef.current], {
-            scale: 1.05, duration: 1.5, ease: 'power2.inOut',
-        }, 20);
-        tl.to([headlineRef.current, headlineAccentRef.current], {
-            scale: 1, duration: 1.5, ease: 'power2.inOut',
-        }, 23.5);
-
-        tl.to({}, { duration: 0 }, TOTAL);
-
-        return () => tl.kill();
-    }, []);
-
     const fadeInUp = {
         hidden: { opacity: 0, y: 40 },
         visible: (custom) => ({
@@ -638,13 +601,24 @@ export default function Home() {
     // ── Render ────────────────────────────────────────────────────────────
     return (
         <div className={styles.homeContainer}>
-            {Array.from({ length: 18 }, (_, i) => (
-                <div
-                    key={i}
-                    className={styles[`ambientGlow${i + 1}`]}
-                    ref={el => { glowRefs.current[i] = el; }}
-                />
-            ))}
+            <div className={styles.ambientGlow1}></div>
+            <div className={styles.ambientGlow2}></div>
+            <div className={styles.ambientGlow3}></div>
+            <div className={styles.ambientGlow4}></div>
+            <div className={styles.ambientGlow5}></div>
+            <div className={styles.ambientGlow6}></div>
+            <div className={styles.ambientGlow7}></div>
+            <div className={styles.ambientGlow8}></div>
+            <div className={styles.ambientGlow9}></div>
+            <div className={styles.ambientGlow10}></div>
+            <div className={styles.ambientGlow11}></div>
+            <div className={styles.ambientGlow12}></div>
+            <div className={styles.ambientGlow13}></div>
+            <div className={styles.ambientGlow14}></div>
+            <div className={styles.ambientGlow15}></div>
+            <div className={styles.ambientGlow16}></div>
+            <div className={styles.ambientGlow17}></div>
+            <div className={styles.ambientGlow18}></div>
 
             {/* ══════════════════════════════════════════
                 PAGE 1 — HERO SECTION
@@ -658,10 +632,10 @@ export default function Home() {
                         animate="visible"
                         className={styles.contentWrapper}
                     >
-                        <motion.h1 ref={headlineRef} variants={fadeInUp} custom={0} className={styles.headline}>
+                        <motion.h1 variants={fadeInUp} custom={0} className={styles.headline}>
                             Explore with
                             <br />
-                            <span ref={headlineAccentRef} className={styles.headlineAccent}> every click.</span>
+                            <span className={styles.headlineAccent}> every click.</span>
                         </motion.h1>
 
                         <motion.p variants={fadeInUp} custom={0.12} className={styles.subheadline}>
