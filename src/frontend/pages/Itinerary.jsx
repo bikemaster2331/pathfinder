@@ -122,7 +122,7 @@ const PreviewWidget = ({
                         style={{ padding: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sparkle-icon lucide-sparkle">
-                            <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+                            <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/>
                         </svg>
                     </button>
                     {expanded ? (
@@ -289,10 +289,10 @@ const PreviewWidget = ({
                             style={{ backgroundColor: '#0ea5e9', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', width: 'auto' }}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pickaxe-icon lucide-pickaxe">
-                                <path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999" />
-                                <path d="M15.973 4.027A13 13 0 0 0 5.902 2.373c-1.398.342-1.092 2.158.277 2.601a19.9 19.9 0 0 1 5.822 3.024" />
-                                <path d="M16.001 11.999a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069" />
-                                <path d="M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z" />
+                                <path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999"/>
+                                <path d="M15.973 4.027A13 13 0 0 0 5.902 2.373c-1.398.342-1.092 2.158.277 2.601a19.9 19.9 0 0 1 5.822 3.024"/>
+                                <path d="M16.001 11.999a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069"/>
+                                <path d="M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z"/>
                             </svg>
                             Generate
                         </button>
@@ -320,7 +320,22 @@ const PreviewWidget = ({
 export default function ItineraryPage() {
     const navigate = useNavigate();
     const [allSpots, setAllSpots] = useState(null);
-    const [addedSpots, setAddedSpots] = useState([]);
+    const [addedSpots, setAddedSpots] = useState(() => {
+        try {
+            const saved = sessionStorage.getItem('itinerary_addedSpots');
+            if (!saved) return [];
+            const parsed = JSON.parse(saved);
+            // Validate — must be an array of objects with a name property
+            if (!Array.isArray(parsed) || (parsed.length > 0 && typeof parsed[0]?.name !== 'string')) {
+                sessionStorage.removeItem('itinerary_addedSpots');
+                return [];
+            }
+            return parsed;
+        } catch {
+            sessionStorage.removeItem('itinerary_addedSpots');
+            return [];
+        }
+    });
     const [storedDays, setStoredDays] = useState({});
     const [currentDay, setCurrentDay] = useState(1);
     const [selectedLocation, setSelectedLocation] = useState(null);
@@ -368,6 +383,12 @@ export default function ItineraryPage() {
     }, [activeHub]);
 
     useEffect(() => {
+        try {
+            sessionStorage.setItem('itinerary_addedSpots', JSON.stringify(addedSpots));
+        } catch { /* storage full */ }
+    }, [addedSpots]);
+
+    useEffect(() => {
         if (destination) sessionStorage.setItem('itinerary_destination', destination);
         else sessionStorage.removeItem('itinerary_destination');
     }, [destination]);
@@ -385,11 +406,14 @@ export default function ItineraryPage() {
     const [mobilePanel, setMobilePanel] = useState('review');
     const [isMobile, setIsMobile] = useState(false);
     const [isMapFullscreen, setIsMapFullscreen] = useState(false);
-    const [isChatMinimized, setIsChatMinimized] = useState(true);
+    const [isChatMinimized, setIsChatMinimized] = useState(false);
     const [isMapExpandedReviewOpen, setIsMapExpandedReviewOpen] = useState(false);
     const [isMapExpandedReviewExpanded, setIsMapExpandedReviewExpanded] = useState(false);
     const [isTripMenuOpen, setIsTripMenuOpen] = useState(true);
-    const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(false);
+    const [isInitialTripboxCompleted, setIsInitialTripboxCompleted] = useState(() => {
+        try { return sessionStorage.getItem('itinerary_tripboxDone') === 'true'; }
+        catch { return false; }
+    });
     const [isImageFullscreen, setIsImageFullscreen] = useState(false);
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
@@ -462,12 +486,10 @@ export default function ItineraryPage() {
             selectedActivities,
             allSpots,
         });
-
         if (Object.keys(result).length === 0) {
             alert("No spots match your current filters. Try expanding your budget or activities.");
             return;
         }
-
         setStoredDays(result);
         setAddedSpots(result[1] || []);
         setCurrentDay(1);
@@ -837,7 +859,7 @@ export default function ItineraryPage() {
         <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${(!activeHub || !dateRange.start || !dateRange.end) ? styles.itineraryNoSidebar : ''} ${isChatMinimized ? styles.itineraryContainerChatMinimized : ''}`}>
             <div className={styles.gradientBg} />
             {!isMobile && activeHub && dateRange.start && dateRange.end && (
-                <aside
+                <aside 
                     className={`${styles.desktopChatContainer} ${isChatMinimized ? styles.desktopChatContainerMinimized : ''}`}
                     onClick={isChatMinimized ? () => setIsChatMinimized(false) : undefined}
                     title={isChatMinimized ? 'Restore chat' : undefined}
@@ -852,7 +874,7 @@ export default function ItineraryPage() {
                                 title="Minimize chat"
                                 aria-label="Minimize chat"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/></svg>
                             </button>
                             {/* Close (placeholder) */}
                             <button
@@ -860,7 +882,7 @@ export default function ItineraryPage() {
                                 title="Close (coming soon)"
                                 aria-label="Close"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                             </button>
                         </div>
                     </div>
