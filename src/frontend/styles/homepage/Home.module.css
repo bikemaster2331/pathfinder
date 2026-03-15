@@ -60,51 +60,40 @@
     z-index: 0;
     pointer-events: none;
     mix-blend-mode: screen;
-    animation-name: raySweep;
-    animation-duration: 23s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-fill-mode: backwards;
 }
 
 .ambientGlow1 {
     left: 4.5%;
-    animation-delay: 0s;
     background: linear-gradient(to bottom, rgba(30, 10, 100, 0.3) 65%, rgba(30, 10, 100, 0) 100%);
     filter: blur(50px);
 }
 
 .ambientGlow2 {
     left: 10%;
-    animation-delay: 1s;
     background: linear-gradient(to bottom, rgba(20, 50, 255, 0.3) 70%, rgba(20, 50, 255, 0) 100%);
     filter: blur(50px);
 }
 
 .ambientGlow3 {
     left: 19.5%;
-    animation-delay: 2s;
     background: linear-gradient(to bottom, rgba(120, 20, 255, 0.3) 75%, rgba(120, 20, 255, 0) 100%);
     filter: blur(50px);
 }
 
 .ambientGlow4 {
     left: 24.5%;
-    animation-delay: 3s;
     background: linear-gradient(to bottom, rgba(220, 0, 200, 0.3) 80%, rgba(220, 0, 200, 0) 100%);
     filter: blur(50px);
 }
 
 .ambientGlow5 {
     left: 34%;
-    animation-delay: 4s;
     background: linear-gradient(to bottom, rgba(255, 0, 100, 0.3) 85%, rgba(255, 0, 100, 0) 100%);
     filter: blur(50px);
 }
 
 .ambientGlow6 {
     left: 78.8%;
-    animation-delay: 5s;
     background: linear-gradient(to bottom, rgba(255, 80, 50, 0.3) 90%, rgba(255, 80, 50, 0) 100%);
     filter: blur(50px);
     height: 500vh;
@@ -112,105 +101,76 @@
 
 .ambientGlow7 {
     left: 48.5%;
-    animation-delay: 6s;
     background: linear-gradient(to bottom, rgba(255, 130, 0, 0.3) 80%, transparent 100%);
     filter: blur(52.08px);
 }
 
 .ambientGlow8 {
     left: 53%;
-    animation-delay: 7s;
     background: linear-gradient(to bottom, rgba(255, 190, 0, 0.3) 75%, transparent 100%);
     filter: blur(54.17px);
 }
 
 .ambientGlow9 {
     left: 62.5%;
-    animation-delay: 8s;
     background: linear-gradient(to bottom, rgba(200, 255, 0, 0.3) 70%, transparent 100%);
     filter: blur(56.25px);
 }
 
 .ambientGlow10 {
     left: 68%;
-    animation-delay: 9s;
     background: linear-gradient(to bottom, rgba(50, 220, 50, 0.3) 65%, transparent 100%);
     filter: blur(58.33px);
 }
 
 .ambientGlow11 {
     left: 74%;
-    animation-delay: 10s;
     background: linear-gradient(to bottom, rgba(0, 220, 150, 0.3) 70%, transparent 100%);
     filter: blur(60.42px);
 }
 
 .ambientGlow12 {
     left: 83.55%;
-    animation-delay: 11s;
     background: linear-gradient(to bottom, rgba(0, 210, 255, 0.3) 75%, transparent 100%);
     filter: blur(62.5px);
 }
 
 .ambientGlow13 {
     left: 88%;
-    animation-delay: 12s;
     background: linear-gradient(to bottom, rgba(0, 150, 255, 0.3) 80%, transparent 100%);
     filter: blur(64.58px);
 }
 
 .ambientGlow14 {
     left: 97.55%;
-    animation-delay: 13s;
     background: linear-gradient(to bottom, rgba(20, 80, 255, 0.3) 85%, transparent 100%);
     filter: blur(66.67px);
 }
 
 .ambientGlow15 {
     left: 102%;
-    animation-delay: 14s;
     background: linear-gradient(to bottom, rgba(80, 0, 255, 0.3) 90%, transparent 100%);
     filter: blur(68.75px);
 }
 
 .ambientGlow16 {
     left: 111.5%;
-    animation-delay: 15s;
     background: linear-gradient(to bottom, rgba(150, 0, 255, 0.3) 85%, transparent 100%);
     filter: blur(70.83px);
 }
 
 .ambientGlow17 {
     left: 116%;
-    animation-delay: 16s;
     background: linear-gradient(to bottom, rgba(200, 0, 220, 0.3) 75%, transparent 100%);
     filter: blur(72.92px);
 }
 
 .ambientGlow18 {
     left: 125.5%;
-    animation-delay: 17s;
     background: linear-gradient(to bottom, rgba(60, 0, 120, 0.3) 80%, transparent 100%);
     filter: blur(75px);
 }
 
-@keyframes raySweep {
-    0% {
-        opacity: 0;
-        transform: rotate(-35deg) translateY(-60%);
-    }
-
-    12.5% {
-        opacity: 1;
-        transform: rotate(-35deg) translateY(0%);
-    }
-
-    35.5%,
-    100% {
-        opacity: 0;
-        transform: rotate(-35deg) translateY(-60%);
-    }
-}
 
 .headline,
 .headlineAccent {
@@ -223,7 +183,7 @@
     margin: 72px 0 18px 0;
     color: white;
     z-index: 1;
-    animation: headlineScaleLoop 27s ease-in-out infinite;
+    animation: headlineScaleLoop 22s ease-in-out infinite;
 }
 
 /* The Oblong Dial Glow */
@@ -251,7 +211,7 @@
     will-change: opacity;
 
     /* Loops with your exact 12s cycle and timing percentages */
-    animation: dialGlowLoop 27s ease-in-out infinite;
+    animation: dialGlowLoop 22s ease-in-out infinite;
 }
 
 @keyframes dialGlowLoop {
