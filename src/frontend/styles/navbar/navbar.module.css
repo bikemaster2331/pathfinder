@@ -11,10 +11,9 @@
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--nav-border);
     z-index: 1000;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
-    right: 0;
 }
 
 .navBarHome {
