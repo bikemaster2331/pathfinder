@@ -4,16 +4,16 @@
     justify-content: space-between;
     align-items: center;
     padding: 16px 48px;
-    width: 100%;
     box-sizing: border-box;
     background: rgba(5, 8, 12, 0.58);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--nav-border);
     z-index: 1000;
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
+    right: 0;
 }
 
 .navBarHome {
@@ -33,6 +33,14 @@
     border-bottom: 1px solid var(--nav-border);
     max-width: 100%;
     border-radius: 0;
+}
+
+.navBarItinerary {
+    position: absolute !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: none !important;
 }
 
 .navBarHome::after,
@@ -554,4 +562,11 @@
 
 :global([data-theme='dark']) .burgerButton {
     color: #ffffff;
+}
+
+
+/* When the homepage scrollbar exists, pull the right edge of the navbar back by 8px */
+:global(.homepage-active) .navBarHome,
+:global(.homepage-active) .navBarFixed {
+    right: 15px;
 }

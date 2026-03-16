@@ -7,6 +7,7 @@ export default function SharedNavbar() {
     const location = useLocation();
     
     const isHomePage = location.pathname === '/';
+    const isItineraryPage = location.pathname === '/itinerary';
     const getInitialTheme = () => {
         if (typeof window === 'undefined') return 'light';
         const stored = window.localStorage.getItem('theme');
@@ -23,10 +24,11 @@ export default function SharedNavbar() {
         window.dispatchEvent(new Event('themechange'));
     }, [theme]);
 
+    
     return (
         <>
             <nav 
-                className={`${isHomePage ? styles.navBarHome : styles.navBarFixed} ${isHomePage ? styles.navHome : styles.navOther}`}
+                className={`${isHomePage ? styles.navBarHome : styles.navBarFixed} ${isHomePage ? styles.navHome : styles.navOther} ${isItineraryPage ? styles.navBarItinerary : ''}`}
             >
                 <div className={styles.navInner}>
                     {/* Left */}
