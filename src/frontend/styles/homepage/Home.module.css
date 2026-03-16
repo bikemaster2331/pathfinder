@@ -55,9 +55,9 @@
 .ambientGlow18 {
     position: absolute;
     top: -10%;
-    width: 150px;
+    width: 200px;
     height: 300vh;
-    z-index: 0;
+    z-index: 1;
     pointer-events: none;
     mix-blend-mode: screen;
 }
@@ -172,21 +172,133 @@
 }
 
 
-.headline,
-.headlineAccent {
+.headlineWrapper {
+    margin: 72px 0 18px 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.headline {
     position: relative;
+    display: inline-block;
+    margin: 0;
+    transform-origin: center center;
     font-family: 'HelveticaCustom', 'Manrope', sans-serif;
     font-size: 6.2rem;
     font-weight: 550;
     line-height: 0.9;
     letter-spacing: -0.04em;
-    margin: 72px 0 18px 0;
-    color: white;
     z-index: 1;
-    animation: headlineScaleLoop 22s ease-in-out infinite;
+    --glow-opacity: 0;
 }
 
-/* The Oblong Dial Glow */
+.starfield {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    height: 300vh;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    background-image:
+        /* Large bright stars */
+        radial-gradient(2px 2px at 8% 12%, rgba(255,255,255,0.9) 100%, transparent),
+        radial-gradient(2.5px 2.5px at 72% 8%, rgba(255,255,255,0.85) 100%, transparent),
+        radial-gradient(2px 2px at 45% 88%, rgba(255,255,255,0.8) 100%, transparent),
+        radial-gradient(2.5px 2.5px at 91% 55%, rgba(255,255,255,0.9) 100%, transparent),
+        radial-gradient(2px 2px at 18% 72%, rgba(255,255,255,0.8) 100%, transparent),
+
+        /* Medium stars */
+        radial-gradient(1.5px 1.5px at 33% 22%, rgba(255,255,255,0.65) 100%, transparent),
+        radial-gradient(1.5px 1.5px at 61% 38%, rgba(255,255,255,0.6) 100%, transparent),
+        radial-gradient(1.5px 1.5px at 79% 81%, rgba(255,255,255,0.65) 100%, transparent),
+        radial-gradient(1.5px 1.5px at 52% 61%, rgba(255,255,255,0.55) 100%, transparent),
+        radial-gradient(1.5px 1.5px at 27% 48%, rgba(255,255,255,0.6) 100%, transparent),
+        radial-gradient(1.5px 1.5px at 14% 94%, rgba(255,255,255,0.55) 100%, transparent),
+        radial-gradient(1.5px 1.5px at 88% 29%, rgba(255,255,255,0.6) 100%, transparent),
+
+        /* Small dim stars */
+        radial-gradient(1px 1px at 5% 35%, rgba(255,255,255,0.4) 100%, transparent),
+        radial-gradient(1px 1px at 42% 6%, rgba(255,255,255,0.35) 100%, transparent),
+        radial-gradient(1px 1px at 67% 72%, rgba(255,255,255,0.4) 100%, transparent),
+        radial-gradient(1px 1px at 95% 15%, rgba(255,255,255,0.35) 100%, transparent),
+        radial-gradient(1px 1px at 38% 55%, rgba(255,255,255,0.3) 100%, transparent),
+        radial-gradient(1px 1px at 83% 44%, rgba(255,255,255,0.35) 100%, transparent),
+        radial-gradient(1px 1px at 22% 82%, rgba(255,255,255,0.3) 100%, transparent),
+        radial-gradient(1px 1px at 56% 19%, rgba(255,255,255,0.35) 100%, transparent),
+        radial-gradient(1px 1px at 74% 93%, rgba(255,255,255,0.3) 100%, transparent),
+        radial-gradient(1px 1px at 48% 76%, rgba(255,255,255,0.25) 100%, transparent);
+    background-size: 200px 200px;
+    animation: starfieldTwinkle 8s ease-in-out infinite alternate;
+}
+
+@keyframes starfieldTwinkle {
+    0%   { opacity: 0.6; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+.starfieldPersistent {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.2;
+    background-image:
+        radial-gradient(1.5px 1.5px at 10% 10%, #fff 100%, transparent),
+        radial-gradient(2px 2px at 25% 45%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 40% 80%, #fff 100%, transparent),
+        radial-gradient(2px 2px at 65% 20%, #fff 100%, transparent),
+        radial-gradient(1.5px 1.5px at 80% 60%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 90% 90%, #fff 100%, transparent);
+    background-size: 150px 150px;
+    width: 100%;
+    height: 100%;
+    /* Only fills the sticky container */
+}
+
+/* Optional: Add a slow twinkle to the persistent stars */
+.starfieldPersistent {
+    animation: starTwinkle 12s ease-in-out infinite alternate;
+}
+
+@keyframes starTwinkle {
+    from {
+        opacity: 0.2;
+    }
+
+    to {
+        opacity: 0.5;
+    }
+}
+
+.topMetadata {
+    position: absolute;
+    top: 1%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Manrope', sans-serif;
+    z-index: 500;
+    color: #fffbfb;
+    opacity: 0.5;
+}
+
+.metadataIcon {
+    height: 1em;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+}
+
+
+.headlineAccent {
+    color: white;
+}
+
+
 .headline::after {
     content: '';
     position: absolute;
@@ -196,111 +308,36 @@
     width: 120%;
     height: 140%;
     border-radius: 200px;
-
-    /* Radial gradient for the "oblong" color depth */
     background: radial-gradient(ellipse at center,
             rgba(30, 10, 100, 0.6) 0%,
             rgba(20, 50, 255, 0.4) 30%,
             rgba(120, 20, 255, 0.3) 50%,
             rgba(220, 0, 200, 0.25) 70%,
             rgba(255, 0, 100, 0) 90%);
-
-    filter: blur(40px);
+    filter: blur(80px);
     z-index: -1;
     pointer-events: none;
-    will-change: opacity;
-
-    /* Loops with your exact 12s cycle and timing percentages */
-    animation: dialGlowLoop 22s ease-in-out infinite;
+    opacity: var(--glow-opacity);
+    will-change: opacity, transform;
 }
 
-@keyframes dialGlowLoop {
-
-    0%,
-    68% {
-        opacity: 0;
-    }
-
-    85%,
-    90% {
-        opacity: 1;
-    }
-
-    95%,
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes headlineScaleLoop {
-    
-    0%,
-    68% {
-        transform: scale(1);
-    }
-
-    85%,
-    90% {
-        /* This makes the text 5% larger. Change to 1.1 for 10%, etc. */
-        transform: scale(1.05); 
-    }
-
-    95%,
-    100% {
-        transform: scale(1);
-    }
-}
-
-:global([data-theme='light']) .ambientGlow1,
-:global([data-theme='light']) .ambientGlow2,
-:global([data-theme='light']) .ambientGlow3,
-:global([data-theme='light']) .ambientGlow4,
-:global([data-theme='light']) .ambientGlow5,
-:global([data-theme='light']) .ambientGlow6 {
+:global([data-theme='light']) [class*='ambientGlow'] {
     mix-blend-mode: multiply;
-}
-
-:global([data-theme='light']) .ambientGlow1 {
-    left: 5%;
-    /* Darkest — night forest */
-    background: linear-gradient(to bottom, rgba(2, 45, 15, 0.9) 65%, transparent 100%);
-    filter: blur(20px);
-}
-
-:global([data-theme='light']) .ambientGlow2 {
-    left: 10%;
-    /* Dark canopy */
-    background: linear-gradient(to bottom, rgba(5, 70, 25, 0.85) 70%, transparent 100%);
-    filter: blur(40px);
-}
-
-:global([data-theme='light']) .ambientGlow3 {
-    left: 19.5%;
-    /* Deep jungle */
-    background: linear-gradient(to bottom, rgba(10, 100, 35, 0.88) 75%, transparent 100%);
-    filter: blur(60px);
-}
-
-:global([data-theme='light']) .ambientGlow4 {
-    left: 24.5%;
-    /* True forest green */
-    background: linear-gradient(to bottom, rgba(30, 140, 50, 0.85) 80%, transparent 100%);
-    filter: blur(80px);
-}
-
-:global([data-theme='light']) .ambientGlow5 {
-    left: 34%;
-    /* Lime green */
-    background: linear-gradient(to bottom, rgba(80, 180, 60, 0.85) 85%, transparent 100%);
-    filter: blur(100px);
+    background: linear-gradient(to bottom, rgba(122, 246, 188, 0.65) 75%, transparent);
+    filter: blur(75px);
+    width: 250px;
 }
 
 :global([data-theme='light']) .ambientGlow6 {
-    left: 79%;
-    /* Lightest — young leaf */
-    background: linear-gradient(to bottom, rgba(120, 210, 80, 0.85) 90%, transparent 100%);
-    filter: blur(120px);
     height: 500vh;
+}
+
+:global([data-theme='light']) .headline::after {
+    background: radial-gradient(ellipse at center,
+            rgba(14, 82, 230, 0.2) 0%,
+            rgba(13, 148, 136, 0.1) 100%,
+            transparent 90%);
+    mix-blend-mode: multiply;
 }
 
 .scrollSpacer {
@@ -317,10 +354,45 @@ html {
     z-index: 10;
     max-width: 100%;
     margin: 0 auto;
-    padding: 100px 0px 80px;
+    padding: 100px 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.heroSection::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 220px;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            var(--home-bg) 100%);
+    pointer-events: none;
+    z-index: 5;
+}
+
+:global([data-theme='light']) .heroSection::after {
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            #fffdf9 100%);
+}
+
+.sectionBridge {
+    position: relative;
+    height: 240px;
+    margin-top: -240px;
+    background: linear-gradient(to bottom, transparent 0%, #080808 100%);
+    pointer-events: none;
+    z-index: 15;
+}
+
+:global([data-theme='light']) .sectionBridge {
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            #fffdf9 100%);
 }
 
 .contentWrapper {
@@ -367,47 +439,6 @@ html {
     }
 }
 
-/* .headline,
-.headlineAccent {
-    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
-    font-size: 6.2rem;
-    font-weight: 550;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    margin: 72px 0 18px 0;
-    background: white;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow:
-        0 0 40px rgba(30, 10, 100, 0),
-        0 0 80px rgba(20, 50, 255, 0),
-        0 0 120px rgba(120, 20, 255, 0),
-        0 0 160px rgba(220, 0, 200, 0),
-        0 0 200px rgba(255, 0, 100, 0);
-    animation: glowReveal 1.5s ease-out forwards;
-    animation-delay: 4s;
-}
-
-@keyframes glowReveal {
-    from {
-        text-shadow:
-            0 0 40px rgba(30, 10, 100, 0),
-            0 0 80px rgba(20, 50, 255, 0),
-            0 0 120px rgba(120, 20, 255, 0),
-            0 0 160px rgba(220, 0, 200, 0),
-            0 0 200px rgba(255, 0, 100, 0);
-    }
-
-    to {
-        text-shadow:
-            0 0 40px rgba(30, 10, 100, 0.6),
-            0 0 80px rgba(20, 50, 255, 0.4),
-            0 0 120px rgba(120, 20, 255, 0.3),
-            0 0 160px rgba(220, 0, 200, 0.25),
-            0 0 200px rgba(255, 0, 100, 0.2);
-    }
-} */
 
 :global([data-theme='light']) .headline {
     background: none;
@@ -560,7 +591,6 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1000px;
     /* REMOVED overflow: hidden, borders, and shadows here so cards can stack and spread out */
 }
 
@@ -609,7 +639,6 @@ html {
     display: flex;
     align-items: center;
     z-index: 50;
-    /* Increased to stay above stacked cards */
     pointer-events: none;
     max-width: 360px;
 }
@@ -875,6 +904,20 @@ html {
     position: relative;
 }
 
+.stickyContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom,
+            #080808 0%,
+            transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
 /* LEFT PANEL - STICKY TITLES */
 .stickyPanel {
     position: -webkit-sticky;
@@ -896,6 +939,21 @@ html {
 .stickyTitleGroup {
     display: flex;
     flex-direction: column;
+}
+
+.inactiveShadowMask {
+    text-shadow: 
+        1px 1px 0 var(--home-bg),
+        -1px 1px 0 var(--home-bg),
+        1px -1px 0 var(--home-bg),
+        -1px -1px 0 var(--home-bg),
+        0 2px 0 var(--home-bg),
+        0 -2px 0 var(--home-bg),
+        2px 0 0 var(--home-bg),
+        -2px 0 0 var(--home-bg),
+        0 0 12px var(--home-bg),
+        0 0 24px var(--home-bg),
+        0 0 40px var(--home-bg);
 }
 
 .stickySubtextWrap {
@@ -1989,61 +2047,6 @@ html {
     overflow: hidden;
 }
 
-.prismGridBg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, .042) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .042) 1px, transparent 1px);
-    background-size: 44px 44px;
-    mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, black 25%, transparent 100%);
-}
-
-.prismHeroHeader {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.prismLivePill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 11px;
-    border-radius: 999px;
-    background: rgba(16, 185, 129, .11);
-    border: 1px solid rgba(16, 185, 129, .24);
-    font-size: .62rem;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: #10b981;
-}
-
-.prismLiveDot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #10b981;
-    box-shadow: 0 0 0 2px rgba(16, 185, 129, .28);
-    animation: livePulse 2s ease-in-out infinite;
-}
-
-@keyframes livePulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: .4;
-    }
-}
 
 .prismHeroEye {
     font-size: .63rem;
@@ -2051,24 +2054,6 @@ html {
     letter-spacing: .10em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, .28);
-}
-
-/* Ghost background word */
-.prismGhostWord {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
-    font-size: clamp(2.8rem, 6vw, 6.8rem);
-    font-weight: 900;
-    letter-spacing: -.04em;
-    white-space: nowrap;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, .055);
-    pointer-events: none;
-    user-select: none;
 }
 
 /* Morphing orb */
@@ -2197,20 +2182,6 @@ html {
     background: rgba(34, 211, 238, .08);
 }
 
-.prismHeroProgress {
-    height: 2px;
-    background: rgba(255, 255, 255, .08);
-    border-radius: 999px;
-    overflow: hidden;
-    margin-top: 4px;
-}
-
-.prismHeroProgressFill {
-    height: 100%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, rgba(34, 211, 238, .80), rgba(250, 204, 21, .70));
-    width: 0%;
-}
 
 /* ================================================================
    CARD D — Mini player
@@ -2410,10 +2381,6 @@ html {
     .prismOrbWrap {
         width: 155px;
         height: 155px;
-    }
-
-    .prismGhostWord {
-        font-size: 2.6rem;
     }
 
     .prismWordmark {
@@ -4025,10 +3992,7 @@ html {
 ======================================== */
 .banigHeroWrapper {
     position: relative;
-    width: 100vw;
-    max-width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
