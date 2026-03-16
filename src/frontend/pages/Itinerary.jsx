@@ -795,6 +795,7 @@ export default function ItineraryPage() {
     }, [dayCount, currentDay]);
 
     useEffect(() => {
+        // Pre-load images
         if (!allSpots?.features?.length) return;
         const uniqueImages = new Set();
         allSpots.features.forEach(feature => {
