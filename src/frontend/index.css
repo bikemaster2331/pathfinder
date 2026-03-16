@@ -413,6 +413,10 @@ body:not(.homepage-active)::-webkit-scrollbar {
     display: none;
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 html,
 body {
     background-color: var(--app-bg);
