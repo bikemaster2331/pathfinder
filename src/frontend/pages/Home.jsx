@@ -20,7 +20,7 @@ const IMAGE_NAMES = imageEntries.map(([path]) => {
     return name.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 });
 
-// ─── ANGLED CAROUSEL VARIANTS ───────────────────────────────────────────────
+
 const angledVariants = {
     animate: (offset) => {
         const isCenter = offset === 0;
@@ -63,7 +63,7 @@ const INACTIVE_STICKY_OPACITY = 0.1;
 const ACTIVE_STICKY_SCALE = 1.5;
 const INACTIVE_STICKY_SCALE = 0.6;
 
-// ─── SOCIAL ICONS ────────────────────────────────────────────────────────────
+
 const FacebookIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -90,7 +90,7 @@ const TwitterXIcon = () => (
     </svg>
 );
 
-// ─── TECH STACK ICONS ────────────────────────────────────────────────────────
+
 const TechReactIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="1.7" fill="currentColor" />
@@ -146,15 +146,13 @@ const TECH_STACK = [
     { name: 'JavaScript', color: '#F7DF1E', Icon: TechJavaScriptIcon },
 ];
 
-// ─── REPLACE the entire ReviewsBento function in Home.jsx with this ──────────
-// No new imports needed — uses existing: motion, useState, useEffect, styles, IMAGES
 
 const ReviewsBento = () => {
     const portraitImage = IMAGES[3] ?? IMAGES[1] ?? IMAGES[0];
     const albumImage = IMAGES[6] ?? IMAGES[2] ?? IMAGES[0];
     const wideImage = IMAGES[1] ?? IMAGES[0];
 
-    // ── Cycling destination text ───────────────────────────────────────────
+
     const DESTS = [
         { name: 'Puraran Beach', tag: 'Surf' },
         { name: 'Binurong Point', tag: 'Trek' },
@@ -177,7 +175,7 @@ const ReviewsBento = () => {
         return () => clearInterval(t);
     }, []);
 
-    // ── Count-up for stat ──────────────────────────────────────────────────
+
     const [count, setCount] = useState(0);
     useEffect(() => {
         let raf;
@@ -192,7 +190,7 @@ const ReviewsBento = () => {
         return () => cancelAnimationFrame(raf);
     }, []);
 
-    // ── Progress bar animation reset ──────────────────────────────────────
+
     const [progress, setProgress] = useState(0);
     useEffect(() => {
         setProgress(0);
@@ -279,23 +277,7 @@ const ReviewsBento = () => {
                         viewport={{ once: true, amount: 0.15 }}
                         transition={{ duration: 0.65, delay: 0.05 }}
                     >
-                        <div className={styles.prismAuroraB} aria-hidden="true" />
-                        <div className={styles.prismGridBg} aria-hidden="true" />
-                        <div className={styles.prismNoise} aria-hidden="true" />
 
-                        {/* Header */}
-                        <div className={styles.prismHeroHeader}>
-                            <span className={styles.prismLivePill}>
-                                <span className={styles.prismLiveDot} />
-                                Live
-                            </span>
-                            <span className={styles.prismHeroEye}>Now Exploring</span>
-                        </div>
-
-                        {/* Ghost word */}
-                        <div className={styles.prismGhostWord} aria-hidden="true">
-                            CATANDUANES
-                        </div>
 
                         {/* Morphing orb */}
                         <div className={styles.prismOrbWrap} aria-hidden="true">
@@ -326,16 +308,6 @@ const ReviewsBento = () => {
                                 >
                                     {DESTS[destIdx].tag}
                                 </span>
-                            </div>
-                            {/* Thin progress bar */}
-                            <div className={styles.prismHeroProgress}>
-                                <div
-                                    className={styles.prismHeroProgressFill}
-                                    style={{
-                                        width: `${progress}%`,
-                                        transition: progress === 100 ? 'width 2.5s linear' : 'none',
-                                    }}
-                                />
                             </div>
                         </div>
                     </motion.div>
@@ -393,7 +365,7 @@ const ReviewsBento = () => {
     );
 };
 
-// ─── TYPEWRITER COMPONENT ────────────────────────────────────────────────────
+
 const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag = 'p', style }) => {
     const [displayed, setDisplayed] = useState('');
     const [started, setStarted] = useState(false);
@@ -457,9 +429,199 @@ const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag
     );
 };
 
-// ─── HOME COMPONENT ──────────────────────────────────────────────────────────
+
+const Constellation = () => {
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let animId;
+
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = canvas.parentElement?.offsetHeight || window.innerHeight * 3;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        const STARS = [
+            { x: 0.08, y: 0.12 },
+            { x: 0.22, y: 0.28 },
+            { x: 0.41, y: 0.18 },
+            { x: 0.55, y: 0.38 },
+            { x: 0.68, y: 0.22 },
+            { x: 0.78, y: 0.45 },
+            { x: 0.88, y: 0.32 },
+            { x: 0.62, y: 0.58 },
+            { x: 0.35, y: 0.65 },
+            { x: 0.15, y: 0.52 },
+            { x: 0.25, y: 0.78 },
+            { x: 0.50, y: 0.82 },
+            { x: 0.75, y: 0.72 },
+            { x: 0.90, y: 0.85 },
+        ];
+
+        const totalSegments = STARS.length - 1;
+        const TIME_PER_SEGMENT = 900;   // ms per segment
+        const GLOW_HOLD = 2200;         // ms to hold the full glow
+        const FADE_OUT = 1000;          // ms to fade out before reset
+        const LOOP_DURATION = (TIME_PER_SEGMENT * totalSegments) + GLOW_HOLD + FADE_OUT;
+
+        const draw = (t) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const W = canvas.width;
+            const H = canvas.height;
+            const pts = STARS.map(s => ({ x: s.x * W, y: s.y * H }));
+
+            const elapsed = t % LOOP_DURATION;
+            const drawPhaseEnd = TIME_PER_SEGMENT * totalSegments;
+            const glowPhaseEnd = drawPhaseEnd + GLOW_HOLD;
+
+            // ── Phases ──
+            const isDrawing   = elapsed < drawPhaseEnd;
+            const isGlowing   = elapsed >= drawPhaseEnd && elapsed < glowPhaseEnd;
+            const isFadingOut = elapsed >= glowPhaseEnd;
+
+            // ── Smoother Transitions ──
+            // 1. Glow Factor (0 to 1) for ramping up/down during GLOW_HOLD
+            let glowFactor = 0;
+            if (isGlowing) {
+                const ramp = 600; // duration of ramp up/down
+                if (elapsed < drawPhaseEnd + ramp) {
+                    glowFactor = (elapsed - drawPhaseEnd) / ramp;
+                } else if (elapsed > glowPhaseEnd - ramp) {
+                    glowFactor = (glowPhaseEnd - elapsed) / ramp;
+                } else {
+                    glowFactor = 1;
+                }
+            }
+
+            // 2. Smoother Global Alpha for FADE_OUT (using ease-in-out curve)
+            let globalAlpha = 1;
+            if (isFadingOut) {
+                const fadeNorm = (elapsed - glowPhaseEnd) / FADE_OUT;
+                // Cubic ease out: 1 - x^3
+                globalAlpha = 1 - Math.pow(fadeNorm, 3);
+            }
+            ctx.globalAlpha = Math.max(0, globalAlpha);
+
+            // ── Progress logic ──
+            let drawn = totalSegments;
+            let progress = 1;
+
+            if (isDrawing) {
+                const segIndex = Math.floor(elapsed / TIME_PER_SEGMENT);
+                const segProgress = (elapsed % TIME_PER_SEGMENT) / TIME_PER_SEGMENT;
+                drawn = segIndex;
+                progress = segProgress;
+            }
+
+            // ── Draw stars ──
+            pts.forEach((p, i) => {
+                const pulse = 0.6 + Math.sin(t * 0.001 + i * 1.2) * 0.4;
+                const glowBoost = 1 + (glowFactor * 1.5);
+                const r = (i === 0 ? 3 : 2) * pulse;
+
+                const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 5 * glowBoost);
+                grd.addColorStop(0, `rgba(255,255,255,${0.7 * pulse})`);
+                grd.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, r * 5 * glowBoost, 0, Math.PI * 2);
+                ctx.fillStyle = grd;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${0.9 * pulse})`;
+                ctx.fill();
+            });
+
+            // ── Line style interpolation ──
+            const lineOpacity  = 0.2 + (glowFactor * 0.5);
+            const lineWidth    = 0.8 + (glowFactor * 0.7);
+            const lineDash     = glowFactor > 0.4 ? [] : [4, 6];
+            const lineColor    = `rgba(${255 - glowFactor * 75}, ${255 - glowFactor * 45}, 255, ${lineOpacity})`;
+
+            ctx.setLineDash(lineDash);
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = lineWidth;
+
+            for (let i = 0; i < drawn; i++) {
+                ctx.beginPath();
+                ctx.moveTo(pts[i].x, pts[i].y);
+                ctx.lineTo(pts[i + 1].x, pts[i + 1].y);
+                ctx.stroke();
+            }
+
+            // ── Active growing segment ──
+            if (isDrawing && drawn < totalSegments) {
+                const from = pts[drawn];
+                const to   = pts[drawn + 1];
+                const cx   = from.x + (to.x - from.x) * progress;
+                const cy   = from.y + (to.y - from.y) * progress;
+
+                ctx.setLineDash([]);
+                ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                ctx.lineTo(cx, cy);
+                ctx.stroke();
+
+                // Travelling dot
+                const dotGrd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 7);
+                dotGrd.addColorStop(0, 'rgba(255,255,255,0.95)');
+                dotGrd.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.beginPath();
+                ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+                ctx.fillStyle = dotGrd;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(cx, cy, 2, 0, Math.PI * 2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+            }
+
+            ctx.globalAlpha = 1;
+            animId = requestAnimationFrame(draw);
+        };
+
+        animId = requestAnimationFrame(draw);
+        return () => {
+            cancelAnimationFrame(animId);
+            window.removeEventListener('resize', resize);
+        };
+    }, []);
+
+    return (
+        <canvas
+            ref={canvasRef}
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                zIndex: 0,          // behind everything
+                pointerEvents: 'none',
+                mixBlendMode: 'screen',
+            }}
+        />
+    );
+};
+
+
 export default function Home() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.body.classList.add('homepage-active');
+        return () => document.body.classList.remove('homepage-active');
+    }, []);
 
     const guideRef = useRef(null);
     const reviewsRef = useRef(null);
@@ -476,7 +638,7 @@ export default function Home() {
     const [activeCreator, setActiveCreator] = useState(null);
 
 
-    // ── Intersection observer for section tracking + past-section marking ──
+
     useEffect(() => {
         const options = {
             root: null,
@@ -511,25 +673,18 @@ export default function Home() {
         };
     }, []);
 
-    // ── Helpers ───────────────────────────────────────────────────────────
+
     const getStickyTitleAnimation = (sectionId) => {
         const isActive = activeSection === sectionId;
         return {
-            opacity: isActive ? ACTIVE_STICKY_OPACITY : INACTIVE_STICKY_OPACITY,
+            color: isActive 
+                ? 'rgba(var(--home-text-rgb), 1)' 
+                : 'rgba(var(--home-text-rgb), 0.1)',
             scale: isActive ? ACTIVE_STICKY_SCALE : INACTIVE_STICKY_SCALE,
         };
     };
 
-    // Returns the opacity the dim overlay should have for a given section ID.
-    // A section dims when: it has been scrolled past AND the user is currently
-    // scrolling upward. Both conditions are driven by state → triggers re-renders.
-    const SECTION_ORDER = ['guide', 'reviews', 'collaborate'];
 
-    const getDimOpacity = (id) => {
-        const currentIdx = SECTION_ORDER.indexOf(activeSection);
-        const thisIdx = SECTION_ORDER.indexOf(id);
-        return thisIdx < currentIdx ? 1 : 0;
-    };
 
     const paginate = (newDirection) => {
         setPage([page + newDirection, newDirection]);
@@ -572,15 +727,20 @@ export default function Home() {
     }, [activeTestimonial]);
 
     const glowRefs = useRef([]);
+    const headlineRef = useRef(null);
 
     useEffect(() => {
         const glows = glowRefs.current.filter(Boolean);
-        if (!glows.length) return;
-
+        const headline = headlineRef.current;
+        if (!glows.length || !headline) return;
+        
+        // Initial setup - Force starting state
         gsap.set(glows, { opacity: 0, transform: 'rotate(-35deg) translateY(-60%)' });
-
+        gsap.set(headline, { "--glow-opacity": 0, scale: 1 });
+        
         const tl = gsap.timeline({ repeat: -1 });
-
+        
+        // 1. THE RAYS (Finishes at ~17.4s)
         glows.forEach((el, i) => {
             const start = i * 0.7;
             tl.to(el, {
@@ -596,9 +756,27 @@ export default function Home() {
                 ease: 'power2.in',
             }, start + 2.5);
         });
+    
+        // 2. THE BLOOM 
+        const bloomStart = 15.4; 
 
-        tl.to({}, { duration: 0 }, 20);
+        tl.to(headline, {
+            "--glow-opacity": 1, 
+            scale: 1.05,
+            duration: 2,
+            ease: "power2.out" // Gives it that slight "kick" to start the bloom
+        }, bloomStart);
 
+        // 3. FADE OUT
+        tl.to(headline, {
+            "--glow-opacity": 0,
+            scale: 1, 
+            duration: 2,
+            ease: "sine.inOut" // Smooth, natural retreat
+        }, "+=1");
+    
+        tl.to({}, { duration: 0 }, 21);
+    
         return () => tl.kill();
     }, []);
 
@@ -640,11 +818,33 @@ export default function Home() {
                 />
             ))}
 
+            <div className={styles.starfield} />
+
+
             {/* ══════════════════════════════════════════
                 PAGE 1 — HERO SECTION
             ══════════════════════════════════════════ */}
             <main className={styles.heroSection}>
                 <div className={styles.banigHeroWrapper}>
+                    <div className={styles.topMetadata}>
+                        <span>PATHFINDER // v1.0.21</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className={styles.metadataIcon}
+                        >
+                            <path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999" />
+                            <path d="M15.973 4.027A13 13 0 0 0 5.902 2.373c-1.398.342-1.092 2.158.277 2.601a19.9 19.9 0 0 1 5.822 3.024" />
+                            <path d="M16.001 11.999a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069" />
+                            <path d="M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z" />
+                        </svg>
+                    </div>
+
                     <div className={styles.banigHeroBackground} />
                     <motion.div
                         variants={staggerContainer}
@@ -652,15 +852,18 @@ export default function Home() {
                         animate="visible"
                         className={styles.contentWrapper}
                     >
-                        <motion.h1 variants={fadeInUp} custom={0} className={styles.headline}>
-                            Explore with
-                            <br />
-                            <span className={styles.headlineAccent}> every click.</span>
-                        </motion.h1>
+                        <motion.div variants={fadeInUp} custom={0} className={styles.headlineWrapper}>
+                            <h1 ref={headlineRef} className={styles.headline}>
+                                Explore with
+                                <br />
+                                <span className={styles.headlineAccent}> every click.</span>
+                            </h1>
+
+                        </motion.div>
 
                         <motion.p variants={fadeInUp} custom={0.12} className={styles.subheadline}>
                             Pathfinder is the AI travel guide for Catanduanes. <br />
-                            Make personalized itineraries, find hidden spots. <br />
+                            Make personalized itineraries or find hidden spots. <br />
                             Plan your entire trip with real-time local data.
                         </motion.p>
 
@@ -797,16 +1000,21 @@ export default function Home() {
                 </motion.section>
             </main>
 
+            <div className={styles.sectionBridge} />
+
             {/* ══════════════════════════════════════════
                 STICKY SCROLL SECTIONS
             ══════════════════════════════════════════ */}
+
             <div className={styles.stickyContainer}>
+                <div className={styles.starfieldPersistent} aria-hidden="true" />
+                <Constellation />
 
                 {/* ── LEFT PANEL — sticky titles ── */}
                 <div className={styles.stickyPanel}>
                     <motion.div className={styles.stickyContent} layout>
                         <motion.div className={styles.stickyTitleGroup} layout transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
-                            <motion.h2 className={styles.stickyTitle} animate={getStickyTitleAnimation('guide')} transition={{ duration: 0.15 }}>
+                            <motion.h2 className={`${styles.stickyTitle} ${activeSection !== 'guide' ? styles.inactiveShadowMask : ''}`} animate={getStickyTitleAnimation('guide')} transition={{ duration: 0.15 }}>
                                 AI-Powered<br />Guide
                             </motion.h2>
                             <motion.div
@@ -825,7 +1033,7 @@ export default function Home() {
                         </motion.div>
 
                         <motion.div className={styles.stickyTitleGroup} layout animate={{ marginTop: (activeSection === 'guide' || activeSection === 'reviews') ? 40 : 12 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
-                            <motion.h2 className={styles.stickyTitle} animate={getStickyTitleAnimation('reviews')} transition={{ duration: 0.15 }}>
+                            <motion.h2 className={`${styles.stickyTitle} ${activeSection !== 'reviews' ? styles.inactiveShadowMask : ''}`} animate={getStickyTitleAnimation('reviews')} transition={{ duration: 0.15 }}>
                                 What's<br />Beyond
                             </motion.h2>
                             <motion.div
@@ -844,7 +1052,7 @@ export default function Home() {
                         </motion.div>
 
                         <motion.div className={styles.stickyTitleGroup} layout animate={{ marginTop: (activeSection === 'reviews' || activeSection === 'collaborate') ? 40 : 12 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
-                            <motion.h2 className={styles.stickyTitle} animate={getStickyTitleAnimation('collaborate')} transition={{ duration: 0.15 }}>
+                            <motion.h2 className={`${styles.stickyTitle} ${activeSection !== 'collaborate' ? styles.inactiveShadowMask : ''}`} animate={getStickyTitleAnimation('collaborate')} transition={{ duration: 0.15 }}>
                                 Work<br />With Us
                             </motion.h2>
                             <motion.div
@@ -871,17 +1079,6 @@ export default function Home() {
                         SECTION 1: GUIDE
                     ══════════════════════════════════ */}
                     <div id="guide" ref={guideRef} className={styles.scrollSection} style={{ position: 'relative' }}>
-                        {/*
-                            Dim overlay — only visible when the user has scrolled past this
-                            section AND is currently scrolling back up. Both conditions are
-                            pure React state, so Framer Motion correctly re-evaluates them.
-                        */}
-                        <motion.div
-                            className={styles.sectionDimOverlay}
-                            animate={{ opacity: getDimOpacity('guide') }}
-                            transition={{ duration: 0.35 }}
-                            style={{ pointerEvents: 'none' }}
-                        />
 
                         <div className={styles.guideShowcase}>
                             <motion.div
@@ -963,12 +1160,6 @@ export default function Home() {
                         SECTION 2: REVIEWS
                     ══════════════════════════════════ */}
                     <div id="reviews" ref={reviewsRef} className={styles.scrollSection} style={{ position: 'relative' }}>
-                        <motion.div
-                            className={styles.sectionDimOverlay}
-                            animate={{ opacity: getDimOpacity('reviews') }}
-                            transition={{ duration: 0.35 }}
-                            style={{ pointerEvents: 'none' }}
-                        />
                         <ReviewsBento />
                     </div>
 
@@ -976,12 +1167,6 @@ export default function Home() {
                         SECTION 3: COLLABORATE
                     ══════════════════════════════════ */}
                     <div id="collaborate" ref={collaborateRef} className={styles.scrollSection} style={{ position: 'relative' }}>
-                        <motion.div
-                            className={styles.sectionDimOverlay}
-                            animate={{ opacity: getDimOpacity('collaborate') }}
-                            transition={{ duration: 0.35 }}
-                            style={{ pointerEvents: 'none' }}
-                        />
                         <div className={styles.contributeLayout}>
                             <motion.p
                                 className={styles.contributeNote}
