@@ -134,7 +134,8 @@ const Map = forwardRef((props, ref) => {
         addedSpots,
         budgetFilter,
         isMenuOpen,
-        onToggleMenu
+        onToggleMenu,
+        isInitialTripboxCompleted
     } = props;
 
     const mapContainer = useRef(null);
@@ -352,14 +353,17 @@ const Map = forwardRef((props, ref) => {
             lastHubRef.current = `${selectedHub.name}_${selectedHub.coordinates[0]}_${selectedHub.coordinates[1]}`;
         }
 
-        map.current.flyTo({
-            center: selectedHub.coordinates,
-            zoom: 11,
-            speed: 1.2,
-            curve: 1
-        });
 
-    }, [selectedHub, isLoaded]);
+        if (!isInitialTripboxCompleted) {
+            map.current.flyTo({
+                center: selectedHub.coordinates,
+                zoom: 11,
+                speed: 1.2,
+                curve: 1
+            });
+        }
+
+    }, [selectedHub, isLoaded, isInitialTripboxCompleted]);
 
     useEffect(() => {
         if (!isLoaded || !map.current) return;
