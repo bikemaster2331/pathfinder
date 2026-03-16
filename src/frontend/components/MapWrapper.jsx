@@ -371,6 +371,7 @@ const MapWrapper = forwardRef((props, ref) => {
                     onToggleMapFullscreen={onToggleMapFullscreen}
                     isMenuOpen={isMenuOpen}
                     onToggleMenu={handleMenuToggle}
+                    isInitialTripboxCompleted={hasCompletedInitialTripbox}
                 />
             </div>
             <div
