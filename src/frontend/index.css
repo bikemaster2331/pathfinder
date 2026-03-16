@@ -8,11 +8,12 @@
     --app-bg: #f8fafc;
     --app-text: #0b0b0b;
 
-    /* Home page */
+
     --home-bg: #eee7ef;
     --home-surface: #ffffff;
     --home-surface-subtle: rgba(102, 102, 102, 0.75);
     --home-text: #0b0b0b;
+    --home-text-rgb: 11, 11, 11;
     --home-muted: #475569;
     --home-muted-2: #64748b;
     --home-border: #e2e8f0;
@@ -28,7 +29,7 @@
     --home-nav-arrow-bg-hover: rgba(102, 102, 102, 0.75);
     --home-nav-arrow-border-hover: rgba(15, 23, 42, 0.18);
 
-    /* Navbar */
+
     --navbar-glass: rgba(255, 255, 255, 0.6);
     --navbar-glass-strong: rgba(255, 255, 255, 0.4);
     --navbar-border: rgba(15, 23, 42, 0.06);
@@ -42,7 +43,7 @@
     --navbar-toggle-track: #0f172a;
     --navbar-toggle-thumb: #ffffff;
 
-    /* Footer: About */
+
     --footer-about-bg: #f8fafc;
     --footer-about-text: #0b0b0b;
     --footer-about-muted: #475569;
@@ -50,7 +51,7 @@
     --footer-about-border: #e2e8f0;
     --footer-about-surface: #ffffff;
 
-    /* Footer: Contact */
+
     --footer-contact-bg: #f8fafc;
     --footer-contact-text: #0b0b0b;
     --footer-contact-muted: #475569;
@@ -58,7 +59,7 @@
     --footer-contact-border: #e2e8f0;
     --footer-contact-surface: #ffffff;
 
-    /* Footer: Creators */
+
     --footer-creators-bg: #f8fafc;
     --footer-creators-text: #0b0b0b;
     --footer-creators-muted: #475569;
@@ -66,7 +67,7 @@
     --footer-creators-border: #e2e8f0;
     --footer-creators-surface: #ffffff;
 
-    /* Itinerary page */
+
     --itinerary-bg: var(--map-style-bg);
     --itinerary-grid-line: rgba(15, 23, 42, 0.04);
     --itinerary-surface: #ffffff;
@@ -78,7 +79,7 @@
     --itinerary-glass: rgba(255, 255, 255, 0.75);
     --itinerary-slider-track: #cbd5e1;
 
-    /* Itinerary: Chatbot */
+
     --itinerary-chat-glass: rgba(255, 255, 255, 0.75);
     --itinerary-chat-glass-strong: rgba(255, 255, 255, 0.4);
     --itinerary-chat-border: #e2e8f0;
@@ -89,7 +90,7 @@
     --itinerary-chat-surface: #ffffff;
     --itinerary-chat-surface-subtle: rgba(102, 102, 102, 0.75);
 
-    /* Itinerary: Map wrapper */
+
     --itinerary-map-panel-bg: rgba(255, 255, 255, 0.92);
     --itinerary-map-panel-border: #e2e8f0;
     --itinerary-map-panel-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
@@ -113,13 +114,13 @@
     --itinerary-map-surface: #ffffff;
     --itinerary-map-overlay: rgba(15, 23, 42, 0.08);
 
-    /* Itinerary: Map popups */
+
     --itinerary-map-popup-bg: #ffffff;
     --itinerary-map-popup-text: #0f172a;
     --itinerary-map-popup-border: #e2e8f0;
     --itinerary-map-popup-shadow: rgba(15, 23, 42, 0.15);
 
-    /* Itinerary: Card */
+
     --itinerary-card-panel-bg: #d5dbe3;
     --itinerary-card-border: #c2c9d3;
     --itinerary-card-text: #0b0b0b;
@@ -190,7 +191,7 @@
     --itinerary-walletlabel-text: #0b0b0b;
     --itinerary-walletlabel-text: rgba(15, 23, 42, 0.9);
 
-    /* Map component style */
+
     --map-style-bg: #e8efe5;
     --map-style-land: #1f4d3a;
     --map-style-border: #123625;
@@ -206,11 +207,12 @@
     --app-bg: #0a0a0a;
     --app-text: #ffffff;
 
-    /* Home page */
+
     --home-bg: #0a0a0a;
     --home-surface: #111111;
     --home-surface-subtle: #1a1a1a;
     --home-text: #ffffff;
+    --home-text-rgb: 255, 255, 255;
     --home-muted: #94a3b8;
     --home-muted-2: #64748b;
     --home-border: rgba(255, 255, 255, 0.12);
@@ -405,9 +407,9 @@
 }
 
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
+
+html:not(.homepage-active)::-webkit-scrollbar,
+body:not(.homepage-active)::-webkit-scrollbar {
     display: none;
 }
 
@@ -421,6 +423,33 @@ body {
     height: 100%;
     overflow-x: hidden;
     -ms-overflow-style: none;
+}
+
+.homepage-active {
+    scrollbar-width: auto;
+    scrollbar-color: #6d6d6d #151515;
+}
+
+.homepage-active::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+}
+
+.homepage-active::-webkit-scrollbar-track {
+    background: #444; 
+}
+
+.homepage-active::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 0;
+}
+
+.homepage-active::-webkit-scrollbar-thumb:hover {
+    background: #adadad;
+}
+
+html:not(.homepage-active),
+body:not(.homepage-active) {
     scrollbar-width: none;
 }
 

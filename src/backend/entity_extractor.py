@@ -55,7 +55,6 @@ class EntityExtractor:
             'group_type': self._extract_group_type(query_lower),
             'time_period': self._extract_time_period(query_lower),
             'proximity': self._extract_proximity(query_lower),
-
             'inferred_town': self._infer_municipality(user_input),
             'is_listing': self._detect_listing_intent(user_input, found_places)
         }
@@ -116,17 +115,27 @@ class EntityExtractor:
             'snack shop':     'cafe',
             'bakery shops':   'cafe',
             'bakery shop':    'cafe',
-            'resto bars':     'restaurant',
-            'resto bar':      'restaurant',
+            'resto bars':     'nightlife',
+            'resto bar':      'nightlife',
             'snack bars':     'restaurant',
             'snack bar':      'restaurant',
-            'grill bars':     'restaurant',
-            'grill bar':      'restaurant',
+            'grill bars':     'nightlife',
+            'grill bar':      'nightlife',
+            'ktv bars':       'nightlife',
+            'ktv bar':        'nightlife',
+            'night bars':     'nightlife',
+            'night bar':      'nightlife',
+            'lounge bars':    'nightlife',
+            'lounge bar':     'nightlife',
+            'bar and lounge': 'nightlife',
+            'bars and lounges': 'nightlife',
+            'inuman spots':   'nightlife',
+            'inuman spot':    'nightlife',
         }
 
         cleaned = query_lower
         for phrase, replacement in sorted(COMPOUND_PHRASES.items(),
-                                          key=lambda x: len(x[0]), reverse=True):
+                                        key=lambda x: len(x[0]), reverse=True):
             if phrase in cleaned:
                 cleaned = cleaned.replace(phrase, replacement)
 
@@ -242,7 +251,8 @@ class EntityExtractor:
         plurals = [
             'beaches', 'hotels', 'cafes', 'restaurants', 'falls',
             'resorts', 'waterfalls', 'viewpoints', 'activities',
-            'burgers', 'pizzas', 'coffee shops', 'bars'
+            'burgers', 'pizzas', 'coffee shops', 'bars',
+            'restobars', 'restobar', 'lounges', 'clubs', 'inuman'
         ]
 
         has_plural = any(plural in query_lower for plural in plurals)

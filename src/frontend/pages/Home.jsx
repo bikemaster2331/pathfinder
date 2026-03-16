@@ -6,16 +6,21 @@ import { motion, wrap } from 'framer-motion';
 import SharedNavbar from '../components/navbar';
 import badges from '../assets/images/card/badges.png';
 import mapScreenshot from '../assets/images/card/map.png';
+import gsap from 'gsap';
 
-const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg,svg}', { 
+const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg,svg}', {
     eager: true,
     import: 'default',
 });
 
 const imageEntries = Object.entries(imageModules).sort(([a], [b]) => a.localeCompare(b));
 const IMAGES = imageEntries.map(([, src]) => src);
+const IMAGE_NAMES = imageEntries.map(([path]) => {
+    let name = path.split('/').pop().split('.')[0];
+    return name.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+});
 
-// ─── ANGLED CAROUSEL VARIANTS ───────────────────────────────────────────────
+
 const angledVariants = {
     animate: (offset) => {
         const isCenter = offset === 0;
@@ -58,34 +63,34 @@ const INACTIVE_STICKY_OPACITY = 0.1;
 const ACTIVE_STICKY_SCALE = 1.5;
 const INACTIVE_STICKY_SCALE = 0.6;
 
-// ─── SOCIAL ICONS ────────────────────────────────────────────────────────────
+
 const FacebookIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
     </svg>
 );
 const InstagramIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
     </svg>
 );
 const GitHubIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-        <path d="M12 .296C5.37.296 0 5.666 0 12.297c0 5.302 3.438 9.8 8.206 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.016-2.04-3.338.725-4.042-1.61-4.042-1.61-.546-1.386-1.332-1.755-1.332-1.755-1.09-.745.082-.73.082-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.81 1.305 3.495.998.108-.775.42-1.305.763-1.605-2.665-.304-5.467-1.333-5.467-5.93 0-1.31.467-2.38 1.235-3.22-.124-.304-.535-1.527.117-3.18 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 0 1 3.004-.404 11.5 11.5 0 0 1 3.004.404c2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.876.118 3.18.77.84 1.234 1.91 1.234 3.22 0 4.61-2.807 5.623-5.48 5.92.43.372.814 1.102.814 2.222 0 1.604-.014 2.896-.014 3.29 0 .32.216.694.825.576C20.565 22.092 24 17.596 24 12.297 24 5.666 18.627.296 12 .296z"/>
+        <path d="M12 .296C5.37.296 0 5.666 0 12.297c0 5.302 3.438 9.8 8.206 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.016-2.04-3.338.725-4.042-1.61-4.042-1.61-.546-1.386-1.332-1.755-1.332-1.755-1.09-.745.082-.73.082-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.81 1.305 3.495.998.108-.775.42-1.305.763-1.605-2.665-.304-5.467-1.333-5.467-5.93 0-1.31.467-2.38 1.235-3.22-.124-.304-.535-1.527.117-3.18 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 0 1 3.004-.404 11.5 11.5 0 0 1 3.004.404c2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.876.118 3.18.77.84 1.234 1.91 1.234 3.22 0 4.61-2.807 5.623-5.48 5.92.43.372.814 1.102.814 2.222 0 1.604-.014 2.896-.014 3.29 0 .32.216.694.825.576C20.565 22.092 24 17.596 24 12.297 24 5.666 18.627.296 12 .296z" />
     </svg>
 );
 const YouTubeIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
     </svg>
 );
 const TwitterXIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
 );
 
-// ─── TECH STACK ICONS ────────────────────────────────────────────────────────
+
 const TechReactIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="1.7" fill="currentColor" />
@@ -131,6 +136,8 @@ const TechJavaScriptIcon = () => (
     </svg>
 );
 
+
+
 const TECH_STACK = [
     { name: 'React', color: '#61DAFB', Icon: TechReactIcon },
     { name: 'Python', color: '#3776AB', Icon: TechPythonIcon },
@@ -139,25 +146,23 @@ const TECH_STACK = [
     { name: 'JavaScript', color: '#F7DF1E', Icon: TechJavaScriptIcon },
 ];
 
-// ─── REPLACE the entire ReviewsBento function in Home.jsx with this ──────────
-// No new imports needed — uses existing: motion, useState, useEffect, styles, IMAGES
 
 const ReviewsBento = () => {
     const portraitImage = IMAGES[3] ?? IMAGES[1] ?? IMAGES[0];
-    const albumImage    = IMAGES[6] ?? IMAGES[2] ?? IMAGES[0];
-    const wideImage     = IMAGES[1] ?? IMAGES[0];
+    const albumImage = IMAGES[6] ?? IMAGES[2] ?? IMAGES[0];
+    const wideImage = IMAGES[1] ?? IMAGES[0];
 
-    // ── Cycling destination text ───────────────────────────────────────────
+
     const DESTS = [
-        { name: 'Puraran Beach',    tag: 'Surf' },
-        { name: 'Binurong Point',   tag: 'Trek' },
-        { name: 'Twin Rock Beach',  tag: 'Swim' },
-        { name: 'Batalay Cove',     tag: 'Dive' },
-        { name: 'Maribina Falls',   tag: 'Hike' },
-        { name: 'Bato Church',      tag: 'Tour' },
+        { name: 'Puraran Beach', tag: 'Surf' },
+        { name: 'Binurong Point', tag: 'Trek' },
+        { name: 'Twin Rock Beach', tag: 'Swim' },
+        { name: 'Batalay Cove', tag: 'Dive' },
+        { name: 'Maribina Falls', tag: 'Hike' },
+        { name: 'Bato Church', tag: 'Tour' },
     ];
     const [destIdx, setDestIdx] = useState(0);
-    const [fading, setFading]   = useState(false);
+    const [fading, setFading] = useState(false);
 
     useEffect(() => {
         const t = setInterval(() => {
@@ -170,7 +175,7 @@ const ReviewsBento = () => {
         return () => clearInterval(t);
     }, []);
 
-    // ── Count-up for stat ──────────────────────────────────────────────────
+
     const [count, setCount] = useState(0);
     useEffect(() => {
         let raf;
@@ -185,7 +190,7 @@ const ReviewsBento = () => {
         return () => cancelAnimationFrame(raf);
     }, []);
 
-    // ── Progress bar animation reset ──────────────────────────────────────
+
     const [progress, setProgress] = useState(0);
     useEffect(() => {
         setProgress(0);
@@ -211,7 +216,7 @@ const ReviewsBento = () => {
                         transition={{ duration: 0.55 }}
                     >
                         <div className={styles.prismAuroraA} aria-hidden="true" />
-                        <div className={styles.prismNoise}   aria-hidden="true" />
+                        <div className={styles.prismNoise} aria-hidden="true" />
 
                         <div className={styles.prismBrandTopRow}>
                             <span className={styles.prismEyebrow}>AI Travel</span>
@@ -219,23 +224,16 @@ const ReviewsBento = () => {
                         </div>
 
                         <div className={styles.prismWordmark}>
-                            <span>PATH</span>
-                            <span>FINDER</span>
+                            <span>EXPLORE</span>
                         </div>
 
                         <div className={styles.prismBrandBottom}>
                             <span className={styles.prismLocLine}>
-                                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}}>
-                                    <path d="M20 10c0 6-8 13-8 13s-8-7-8-13a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                                    <path d="M20 10c0 6-8 13-8 13s-8-7-8-13a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="3" />
                                 </svg>
                                 Catanduanes, PH
                             </span>
-                            <div className={styles.prismSwatches}>
-                                <span style={{ background: '#ff6d52' }} />
-                                <span style={{ background: '#ffc35a' }} />
-                                <span style={{ background: '#53d8e6' }} />
-                                <span style={{ background: '#4f8dff' }} />
-                            </div>
                         </div>
                     </motion.div>
 
@@ -279,23 +277,7 @@ const ReviewsBento = () => {
                         viewport={{ once: true, amount: 0.15 }}
                         transition={{ duration: 0.65, delay: 0.05 }}
                     >
-                        <div className={styles.prismAuroraB}  aria-hidden="true" />
-                        <div className={styles.prismGridBg}   aria-hidden="true" />
-                        <div className={styles.prismNoise}    aria-hidden="true" />
 
-                        {/* Header */}
-                        <div className={styles.prismHeroHeader}>
-                            <span className={styles.prismLivePill}>
-                                <span className={styles.prismLiveDot} />
-                                Live
-                            </span>
-                            <span className={styles.prismHeroEye}>Now Exploring</span>
-                        </div>
-
-                        {/* Ghost word */}
-                        <div className={styles.prismGhostWord} aria-hidden="true">
-                            CATANDUANES
-                        </div>
 
                         {/* Morphing orb */}
                         <div className={styles.prismOrbWrap} aria-hidden="true">
@@ -306,7 +288,6 @@ const ReviewsBento = () => {
 
                         {/* Footer — cycling destination */}
                         <div className={styles.prismHeroFooter}>
-                            <span className={styles.prismHeroDestLabel}>Destination</span>
                             <div className={styles.prismHeroDestRow}>
                                 <span
                                     className={styles.prismHeroDestName}
@@ -328,16 +309,6 @@ const ReviewsBento = () => {
                                     {DESTS[destIdx].tag}
                                 </span>
                             </div>
-                            {/* Thin progress bar */}
-                            <div className={styles.prismHeroProgress}>
-                                <div
-                                    className={styles.prismHeroProgressFill}
-                                    style={{
-                                        width: `${progress}%`,
-                                        transition: progress === 100 ? 'width 2.5s linear' : 'none',
-                                    }}
-                                />
-                            </div>
                         </div>
                     </motion.div>
 
@@ -350,33 +321,6 @@ const ReviewsBento = () => {
                         transition={{ duration: 0.5, delay: 0.14 }}
                     >
                         <div className={styles.prismNoise} aria-hidden="true" />
-
-                        <div className={styles.prismPlayerRow}>
-                            <div className={styles.prismPlayerThumb}>
-                                <img src={albumImage} alt="destination" />
-                            </div>
-                            <div className={styles.prismPlayerMeta}>
-                                <span className={styles.prismPlayerTitle}>Virac, Catanduanes</span>
-                                <span className={styles.prismPlayerSub}>Top pick today</span>
-                            </div>
-                            <span className={styles.prismPlayerStar} aria-hidden="true">✦</span>
-                        </div>
-
-                        <div className={styles.prismPlayerTrack}>
-                            <div className={styles.prismPlayerFill} />
-                        </div>
-
-                        <div className={styles.prismPlayerCtrl}>
-                            <button type="button" aria-label="Previous">
-                                <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-                            </button>
-                            <button type="button" className={styles.prismPlayerPlayBtn} aria-label="Play">
-                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                            </button>
-                            <button type="button" aria-label="Next">
-                                <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/></svg>
-                            </button>
-                        </div>
                     </motion.div>
                 </div>
 
@@ -395,10 +339,6 @@ const ReviewsBento = () => {
                     >
                         <img src={portraitImage} alt="Catanduanes scenery" className={styles.prismPhotoImg} />
                         <div className={styles.prismPhotoVignette} aria-hidden="true" />
-                        <div className={styles.prismPhotoOverlay}>
-                            <span className={styles.prismPhotoTag}>Featured</span>
-                            <span className={styles.prismPhotoPlace}>Catanduanes</span>
-                        </div>
                     </motion.div>
 
                     {/* Card F — CTA */}
@@ -409,17 +349,14 @@ const ReviewsBento = () => {
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.5, delay: 0.18 }}
                     >
-                        <div className={styles.prismAuroraC}  aria-hidden="true" />
-                        <div className={styles.prismNoise}    aria-hidden="true" />
+                        <div className={styles.prismAuroraC} aria-hidden="true" />
+                        <div className={styles.prismNoise} aria-hidden="true" />
 
                         <span className={styles.prismCtaNum}>{count}+</span>
                         <span className={styles.prismCtaSub}>Destinations</span>
                         <p className={styles.prismCtaCopy}>
                             Explore the island with AI-powered itineraries.
                         </p>
-                        <button type="button" className={styles.prismCtaBtn}>
-                            Plan Trip Now
-                        </button>
                     </motion.div>
                 </div>
 
@@ -428,7 +365,7 @@ const ReviewsBento = () => {
     );
 };
 
-// ─── TYPEWRITER COMPONENT ────────────────────────────────────────────────────
+
 const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag = 'p', style }) => {
     const [displayed, setDisplayed] = useState('');
     const [started, setStarted] = useState(false);
@@ -492,9 +429,199 @@ const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag
     );
 };
 
-// ─── HOME COMPONENT ──────────────────────────────────────────────────────────
+
+const Constellation = () => {
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let animId;
+
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = canvas.parentElement?.offsetHeight || window.innerHeight * 3;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        const STARS = [
+            { x: 0.08, y: 0.12 },
+            { x: 0.22, y: 0.28 },
+            { x: 0.41, y: 0.18 },
+            { x: 0.55, y: 0.38 },
+            { x: 0.68, y: 0.22 },
+            { x: 0.78, y: 0.45 },
+            { x: 0.88, y: 0.32 },
+            { x: 0.62, y: 0.58 },
+            { x: 0.35, y: 0.65 },
+            { x: 0.15, y: 0.52 },
+            { x: 0.25, y: 0.78 },
+            { x: 0.50, y: 0.82 },
+            { x: 0.75, y: 0.72 },
+            { x: 0.90, y: 0.85 },
+        ];
+
+        const totalSegments = STARS.length - 1;
+        const TIME_PER_SEGMENT = 900;   // ms per segment
+        const GLOW_HOLD = 2200;         // ms to hold the full glow
+        const FADE_OUT = 1000;          // ms to fade out before reset
+        const LOOP_DURATION = (TIME_PER_SEGMENT * totalSegments) + GLOW_HOLD + FADE_OUT;
+
+        const draw = (t) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const W = canvas.width;
+            const H = canvas.height;
+            const pts = STARS.map(s => ({ x: s.x * W, y: s.y * H }));
+
+            const elapsed = t % LOOP_DURATION;
+            const drawPhaseEnd = TIME_PER_SEGMENT * totalSegments;
+            const glowPhaseEnd = drawPhaseEnd + GLOW_HOLD;
+
+            // ── Phases ──
+            const isDrawing   = elapsed < drawPhaseEnd;
+            const isGlowing   = elapsed >= drawPhaseEnd && elapsed < glowPhaseEnd;
+            const isFadingOut = elapsed >= glowPhaseEnd;
+
+            // ── Smoother Transitions ──
+            // 1. Glow Factor (0 to 1) for ramping up/down during GLOW_HOLD
+            let glowFactor = 0;
+            if (isGlowing) {
+                const ramp = 600; // duration of ramp up/down
+                if (elapsed < drawPhaseEnd + ramp) {
+                    glowFactor = (elapsed - drawPhaseEnd) / ramp;
+                } else if (elapsed > glowPhaseEnd - ramp) {
+                    glowFactor = (glowPhaseEnd - elapsed) / ramp;
+                } else {
+                    glowFactor = 1;
+                }
+            }
+
+            // 2. Smoother Global Alpha for FADE_OUT (using ease-in-out curve)
+            let globalAlpha = 1;
+            if (isFadingOut) {
+                const fadeNorm = (elapsed - glowPhaseEnd) / FADE_OUT;
+                // Cubic ease out: 1 - x^3
+                globalAlpha = 1 - Math.pow(fadeNorm, 3);
+            }
+            ctx.globalAlpha = Math.max(0, globalAlpha);
+
+            // ── Progress logic ──
+            let drawn = totalSegments;
+            let progress = 1;
+
+            if (isDrawing) {
+                const segIndex = Math.floor(elapsed / TIME_PER_SEGMENT);
+                const segProgress = (elapsed % TIME_PER_SEGMENT) / TIME_PER_SEGMENT;
+                drawn = segIndex;
+                progress = segProgress;
+            }
+
+            // ── Draw stars ──
+            pts.forEach((p, i) => {
+                const pulse = 0.6 + Math.sin(t * 0.001 + i * 1.2) * 0.4;
+                const glowBoost = 1 + (glowFactor * 1.5);
+                const r = (i === 0 ? 3 : 2) * pulse;
+
+                const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 5 * glowBoost);
+                grd.addColorStop(0, `rgba(255,255,255,${0.7 * pulse})`);
+                grd.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, r * 5 * glowBoost, 0, Math.PI * 2);
+                ctx.fillStyle = grd;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${0.9 * pulse})`;
+                ctx.fill();
+            });
+
+            // ── Line style interpolation ──
+            const lineOpacity  = 0.2 + (glowFactor * 0.5);
+            const lineWidth    = 0.8 + (glowFactor * 0.7);
+            const lineDash     = glowFactor > 0.4 ? [] : [4, 6];
+            const lineColor    = `rgba(${255 - glowFactor * 75}, ${255 - glowFactor * 45}, 255, ${lineOpacity})`;
+
+            ctx.setLineDash(lineDash);
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = lineWidth;
+
+            for (let i = 0; i < drawn; i++) {
+                ctx.beginPath();
+                ctx.moveTo(pts[i].x, pts[i].y);
+                ctx.lineTo(pts[i + 1].x, pts[i + 1].y);
+                ctx.stroke();
+            }
+
+            // ── Active growing segment ──
+            if (isDrawing && drawn < totalSegments) {
+                const from = pts[drawn];
+                const to   = pts[drawn + 1];
+                const cx   = from.x + (to.x - from.x) * progress;
+                const cy   = from.y + (to.y - from.y) * progress;
+
+                ctx.setLineDash([]);
+                ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                ctx.lineTo(cx, cy);
+                ctx.stroke();
+
+                // Travelling dot
+                const dotGrd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 7);
+                dotGrd.addColorStop(0, 'rgba(255,255,255,0.95)');
+                dotGrd.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.beginPath();
+                ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+                ctx.fillStyle = dotGrd;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(cx, cy, 2, 0, Math.PI * 2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+            }
+
+            ctx.globalAlpha = 1;
+            animId = requestAnimationFrame(draw);
+        };
+
+        animId = requestAnimationFrame(draw);
+        return () => {
+            cancelAnimationFrame(animId);
+            window.removeEventListener('resize', resize);
+        };
+    }, []);
+
+    return (
+        <canvas
+            ref={canvasRef}
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                zIndex: 0,          // behind everything
+                pointerEvents: 'none',
+                mixBlendMode: 'screen',
+            }}
+        />
+    );
+};
+
+
 export default function Home() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.body.classList.add('homepage-active');
+        return () => document.body.classList.remove('homepage-active');
+    }, []);
 
     const guideRef = useRef(null);
     const reviewsRef = useRef(null);
@@ -511,7 +638,7 @@ export default function Home() {
     const [activeCreator, setActiveCreator] = useState(null);
 
 
-    // ── Intersection observer for section tracking + past-section marking ──
+
     useEffect(() => {
         const options = {
             root: null,
@@ -546,25 +673,18 @@ export default function Home() {
         };
     }, []);
 
-    // ── Helpers ───────────────────────────────────────────────────────────
+
     const getStickyTitleAnimation = (sectionId) => {
         const isActive = activeSection === sectionId;
         return {
-            opacity: isActive ? ACTIVE_STICKY_OPACITY : INACTIVE_STICKY_OPACITY,
+            color: isActive 
+                ? 'rgba(var(--home-text-rgb), 1)' 
+                : 'rgba(var(--home-text-rgb), 0.1)',
             scale: isActive ? ACTIVE_STICKY_SCALE : INACTIVE_STICKY_SCALE,
         };
     };
 
-    // Returns the opacity the dim overlay should have for a given section ID.
-    // A section dims when: it has been scrolled past AND the user is currently
-    // scrolling upward. Both conditions are driven by state → triggers re-renders.
-    const SECTION_ORDER = ['guide', 'reviews', 'collaborate'];
 
-    const getDimOpacity = (id) => {
-        const currentIdx = SECTION_ORDER.indexOf(activeSection);
-        const thisIdx = SECTION_ORDER.indexOf(id);
-        return thisIdx < currentIdx ? 1 : 0;
-    };
 
     const paginate = (newDirection) => {
         setPage([page + newDirection, newDirection]);
@@ -586,7 +706,7 @@ export default function Home() {
     };
 
     useEffect(() => {
-        const timer = setInterval(() => { paginate(1); }, 4000);
+        const timer = setInterval(() => { paginate(1); }, 6000);
         return () => clearInterval(timer);
     }, [page]);
 
@@ -605,6 +725,60 @@ export default function Home() {
         document.addEventListener('pointerdown', handleOutsideClick, true);
         return () => document.removeEventListener('pointerdown', handleOutsideClick, true);
     }, [activeTestimonial]);
+
+    const glowRefs = useRef([]);
+    const headlineRef = useRef(null);
+
+    useEffect(() => {
+        const glows = glowRefs.current.filter(Boolean);
+        const headline = headlineRef.current;
+        if (!glows.length || !headline) return;
+        
+        // Initial setup - Force starting state
+        gsap.set(glows, { opacity: 0, transform: 'rotate(-35deg) translateY(-60%)' });
+        gsap.set(headline, { "--glow-opacity": 0, scale: 1 });
+        
+        const tl = gsap.timeline({ repeat: -1 });
+        
+        // 1. THE RAYS (Finishes at ~17.4s)
+        glows.forEach((el, i) => {
+            const start = i * 0.7;
+            tl.to(el, {
+                opacity: 1,
+                transform: 'rotate(-35deg) translateY(0%)',
+                duration: 3,
+                ease: 'sine.inOut',
+            }, start);
+            tl.to(el, {
+                opacity: 0,
+                transform: 'rotate(-35deg) translateY(-60%)',
+                duration: 3,
+                ease: 'power2.in',
+            }, start + 2.5);
+        });
+    
+        // 2. THE BLOOM 
+        const bloomStart = 15.4; 
+
+        tl.to(headline, {
+            "--glow-opacity": 1, 
+            scale: 1.05,
+            duration: 2,
+            ease: "power2.out" // Gives it that slight "kick" to start the bloom
+        }, bloomStart);
+
+        // 3. FADE OUT
+        tl.to(headline, {
+            "--glow-opacity": 0,
+            scale: 1, 
+            duration: 2,
+            ease: "sine.inOut" // Smooth, natural retreat
+        }, "+=1");
+    
+        tl.to({}, { duration: 0 }, 21);
+    
+        return () => tl.kill();
+    }, []);
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 40 },
@@ -636,98 +810,134 @@ export default function Home() {
     // ── Render ────────────────────────────────────────────────────────────
     return (
         <div className={styles.homeContainer}>
+            {Array.from({ length: 18 }, (_, i) => (
+                <div
+                    key={i}
+                    className={styles[`ambientGlow${i + 1}`]}
+                    ref={el => { glowRefs.current[i] = el; }}
+                />
+            ))}
+
+            <div className={styles.starfield} />
+
 
             {/* ══════════════════════════════════════════
                 PAGE 1 — HERO SECTION
             ══════════════════════════════════════════ */}
             <main className={styles.heroSection}>
-                <motion.div
-                    variants={staggerContainer}
-                    initial="hidden"
-                    animate="visible"
-                    className={styles.contentWrapper}
-                >
-                    <motion.h1 variants={fadeInUp} custom={0} className={styles.headline}>
-                        Explore with
-                        <br />
-                        <span className={styles.headlineAccent}> every click.</span>
-                    </motion.h1>
+                <div className={styles.banigHeroWrapper}>
+                    <div className={styles.topMetadata}>
+                        <span>PATHFINDER // v1.0.21</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className={styles.metadataIcon}
+                        >
+                            <path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999" />
+                            <path d="M15.973 4.027A13 13 0 0 0 5.902 2.373c-1.398.342-1.092 2.158.277 2.601a19.9 19.9 0 0 1 5.822 3.024" />
+                            <path d="M16.001 11.999a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069" />
+                            <path d="M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z" />
+                        </svg>
+                    </div>
 
-                    <motion.p variants={fadeInUp} custom={0.12} className={styles.subheadline}>
-                        Pathfinder is the AI travel guide for Catanduanes. <br />
-                        Make personalized itineraries, find hidden spots. <br />
-                        Plan your entire trip with real-time local data.
-                    </motion.p>
+                    <div className={styles.banigHeroBackground} />
+                    <motion.div
+                        variants={staggerContainer}
+                        initial="hidden"
+                        animate="visible"
+                        className={styles.contentWrapper}
+                    >
+                        <motion.div variants={fadeInUp} custom={0} className={styles.headlineWrapper}>
+                            <h1 ref={headlineRef} className={styles.headline}>
+                                Explore with
+                                <br />
+                                <span className={styles.headlineAccent}> every click.</span>
+                            </h1>
 
-                    <motion.div variants={fadeInUp} custom={0.45} className={styles.ctaGroup}>
-                        <button className={styles.primaryCta} onClick={() => navigate('/itinerary')}>
-                            <span>Start Exploring</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
-                            </svg>
-                        </button>
-                        <button className={styles.secondaryCta} onClick={() => navigate('/Contact')}>
-                            Work with us
-                        </button>
+                        </motion.div>
+
+                        <motion.p variants={fadeInUp} custom={0.12} className={styles.subheadline}>
+                            Pathfinder is the AI travel guide for Catanduanes. <br />
+                            Make personalized itineraries or find hidden spots. <br />
+                            Plan your entire trip with real-time local data.
+                        </motion.p>
+
+                        <motion.div variants={fadeInUp} custom={0.45} className={styles.ctaGroup}>
+                            <button className={styles.primaryCta} onClick={() => navigate('/itinerary')}>
+                                <span>Start Exploring</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+                                </svg>
+                            </button>
+                            <button className={styles.secondaryCta} onClick={() => navigate('/Contact')}>
+                                Work with us
+                            </button>
+                        </motion.div>
+
+                        <motion.div variants={fadeInUp} custom={0.6} className={styles.badgesContainer}>
+                            <img src={badges} alt="Badges" className={styles.badgeImage} />
+                        </motion.div>
                     </motion.div>
 
-                    <motion.div variants={fadeInUp} custom={0.6} className={styles.badgesContainer}>
-                        <img src={badges} alt="Badges" className={styles.badgeImage} />
-                    </motion.div>
-                </motion.div>
-
-                {/* ── Carousel ── */}
-                <div className={styles.visualWrapper}>
-                    <div className={styles.imageColumn}>
-                        <div className={styles.imageContainer}>
-                            {IMAGES.map((src, index) => {
-                                const offset = getOffset(index, imageIndex, IMAGES.length);
-                                const isActive = offset === 0;
-                                const isLeft = offset === -1;
-                                const isRight = offset === 1;
-                                return (
-                                    <motion.img
-                                        key={index}
-                                        src={src}
-                                        custom={offset}
-                                        variants={angledVariants}
-                                        initial={false}
-                                        animate="animate"
-                                        transition={angledTransition}
-                                        drag={isActive ? "x" : false}
-                                        dragConstraints={{ left: 0, right: 0 }}
-                                        dragElastic={0}
-                                        dragDirectionLock
-                                        style={{ touchAction: "pan-y" }}
-                                        onDragEnd={(e, { offset: dragOffset, velocity }) => {
-                                            if (!isActive) return;
-                                            const swipe = getSwipePower(dragOffset.x, velocity.x);
-                                            if (swipe < -SWIPE_CONFIDENCE_THRESHOLD || dragOffset.x < -30) {
-                                                paginate(1);
-                                            } else if (swipe > SWIPE_CONFIDENCE_THRESHOLD || dragOffset.x > 30) {
-                                                paginate(-1);
-                                            }
-                                        }}
-                                        onClick={() => {
-                                            if (isLeft) paginate(-1);
-                                            if (isRight) paginate(1);
-                                        }}
-                                        alt={`Slide ${index + 1}`}
-                                        className={`${styles.slideshowImage} ${isLeft ? styles.cursorPrev : ''} ${isRight ? styles.cursorNext : ''}`}
-                                    />
-                                );
-                            })}
-
-                            <motion.div
-                                className={styles.locationCard}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.2, duration: 0.6 }}
-                            >
-                                <div className={styles.cardLocation}>
-                                    <span>Catanduanes, Philippines</span>
-                                </div>
-                            </motion.div>
+                    {/* ── Carousel ── */}
+                    <div className={styles.visualWrapper}>
+                        <div className={styles.imageColumn}>
+                            <div className={styles.imageContainer}>
+                                {[-2, -1, 0, 1, 2].map((offset) => {
+                                    const absoluteIndex = page + offset;
+                                    const arrayIndex = wrap(0, IMAGES.length, absoluteIndex);
+                                    const src = IMAGES[arrayIndex];
+                                    const isActive = offset === 0;
+                                    const isLeft = offset === -1;
+                                    const isRight = offset === 1;
+                                    return (
+                                        <motion.div
+                                            key={absoluteIndex}
+                                            custom={offset}
+                                            variants={angledVariants}
+                                            initial={false}
+                                            animate="animate"
+                                            transition={angledTransition}
+                                            drag={isActive ? "x" : false}
+                                            dragConstraints={{ left: 0, right: 0 }}
+                                            dragElastic={0}
+                                            dragDirectionLock
+                                            style={{ touchAction: "pan-y" }}
+                                            onDragEnd={(e, { offset: dragOffset, velocity }) => {
+                                                if (!isActive) return;
+                                                const swipe = getSwipePower(dragOffset.x, velocity.x);
+                                                if (swipe < -SWIPE_CONFIDENCE_THRESHOLD || dragOffset.x < -30) {
+                                                    paginate(1);
+                                                } else if (swipe > SWIPE_CONFIDENCE_THRESHOLD || dragOffset.x > 30) {
+                                                    paginate(-1);
+                                                }
+                                            }}
+                                            onClick={() => {
+                                                if (isLeft) paginate(-1);
+                                                if (isRight) paginate(1);
+                                            }}
+                                            className={`${styles.slideshowImage} ${isLeft ? styles.cursorPrev : ''} ${isRight ? styles.cursorNext : ''}`}
+                                        >
+                                            <img src={src} alt={`Slide ${arrayIndex + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit', pointerEvents: 'none' }} />
+                                            <motion.div
+                                                className={styles.locationCard}
+                                                initial={false}
+                                                animate={{ opacity: isActive ? 1 : 0 }}
+                                                transition={{ duration: 0.4 }}
+                                            >
+                                                <div className={styles.cardLocation}>
+                                                    <span>{IMAGE_NAMES[arrayIndex]}</span>
+                                                </div>
+                                            </motion.div>
+                                        </motion.div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -746,12 +956,12 @@ export default function Home() {
                         <div className={styles.testimonialsItems}>
                             {[0, 1, 2, 3, 4, 5].map((index) => {
                                 const testimonialData = [
-                                    { label: "First-time Visitor", quote: "Ang bilis lang magplano, will use again", icon: <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></> },
-                                    { label: "Weekend Explorer", quote: "Shoutout sa mga kapamilya at mga kaibigan ko at kay Patrick Guerrero, sikat na ako.", icon: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></> },
-                                    { label: "Weekend Explorer", quote: "Must try: Paraiso Ni Honesto", icon: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></> },
-                                    { label: "Group Trip Organizer", quote: "Multi-day planner kept our group of 8 perfectly coordinated across 3 days. Sa mga graduating d'yan ingat!", icon: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></> },
-                                    { label: "Backpacker", quote: "Offline access helped when signal dropped in remote spots.", icon: <><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></> },
-                                    { label: "Food Trip Duo", quote: "Saved us time finding local food stops between attractions. I'm excited to spend my money on delicacies offered in the Island of Catanduanes", icon: <><path d="M8 3v7"/><path d="M12 3v7"/><path d="M10 3v18"/><path d="M17 3v18"/><path d="M17 8h3"/></> }
+                                    { label: "First-time Visitor", quote: "Ang bilis lang magplano, will use again", icon: <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></> },
+                                    { label: "Weekend Explorer", quote: "Shoutout sa mga kapamilya at mga kaibigan ko at kay Patrick Guerrero, sikat na ako.", icon: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></> },
+                                    { label: "Weekend Explorer", quote: "Must try: Paraiso Ni Honesto", icon: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></> },
+                                    { label: "Group Trip Organizer", quote: "Multi-day planner kept our group of 8 perfectly coordinated across 3 days. Sa mga graduating d'yan ingat!", icon: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></> },
+                                    { label: "Backpacker", quote: "Offline access helped when signal dropped in remote spots.", icon: <><path d="M20 7h-9" /><path d="M14 17H5" /><circle cx="17" cy="17" r="3" /><circle cx="7" cy="7" r="3" /></> },
+                                    { label: "Food Trip Duo", quote: "Saved us time finding local food stops between attractions. I'm excited to spend my money on delicacies offered in the Island of Catanduanes", icon: <><path d="M8 3v7" /><path d="M12 3v7" /><path d="M10 3v18" /><path d="M17 3v18" /><path d="M17 8h3" /></> }
                                 ];
                                 const isLastCard = index === testimonialData.length - 1;
                                 return (
@@ -790,16 +1000,21 @@ export default function Home() {
                 </motion.section>
             </main>
 
+            <div className={styles.sectionBridge} />
+
             {/* ══════════════════════════════════════════
                 STICKY SCROLL SECTIONS
             ══════════════════════════════════════════ */}
+
             <div className={styles.stickyContainer}>
+                <div className={styles.starfieldPersistent} aria-hidden="true" />
+                <Constellation />
 
                 {/* ── LEFT PANEL — sticky titles ── */}
                 <div className={styles.stickyPanel}>
                     <motion.div className={styles.stickyContent} layout>
                         <motion.div className={styles.stickyTitleGroup} layout transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
-                            <motion.h2 className={styles.stickyTitle} animate={getStickyTitleAnimation('guide')} transition={{ duration: 0.15 }}>
+                            <motion.h2 className={`${styles.stickyTitle} ${activeSection !== 'guide' ? styles.inactiveShadowMask : ''}`} animate={getStickyTitleAnimation('guide')} transition={{ duration: 0.15 }}>
                                 AI-Powered<br />Guide
                             </motion.h2>
                             <motion.div
@@ -809,7 +1024,7 @@ export default function Home() {
                                 transition={{ height: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }, opacity: { duration: 0.5 } }}
                             >
                                 <div className={styles.stickySubtextInner}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.stickyChevron}><path d="m9 18 6-6-6-6"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.stickyChevron}><path d="m9 18 6-6-6-6" /></svg>
                                     <p className={styles.stickySubtext}>
                                         Chat with our AI to build custom multi-day itineraries, pin destinations, and get real-time local recommendations.
                                     </p>
@@ -818,7 +1033,7 @@ export default function Home() {
                         </motion.div>
 
                         <motion.div className={styles.stickyTitleGroup} layout animate={{ marginTop: (activeSection === 'guide' || activeSection === 'reviews') ? 40 : 12 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
-                            <motion.h2 className={styles.stickyTitle} animate={getStickyTitleAnimation('reviews')} transition={{ duration: 0.15 }}>
+                            <motion.h2 className={`${styles.stickyTitle} ${activeSection !== 'reviews' ? styles.inactiveShadowMask : ''}`} animate={getStickyTitleAnimation('reviews')} transition={{ duration: 0.15 }}>
                                 What's<br />Beyond
                             </motion.h2>
                             <motion.div
@@ -828,7 +1043,7 @@ export default function Home() {
                                 transition={{ height: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }, opacity: { duration: 0.5 } }}
                             >
                                 <div className={styles.stickySubtextInner}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.stickyChevron}><path d="m9 18 6-6-6-6"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.stickyChevron}><path d="m9 18 6-6-6-6" /></svg>
                                     <p className={styles.stickySubtext}>
                                         Browse 200+ destinations, see live traveler stats, and discover top-rated spots across Catanduanes
                                     </p>
@@ -837,7 +1052,7 @@ export default function Home() {
                         </motion.div>
 
                         <motion.div className={styles.stickyTitleGroup} layout animate={{ marginTop: (activeSection === 'reviews' || activeSection === 'collaborate') ? 40 : 12 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
-                            <motion.h2 className={styles.stickyTitle} animate={getStickyTitleAnimation('collaborate')} transition={{ duration: 0.15 }}>
+                            <motion.h2 className={`${styles.stickyTitle} ${activeSection !== 'collaborate' ? styles.inactiveShadowMask : ''}`} animate={getStickyTitleAnimation('collaborate')} transition={{ duration: 0.15 }}>
                                 Work<br />With Us
                             </motion.h2>
                             <motion.div
@@ -847,7 +1062,7 @@ export default function Home() {
                                 transition={{ height: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }, opacity: { duration: 0.5 } }}
                             >
                                 <div className={styles.stickySubtextInner}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.stickyChevron}><path d="m9 18 6-6-6-6"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.stickyChevron}><path d="m9 18 6-6-6-6" /></svg>
                                     <p className={styles.stickySubtext}>
                                         View the source, star the repo, or open a pull request — this project is fully open source.
                                     </p>
@@ -864,17 +1079,6 @@ export default function Home() {
                         SECTION 1: GUIDE
                     ══════════════════════════════════ */}
                     <div id="guide" ref={guideRef} className={styles.scrollSection} style={{ position: 'relative' }}>
-                        {/*
-                            Dim overlay — only visible when the user has scrolled past this
-                            section AND is currently scrolling back up. Both conditions are
-                            pure React state, so Framer Motion correctly re-evaluates them.
-                        */}
-                        <motion.div
-                            className={styles.sectionDimOverlay}
-                            animate={{ opacity: getDimOpacity('guide') }}
-                            transition={{ duration: 0.35 }}
-                            style={{ pointerEvents: 'none' }}
-                        />
 
                         <div className={styles.guideShowcase}>
                             <motion.div
@@ -909,7 +1113,6 @@ export default function Home() {
                                     transition={{ delay: 0.35, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     <div className={styles.guideChatHeader}>
-                                        <div className={styles.guideChatDots}><span /><span /><span /></div>
                                         <span className={styles.guideChatTitle}>Pathfinder AI</span>
                                         <span className={styles.guideChatOnline}>● Online</span>
                                     </div>
@@ -943,8 +1146,8 @@ export default function Home() {
                                         <span className={styles.guideChatInputPlaceholder}>Ask Pathfinder anything...</span>
                                         <button className={styles.guideChatSend} aria-label="Send" disabled tabIndex={-1}>
                                             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/>
-                                                <path d="m21.854 2.147-10.94 10.939"/>
+                                                <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+                                                <path d="m21.854 2.147-10.94 10.939" />
                                             </svg>
                                         </button>
                                     </div>
@@ -957,12 +1160,6 @@ export default function Home() {
                         SECTION 2: REVIEWS
                     ══════════════════════════════════ */}
                     <div id="reviews" ref={reviewsRef} className={styles.scrollSection} style={{ position: 'relative' }}>
-                        <motion.div
-                            className={styles.sectionDimOverlay}
-                            animate={{ opacity: getDimOpacity('reviews') }}
-                            transition={{ duration: 0.35 }}
-                            style={{ pointerEvents: 'none' }}
-                        />
                         <ReviewsBento />
                     </div>
 
@@ -970,12 +1167,6 @@ export default function Home() {
                         SECTION 3: COLLABORATE
                     ══════════════════════════════════ */}
                     <div id="collaborate" ref={collaborateRef} className={styles.scrollSection} style={{ position: 'relative' }}>
-                        <motion.div
-                            className={styles.sectionDimOverlay}
-                            animate={{ opacity: getDimOpacity('collaborate') }}
-                            transition={{ duration: 0.35 }}
-                            style={{ pointerEvents: 'none' }}
-                        />
                         <div className={styles.contributeLayout}>
                             <motion.p
                                 className={styles.contributeNote}
@@ -984,11 +1175,12 @@ export default function Home() {
                                 viewport={{ once: true, amount: 0.3 }}
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                Pathfinder operates in direct partnership with the{' '}
+                                Pathfinder operates in direct partnership with the {' '}
                                 <a href="https://www.facebook.com/catanduanestourismpromotion/" target="_blank" rel="noopener noreferrer" className={styles.inlineLink}>
-                                    Catanduanes Provincial Tourism Office
+                                    Catanduanes Tourism Promotion Office
                                 </a>
-                                , relying on validated, updated, and locally sourced data to promote responsible tourism through a transparent open-source platform. Contributions, issues, and feature requests are welcome.
+                                , <br /> thoroughly relying on validated, updated, and locally sourced data to promote responsible and reliable
+                                <br /> tourism through a transparent open-source platform. Contributions, issues, and feature requests are welcome.
                             </motion.p>
 
                             <div className={styles.projectGrid}>
@@ -1006,7 +1198,7 @@ export default function Home() {
                                     <div className={styles.repoCardHeader}>
                                         <div className={styles.repoIconWrap}>
                                             <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                                                <path d="M12 .296C5.37.296 0 5.666 0 12.297c0 5.302 3.438 9.8 8.206 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.016-2.04-3.338.725-4.042-1.61-4.042-1.61-.546-1.386-1.332-1.755-1.332-1.755-1.09-.745.082-.73.082-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.81 1.305 3.495.998.108-.775.42-1.305.763-1.605-2.665-.304-5.467-1.333-5.467-5.93 0-1.31.467-2.38 1.235-3.22-.124-.304-.535-1.527.117-3.18 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 0 1 3.004-.404 11.5 11.5 0 0 1 3.004.404c2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.876.118 3.18.77.84 1.234 1.91 1.234 3.22 0 4.61-2.807 5.623-5.48 5.92.43.372.814 1.102.814 2.222 0 1.604-.014 2.896-.014 3.29 0 .32.216.694.825.576C20.565 22.092 24 17.596 24 12.297 24 5.666 18.627.296 12 .296z"/>
+                                                <path d="M12 .296C5.37.296 0 5.666 0 12.297c0 5.302 3.438 9.8 8.206 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.016-2.04-3.338.725-4.042-1.61-4.042-1.61-.546-1.386-1.332-1.755-1.332-1.755-1.09-.745.082-.73.082-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.81 1.305 3.495.998.108-.775.42-1.305.763-1.605-2.665-.304-5.467-1.333-5.467-5.93 0-1.31.467-2.38 1.235-3.22-.124-.304-.535-1.527.117-3.18 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 0 1 3.004-.404 11.5 11.5 0 0 1 3.004.404c2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.876.118 3.18.77.84 1.234 1.91 1.234 3.22 0 4.61-2.807 5.623-5.48 5.92.43.372.814 1.102.814 2.222 0 1.604-.014 2.896-.014 3.29 0 .32.216.694.825.576C20.565 22.092 24 17.596 24 12.297 24 5.666 18.627.296 12 .296z" />
                                             </svg>
                                         </div>
                                         <div className={styles.repoMeta}>
@@ -1015,35 +1207,28 @@ export default function Home() {
                                         </div>
                                         <div className={styles.repoArrow}>↗</div>
                                     </div>
-                                    <div className={styles.repoStats}>
-                                        <span className={styles.repoStat}>
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                                            Star
-                                        </span>
-                                        <span className={styles.repoStat}>
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>
-                                            Fork
-                                        </span>
+                                    <div className={styles.repoFooterRow}>
+                                        <div className={styles.repoStats}>
+                                            <span className={styles.repoStat}>
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                                                Star
+                                            </span>
+                                            <span className={styles.repoStat}>
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><circle cx="18" cy="6" r="3" /><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" /><path d="M12 12v3" /></svg>
+                                                Fork
+                                            </span>
+                                        </div>
+                                        <div className={styles.techIconPill}>
+                                            {TECH_STACK.map((tech) => (
+                                                <span key={tech.name} className={styles.techIconBtn} style={{ '--tech-color': tech.color }} title={tech.name}>
+                                                    <tech.Icon />
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
                                 </motion.a>
 
-                                <motion.div
-                                    className={`${styles.techStack} ${styles.techCard}`}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, amount: 0.2 }}
-                                    transition={{ duration: 0.55, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                >
-                                    <span className={styles.techLabel}>Built with</span>
-                                    <div className={`${styles.techBadges} ${styles.techBadgesCentered}`}>
-                                        {TECH_STACK.map((tech) => (
-                                            <span key={tech.name} className={styles.techBadge} style={{ '--tech-color': tech.color }}>
-                                                <span className={styles.techBadgeIcon}><tech.Icon /></span>
-                                                {tech.name}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </motion.div>
+
                             </div>
 
                             <motion.div
@@ -1076,8 +1261,8 @@ export default function Home() {
                                                 <div className={styles.creatorFront}>
                                                     <div className={styles.creatorAvatar}>
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                                            <circle cx="12" cy="7" r="4"/>
+                                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                                            <circle cx="12" cy="7" r="4" />
                                                         </svg>
                                                     </div>
                                                     <span className={styles.creatorName}>{creator.name}</span>
@@ -1089,12 +1274,12 @@ export default function Home() {
                                                     <div className={styles.creatorActions}>
                                                         {creator.email && (
                                                             <a href={`mailto:${creator.email}`} className={styles.creatorLink} onClick={(e) => e.stopPropagation()} aria-label={`Email ${creator.name}`}>
-                                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
                                                             </a>
                                                         )}
                                                         {creator.github && (
                                                             <a href={creator.github} target="_blank" rel="noopener noreferrer" className={styles.creatorLink} onClick={(e) => e.stopPropagation()}>
-                                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
                                                             </a>
                                                         )}
                                                     </div>

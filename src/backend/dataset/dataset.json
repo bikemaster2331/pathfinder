@@ -1712,23 +1712,6 @@
     "place_name": "Nupa Green Lagoon"
   },
   {
-    "input": "Where is Miguilas Inn and Resto Bar?",
-    "output": "Miguilas Inn and Resto Bar is located in the municipality of Caramoran.",
-    "title": "Miguilas Inn and Resto Bar Location",
-    "topic": "accommodation",
-    "location": "Caramoran",
-    "activities": [
-      "accommodation"
-    ],
-    "budget": "mid",
-    "summary_offline": "Miguilas Inn and Resto Bar is located in Caramoran.",
-    "coordinates": {
-      "lat": 13.98755168209128,
-      "lng": 124.1348645200423
-    },
-    "place_name": "Miguilas Inn and Resto Bar"
-  },
-  {
     "input": "Where is Palumbanes Island?",
     "output": "Palumbanes Island is a scenic destination located in Caramoran.",
     "title": "Palumbanes Island Location",
@@ -2938,22 +2921,6 @@
     },
     "activities": [
       "sightseeing"
-    ]
-  },
-  {
-    "input": "Where is Miguilas Inn and Resto Bar?",
-    "output": "Miguilas Inn and Resto Bar is a hotels and resorts located in Caramoran.",
-    "title": "Miguilas Inn and Resto Bar Location",
-    "topic": "accommodation",
-    "location": "CARAMORAN",
-    "summary_offline": "Miguilas Inn and Resto Bar is a hotels and resorts located in Caramoran.",
-    "place_name": "Miguilas Inn and Resto Bar",
-    "coordinates": {
-      "lat": 13.98755168209128,
-      "lng": 124.1348645200423
-    },
-    "activities": [
-      "accommodation"
     ]
   },
   {
@@ -7669,7 +7636,7 @@
   },
   {
     "input": "Are there bars in Catanduanes?",
-    "output": "Catanduanes has a modest but enjoyable nightlife scene, mostly centered in Virac. Notable spots: E-Lounge Resto Bar (popular for drinks and light food), Miguilas Inn and Resto Bar (known for local drinks and casual atmosphere), Black Alley (bar with drinks), ARDCI Skydeck Lounge (elevated bar with a view), and Tarahid KTV Bar for karaoke. Most bars operate until 10 PM–midnight. It is not a party island — the nightlife is low-key and local.",
+    "output": "Catanduanes has a modest but enjoyable nightlife scene, mostly centered in Virac. Notable spots: E-Lounge Resto Bar (popular for drinks and light food), Black Alley (bar with drinks), ARDCI Skydeck Lounge (elevated bar with a view), and Tarahid KTV Bar for karaoke. Most bars operate until 10 PM–midnight. It is not a party island — the nightlife is low-key and local.",
     "title": "Bars and Nightlife in Catanduanes",
     "topic": "dining",
     "location": "VIRAC",
@@ -7679,7 +7646,7 @@
       "drinks",
       "general"
     ],
-    "summary_offline": "Virac bars: E-Lounge Resto Bar, Miguilas Inn and Resto Bar, Black Alley, ARDCI Skydeck Lounge, Tarahid KTV. Low-key nightlife, closes by 10 PM–midnight. Not a party island."
+    "summary_offline": "Virac bars: E-Lounge Resto Bar, ARDCI Skydeck Lounge, Tarahid KTV. Low-key nightlife, closes by 10 PM–midnight. Not a party island."
   },
   {
     "input": "Where can I watch the sunset in Catanduanes?",
@@ -8516,5 +8483,266 @@
       "planning"
     ],
     "summary_offline": "Manila to Catanduanes: eroplano (1 oras) o bus to Tabaco + ferry (10–12 oras total). Eroplano mas komportable, ferry mas mura."
+  },
+  {
+    "input": "Is there a bar or restobar in Catanduanes?",
+    "output": "Kuwago's Restobar is a popular bar and restaurant in Virac, Catanduanes, offering food and drinks in a relaxed setting.",
+    "title": "Kuwago's Restobar",
+    "topic": "dining",
+    "location": "Virac",
+    "activities": [
+      "dining",
+      "food",
+      "nightlife"
+    ],
+    "budget": "medium",
+    "summary_offline": "Kuwago's Restobar is a bar and restaurant in Virac serving food and drinks.",
+    "coordinates": {
+      "lat": 13.586177506517904,
+      "lng": 124.20486384347929
+    },
+    "place_name": "Kuwago's Restobar"
+  },
+  {
+    "input": "Where can I drink or hang out at night in Catanduanes?",
+    "output": "DRUNKBOX is a bar in Virac, Catanduanes, known as a nightlife spot where locals and visitors hang out for drinks.",
+    "title": "DRUNKBOX Bar",
+    "topic": "dining",
+    "location": "Virac",
+    "activities": [
+      "dining",
+      "nightlife"
+    ],
+    "budget": "medium",
+    "summary_offline": "DRUNKBOX is a bar in Virac, Catanduanes popular for nightlife and drinks.",
+    "coordinates": {
+      "lat": 13.581211225793492,
+      "lng": 124.23143643491208
+    },
+    "place_name": "DRUNKBOX"
+  },
+  {
+    "input": "Is there a lounge or bar with a relaxed vibe in Virac?",
+    "output": "Hideout Bar and Lounge is a chill bar and lounge in Virac, Catanduanes, offering a laid-back atmosphere for drinks and socializing.",
+    "title": "Hideout Bar and Lounge",
+    "topic": "dining",
+    "location": "Virac",
+    "activities": [
+      "dining",
+      "nightlife"
+    ],
+    "budget": "medium",
+    "summary_offline": "Hideout Bar and Lounge is a relaxed bar in Virac, Catanduanes for drinks and socializing.",
+    "coordinates": {
+      "lat": 13.584336447003185,
+      "lng": 124.2074930812476
+    },
+    "place_name": "Hideout Bar and Lounge"
+  },
+  {
+    "input": "Where can I eat and drink in Virac at night?",
+    "output": "Kuwago's Restobar in Virac is a great spot for both food and drinks in the evening. It has a relaxed atmosphere popular with locals and tourists alike.",
+    "title": "Kuwago's Restobar - Nighttime Dining",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "dining",
+      "bar",
+      "drinks"
+    ],
+    "budget": "medium",
+    "summary_offline": "Kuwago's Restobar serves food and drinks at night in Virac.",
+    "coordinates": {
+      "lat": 13.586177506517904,
+      "lng": 124.20486384347929
+    },
+    "place_name": "Kuwago's Restobar"
+  },
+  {
+    "input": "What bars are open at night in Catanduanes?",
+    "output": "Some bars open at night in Virac, Catanduanes include Kuwago's Restobar, DRUNKBOX, and Hideout Bar and Lounge. These are popular nightlife spots for locals and visitors.",
+    "title": "Nightlife Bars in Virac",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks"
+    ],
+    "budget": "medium",
+    "summary_offline": "Kuwago's Restobar, DRUNKBOX, and Hideout Bar and Lounge are the main nightlife bars in Virac.",
+    "place_name": "Virac Nightlife"
+  },
+  {
+    "input": "Where do locals drink in Catanduanes?",
+    "output": "Locals in Virac often hang out at DRUNKBOX, Kuwago's Restobar, and Hideout Bar and Lounge for drinks and socializing at night.",
+    "title": "Local Drinking Spots in Virac",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks",
+      "locals"
+    ],
+    "budget": "medium",
+    "summary_offline": "DRUNKBOX, Kuwago's Restobar, and Hideout Bar and Lounge are popular local hangouts in Virac.",
+    "place_name": "Virac Nightlife"
+  },
+  {
+    "input": "Is there a place to hang out at night in Virac?",
+    "output": "Yes, Virac has a few nightlife spots. DRUNKBOX is known as a lively hangout, Hideout Bar and Lounge offers a chill vibe, and Kuwago's Restobar is good for food and drinks combined.",
+    "title": "Hangout Spots at Night in Virac",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks",
+      "hangout"
+    ],
+    "budget": "medium",
+    "summary_offline": "DRUNKBOX, Hideout Bar and Lounge, and Kuwago's Restobar are the main nighttime hangout spots in Virac.",
+    "place_name": "Virac Nightlife"
+  },
+  {
+    "input": "Saan pwede uminom sa Catanduanes?",
+    "output": "Sa Virac, Catanduanes, pwede kang uminom sa DRUNKBOX, Kuwago's Restobar, at Hideout Bar and Lounge. Sikat na inuman spots ang mga ito sa gabi.",
+    "title": "Inuman Spots sa Virac",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks",
+      "inuman"
+    ],
+    "budget": "medium",
+    "summary_offline": "DRUNKBOX, Kuwago's Restobar, at Hideout Bar and Lounge ang mga sikat na inuman spots sa Virac.",
+    "place_name": "Virac Nightlife"
+  },
+  {
+    "input": "May bar ba sa Virac?",
+    "output": "Oo, may mga bars sa Virac, Catanduanes. Kasama dito ang DRUNKBOX, Kuwago's Restobar, at Hideout Bar and Lounge — lahat sila ay bukas sa gabi para sa inuman at pagkain.",
+    "title": "Mga Bar sa Virac",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks",
+      "inuman"
+    ],
+    "budget": "medium",
+    "summary_offline": "May mga bars sa Virac tulad ng DRUNKBOX, Kuwago's Restobar, at Hideout Bar and Lounge.",
+    "place_name": "Virac Nightlife"
+  },
+  {
+    "input": "Where is DRUNKBOX located in Catanduanes?",
+    "output": "DRUNKBOX is located in Virac, Catanduanes. It is a popular bar and nightlife spot where locals and tourists gather for drinks in the evening.",
+    "title": "DRUNKBOX Location",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks"
+    ],
+    "budget": "medium",
+    "summary_offline": "DRUNKBOX is a bar in Virac, Catanduanes.",
+    "coordinates": {
+      "lat": 13.581211225793492,
+      "lng": 124.23143643491208
+    },
+    "place_name": "DRUNKBOX"
+  },
+  {
+    "input": "Tell me about Hideout Bar and Lounge in Catanduanes.",
+    "output": "Hideout Bar and Lounge is a relaxed bar in Virac, Catanduanes. It offers a chill atmosphere for drinks and socializing, making it a favorite among locals who want a laid-back night out.",
+    "title": "Hideout Bar and Lounge",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks",
+      "lounge"
+    ],
+    "budget": "medium",
+    "summary_offline": "Hideout Bar and Lounge is a chill bar in Virac for drinks and socializing.",
+    "coordinates": {
+      "lat": 13.584336447003185,
+      "lng": 124.2074930812476
+    },
+    "place_name": "Hideout Bar and Lounge"
+  },
+  {
+    "input": "What is Kuwago's Restobar like?",
+    "output": "Kuwago's Restobar is a bar and restaurant in Virac, Catanduanes. It combines dining and drinks in a relaxed setting, good for groups who want to eat and have a few drinks at the same time.",
+    "title": "Kuwago's Restobar Overview",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "dining",
+      "bar",
+      "drinks"
+    ],
+    "budget": "medium",
+    "summary_offline": "Kuwago's Restobar is a bar and restaurant combo in Virac, good for food and drinks.",
+    "coordinates": {
+      "lat": 13.586177506517904,
+      "lng": 124.20486384347929
+    },
+    "place_name": "Kuwago's Restobar"
+  },
+  {
+    "input": "Is there a party scene in Catanduanes?",
+    "output": "Catanduanes has a small but lively nightlife scene centered in Virac. DRUNKBOX, Kuwago's Restobar, and Hideout Bar and Lounge are the main spots for drinks and nighttime socializing.",
+    "title": "Nightlife Scene in Catanduanes",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks",
+      "party"
+    ],
+    "budget": "medium",
+    "summary_offline": "Virac has a small nightlife scene with DRUNKBOX, Kuwago's Restobar, and Hideout Bar and Lounge.",
+    "place_name": "Virac Nightlife"
+  },
+  {
+    "input": "Where to go after dinner in Virac?",
+    "output": "After dinner in Virac, you can head to DRUNKBOX for drinks, Hideout Bar and Lounge for a chill vibe, or stay at Kuwago's Restobar if you want food and drinks in one place.",
+    "title": "After Dinner Spots in Virac",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks",
+      "evening"
+    ],
+    "budget": "medium",
+    "summary_offline": "After dinner in Virac, try DRUNKBOX, Hideout Bar and Lounge, or Kuwago's Restobar for drinks.",
+    "place_name": "Virac Nightlife"
+  },
+  {
+    "input": "Budget-friendly bars in Catanduanes?",
+    "output": "DRUNKBOX, Kuwago's Restobar, and Hideout Bar and Lounge in Virac are all mid-range and generally affordable for locals and tourists looking for drinks without breaking the bank.",
+    "title": "Affordable Bars in Virac",
+    "topic": "nightlife",
+    "location": "Virac",
+    "activities": [
+      "nightlife",
+      "bar",
+      "drinks",
+      "budget"
+    ],
+    "budget": "medium",
+    "summary_offline": "DRUNKBOX, Kuwago's Restobar, and Hideout Bar and Lounge are affordable bars in Virac.",
+    "place_name": "Virac Nightlife"
   }
 ]

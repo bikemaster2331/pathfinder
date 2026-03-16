@@ -1269,13 +1269,6 @@ class Pipeline:
         #  doc. Returns a grouped answer string + merged locations + top confidence.
         #  From: ask() multi-activity branch
         #  → To: raw_answer, final_locations, top_rag_confidence, gemini_pool | *mll)
-        """
-        Runs one focused sub-query per activity and builds a grouped answer.
-
-        "i want to surf then eat" → surfing query + dining query separately.
-        Each activity gets its best-matching doc. Returns:
-        "For surfing: [answer]. For food and dining: [answer]."
-        """
         ACTIVITY_LABELS = {
             'surfing':       'surfing',
             'dining':        'food and dining',
@@ -1573,7 +1566,7 @@ class Pipeline:
         elif top_confidence >= self.confidence_t2:
             # T2 — Qualified answer
             print(f"[TIER] T2 ({top_confidence:.3f}, {self.confidence_t2}–{self.confidence_t1}) "
-                  f"— qualified answer")
+                f"— qualified answer")
             framed = "Based on available records, " + raw_answer
             if is_budget_query:
                 framed += " Please verify prices directly on-site as they may have changed."
@@ -1582,7 +1575,7 @@ class Pipeline:
         else:
             # T3 — Hard stop, score too low to trust
             print(f"[TIER] T3 ({top_confidence:.3f} < {self.confidence_t2}) "
-                  f"— hard stop, redirecting")
+                f"— hard stop, redirecting")
             return ("I don't have reliable information on that yet. "
                     "You may want to ask at the local tourism office in Virac "
                     "or a nearby guide for accurate details.")
@@ -2129,20 +2122,27 @@ class Pipeline:
         # Scans the final answer for any known place name from the geo database
         # that wasn't already pinned by branch logic. Prevents "mentioned but
         # not pinned" bugs regardless of which code path produced the answer.
-        already_pinned = {p['name'] for p in final_locations}
-        answer_lower   = raw_answer.lower()
-        net_added      = 0
+        is_t3_fallback = "don't have reliable information" in raw_answer
+        
+        if not is_t3_fallback:
+            already_pinned = {p['name'] for p in final_locations}
+            answer_lower   = raw_answer.lower()
+            net_added      = 0
 
-        for geo_name in self.geo_engine.place_names:          # lowercase list
-            if geo_name in answer_lower and geo_name not in {n.lower() for n in already_pinned}:
-                loc_data = self.geo_engine.get_coords(geo_name)
-                if loc_data and loc_data['name'] not in already_pinned:
-                    final_locations.append(loc_data)
-                    already_pinned.add(loc_data['name'])
-                    net_added += 1
+            for geo_name in self.geo_engine.place_names:          # lowercase list
+                if geo_name in answer_lower and geo_name not in {n.lower() for n in already_pinned}:
+                    loc_data = self.geo_engine.get_coords(geo_name)
+                    if loc_data and loc_data['name'] not in already_pinned:
+                        final_locations.append(loc_data)
+                        already_pinned.add(loc_data['name'])
+                        net_added += 1
 
-        if net_added:
-            print(f"[SAFETY NET] Resolved {net_added} extra pin(s) from answer text")
+            if net_added:
+                print(f"[SAFETY NET] Resolved {net_added} extra pin(s) from answer text")
+        else:
+            # Force locations to empty so the frontend does not redirect
+            print("[SAFETY NET] T3 Fallback detected — wiping locations")
+            final_locations = []
 
         # ── Format locations for frontend ─────────────────────────────────────
         formatted_places = [

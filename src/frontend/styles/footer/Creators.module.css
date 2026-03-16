@@ -1,7 +1,6 @@
-/* src/styles/About.module.css */
 
 .container {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: var(--footer-creators-bg);
     /* Deep black */
