@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     background-color: var(--app-bg);
     color: var(--app-text);
     font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
