@@ -918,6 +918,12 @@ html {
     z-index: 1;
 }
 
+:global([data-theme='light']) .stickyContainer::before {
+    background: linear-gradient(to bottom,
+            #ffffff 0%,
+            transparent 100%);
+}
+
 /* LEFT PANEL - STICKY TITLES */
 .stickyPanel {
     position: -webkit-sticky;
@@ -954,6 +960,21 @@ html {
         0 0 12px var(--home-bg),
         0 0 24px var(--home-bg),
         0 0 40px var(--home-bg);
+}
+
+:global([data-theme='light']) .inactiveShadowMask {
+    text-shadow:
+        1px 1px 0 white,
+        -1px 1px 0 white,
+        1px -1px 0 white,
+        -1px -1px 0 white,
+        0 2px 0 white,
+        0 -2px 0 white,
+        2px 0 0 white,
+        -2px 0 0 white,
+        0 0 12px white,
+        0 0 24px white,
+        0 0 40px white;
 }
 
 .stickySubtextWrap {
