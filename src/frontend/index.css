@@ -4,6 +4,7 @@
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap');
 
 :root {
+    --scrollbar-width: 0px;
     --color-white: #ffffff;
     --app-bg: #f8fafc;
     --app-text: #0b0b0b;
@@ -406,7 +407,9 @@
     box-sizing: border-box;
 }
 
-
+html.homepage-active {
+    --scrollbar-width: 8px;
+}
 
 html:not(.homepage-active)::-webkit-scrollbar,
 body:not(.homepage-active)::-webkit-scrollbar {
