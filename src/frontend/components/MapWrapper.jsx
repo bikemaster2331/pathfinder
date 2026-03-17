@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, forwardRef, useMemo } from 'react';
+import { useState, useEffect, useRef, forwardRef, useMemo, useImperativeHandle } from 'react';
 import MapBackground from './map';
 import styles from '../styles/itinerary_page/MapWrapper.module.css';
 import DatePicker from "react-datepicker";
@@ -170,6 +170,7 @@ const getActivityIcon = (activityName) => {
 // --- 3. MAIN COMPONENT ---
 const MapWrapper = forwardRef((props, ref) => {
     const {
+        isTripForecastVisible = true,
         selectedActivities,
         setSelectedActivities,
         onMarkerClick,
@@ -203,6 +204,7 @@ const MapWrapper = forwardRef((props, ref) => {
     const [sliderValue, setSliderValue] = useState(budget);
     const [draftActivities, setDraftActivities] = useState(selectedActivities);
     const menuRef = useRef(null);
+    const mapRef = useRef(null);
     const isTripBoxComplete = Boolean(destination && dateRange.start && dateRange.end);
 
     useEffect(() => {
@@ -246,6 +248,15 @@ const MapWrapper = forwardRef((props, ref) => {
         setIsMenuOpen(false);
     };
 
+    useImperativeHandle(ref, () => ({
+        toggleMenu: handleMenuToggle,
+        handleChatbotLocations: (locations) => {
+            if (mapRef.current) {
+                mapRef.current.handleChatbotLocations(locations);
+            }
+        }
+    }));
+
     useEffect(() => {
         function handleClickOutside(event) {
             if (!hasCompletedInitialTripbox) return;
@@ -267,8 +278,7 @@ const MapWrapper = forwardRef((props, ref) => {
             setIsMenuOpen(true);
             return;
         }
-        // Block closing during initial setup until TripBox is complete.
-        if (!hasCompletedInitialTripbox) return;
+        // Explicitly allow closing via the toggle button
         closeMenuAndApply();
     };
 
@@ -359,7 +369,7 @@ const MapWrapper = forwardRef((props, ref) => {
             {/* --- MAP CONTAINER --- */}
             <div className={styles.mapSection}>
                 <MapBackground
-                    ref={ref}
+                    ref={mapRef}
                     selectedActivities={selectedActivities}
                     selectedLocation={selectedLocation}
                     mapData={mapData}
@@ -502,18 +512,6 @@ const MapWrapper = forwardRef((props, ref) => {
                             </div>
                         </div>
 
-                        {/* --- ROW 2: TRIP SUMMARY (Spans Full Width) --- */}
-                        <div className={styles.tripForecastRow}>
-                            <h2 className={`${styles.boxHelperText} ${styles.tripForecastTitle}`}>TRIP FORECAST</h2>
-                            <div className={styles.tripForecastTextBox}>
-                                <p className={styles.tripForecastText}>
-                                    {/* --- 3 INDEPENDENT WRITERS --- */}
-                                    <TypewriterSpan text={introText} />
-                                    <TypewriterSpan text={durationText} />
-                                    <TypewriterSpan text={activityText} />
-                                </p>
-                            </div>
-                        </div>
 
                     </div>
                     <div className={styles.tripForecastActions}>
@@ -528,6 +526,18 @@ const MapWrapper = forwardRef((props, ref) => {
                     </div>
                 </div>
             </div>
+            {isTripBoxComplete && isTripForecastVisible && (
+                <div className={styles.tripForecastRow} data-forecast-outside="true">
+                    <h2 className={`${styles.boxHelperText} ${styles.tripForecastTitle}`}>TRIP FORECAST</h2>
+                    <div className={styles.tripForecastTextBox}>
+                        <p className={styles.tripForecastText}>
+                            <TypewriterSpan text={introText} />
+                            <TypewriterSpan text={durationText} />
+                            <TypewriterSpan text={activityText} />
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 });

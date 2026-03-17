@@ -25,8 +25,8 @@
 
 .leftRightControls {
     position: absolute;
-    top: 20px;
-    left: clamp(12px, 1.6vw, 20px);
+    top: 80px;
+    right: 24px;
     z-index: 50;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@
 }
 
 .collapsibleCard {
-    width: clamp(340px, 48vw, 640px);
+    width: clamp(340px, 50vw, 640px);
     background-color: var(--itinerary-map-panel-bg);
     backdrop-filter: blur(15px);
     border-radius: 12px;
@@ -48,8 +48,9 @@
     pointer-events: none;
     display: none;
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    height: clamp(460px, 62vh, 760px);
-    max-height: 78vh;
+    height: auto;
+    max-height: 85vh;
+    overflow-y: auto;
     flex-direction: column;
     position: relative;
 }
@@ -115,11 +116,10 @@
 
 .collapsibleContent {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 0.8fr;
     gap: 0;
     width: 100%;
     overflow: hidden;
-    padding-bottom: 20px;
 }
 
 .collapsibleContent::-webkit-scrollbar {
@@ -202,9 +202,15 @@
 
 /* Specialized Box Overrides */
 .TripBox,
-.budgetBox,
-.activitiesBox {
+.budgetBox {
     width: 100%;
+    padding: clamp(12px, 1.8vw, 20px);
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.activitiesBox {
+    width: auto;
     padding: clamp(12px, 1.8vw, 20px);
     background-color: transparent;
     box-sizing: border-box;
@@ -236,9 +242,6 @@
     flex-direction: column;
 }
 
-.controlsColumnLeft {
-    border-right: 1px solid var(--itinerary-map-border);
-}
 
 .dateRangeTrigger,
 .locField {
@@ -349,25 +352,34 @@
 .locHelperText,
 .budgetHelperText,
 .boxHelperText {
-    font-size: 0.68rem;
+    font-size: 0.9rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
     color: var(--itinerary-map-muted-2);
     line-height: 1.4;
     margin-bottom: 20px;
-    text-align: center;
-    font-family: 'Outfit', sans-serif;
+    text-align: left;
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
 }
 
 .tripForecastRow {
-    grid-column: 1 / -1;
-    border-top: 1px solid var(--itinerary-map-border);
-    padding: 20px;
-    color: var(--itinerary-map-text);
+    position: absolute;
+    bottom: clamp(12px, 2.5vh, 20px);
+    left: clamp(12px, 1.6vw, 20px);
+    z-index: 60;
+    width: clamp(280px, 32vw, 420px);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    background-color: var(--itinerary-map-panel-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--itinerary-map-panel-border);
+    border-radius: 12px;
+    padding: clamp(12px, 1.5vw, 16px);
+    box-shadow: var(--itinerary-map-panel-shadow);
+    pointer-events: auto;
 }
 
 .tripForecastTitle {
@@ -376,14 +388,11 @@
 
 .tripForecastTextBox {
     width: 100%;
-    height: 110px;
-    min-height: 100px;
     max-height: 100px;
     overflow-y: auto;
-    border: 1px solid var(--itinerary-map-border);
-    border-radius: 10px;
-    background: var(--itinerary-map-surface);
-    padding: 10px 12px;
+    border: none;
+    background: transparent;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -396,9 +405,8 @@
 }
 
 .tripForecastActions {
-    position: absolute;
-    right: 16px;
-    bottom: 12px;
+    position: relative;
+    padding: 24px 20px 20px;
     z-index: 3;
     display: flex;
     justify-content: flex-end;
@@ -502,9 +510,12 @@
 }
 
 .activitiesBox {
-    width: 100%;
+    width: auto;
     max-height: 100%;
     overflow-y: auto;
+    margin: 10px;
+    border: 1px solid var(--itinerary-map-border-strong);
+    border-radius: 12px;
 }
 
 .activitiesBox::-webkit-scrollbar {

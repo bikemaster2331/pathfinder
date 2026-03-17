@@ -5,12 +5,13 @@ import * as turf from '@turf/turf';
 import roadData from '../data/catanduanes_optimized.json';
 import { getVisualRoute } from '../utils/visualRoute.js';
 import styles from '../styles/itinerary_page/map.module.css';
+import ThemeToggle from './ThemeToggle';
 
 
 // --- CONFIGURATION ---
 const INITIAL_VIEW = {
     center: [124.25, 13.70], // first value/increase = push to left, second value/increase = push down
-    zoom: 10.7,
+    zoom: 10.9,
     pitch: 60,
     bearing: -15
 };
@@ -141,6 +142,7 @@ const Map = forwardRef((props, ref) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [showCredits, setShowCredits] = useState(false);
     const lastHubRef = useRef(null);
     const glowingMarkersRef = useRef([]);
     const animationFrameRef = useRef(null);
@@ -885,6 +887,17 @@ const Map = forwardRef((props, ref) => {
         return () => window.removeEventListener('themechange', applyTheme);
     }, [isLoaded]);
 
+    useEffect(() => {
+        if (!showCredits) return;
+        const handleClickOutside = (e) => {
+            if (!e.target.closest(`.${styles.mapFooterCreditContainer}`)) {
+                setShowCredits(false);
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [showCredits]);
+
     const handleZoomIn = () => {
         if (!map.current) return;
         map.current.zoomIn({ duration: 220 });
@@ -910,30 +923,7 @@ const Map = forwardRef((props, ref) => {
                 onClick={() => isMenuOpen && onToggleMenu && onToggleMenu()}
             />
             {!CLEAN_MAP_SCREENSHOT_MODE && (
-                <div className={styles.topControls}>
-                    <button
-                        type="button"
-                        className={styles.menuToggleButton}
-                        onClick={onToggleMenu}
-                        title="Trip Configuration"
-                        data-menu-toggle="true"
-                        aria-label="Toggle trip configuration"
-                    >
-                        <svg
-                            className={`${styles.menuChevron} ${isMenuOpen ? styles.menuChevronOpen : ''}`}
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                        >
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
+                <div className={styles.zoomControls}>
                     <div className={styles.zoomControls}>
                         <button
                             type="button"
@@ -959,52 +949,68 @@ const Map = forwardRef((props, ref) => {
                     </div>
                 </div>
             )}
-            <div className={styles.mapFooterCredit}>
-                <p>
-                    Built by
-                    <a
-                        href="https://github.com/bikemaster2331"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.mapCreatorLink}
-                    >
-                        M.L.
-                    </a>
-                    <span className={styles.mapFooterSeparator}>/</span>
-                    <a
-                        href="https://www.facebook.com/Roilan.Trasmano"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.mapColleagueLink}
-                    >
-                        R.B.
-                    </a>
-                    <a
-                        href="https://www.facebook.com/Yffffdkkd"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.mapColleagueLink}
-                    >
-                        J.A.
-                    </a>
-                    <a
-                        href="https://www.facebook.com/patrickjohn.guerrero.1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.mapColleagueLink}
-                    >
-                        P.G.
-                    </a>
-                    <a
-                        href="https://www.facebook.com/leetmns.10"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.mapColleagueLink}
-                    >
-                        J.T.
-                    </a>
-                </p>
-            </div>
+            <button
+                type="button"
+                className={`${styles.mapFooterCreditContainer} ${showCredits ? styles.isOpen : ''}`}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setShowCredits(!showCredits);
+                }}
+                aria-label="Toggle map credits"
+            >
+                <div className={styles.mapChefIcon} aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chef-hat-icon lucide-chef-hat">
+                        <path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z" />
+                        <path d="M6 17h12" />
+                    </svg>
+                </div>
+                <div className={styles.mapFooterCredit} onClick={(e) => e.stopPropagation()}>
+                    <p>
+                        Built by
+                        <a
+                            href="https://github.com/bikemaster2331"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.mapCreatorLink}
+                        >
+                            M.L.
+                        </a>
+                        <span className={styles.mapFooterSeparator}>/</span>
+                        <a
+                            href="https://www.facebook.com/Roilan.Trasmano"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.mapColleagueLink}
+                        >
+                            R.B.
+                        </a>
+                        <a
+                            href="https://www.facebook.com/Yffffdkkd"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.mapColleagueLink}
+                        >
+                            J.A.
+                        </a>
+                        <a
+                            href="https://www.facebook.com/patrickjohn.guerrero.1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.mapColleagueLink}
+                        >
+                            P.G.
+                        </a>
+                        <a
+                            href="https://www.facebook.com/leetmns.10"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.mapColleagueLink}
+                        >
+                            J.T.
+                        </a>
+                    </p>
+                </div>
+            </button>
         </div>
     );
 });

@@ -6,7 +6,7 @@
     height: 100dvh;
     overflow: hidden;
     background-color: var(--itinerary-bg);
-    padding: 10vh 15px 20px 15px;
+    padding: 40px 15px 20px 15px;
     gap: 16px;
     box-sizing: border-box;
     position: relative;
@@ -109,10 +109,48 @@
 }
 
 .desktopChatTitle {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
+    font-weight: 800;
     letter-spacing: 0.12em;
-    font-weight: 700;
     color: #e2e8f0;
+    pointer-events: none;
+}
+
+.desktopChatTitleGroup {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.homeRedirectBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+    border-radius: 999px;
+}
+
+.homeRedirectBtn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 0, 0.1);
+}
+
+:global([data-theme='light']) .desktopChatTitle {
+    color: #0f172a;
+}
+
+:global([data-theme='light']) .homeRedirectBtn {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+:global([data-theme='light']) .homeRedirectBtn:hover {
+    color: #000000;
+    background: rgba(0, 0, 0, 0.05);
 }
 
 .windowControls {
@@ -124,10 +162,10 @@
 .windowBtnIcon {
     width: 26px;
     height: 26px;
-    border-radius: 7px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(226, 232, 240, 0.55);
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: #fff;
     cursor: pointer;
     padding: 0;
     display: flex;
@@ -192,9 +230,9 @@
 }
 
 .mapExpandedPreviewExpanded {
-    height: 360px !important;
-    min-height: 360px !important;
-    max-height: 360px !important;
+    height: 500px !important;
+    min-height: 500px !important;
+    max-height: 500px !important;
 }
 
 .mapExpandedPreviewCollapsed {
@@ -307,33 +345,228 @@
     grid-column: 1 / -1;
 }
 
-.mapExpandedReviewToggle {
+.mapTopControlsGroup {
+    width: fit-content;
     position: absolute;
     top: 24px;
     right: 24px;
     z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 6px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme='dark']) .mapTopControlsGroup {
+    background: rgba(30, 30, 35, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+.mapTopControlsGroup button {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    color: #1c1c1e;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 1),
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mapTopControlsGroup button:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 1),
+        0 2px 6px rgba(0, 0, 0, 0.14),
+        0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.mapTopControlsGroup button:active {
+    transform: scale(0.96);
+    background: rgba(240, 240, 243, 0.95);
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.08),
+        0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Dark mode ── */
+:global([data-theme='dark']) .mapTopControlsGroup button {
+    background: rgba(44, 44, 48, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    color: #f5f5f7;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+        0 2px 8px rgba(0, 0, 0, 0.35),
+        0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+:global([data-theme='dark']) .mapTopControlsGroup button:hover {
+    background: rgba(58, 58, 64, 0.9);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+        0 4px 12px rgba(0, 0, 0, 0.45),
+        0 8px 24px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
+}
+
+:global([data-theme='dark']) .mapTopControlsGroup button:active {
+    transform: scale(0.96);
+    background: rgba(36, 36, 40, 0.9);
+    box-shadow:
+        inset 0 1px 3px rgba(0, 0, 0, 0.4),
+        0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.mapThemeToggle,
+.mapMenuToggle,
+.mapHelpToggle,
+.mapExpandedReviewToggle {
     border: 1px solid rgba(255, 255, 255, 0.24);
     background: rgba(10, 12, 18, 0.65);
     color: #f8fafc;
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 8px 12px;
     border-radius: 999px;
     cursor: pointer;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
-    transition: transform 0.2s ease, box-shadow 0.08s ease;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.mapThemeToggle,
+.mapMenuToggle,
+.mapHelpToggle {
+    height: 36px;
+    width: 36px; /* Default for circular buttons */
+}
+
+.mapExpandedReviewToggle {
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+    height: 36px;
+    width: 95px; /* Default for pill button */
+}
+
+/* Dynamic Sizes */
+.mapControlSmall {
+    width: 36px !important;
+    padding: 0 !important;
+}
+
+.mapControlLarge {
+    width: 95px !important;
+    padding: 0 12px !important;
+}
+
+.buttonContentWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+}
+
+.buttonLabel {
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-4px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.mapThemeToggle svg,
+.mapMenuToggle svg,
+.mapHelpToggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+.menuChevron {
+    transition: transform 0.25s ease;
+}
+
+.menuChevronOpen {
+    transform: rotate(-90deg);
+}
+
+.mapThemeToggle:hover,
+.mapMenuToggle:hover,
+.mapHelpToggle:hover,
 .mapExpandedReviewToggle:hover {
     transform: translateY(-1px);
+    background: rgba(10, 12, 18, 0.82);
+    border-color: rgba(255, 255, 255, 0.45);
 }
 
+.mapThemeToggle:active,
+.mapMenuToggle:active,
+.mapHelpToggle:active,
 .mapExpandedReviewToggle:active {
-    transform: translateY(1px) scale(0.98);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px) scale(0.96);
 }
+
+/* Theme Icon Visibility */
+.mapThemeToggle .iconLight,
+.mapThemeToggle .iconDark {
+    display: none;
+}
+
+:global([data-theme='light']) .mapThemeToggle .iconLight {
+    display: block;
+}
+
+:global([data-theme='dark']) .mapThemeToggle .iconDark {
+    display: block;
+}
+
+/* Light Theme Overrides */
+:global([data-theme='light']) .mapThemeToggle,
+:global([data-theme='light']) .mapMenuToggle,
+:global([data-theme='light']) .mapHelpToggle,
+:global([data-theme='light']) .mapExpandedReviewToggle {
+    background: rgba(255, 255, 255, 0.85);
+    color: #0f172a;
+    border-color: rgba(15, 23, 42, 0.12);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+}
+
+:global([data-theme='light']) .mapThemeToggle:hover,
+:global([data-theme='light']) .mapMenuToggle:hover,
+:global([data-theme='light']) .mapHelpToggle:hover,
+:global([data-theme='light']) .mapExpandedReviewToggle:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(15, 23, 42, 0.25);
+}
+
 
 .mapExpandedReviewToggleBlurred {
     filter: blur(4px);
@@ -344,7 +577,7 @@
 
 .mapExpandedReviewBox {
     position: absolute;
-    top: 66px;
+    top: 80px;
     right: 24px;
     width: 370px;
     height: 400px;
@@ -397,7 +630,7 @@
     top: calc(12px + 340px + 10px);
     right: 12px;
     width: 430px;
-    height: 360px;
+    height: 500px;
     border-radius: 14px;
     overflow: hidden;
     z-index: 34;
@@ -779,10 +1012,11 @@
     flex: 1 1 auto;
     min-height: 0;
     overflow: hidden;
-    padding: 10px 10px 6px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 6px;
+    align-items: stretch;
 }
 
 .mapExpandedSpotsScroll {
@@ -791,6 +1025,9 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .mapExpandedSpotsScroll::-webkit-scrollbar {
@@ -839,11 +1076,10 @@
 .mapExpandedActionRow {
     margin-top: auto !important;
     display: flex !important;
-    flex-wrap: nowrap;
-    justify-content: flex-end !important;
-    align-items: flex-end;
+    justify-content: center !important;
+    align-items: center;
     width: 100%;
-    transform: translate(8px, -4px);
+    box-sizing: border-box;
 }
 
 .mapExpandedPrimaryAction {

@@ -717,9 +717,38 @@
 
 .bottomButtonRow {
     display: flex;
-    gap: 6px;
-    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    flex: none;
     width: 100%;
+
+    margin: 8px 0 0 0;
+    padding: 0 12px;
+
+    height: 54px !important;
+    min-height: 0 !important;
+
+    background: var(--itinerary-card-surface-08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    /* FIX */
+    border: none;
+    border-top: 1px solid var(--itinerary-card-surface-12);
+    border-radius: 0;
+
+    box-sizing: border-box;
+}
+
+.bottomButtonRow button {
+    flex: 1;
+    height: 36px;
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+    border-radius: 12px;
 }
 
 .backButton {
@@ -767,9 +796,7 @@
 
 .optimizeBtnSmall {
     background: transparent;
-    backdrop-filter: blur(8px);
-    border: 0px;
-    border-radius: 8px;
+    border: none;
     color: var(--itinerary-card-text-70);
     font-size: 0.70rem;
     font-weight: 600;
@@ -782,16 +809,16 @@
     justify-content: center;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
+    
 .optimizeBtnSmall:hover {
-    background: var(--itinerary-card-surface-08);
-    border-color: var(--itinerary-card-surface-20);
     color: var(--itinerary-card-text-90);
+    background: transparent;
 }
 
 .optimizeBtnSmall:active {
     transform: translateY(0) scale(0.95);
 }
+
 
 .walletContainer {
     margin-top: 8px;
