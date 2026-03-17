@@ -35,93 +35,191 @@
     pointer-events: auto;
     visibility: visible;
 }
-
-.topControls {
+.zoomControls {
     position: absolute;
-    top: clamp(12px, 1.6vw, 20px);
-    left: 50%;
-    transform: translateX(-50%);
+    right: 12px;
+    bottom: 50%;
     z-index: 60;
     display: flex;
+    flex-direction: column-reverse;
     align-items: center;
-    gap: 8px;
+    gap: 1px;
+    /* tight grouping — feels like one unit */
 }
 
-.zoomControls {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.menuToggleButton,
 .zoomButton {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    background: rgba(0, 0, 0, 0.45);
-    color: #ffffff;
+    width: 54px;
+    height: 54px;
+    border: none;
+    background: #1c1c1e;
+    color: #f5f5f7;
     font-size: 18px;
-    line-height: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+    transition: background 0.15s ease, transform 0.12s ease;
 }
 
-.menuChevron {
-    transform: rotate(0deg);
-    transition: transform 0.25s ease;
+/* Pill shape — top button rounded on top, bottom button rounded on bottom */
+.zoomButton:first-child {
+    border-radius: 0 0 10px 10px;
 }
 
-.menuChevronOpen {
-    transform: rotate(180deg);
+.zoomButton:last-child {
+    border-radius: 10px 10px 0 0;
+}
+
+/* Hairline divider between the two */
+.zoomButton:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.zoomButton:hover {
+    background: #2c2c2e;
+}
+
+.zoomButton:active {
+    transform: scale(0.93);
+    background: #3a3a3c;
 }
 
 .zoomButton svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
 }
 
-.menuToggleButton:hover,
-.zoomButton:hover {
-    transform: translateY(-1px);
-    background: rgba(0, 0, 0, 0.62);
-    border-color: rgba(255, 255, 255, 0.4);
-}
-
-:global([data-theme='light']) .menuToggleButton,
+/* ── Light mode ── */
 :global([data-theme='light']) .zoomButton {
-    background: rgba(255, 255, 255, 0.82);
-    color: #0f172a;
-    border-color: rgba(15, 23, 42, 0.18);
+    background: #ffffff;
+    color: #1c1c1e;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
 }
 
-:global([data-theme='light']) .menuToggleButton:hover,
+:global([data-theme='light']) .zoomButton:first-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
 :global([data-theme='light']) .zoomButton:hover {
-    background: rgba(255, 255, 255, 0.94);
-    border-color: rgba(15, 23, 42, 0.3);
+    background: #f5f5f7;
+}
+
+:global([data-theme='light']) .zoomButton:active {
+    background: #e8e8ed;
+    transform: scale(0.93);
+}
+
+.iconLight,
+.iconDark {
+    display: none;
+}
+
+:global([data-theme='light']) .themeToggleButton .iconLight {
+    display: block;
+}
+
+:global([data-theme='dark']) .themeToggleButton .iconDark {
+    display: block;
+}
+
+.mapFooterCreditContainer {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    z-index: 100;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mapChefIcon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 38px;
+    height: 38px;
+
+    /* 1. Remove background and effects */
+    background: none;
+    border: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+
+    /* 2. Layout & Interaction */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    /* 3. Icon Color & State */
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transform: scale(1);
+}
+
+:global([data-theme='light']) .mapChefIcon {
+    color: rgba(15, 23, 42, 0.5);
+}
+
+
+.mapFooterCreditContainer:hover .mapChefIcon,
+.mapFooterCreditContainer.isOpen .mapChefIcon {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
 }
 
 .mapFooterCredit {
     position: absolute;
-    right: 16px;
-    bottom: 12px;
-    padding: 6px 10px;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(10, 12, 18, 0.38);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    right: 0;
+    bottom: 0;
+    padding: 0 14px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(10, 12, 18, 0.65);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
     letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.74);
-    z-index: 30;
+    color: #ffffff;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.9) translateX(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+:global([data-theme='light']) .mapFooterCredit {
+    background: rgba(255, 255, 255, 0.65);
+    color: rgba(15, 23, 42, 0.5);
+}
+
+
+.mapFooterCredit p {
+    margin: 0;
+}
+
+.mapFooterCreditContainer:hover .mapFooterCredit,
+.mapFooterCreditContainer.isOpen .mapFooterCredit {
+    opacity: 1;
+    visibility: visible;
     pointer-events: auto;
+    transform: scale(1) translateX(0);
 }
 
 .mapCreatorLink,
