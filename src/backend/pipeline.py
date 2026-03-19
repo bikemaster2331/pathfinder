@@ -92,22 +92,21 @@ WORD_NUMBERS = {
 
 def parse_count_from_query(user_input):
     # ("COUNT PARSER": Detects how many results the user wants ("top 3", "give me five").
-    #  Defaults to 5 if nothing found. Controls browsing list length in ask().
-    #  From: ask() early setup → To: SemanticCache.get(), browsing rank slice | *mll)
+    #  Returns (count, is_explicit). Controls browsing list length and map pin limits.
     query_lower = user_input.lower()
     digit_match = re.search(r'\b(top|best|give me|show me)?\s*(\d+)\b', query_lower)
     if digit_match:
         n = int(digit_match.group(2))
         if 1 <= n <= 50:
             print(f"[COUNT] Detected digit count: {n}")
-            return n
+            return n, True  # <-- Added True
     for word, num in WORD_NUMBERS.items():
         pattern = r'\b(top|best|give me|show me)?\s*' + word + r'\b'
         if re.search(pattern, query_lower):
             print(f"[COUNT] Detected word count: '{word}' -> {num}")
-            return num
+            return num, True # <-- Added True
     print(f"[COUNT] No count found, defaulting to 5")
-    return 5
+    return 5, False # <-- Added False
 
 
 def normalize_activities(raw):
@@ -270,11 +269,11 @@ class SemanticCache:
                     version      = metadata.get('version', 'raw')
 
                     if requested_count is not None and stored_count is not None:
-                        # Raw entries must match exactly to avoid "top 3" answering "top 5"
-                        # Enhanced entries are allowed to diverge slightly (Gemini adds/removes pins)
-                        if version == 'raw' and stored_count != requested_count:
+                        # STRICT MATCH: If the numbers don't match, skip this cache entry.
+                        # It doesn't matter if it is raw or enhanced.
+                        if stored_count != requested_count:
                             print(f"[CACHE] Similarity OK ({similarity:.3f}) but count mismatch: "
-                                f"stored={stored_count} requested={requested_count} — skipping")
+                                  f"stored={stored_count} requested={requested_count} — skipping")
                             continue
 
                     answer  = metadata.get('answer', '')
@@ -431,16 +430,16 @@ class BackgroundEnhancer:
             self.worker_thread.join(timeout=2)
         print("[ENHANCER] Background worker stopped")
 
-    def enqueue(self, query, raw_facts, raw_answer, candidates=None, rag_tier='T3'):
-        # ("ENHANCER ENQUEUE": Adds a job to the queue for async enhancement.
-        #  Only called for non-context, non-vague queries.
-        #  From: ask() final steps → To: _worker_loop() picks it up | *mll)
+    def enqueue(self, query, raw_facts, raw_answer, candidates=None, rag_tier='T3', is_browsing=False, requested_count=5, is_explicit_count=False):
         job = {
             'query':      query,
             'raw_facts':  raw_facts,
             'raw_answer': raw_answer,
             'candidates': candidates or [],
             'rag_tier':   rag_tier,
+            'is_browsing': is_browsing,
+            'requested_count': requested_count,
+            'is_explicit_count': is_explicit_count,
             'timestamp':  time.time()
         }
         self.job_queue.put(job)
@@ -461,21 +460,32 @@ class BackgroundEnhancer:
                 enhanced = self._enhance_with_gemini(job)
 
                 if enhanced:
-                    # Resolve pins from Gemini's text — these replace RAG pins entirely
-                    # since Gemini's answer is more accurate than what survived the filters.
-                    resolved = self._resolve_places_from_enhanced(enhanced, job.get('candidates', []))
+                    # 1. Split the Text UI from the Map Pins
+                    if "APPROVED_PINS:" in enhanced:
+                        parts = enhanced.split("APPROVED_PINS:")
+                        display_text = parts[0].strip()
+                        hidden_pins_text = parts[1].strip()
+                    else:
+                        display_text = enhanced.strip()
+                        hidden_pins_text = enhanced.strip()
+
+                    # 2. Resolve the pins
+                    resolved = self._resolve_places_from_enhanced(hidden_pins_text, job.get('candidates', []))
+
+                    # 3. IDIOT-PROOF THE LLM: If the user explicitly asked for 3, force the list to 3.
+                    if job.get('is_explicit_count') and resolved:
+                        resolved = resolved[:job.get('requested_count')]
+
+                    # 4. Update the cache
                     success = self.cache.update(
                         job['query'],
-                        enhanced,
+                        display_text, 
                         places=resolved if resolved else None,
                     )
+                    
                     print(
                         f"[ENHANCER] ✓ Cache update: {success}"
-                        + (
-                            f" | {len(resolved)} pins resolved"
-                            if resolved
-                            else " | no pins resolved"
-                        )
+                        + (f" | {len(resolved)} pins resolved from hidden list" if resolved else " | no pins resolved")
                     )
                 else:
                     # None = either "no answer" (discard silently) or API failure.
@@ -1625,7 +1635,7 @@ class Pipeline:
         #  Hit → return immediately (fast path). Raw hit → re-enqueue for enhancement.
         #  Miss → continue to entity extraction and RAG.
         #  From: gate checks → To: early return (hit) or entity extraction (miss) | *mll)
-        requested_count = parse_count_from_query(user_input)
+        requested_count, is_explicit_count = parse_count_from_query(user_input)
         cached = self.semantic_cache.get(normalized, requested_count)
         if cached:
             answer, places, version = cached
@@ -1720,10 +1730,14 @@ class Pipeline:
                 )
                 print(f"[ARBITRATE] with_pin={with_pin} | without_pin={without_pin}")
 
-                if with_pin['score'] > without_pin['score'] + 0.05:
+                if with_pin['top_conf'] >= self.specific_min:
                     specific_places_found = pin_specific_places
                     active_pin_ctx = pin_candidate
-                    print("[ARBITRATE] Using active pin context")
+                    print("[ARBITRATE] Using active pin context (High Confidence)")
+                elif with_pin['score'] > without_pin['score'] + 0.05:
+                    specific_places_found = pin_specific_places
+                    active_pin_ctx = pin_candidate
+                    print("[ARBITRATE] Using active pin context (Higher Score)")
                 else:
                     specific_places_found = base_specific_places
                     active_pin_ctx = None
@@ -1996,15 +2010,25 @@ class Pipeline:
                         if name not in place_best or conf > place_best[name][0]:
                             place_best[name] = (conf, i)
 
-                    ranked_places = sorted(place_best.items(),
+                   # 1. Sort all found places by confidence
+                    # 1. Sort all found places by confidence
+                    all_ranked_places = sorted(place_best.items(),
                                            key=lambda x: x[1][0], reverse=True)
-                    ranked_places = ranked_places[:requested_count]
-                    print(f"[BROWSING] Best-conf per place: "
-                          f"{[(n, f'{c:.3f}') for n,(c,_) in ranked_places]}")
+                    
+                    # 2. Create the curated list for the Text Response (Top N)
+                    top_places_for_text = all_ranked_places[:requested_count]
+                    print(f"[BROWSING] Best-conf per place (Top {requested_count}): "
+                          f"{[(n, f'{c:.3f}') for n,(c,_) in top_places_for_text]}")
 
                     descriptions = []
-                    for name, (conf, _) in ranked_places:
+                    for name, (conf, _) in top_places_for_text:
                         descriptions.append(name)
+
+                    # 3. DECISION: If explicit count (Top 3), pin 3. If default, pin ALL.
+                    places_to_pin = top_places_for_text if is_explicit_count else all_ranked_places
+
+                    # 4. Create the map pins using the decided list
+                    for name, (conf, _) in places_to_pin:
                         loc_data = self.geo_engine.get_coords(name)
                         if loc_data and loc_data['name'] not in seen_places:
                             final_locations.append(loc_data)
@@ -2112,7 +2136,10 @@ class Pipeline:
             self.enhancer.enqueue(
                 normalized, raw_answer, raw_answer,
                 candidates = gemini_pool,
-                rag_tier   = 'ALL'
+                rag_tier   = 'ALL',
+                is_browsing = is_browsing,
+                requested_count = requested_count,
+                is_explicit_count = is_explicit_count
             )
         else:
             print(f"[ENHANCER] Skipped enqueue — context/vague query")
