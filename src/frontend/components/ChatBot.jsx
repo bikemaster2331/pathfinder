@@ -75,6 +75,7 @@ const ChatBot = forwardRef(({
             setModalInput(prev => {
                 const newVal = prev.slice(0, -1);
                 if (keyboardRef.current) keyboardRef.current.setInput(newVal);
+                setInput(newVal);
                 return newVal;
             });
             return;
@@ -86,6 +87,7 @@ const ChatBot = forwardRef(({
             setModalInput(prev => {
                 const newVal = prev + e.key;
                 if (keyboardRef.current) keyboardRef.current.setInput(newVal);
+                setInput(newVal);
                 return newVal;
             });
 
@@ -217,6 +219,7 @@ const ChatBot = forwardRef(({
     const handleModalInputChange = (e) => {
         const val = e.target.value;
         setModalInput(val);
+        setInput(val);
         if (keyboardRef.current) {
             keyboardRef.current.setInput(val);
         }
@@ -228,6 +231,7 @@ const ChatBot = forwardRef(({
 
     const onChangeKeyboard = (inputVal) => {
         setModalInput(inputVal);
+        setInput(inputVal);
         if (modalTextareaRef.current) {
             modalTextareaRef.current.style.height = 'auto';
             modalTextareaRef.current.style.height = Math.min(modalTextareaRef.current.scrollHeight, 200) + 'px';
@@ -306,6 +310,8 @@ const ChatBot = forwardRef(({
         if (!userMessage || loading) return;
 
         setInput('');
+        setModalInput(''); // Clear modal input too
+        if (keyboardRef.current) keyboardRef.current.clearInput();
         if (textareaRef.current) textareaRef.current.style.height = 'auto';
         submitMessage(userMessage);
     };
@@ -316,6 +322,7 @@ const ChatBot = forwardRef(({
         if (!userMessage || loading) return;
 
         setModalInput('');
+        setInput(''); // Clear main input too
         if (keyboardRef.current) {
             keyboardRef.current.clearInput();
         }
@@ -356,6 +363,27 @@ const ChatBot = forwardRef(({
             : styles.floating;
 
     const hasMessages = messages.length > 0;
+
+    const renderActivePinPill = () => {
+        if (!activePin) return null;
+        return (
+            <div className={styles.activePinPill}>
+                <span>{activePin}</span>
+                <button
+                    type="button"
+                    className={styles.removePillBtn}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (setActivePin) setActivePin(null);
+                    }}
+                    aria-label="Remove pin"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+        );
+    };
 
     return (
         <>
@@ -462,6 +490,9 @@ const ChatBot = forwardRef(({
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
                             )}
                         </button>
+                        
+                        {renderActivePinPill()}
+
                         <textarea
                             ref={textareaRef}
                             rows={1}
@@ -472,7 +503,11 @@ const ChatBot = forwardRef(({
                             className={styles.chatInput}
                             disabled={loading}
                             readOnly={true} /* Prevent native OS keyboard from popping up on touch devices */
-                            onClick={() => setShowKeyboard(true)}
+                            onClick={() => {
+                                setModalInput(input);
+                                if (keyboardRef.current) keyboardRef.current.setInput(input);
+                                setShowKeyboard(true);
+                            }}
                         />
                         <button
                             type="submit"
@@ -536,6 +571,9 @@ const ChatBot = forwardRef(({
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
                                 )}
                             </button>
+
+                            {renderActivePinPill()}
+
                             <textarea
                                 ref={modalTextareaRef}
                                 rows={1}
