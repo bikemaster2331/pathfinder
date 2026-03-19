@@ -733,11 +733,9 @@
     background: var(--itinerary-card-surface-08);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-
-    /* FIX */
     border: none;
     border-top: 1px solid var(--itinerary-card-surface-12);
-    border-radius: 0;
+    border-radius: 16px;
 
     box-sizing: border-box;
 }
