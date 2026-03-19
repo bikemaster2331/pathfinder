@@ -50,13 +50,12 @@ const RESET_TRIGGER_BOUNDS = {
 const HUB_COLOR = '#048aa1';
 
 const ACTIVITY_MAPPING = {
-    Swimming: ['FALLS', 'HOTELS & RESORTS'],
-    Hiking: ['VIEWPOINTS', 'FALLS'],
-    Dining: ['RESTAURANTS & CAFES'],
-    Sightseeing: ['VIEWPOINTS', 'RELIGIOUS SITES', 'FALLS'],
-    Photography: ['VIEWPOINTS', 'RELIGIOUS SITES', 'FALLS', 'HOTELS & RESORTS'],
-    Shopping: ['SHOPPING'],
-    Accommodation: ['HOTELS & RESORTS']
+    Water: ['beach', 'swimming', 'falls'],
+    Outdoor: ['hike', 'nature'],
+    Views: ['viewpoint'],
+    Heritage: ['religious', 'history', 'culture', 'indoor'],
+    Dining: ['food'],
+    Stay: ['accommodation'],
 };
 
 // Temporary switch for clean-map screenshots.
@@ -237,7 +236,35 @@ const Map = forwardRef((props, ref) => {
 
         glowingMarkersRef.current.push(marker);
 
-        container.addEventListener('click', () => {
+        container.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            // 1. Zoom/Pan to the location (logic from handlePointClick)
+            const currentZoom = map.current.getZoom();
+            if (currentZoom < 12) {
+                map.current.flyTo({
+                    center: location.coordinates,
+                    zoom: 14,
+                    speed: 1.5,
+                    essential: true
+                });
+            } else {
+                map.current.easeTo({
+                    center: location.coordinates,
+                    duration: 300
+                });
+            }
+
+            // 2. Select the location (Updates Review Box)
+            if (onMarkerClick) {
+                // Ensure geometry is present for use in Itinerary.jsx calc
+                const spotData = { 
+                    ...location, 
+                    geometry: { type: 'Point', coordinates: location.coordinates } 
+                };
+                onMarkerClick(spotData);
+            }
+
             const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
             const popupAccent = isLight ? '#1d4ed8' : '#22d3ee';
             openTimedPopup(
@@ -266,11 +293,13 @@ const Map = forwardRef((props, ref) => {
         const allowedTypes = [...new Set(activeActivities.flatMap(act => ACTIVITY_MAPPING[act]))];
 
         const commonCriteria = [];
-        if (allowedTypes.length > 0) commonCriteria.push(['in', 'type', ...allowedTypes]);
+        if (allowedTypes.length > 0) commonCriteria.push(['in', 'category', ...allowedTypes]);
         if (budgetFilter && budgetFilter.length > 0) commonCriteria.push(['in', 'min_budget', ...budgetFilter]);
 
         const standardFilter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['!=', 'is_top_10', true]];
-        const top10Filter = ['all', ['==', '$type', 'Point'], ...commonCriteria, ['==', 'is_top_10', true]];
+        // Top 10 pins are iconic landmarks - they only filter by budget, not activity, to ensure they remain as orienting points
+        const budgetOnlyCriteria = budgetFilter && budgetFilter.length > 0 ? [['in', 'min_budget', ...budgetFilter]] : [];
+        const top10Filter = ['all', ['==', '$type', 'Point'], ['==', 'is_top_10', true]];
 
         try {
             if (map.current.getLayer('tourist-dots')) map.current.setFilter('tourist-dots', standardFilter);
@@ -412,6 +441,8 @@ const Map = forwardRef((props, ref) => {
                 }
             }
 
+            if (fullCoordinates.length < 2) return;
+
             const geojson = {
                 type: 'Feature',
                 properties: {},
@@ -421,11 +452,15 @@ const Map = forwardRef((props, ref) => {
                 }
             };
 
-            if (map.current.getSource(sourceId)) {
-                map.current.getSource(sourceId).setData(geojson);
-            } else {
+            const source = map.current.getSource(sourceId);
+            if (!source) {
                 map.current.addSource(sourceId, { type: 'geojson', data: geojson });
+            } else {
+                source.setData(geojson);
+            }
 
+            if (!map.current.getLayer(layerId)) {
+                const beforeId = map.current.getLayer('tourist-points') ? 'tourist-points' : undefined;
                 map.current.addLayer({
                     id: layerId,
                     type: 'line',
@@ -440,7 +475,7 @@ const Map = forwardRef((props, ref) => {
                         'line-opacity': 1,
                         'line-blur': 2
                     }
-                }, 'tourist-points');
+                }, beforeId);
             }
         };
 
@@ -454,6 +489,17 @@ const Map = forwardRef((props, ref) => {
                 if (segment?.geometry?.coordinates) previewCoords = segment.geometry.coordinates;
             }
 
+            if (previewCoords.length < 2) {
+                const source = map.current.getSource(previewSourceId);
+                if (source) {
+                    source.setData({
+                        type: 'FeatureCollection',
+                        features: []
+                    });
+                }
+                return;
+            }
+
             const previewGeoJSON = {
                 type: 'Feature',
                 geometry: {
@@ -462,10 +508,15 @@ const Map = forwardRef((props, ref) => {
                 }
             };
 
-            if (map.current.getSource(previewSourceId)) {
-                map.current.getSource(previewSourceId).setData(previewGeoJSON);
-            } else {
+            const source = map.current.getSource(previewSourceId);
+            if (!source) {
                 map.current.addSource(previewSourceId, { type: 'geojson', data: previewGeoJSON });
+            } else {
+                source.setData(previewGeoJSON);
+            }
+
+            if (!map.current.getLayer(previewLayerId)) {
+                const beforeId = map.current.getLayer('tourist-points') ? 'tourist-points' : undefined;
                 map.current.addLayer({
                     id: previewLayerId,
                     type: 'line',
@@ -477,7 +528,7 @@ const Map = forwardRef((props, ref) => {
                         'line-dasharray': [2, 2], // Dashed line
                         'line-opacity': 0.7
                     }
-                }, 'tourist-points');
+                }, beforeId);
             }
         };
 
@@ -502,6 +553,7 @@ const Map = forwardRef((props, ref) => {
             style: {
                 version: 8,
                 sources: {},
+                glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
                 layers: [{
                     id: 'background',
                     type: 'background',
@@ -513,7 +565,7 @@ const Map = forwardRef((props, ref) => {
             pitch: initialView.pitch,
             bearing: initialView.bearing,
             minZoom: 9,
-            maxZoom: 15,
+            maxZoom: 19,
             attributionControl: false,
             maxBounds: HARD_BOUNDS,
             dragPan: true,
@@ -657,8 +709,38 @@ const Map = forwardRef((props, ref) => {
                             'icon-default'
                         ],
                         'icon-size': 1,
-                        'icon-allow-overlap': true,
-                        'icon-anchor': 'center'
+                        'icon-allow-overlap': false,
+                        'icon-anchor': 'center',
+                        'text-field': [
+                            'step',
+                            ['zoom'],
+                            '',
+                            13, ['get', 'name']
+                        ],
+                        'text-size': 10,
+                        'text-anchor': 'bottom',
+                        'text-offset': [0, -1.5],
+                        'text-justify': 'auto',
+                        'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold']
+                    },
+                    paint: {
+                        'text-color': activeTheme.mapLabel,
+                        'text-halo-color': activeTheme.mapLabelHalo,
+                        'text-halo-width': 2
+                    }
+                });
+
+                map.current.addLayer({
+                    id: 'top-10-pulse',
+                    type: 'circle',
+                    source: 'all-data',
+                    filter: ['all', ['==', ['geometry-type'], 'Point'], ['to-boolean', ['get', 'is_top_10']]],
+                    paint: {
+                        'circle-radius': 12,
+                        'circle-color': '#ef4444',
+                        'circle-opacity': 0.2,
+                        'circle-blur': 1,
+                        'circle-stroke-width': 0
                     }
                 });
 
@@ -672,8 +754,21 @@ const Map = forwardRef((props, ref) => {
                         'icon-image': 'icon-top10',
                         'icon-size': 1.25,
                         'icon-allow-overlap': true,
+                        'icon-ignore-placement': true,
                         'icon-anchor': 'center',
-                        'symbol-sort-key': 1
+                        'symbol-sort-key': 1,
+                        'text-field': ['get', 'name'],
+                        'text-size': 10,
+                        'text-offset': [0, -1.8],
+                        'text-anchor': 'bottom',
+                        'text-allow-overlap': true,
+                        'text-ignore-placement': true,
+                        'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold']
+                    },
+                    paint: {
+                        'text-color': activeTheme.mapLabel,
+                        'text-halo-color': activeTheme.mapLabelHalo,
+                        'text-halo-width': 2.5
                     }
                 });
 
