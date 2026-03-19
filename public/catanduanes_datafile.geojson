@@ -25930,7 +25930,7 @@
       "properties": {
         "name": "Nitto Lodge",
         "type": "HOTELS & RESORTS",
-        "description": "A no-nonsense lodging situated in the thick of Virac’s daily commerce, offering a practical base.",
+        "description": "A no-nonsense lodging situated in the thick of Virac's daily commerce, offering a practical base.",
         "municipality": "VIRAC",
         "visit_time_minutes": 0,
         "category": "accommodation",
@@ -26008,7 +26008,7 @@
       "properties": {
         "name": "Catanduanes Midtown Inn",
         "type": "HOTELS & RESORTS",
-        "description": "Ideally positioned as the town’s meeting point, balancing business-class amenities with a busy cafe.",
+        "description": "Ideally positioned as the town's meeting point, balancing business-class amenities with a busy cafe.",
         "municipality": "VIRAC",
         "visit_time_minutes": 0,
         "category": "accommodation",
@@ -26164,7 +26164,7 @@
       "properties": {
         "name": "Museo De Catanduanes",
         "type": "RELIGIOUS SITES",
-        "description": "Housed within the Old Capitol building, preserving the province’s abaca heritage and political history.",
+        "description": "Housed within the Old Capitol building, preserving the province's abaca heritage and political history.",
         "municipality": "VIRAC",
         "visit_time_minutes": 45,
         "category": "indoor",
@@ -26606,7 +26606,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Taller’s Brew",
+        "name": "Taller's Brew",
         "type": "RESTAURANTS & CAFES",
         "description": "A coffee shop in Virac that takes pride in its brewing methods, offering a fix for serious coffee lovers.",
         "municipality": "VIRAC",
@@ -26684,7 +26684,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Mcdonald’s",
+        "name": "Mcdonald's",
         "type": "RESTAURANTS & CAFES",
         "description": "A standardized beacon of American fast food, offering a consistent, air-conditioned refuge and reliable Wi-Fi in the heart of the capital.",
         "municipality": "VIRAC",
@@ -27396,33 +27396,6 @@
         "coordinates": [
           124.30975236074532,
           13.87190788627189
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Baras Town Center",
-        "type": "SHOPPING",
-        "description": "The administrative and cultural heart of Baras, serving as the main waypoint for resupplying before heading out to the surf camps or the northern loop.",
-        "municipality": "BARAS",
-        "visit_time_minutes": 30,
-        "category": "viewpoint",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 150,
-        "original_activity": "sightseeing",
-        "image": "/images/baras_town_center.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.3637075239967,
-          13.699707877194335
         ]
       }
     },
@@ -29596,32 +29569,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Oliver's Riff Mamangal Beach Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "Adjacent to the main Mamangal strip, this resort offers a slightly quieter section of the beach for those wanting to avoid the crowds.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 120,
-        "category": "beach",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "afternoon",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 270,
-        "image": "/images/olivers riff.png"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.14868968279221,
-          13.555835876169589
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Our Lady of Mount Carmel Parish Church",
         "type": "RELIGIOUS SITES",
         "description": "The spiritual center of Viga, a large church that serves as the gathering point for the community during fiestas.",
@@ -30188,6 +30135,84 @@
         "coordinates": [
           124.23418504723898,
           13.583952428716442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "DRUNKBOX",
+        "type": "NIGHTLIFE",
+        "description": "A lively bar in Virac known for its vibrant nightlife scene and local drinks.",
+        "municipality": "VIRAC",
+        "visit_time_minutes": 120,
+        "category": "indoor",
+        "outdoor_exposure": "indoor",
+        "opening_hours": "18:00-02:00",
+        "best_time_of_day": "evening",
+        "min_budget": "medium",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 423,
+        "image": "/images/nightlife.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23143643491208,
+          13.581211225793492
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hideout Bar and Lounge",
+        "type": "NIGHTLIFE",
+        "description": "A chilled-out bar in Virac offering a relaxed atmosphere for socialization.",
+        "municipality": "VIRAC",
+        "visit_time_minutes": 90,
+        "category": "indoor",
+        "outdoor_exposure": "indoor",
+        "opening_hours": "17:00-01:00",
+        "best_time_of_day": "evening",
+        "min_budget": "medium",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 424,
+        "image": "/images/nightlife.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2074930812476,
+          13.584336447003185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kuwago's Restobar",
+        "type": "NIGHTLIFE",
+        "description": "A popular restobar in Virac combining good food with a nightlife vibe.",
+        "municipality": "VIRAC",
+        "visit_time_minutes": 110,
+        "category": "indoor",
+        "outdoor_exposure": "indoor",
+        "opening_hours": "17:00-01:00",
+        "best_time_of_day": "evening",
+        "min_budget": "medium",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 425,
+        "image": "/images/nightlife.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20486384347929,
+          13.586177506517904
         ]
       }
     }
