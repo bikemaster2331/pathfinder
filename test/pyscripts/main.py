@@ -1,3 +1,4 @@
+# Interactive CLI tool to chat with the trained GPT-2 model prototype.
 # src/main.py
 from transformers import pipeline
 

@@ -1,8 +1,9 @@
+# Maintenance tool to synchronize the dataset by pruning entries that don't exist on the map.
 import json
 from pathlib import Path
 
 def sync_dataset_to_geojson():
-    base_dir = Path(__file__).resolve().parent.parent
+    base_dir = Path(__file__).resolve().parent.parent.parent
     geojson_path = base_dir / "public" / "catanduanes_datafile.geojson"
     dataset_path = base_dir / "src" / "backend" / "dataset" / "dataset.json"
 
@@ -32,7 +33,7 @@ def sync_dataset_to_geojson():
     cleaned_dataset = []
     orphaned_entries = []
 
-    for entry in dataset_data:
+    for idx, entry in enumerate(dataset_data):
         raw_place_name = entry.get('place_name', '')
         place_name_lower = raw_place_name.strip().lower()
         
@@ -41,7 +42,12 @@ def sync_dataset_to_geojson():
         elif place_name_lower in valid_geo_names:
             cleaned_dataset.append(entry)
         else:
-            orphaned_entries.append(raw_place_name)
+            orphaned_entries.append({
+                "index": idx,
+                "name": raw_place_name,
+                "title": entry.get('title', 'N/A'),
+                "input": entry.get('input', 'N/A')
+            })
 
     # 3. Report findings
     print("\n[ SYNCHRONIZATION REPORT ]")
@@ -54,8 +60,9 @@ def sync_dataset_to_geojson():
         return
 
     print("\nThe following places have no matching map coordinates (Check for typos before deleting!):")
-    for name in orphaned_entries:
-        print(f" * {name}")
+    for item in orphaned_entries:
+        truncated_input = item['input'][:50] + "..." if len(item['input']) > 50 else item['input']
+        print(f" * Index: {item['index']} | Name: {item['name']} | Title: {item['title']} | Input: {truncated_input}")
 
     # 4. Require explicit execution
     confirm = input("\nExecute deletion of these specific orphans? (yes/no): ").strip().lower()

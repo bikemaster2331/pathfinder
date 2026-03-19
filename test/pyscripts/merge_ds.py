@@ -1,3 +1,4 @@
+# Validates alignment between the brain (JSON dataset) and the map (GeoJSON file).
 import json
 import math
 from pathlib import Path
@@ -17,8 +18,8 @@ def check_alignment():
     # 1. SETUP PATHS
     base_dir = Path(__file__).parent
     # Adjust these if your folder structure is different
-    json_path = base_dir / "dataset" / "dataset.json"
-    geojson_path = base_dir.parent.parent / "public" / "catanduanes_full.geojson"
+    json_path = base_dir / "../../src/backend/dataset/dataset.json"
+    geojson_path = base_dir / "../../public/catanduanes_datafile.geojson"
 
     print(f"Loading JSON: {json_path}")
     print(f"Loading GeoJSON: {geojson_path}")

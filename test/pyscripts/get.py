@@ -1,3 +1,4 @@
+# Utility to extract and format location data from the dataset for configuration files.
 import json
 
 # Load your dataset

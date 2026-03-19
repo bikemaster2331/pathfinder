@@ -1,3 +1,5 @@
+#extracts category counts from the geojson file
+
 import json
 from collections import Counter
 
@@ -12,7 +14,7 @@ print(f"Total features: {len(features)}\n")
 categories = [
     f["properties"].get("category", "NO_CATEGORY")
     for f in features
-    if f.get("properties") is not None
+    if f.get("properties") is not None  
 ]
 
 counts = Counter(categories)
