@@ -412,27 +412,8 @@
     "place_name": "Bagamanoc Guest House"
   },
   {
-    "input": "What amenities does The Lumber Hotel and Resort offer?",
-    "output": "The Lumber Hotel and Resort in Virac features a swimming pool, restaurant, and function rooms.",
-    "title": "The Lumber Amenities",
-    "topic": "facilities",
-    "location": "Virac",
-    "activities": [
-      "accommodation",
-      "general"
-    ],
-    "budget": "expensive",
-    "group_type": "family",
-    "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces.",
-    "coordinates": {
-      "lat": 13.592217696981342,
-      "lng": 124.24844932275295
-    },
-    "place_name": "The Lumber Hotel and Resort"
-  },
-  {
-    "input": "Where is E-Crown Hotel and Resort located?",
-    "output": "E-Crown Hotel and Resort is located in Virac, near Maribina Falls.",
+    "input": "Where is E-Crown Hotel located?",
+    "output": "E-Crown Hotel is located in Virac, near Maribina Falls.",
     "title": "E-Crown Hotel Location",
     "topic": "accommodation",
     "location": "Virac",
@@ -441,49 +422,12 @@
     ],
     "budget": "expensive",
     "group_type": "couple",
-    "summary_offline": "E-Crown Hotel and Resort is in Virac, close to Maribina Falls.",
+    "summary_offline": "E-Crown Hotel is in Virac, close to Maribina Falls.",
     "coordinates": {
       "lat": 13.593886227522459,
       "lng": 124.25617408469465
     },
-    "place_name": "E-Crown Hotel and Resort"
-  },
-  {
-    "input": "Does E-Crown Hotel and Resort have a restaurant?",
-    "output": "E-Crown Hotel and Resort features an in-house restaurant serving local and international dishes.",
-    "title": "E-Crown Hotel Restaurant",
-    "topic": "food",
-    "location": "Virac",
-    "activities": [
-      "dining",
-      "food"
-    ],
-    "budget": "expensive",
-    "group_type": "couple",
-    "summary_offline": "E-Crown Hotel and Resort has its own restaurant for guests.",
-    "coordinates": {
-      "lat": 13.593886227522459,
-      "lng": 124.25617408469465
-    },
-    "place_name": "E-Crown Hotel and Resort"
-  },
-  {
-    "input": "Is E-Crown Hotel and Resort a luxury option?",
-    "output": "E-Crown Hotel and Resort is considered a luxury accommodation located in Virac.",
-    "title": "E-Crown Hotel Location",
-    "topic": "accommodation",
-    "location": "Virac",
-    "activities": [
-      "accommodation"
-    ],
-    "budget": "expensive",
-    "group_type": "couple",
-    "summary_offline": "E-Crown Hotel and Resort is a luxury accommodation located in Virac.",
-    "coordinates": {
-      "lat": 13.593886227522459,
-      "lng": 124.25617408469465
-    },
-    "place_name": "E-Crown Hotel and Resort"
+    "place_name": "E-Crown Hotel"
   },
   {
     "input": "What are the room rates at Rhaj Inn?",
@@ -1365,7 +1309,7 @@
   },
   {
     "input": "Can I use my credit card in Catanduanes?",
-    "output": "Credit card acceptance in Catanduanes is very limited. A handful of larger hotels in Virac like E-Crown Hotel and Resort and The Lumber Hotel may accept cards, but most restaurants, resorts, habal-habal drivers, tour guides, and smaller guesthouses are cash only. ATMs in Virac (BDO, BPI, Landbank) are the main way to access cash — but they occasionally run out of money during peak season or after holidays. The strong advice is to withdraw sufficient cash in Legazpi or Manila before arriving, as the consequences of an empty ATM on an island are significant.",
+    "output": "Credit card acceptance in Catanduanes is very limited. A handful of larger hotels in Virac like E-Crown Hotel and The Lumber Hotel may accept cards, but most restaurants, resorts, habal-habal drivers, tour guides, and smaller guesthouses are cash only. ATMs in Virac (BDO, BPI, Landbank) are the main way to access cash — but they occasionally run out of money during peak season or after holidays. The strong advice is to withdraw sufficient cash in Legazpi or Manila before arriving, as the consequences of an empty ATM on an island are significant.",
     "summary_offline": "Credit cards accepted only at a few larger hotels in Virac. Most places are cash only. Withdraw sufficient cash before arriving — ATMs (BDO, BPI, Landbank in Virac) occasionally run out during peak season or after holidays.",
     "place_name": "Virac Town Center",
     "location": "VIRAC",
@@ -2248,8 +2192,8 @@
     "summary_offline": "Sonia's Island Stay is about five minutes from Virac Airport."
   },
   {
-    "input": "What amenities does The Lumber Hotel and Resort offer?",
-    "output": "The Lumber Hotel and Resort in Virac features a swimming pool, restaurant, and function rooms.",
+    "input": "What amenities does The Lumber Hotel offer?",
+    "output": "The Lumber Hotel in Virac features a swimming pool, restaurant, and function rooms.",
     "title": "The Lumber Amenities",
     "topic": "facilities",
     "location": "Virac",
@@ -2259,11 +2203,11 @@
     ],
     "budget": "expensive",
     "group_type": "family",
-    "summary_offline": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces."
+    "summary_offline": "The Lumber Hotel has a pool, restaurant, and event spaces."
   },
   {
-    "input": "Where is E-Crown Hotel and Resort located?",
-    "output": "E-Crown Hotel and Resort is located in Virac, near Maribina Falls.",
+    "input": "Where is E-Crown Hotel located?",
+    "output": "E-Crown Hotel is located in Virac, near Maribina Falls.",
     "title": "E-Crown Hotel Location",
     "topic": "accommodation",
     "location": "Virac",
@@ -2272,11 +2216,11 @@
     ],
     "budget": "expensive",
     "group_type": "couple",
-    "summary_offline": "E-Crown Hotel and Resort is in Virac, close to Maribina Falls."
+    "summary_offline": "E-Crown Hotel is in Virac, close to Maribina Falls."
   },
   {
-    "input": "Does E-Crown Hotel and Resort have a restaurant?",
-    "output": "E-Crown Hotel and Resort features an in-house restaurant serving local and international dishes.",
+    "input": "Does E-Crown Hotel have a restaurant?",
+    "output": "E-Crown Hotel features an in-house restaurant serving local and international dishes.",
     "title": "E-Crown Hotel Restaurant",
     "topic": "food",
     "location": "Virac",
@@ -2286,20 +2230,7 @@
     ],
     "budget": "expensive",
     "group_type": "couple",
-    "summary_offline": "E-Crown Hotel and Resort has its own restaurant for guests."
-  },
-  {
-    "input": "Is E-Crown Hotel and Resort a luxury option?",
-    "output": "E-Crown Hotel and Resort is considered a luxury accommodation located in Virac.",
-    "title": "E-Crown Hotel Location",
-    "topic": "accommodation",
-    "location": "Virac",
-    "activities": [
-      "accommodation"
-    ],
-    "budget": "expensive",
-    "group_type": "couple",
-    "summary_offline": "E-Crown Hotel and Resort is a luxury accommodation located in Virac."
+    "summary_offline": "E-Crown Hotel has its own restaurant for guests."
   },
   {
     "input": "What are the room rates at Rhaj Inn?",
@@ -2376,21 +2307,6 @@
     "topic": "general",
     "location": "Catanduanes Province",
     "summary_offline": "You can ask for locations to see them on the map, or use the filter buttons to explore categories.",
-    "activities": [
-      "general"
-    ]
-  },
-  {
-    "input": "Where is Baras located?",
-    "output": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines.",
-    "title": "Baras Location",
-    "topic": "general",
-    "location": "Catanduanes Province",
-    "coordinates": {
-      "lat": 13.699707877194335,
-      "lng": 124.3637075239967
-    },
-    "summary_offline": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines.",
     "activities": [
       "general"
     ]
@@ -3686,7 +3602,11 @@
       "budget",
       "camping",
       "fees"
-    ]
+    ],
+    "coordinates": {
+      "lat": 13.555007904907587,
+      "lng": 124.14923064840366
+    }
   },
   {
     "input": "Luyang Cave tour price and guide fee.",
@@ -4125,9 +4045,9 @@
   },
   {
     "input": "Romantic spots in Catanduanes for couples",
-    "output": "Catanduanes offers several naturally romantic settings. Binurong Point at sunrise or sunset creates a dramatic backdrop for couples. Puraran Beach in the off-season is quiet and secluded. Campilan Beach in Pandan is a peaceful, uncrowded stretch ideal for walks. In Virac, ARDCI Skydeck Lounge and Twin Bar and Cafe offer intimate evening atmospheres. E-Crown Hotel and Resort in Virac is a well-regarded option for couples looking for a comfortable stay with good views.",
+    "output": "Catanduanes offers several naturally romantic settings. Binurong Point at sunrise or sunset creates a dramatic backdrop for couples. Puraran Beach in the off-season is quiet and secluded. Campilan Beach in Pandan is a peaceful, uncrowded stretch ideal for walks. In Virac, ARDCI Skydeck Lounge and Twin Bar and Cafe offer intimate evening atmospheres. E-Crown Hotel in Virac is a well-regarded option for couples looking for a comfortable stay with good views.",
     "summary_offline": "Romantic spots: Binurong Point (dramatic cliffside views), Puraran Beach in quiet season, Campilan Beach in Pandan, ARDCI Skydeck Lounge and Twin Bar and Cafe in Virac for evening atmosphere.",
-    "place_name": "E-Crown Hotel and Resort",
+    "place_name": "E-Crown Hotel",
     "location": "VIRAC",
     "title": "Romantic Spots in Catanduanes for Couples",
     "topic": "sightseeing",
@@ -4309,7 +4229,7 @@
   },
   {
     "input": "Budget accommodation in Catanduanes. Cheapest places to stay.",
-    "output": "For budget travelers, Rhaj Inn and Nitto Lodge in Virac offer clean, basic rooms starting at around 400 to 600 pesos per night. E-Crown Hotel and Resort is a mid-range option at 800 to 1,500 pesos with more amenities. For a completely different experience, some surf camps at Puraran Beach offer dormitory-style beds for as low as 250 pesos per night.",
+    "output": "For budget travelers, Rhaj Inn and Nitto Lodge in Virac offer clean, basic rooms starting at around 400 to 600 pesos per night. E-Crown Hotel is a mid-range option at 800 to 1,500 pesos with more amenities. For a completely different experience, some surf camps at Puraran Beach offer dormitory-style beds for as low as 250 pesos per night.",
     "summary_offline": "Budget stays in Virac: Rhaj Inn and Nitto Lodge (400–600/night). Mid-range: E-Crown Hotel (800–1,500/night). Puraran surf camp dorms from 250/night.",
     "place_name": "Rhaj Inn",
     "location": "VIRAC",
@@ -4640,7 +4560,7 @@
   },
   {
     "input": "Beaches near Virac not too far",
-    "output": "The nearest beaches to Virac town are Mamangal Beach, Barefoot Beach, Marilima Beach, and Oliver's Riff Mamangal Beach Resort — all within 10 to 20 minutes from the town center. Twin Rock Beach Resort and Tampad Beach are slightly further but still within 30 minutes. LouCa Beach Resort, Batag Beach Resort, Sunset Coast Beach Resort, and Regina's Beachfront Resort are also short drives and have facilities.",
+    "output": "The nearest beaches to Virac town are Mamangal Beach, Barefoot Beach, Marilima Beach, and Mamangal Beach — all within 10 to 20 minutes from the town center. Twin Rock Beach Resort and Tampad Beach are slightly further but still within 30 minutes. LouCa Beach Resort, Batag Beach Resort, Sunset Coast Beach Resort, and Regina's Beachfront Resort are also short drives and have facilities.",
     "summary_offline": "Beaches closest to Virac: Mamangal Beach, Barefoot Beach, Marilima Beach (10–20 min). Slightly further: Twin Rock, Tampad Beach (30 min). With facilities: LouCa, Batag, Sunset Coast, Regina's.",
     "place_name": "Mamangal Beach",
     "location": "VIRAC",
@@ -5215,24 +5135,8 @@
     "summary_offline": "Mamangal Beach is a hotels and resorts located in Virac.",
     "place_name": "Mamangal Beach",
     "coordinates": {
-      "lat": 13.55636633190002,
-      "lng": 124.14885591109632
-    },
-    "activities": [
-      "accommodation"
-    ]
-  },
-  {
-    "input": "Where is Oliver's Riff Mamangal Beach Resort?",
-    "output": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in Virac.",
-    "title": "Oliver's Riff Mamangal Beach Resort Location",
-    "topic": "accommodation",
-    "location": "Virac",
-    "summary_offline": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in Virac.",
-    "place_name": "Oliver's Riff Mamangal Beach Resort",
-    "coordinates": {
-      "lat": 13.555835876169589,
-      "lng": 124.14868968279221
+      "lat": 13.555007904907587,
+      "lng": 124.14923064840366
     },
     "activities": [
       "accommodation"
@@ -5847,13 +5751,13 @@
     ]
   },
   {
-    "input": "Where is Mcdonald’s?",
-    "output": "Mcdonald’s is a restaurants and cafes located in Virac.",
-    "title": "Mcdonald’s Location",
+    "input": "Where is Mcdonald's?",
+    "output": "Mcdonald's is a restaurants and cafes located in Virac.",
+    "title": "Mcdonald's Location",
     "topic": "food",
     "location": "VIRAC",
-    "summary_offline": "Mcdonald’s is a restaurants and cafes located in Virac.",
-    "place_name": "Mcdonald’s",
+    "summary_offline": "Mcdonald's is a restaurants and cafes located in Virac.",
+    "place_name": "Mcdonald's",
     "coordinates": {
       "lat": 13.57976473515069,
       "lng": 124.22830760441924
@@ -5895,13 +5799,13 @@
     ]
   },
   {
-    "input": "Where is Taller’s Brew?",
-    "output": "Taller’s Brew is a restaurants and cafes located in Virac.",
-    "title": "Taller’s Brew Location",
+    "input": "Where is Taller's Brew?",
+    "output": "Taller's Brew is a restaurants and cafes located in Virac.",
+    "title": "Taller's Brew Location",
     "topic": "food",
     "location": "VIRAC",
-    "summary_offline": "Taller’s Brew is a restaurants and cafes located in Virac.",
-    "place_name": "Taller’s Brew",
+    "summary_offline": "Taller's Brew is a restaurants and cafes located in Virac.",
+    "place_name": "Taller's Brew",
     "coordinates": {
       "lat": 13.595368163992209,
       "lng": 124.20498736560553
@@ -6990,26 +6894,26 @@
     "summary_offline": "No 7-Eleven in Catanduanes. Virac has sari-sari stores and mini-marts. Stock up before heading to remote areas."
   },
   {
-    "input": "Where is The Lumber Hotel and Resort located?",
-    "output": "The Lumber Hotel and Resort is located along the main road in Virac, Catanduanes. It is one of the most prominent hotels in the capital and is easily accessible from the Virac town center, port, and airport.",
+    "input": "Where is The Lumber Hotel located?",
+    "output": "The Lumber Hotel is located along the main road in Virac, Catanduanes. It is one of the most prominent hotels in the capital and is easily accessible from the Virac town center, port, and airport.",
     "title": "The Lumber Hotel Location",
     "topic": "accommodation",
     "location": "VIRAC",
-    "place_name": "The Lumber Hotel and Resort",
+    "place_name": "The Lumber Hotel",
     "activities": [
       "accommodation",
       "general"
     ],
     "budget": "expensive",
-    "summary_offline": "The Lumber Hotel and Resort is on the main road in Virac — prominent, accessible from port and airport."
+    "summary_offline": "The Lumber Hotel is on the main road in Virac — prominent, accessible from port and airport."
   },
   {
-    "input": "How much does a room cost at The Lumber Hotel and Resort?",
-    "output": "The Lumber Hotel and Resort is one of the more upscale accommodations in Catanduanes. Room rates typically range from PHP 2,500–5,000 per night depending on room type and season. It offers standard, deluxe, and suite options. Rates include access to hotel facilities. Book directly or via online booking platforms — advance booking is recommended during peak season (April to June and Christmas holidays).",
+    "input": "How much does a room cost at The Lumber Hotel?",
+    "output": "The Lumber Hotel is one of the more upscale accommodations in Catanduanes. Room rates typically range from PHP 2,500–5,000 per night depending on room type and season. It offers standard, deluxe, and suite options. Rates include access to hotel facilities. Book directly or via online booking platforms — advance booking is recommended during peak season (April to June and Christmas holidays).",
     "title": "The Lumber Hotel Room Rates",
     "topic": "budget",
     "location": "VIRAC",
-    "place_name": "The Lumber Hotel and Resort",
+    "place_name": "The Lumber Hotel",
     "activities": [
       "accommodation",
       "budget",
@@ -7019,28 +6923,12 @@
     "summary_offline": "The Lumber Hotel rates: PHP 2,500–5,000/night. Standard to suite options. Book in advance for peak season (Apr–Jun, Dec)."
   },
   {
-    "input": "What amenities does The Lumber Hotel and Resort have?",
-    "output": "The Lumber Hotel and Resort features a swimming pool, restaurant and bar, function rooms for events, air-conditioned rooms with private bathrooms, and parking. It is one of the few hotels in Catanduanes with a full-service restaurant on-site. The hotel is suitable for families, business travelers, and groups. It is considered the most complete hotel facility in Virac.",
-    "title": "The Lumber Hotel Amenities",
-    "topic": "facilities",
-    "location": "VIRAC",
-    "place_name": "The Lumber Hotel and Resort",
-    "activities": [
-      "accommodation",
-      "facilities",
-      "dining"
-    ],
-    "budget": "expensive",
-    "group_type": "family",
-    "summary_offline": "The Lumber Hotel: pool, restaurant, bar, function rooms, parking. Most complete hotel in Virac. Good for families, business, and groups."
-  },
-  {
     "input": "Is The Lumber Hotel the best hotel in Catanduanes?",
-    "output": "The Lumber Hotel and Resort is widely considered one of the top hotel options in Virac and Catanduanes for travelers wanting full amenities. Its swimming pool, restaurant, and central location make it stand out. For beach-front experience, Twin Rock Beach Resort is also highly rated. For surfers, the resorts in Puraran are more convenient. The Lumber is best for those who prioritize comfort and facilities while based in Virac.",
+    "output": "The Lumber Hotel is widely considered one of the top hotel options in Virac and Catanduanes for travelers wanting full amenities. Its swimming pool, restaurant, and central location make it stand out. For beach-front experience, Twin Rock Beach Resort is also highly rated. For surfers, the resorts in Puraran are more convenient. The Lumber is best for those who prioritize comfort and facilities while based in Virac.",
     "title": "Is The Lumber Hotel the Best in Catanduanes",
     "topic": "accommodation",
     "location": "VIRAC",
-    "place_name": "The Lumber Hotel and Resort",
+    "place_name": "The Lumber Hotel",
     "activities": [
       "accommodation",
       "general"
@@ -8054,7 +7942,7 @@
   },
   {
     "input": "What accommodation in Catanduanes is most family-friendly?",
-    "output": "Twin Rock Beach Resort in Virac is the most recommended family accommodation — safe calm beach, swimming pool, and family room options. E-Crown Hotel and Resort in Virac also caters well to families with pool access.",
+    "output": "Twin Rock Beach Resort in Virac is the most recommended family accommodation — safe calm beach, swimming pool, and family room options. E-Crown Hotel in Virac also caters well to families with pool access.",
     "title": "Family-Friendly Accommodation Catanduanes",
     "topic": "family",
     "location": "Catanduanes Province",

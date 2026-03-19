@@ -1,3 +1,4 @@
+# Automated testing script that generates realistic, noisy user queries for system evaluation.
 import random
 import json
 import os

@@ -1,3 +1,4 @@
+# Trains a GPT-2 text generation model on the Pathfinder Q&A dataset.
 # train_chatbot.py
 import json
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling

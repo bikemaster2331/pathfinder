@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/itinerary_page/Itinerary.module.css';
 import cardStyles from '../styles/itinerary_page/ItineraryCard.module.css';
-import PreferenceCard from '../components/itineraryCard';
+import PreferenceCard from '../components/ItineraryCard';
 import MapWrapper from '../components/MapWrapper';
 import ThemeToggle from '../components/ThemeToggle';
 import ChatBot from '../components/ChatBot';
@@ -326,9 +326,12 @@ export default function ItineraryPage() {
         return saved ? JSON.parse(saved) : null;
     });
     const [budgetFilter, setBudgetFilter] = useState(['low', 'medium', 'high']);
-    const [selectedActivities, setSelectedActivities] = useState({
-        Accommodation: false, Dining: false, Sightseeing: false,
-        Shopping: false, Swimming: false, Hiking: false
+    const [selectedActivities, setSelectedActivities] = useState(() => {
+        const saved = sessionStorage.getItem('itinerary_selectedActivities');
+        return saved ? JSON.parse(saved) : {
+            Water: false, Outdoor: false, Views: false,
+            Heritage: false, Dining: false, Stay: false
+        };
     });
 
     const [budget, setBudget] = useState(50);
@@ -378,8 +381,22 @@ export default function ItineraryPage() {
     useEffect(() => {
         sessionStorage.setItem('itinerary_dateRange', JSON.stringify(dateRange));
     }, [dateRange]);
+
+    useEffect(() => {
+        sessionStorage.setItem('itinerary_selectedActivities', JSON.stringify(selectedActivities));
+    }, [selectedActivities]);
+
     // Chat State Lifted to Parent
-    const [chatMessages, setChatMessages] = useState([{ role: 'widget', type: 'itinerary', id: 'init-widget' }]);
+    const [chatMessages, setChatMessages] = useState(() => {
+        const saved = sessionStorage.getItem('itinerary_chatMessages');
+        return saved ? JSON.parse(saved) : [{ role: 'widget', type: 'itinerary', id: 'init-widget' }];
+    });
+
+    useEffect(() => {
+        try {
+            sessionStorage.setItem('itinerary_chatMessages', JSON.stringify(chatMessages));
+        } catch { /* storage full */ }
+    }, [chatMessages]);
     const [activePin, setActivePin] = useState(null);
 
     // SHEET STATE
@@ -425,12 +442,9 @@ export default function ItineraryPage() {
     // --- NEW: INJECT WIDGET INTO CHAT STATE ---
     const pushItineraryWidgetToChat = () => {
         setChatMessages(prev => {
-            const lastMsg = prev[prev.length - 1];
-            // If the last message is already an itinerary widget, don't spam a new one
-            if (lastMsg && lastMsg.role === 'widget' && lastMsg.type === 'itinerary') {
-                return prev;
-            }
-            return [...prev, { role: 'widget', type: 'itinerary', id: Date.now() }];
+            // Filter out ANY previous itinerary widget to ensure only one exists
+            const filtered = prev.filter(m => !(m.role === 'widget' && m.type === 'itinerary'));
+            return [...filtered, { role: 'widget', type: 'itinerary', id: Date.now() }];
         });
     };
 
@@ -490,6 +504,7 @@ export default function ItineraryPage() {
 
     const handleRemoveSpot = (spotName) => {
         setAddedSpots(prev => prev.filter(s => s.name !== spotName));
+        pushItineraryWidgetToChat();
     };
 
     const handleSliceAndNext = () => {
@@ -800,38 +815,39 @@ export default function ItineraryPage() {
 
 
     // --- MAP CHAT MESSAGES TO REACT COMPONENTS ---
-    // Finds the last widget so we can auto-expand only the newest one
-    const latestWidgetIndex = chatMessages.map(m => m.type).lastIndexOf('itinerary');
-
-    const desktopDisplayMessages = chatMessages.map((msg, index) => {
-        if (msg.role === 'widget' && msg.type === 'itinerary') {
-            return {
-                ...msg,
-                content: (
-                    <PreviewWidget
-                        isLatest={index === latestWidgetIndex}
-                        spots={addedSpots}
-                        styles={styles}
-                        cardStyles={cardStyles}
-                        activeHub={activeHub}
-                        currentDay={currentDay}
-                        dayCount={dayCount}
-                        isLastDay={isLastDay}
-                        handleOptimize={handleOptimize}
-                        handleGenerate={handleGenerate}
-                        setSelectedLocation={setSelectedLocation}
-                        handleToggleLock={handleToggleLock}
-                        handleMoveSpot={handleMoveSpot}
-                        handleRemoveSpot={handleRemoveSpot}
-                        handlePreviousDay={handlePreviousDay}
-                        handleSliceAndNext={handleSliceAndNext}
-                        handleSaveItinerary={handleSaveItinerary}
-                    />
-                )
-            };
-        }
-        return msg;
-    });
+    const displayMessages = useMemo(() => {
+        return chatMessages.map((msg, index) => {
+            if (msg.role === 'widget' && msg.type === 'itinerary') {
+                // A widget is "latest" (expanded) ONLY if it is the very last message in the chat
+                const isLatest = index === chatMessages.length - 1;
+                return {
+                    ...msg,
+                    content: (
+                        <PreviewWidget
+                            isLatest={isLatest}
+                            spots={addedSpots}
+                            styles={styles}
+                            cardStyles={cardStyles}
+                            activeHub={activeHub}
+                            currentDay={currentDay}
+                            dayCount={dayCount}
+                            isLastDay={isLastDay}
+                            handleOptimize={handleOptimize}
+                            handleGenerate={handleGenerate}
+                            setSelectedLocation={setSelectedLocation}
+                            handleToggleLock={handleToggleLock}
+                            handleMoveSpot={handleMoveSpot}
+                            handleRemoveSpot={handleRemoveSpot}
+                            handlePreviousDay={handlePreviousDay}
+                            handleSliceAndNext={handleSliceAndNext}
+                            handleSaveItinerary={handleSaveItinerary}
+                        />
+                    )
+                };
+            }
+            return msg;
+        });
+    }, [chatMessages, addedSpots, activeHub, currentDay, dayCount, isLastDay, handleOptimize, handleGenerate, setSelectedLocation, handleToggleLock, handleMoveSpot, handleRemoveSpot, handlePreviousDay, handleSliceAndNext, handleSaveItinerary, styles, cardStyles]);
 
     return (
         <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${(!activeHub || !dateRange.start || !dateRange.end) ? styles.itineraryNoSidebar : ''} ${isChatMinimized ? styles.itineraryContainerChatMinimized : ''}`}>
@@ -874,7 +890,7 @@ export default function ItineraryPage() {
                             variant="panel"
                             containerClassName={styles.desktopChatBot}
                             onLocationResponse={handleChatbotLocation}
-                            messages={desktopDisplayMessages}
+                            messages={displayMessages}
                             setMessages={setChatMessages}
                             onKeyboardChange={setIsKeyboardOpen}
                             activePin={activePin}
@@ -1078,7 +1094,7 @@ export default function ItineraryPage() {
                 <ChatBot
                     ref={sheetRef}
                     variant="sheet"
-                    messages={chatMessages}
+                    messages={displayMessages}
                     setMessages={setChatMessages}
                     activePin={activePin}
                     setActivePin={setActivePin}

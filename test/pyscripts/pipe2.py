@@ -1,3 +1,4 @@
+# Experimental RAG pipeline prototype featuring translation, multi-topic search, and Gemini integration.
 import chromadb
 from chromadb.utils import embedding_functions
 import json

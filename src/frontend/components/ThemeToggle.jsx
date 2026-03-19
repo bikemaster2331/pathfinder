@@ -39,6 +39,7 @@ const ThemeToggle = ({ className, iconLightClass, iconDarkClass }) => {
             type="button"
             className={className}
             onClick={toggleTheme}
+            data-menu-toggle="true"
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
         >
             <svg 

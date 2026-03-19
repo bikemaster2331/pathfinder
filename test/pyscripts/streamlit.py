@@ -1,3 +1,4 @@
+# A web-based kiosk interface for the Pathfinder guide built using Streamlit.
 import streamlit as st
 import sys
 import os

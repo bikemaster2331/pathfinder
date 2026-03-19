@@ -38,7 +38,7 @@
 .zoomControls {
     position: absolute;
     right: 12px;
-    bottom: 50%;
+    bottom: 30%;
     z-index: 60;
     display: flex;
     flex-direction: column-reverse;

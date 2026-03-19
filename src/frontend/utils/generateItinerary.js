@@ -2,27 +2,7 @@ import { TRAVEL_HUBS } from '../constants/location';
 import { calculateDistance, calculateTimeUsage } from './distance';
 import { optimizeRoute } from './optimize';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ZONE DICTIONARY
-//
-// Catanduanes is a vertical island. Virac sits at the south.
-// Traveling north means picking a corridor: the east coast road or the west.
-// We respect that geography here.
-//
-// Zones are defined as named buckets of municipalities.
-// The ZONE_PLANS object maps "how many days" → an ordered array of zones,
-// where each zone is an array of municipality strings.
-//
-// Zone order matters — Day 1 is always the first zone (closest to hub),
-// Day N is always the last (furthest). The proximity sort in Phase 3
-// handles micro-ordering within each zone.
-//
-// Municipalities:
-//   SOUTH  → Virac, San Andres, Bato
-//   EAST   → Gigmoto, Caramoran
-//   WEST   → Baras, San Miguel
-//   NORTH  → Bagamanoc, Panganiban, Viga, Pandan
-// ─────────────────────────────────────────────────────────────────────────────
+// HELLO GUYS, this contains the logic for itinerary generation
 
 const ALL_MUNICIPALITIES = [
     'Virac', 'San Andres', 'Bato',
@@ -32,22 +12,14 @@ const ALL_MUNICIPALITIES = [
 ];
 
 const ZONE_PLANS = {
-    1: [
-        // 1 day — everything is fair game, proximity sort wins
-        ALL_MUNICIPALITIES
-    ],
+    1: [ALL_MUNICIPALITIES],
     2: [
-        // South base camp
         ['Virac', 'San Andres', 'Bato', 'Baras', 'San Miguel'],
-        // North push
         ['Gigmoto', 'Caramoran', 'Bagamanoc', 'Panganiban', 'Viga', 'Pandan'],
     ],
     3: [
-        // Day 1 — Virac and immediate surroundings (easiest day, good warmup)
         ['Virac', 'San Andres'],
-        // Day 2 — East corridor and southern inland
         ['Bato', 'Baras', 'San Miguel', 'Gigmoto', 'Caramoran'],
-        // Day 3 — Full north run
         ['Bagamanoc', 'Panganiban', 'Viga', 'Pandan'],
     ],
     4: [
@@ -82,61 +54,163 @@ const ZONE_PLANS = {
     ],
 };
 
-// For trips longer than 7 days, reuse the 7-day plan.
-// The capacity loop will distribute overflow into bonus days automatically.
 const getZonePlan = (dayCount) => {
     const clampedDays = Math.min(dayCount, 7);
     return ZONE_PLANS[clampedDays] || ZONE_PLANS[7];
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
+// FILTER LABEL → CATEGORY MAPPING
+//
+//   Water     → beach, swimming, falls
+//   Outdoor   → hike, nature
+//   Views     → viewpoint
+//   Heritage  → religious, history, culture, indoor
+//   Dining    → food
+//   Stay      → accommodation
+//
+// This is the single source of truth. UI labels must match these keys.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const FILTER_LABELS = {
+    Water: ['beach', 'swimming', 'falls'],
+    Outdoor: ['hike', 'nature'],
+    Views: ['viewpoint'],
+    Heritage: ['religious', 'history', 'culture', 'indoor'],
+    Dining: ['food'],
+    Stay: ['accommodation'],
+};
+
+const VALID_CATEGORIES = new Set(Object.values(FILTER_LABELS).flat());
+
+const isValidSpot = (spot) => {
+    const cat = String(spot.category || '').toLowerCase().trim();
+    return VALID_CATEGORIES.has(cat);
+};
+
+const CATEGORY_TO_FILTER = {};
+Object.entries(FILTER_LABELS).forEach(([label, cats]) => {
+    cats.forEach(cat => { CATEGORY_TO_FILTER[cat] = label; });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CATEGORY PRIORITY SYSTEM
+//
+// Tier 1 (1) — Core attractions: fill the day with these first
+// Tier 2 (2) — Cultural filler: good to include, not the main draw
+// Tier 3 (3) — Support spots: capped per day when mixed trip
+// Tier 4 (4) — Low priority: capped aggressively when mixed trip
+// ─────────────────────────────────────────────────────────────────────────────
+
+const CATEGORY_PRIORITY = {
+    // Tier 1 — Water + Outdoor
+    beach: 1,
+    swimming: 1,
+    falls: 1,
+    hike: 1,
+    nature: 1,
+
+    // Tier 2 — Views + Heritage
+    viewpoint: 2,
+    religious: 2,
+    history: 2,
+    culture: 2,
+    indoor: 2,
+
+    // Tier 3 — Dining
+    food: 3,
+
+    // Tier 4 — Stay
+    accommodation: 4,
+};
+
+// Caps applied PER DAY when mixed trip mode is active (3+ filters).
+// These are ignored entirely when specific search mode is active (1–2 filters).
+const MIXED_TRIP_CAPS = {
+    food: 2,   // max 2 food stops per day
+    accommodation: 1,   // excluded from mixed itineraries entirely
+};
+
+const getCategoryPriority = (spot) => {
+    const cat = String(spot.category || '').toLowerCase().trim();
+    return CATEGORY_PRIORITY[cat] ?? 2;
+};
+
+const sortByPriority = (spots) => {
+    return [...spots].sort((a, b) => getCategoryPriority(a) - getCategoryPriority(b));
+};
+
+// Only called during mixed trips (3+ filters active)
+const capByCategory = (spots) => {
+    const counts = {};
+    return spots.filter(spot => {
+        const cat = String(spot.category || '').toLowerCase().trim();
+        const cap = MIXED_TRIP_CAPS[cat];
+
+        // Hard exclude for mixed trips (accommodation = 0)
+        if (cap === 0) return false;
+
+        // Soft cap (food ≤ 2/day)
+        if (cap !== undefined) {
+            counts[cat] = (counts[cat] || 0) + 1;
+            return counts[cat] <= cap;
+        }
+
+        return true;
+    });
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CAP DECISION
+//
+// 1–2 filters active → specific intent
+//   e.g. Stay only    → hotel trip   → all accommodation flows through
+//   e.g. Dining only  → food trip    → all food flows through
+//   → NO cap applied
+//
+// 0 or 3–6 filters   → mixed / general trip
+//   → cap applied → attractions dominate, food ≤ 2/day, accommodation excluded
+// ─────────────────────────────────────────────────────────────────────────────
+
+const TOTAL_FILTER_COUNT = Object.keys(FILTER_LABELS).length;
+const SPECIFIC_SEARCH_MAX = 2;
+
+const shouldApplyCap = (selectedActivities) => {
+    const activeCount = Object.values(selectedActivities).filter(Boolean).length;
+    // Nothing or everything selected = general trip = cap on
+    if (activeCount === 0 || activeCount >= TOTAL_FILTER_COUNT) return true;
+    // 1 or 2 filters = specific intent = no cap
+    return activeCount > SPECIFIC_SEARCH_MAX;
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // ACTIVITY MATCHING
 //
-// The GeoJSON spot has a `category` field. We compare it against the
-// user's selectedActivities object { Swimming: true, Hiking: false, ... }.
-//
-// Matching is case-insensitive and partial — "beach_swimming" still matches
-// "Swimming".
+// Expands filter labels into raw category sets before matching.
+// Nothing selected OR all selected → pass all valid spots.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const matchesActivity = (spot, selectedActivities) => {
-    const activeKeys = Object.entries(selectedActivities)
+    const activeLabels = Object.entries(selectedActivities)
         .filter(([, v]) => v)
-        .map(([k]) => k.toLowerCase());
+        .map(([k]) => k);
 
-    // If the user selected nothing, show everything
-    if (activeKeys.length === 0) return true;
+    // Nothing selected OR everything selected → no preference → pass all
+    if (activeLabels.length === 0 || activeLabels.length >= TOTAL_FILTER_COUNT) {
+        return true;
+    }
 
-    // Check every possible field the GeoJSON might use for activity/category
-    const fieldsToCheck = [
-        spot.category,
-        spot.type,
-        spot.activity_type,
-        spot.activities,
-        spot.spot_type,
-        spot.tags,
-    ]
-        .filter(Boolean)
-        .map(v => (Array.isArray(v) ? v.join(' ') : String(v)).toLowerCase());
-
-    // No category field at all — include it anyway, don't hide it
-    if (fieldsToCheck.length === 0) return true;
-
-    return activeKeys.some(key =>
-        fieldsToCheck.some(field => field.includes(key))
+    // Expand labels → raw category set
+    const activeCats = new Set(
+        activeLabels.flatMap(label => FILTER_LABELS[label] ?? [])
     );
+
+    const cat = String(spot.category || '').toLowerCase().trim();
+    return activeCats.has(cat);
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BUDGET MATCHING
-//
-// budgetFilter is the array already computed by Itinerary.jsx:
-//   ['low']               → slider at 0–33
-//   ['low', 'medium']     → slider at 34–66
-//   ['low', 'medium', 'high'] → slider at 67–100
-//
-// Handles both word format ('low'/'medium'/'high') and
-// peso-sign format ('\u20b1'/'\u20b1\u20b1'/'\u20b1\u20b1\u20b1') in the GeoJSON.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const normalizeBudget = (raw) => {
@@ -153,10 +227,6 @@ const matchesBudget = (spot, budgetFilter) => {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PHASE 1: FILTER
-//
-// Reads the raw GeoJSON FeatureCollection and returns a flat array of
-// spot property objects that pass both the budget and activity gates.
-// Each object gets the geometry attached directly for convenience.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const filterSpotPool = (allSpots, budgetFilter, selectedActivities) => {
@@ -165,23 +235,21 @@ const filterSpotPool = (allSpots, budgetFilter, selectedActivities) => {
         return [];
     }
 
-    // DEBUG: Log a sample spot so you can see the actual field names
-    const sampleProps = allSpots.features[0]?.properties;
-    console.log('[generateItinerary] Sample spot fields:', Object.keys(sampleProps || {}));
-    console.log('[generateItinerary] Sample spot:', sampleProps);
-    console.log('[generateItinerary] budgetFilter:', budgetFilter);
-    console.log('[generateItinerary] selectedActivities:', selectedActivities);
-
     const filtered = allSpots.features
         .filter(feature => {
             const props = feature?.properties;
             const geom = feature?.geometry;
             if (!props || !geom?.coordinates) return false;
-            // Reject spots with malformed coordinates (must be [lng, lat] with 2+ numbers)
+
             const coords = geom.coordinates;
-            if (!Array.isArray(coords) || coords.length < 2 ||
+            if (
+                !Array.isArray(coords) || coords.length < 2 ||
                 typeof coords[0] !== 'number' || typeof coords[1] !== 'number' ||
-                isNaN(coords[0]) || isNaN(coords[1])) return false;
+                isNaN(coords[0]) || isNaN(coords[1])
+            ) return false;
+
+            // Hard exclude boundary polygons and uncategorized admin data
+            if (!isValidSpot(props)) return false;
 
             return (
                 matchesBudget(props, budgetFilter) &&
@@ -199,14 +267,9 @@ const filterSpotPool = (allSpots, budgetFilter, selectedActivities) => {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PHASE 2: ZONE CLUSTERING
-//
-// Assigns each filtered spot to a zone bucket based on its municipality.
-// Spots with an unrecognised municipality fall into a catch-all overflow
-// bucket and get appended to the last zone.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const clusterByZone = (filteredSpots, zonePlan) => {
-    // Build a lookup: municipality → zone index
     const municipalityToZone = {};
     zonePlan.forEach((municipalities, zoneIdx) => {
         municipalities.forEach(m => {
@@ -228,20 +291,15 @@ const clusterByZone = (filteredSpots, zonePlan) => {
         }
     });
 
-    // Append unrecognised municipalities to the last zone
     if (overflow.length > 0) {
         buckets[buckets.length - 1].push(...overflow);
     }
 
-    return buckets; // Array of arrays, index = zone/day index
+    return buckets;
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PHASE 3: PROXIMITY SORT
-//
-// Within a zone bucket, sort spots by straight-line distance from the hub.
-// This gives the capacity loop a greedy-friendly ordering — closest first —
-// so we fill the day with the most accessible spots before hitting the limit.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const sortByProximity = (spots, hubCoordinates) => {
@@ -261,20 +319,9 @@ const sortByProximity = (spots, hubCoordinates) => {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PHASE 4: CAPACITY FILL
-//
-// The hard 540-minute (9-hour) daily gate.
-//
-// We iterate the proximity-sorted bucket and push spots one at a time,
-// calling calculateTimeUsage after each push. The moment adding a spot
-// would breach 540 minutes, we stop — that spot and everything after it
-// is discarded from this day.
-//
-// This runs BEFORE optimizeRoute() so we never optimise spots we're
-// about to throw away. A list that passes the time gate in linear order
-// is guaranteed to pass it after route optimisation shortens drive times.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const DAILY_CAPACITY_MINUTES = 540; // 9-hour day
+const DAILY_CAPACITY_MINUTES = 540;
 
 const fillDayToCapacity = (sortedSpots, hub) => {
     const accepted = [];
@@ -286,41 +333,13 @@ const fillDayToCapacity = (sortedSpots, hub) => {
         if (totalUsed <= DAILY_CAPACITY_MINUTES) {
             accepted.push(spot);
         }
-        // If this spot doesn't fit, skip it but keep trying the next ones.
-        // A short spot later in the list might still slip in.
     }
 
     return accepted;
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PHASE 5: ROUTE OPTIMISATION
-//
-// Now that each day holds a small, capacity-validated list, it is safe to
-// run the TSP solver. optimizeRoute() uses brute-force permutations for
-// lists < 10 spots (10! = 3.6 million — manageable) and falls back to
-// the greedy nearest-neighbour for larger lists.
-//
-// Typical day arrays after Phase 4 will be 3–7 spots, well inside the
-// brute-force safe zone.
-// ─────────────────────────────────────────────────────────────────────────────
-
-// ─────────────────────────────────────────────────────────────────────────────
 // MAIN EXPORT
-//
-// generateItinerary({
-//   hub,                // hub object from TRAVEL_HUBS { name, coordinates }
-//   dayCount,           // integer, 1–7+
-//   budgetFilter,       // string[], e.g. ['low', 'medium']
-//   selectedActivities, // { Swimming: true, Hiking: false, ... }
-//   allSpots,           // raw GeoJSON FeatureCollection
-// })
-//
-// Returns: { 1: spot[], 2: spot[], ... }  (keyed by 1-based day number)
-//
-// This object is ready to be injected directly into:
-//   setStoredDays({ ...result })
-//   setAddedSpots(result[1])
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const generateItinerary = ({
@@ -342,6 +361,12 @@ export const generateItinerary = ({
     if (!allSpots) { console.error('[generateItinerary] allSpots is null — GeoJSON not loaded yet'); return {}; }
     if (dayCount < 1) { console.error('[generateItinerary] dayCount < 1'); return {}; }
 
+    // ── Decide cap mode ────────────────────────────────────────────────────
+    // 1–2 filters = specific search = no cap (hotel trip, food trip, etc.)
+    // 0 or 3–6   = mixed/general   = cap on (attractions dominate)
+    const capActive = shouldApplyCap(selectedActivities);
+    console.log(`[generateItinerary] Cap mode: ${capActive ? 'ON (mixed trip)' : 'OFF (specific search)'}`);
+
     // ── Phase 1: Filter ────────────────────────────────────────────────────
     const pool = filterSpotPool(allSpots, budgetFilter, selectedActivities);
 
@@ -350,36 +375,53 @@ export const generateItinerary = ({
         return {};
     }
 
+    // ── Build generate pool ────────────────────────────────────────────────
+    // Specific search (cap OFF) → everything passes including accommodation
+    // Mixed trip    (cap ON)  → strip accommodation before routing
+    const generatePool = capActive
+        ? pool.filter(spot => {
+            const cat = String(spot.category || '').toLowerCase().trim();
+            return MIXED_TRIP_CAPS[cat] !== 0;
+        })
+        : pool;
+
+    if (generatePool.length === 0) {
+        console.warn('[generateItinerary] No generatable spots after applying cap mode.');
+        return {};
+    }
+
     // ── Phase 2: Zone clustering ───────────────────────────────────────────
     const zonePlan = getZonePlan(dayCount);
-    const zoneBuckets = clusterByZone(pool, zonePlan);
+    const zoneBuckets = clusterByZone(generatePool, zonePlan);
 
     // ── Phases 3–5: Per-zone processing ────────────────────────────────────
-    //
-    // We collect all non-empty processed zones first, then distribute them
-    // across the requested dayCount. If we have more days than zones with
-    // spots, the extra days are padded with [] so the UI never shows a
-    // mysteriously missing day. If we have fewer days than zones, we merge
-    // the overflow back into the last zone's bucket via a catch-all pass.
-    // ──────────────────────────────────────────────────────────────────────
-
-    const filledZones = []; // each entry = optimised spot array for one zone
+    const filledZones = [];
 
     zoneBuckets.forEach((bucket) => {
         if (bucket.length === 0) return;
 
-        // Phase 3: Proximity sort
-        const sorted = sortByProximity(bucket, hub.coordinates);
+        // Phase 3a: Proximity sort
+        const proximitySorted = sortByProximity(bucket, hub.coordinates);
 
-        // Phase 4: Capacity fill (trim to ≤ 540 min)
-        const trimmed = fillDayToCapacity(sorted, hub);
+        // Phase 3b: Priority sort — Tier 1 first, Stay last
+        const prioritized = sortByPriority(proximitySorted);
+
+        // Phase 3c: Cap only on mixed trips
+        const capped = capActive ? capByCategory(prioritized) : prioritized;
+
+        if (capped.length === 0) return;
+
+        // Phase 4: Capacity fill (≤ 540 min)
+        const trimmed = fillDayToCapacity(capped, hub);
 
         if (trimmed.length === 0) return;
 
-        // Phase 5: Route optimise the survivors
+        // Phase 5: Route optimise
         const optimised = optimizeRoute(hub, trimmed);
 
         filledZones.push(optimised);
+
+        console.log(`[generateItinerary] Zone — ${optimised.length} spots | ${optimised.map(s => `${s.name} (${CATEGORY_TO_FILTER[s.category] ?? s.category})`).join(', ')}`);
     });
 
     if (filledZones.length === 0) {
@@ -387,35 +429,23 @@ export const generateItinerary = ({
         return {};
     }
 
-    // Distribute filled zones into day slots.
-    // If we have MORE zones than days, merge the tail zones into the last day
-    // (they were already capacity-trimmed so this is safe).
-    // If we have FEWER zones than days, pad the remaining days with [].
+    // ── Distribute zones into day slots ────────────────────────────────────
     const result = {};
 
     if (filledZones.length <= dayCount) {
-        // Assign each zone to its own day
-        filledZones.forEach((spots, i) => {
-            result[i + 1] = spots;
-        });
-        // Pad remaining days with empty arrays
-        for (let d = filledZones.length + 1; d <= dayCount; d++) {
-            result[d] = [];
-        }
+        filledZones.forEach((spots, i) => { result[i + 1] = spots; });
+        for (let d = filledZones.length + 1; d <= dayCount; d++) { result[d] = []; }
     } else {
-        // More zones than days — assign first (dayCount-1) zones normally,
-        // merge everything else into the last day and re-capacity-check
-        for (let d = 1; d < dayCount; d++) {
-            result[d] = filledZones[d - 1];
-        }
-        // Merge remaining zones into one pool and re-fill for the last day
+        for (let d = 1; d < dayCount; d++) { result[d] = filledZones[d - 1]; }
         const overflow = filledZones.slice(dayCount - 1).flat();
         const sorted = sortByProximity(overflow, hub.coordinates);
-        const trimmed = fillDayToCapacity(sorted, hub);
+        const prioritized = sortByPriority(sorted);
+        const capped = capActive ? capByCategory(prioritized) : prioritized;
+        const trimmed = fillDayToCapacity(capped, hub);
         result[dayCount] = optimizeRoute(hub, trimmed);
     }
 
-    console.log('[generateItinerary] Final result days:', Object.keys(result).map(d => `Day ${d}: ${result[d].length} spots`));
+    console.log('[generateItinerary] Final result:', Object.keys(result).map(d => `Day ${d}: ${result[d].length} spots`));
 
     return result;
 };

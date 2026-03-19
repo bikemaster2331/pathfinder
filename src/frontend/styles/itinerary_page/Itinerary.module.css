@@ -868,6 +868,7 @@
     box-shadow: none;
 }
 
+
 :global([data-theme='light']) .mapExpandedReviewBox {
     background: rgba(255, 255, 255, 0.78);
     border: 1px solid rgba(15, 23, 42, 0.12);
@@ -976,6 +977,47 @@
     background: var(--itinerary-card-gray-700-50);
     border: 1px solid var(--itinerary-card-gray-600-30);
     color: var(--itinerary-card-gray-400-80);
+}
+
+:global([data-theme='light']) .mapExpandedReviewBtnAdd {
+    background: linear-gradient(135deg, var(--itinerary-card-accent-green-dark) 0%, var(--itinerary-card-accent-green-darker) 100%);
+    border: 1px solid var(--itinerary-card-surface-15);
+    color: var(--itinerary-card-text-white);
+}
+
+:global([data-theme='light']) .mapExpandedReviewBtnAdd:hover {
+    background: linear-gradient(135deg, var(--itinerary-card-accent-green-darker) 0%, #065f46 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px var(--itinerary-card-accent-green-30);
+}
+
+:global([data-theme='light']) .mapExpandedReviewBtnAdd:active {
+    transform: translateY(1px) scale(0.99);
+    box-shadow: 0 1px 3px var(--itinerary-card-shadow-30);
+}
+
+:global([data-theme='light']) .mapExpandedReviewBtnRemove {
+    background: linear-gradient(135deg, var(--itinerary-card-accent-red-dark) 0%, var(--itinerary-card-accent-red-darker) 100%);
+    border: 1px solid var(--itinerary-card-surface-15);
+    color: var(--itinerary-card-text-white);
+}
+
+:global([data-theme='light']) .mapExpandedReviewBtnRemove:hover {
+    background: linear-gradient(135deg, var(--itinerary-card-accent-red-darker) 0%, #7f1d1d 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px var(--itinerary-card-accent-red-30);
+}
+
+:global([data-theme='light']) .mapExpandedReviewBtnRemove:active {
+    transform: translateY(1px) scale(0.99);
+    box-shadow: 0 1px 3px var(--itinerary-card-shadow-30);
+}
+
+:global([data-theme='light']) .mapExpandedReviewBtnDisabled {
+    background: var(--itinerary-card-gray-700-50);
+    border: 1px solid var(--itinerary-card-gray-600-30);
+    color: var(--itinerary-card-gray-400-80);
+    box-shadow: none;
 }
 
 .mapExpandedPreviewHeader {

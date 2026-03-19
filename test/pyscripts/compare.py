@@ -1,3 +1,4 @@
+# Compares two GeoJSON files to identify new, missing, or modified features.
 import json
 import sys
 import os

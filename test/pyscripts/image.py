@@ -1,3 +1,4 @@
+# Batch processor to generate standardized snake_case image paths for GeoJSON locations.
 import json
 import re
 import unicodedata

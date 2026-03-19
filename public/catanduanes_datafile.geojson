@@ -25878,10 +25878,10 @@
         "name": "Twin Rock Beach Resort",
         "is_top_10": true,
         "type": "HOTELS & RESORTS",
-        "description": "Defined by the iconic dual rock formations offshore, featuring zip-lines and manicured amenities.",
+        "description": "One of the most famous resorts in Catanduanes, Twin Rock is named after the iconic matching rock formations just offshore and is known for its extensive range of amenities.",
         "municipality": "VIRAC",
-        "visit_time_minutes": 180,
-        "category": "beach",
+        "visit_time_minutes": 0,
+        "category": "beach_resort",
         "outdoor_exposure": "open",
         "opening_hours": "07:00-18:00",
         "best_time_of_day": "afternoon",
@@ -25930,7 +25930,7 @@
       "properties": {
         "name": "Nitto Lodge",
         "type": "HOTELS & RESORTS",
-        "description": "A no-nonsense lodging situated in the thick of Virac’s daily commerce, offering a practical base.",
+        "description": "A no-nonsense lodging situated in the thick of Virac's daily commerce, offering a practical base.",
         "municipality": "VIRAC",
         "visit_time_minutes": 0,
         "category": "accommodation",
@@ -25954,35 +25954,9 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Bagamanoc Guest House",
-        "type": "HOTELS & RESORTS",
-        "description": "A vital waystation in the remote north, providing a simple, domestic roof after a long road trip.",
-        "municipality": "BAGAMANOC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 29,
-        "image": "/images/bagamanoc_guest_house.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2869733,
-          13.9415567
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "The Lumber Hotel",
         "type": "HOTELS & RESORTS",
-        "description": "A massive complex that feels surprisingly urban, often buzzing with the noise of local weddings.",
+        "description": "A grand, contemporary landmark with a sophisticated urban energy, serving as a premier destination for celebrated local gatherings",
         "municipality": "VIRAC",
         "visit_time_minutes": 0,
         "category": "accommodation",
@@ -26032,35 +26006,9 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Rhaj Inn",
-        "type": "HOTELS & RESORTS",
-        "description": "Strictly utilitarian and functional, serving as a quiet, affordable crash pad for transients.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 34,
-        "image": "/images/rhaj_inn.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.2262818,
-          13.5791058
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Catanduanes Midtown Inn",
         "type": "HOTELS & RESORTS",
-        "description": "Ideally positioned as the town’s meeting point, balancing business-class amenities with a busy cafe.",
+        "description": "Ideally positioned as the town's meeting point, balancing business-class amenities with a busy cafe.",
         "municipality": "VIRAC",
         "visit_time_minutes": 0,
         "category": "accommodation",
@@ -26104,32 +26052,6 @@
         "coordinates": [
           124.22421715095876,
           13.600608583794113
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Museo De Catanduanes",
-        "type": "RELIGIOUS SITES",
-        "description": "Housed within the Old Capitol, preserving the province’s abaca heritage and political history.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 45,
-        "category": "indoor",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "08:00-17:00",
-        "best_time_of_day": "afternoon",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 38,
-        "image": "/images/museo_de_catanduanes.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.24017941365666,
-          13.607198646951025
         ]
       }
     },
@@ -26214,58 +26136,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "The Lumber Hotel and Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "A massive complex that feels surprisingly urban, often buzzing with local weddings and conventions.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 30,
-        "image": "/images/the_lumber_hotel_and_resort.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.24844932275295,
-          13.592217696981342
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "E-Crown Hotel and Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "The closest thing to a metro-city hotel on the island, featuring carpeted hallways and a formal ballroom.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "high",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 33,
-        "image": "/images/e_crown_hotel_and_resort.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.25617408469465,
-          13.593886227522459
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Rhaj Inn",
         "type": "HOTELS & RESORTS",
         "description": "Strictly utilitarian and functional, this inn serves as a quiet, affordable crash pad for transients and backpackers.",
@@ -26292,61 +26162,9 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Catanduanes Midtown Inn",
-        "type": "HOTELS & RESORTS",
-        "description": "Ideally positioned as the town’s meeting point, balancing business-class amenities with a busy ground-floor cafe.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 0,
-        "category": "accommodation",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 35,
-        "image": "/images/catanduanes_midtown_inn.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.23256205211081,
-          13.582963948330717
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Hinagasan Falls",
-        "type": "FALLS",
-        "description": "Tucked away in the capital's interior, offering a more secluded and raw nature experience compared to Maribina.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 120,
-        "category": "falls",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "08:00-16:00",
-        "best_time_of_day": "morning",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 37,
-        "image": "/images/hinagasan_falls.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.22421715095876,
-          13.600608583794113
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Museo De Catanduanes",
         "type": "RELIGIOUS SITES",
-        "description": "Housed within the Old Capitol building, preserving the province’s abaca heritage and political history.",
+        "description": "Housed within the Old Capitol building, preserving the province's abaca heritage and political history.",
         "municipality": "VIRAC",
         "visit_time_minutes": 45,
         "category": "indoor",
@@ -26583,8 +26401,8 @@
         "type": "HOTELS & RESORTS",
         "description": "A relaxing beachside resort located along the eastern coast, offering comfortable accommodations and ocean breezes.",
         "municipality": "BARAS",
-        "visit_time_minutes": 120,
-        "category": "accommodation",
+        "visit_time_minutes": 0,
+        "category": "beach_resort",
         "outdoor_exposure": "outdoor",
         "opening_hours": "08:00-20:00",
         "best_time_of_day": "afternoon",
@@ -26663,7 +26481,7 @@
         "description": "Known for its fine golden sand, stunning rock formations, and clear waters, this serene place is the prime spot for surfers and beach lovers in Catanduanes.",
         "municipality": "BARAS",
         "visit_time_minutes": 180,
-        "category": "accommodation",
+        "category": "beach_resort",
         "outdoor_exposure": "outdoor",
         "opening_hours": "24 hours",
         "best_time_of_day": "morning",
@@ -26714,8 +26532,8 @@
         "type": "HOTELS & RESORTS",
         "description": "A beachfront resort in Virac offering a peaceful seaside escape with cottages and easy access to the water.",
         "municipality": "VIRAC",
-        "visit_time_minutes": 120,
-        "category": "accommodation",
+        "visit_time_minutes": 0,
+        "category": "beach_resort",
         "outdoor_exposure": "outdoor",
         "opening_hours": "24 hours",
         "best_time_of_day": "afternoon",
@@ -26740,8 +26558,8 @@
         "type": "HOTELS & RESORTS",
         "description": "Located along the southern coast of Virac, this resort is ideal for family gatherings and beach outings.",
         "municipality": "VIRAC",
-        "visit_time_minutes": 120,
-        "category": "accommodation",
+        "visit_time_minutes": 0,
+        "category": "beach_resort",
         "outdoor_exposure": "outdoor",
         "opening_hours": "08:00-20:00",
         "best_time_of_day": "morning",
@@ -26788,7 +26606,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Taller’s Brew",
+        "name": "Taller's Brew",
         "type": "RESTAURANTS & CAFES",
         "description": "A coffee shop in Virac that takes pride in its brewing methods, offering a fix for serious coffee lovers.",
         "municipality": "VIRAC",
@@ -26866,7 +26684,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Mcdonald’s",
+        "name": "Mcdonald's",
         "type": "RESTAURANTS & CAFES",
         "description": "A standardized beacon of American fast food, offering a consistent, air-conditioned refuge and reliable Wi-Fi in the heart of the capital.",
         "municipality": "VIRAC",
@@ -27025,10 +26843,10 @@
       "properties": {
         "name": "Cumagat Beach & Hilltop Resort",
         "type": "HOTELS & RESORTS",
-        "description": "A weekend family spot featuring a hilltop pool that offers a unique aerial view of the coastline below.",
-        "municipality": "PANGANIBAN",
-        "visit_time_minutes": 180,
-        "category": "accommodation",
+        "description": "Offering a mix of coastal and elevated views, this resort is a popular choice for events and weekend getaways.",
+        "municipality": "SAN ANDRES",
+        "visit_time_minutes": 0,
+        "category": "beach_resort",
         "outdoor_exposure": "shaded",
         "opening_hours": "08:00-17:00",
         "best_time_of_day": "morning",
@@ -27181,110 +26999,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "E-Lounge Resto Bar",
-        "type": "RESTAURANTS & CAFES",
-        "description": "The main nightlife spot in Bagamanoc; opens late, best visited after 7 PM for drinks and karaoke with locals.",
-        "municipality": "BAGAMANOC",
-        "visit_time_minutes": 120,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "17:00-01:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 117,
-        "image": "/images/e_lounge_resto_bar.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.28853571650649,
-          13.94152743708702
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Dayhagan Beach Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "Located near the rivermouth; best for lunch to enjoy the fresh breeze where the river meets the sea.",
-        "municipality": "BAGAMANOC",
-        "visit_time_minutes": 120,
-        "category": "beach",
-        "outdoor_exposure": "open",
-        "opening_hours": "07:00-18:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 118,
-        "image": "/images/dayhagan_beach_resort.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.33526422283471,
-          13.972487048309555
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "San Miguel River Park",
-        "type": "HOTELS & RESORTS",
-        "description": "Great for groups; you can rent a floating cottage and spend the day drifting on the calm river waters.",
-        "municipality": "SAN MIGUEL",
-        "visit_time_minutes": 180,
-        "category": "food",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "08:00-17:00",
-        "best_time_of_day": "midday",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 119,
-        "image": "/images/san_miguel_river_park.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.28110917976015,
-          13.705960845800394
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Solong Falls",
-        "type": "FALLS",
-        "description": "Requires a short trek; the basin is small, so it's best for a quick cooling dip rather than a long swim.",
-        "municipality": "SAN MIGUEL",
-        "visit_time_minutes": 60,
-        "category": "falls",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "08:00-17:00",
-        "best_time_of_day": "morning",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 120,
-        "image": "/images/solong_falls.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.29318572123779,
-          13.654843207001997
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Cathy's Spring Resort",
         "type": "HOTELS & RESORTS",
         "description": "Uses natural spring water; best visited on weekdays to avoid the heavy local crowds that pack the pools on weekends.",
@@ -27311,188 +27025,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Black Alley",
-        "type": "RESTAURANTS & CAFES",
-        "description": "A surprising pocket of nightlife in the otherwise sleepy town of Viga, serving as the go-to hangar for locals.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 90,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "10:00-22:00",
-        "best_time_of_day": "dinner",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 123,
-        "image": "/images/black_alley.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.30991057127426,
-          13.87440986505987
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Our Lady of the Assumption Parish Church",
-        "type": "RELIGIOUS SITES",
-        "description": "A centuries-old structure that dominates the town plaza, featuring a distinct, weathered facade.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 30,
-        "category": "religious",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "06:00-18:00",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 125,
-        "image": "/images/our_lady_of_the_assumption_parish_church.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.30835694171724,
-          13.870935518647837
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "H20 Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "An inland sanctuary away from the salt spray, featuring cool, freshwater pools and slides.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 180,
-        "category": "accommodation",
-        "outdoor_exposure": "open",
-        "opening_hours": "08:00-17:00",
-        "best_time_of_day": "midday",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 126,
-        "image": "/images/h20.png"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.30744043132205,
-          13.855342610612587
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Isla Bistro Café",
-        "type": "RESTAURANTS & CAFES",
-        "description": "Brings a touch of metropolitan cafe culture to the north, offering a polished, air-conditioned space.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 60,
-        "category": "food",
-        "outdoor_exposure": "indoor",
-        "opening_hours": "09:00-20:00",
-        "best_time_of_day": "lunch",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 127,
-        "image": "/images/isla_bistro_cafe.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.30883563610679,
-          13.872557403387635
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Cogon Hills",
-        "type": "VIEWPOINTS",
-        "description": "A 'Sound of Music' style landscape featuring endless rolling hills covered in tall cogon grass.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 60,
-        "category": "viewpoint",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "morning",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 128,
-        "image": "/images/cogon_hills.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.4067938419412,
-          13.870805941856277
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Manuria Beach Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "A secluded coastal retreat where the accommodation is simple, offering access to a private beach.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 120,
-        "category": "accommodation",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "morning",
-        "min_budget": "medium",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 129,
-        "image": "/images/manuria_beach_resort.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.36321167641226,
-          13.89992812418886
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Minaabat Beach",
-        "type": "HOTELS & RESORTS",
-        "description": "Defined by its dramatic rock formations and coves, offering a rugged swimming experience.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 90,
-        "category": "beach",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "morning",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 130,
-        "image": "/images/minaabat_beach.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.41851218045034,
-          13.854510974160771
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Boto Ni Korakog",
         "type": "VIEWPOINTS",
         "description": "Accessible via a short 15-minute hike; the phallic rock formation is best photographed in the morning light.",
@@ -27513,33 +27045,6 @@
         "coordinates": [
           124.2875854301705,
           13.953737014066363
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Paday Falls",
-        "type": "FALLS",
-        "description": "A seaside waterfall that meets the ocean; best viewed at high tide when the water falls directly into the sea.",
-        "municipality": "BAGAMANOC",
-        "visit_time_minutes": 60,
-        "category": "falls",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "morning",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 116,
-        "original_activity": "sightseeing",
-        "image": "/images/paday_falls.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.27293557115381,
-          13.961655521369819
         ]
       }
     },
@@ -27648,33 +27153,6 @@
         "coordinates": [
           124.29318572123779,
           13.654843207001997
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Cathy's Spring Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "Uses natural spring water; best visited on weekdays to avoid the heavy local crowds that pack the pools on weekends.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 120,
-        "category": "accommodation",
-        "outdoor_exposure": "shaded",
-        "opening_hours": "08:00-17:00",
-        "best_time_of_day": "midday",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 122,
-        "original_activity": "accommodation",
-        "image": "/images/cathys_spring_resort.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.26764279047497,
-          13.828328929168835
         ]
       }
     },
@@ -27846,9 +27324,9 @@
         "name": "Manuria Beach Resort",
         "type": "HOTELS & RESORTS",
         "description": "A secluded coastal retreat where the accommodation is simple, but the access to a private, undisturbed stretch of beach makes it worth the trip.",
-        "municipality": "VIGA",
-        "visit_time_minutes": 120,
-        "category": "accommodation",
+        "municipality": "CARAMORAN",
+        "visit_time_minutes": 0,
+        "category": "beach_resort",
         "outdoor_exposure": "open",
         "opening_hours": "24/7",
         "best_time_of_day": "morning",
@@ -27918,33 +27396,6 @@
         "coordinates": [
           124.30975236074532,
           13.87190788627189
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Baras Town Center",
-        "type": "SHOPPING",
-        "description": "The administrative and cultural heart of Baras, serving as the main waypoint for resupplying before heading out to the surf camps or the northern loop.",
-        "municipality": "BARAS",
-        "visit_time_minutes": 30,
-        "category": "viewpoint",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "any",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 150,
-        "original_activity": "sightseeing",
-        "image": "/images/baras_town_center.jpg"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.3637075239967,
-          13.699707877194335
         ]
       }
     },
@@ -28448,10 +27899,10 @@
       "properties": {
         "name": "Poseidon Cove Beach Resort",
         "type": "HOTELS & RESORTS",
-        "description": "Tucked away in a cove, offering seclusion and calm waters.",
-        "municipality": "BATO",
-        "visit_time_minutes": 180,
-        "category": "accommodation",
+        "description": "A specialized diving and snorkeling resort offering comfortable stays near some of the island's best underwater scenery.",
+        "municipality": "PANDAN",
+        "visit_time_minutes": 0,
+        "category": "beach_resort",
         "outdoor_exposure": "shaded",
         "opening_hours": "24/7",
         "best_time_of_day": "any",
@@ -28683,10 +28134,10 @@
       "properties": {
         "name": "Coco Beach Resort",
         "type": "HOTELS & RESORTS",
-        "description": "A quiet coastal resort providing basic cottages and direct access to the calmer waters of the Caramoran bay.",
-        "municipality": "CARAMORAN",
+        "description": "A rustic and affordable beachfront stay in Bagamanoc, popular for its relative isolation and serene natural surroundings.",
+        "municipality": "BAGAMANOC",
         "visit_time_minutes": 0,
-        "category": "accommodation",
+        "category": "beach_resort",
         "outdoor_exposure": "shaded",
         "opening_hours": "24/7",
         "best_time_of_day": "any",
@@ -30118,32 +29569,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Oliver's Riff Mamangal Beach Resort",
-        "type": "HOTELS & RESORTS",
-        "description": "Adjacent to the main Mamangal strip, this resort offers a slightly quieter section of the beach for those wanting to avoid the crowds.",
-        "municipality": "VIRAC",
-        "visit_time_minutes": 120,
-        "category": "beach",
-        "outdoor_exposure": "open",
-        "opening_hours": "24/7",
-        "best_time_of_day": "afternoon",
-        "min_budget": "low",
-        "size": 0.15,
-        "showAtZoom": 10,
-        "id": 270,
-        "image": "/images/olivers riff.png"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          124.14868968279221,
-          13.555835876169589
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Our Lady of Mount Carmel Parish Church",
         "type": "RELIGIOUS SITES",
         "description": "The spiritual center of Viga, a large church that serves as the gathering point for the community during fiestas.",
@@ -30710,6 +30135,84 @@
         "coordinates": [
           124.23418504723898,
           13.583952428716442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "DRUNKBOX",
+        "type": "NIGHTLIFE",
+        "description": "A lively bar in Virac known for its vibrant nightlife scene and local drinks.",
+        "municipality": "VIRAC",
+        "visit_time_minutes": 120,
+        "category": "indoor",
+        "outdoor_exposure": "indoor",
+        "opening_hours": "18:00-02:00",
+        "best_time_of_day": "evening",
+        "min_budget": "medium",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 423,
+        "image": "/images/nightlife.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23143643491208,
+          13.581211225793492
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hideout Bar and Lounge",
+        "type": "NIGHTLIFE",
+        "description": "A chilled-out bar in Virac offering a relaxed atmosphere for socialization.",
+        "municipality": "VIRAC",
+        "visit_time_minutes": 90,
+        "category": "indoor",
+        "outdoor_exposure": "indoor",
+        "opening_hours": "17:00-01:00",
+        "best_time_of_day": "evening",
+        "min_budget": "medium",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 424,
+        "image": "/images/nightlife.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2074930812476,
+          13.584336447003185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kuwago's Restobar",
+        "type": "NIGHTLIFE",
+        "description": "A popular restobar in Virac combining good food with a nightlife vibe.",
+        "municipality": "VIRAC",
+        "visit_time_minutes": 110,
+        "category": "indoor",
+        "outdoor_exposure": "indoor",
+        "opening_hours": "17:00-01:00",
+        "best_time_of_day": "evening",
+        "min_budget": "medium",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 425,
+        "image": "/images/nightlife.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20486384347929,
+          13.586177506517904
         ]
       }
     }

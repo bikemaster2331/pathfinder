@@ -1,3 +1,4 @@
+# A standalone prototype implementing basic Retrieval-Augmented Generation (RAG) using ChromaDB.
 # src/rag_chatbot.py
 import chromadb
 from chromadb.utils import embedding_functions
