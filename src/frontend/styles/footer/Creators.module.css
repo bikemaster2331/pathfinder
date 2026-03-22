@@ -64,7 +64,7 @@
     z-index: 1;
     max-width: 680px;
     margin: 0 auto;
-    padding: 140px 32px 40px;
+    padding: 100px 32px 40px;
     animation: riseIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -374,7 +374,7 @@
 /* ── Mobile ── */
 @media (max-width: 600px) {
     .opening {
-        padding: 100px 20px 56px;
+        padding: 80px 20px 56px;
     }
 
     .list,
