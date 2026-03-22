@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, forwardRef, useMemo, useImperativeHandle } from 'react';
 import MapBackground from './map';
-import styles from '../styles/itinerary_page/MapWrapper.module.css';
+import styles from '../styles/components/MapWrapper.module.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
