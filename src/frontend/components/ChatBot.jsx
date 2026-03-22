@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, forwardRef } from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
-import styles from '../styles/itinerary_page/ChatBot.module.css';
+import styles from '../styles/components/ChatBot.module.css';
 
 const ChatBot = forwardRef(({
     messages = [],
