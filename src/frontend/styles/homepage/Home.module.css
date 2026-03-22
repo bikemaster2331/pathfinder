@@ -21,6 +21,8 @@
     font-weight: 300;
     font-display: swap;
 }
+
+
 .homeContainer {
     width: 100%;
     min-height: 200vh;
@@ -31,8 +33,9 @@
     overflow-x: clip;
 }
 
+
 :global([data-theme='light']) .homeContainer {
-    background: #fffdf9;
+    background: #fefcf8;
 }
 
 .ambientGlow1,
@@ -259,10 +262,6 @@
     /* Only fills the sticky container */
 }
 
-/* Optional: Add a slow twinkle to the persistent stars */
-.starfieldPersistent {
-    animation: starTwinkle 12s ease-in-out infinite alternate;
-}
 
 @keyframes starTwinkle {
     from {
@@ -271,6 +270,26 @@
 
     to {
         opacity: 0.5;
+    }
+}
+
+
+:global([data-theme='light']) .starfieldPersistent {
+    /* SVG: Scaled up Fish and more defined Shell details */
+    background-image: url("data:image/svg+xml,%3Csvg width='320' height='320' viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-opacity='0.06'%3E%3C!-- FISH 1: Scaled up Tuna --%3E%3Cg transform='translate(50,60) scale(1.3)'%3E%3Cpath d='M0 6 C4 0 16 0 22 6 C16 12 4 12 0 6 Z'/%3E%3Cpolygon points='-1,6 -7,2 -7,10'/%3E%3Ccircle cx='18' cy='5.5' r='1.2' fill-opacity='0.25'/%3E%3C/g%3E%3C!-- FISH 2: Angled and Scaled --%3E%3Cg transform='translate(180,180) rotate(20) scale(1.2)'%3E%3Cpath d='M0 5 C3 0 14 0 18 5 C14 10 3 10 0 5 Z'/%3E%3Cpolygon points='-1,5 -6,2 -6,8'/%3E%3Ccircle cx='15' cy='4' r='1' fill-opacity='0.25'/%3E%3C/g%3E%3C!-- FISH 3: Medium subtle --%3E%3Cg transform='translate(240,70) rotate(-10) scale(1.1)'%3E%3Cpath d='M0 4 C3 0 11 0 14 4 C11 8 3 8 0 4 Z'/%3E%3Cpolygon points='-1,4 -5,1 -5,7'/%3E%3C/g%3E%3C!-- SHELL 1: Stronger scallop fan --%3E%3Cg transform='translate(110,130)' fill='none' stroke='%23000' stroke-opacity='0.07' stroke-width='1.5'%3E%3Cpath d='M0 0 L-7 -11'/%3E%3Cpath d='M0 0 L-3 -12'/%3E%3Cpath d='M0 0 L1 -12'/%3E%3Cpath d='M0 0 L5 -11'/%3E%3Cpath d='M-8 -10 Q0 -15 6 -10'/%3E%3C/g%3E%3C!-- SHELL 2: Spiral --%3E%3Cpath d='M65 210 a9 9 0 1 1 -7 8 a5 5 0 1 1 5 -5' fill='none' stroke='%23000' stroke-opacity='0.07' stroke-width='1.5'/%3E%3C!-- SHELL 3: Small defined scallop --%3E%3Cg transform='translate(250,220)' fill='none' stroke='%23000' stroke-opacity='0.07' stroke-width='1.2'%3E%3Cpath d='M0 0 L-5 -8'/%3E%3Cpath d='M0 0 L-2 -9'/%3E%3Cpath d='M0 0 L1 -9'/%3E%3Cpath d='M0 0 L4 -8'/%3E%3Cpath d='M-5 -7 Q0 -11 5 -7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size: 320px 320px;
+    mix-blend-mode: multiply;
+    opacity: 0.7;
+    animation: coastalDrift 200s linear infinite;
+}
+
+@keyframes coastalDrift {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 320px 320px;
     }
 }
 
@@ -667,7 +686,9 @@ html {
     margin: 200px 0px 80px;
     padding: 84px 120px 112px 120px;
     overflow: visible;
+    position: relative;
 }
+
 
 .testimonialsHeading {
     grid-column: 1 / -1;
@@ -2703,38 +2724,90 @@ html {
 
 /* ---- Open Source / Contribute Layout ---- */
 
+.contributeShell {
+    width: min(94%, 1200px);
+    padding: 40px;
+    border-radius: 18px;
+
+    /* REMOVE opacity: 0.3; */
+
+    /* Matches light mode base background #fffdf9 with 0.3 transparency */
+    background: rgba(255, 253, 249, 0.3);
+
+    /* Increased blur for a "more blurry" effect as requested */
+    backdrop-filter: blur(42px) saturate(160%);
+    -webkit-backdrop-filter: blur(42px) saturate(160%);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+        0 20px 40px rgba(0, 0, 0, 0.06),
+        0 -12px 30px rgba(0, 0, 0, 0.03),
+        0 4px 8px rgba(0, 0, 0, 0.03);
+
+    position: relative;
+    z-index: 10;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+:global([data-theme='dark']) .contributeShell {
+    /* Matches dark mode base background #0a0a0a with 0.45 transparency for blur visibility */
+    background: rgba(10, 10, 10, 0.45);
+
+    /* Subtle border for dark mode depth */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    /* Deeper shadow for dark mode depth with top-side floating effect */
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 -10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.contributeShell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 120% at 8% 0%, rgba(99, 102, 241, 0.12), transparent 50%);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
 .contributeLayout {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: min(100%, 1200px);
-    margin: 0 0 10px 0;
+    gap: 24px;
+    width: 100%;
+    flex: 1;
 }
 
 .projectGrid {
     display: grid;
     gap: 16px;
     align-items: stretch;
-    width: 85%;
+    width: 100%;
     max-width: none;
 }
 
 .repoCard {
     display: flex;
     flex-direction: column;
-    gap: 26px;
-    padding: 22px;
+    gap: 12px;
+    padding: 20px;
     border-radius: 22px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     background: var(--home-glass);
     backdrop-filter: blur(16px);
     text-decoration: none;
     color: var(--home-text);
-    box-shadow: 0 20px 56px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 32px 84px rgba(0, 0, 0, 0.16);
     position: relative;
     overflow: hidden;
     transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
     cursor: pointer;
+    height: 380px;
 }
 
 .repoCard::before {
@@ -2747,7 +2820,7 @@ html {
 
 .repoCard:hover {
     border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.38);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.24);
     transform: translateY(-2px);
 }
 
@@ -2766,7 +2839,7 @@ html {
 
 .repoCardHeader {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 16px;
 }
 
@@ -2780,6 +2853,13 @@ html {
     background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
     flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+:global([data-theme='light']) .repoIconWrap {
+    background: #0f172a; /* High contrast dark background */
+    color: #ffffff;      /* White icon for visibility */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .repoMeta {
@@ -2795,6 +2875,9 @@ html {
     font-weight: 600;
     color: var(--home-text);
     letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .repoDesc {
@@ -2804,7 +2887,10 @@ html {
 }
 
 .repoArrow {
-    font-size: 1.2rem;
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    font-size: 1.67rem;
     color: var(--home-muted);
     flex-shrink: 0;
     transition: transform 0.2s ease;
@@ -2814,17 +2900,153 @@ html {
     transform: translate(2px, -2px);
 }
 
+.repoFeaturesHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Vertical lines on the sides */
+.repoFeaturesHeader::before,
+.repoFeaturesHeader::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
+}
+
+.repoFeaturesHeader::after {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.asciiArt {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.28rem;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    pointer-events: none;
+    user-select: none;
+    text-align: center;
+    white-space: pre;
+}
+
+:global([data-theme='light']) .asciiArt {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .asciiArt {
+        font-size: 4px;
+        letter-spacing: -0.1px;
+    }
+}
+/* ── REPO CARD BODY ── */
+.repoBody {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0;
+    flex: 1;
+    margin-top: 4px;
+}
+
+.repoVersion {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--home-text);
+}
+
+:global([data-theme='light']) .repoVersion {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+
+.repoFeaturesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+    gap: 16px 32px;
+    max-width: 720px;
+    margin: 12px auto;
+    justify-content: center;
+}
+
+.featItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+    padding: 12px;
+}
+
+.featHighlight {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+:global([data-theme='light']) .featHighlight {
+    background: rgba(15, 23, 42, 0.06);
+    border-color: rgba(15, 23, 42, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.featIcon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--home-text);
+}
+
+.featMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.featLabel {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--home-text);
+}
+
+.featDesc {
+    font-size: 0.74rem;
+    color: var(--home-muted);
+    line-height: 1.4;
+}
+
+
 .repoFooterRow {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin-top: auto; /* Push to bottom of repoCard */
 }
 
 .repoStats {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
 }
 
 .repoStat {
@@ -2844,6 +3066,10 @@ html {
 .repoCard:hover .repoStat {
     border-color: rgba(255, 255, 255, 0.15);
     color: var(--home-text);
+}
+
+:global([data-theme='light']) .repoCard:hover .repoStat {
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
 .repoBadge {
@@ -2880,7 +3106,27 @@ html {
 .techIconPill {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 7px;
+    padding: 5px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--home-border);
+    border-radius: 999px;
+    transition: all 0.2s ease;
+}
+
+.repoCard:hover .techIconPill {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme='light']) .techIconPill {
+    background: rgba(15, 23, 42, 0.04);
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+:global([data-theme='light']) .repoCard:hover .techIconPill {
+    border-color: rgba(15, 23, 42, 0.2);
+    background: rgba(15, 23, 42, 0.06);
 }
 
 .techIconBtn {
@@ -3009,6 +3255,10 @@ html {
     max-width: 54rem;
 }
 
+:global([data-theme='light']) .contributeNote {
+    color: #1a1a1a;
+}
+
 .inlineLink {
     color: var(--home-text);
     text-decoration: none;
@@ -3025,9 +3275,12 @@ html {
 .creatorsSection {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    width: min(100%, 990px);
-    margin-right: auto;
+    gap: 16px;   /* Increased gap for content inside */
+    width: 100%;
+    max-width: none;
+    margin-top: auto;  /* Push to bottom */
+    padding-top: 12px; /* Gap from repo card area */
+    border-top: 1px solid var(--home-border);
     opacity: 0.93;
 }
 
@@ -3307,8 +3560,13 @@ html {
         height: auto;
     }
 
+    .contributeShell {
+        width: 96%;
+        padding: 24px;
+    }
+
     .contributeLayout {
-        width: min(100%, 980px);
+        width: 100%;
     }
 
     .projectGrid {
@@ -3448,8 +3706,18 @@ html {
         gap: 10px;
     }
 
+    .contributeShell {
+        width: 100%;
+        border-radius: 0;
+        padding: 24px 16px;
+        margin: 20px 0;
+        border-left: none;
+        border-right: none;
+    }
+
     .contributeLayout {
         gap: 14px;
+        width: 100%;
     }
 
     .projectGrid {

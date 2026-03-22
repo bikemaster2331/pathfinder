@@ -135,7 +135,8 @@ const Map = forwardRef((props, ref) => {
         budgetFilter,
         isMenuOpen,
         onToggleMenu,
-        isInitialTripboxCompleted
+        isInitialTripboxCompleted,
+        isChatVisible = true
     } = props;
 
     const mapContainer = useRef(null);
@@ -1044,68 +1045,70 @@ const Map = forwardRef((props, ref) => {
                     </div>
                 </div>
             )}
-            <button
-                type="button"
-                className={`${styles.mapFooterCreditContainer} ${showCredits ? styles.isOpen : ''}`}
-                onClick={(e) => {
-                    e.stopPropagation();
-                    setShowCredits(!showCredits);
-                }}
-                aria-label="Toggle map credits"
-            >
-                <div className={styles.mapChefIcon} aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chef-hat-icon lucide-chef-hat">
-                        <path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z" />
-                        <path d="M6 17h12" />
-                    </svg>
-                </div>
-                <div className={styles.mapFooterCredit} onClick={(e) => e.stopPropagation()}>
-                    <p>
-                        Built by
-                        <a
-                            href="https://github.com/bikemaster2331"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.mapCreatorLink}
-                        >
-                            M.L.
-                        </a>
-                        <span className={styles.mapFooterSeparator}>/</span>
-                        <a
-                            href="https://www.facebook.com/Roilan.Trasmano"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.mapColleagueLink}
-                        >
-                            R.B.
-                        </a>
-                        <a
-                            href="https://www.facebook.com/Yffffdkkd"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.mapColleagueLink}
-                        >
-                            J.A.
-                        </a>
-                        <a
-                            href="https://www.facebook.com/patrickjohn.guerrero.1"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.mapColleagueLink}
-                        >
-                            P.G.
-                        </a>
-                        <a
-                            href="https://www.facebook.com/leetmns.10"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.mapColleagueLink}
-                        >
-                            J.T.
-                        </a>
-                    </p>
-                </div>
-            </button>
+            {!isChatVisible && (
+                <button
+                    type="button"
+                    className={`${styles.mapFooterCreditContainer} ${showCredits ? styles.isOpen : ''}`}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setShowCredits(!showCredits);
+                    }}
+                    aria-label="Toggle map credits"
+                >
+                    <div className={styles.mapChefIcon} aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chef-hat-icon lucide-chef-hat">
+                            <path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z" />
+                            <path d="M6 17h12" />
+                        </svg>
+                    </div>
+                    <div className={styles.mapFooterCredit} onClick={(e) => e.stopPropagation()}>
+                        <p>
+                            Built by
+                            <a
+                                href="https://github.com/bikemaster2331"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.mapCreatorLink}
+                            >
+                                M.L.
+                            </a>
+                            <span className={styles.mapFooterSeparator}>/</span>
+                            <a
+                                href="https://www.facebook.com/Roilan.Trasmano"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.mapColleagueLink}
+                            >
+                                R.B.
+                            </a>
+                            <a
+                                href="https://www.facebook.com/Yffffdkkd"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.mapColleagueLink}
+                            >
+                                J.A.
+                            </a>
+                            <a
+                                href="https://www.facebook.com/patrickjohn.guerrero.1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.mapColleagueLink}
+                            >
+                                P.G.
+                            </a>
+                            <a
+                                href="https://www.facebook.com/leetmns.10"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.mapColleagueLink}
+                            >
+                                J.T.
+                            </a>
+                        </p>
+                    </div>
+                </button>
+            )}
         </div>
     );
 });

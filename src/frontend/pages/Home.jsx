@@ -13,6 +13,8 @@ const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg
     import: 'default',
 });
 
+import prism from '../assets/images/homeshow/prism/surf.png';
+
 const imageEntries = Object.entries(imageModules).sort(([a], [b]) => a.localeCompare(b));
 const IMAGES = imageEntries.map(([, src]) => src);
 const IMAGE_NAMES = imageEntries.map(([path]) => {
@@ -146,11 +148,42 @@ const TECH_STACK = [
     { name: 'JavaScript', color: '#F7DF1E', Icon: TechJavaScriptIcon },
 ];
 
+const REPO_FEATURES = [
+    { 
+        label: 'RAG AI', 
+        desc: 'Retrieval Augmented Generation', 
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M9 13a4.5 4.5 0 0 0 3-4"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M12 13h4"/><path d="M12 18h6a2 2 0 0 1 2 2v1"/><path d="M12 8h8"/><path d="M16 8V5a2 2 0 0 1 2-2"/><circle cx="16" cy="13" r=".5"/><circle cx="18" cy="3" r=".5"/><circle cx="20" cy="21" r=".5"/><circle cx="20" cy="8" r=".5"/></svg>
+        )
+    },
+    { 
+        label: 'Dynamic Maps', 
+        desc: 'Interactive Leaflet visualization', 
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="2" x2="5" y1="12" y2="12"/><line x1="19" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="5"/><line x1="12" x2="12" y1="19" y2="22"/><circle cx="12" cy="12" r="7"/></svg>
+        )
+    },
+    { 
+        label: 'Verified Data', 
+        desc: 'Locally sourced tourism records', 
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="8" height="18" x="3" y="3" rx="1"/><path d="M7 3v18"/><path d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"/></svg>
+        )
+    },
+    { 
+        label: 'Open Source', 
+        desc: 'Transparency & Community driven', 
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="5" r="1"/><path d="m9 20 3-6 3 6"/><path d="m6 8 6 2 6-2"/><path d="M12 10v4"/></svg>
+        )
+    },
+];
+
+const REPO_VERSION = 'v1.0.4';
+
 
 const ReviewsBento = () => {
-    const portraitImage = IMAGES[3] ?? IMAGES[1] ?? IMAGES[0];
-    const albumImage = IMAGES[6] ?? IMAGES[2] ?? IMAGES[0];
-    const wideImage = IMAGES[1] ?? IMAGES[0];
+    const portraitImage = prism;
 
 
     const DESTS = [
@@ -636,6 +669,7 @@ export default function Home() {
 
     const [activeSection, setActiveSection] = useState('guide');
     const [activeCreator, setActiveCreator] = useState(null);
+    const [activeFeatIndex, setActiveFeatIndex] = useState(0);
 
 
 
@@ -778,6 +812,13 @@ export default function Home() {
         tl.to({}, { duration: 0 }, 21);
     
         return () => tl.kill();
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveFeatIndex((current) => (current + 1) % REPO_FEATURES.length);
+        }, 3000);
+        return () => clearInterval(interval);
     }, []);
 
     const fadeInUp = {
@@ -1167,128 +1208,201 @@ export default function Home() {
                         SECTION 3: COLLABORATE
                     ══════════════════════════════════ */}
                     <div id="collaborate" ref={collaborateRef} className={styles.scrollSection} style={{ position: 'relative' }}>
-                        <div className={styles.contributeLayout}>
-                            <motion.p
-                                className={styles.contributeNote}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.3 }}
-                                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                                Pathfinder operates in direct partnership with the {' '}
-                                <a href="https://www.facebook.com/catanduanestourismpromotion/" target="_blank" rel="noopener noreferrer" className={styles.inlineLink}>
-                                    Catanduanes Tourism Promotion Office
-                                </a>
-                                , <br /> thoroughly relying on validated, updated, and locally sourced data to promote responsible and reliable
-                                <br /> tourism through a transparent open-source platform. Contributions, issues, and feature requests are welcome.
-                            </motion.p>
+                        <div className={styles.contributeShell}>
+                            <div className={styles.contributeLayout}>
+                                <motion.p
+                                    className={styles.contributeNote}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.3 }}
+                                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                                >
+                                    Pathfinder operates in direct partnership with the {' '}
+                                    <a href="https://www.facebook.com/catanduanestourismpromotion/" target="_blank" rel="noopener noreferrer" className={styles.inlineLink}>
+                                        Catanduanes Tourism Promotion Office
+                                    </a>
+                                    , <br /> thoroughly relying on validated, updated, and locally sourced data to promote responsible and reliable
+                                    <br /> tourism through a transparent open-source platform. Contributions, issues, and feature requests are welcome.
+                                </motion.p>
 
-                            <div className={styles.projectGrid}>
-                                <motion.a
-                                    href="https://github.com/bikemaster2331/pathfinder"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.repoCard}
-                                    initial={{ opacity: 0, y: 24 }}
+                                <div className={styles.projectGrid}>
+                                    <motion.a
+                                        href="https://github.com/bikemaster2331/pathfinder"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.repoCard}
+                                        initial={{ opacity: 0, y: 24 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, amount: 0.2 }}
+                                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                        whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                                    >
+                                        <div className={styles.repoCardHeader}>
+                                            <div className={styles.repoIconWrap}>
+                                                <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                                                    <path d="M12 .296C5.37.296 0 5.666 0 12.297c0 5.302 3.438 9.8 8.206 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.016-2.04-3.338.725-4.042-1.61-4.042-1.61-.546-1.386-1.332-1.755-1.332-1.755-1.09-.745.082-.73.082-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.81 1.305 3.495.998.108-.775.42-1.305.763-1.605-2.665-.304-5.467-1.333-5.467-5.93 0-1.31.467-2.38 1.235-3.22-.124-.304-.535-1.527.117-3.18 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 0 1 3.004-.404 11.5 11.5 0 0 1 3.004.404c2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.876.118 3.18.77.84 1.234 1.91 1.234 3.22 0 4.61-2.807 5.623-5.48 5.92.43.372.814 1.102.814 2.222 0 1.604-.014 2.896-.014 3.29 0 .32.216.694.825.576C20.565 22.092 24 17.596 24 12.297 24 5.666 18.627.296 12 .296z" />
+                                                </svg>
+                                            </div>
+                                            <div className={styles.repoMeta}>
+                                                <span className={styles.repoName}>
+                                                    bikemaster2331/pathfinder
+                                                    <span className={styles.repoVersion}>{REPO_VERSION}</span>
+                                                </span>
+                                                <span className={styles.repoDesc}>AI-powered travel itinerary maker for Catanduanes</span>
+                                            </div>
+                                            <div className={styles.repoArrow}>↗</div>
+                                        </div>
+
+                                        <div className={styles.repoBody}>
+                                            <div className={styles.repoFeaturesHeader}>
+                                                <pre className={styles.asciiArt}>
+                                                    {`      ___           ___           ___           ___           ___                       ___           ___           ___           ___     
+     /\\  \\         /\\  \\         /\\  \\         /\\__\\         /\\  \\           ___       /\\__\\         /\\  \\         /\\  \\         /\\  \\    
+    /::\\  \\       /::\\  \\        \\:\\  \\       /:/  /        /::\\  \\         /\\  \\     /::|  |       /::\\  \\       /::\\  \\       /::\\  \\   
+   /:/\\:\\  \\     /:/\\:\\  \\        \\:\\  \\     /:/__/        /:/\\:\\  \\        \\:\\  \\   /:|:|  |      /:/\\:\\  \\     /:/\\:\\  \\     /:/\\:\\  \\  
+  /::\\~\\:\\  \\   /::\\~\\:\\  \\       /::\\  \\   /::\\  \\ ___   /::\\~\\:\\  \\       /::\\__\\ /:/|:|  |__   /:/  \\:\\__\\   /::\\~\\:\\  \\   /::\\~\\:\\  \\ 
+ /:/\\:\\ \\:\\__\\ /:/\\:\\ \\:\\__\\     /:/\\:\\__\\ /:/\\:\\  /\\__\\ /:/\\:\\ \\:\\__\\  __/:/\\/__/ /:/ |:| /\\__\\ /:/__/ \\:|__| /:/\\:\\ \\:\\__\\ /:/\\:\\ \\:\\__\\
+ \\/__\\:\\/:/  / \\/__\\:\\/:/  /    /:/  \\/__/ \\/__\\:\\/:/  / \\/__\\:\\ \\/__/ /\\/:/  /    \\/__|:|/:/  / \\:\\  \\ /:/  / \\:\\~\\:\\ \\/__/ \\/_|::\\/:/  /
+      \\::/  /        \\::/  /    /:/  /            \\::/  /        \\:\\__\\   \\::/__/          |:/:/  /   \\:\\  /:/  /   \\:\\ \\:\\__\\      |:|::/  / 
+       \\/__/         /:/  /     \\/__/             /:/  /          \\/__/    \\:\\__\\          |::/  /     \\:\\/:/  /     \\:\\ \\/__/      |:|\\/__/  
+                    /:/  /                       /:/  /                     \\/__/          /:/  /       \\::/__/       \\:\\__\\        |:|  |    
+                    \\/__/                        \\/__/                                     \\/__/        ~~            \\/__/         \\|__|    `}
+                                                </pre>
+                                            </div>
+                                            <div className={styles.repoFeaturesGrid}>
+                                                {REPO_FEATURES.map((feat, index) => {
+                                                    const isActive = activeFeatIndex === index;
+                                                    return (
+                                                        <div 
+                                                            key={feat.label} 
+                                                            className={styles.featItem}
+                                                            onMouseEnter={() => setActiveFeatIndex(index)}
+                                                        >
+                                                            {isActive && (
+                                                                <motion.div 
+                                                                    layoutId="featHighlight"
+                                                                    className={styles.featHighlight}
+                                                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                                                />
+                                                            )}
+                                                            <motion.div 
+                                                                className={styles.featIcon} 
+                                                                animate={{ 
+                                                                    opacity: isActive ? 1 : 0.45,
+                                                                    scale: isActive ? 1.1 : 1,
+                                                                    color: isActive ? 'var(--home-text)' : 'var(--home-muted)'
+                                                                }}
+                                                                style={{ position: 'relative', zIndex: 1 }}
+                                                            >
+                                                                {feat.icon}
+                                                            </motion.div>
+                                                            <div className={styles.featMeta} style={{ position: 'relative', zIndex: 1 }}>
+                                                                <motion.span 
+                                                                    className={styles.featLabel}
+                                                                    animate={{ 
+                                                                        opacity: isActive ? 1 : 0.6,
+                                                                        x: isActive ? 2 : 0,
+                                                                        color: isActive ? 'var(--home-text)' : 'var(--home-muted)'
+                                                                    }}
+                                                                >
+                                                                    {feat.label}
+                                                                </motion.span>
+                                                                <motion.span 
+                                                                    className={styles.featDesc}
+                                                                    animate={{ opacity: isActive ? 1 : 0.35 }}
+                                                                >
+                                                                    {feat.desc}
+                                                                </motion.span>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+
+                                        <div className={styles.repoFooterRow}>
+                                            <div className={styles.repoStats}>
+                                                <span className={styles.repoStat}>
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                                                    Star
+                                                </span>
+                                                <span className={styles.repoStat}>
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><circle cx="18" cy="6" r="3" /><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" /><path d="M12 12v3" /></svg>
+                                                    Fork
+                                                </span>
+                                            </div>
+                                            <div className={styles.techIconPill}>
+                                                {TECH_STACK.map((tech) => (
+                                                    <span key={tech.name} className={styles.techIconBtn} style={{ '--tech-color': tech.color }} title={tech.name}>
+                                                        <tech.Icon />
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </motion.a>
+
+
+                                </div>
+
+                                <motion.div
+                                    className={styles.creatorsSection}
+                                    initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, amount: 0.2 }}
-                                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                                    whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                                    transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                                 >
-                                    <div className={styles.repoCardHeader}>
-                                        <div className={styles.repoIconWrap}>
-                                            <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                                                <path d="M12 .296C5.37.296 0 5.666 0 12.297c0 5.302 3.438 9.8 8.206 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.016-2.04-3.338.725-4.042-1.61-4.042-1.61-.546-1.386-1.332-1.755-1.332-1.755-1.09-.745.082-.73.082-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.81 1.305 3.495.998.108-.775.42-1.305.763-1.605-2.665-.304-5.467-1.333-5.467-5.93 0-1.31.467-2.38 1.235-3.22-.124-.304-.535-1.527.117-3.18 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 0 1 3.004-.404 11.5 11.5 0 0 1 3.004.404c2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.876.118 3.18.77.84 1.234 1.91 1.234 3.22 0 4.61-2.807 5.623-5.48 5.92.43.372.814 1.102.814 2.222 0 1.604-.014 2.896-.014 3.29 0 .32.216.694.825.576C20.565 22.092 24 17.596 24 12.297 24 5.666 18.627.296 12 .296z" />
-                                            </svg>
-                                        </div>
-                                        <div className={styles.repoMeta}>
-                                            <span className={styles.repoName}>bikemaster2331/pathfinder</span>
-                                            <span className={styles.repoDesc}>AI-powered travel itinerary maker for Catanduanes</span>
-                                        </div>
-                                        <div className={styles.repoArrow}>↗</div>
+                                    <span className={styles.techLabel}>Creators</span>
+                                    <div className={styles.creatorsGrid}>
+                                        {[
+                                            { name: 'Tan', role: 'Core Dev', accent: '#22d3ee', email: 'tanlanuzga@gmail.com', github: 'https://github.com/bikemaster2331', bio: 'Full-stack architect. Built the AI pipeline, RAG system, frontend, backend, map engine, and itinerary planner.' },
+                                            { name: 'Roi', role: 'Hardware', accent: '#a78bfa', bio: 'Raspberry Pi deployment, hardware setup, and embedded systems integration.' },
+                                            { name: 'Zed', role: 'Full Stack', accent: '#34d399', bio: 'Full-stack development and hardware integration. Bridged software with RPi infrastructure.' },
+                                            { name: 'Pat', role: 'Hardware', accent: '#fb923c', bio: 'Raspberry Pi configuration, networking, and hardware infrastructure.' },
+                                            { name: 'Lee', role: 'Researcher', accent: '#f472b6', bio: 'Destination data sourcing, tourism research, and documentation.' },
+                                        ].map((creator, i) => (
+                                            <motion.div
+                                                key={creator.name}
+                                                className={styles.creatorCardWrap}
+                                                initial={{ opacity: 0, y: 16 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 0.45, delay: 0.2 + i * 0.08 }}
+                                                style={{ '--creator-accent': creator.accent }}
+                                                onClick={() => setActiveCreator(activeCreator === i ? null : i)}
+                                            >
+                                                <div className={`${styles.creatorFlipper} ${activeCreator === i ? styles.creatorFlipped : ''}`}>
+                                                    <div className={styles.creatorFront}>
+                                                        <div className={styles.creatorAvatar}>
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                                                <circle cx="12" cy="7" r="4" />
+                                                            </svg>
+                                                        </div>
+                                                        <span className={styles.creatorName}>{creator.name}</span>
+                                                        <span className={styles.creatorRole}>{creator.role}</span>
+                                                    </div>
+                                                    <div className={styles.creatorBack}>
+                                                        <span className={styles.creatorBackName}>{creator.name}</span>
+                                                        <p className={styles.creatorBio}>{creator.bio}</p>
+                                                        <div className={styles.creatorActions}>
+                                                            {creator.email && (
+                                                                <a href={`mailto:${creator.email}`} className={styles.creatorLink} onClick={(e) => e.stopPropagation()} aria-label={`Email ${creator.name}`}>
+                                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                                                                </a>
+                                                            )}
+                                                            {creator.github && (
+                                                                <a href={creator.github} target="_blank" rel="noopener noreferrer" className={styles.creatorLink} onClick={(e) => e.stopPropagation()}>
+                                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        ))}
                                     </div>
-                                    <div className={styles.repoFooterRow}>
-                                        <div className={styles.repoStats}>
-                                            <span className={styles.repoStat}>
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                                                Star
-                                            </span>
-                                            <span className={styles.repoStat}>
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><circle cx="18" cy="6" r="3" /><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" /><path d="M12 12v3" /></svg>
-                                                Fork
-                                            </span>
-                                        </div>
-                                        <div className={styles.techIconPill}>
-                                            {TECH_STACK.map((tech) => (
-                                                <span key={tech.name} className={styles.techIconBtn} style={{ '--tech-color': tech.color }} title={tech.name}>
-                                                    <tech.Icon />
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </motion.a>
-
-
+                                </motion.div>
                             </div>
-
-                            <motion.div
-                                className={styles.creatorsSection}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                                <span className={styles.techLabel}>Creators</span>
-                                <div className={styles.creatorsGrid}>
-                                    {[
-                                        { name: 'Tan', role: 'Core Dev', accent: '#22d3ee', email: 'tanlanuzga@gmail.com', github: 'https://github.com/bikemaster2331', bio: 'Full-stack architect. Built the AI pipeline, RAG system, frontend, backend, map engine, and itinerary planner.' },
-                                        { name: 'Roi', role: 'Hardware', accent: '#a78bfa', bio: 'Raspberry Pi deployment, hardware setup, and embedded systems integration.' },
-                                        { name: 'Zed', role: 'Full Stack', accent: '#34d399', bio: 'Full-stack development and hardware integration. Bridged software with RPi infrastructure.' },
-                                        { name: 'Pat', role: 'Hardware', accent: '#fb923c', bio: 'Raspberry Pi configuration, networking, and hardware infrastructure.' },
-                                        { name: 'Lee', role: 'Researcher', accent: '#f472b6', bio: 'Destination data sourcing, tourism research, and documentation.' },
-                                    ].map((creator, i) => (
-                                        <motion.div
-                                            key={creator.name}
-                                            className={styles.creatorCardWrap}
-                                            initial={{ opacity: 0, y: 16 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.45, delay: 0.2 + i * 0.08 }}
-                                            style={{ '--creator-accent': creator.accent }}
-                                            onClick={() => setActiveCreator(activeCreator === i ? null : i)}
-                                        >
-                                            <div className={`${styles.creatorFlipper} ${activeCreator === i ? styles.creatorFlipped : ''}`}>
-                                                <div className={styles.creatorFront}>
-                                                    <div className={styles.creatorAvatar}>
-                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                                            <circle cx="12" cy="7" r="4" />
-                                                        </svg>
-                                                    </div>
-                                                    <span className={styles.creatorName}>{creator.name}</span>
-                                                    <span className={styles.creatorRole}>{creator.role}</span>
-                                                </div>
-                                                <div className={styles.creatorBack}>
-                                                    <span className={styles.creatorBackName}>{creator.name}</span>
-                                                    <p className={styles.creatorBio}>{creator.bio}</p>
-                                                    <div className={styles.creatorActions}>
-                                                        {creator.email && (
-                                                            <a href={`mailto:${creator.email}`} className={styles.creatorLink} onClick={(e) => e.stopPropagation()} aria-label={`Email ${creator.name}`}>
-                                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
-                                                            </a>
-                                                        )}
-                                                        {creator.github && (
-                                                            <a href={creator.github} target="_blank" rel="noopener noreferrer" className={styles.creatorLink} onClick={(e) => e.stopPropagation()}>
-                                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
-                                                            </a>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </motion.div>
                         </div>
                     </div>
 

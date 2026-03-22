@@ -362,8 +362,6 @@ export const generateItinerary = ({
     if (dayCount < 1) { console.error('[generateItinerary] dayCount < 1'); return {}; }
 
     // ── Decide cap mode ────────────────────────────────────────────────────
-    // 1–2 filters = specific search = no cap (hotel trip, food trip, etc.)
-    // 0 or 3–6   = mixed/general   = cap on (attractions dominate)
     const capActive = shouldApplyCap(selectedActivities);
     console.log(`[generateItinerary] Cap mode: ${capActive ? 'ON (mixed trip)' : 'OFF (specific search)'}`);
 
@@ -376,8 +374,6 @@ export const generateItinerary = ({
     }
 
     // ── Build generate pool ────────────────────────────────────────────────
-    // Specific search (cap OFF) → everything passes including accommodation
-    // Mixed trip    (cap ON)  → strip accommodation before routing
     const generatePool = capActive
         ? pool.filter(spot => {
             const cat = String(spot.category || '').toLowerCase().trim();
@@ -394,55 +390,96 @@ export const generateItinerary = ({
     const zonePlan = getZonePlan(dayCount);
     const zoneBuckets = clusterByZone(generatePool, zonePlan);
 
-    // ── Phases 3–5: Per-zone processing ────────────────────────────────────
-    const filledZones = [];
+    // ── Phase 3: Process each zone into (accepted, leftover) ───────────────
+    // Instead of discarding leftovers, we collect them for redistribution.
+    const usedNames = new Set();
+    const zoneResults = [];   // what fits per zone day
+    let globalLeftovers = []; // spots that didn't fit in their zone's 540 min
 
     zoneBuckets.forEach((bucket) => {
-        if (bucket.length === 0) return;
+        if (bucket.length === 0) {
+            zoneResults.push([]);
+            return;
+        }
 
-        // Phase 3a: Proximity sort
         const proximitySorted = sortByProximity(bucket, hub.coordinates);
-
-        // Phase 3b: Priority sort — Tier 1 first, Stay last
         const prioritized = sortByPriority(proximitySorted);
-
-        // Phase 3c: Cap only on mixed trips
         const capped = capActive ? capByCategory(prioritized) : prioritized;
 
-        if (capped.length === 0) return;
+        if (capped.length === 0) {
+            zoneResults.push([]);
+            return;
+        }
 
-        // Phase 4: Capacity fill (≤ 540 min)
-        const trimmed = fillDayToCapacity(capped, hub);
+        // Capacity fill — accepted spots go to the day, rejected go to leftovers
+        const accepted = fillDayToCapacity(capped, hub);
+        const acceptedNames = new Set(accepted.map(s => s.name));
+        const rejected = capped.filter(s => !acceptedNames.has(s.name));
 
-        if (trimmed.length === 0) return;
+        accepted.forEach(s => usedNames.add(s.name));
+        globalLeftovers.push(...rejected);
 
-        // Phase 5: Route optimise
-        const optimised = optimizeRoute(hub, trimmed);
+        // Route-optimise the accepted set
+        const optimised = accepted.length > 0 ? optimizeRoute(hub, accepted) : [];
+        zoneResults.push(optimised);
 
-        filledZones.push(optimised);
-
-        console.log(`[generateItinerary] Zone — ${optimised.length} spots | ${optimised.map(s => `${s.name} (${CATEGORY_TO_FILTER[s.category] ?? s.category})`).join(', ')}`);
+        console.log(`[generateItinerary] Zone — ${optimised.length} accepted, ${rejected.length} leftover`);
     });
 
-    if (filledZones.length === 0) {
-        console.warn('[generateItinerary] Filters produced no valid day plans.');
-        return {};
-    }
-
-    // ── Distribute zones into day slots ────────────────────────────────────
+    // ── Phase 4: Distribute zones into day slots ───────────────────────────
+    // Map zone results → day numbers. If more zones than days, merge overflow.
     const result = {};
 
-    if (filledZones.length <= dayCount) {
-        filledZones.forEach((spots, i) => { result[i + 1] = spots; });
-        for (let d = filledZones.length + 1; d <= dayCount; d++) { result[d] = []; }
+    if (zoneResults.length <= dayCount) {
+        zoneResults.forEach((spots, i) => { result[i + 1] = spots; });
+        for (let d = zoneResults.length + 1; d <= dayCount; d++) { result[d] = []; }
     } else {
-        for (let d = 1; d < dayCount; d++) { result[d] = filledZones[d - 1]; }
-        const overflow = filledZones.slice(dayCount - 1).flat();
-        const sorted = sortByProximity(overflow, hub.coordinates);
-        const prioritized = sortByPriority(sorted);
-        const capped = capActive ? capByCategory(prioritized) : prioritized;
-        const trimmed = fillDayToCapacity(capped, hub);
-        result[dayCount] = optimizeRoute(hub, trimmed);
+        for (let d = 1; d < dayCount; d++) { result[d] = zoneResults[d - 1]; }
+        // Merge remaining zones into the last day's leftover pool
+        const overflowSpots = zoneResults.slice(dayCount - 1).flat();
+        overflowSpots.forEach(s => usedNames.delete(s.name)); // allow re-evaluation
+        globalLeftovers.push(...overflowSpots);
+        result[dayCount] = [];
+    }
+
+    // ── Phase 5: Backfill empty days + top off underfilled days ─────────────
+    // Sort the global leftovers by proximity to the hub so nearest fill first.
+    globalLeftovers = sortByProximity(
+        globalLeftovers.filter(s => !usedNames.has(s.name)),
+        hub.coordinates
+    );
+
+    for (let day = 1; day <= dayCount; day++) {
+        if (globalLeftovers.length === 0) break;
+
+        const currentSpots = result[day] || [];
+
+        // Try to fill this day closer to 540 min from the leftover pool
+        const stuffed = [...currentSpots];
+        const stuffedNames = new Set(stuffed.map(s => s.name));
+        const stillAvailable = [];
+
+        for (const spot of globalLeftovers) {
+            if (stuffedNames.has(spot.name)) {
+                // Already in this day, skip
+                continue;
+            }
+
+            const candidate = [...stuffed, spot];
+            const { totalUsed } = calculateTimeUsage(hub, candidate);
+
+            if (totalUsed <= DAILY_CAPACITY_MINUTES) {
+                stuffed.push(spot);
+                stuffedNames.add(spot.name);
+                usedNames.add(spot.name);
+            } else {
+                stillAvailable.push(spot);
+            }
+        }
+
+        // Re-optimise the route if we added new spots
+        result[day] = stuffed.length > 0 ? optimizeRoute(hub, stuffed) : [];
+        globalLeftovers = stillAvailable.filter(s => !usedNames.has(s.name));
     }
 
     console.log('[generateItinerary] Final result:', Object.keys(result).map(d => `Day ${d}: ${result[d].length} spots`));

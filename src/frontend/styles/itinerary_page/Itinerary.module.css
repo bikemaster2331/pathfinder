@@ -114,12 +114,13 @@
     letter-spacing: 0.12em;
     color: #e2e8f0;
     pointer-events: none;
+    margin-left: 8px;
 }
 
 .desktopChatTitleGroup {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 10px;
 }
 
 .homeRedirectBtn {
@@ -136,12 +137,8 @@
 }
 
 .homeRedirectBtn:hover {
+    scale: 1.02;
     color: #ffffff;
-    background: rgba(255, 255, 0, 0.1);
-}
-
-:global([data-theme='light']) .desktopChatTitle {
-    color: #0f172a;
 }
 
 :global([data-theme='light']) .homeRedirectBtn {
@@ -267,42 +264,35 @@
     color: rgba(15, 23, 42, 0.64);
 }
 
-.desktopChatContainerMinimized {
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
-    border-radius: 999px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.desktopChatContainerMinimized .desktopChatHeader {
-    flex-direction: column;
-    justify-content: center;
+.checkItineraryBtn {
+    display: inline-flex;
     align-items: center;
-    gap: 16px;
-    padding: 20px 8px;
-    border-bottom: none;
-    height: 100%;
-    writing-mode: vertical-rl;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(138, 180, 248, 0.1);
+    color: #8ab4f8;
+    border: 1px solid rgba(138, 180, 248, 0.2);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.desktopChatContainerMinimized .desktopChatTitle {
-    display: none;
+.checkItineraryBtn:hover {
+    background: rgba(138, 180, 248, 0.2);
 }
 
-.desktopChatContainerMinimized .windowControls {
-    display: none;
+:global([data-theme='light']) .checkItineraryBtn {
+    background: rgba(66, 133, 244, 0.08);
+    color: #1a73e8;
+    border-color: rgba(66, 133, 244, 0.2);
 }
 
-.desktopChatContainerMinimized .desktopChatBody {
-    display: none;
+:global([data-theme='light']) .checkItineraryBtn:hover {
+    background: rgba(66, 133, 244, 0.15);
 }
 
-.itineraryContainerChatMinimized {
-    grid-template-columns: 60px minmax(0, 1fr);
-}
 
 .chatRestoreBtn {
     position: absolute;
@@ -441,7 +431,7 @@
 
 .mapThemeToggle,
 .mapMenuToggle,
-.mapHelpToggle,
+.chatToggle,
 .mapExpandedReviewToggle {
     border: 1px solid rgba(255, 255, 255, 0.24);
     background: rgba(10, 12, 18, 0.65);
@@ -459,7 +449,7 @@
 
 .mapThemeToggle,
 .mapMenuToggle,
-.mapHelpToggle {
+.chatToggle {
     height: 36px;
     width: 36px; /* Default for circular buttons */
 }
@@ -505,7 +495,7 @@
 
 .mapThemeToggle svg,
 .mapMenuToggle svg,
-.mapHelpToggle svg {
+.chatToggle svg {
     width: 18px;
     height: 18px;
 }
@@ -520,7 +510,7 @@
 
 .mapThemeToggle:hover,
 .mapMenuToggle:hover,
-.mapHelpToggle:hover,
+.chatToggle:hover,
 .mapExpandedReviewToggle:hover {
     transform: translateY(-1px);
     background: rgba(10, 12, 18, 0.82);
@@ -529,7 +519,7 @@
 
 .mapThemeToggle:active,
 .mapMenuToggle:active,
-.mapHelpToggle:active,
+.chatToggle:active,
 .mapExpandedReviewToggle:active {
     transform: translateY(1px) scale(0.96);
 }
@@ -551,7 +541,7 @@
 /* Light Theme Overrides */
 :global([data-theme='light']) .mapThemeToggle,
 :global([data-theme='light']) .mapMenuToggle,
-:global([data-theme='light']) .mapHelpToggle,
+:global([data-theme='light']) .chatToggle,
 :global([data-theme='light']) .mapExpandedReviewToggle {
     background: rgba(255, 255, 255, 0.85);
     color: #0f172a;
@@ -561,12 +551,23 @@
 
 :global([data-theme='light']) .mapThemeToggle:hover,
 :global([data-theme='light']) .mapMenuToggle:hover,
-:global([data-theme='light']) .mapHelpToggle:hover,
+:global([data-theme='light']) .chatToggle:hover,
 :global([data-theme='light']) .mapExpandedReviewToggle:hover {
     background: rgba(255, 255, 255, 0.95);
     border-color: rgba(15, 23, 42, 0.25);
 }
 
+.chatToggleDisabled {
+    opacity: 0.5;
+    background: rgba(10, 12, 18, 0.4) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+:global([data-theme='light']) .chatToggleDisabled {
+    opacity: 0.6;
+    background: rgba(15, 23, 42, 0.05) !important;
+    border-color: rgba(15, 23, 42, 0.1) !important;
+}
 
 .mapExpandedReviewToggleBlurred {
     filter: blur(4px);
@@ -596,7 +597,7 @@
 }
 
 .mapExpandedReviewBoxExpanded {
-    height: 500px;
+    height: 520px;
 }
 
 .mapExpandedReviewBoxExpanded .mapExpandedReviewContent {
@@ -663,7 +664,7 @@
 
 .mapExpandedReviewContent {
     position: relative;
-    padding: 10px 12px 52px;
+    padding: 20px 12px 52px;
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
@@ -679,15 +680,39 @@
     font-weight: 700;
     color: #f8fafc;
     min-height: 2.5em;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.mapExpandedReviewDistanceBadge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(11, 18, 10, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #55ff00;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme='light']) .mapExpandedReviewDistanceBadge {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(15, 23, 42, 0.1);
+    color: #000000;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
 }
 
 .mapExpandedReviewDesc {
-    margin: 0 0 14px;
+    margin: 0px 0 14px;
     font-size: 0.82rem;
     line-height: 1.4;
     color: rgba(226, 232, 240, 0.88);
