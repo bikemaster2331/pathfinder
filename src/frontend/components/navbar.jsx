@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import styles from '../styles/navbar/navbar.module.css';
+import styles from '../styles/components/navbar.module.css';
 import ThemeToggle from './ThemeToggle';
 
 export default function SharedNavbar() {
