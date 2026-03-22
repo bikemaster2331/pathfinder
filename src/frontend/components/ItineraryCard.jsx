@@ -335,18 +335,21 @@ const ItineraryCard = ({
 
                     <div className={styles.spotsList}>
                         {addedSpots.length > 0 ? (
-                            addedSpots.map((spot, index) => (
-                                <SpotItem
-                                    key={`${spot.name}-${index}`}
-                                    spot={spot}
-                                    index={index}
-                                    driveTime={driveData[index]?.driveTime}
-                                    onMove={onMoveSpot}
-                                    onRemove={onRemoveSpot}
-                                    onSelect={setSelectedLocation}
-                                    styles={styles}
-                                />
-                            ))
+                            <AnimatePresence mode='popLayout'> {/* popLayout prevents jumping during removal */}
+                                {addedSpots.map((spot, index) => (
+                                    <SpotItem
+                                        key={`${spot.name}-${index}`} // Using index for unique keys in list re-ordering
+                                        spot={spot}
+                                        index={index}
+                                        driveTime={driveData[index]?.driveTime}
+                                        onMove={onMoveSpot}
+                                        onRemove={onRemoveSpot}
+                                        onSelect={setSelectedLocation}
+                                        styles={styles}
+                                        addedSpots={addedSpots} // Pass this so index logic works
+                                    />
+                                ))}
+                            </AnimatePresence>
                         ) : (
                             <p className={styles.emptyText}>Day {currentDay} is empty. Add spots to begin.</p>
                         )}
@@ -368,15 +371,37 @@ const ItineraryCard = ({
 };
 
 // Helper Sub-component
+// Helper Sub-component
 const SpotItem = ({ spot, index, driveTime, onMove, onRemove, onSelect, styles }) => (
-    <div key={index} className={styles.spotItemWrapper}>
+    <motion.div
+        layout // This makes other items slide smoothly when one is added/removed
+        initial={{ opacity: 0, x: -20, scale: 0.85 }}
+        animate={{ opacity: 1, x: 0, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.7, transition: { duration: 0.2 } }}
+        whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+        whileTap={{ scale: 0.98 }}
+        transition={{
+            type: "spring",
+            stiffness: 500,
+            damping: 30,
+            mass: 1
+        }}
+        className={styles.spotItemWrapper}
+    >
         {driveTime > 0 && (
-            <div className={styles.driveTimeLabel}>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className={styles.driveTimeLabel}
+            >
                 <Car size={12} />
                 <span>{driveTime} min drive</span>
-            </div>
+            </motion.div>
         )}
-        <div className={`${styles.miniSpotItem} ${spot.locked ? styles.miniSpotItemLocked : ''}`} onClick={() => onSelect(spot)}>
+        <div
+            className={`${styles.miniSpotItem} ${spot.locked ? styles.miniSpotItemLocked : ''}`}
+            onClick={() => onSelect(spot)}
+        >
             <div className={styles.spotInfo}>
                 <div className={styles.durationBadge}>
                     <Clock size={10} />
@@ -386,12 +411,12 @@ const SpotItem = ({ spot, index, driveTime, onMove, onRemove, onSelect, styles }
             </div>
             <div className={styles.spotActions}>
                 <button onClick={(e) => { e.stopPropagation(); onMove(index, -1); }} disabled={index === 0}><ChevronUp size={14} /></button>
-                <button onClick={(e) => { e.stopPropagation(); onMove(index, 1); }} disabled={false}><ChevronDown size={14} /></button>
+                <button onClick={(e) => { e.stopPropagation(); onMove(index, 1); }} disabled={index === addedSpots.length - 1}><ChevronDown size={14} /></button>
                 <div className={styles.divider} />
                 <button onClick={(e) => { e.stopPropagation(); onRemove(spot.name); }} className={styles.removeBtn}><Trash2 size={16} /></button>
             </div>
         </div>
-    </div>
+    </motion.div>
 );
 
 export default ItineraryCard;
