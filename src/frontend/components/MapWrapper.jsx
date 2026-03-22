@@ -189,7 +189,8 @@ const MapWrapper = forwardRef((props, ref) => {
         isMapFullscreen,
         onToggleMapFullscreen,
         onInitialTripboxComplete,
-        onMenuStateChange
+        onMenuStateChange,
+        isChatVisible = true
     } = props;
 
     const [isMenuOpen, setIsMenuOpen] = useState(() => {
@@ -381,6 +382,7 @@ const MapWrapper = forwardRef((props, ref) => {
                     isMenuOpen={isMenuOpen}
                     onToggleMenu={handleMenuToggle}
                     isInitialTripboxCompleted={hasCompletedInitialTripbox}
+                    isChatVisible={isChatVisible}
                 />
             </div>
             <div
