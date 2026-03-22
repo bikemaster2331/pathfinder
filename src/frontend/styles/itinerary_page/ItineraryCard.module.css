@@ -911,10 +911,39 @@
     border-left: 2px solid transparent;
     font-size: 0.9rem;
     color: var(--itinerary-card-text-white);
-    gap: 12px;
+    gap: 8px;
     cursor: pointer;
     flex-shrink: 0;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Drag Handle (6-dot grip) */
+.dragHandle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 28px;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: var(--itinerary-card-text-40);
+    cursor: grab;
+    padding: 0;
+    border-radius: 4px;
+    transition: color 0.15s ease, background 0.15s ease;
+    touch-action: none;
+}
+
+.dragHandle:hover {
+    color: var(--itinerary-card-text-70);
+    background: var(--itinerary-card-surface-08);
+}
+
+.dragHandle:active {
+    cursor: grabbing;
+    color: var(--itinerary-card-text-90);
+    background: var(--itinerary-card-surface-12);
 }
 
 .miniSpotItem:hover {
