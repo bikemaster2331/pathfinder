@@ -1,0 +1,150 @@
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px) saturate(160%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    perspective: 1000px;
+}
+
+.modalContent {
+    background: linear-gradient(135deg, rgba(20, 20, 25, 0.95), rgba(10, 10, 15, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Folder Shape: Top right corner is square for the tab */
+    border-radius: 20px 0 20px 20px;
+    padding: 32px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+/* The Folder Tab */
+.modalTab {
+    position: absolute;
+    top: -28px;
+    right: -1px;
+    /* Align with border */
+    height: 28px;
+    padding: 0 16px;
+    background: rgba(20, 20, 25, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Tab Connector Curve */
+.modalTab::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -15px;
+    /* Adjust this to move the curve left or right */
+    width: 15px;
+    height: 15px;
+    background: transparent;
+    border-bottom-right-radius: 12px;
+
+    /* CRITICAL: This color MUST match your modal background */
+    /* Use a CSS variable if possible: var(--modal-bg) */
+    box-shadow: 5px 5px 0 5px #ffffff;
+}
+
+/* Light Mode specific fix */
+:global([data-theme='light']) .modalTab::before {
+    box-shadow: 5px 5px 0 5px #ffffff;
+}
+
+/* Dark Mode specific fix */
+:global([data-theme='dark']) .modalTab::before {
+    box-shadow: 5px 5px 0 5px rgba(20, 20, 25, 0.95);
+}
+
+.statusDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0ea5e9;
+    box-shadow: 0 0 8px #0ea5e9;
+}
+
+.statusDot[data-type='warning'] {
+    background: #f59e0b;
+    box-shadow: 0 0 8px #f59e0b;
+}
+
+.modalTitle {
+    margin: 0 0 12px;
+    font-family: 'HelveticaCustom', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.modalMessage {
+    margin: 0 0 32px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 16px;
+}
+
+.confirmBtn {
+    position: relative;
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.confirmBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Light Mode Overrides */
+:global([data-theme='light']) .modalContent {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+:global([data-theme='light']) .modalTab {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.4);
+}
+
+:global([data-theme='light']) .modalTitle {
+    color: #000000;
+}
+
+:global([data-theme='light']) .modalMessage {
+    color: #4b5563;
+    border-left-color: rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme='light']) .confirmBtn {
+    background: #000000;
+    color: #ffffff;
+}

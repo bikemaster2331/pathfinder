@@ -500,6 +500,13 @@
     justify-content: center;
 }
 
+.mapControlDisabled {
+    opacity: 0.45;
+    pointer-events: none;
+    filter: grayscale(0.5);
+    cursor: not-allowed !important;
+}
+
 .mapThemeToggle,
 .mapMenuToggle,
 .chatToggle {
