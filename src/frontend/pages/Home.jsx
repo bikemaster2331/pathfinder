@@ -652,8 +652,7 @@ export default function Home() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.body.classList.add('homepage-active');
-        return () => document.body.classList.remove('homepage-active');
+        // No longer adding homepage-active as scrollbars are default now
     }, []);
 
     const guideRef = useRef(null);
@@ -796,7 +795,6 @@ export default function Home() {
 
         tl.to(headline, {
             "--glow-opacity": 1, 
-            scale: 1.05,
             duration: 2,
             ease: "power2.out" // Gives it that slight "kick" to start the bloom
         }, bloomStart);
@@ -804,7 +802,6 @@ export default function Home() {
         // 3. FADE OUT
         tl.to(headline, {
             "--glow-opacity": 0,
-            scale: 1, 
             duration: 2,
             ease: "sine.inOut" // Smooth, natural retreat
         }, "+=1");

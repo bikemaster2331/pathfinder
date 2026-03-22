@@ -37,9 +37,24 @@ export default function SharedNavbar() {
                     {/* Center */}
                     <div className={styles.navCenter}>
                         <div className={styles.navLinks}>
-                            <button onClick={() => navigate('/Creators')} className={styles.navLink}>Creators</button>
-                            <button onClick={() => navigate('/About')} className={styles.navLink}>What we do</button>
-                            <button onClick={() => navigate('/Contact')} className={styles.navLink}>Contact</button>
+                            <button 
+                                onClick={() => navigate('/Creators')} 
+                                className={`${styles.navLink} ${location.pathname.toLowerCase() === '/creators' ? styles.activeNavLink : ''}`}
+                            >
+                                Creators
+                            </button>
+                            <button 
+                                onClick={() => navigate('/About')} 
+                                className={`${styles.navLink} ${location.pathname.toLowerCase() === '/about' ? styles.activeNavLink : ''}`}
+                            >
+                                What we do
+                            </button>
+                            <button 
+                                onClick={() => navigate('/Contact')} 
+                                className={`${styles.navLink} ${location.pathname.toLowerCase() === '/contact' ? styles.activeNavLink : ''}`}
+                            >
+                                Contact
+                            </button>
                         </div>
                     </div>
 

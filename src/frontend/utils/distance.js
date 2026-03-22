@@ -21,7 +21,7 @@ export const calculateTotalRoute = (hub, spots) => {
         currentCoords = spot.geometry.coordinates;
     });
 
-    return totalDist.toFixed(1);
+    return parseFloat(totalDist.toFixed(1));
 };
 
 // 3. Feasibility Scoring Engine (The Green/Yellow/Red Logic)
