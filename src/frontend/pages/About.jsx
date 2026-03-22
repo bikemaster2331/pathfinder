@@ -91,6 +91,8 @@ export default function About() {
                 <span>v1.0.21</span>
                 <span className={styles.footDot} />
                 <a href="https://github.com/bikemaster2331/pathfinder" target="_blank" rel="noopener noreferrer" className={styles.footLink}>GitHub ↗</a>
+                <span className={styles.footDot} />
+                <span>2026</span>
             </footer>
 
         </div>
