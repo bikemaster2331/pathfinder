@@ -407,18 +407,17 @@
     box-sizing: border-box;
 }
 
-html.homepage-active {
-    --scrollbar-width: 8px;
-}
-
-html:not(.homepage-active)::-webkit-scrollbar,
-body:not(.homepage-active)::-webkit-scrollbar {
+/* Hide scrollbar for itinerary page only */
+html.itinerary-active::-webkit-scrollbar,
+body.itinerary-active::-webkit-scrollbar {
     display: none;
 }
 
-html {
-    scrollbar-gutter: stable;
+html.itinerary-active,
+body.itinerary-active {
+    scrollbar-width: none;
 }
+
 
 html,
 body {
@@ -429,35 +428,26 @@ body {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    -ms-overflow-style: none;
-}
-
-.homepage-active {
     scrollbar-width: auto;
     scrollbar-color: #6d6d6d #151515;
 }
 
-.homepage-active::-webkit-scrollbar {
+html::-webkit-scrollbar {
     display: block;
     width: 8px;
 }
 
-.homepage-active::-webkit-scrollbar-track {
+html::-webkit-scrollbar-track {
     background: #444; 
 }
 
-.homepage-active::-webkit-scrollbar-thumb {
+html::-webkit-scrollbar-thumb {
     background: #555;
     border-radius: 0;
 }
 
-.homepage-active::-webkit-scrollbar-thumb:hover {
+html::-webkit-scrollbar-thumb:hover {
     background: #adadad;
-}
-
-html:not(.homepage-active),
-body:not(.homepage-active) {
-    scrollbar-width: none;
 }
 
 body {
@@ -466,5 +456,5 @@ body {
 
 #root {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
 }
