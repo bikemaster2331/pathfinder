@@ -1,55 +1,331 @@
-.cont {
-    width: 100%;
-    height: 100vh;
-    background-color: var(--footer-contact-bg);
-    /* Deep black */
-    color: var(--footer-contact-text);
-    /* Soft white */
+/* ================================================================
+   CONTACT PAGE
+   Same editorial system as About — single column, type-forward.
+================================================================ */
 
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--footer-contact-bg);
+    color: var(--footer-contact-text);
+    font-family: 'HelveticaCustom', 'Manrope', -apple-system, sans-serif;
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 120px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.container.ready {
+    opacity: 1;
+}
+
+.grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+}
+
+.back {
+    position: fixed;
+    top: 28px;
+    left: 28px;
+    z-index: 100;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--footer-contact-border);
+    background: var(--footer-contact-bg);
+    color: var(--footer-contact-muted);
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    text-align: center;
-    padding: 20px;
-}
-
-.title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    letter-spacing: -0.5px;
-
-    background: linear-gradient(to right, var(--footer-contact-text), var(--footer-contact-muted));
-
-    /* --- MAKE SURE THESE ARE CORRECT --- */
-    -webkit-background-clip: text;
-    background-clip: text;
-    /* <--- CHANGE THIS from 'none' to 'text' */
-    -webkit-text-fill-color: transparent;
-}
-
-.desc {
-    font-size: 1.1rem;
-    max-width: 600px;
-    line-height: 1.6;
-    color: var(--footer-contact-muted);
-    margin-bottom: 40px;
-}
-
-.backButton {
-    padding: 12px 24px;
-    background-color: var(--footer-contact-surface-subtle);
-    border: 1px solid var(--footer-contact-border);
-    border-radius: 8px;
-    color: var(--footer-contact-text);
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.9rem;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.backButton:hover {
-    background-color: var(--footer-contact-surface);
-    transform: translateY(-2px);
+.back:hover {
+    color: var(--footer-contact-text);
+    border-color: var(--footer-contact-text);
+    transform: translateX(-2px);
+}
+
+/* ── Hero ── */
+.hero {
+    position: relative;
+    z-index: 1;
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 100px 32px 64px;
+    animation: riseIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.eyebrow {
+    display: block;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--footer-contact-muted);
+    opacity: 0.5;
+    margin-bottom: 24px;
+}
+
+.headline {
+    font-size: clamp(2.8rem, 6vw, 4.6rem);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.05em;
+    color: var(--footer-contact-text);
+    margin: 0 0 28px;
+}
+
+.headline em {
+    font-style: italic;
+    font-weight: 300;
+    opacity: 0.55;
+}
+
+.lead {
+    font-size: 1.05rem;
+    line-height: 1.72;
+    color: var(--footer-contact-muted);
+    margin: 0;
+    max-width: 440px;
+}
+
+/* ── Channels list ── */
+.channels {
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+.channel {
+    display: grid;
+    grid-template-columns: 44px 1fr 36px;
+    gap: 20px;
+    align-items: center;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--footer-contact-border);
+    animation: riseIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(0.12s + var(--i) * 0.09s);
+    transition: opacity 0.2s ease;
+}
+
+.channels:hover .channel {
+    opacity: 0.45;
+}
+
+.channels:hover .channel:hover {
+    opacity: 1;
+}
+
+.channel:first-child {
+    border-top: 1px solid var(--footer-contact-border);
+}
+
+.channelIcon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--footer-contact-border);
+    background: var(--footer-contact-surface-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--footer-contact-muted);
+    flex-shrink: 0;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.channel:hover .channelIcon {
+    color: var(--footer-contact-text);
+    border-color: var(--footer-contact-text);
+}
+
+.channelBody {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.channelLabel {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--footer-contact-muted);
+    opacity: 0.45;
+}
+
+.channelValue {
+    font-size: 0.97rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--footer-contact-text);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.2s ease;
+}
+
+.channelValue:hover {
+    opacity: 0.7;
+}
+
+.channelDesc {
+    font-size: 0.76rem;
+    color: var(--footer-contact-muted);
+    opacity: 0.45;
+}
+
+.channelArrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--footer-contact-border);
+    color: var(--footer-contact-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.channel:hover .channelArrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--footer-contact-text);
+    border-color: var(--footer-contact-text);
+}
+
+/* ── Copy block ── */
+.copyBlock {
+    position: relative;
+    z-index: 1;
+    max-width: 580px;
+    margin: 40px auto 0;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: riseIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(0.12s + 3 * 0.09s);
+}
+
+.copyLabel {
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--footer-contact-muted);
+    opacity: 0.4;
+    white-space: nowrap;
+}
+
+.copyBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--footer-contact-surface-subtle);
+    border: 1px solid var(--footer-contact-border);
+    border-radius: 999px;
+    color: var(--footer-contact-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 380px;
+}
+
+.copyBtn:hover {
+    color: var(--footer-contact-text);
+    border-color: var(--footer-contact-text);
+}
+
+/* ── Footer ── */
+.foot {
+    position: relative;
+    z-index: 1;
+    max-width: 580px;
+    margin: 64px auto 0;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--footer-contact-muted);
+    opacity: 0.3;
+}
+
+.footDot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+/* ── Animation ── */
+@keyframes riseIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    .hero {
+        padding: 100px 20px 48px;
+    }
+
+    .channels,
+    .copyBlock,
+    .foot {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .channel {
+        grid-template-columns: 40px 1fr;
+    }
+
+    .channelArrow {
+        display: none;
+    }
+
+    .copyBtn {
+        max-width: 260px;
+        font-size: 0.7rem;
+    }
+
+    .headline {
+        font-size: 2.4rem;
+    }
 }
