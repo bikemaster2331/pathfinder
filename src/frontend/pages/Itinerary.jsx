@@ -537,6 +537,11 @@ export default function ItineraryPage() {
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
     const mobilePanelToggleLabel = nextMobilePanel === 'preview' ? 'Show preview' : 'Show review';
 
+    useEffect(() => {
+        document.documentElement.classList.add('itinerary-active');
+        return () => document.documentElement.classList.remove('itinerary-active');
+    }, []);
+
     const mapRef = useRef(null);
 
     const sheetRef = useRef(null);
@@ -685,7 +690,9 @@ export default function ItineraryPage() {
             driveData: fullTripDriveData
         });
 
-        navigate('/last', { state: { pdfData } });
+        setTimeout(() => {
+            navigate('/last', { state: { pdfData } });
+        }, 100);
     };
 
     const isSelectedAlreadyAdded = selectedLocation
@@ -1015,6 +1022,16 @@ export default function ItineraryPage() {
 
             {/* Map Container with Controls */}
             <div className={`${styles.mapArea} ${isMapFullscreen ? styles.mapAreaFullscreen : ''}`}>
+                {!isChatVisible && !isMobile && (
+                    <div className={styles.mapHeaderGroup}>
+                        <h1 className={styles.mapTitle}>CATANDUANES</h1>
+                        <p className={styles.mapDescription}>
+                            A rugged island province where the Pacific meets the Philippine archipelago, 
+                            Catanduanes is the 'Land of the Howling Winds'—a sanctuary of untamed coastlines, 
+                            emerald rolling hills, and a resilient, vibrant spirit.
+                        </p>
+                    </div>
+                )}
                 <MapWrapper
                     ref={mapRef}
                     isTripForecastVisible={false}
@@ -1052,12 +1069,17 @@ export default function ItineraryPage() {
                         aria-label="Toggle Chat"
                     >
                         {isChatVisible ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bot-message-square-icon lucide-bot-message-square">
-                                <path d="M12 6V2H8"/><path d="M15 11v2"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M20 16a2 2 0 0 1-2 2H8.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 4 20.286V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/><path d="M9 11v2"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye">
+                                <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
+                                <circle cx="12" cy="12" r="3"/>
                             </svg>
                         ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bot-off-icon lucide-bot-off">
-                                <path d="M13.67 8H18a2 2 0 0 1 2 2v4.33"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M22 22 2 2"/><path d="M8 8H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 1.414-.586"/><path d="M9 13v2"/><path d="M9.67 4H12v2.33"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye-closed">
+                                <path d="m15 18-.722-3.25"/>
+                                <path d="M2 8a10.645 10.645 0 0 0 20 0"/>
+                                <path d="m20 15-1.726-2.05"/>
+                                <path d="m4 15 1.726-2.05"/>
+                                <path d="m9 18 .722-3.25"/>
                             </svg>
                         )}
                     </button>
