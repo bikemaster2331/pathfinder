@@ -10,10 +10,8 @@
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--nav-border);
     z-index: 1000;
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
 }
 
 .navBarHome {
@@ -27,9 +25,9 @@
     margin-left: auto;
     margin-right: auto;
     height: auto;
-    background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    background: rgba(5, 8, 12, 0.58); /* Translucent dark background */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--nav-border);
     max-width: 100%;
     border-radius: 0;
@@ -261,8 +259,9 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    padding: 0;
-    transition: color 0.2s ease;
+    padding: 8px 16px; /* Added padding for pill effect */
+    border-radius: 999px; /* Rounded corners for pill */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     white-space: nowrap;
 }
@@ -277,7 +276,32 @@
 
 .navLink:active {
     color: var(--navbar-muted);
-    transform: scale(1.02);
+    transform: scale(0.98);
+}
+
+.activeNavLink {
+    color: var(--navbar-text) !important;
+    background: rgba(255, 255, 255, 0.08); /* Subtle highlight */
+    font-weight: 600;
+}
+
+:global([data-theme='light']) .activeNavLink {
+    color: #0b0b0b !important;
+    background: rgba(0, 0, 0, 0.05); /* Soft highlight for light mode */
+}
+
+.activeNavLink {
+    color: var(--navbar-text) !important;
+    background: rgba(255, 255, 255, 0.08);
+    font-weight: 600;
+}
+
+.activeNavLink::after {
+    display: none; /* Removed the old underline */
+}
+
+:global([data-theme='light']) .activeNavLink {
+    color: #0b0b0b !important;
 }
 
 @media (min-width: 769px) {
@@ -294,12 +318,11 @@
 
     .navLink:hover {
         color: var(--navbar-text);
-        scale: 1.2;
-        transition: all 0.4s ease;
+        background: rgba(255, 255, 255, 0.08);
     }
 
     .navLink:hover::after {
-        width: 100%;
+        display: none;
     }
 
     .menuLink::after {
