@@ -4,7 +4,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import * as turf from '@turf/turf';
 import roadData from '../data/catanduanes_optimized.json';
 import { getVisualRoute } from '../utils/visualRoute.js';
-import styles from '../styles/itinerary_page/map.module.css';
+import styles from '../styles/components/map.module.css';
 import ThemeToggle from './ThemeToggle';
 
 
