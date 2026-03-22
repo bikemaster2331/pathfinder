@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import styles from '../styles/footer/Creators.module.css';
+import styles from '../styles/pages/Creators.module.css';
 
 const CREATORS = [
     {
@@ -56,11 +56,6 @@ export default function About() {
 
             <div className={styles.grain} aria-hidden="true" />
 
-            <button className={styles.back} onClick={() => navigate('/')}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M19 12H5M12 5l-7 7 7 7" />
-                </svg>
-            </button>
 
             <section className={styles.opening}>
                 <p className={styles.openingLabel}>Pathfinder · Catanduanes, PH</p>
