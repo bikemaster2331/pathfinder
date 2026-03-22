@@ -819,12 +819,29 @@
     font-weight: 500;
     white-space: nowrap;
     animation: fadeInPill 0.3s ease-out;
+    max-width: 150px;
+}
+
+.activePinPill span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.keyboardInputModal .activePinPill {
+    position: absolute;
+    right: 70px;
+    bottom: 22px;
+    margin: 0;
+    z-index: 10;
+    max-width: none;
 }
 
 .removePillBtn {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     background: rgba(138, 180, 248, 0.1);
     border: none;
     color: #8ab4f8;
