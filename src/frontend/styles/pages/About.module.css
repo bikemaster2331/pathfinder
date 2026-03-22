@@ -228,10 +228,11 @@
     position: relative;
     z-index: 1;
     max-width: 640px;
-    margin: 60px auto 0;
+    margin: 30px auto 0 auto;
     padding: 0 32px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 12px;
     animation: riseIn 0.7s 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

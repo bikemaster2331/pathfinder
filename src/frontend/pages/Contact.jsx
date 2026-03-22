@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import styles from '../styles/footer/Contact.module.css';
+import styles from '../styles/pages/Contact.module.css';
 
 const CHANNELS = [
     {
@@ -60,11 +60,6 @@ export default function Contact() {
 
             <div className={styles.grain} aria-hidden="true" />
 
-            <button className={styles.back} onClick={() => navigate('/')}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M19 12H5M12 5l-7 7 7 7" />
-                </svg>
-            </button>
 
             <section className={styles.hero}>
                 <span className={styles.eyebrow}>Contact</span>

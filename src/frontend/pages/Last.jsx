@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
-import styles from '../styles/itinerary_page/Last.module.css';
+import styles from '../styles/pages/Last.module.css';
 
 export default function Last() {
   const navigate = useNavigate();

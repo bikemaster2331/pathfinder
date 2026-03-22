@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TRAVEL_HUBS } from '../constants/location';
-import styles from '../styles/itinerary_page/ItineraryCard.module.css';
+import { PrintView } from './PrintView';
+import styles from '../styles/components/ItineraryCard.module.css';
 import { calculateDistance, calculateTotalRoute, calculateDriveTimes, calculateTimeUsage } from '../utils/distance';
 import { optimizeRoute } from '../utils/optimize';
 import { generateItineraryPDF } from '../utils/generatePDF';

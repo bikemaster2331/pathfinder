@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import styles from '../styles/footer/About.module.css';
+import styles from '../styles/pages/About.module.css';
 
 const STATS = [
     { value: '200+', label: 'Verified destinations' },
@@ -23,11 +23,6 @@ export default function About() {
 
             <div className={styles.grain} aria-hidden="true" />
 
-            <button className={styles.back} onClick={() => navigate('/')}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M19 12H5M12 5l-7 7 7 7" />
-                </svg>
-            </button>
 
             <section className={styles.hero}>
                 <span className={styles.eyebrow}>About Pathfinder</span>
@@ -96,6 +91,8 @@ export default function About() {
                 <span>v1.0.21</span>
                 <span className={styles.footDot} />
                 <a href="https://github.com/bikemaster2331/pathfinder" target="_blank" rel="noopener noreferrer" className={styles.footLink}>GitHub ↗</a>
+                <span className={styles.footDot} />
+                <span>2026</span>
             </footer>
 
         </div>

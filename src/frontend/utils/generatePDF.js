@@ -276,7 +276,7 @@ export const generateItineraryPDF = ({
                     const driveLabel = `->  ${driveTime} min drive${transportMode ? '  -  ' + transportMode : ''}`;
                     doc.text(driveLabel, margin + 20, currentY);
                     currentY += 8;
-                } else if (i === 0) {
+                } else if (i === 0) {w
                     currentY = ensureSpace(doc, currentY, 14, pageHeight);
                     doc.setFontSize(7);
                     doc.setFont('helvetica', 'italic');

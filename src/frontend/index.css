@@ -458,3 +458,16 @@ body {
     width: 100%;
     min-height: 100%;
 }
+
+@media print {
+
+    /* Hide your entire app */
+    #root>* {
+        display: none;
+    }
+
+    /* But show the print view */
+    .root {
+        display: block !important;
+    }
+}

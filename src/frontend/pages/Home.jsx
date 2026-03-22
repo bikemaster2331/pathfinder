@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useRef, useState, useEffect } from 'react';
-import styles from '../styles/homepage/Home.module.css';
-import chatStyles from '../styles/itinerary_page/ChatBot.module.css';
+import styles from '../styles/pages/Home.module.css';
+import chatStyles from '../styles/components/ChatBot.module.css';
 import { motion, wrap } from 'framer-motion';
 import SharedNavbar from '../components/navbar';
 import badges from '../assets/images/card/badges.png';

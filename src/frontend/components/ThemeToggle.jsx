@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const ThemeToggle = ({ className, iconLightClass, iconDarkClass }) => {
+const ThemeToggle = ({ className, iconLightClass, iconDarkClass, disabled }) => {
     const getInitialTheme = () => {
         if (typeof window === 'undefined') return 'light';
         const stored = window.localStorage.getItem('theme');
@@ -31,6 +31,7 @@ const ThemeToggle = ({ className, iconLightClass, iconDarkClass }) => {
 
     const toggleTheme = (e) => {
         e.stopPropagation();
+        if (disabled) return;
         setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
     };
 
@@ -39,6 +40,7 @@ const ThemeToggle = ({ className, iconLightClass, iconDarkClass }) => {
             type="button"
             className={className}
             onClick={toggleTheme}
+            disabled={disabled}
             data-menu-toggle="true"
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
         >
