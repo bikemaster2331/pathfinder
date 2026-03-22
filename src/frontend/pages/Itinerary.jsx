@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../styles/itinerary_page/Itinerary.module.css';
-import cardStyles from '../styles/itinerary_page/ItineraryCard.module.css';
+import styles from '../styles/pages/Itinerary.module.css';
+import cardStyles from '../styles/components/ItineraryCard.module.css';
 import PreferenceCard from '../components/ItineraryCard';
 import MapWrapper from '../components/MapWrapper';
 import ThemeToggle from '../components/ThemeToggle';
@@ -10,6 +10,7 @@ import { TRAVEL_HUBS } from '../constants/location';
 import { optimizeRoute } from '../utils/optimize';
 import { calculateDriveTimes, calculateTimeUsage, calculateTotalRoute, calculateDistance } from '../utils/distance';
 import { generateItineraryPDF } from '../utils/generatePDF';
+import CustomModal from '../components/CustomModal';
 import defaultBg from '../assets/images/card/catanduanes.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import { House, Sun, CreditCard, Clock3, MapPin } from 'lucide-react';
@@ -533,6 +534,11 @@ export default function ItineraryPage() {
     const [isImageFullscreen, setIsImageFullscreen] = useState(false);
     const [isChatVisible, setIsChatVisible] = useState(true);
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+    const [modalConfig, setModalConfig] = useState({ isOpen: false, title: '', message: '', type: 'info' });
+
+    const showAlert = (message, title = 'Notice', type = 'info') => {
+        setModalConfig({ isOpen: true, title, message, type });
+    };
 
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
     const mobilePanelToggleLabel = nextMobilePanel === 'preview' ? 'Show preview' : 'Show review';
@@ -606,7 +612,7 @@ export default function ItineraryPage() {
             allSpots,
         });
         if (Object.keys(result).length === 0) {
-            alert("No spots match your current filters. Try expanding your budget or activities.");
+            showAlert("No spots match your current filters. Try expanding your budget or activities.", "No Matches Found", "warning");
             return;
         }
         setStoredDays(result);
@@ -615,6 +621,10 @@ export default function ItineraryPage() {
     };
 
     const handleAddSpot = (spot) => {
+        if (!isInitialTripboxCompleted) {
+            showAlert("Please complete the initial trip setup first (click 'Done' on the setup box)!", "Setup Required", "warning");
+            return;
+        }
         setAddedSpots(prev => {
             if (!prev.find(s => s.name === spot.name)) {
                 return [...prev, spot];
@@ -672,7 +682,7 @@ export default function ItineraryPage() {
             });
 
         if (!activeHub?.name || allSpotsFlat.length === 0) {
-            alert("Please add at least one spot before saving.");
+            showAlert("Please add at least one spot before saving.", "Itinerary Empty", "warning");
             return;
         }
 
@@ -1063,10 +1073,11 @@ export default function ItineraryPage() {
                 <div className={styles.mapTopControlsGroup}>
                     <button
                         type="button"
-                        className={`${styles.chatToggle} ${!isChatVisible ? styles.chatToggleDisabled : ''}`}
-                        onClick={() => setIsChatVisible((prev) => !prev)}
-                        title={isChatVisible ? "Hide Chat & Forecast" : "Show Chat & Forecast"}
+                        className={`${styles.chatToggle} ${!isChatVisible ? styles.chatToggleDisabled : ''} ${!isInitialTripboxCompleted ? styles.mapControlDisabled : ''}`}
+                        onClick={() => isInitialTripboxCompleted && setIsChatVisible((prev) => !prev)}
+                        title={!isInitialTripboxCompleted ? "Complete setup first" : (isChatVisible ? "Hide Chat & Forecast" : "Show Chat & Forecast")}
                         aria-label="Toggle Chat"
+                        disabled={!isInitialTripboxCompleted}
                     >
                         {isChatVisible ? (
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye">
@@ -1083,11 +1094,14 @@ export default function ItineraryPage() {
                             </svg>
                         )}
                     </button>
-                    <ThemeToggle 
-                        className={styles.mapThemeToggle} 
-                        iconLightClass={styles.iconLight} 
-                        iconDarkClass={styles.iconDark} 
-                    />
+                    <div className={!isInitialTripboxCompleted ? styles.mapControlDisabled : ''}>
+                        <ThemeToggle 
+                            className={styles.mapThemeToggle} 
+                            iconLightClass={styles.iconLight} 
+                            iconDarkClass={styles.iconDark}
+                            disabled={!isInitialTripboxCompleted}
+                        />
+                    </div>
                     <button
                         type="button"
                         className={`${styles.mapMenuToggle} ${isTripMenuOpen ? styles.mapControlLarge : styles.mapControlSmall}`}
@@ -1400,6 +1414,14 @@ export default function ItineraryPage() {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            <CustomModal 
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
+                title={modalConfig.title}
+                message={modalConfig.message}
+                type={modalConfig.type}
+            />
 
         </div>
     );
