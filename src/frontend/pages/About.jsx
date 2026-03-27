@@ -4,7 +4,7 @@ import styles from '../styles/pages/About.module.css';
 
 const STATS = [
     { value: '200+', label: 'Verified destinations' },
-    { value: '1 City', label: '12 Municipalities covered' },
+    { value: 'Island-wide', label: '11 Municipalities covered' },
     { value: 'RAG', label: 'AI pipeline' },
     { value: 'Open', label: 'Source & transparent' },
 ];
@@ -50,7 +50,7 @@ export default function About() {
                 <div className={styles.section} style={{ '--i': 0 }}>
                     <span className={styles.sectionTag}>What it is</span>
                     <div className={styles.sectionContent}>
-                        <p>Pathfinder is an AI-powered travel guide built specifically for Catanduanes — the island province at the eastern tip of the Bicol Peninsula. It combines a retrieval-augmented AI, an interactive map, and verified local data into a single, honest planning tool.</p>
+                        <p>Pathfinder is an AI-powered travel guide built specifically for Catanduanes, the island province at the eastern tip of the Bicol Peninsula. It combines a retrieval-augmented AI, an interactive map, and verified local data into a single, honest planning tool.</p>
                         <p>Ask it anything. It knows the beaches, the falls, the trails, the food, the roads, and some secrets...</p>
                     </div>
                 </div>
@@ -58,8 +58,8 @@ export default function About() {
                 <div className={styles.section} style={{ '--i': 1 }}>
                     <span className={styles.sectionTag}>How it works</span>
                     <div className={styles.sectionContent}>
-                        <p>The AI uses a RAG pipeline — meaning it reasons over a real, curated knowledge base of 200+ destinations rather than hallucinating from general training data. Every answer is grounded in locally sourced, validated information.</p>
-                        <p>The itinerary planner builds day plans based on your budget, interests, and travel time — then optimizes the route so you actually see what you came for.</p>
+                        <p>The AI uses a RAG pipeline, meaning it reasons over a real, curated knowledge base of 200+ destinations rather than hallucinating from general training data. Every answer is grounded in locally sourced, validated information.</p>
+                        <p>The itinerary planner builds day plans based on your budget, interests, and travel time, then optimizes the route so you actually see what you came for.</p>
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@ export default function About() {
                     <span className={styles.sectionTag}>Who's behind it</span>
                     <div className={styles.sectionContent}>
                         <p>Pathfinder was built by five students as a thesis project, with the help of Catanduanes Tourism Promotion Office. The data is locally validated. The code is open source.</p>
-                        <p>We believe infrastructure for tourism should be transparent and community-driven — not locked behind five clueless students (jokes aside).</p>
+                        <p>We believe infrastructure for tourism should be transparent and community-driven, not locked behind five clueless students (jokes aside).</p>
                     </div>
                 </div>
 
