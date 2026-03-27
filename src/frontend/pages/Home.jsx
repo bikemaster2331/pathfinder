@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useRef, useState, useEffect } from 'react';
 import styles from '../styles/pages/Home.module.css';
 import chatStyles from '../styles/components/ChatBot.module.css';
-import { motion, wrap } from 'framer-motion';
+import { motion, wrap, AnimatePresence } from 'framer-motion';
+import { MapPinPlus } from 'lucide-react';
 import SharedNavbar from '../components/navbar';
 import badges from '../assets/images/card/badges.png';
 import mapScreenshot from '../assets/images/card/map.png';
@@ -179,6 +180,36 @@ const REPO_FEATURES = [
     },
 ];
 
+const MOCK_SCENARIOS = [
+    {
+        user: "Where can I find the best surf in Catanduanes?",
+        ai: "Puraran Beach is famous for its 'Majestic' waves on the east coast. It's an iconic destination for surfers.",
+        cardName: "Puraran Beach",
+        cardTag: "Surf · P50-300",
+        dist: "ETA: 45 MINS // 28 KM",
+        color: "#fb7185", // rose
+        image: "/images/puraran_beach.png"
+    },
+    {
+        user: "Is the hike to Binurong Point difficult?",
+        ai: "The hike to Binurong Point is a breathtaking journey through rolling pastoral hills built for discovery. It's a moderate 20-30 minute walk that is accessible for most.",
+        cardName: "Binurong Point",
+        cardTag: "Hike · P50-200",
+        dist: "ETA: 50 MINS // 25 KM",
+        color: "#22d3ee", // cyan
+        image: "/images/binurong_point.png"
+    },
+    {
+        user: "Recommendations for a family-friendly beach resort?",
+        ai: "Twin Rock Beach Resort is perfect for families, offering calm waters and rock formations. It's ideal for kayaking and safe swimming for children.",
+        cardName: "Twin Rock Beach Resort",
+        cardTag: "Beach · P100-500",
+        dist: "ETA: 15 MINS // 8.5 KM",
+        color: "#facc15", // yellow
+        image: "/images/twin_rock.png"
+    }
+];
+
 const REPO_VERSION = 'v1.0.4';
 
 
@@ -242,57 +273,62 @@ const ReviewsBento = () => {
 
                     {/* Card A — Wordmark */}
                     <motion.div
-                        className={`${styles.prismCard} ${styles.prismBrandCard}`}
+                        className={styles.prismBrandCard}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.55 }}
                     >
-                        <div className={styles.prismAuroraA} aria-hidden="true" />
+                        <div className={styles.prismAuroraC} aria-hidden="true" />
                         <div className={styles.prismNoise} aria-hidden="true" />
 
-                        <div className={styles.prismBrandTopRow}>
-                            <span className={styles.prismEyebrow}>AI Travel</span>
-                            <span className={styles.prismSpinStar} aria-hidden="true">✦</span>
-                        </div>
+                        <div className={styles.prismContent}>
+                            <div className={styles.prismBrandTopRow}>
+                                <span className={styles.prismEyebrow}>AI Travel</span>
+                                <span className={styles.prismSpinStar} aria-hidden="true">✦</span>
+                            </div>
 
-                        <div className={styles.prismWordmark}>
-                            <span>EXPLORE</span>
-                        </div>
+                            <div className={styles.prismWordmark}>
+                                <span>EXPLORE</span>
+                            </div>
 
-                        <div className={styles.prismBrandBottom}>
-                            <span className={styles.prismLocLine}>
-                                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                                    <path d="M20 10c0 6-8 13-8 13s-8-7-8-13a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="3" />
-                                </svg>
-                                Catanduanes, PH
-                            </span>
+                            <div className={styles.prismBrandBottom}>
+                                <span className={styles.prismLocLine}>
+                                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                                        <path d="M20 10c0 6-8 13-8 13s-8-7-8-13a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="3" />
+                                    </svg>
+                                    Catanduanes, PH
+                                </span>
+                            </div>
                         </div>
                     </motion.div>
 
                     {/* Card B — Destination stats */}
                     <motion.div
-                        className={`${styles.prismCard} ${styles.prismStatsCard}`}
+                        className={styles.prismStatsCard}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.55, delay: 0.08 }}
                     >
+                        <div className={styles.prismAuroraC} aria-hidden="true" />
                         <div className={styles.prismNoise} aria-hidden="true" />
 
-                        <div className={styles.prismStatRow}>
-                            <span className={styles.prismStatNum}>{count}+</span>
-                            <span className={styles.prismStatLabel}>Destinations</span>
-                        </div>
-                        <div className={styles.prismStatDivider} />
-                        <div className={styles.prismStatRow}>
-                            <span className={styles.prismStatNum}>12</span>
-                            <span className={styles.prismStatLabel}>Municipalities</span>
-                        </div>
-                        <div className={styles.prismStatDivider} />
-                        <div className={styles.prismStatRow}>
-                            <span className={styles.prismStatNumAlt}>RAG</span>
-                            <span className={styles.prismStatLabel}>AI Pipeline</span>
+                        <div className={styles.prismContent}>
+                            <div className={styles.prismStatRow}>
+                                <span className={styles.prismStatNum}>{count}+</span>
+                                <span className={styles.prismStatLabel}>Destinations</span>
+                            </div>
+                            <div className={styles.prismStatDivider} />
+                            <div className={styles.prismStatRow}>
+                                <span className={styles.prismStatNum}>12</span>
+                                <span className={styles.prismStatLabel}>Municipalities</span>
+                            </div>
+                            <div className={styles.prismStatDivider} />
+                            <div className={styles.prismStatRow}>
+                                <span className={styles.prismStatNumAlt}>RAG</span>
+                                <span className={styles.prismStatLabel}>AI Pipeline</span>
+                            </div>
                         </div>
                     </motion.div>
                 </div>
@@ -304,56 +340,54 @@ const ReviewsBento = () => {
 
                     {/* Card C — Centerpiece */}
                     <motion.div
-                        className={`${styles.prismCard} ${styles.prismHeroCard}`}
+                        className={styles.prismHeroCard}
                         initial={{ opacity: 0, y: 28 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.15 }}
                         transition={{ duration: 0.65, delay: 0.05 }}
                     >
+                        <div className={styles.prismAuroraC} aria-hidden="true" />
+                        <div className={styles.prismNoise} aria-hidden="true" />
 
-
-                        {/* Morphing orb */}
-                        <div className={styles.prismOrbWrap} aria-hidden="true">
-                            <div className={styles.prismOrbCore} />
-                            <div className={styles.prismOrbRing1} />
-                            <div className={styles.prismOrbRing2} />
-                        </div>
-
-                        {/* Footer — cycling destination */}
-                        <div className={styles.prismHeroFooter}>
-                            <div className={styles.prismHeroDestRow}>
-                                <span
-                                    className={styles.prismHeroDestName}
-                                    style={{
-                                        opacity: fading ? 0 : 1,
-                                        transform: fading ? 'translateY(6px)' : 'translateY(0)',
-                                        transition: 'opacity 0.32s ease, transform 0.32s ease',
-                                    }}
-                                >
-                                    {DESTS[destIdx].name}
-                                </span>
-                                <span
-                                    className={styles.prismHeroDestTag}
-                                    style={{
-                                        opacity: fading ? 0 : 1,
-                                        transition: 'opacity 0.32s ease 0.06s',
-                                    }}
-                                >
-                                    {DESTS[destIdx].tag}
-                                </span>
+                        <div className={styles.prismContent}>
+                            {/* Footer — cycling destination */}
+                            <div className={styles.prismHeroFooter}>
+                                <div className={styles.prismHeroDestRow}>
+                                    <span
+                                        className={styles.prismHeroDestName}
+                                        style={{
+                                            opacity: fading ? 0 : 1,
+                                            transform: fading ? 'translateY(6px)' : 'translateY(0)',
+                                            transition: 'opacity 0.32s ease, transform 0.32s ease',
+                                        }}
+                                    >
+                                        {DESTS[destIdx].name}
+                                    </span>
+                                    <span
+                                        className={styles.prismHeroDestTag}
+                                        style={{
+                                            opacity: fading ? 0 : 1,
+                                            transition: 'opacity 0.32s ease 0.06s',
+                                        }}
+                                    >
+                                        {DESTS[destIdx].tag}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
 
                     {/* Card D — Mini player */}
                     <motion.div
-                        className={`${styles.prismCard} ${styles.prismPlayerCard}`}
+                        className={styles.prismPlayerCard}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.5, delay: 0.14 }}
                     >
+                        <div className={styles.prismAuroraC} aria-hidden="true" />
                         <div className={styles.prismNoise} aria-hidden="true" />
+                        <div className={styles.prismContent}></div>
                     </motion.div>
                 </div>
 
@@ -364,19 +398,23 @@ const ReviewsBento = () => {
 
                     {/* Card E — Full-bleed photo */}
                     <motion.div
-                        className={`${styles.prismCard} ${styles.prismPhotoCard}`}
+                        className={styles.prismPhotoCard}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
                     >
-                        <img src={portraitImage} alt="Catanduanes scenery" className={styles.prismPhotoImg} />
-                        <div className={styles.prismPhotoVignette} aria-hidden="true" />
+                        <div className={styles.prismAuroraC} aria-hidden="true" />
+                        <div className={styles.prismNoise} aria-hidden="true" />
+                        <div className={styles.prismContent} style={{ height: '100%', padding: 0 }}>
+                            <img src={portraitImage} alt="Catanduanes scenery" className={styles.prismPhotoImg} />
+                            <div className={styles.prismPhotoVignette} aria-hidden="true" />
+                        </div>
                     </motion.div>
 
                     {/* Card F — CTA */}
                     <motion.div
-                        className={`${styles.prismCard} ${styles.prismCtaCard}`}
+                        className={styles.prismCtaCard}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
@@ -385,11 +423,13 @@ const ReviewsBento = () => {
                         <div className={styles.prismAuroraC} aria-hidden="true" />
                         <div className={styles.prismNoise} aria-hidden="true" />
 
-                        <span className={styles.prismCtaNum}>{count}+</span>
-                        <span className={styles.prismCtaSub}>Destinations</span>
-                        <p className={styles.prismCtaCopy}>
-                            Explore the island with AI-powered itineraries.
-                        </p>
+                        <div className={styles.prismContent}>
+                            <span className={styles.prismCtaNum}>{count}+</span>
+                            <span className={styles.prismCtaSub}>Destinations</span>
+                            <p className={styles.prismCtaCopy}>
+                                Explore the island with AI-powered itineraries.
+                            </p>
+                        </div>
                     </motion.div>
                 </div>
 
@@ -399,7 +439,7 @@ const ReviewsBento = () => {
 };
 
 
-const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag = 'p', style }) => {
+const TypewriterText = ({ text, className, highlights = [], speed = 22, startDelay = 200, as: Tag = 'p', style }) => {
     const [displayed, setDisplayed] = useState('');
     const [started, setStarted] = useState(false);
     const [done, setDone] = useState(false);
@@ -442,13 +482,38 @@ const TypewriterText = ({ text, className, speed = 22, startDelay = 200, as: Tag
     }, [started, text, speed, startDelay]);
 
     const renderParts = (str) => {
-        const parts = str.split('\n');
-        return parts.map((part, i) => (
-            <span key={i}>
-                {i > 0 && <><br /><br /></>}
-                {part}
-            </span>
-        ));
+        if (!str) return null;
+        const lines = str.split('\n');
+        
+        return lines.map((line, lineIdx) => {
+            let parts = [line];
+            if (highlights && highlights.length > 0) {
+                highlights.forEach(h => {
+                    if (!h) return;
+                    let nextParts = [];
+                    parts.forEach(p => {
+                        if (typeof p === 'string') {
+                            const splitP = p.split(new RegExp(`(${h})`, 'gi'));
+                            nextParts.push(...splitP);
+                        } else {
+                            nextParts.push(p);
+                        }
+                    });
+                    parts = nextParts;
+                });
+            }
+
+            return (
+                <span key={lineIdx}>
+                    {lineIdx > 0 && <><br /><br /></>}
+                    {parts.map((part, i) => {
+                        if (typeof part !== 'string') return part;
+                        const isHighlight = highlights?.some(h => h && h.toLowerCase() === part.toLowerCase());
+                        return isHighlight ? <span key={`${lineIdx}-${i}`} className={styles.guideMsgHighlight}>{part}</span> : part;
+                    })}
+                </span>
+            );
+        });
     };
 
     return (
@@ -641,7 +706,6 @@ const Constellation = () => {
                 height: '100%',
                 zIndex: 0,          // behind everything
                 pointerEvents: 'none',
-                mixBlendMode: 'screen',
             }}
         />
     );
@@ -742,6 +806,28 @@ export default function Home() {
         const timer = setInterval(() => { paginate(1); }, 6000);
         return () => clearInterval(timer);
     }, [page]);
+
+    const [mockScenarioIdx, setMockScenarioIdx] = useState(0);
+    const [animationStep, setAnimationStep] = useState(0);
+
+    useEffect(() => {
+        setAnimationStep(0);
+        
+        const t1 = setTimeout(() => setAnimationStep(1), 2200); 
+        const t2 = setTimeout(() => setAnimationStep(2), 2800); 
+        const t3 = setTimeout(() => setAnimationStep(3), 5600); 
+        
+        const timer = setTimeout(() => {
+            setMockScenarioIdx(prev => (prev + 1) % MOCK_SCENARIOS.length);
+        }, 11500);
+
+        return () => {
+            clearTimeout(t1);
+            clearTimeout(t2);
+            clearTimeout(t3);
+            clearTimeout(timer);
+        };
+    }, [mockScenarioIdx]);
 
     useEffect(() => {
         if (activeTestimonial === null) return;
@@ -1130,6 +1216,10 @@ export default function Home() {
                                 <div className={styles.guideMapVignette} />
                                 <div className={styles.guideMapScanlines} />
 
+                                <div className={styles.guideMapUserMsg}>
+                                    Welcome to the island
+                                </div>
+
                                 <motion.div className={`${styles.guidePin} ${styles.guidePinA}`} initial={{ opacity: 0, scale: 0.6 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.75, duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}>
                                     <span className={styles.guidePinDot} style={{ background: '#fb7185' }} />
                                     Puraran
@@ -1143,6 +1233,46 @@ export default function Home() {
                                     Twin Rock
                                 </motion.div>
 
+                                        <div 
+                                            key="static-map-popup"
+                                            className={styles.guideMapPopup}
+                                        >
+                                            <div className={styles.guideMapPopupImageFrame}>
+                                                <img src={MOCK_SCENARIOS[0].image} alt="Location popup" className={styles.guideMapPopupImage} />
+                                            </div>
+                                            
+                                            <div className={styles.guideMapPopupContent}>
+                                                <div className={styles.guideMapPopupHeader}>
+                                                    <h4 className={styles.guideMapPopupTitle}>
+                                                        {MOCK_SCENARIOS[0].cardName}
+                                                    </h4>
+                                                </div>
+
+                                                <div className={styles.guideMapPopupMeta}>
+                                                    <div className={styles.miniMetaBox}>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                                        <span>{MOCK_SCENARIOS[0].cardTag.split(' · ')[0]}</span>
+                                                    </div>
+                                                    <div className={styles.miniMetaBox}>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                                        <span>25m trip</span>
+                                                    </div>
+                                                    <div className={styles.miniMetaBox}>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                                        <span>Popular</span>
+                                                    </div>
+                                                    <div className={styles.miniMetaBox}>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                                                        <span>{MOCK_SCENARIOS[0].cardTag.split(' · ')[1]}</span>
+                                                    </div>
+                                                </div>
+
+                                                <button className={styles.guideMapPopupFullAddBtn} disabled tabIndex={-1}>
+                                                    Add Spot
+                                                </button>
+                                            </div>
+                                        </div>
+
                                 <motion.div
                                     className={styles.guideChatFloat}
                                     initial={{ opacity: 0, y: 28, scale: 0.96 }}
@@ -1155,34 +1285,91 @@ export default function Home() {
                                         <span className={styles.guideChatOnline}>● Online</span>
                                     </div>
                                     <div className={styles.guideChatBody}>
-                                        <motion.div className={styles.guideMsgUser} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, margin: '-80px' }} transition={{ duration: 0.45 }}>
-                                            <TypewriterText as="span" className={styles.guideMsgTypewriter} text="Build me a 3-day itinerary for hidden beaches." speed={25} startDelay={600} />
-                                        </motion.div>
-                                        <motion.div className={styles.guideMsgAi} initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, margin: '-80px' }} transition={{ duration: 0.45, delay: 0.55 }}>
-                                            <TypewriterText as="span" className={styles.guideMsgTypewriter} text="Found 4 hidden beaches — added to your map. Here's Day 1:" speed={20} startDelay={1800} />
-                                        </motion.div>
-                                        <motion.div className={styles.guideMsgCard} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, margin: '-80px' }} transition={{ duration: 0.45, delay: 0.95 }}>
-                                            <div className={styles.guideMsgCardLabel}>Day 1 — Eastern Coast</div>
-                                            <div className={styles.guideMsgStop}>
-                                                <span className={styles.guideMsgTime}>9:00 AM</span>
-                                                <span className={styles.guideMsgStopDot} style={{ background: '#fb7185' }} />
-                                                <span className={styles.guideMsgPlace}>Puraran Surf Camp</span>
-                                            </div>
-                                            <div className={styles.guideMsgStop}>
-                                                <span className={styles.guideMsgTime}>1:00 PM</span>
-                                                <span className={styles.guideMsgStopDot} style={{ background: '#22d3ee' }} />
-                                                <span className={styles.guideMsgPlace}>Binurong Point Hike</span>
-                                            </div>
-                                            <div className={styles.guideMsgStop}>
-                                                <span className={styles.guideMsgTime}>5:00 PM</span>
-                                                <span className={styles.guideMsgStopDot} style={{ background: '#facc15' }} />
-                                                <span className={styles.guideMsgPlace}>Twin Rock Sunset</span>
-                                            </div>
-                                        </motion.div>
+                                        <AnimatePresence>
+                                            {animationStep >= 1 && (
+                                                <motion.div 
+                                                    key={`user-${mockScenarioIdx}`} 
+                                                    className={styles.guideMsgUser} 
+                                                    initial={{ opacity: 0, y: 10, scale: 0.95 }} 
+                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.95 }}
+                                                    transition={{ duration: 0.3 }}
+                                                >
+                                                    {MOCK_SCENARIOS[mockScenarioIdx].user}
+                                                </motion.div>
+                                            )}
+                                            {animationStep >= 2 && (
+                                                <motion.div 
+                                                    key={`ai-${mockScenarioIdx}`} 
+                                                    className={styles.guideMsgAi} 
+                                                    initial={{ opacity: 0, x: -10 }} 
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    exit={{ opacity: 0, x: -10 }}
+                                                    transition={{ duration: 0.3 }}
+                                                >
+                                                    <TypewriterText as="span" className={styles.guideMsgTypewriter} key={`type-ai-${mockScenarioIdx}`} text={MOCK_SCENARIOS[mockScenarioIdx].ai} highlights={[MOCK_SCENARIOS[mockScenarioIdx].cardName]} speed={20} startDelay={100} />
+                                                </motion.div>
+                                            )}
+                                            {animationStep >= 3 && (
+                                                <motion.div 
+                                                    key={`card-${mockScenarioIdx}`} 
+                                                    className={styles.guideMsgCard} 
+                                                    initial={{ opacity: 0, y: 14 }} 
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: 14 }}
+                                                    transition={{ duration: 0.4 }}
+                                                >
+                                                    <div className={styles.guideMsgCardLabel}>Recommendation</div>
+                                                    <div className={styles.guideMsgStop}>
+                                                        <span className={styles.guideMsgPlace}>
+                                                            {MOCK_SCENARIOS[mockScenarioIdx].cardName}
+                                                        </span>
+                                                        <span className={styles.guideMsgDist}>
+                                                            {MOCK_SCENARIOS[mockScenarioIdx].dist}
+                                                        </span>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
                                     </div>
                                     <div className={styles.guideChatInput}>
-                                        <span className={styles.guideChatInputPlaceholder}>Ask Pathfinder anything...</span>
-                                        <button className={styles.guideChatSend} aria-label="Send" disabled tabIndex={-1}>
+                                        <span className={styles.guideChatInputPlaceholder}>
+                                            <AnimatePresence mode="wait">
+                                                {animationStep === 0 ? (
+                                                    <motion.span 
+                                                        key={`input-${mockScenarioIdx}`} 
+                                                        initial={{ opacity: 1 }} 
+                                                        exit={{ opacity: 0 }} 
+                                                        transition={{ duration: 0.15 }}
+                                                        style={{ display: 'block', color: 'rgba(255,255,255,0.9)', fontStyle: 'normal' }}
+                                                    >
+                                                        <TypewriterText as="span" key={`type-${mockScenarioIdx}`} text={MOCK_SCENARIOS[mockScenarioIdx].user} speed={25} startDelay={100} />
+                                                    </motion.span>
+                                                ) : (
+                                                    <motion.span 
+                                                        key="placeholder" 
+                                                        initial={{ opacity: 0 }} 
+                                                        animate={{ opacity: 1 }} 
+                                                        transition={{ duration: 0.3, delay: 0.1 }}
+                                                        style={{ display: 'block', color: 'rgba(255, 255, 255, 0.22)', fontStyle: 'italic' }}
+                                                    >
+                                                        Ask Pathfinder anything...
+                                                    </motion.span>
+                                                )}
+                                            </AnimatePresence>
+                                        </span>
+                                        <button 
+                                            className={styles.guideChatSend} 
+                                            style={{ 
+                                                background: animationStep === 0 ? 'var(--home-accent)' : 'rgba(255, 255, 255, 0.08)',
+                                                color: animationStep === 0 ? '#10b981' : 'rgba(255, 255, 255, 0.5)',
+                                                transform: animationStep === 1 ? 'scale(0.85)' : 'scale(1)',
+                                                transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                                            }}
+                                            aria-label="Send" 
+                                            disabled 
+                                            tabIndex={-1}
+                                        >
                                             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                 <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
                                                 <path d="m21.854 2.147-10.94 10.939" />
@@ -1242,8 +1429,20 @@ export default function Home() {
                                             </div>
                                             <div className={styles.repoMeta}>
                                                 <span className={styles.repoName}>
-                                                    bikemaster2331/pathfinder
-                                                    <span className={styles.repoVersion}>{REPO_VERSION}</span>
+                                                    <div className={styles.repoTitleMain}>
+                                                        bikemaster2331/pathfinder
+                                                        <span className={styles.repoVersion}>{REPO_VERSION}</span>
+                                                    </div>
+                                                    <div className={styles.repoStats}>
+                                                        <span className={styles.repoStat}>
+                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                                                            Star
+                                                        </span>
+                                                        <span className={styles.repoStat}>
+                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><circle cx="18" cy="6" r="3" /><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" /><path d="M12 12v3" /></svg>
+                                                            Fork
+                                                        </span>
+                                                    </div>
                                                 </span>
                                                 <span className={styles.repoDesc}>AI-powered travel itinerary maker for Catanduanes</span>
                                             </div>
@@ -1318,22 +1517,16 @@ export default function Home() {
                                         </div>
 
                                         <div className={styles.repoFooterRow}>
-                                            <div className={styles.repoStats}>
-                                                <span className={styles.repoStat}>
-                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                                                    Star
-                                                </span>
-                                                <span className={styles.repoStat}>
-                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><circle cx="18" cy="6" r="3" /><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" /><path d="M12 12v3" /></svg>
-                                                    Fork
-                                                </span>
-                                            </div>
                                             <div className={styles.techIconPill}>
                                                 {TECH_STACK.map((tech) => (
                                                     <span key={tech.name} className={styles.techIconBtn} style={{ '--tech-color': tech.color }} title={tech.name}>
                                                         <tech.Icon />
                                                     </span>
                                                 ))}
+                                                <div className={styles.techIconDivider} />
+                                                <div className={styles.techIconToolCase}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 15h4"/><path d="m14.817 10.995-.971-1.45 1.034-1.232a2 2 0 0 0-2.025-3.238l-1.82.364L9.91 3.885a2 2 0 0 0-3.625.748L6.141 6.55l-1.725.426a2 2 0 0 0-.19 3.756l.657.27"/><path d="m18.822 10.995 2.26-5.38a1 1 0 0 0-.557-1.318L16.954 2.9a1 1 0 0 0-1.281.533l-.924 2.122"/><path d="M4 12.006A1 1 0 0 1 4.994 11H19a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>
+                                                </div>
                                             </div>
                                         </div>
                                     </motion.a>
