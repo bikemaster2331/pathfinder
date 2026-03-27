@@ -247,7 +247,6 @@
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    mix-blend-mode: screen;
     opacity: 0.2;
     background-image:
         radial-gradient(1.5px 1.5px at 10% 10%, #fff 100%, transparent),
@@ -1041,6 +1040,8 @@ html {
 /* RIGHT PANEL - SCROLLING CONTENT */
 .scrollPanel {
     padding: 60px 0px 0px 0px;
+    z-index: 2;
+    position: relative;
 }
 
 .scrollSection {
@@ -1777,17 +1778,100 @@ html {
     line-height: 1;
 }
 
-/* ----------------------------------------------------------------
-   REVIEWS SECTION — Framer-style Bento Grid
-   ---------------------------------------------------------------- */
-
 /* ================================================================
-   PREMIUM BENTO — replace everything from ".bentoGrid {" down
-   to (but NOT including) ".bentoStatsRow {" in Home.module.css
-   All other CSS below that line stays unchanged.
+   PREMIUM PRISM BENTO COMPONENTS
    ================================================================ */
 
-/* ── Shared noise overlay ─────────────────────────────────────── */
+.prismBrandCard,
+.prismStatsCard,
+.prismHeroCard,
+.prismPlayerCard,
+.prismPhotoCard,
+.prismCtaCard,
+.prismCard {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: linear-gradient(160deg, rgba(5, 15, 10, .98), rgba(3, 8, 6, .97));
+
+    /* THE STACK: Physicality + Subtle outer glow */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, .55),
+        0 0 0 1px rgba(61, 4, 177, 0.11),
+        /* Thin pink rim */
+        0 22px 52px rgba(0, 0, 0, .48),
+        0 0 44px rgba(137, 11, 172, 0.05);
+    /* Purple atmosphere */
+
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.4s ease;
+}
+
+/* Unified Hover: Stronger presence */
+.prismBrandCard:hover,
+.prismStatsCard:hover,
+.prismHeroCard:hover,
+.prismPlayerCard:hover,
+.prismPhotoCard:hover,
+.prismCtaCard:hover,
+.prismCard:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    z-index: 10;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .14),
+        0 0 0 1.5px rgba(90, 90, 90, 0.3),
+        /* Rim brightens */
+        0 28px 60px rgba(0, 0, 0, 0.52),
+        0 0 60px rgba(86, 6, 108, 0.15);
+    /* Purple bloom expands */
+}
+
+/* 3. LIGHT MODE OVERRIDES */
+:global([data-theme='light']) .prismBrandCard,
+:global([data-theme='light']) .prismStatsCard,
+:global([data-theme='light']) .prismHeroCard,
+:global([data-theme='light']) .prismPlayerCard,
+:global([data-theme='light']) .prismPhotoCard,
+:global([data-theme='light']) .prismCtaCard,
+:global([data-theme='light']) .prismCard {
+    background: #ffffff;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.05),
+        0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme='light']) .prismBrandCard:hover,
+:global([data-theme='light']) .prismHeroCard:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* 4. SPECIFIC COMPONENT TWEAKS */
+
+/* Column 3: keep the right edge flush if desired */
+.prismColumn:nth-child(3) .prismCard,
+.prismColumn:nth-child(3) .prismPhotoCard,
+.prismColumn:nth-child(3) .prismCtaCard {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* Photo Card Image Zoom */
+.prismPhotoCard .prismPhotoImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(.88) brightness(.86);
+    transition: transform .7s cubic-bezier(.16, 1, .3, 1), filter .4s ease;
+}
+
+.prismPhotoCard:hover .prismPhotoImg {
+    transform: scale(1.1);
+    /* Slightly more zoom */
+    filter: saturate(1) brightness(1);
+}
+
 .prismNoise {
     position: absolute;
     inset: 0;
@@ -1862,7 +1946,6 @@ html {
     width: 100%;
 }
 
-
 .prismColumn {
     display: flex;
     flex-direction: column;
@@ -1870,29 +1953,17 @@ html {
     height: 790px;
 }
 
-/* ── Base card ────────────────────────────────────────────────── */
-.prismCard {
+/* ── Content Wrapper ──────────────────────────────────────────── */
+.prismContent {
     position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-    background: linear-gradient(160deg, rgba(5, 15, 10, .98), rgba(3, 8, 6, .97));
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, .10),
-        inset 0 -1px 0 rgba(0, 0, 0, .55),
-        0 0 0 1px rgba(55, 150, 90, .11),
-        0 22px 52px rgba(0, 0, 0, .48),
-        0 0 44px rgba(34, 211, 238, .05);
-    transition: box-shadow .35s ease, transform .35s ease;
-}
-
-.prismCard:hover {
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, .14),
-        inset 0 -1px 0 rgba(0, 0, 0, .55),
-        0 0 0 1px rgba(55, 180, 100, .20),
-        0 28px 60px rgba(0, 0, 0, .52),
-        0 0 60px rgba(34, 211, 238, .09);
-    transform: translateY(-2px);
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    gap: inherit;
 }
 
 /* Column 3: remove right radius so cards flush to edge */
@@ -2119,73 +2190,6 @@ html {
 
     50% {
         transform: translate(-50%, -50%) translateY(-13px);
-    }
-}
-
-.prismOrbCore {
-    position: absolute;
-    inset: 0;
-    border-radius: 42% 58% 46% 54% / 48% 44% 56% 52%;
-    background:
-        radial-gradient(circle at 30% 28%,
-            rgba(255, 255, 255, .86) 0%,
-            rgba(200, 240, 255, .22) 38%,
-            transparent 66%),
-        conic-gradient(from 22deg,
-            rgba(255, 174, 125, .58),
-            rgba(124, 214, 255, .56),
-            rgba(248, 242, 214, .55),
-            rgba(251, 113, 133, .46),
-            rgba(255, 174, 125, .58));
-    border: 1px solid rgba(220, 240, 255, .48);
-    filter:
-        drop-shadow(0 22px 38px rgba(0, 0, 0, .38)) drop-shadow(0 0 28px rgba(34, 211, 238, .18));
-    animation: orbMorph 9s ease-in-out infinite;
-}
-
-@keyframes orbMorph {
-
-    0%,
-    100% {
-        border-radius: 42% 58% 46% 54% / 48% 44% 56% 52%;
-    }
-
-    33% {
-        border-radius: 56% 44% 52% 48% / 44% 58% 42% 56%;
-    }
-
-    66% {
-        border-radius: 48% 52% 58% 42% / 54% 46% 50% 50%;
-    }
-}
-
-.prismOrbRing1 {
-    position: absolute;
-    inset: -20px;
-    border-radius: 50%;
-    border: 1px solid rgba(34, 211, 238, .11);
-    animation: ringBreath 3.2s ease-in-out infinite;
-}
-
-.prismOrbRing2 {
-    position: absolute;
-    inset: -42px;
-    border-radius: 50%;
-    border: 1px solid rgba(34, 211, 238, .055);
-    animation: ringBreath 3.2s ease-in-out infinite 1.6s;
-}
-
-@keyframes ringBreath {
-
-    0%,
-    100% {
-        opacity: .5;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.03);
     }
 }
 
@@ -2420,10 +2424,6 @@ html {
         height: auto;
     }
 
-    .prismOrbWrap {
-        width: 155px;
-        height: 155px;
-    }
 
     .prismWordmark {
         font-size: clamp(2rem, 7vw, 2.8rem);
@@ -2729,12 +2729,10 @@ html {
     padding: 40px;
     border-radius: 18px;
 
-    /* REMOVE opacity: 0.3; */
+    /* REPLACED glass with opaque background to prevent starfield bleed */
+    background: #fffdf9; 
 
-    /* Matches light mode base background #fffdf9 with 0.3 transparency */
-    background: rgba(255, 253, 249, 0.3);
-
-    /* Increased blur for a "more blurry" effect as requested */
+    /* Maintained blur for edge consistency if needed, though background is opaque */
     backdrop-filter: blur(42px) saturate(160%);
     -webkit-backdrop-filter: blur(42px) saturate(160%);
 
@@ -2754,8 +2752,8 @@ html {
 }
 
 :global([data-theme='dark']) .contributeShell {
-    /* Matches dark mode base background #0a0a0a with 0.45 transparency for blur visibility */
-    background: rgba(10, 10, 10, 0.45);
+    /* Hardened background to prevent starfield bleed */
+    background: #0a0a0a;
 
     /* Subtle border for dark mode depth */
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -2875,7 +2873,15 @@ html {
     font-weight: 600;
     color: var(--home-text);
     letter-spacing: -0.01em;
-    display: inline-flex;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 60px;
+}
+
+.repoTitleMain {
+    display: flex;
     align-items: center;
     gap: 12px;
 }
@@ -2888,7 +2894,7 @@ html {
 
 .repoArrow {
     position: absolute;
-    top: 15px;
+    top: 18px;
     right: 30px;
     font-size: 1.67rem;
     color: var(--home-muted);
@@ -2924,15 +2930,16 @@ html {
 
 .asciiArt {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.28rem;
+    font-size: 0.35rem;
     line-height: 1;
-    letter-spacing: -0.5px;
-    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: -0.6px;
+    color: rgba(255, 255, 255, 1);
     margin: 0;
     pointer-events: none;
     user-select: none;
     text-align: center;
     white-space: pre;
+    margin-bottom: 10px;
 }
 
 :global([data-theme='light']) .asciiArt {
@@ -2950,10 +2957,11 @@ html {
 .repoBody {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 0;
     padding: 0;
     flex: 1;
-    margin-top: 4px;
+    margin-top: 12px;
+    min-height: 0;
 }
 
 .repoVersion {
@@ -3036,31 +3044,40 @@ html {
 
 
 .repoFooterRow {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 100%;
-    margin-top: auto; /* Push to bottom of repoCard */
+    margin-top: auto;
 }
 
 .repoStats {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
 }
 
 .repoStat {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.88rem;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 550;
     color: var(--home-muted);
-    padding: 8px 16px;
-    border-radius: 999px;
-    border: 1px solid var(--home-border);
-    background: rgba(255, 255, 255, 0.03);
-    transition: border-color 0.2s ease, color 0.2s ease;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 3px 10px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.repoStat:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .repoCard:hover .repoStat {
@@ -3106,38 +3123,134 @@ html {
 .techIconPill {
     display: flex;
     align-items: center;
-    gap: 7px;
-    padding: 5px 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--home-border);
+    justify-content: flex-end;
+    gap: 0;
+    padding: 6px;
     border-radius: 999px;
-    transition: all 0.2s ease;
+
+    /* 1. ATMOSPHERE: Deep frosted glass */
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    /* 2. BORDERS: Using thin rim lighting */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.05),
+        0 4px 12px rgba(0, 0, 0, 0.2);
+
+    /* 3. TRANSITION: Smooth 'mechanical' expand */
+    transition:
+        max-width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.3s ease,
+        border-color 0.3s ease,
+        padding 0.5s ease;
+
+    cursor: pointer;
+    overflow: hidden;
+    max-width: 34px; /* (22px icon + 6px right padding + 6px left empty space) */
+    white-space: nowrap;
+    position: relative;
 }
 
-.repoCard:hover .techIconPill {
+.techIconPill:hover {
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.07);
     border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.08);
+    padding: 6px 12px 6px 10px;
+    gap: 8px;
+    box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
+/* 4. THE TOOLCASE ICON (The Anchor) */
+.techIconToolCase {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    transition: color 0.3s ease;
+    z-index: 2;
+}
+
+.techIconPill:hover .techIconToolCase {
+    color: var(--home-accent, #10b981);
+}
+
+/* 5. ICON REVEAL STAGGER */
+.techIconBtn,
+.techIconDivider {
+    opacity: 0;
+    transform: translateX(10px) scale(0.9);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none; /* Prevent hover during collapse */
+}
+
+.techIconPill:hover .techIconBtn,
+.techIconPill:hover .techIconDivider {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Staggered entrance for up to 6 items (5 icons + 1 divider) */
+.techIconPill:hover .techIconBtn:nth-child(1) { transition-delay: 0.05s; }
+.techIconPill:hover .techIconBtn:nth-child(2) { transition-delay: 0.1s; }
+.techIconPill:hover .techIconBtn:nth-child(3) { transition-delay: 0.15s; }
+.techIconPill:hover .techIconBtn:nth-child(4) { transition-delay: 0.2s; }
+.techIconPill:hover .techIconBtn:nth-child(5) { transition-delay: 0.25s; }
+.techIconPill:hover .techIconDivider { transition-delay: 0.3s; }
+
+/* Light Mode Polish */
 :global([data-theme='light']) .techIconPill {
     background: rgba(15, 23, 42, 0.04);
     border-color: rgba(15, 23, 42, 0.1);
 }
 
-:global([data-theme='light']) .repoCard:hover .techIconPill {
-    border-color: rgba(15, 23, 42, 0.2);
-    background: rgba(15, 23, 42, 0.06);
+.techIconDivider {
+    width: 1px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.35); /* Increased opacity for the | */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    flex-shrink: 0;
+}
+
+.techIconPill:hover .techIconDivider {
+    opacity: 1;
+}
+
+.techIconList {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translateX(8px); /* Slide in from the left side (right to left movement) */
+    transition: all 0.4s ease 0.05s;
+}
+
+.techIconPill:hover .techIconList {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .techIconBtn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     color: var(--tech-color, rgba(255, 255, 255, 0.8));
-    transition: transform 0.2s ease, filter 0.2s ease;
-    cursor: default;
+    transition: all 0.2s ease;
+}
+
+.techIconBtn:hover {
+    transform: scale(1.15);
+    opacity: 1;
 }
 
 .techIconBtn:hover {
@@ -3786,6 +3899,48 @@ html {
     isolation: isolate;
 }
 
+.guideMapUserMsg {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    z-index: 45;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    /* 1. TYPOGRAPHY: Switch to JetBrains or Mono for that 'Dev' feel */
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+
+    /* 2. THE SILHOUETTE: Folder-tab style geometry */
+    padding: 10px 20px;
+    background: linear-gradient(135deg, rgba(13, 13, 17, 0.85), rgba(20, 20, 25, 0.95));
+    border-radius: 4px 12px 4px 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 2px solid #104bb9;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    pointer-events: none;
+}
+
+/* Light Mode Polish */
+:global([data-theme='light']) .guideMapUserMsg {
+    background: rgba(255, 255, 255, 0.85);
+    color: #0f172a;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-left: 3px solid #059669;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+
 #guide.scrollSection {
     height: 100vh;
     min-height: 100vh;
@@ -3930,6 +4085,113 @@ html {
     box-shadow: 0 0 6px currentColor;
 }
 
+/* ── MAP POPUP (Review Box Style) ── */
+.guideMapPopup {
+    position: absolute;
+    top: 24px;
+    right: 10%;
+    z-index: 100;
+    width: 320px;
+    height: 380px; 
+    border-radius: 24px;
+    background: #0d0d11;
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow: 
+        0 32px 80px rgba(0, 0, 0, 0.6), 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: hidden;
+
+}
+
+.guideMapPopupImageFrame {
+    width: 100%;
+    height: 160px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.guideMapPopupImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.guideMapPopupContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.guideMapPopupHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.guideMapPopupTitle {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+}
+
+.guideMapPopupMeta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.miniMetaBox {
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.miniMetaBox svg {
+    width: 12px;
+    height: 12px;
+    color: #10b981;
+}
+
+.guideMapPopupFullAddBtn {
+    align-self: flex-end;
+    margin-top: auto;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme overrides for map popup */
+:global([data-theme='light']) .guideMapPopup {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
 /* ── CHAT WINDOW ── */
 .guideChatFloat {
     position: absolute;
@@ -3980,6 +4242,8 @@ html {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    height: 320px;
+    justify-content: flex-start;
 }
 
 .guideMsgUser {
@@ -4036,6 +4300,24 @@ html {
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 100%;
+}
+
+.guideMsgDist {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--home-accent);
+    background: rgba(16, 185, 129, 0.1);
+    padding: 2px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    margin-left: auto;
+}
+
+.guideMsgHighlight {
+    color: #10b981;
+    font-weight: 700;
 }
 
 .guideMsgTime {
@@ -4071,8 +4353,6 @@ html {
 .guideChatInputPlaceholder {
     flex: 1;
     font-size: 0.84rem;
-    color: rgba(255, 255, 255, 0.22);
-    font-style: italic;
     user-select: none;
     padding: 2px 4px;
 }
