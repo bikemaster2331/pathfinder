@@ -1037,7 +1037,8 @@ export default function ItineraryPage() {
                         <h1 className={styles.mapTitle}>CATANDUANES</h1>
                         <p className={styles.mapDescription}>
                             A rugged island province where the Pacific meets the Philippine archipelago, 
-                            Catanduanes is the 'Land of the Howling Winds'—a sanctuary of untamed coastlines, 
+                            Catanduanes is the Land of the Howling Winds. <br />
+                            A sanctuary of untamed coastlines, 
                             emerald rolling hills, and a resilient, vibrant spirit.
                         </p>
                     </div>
