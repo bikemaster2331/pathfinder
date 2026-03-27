@@ -27950,7 +27950,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Mount Pinagkaayonan (Lantad)",
+        "name": "Mount Pinagkaayonan",
         "type": "VIEWPOINTS",
         "description": "A hiking destination rewarding the climb with a panoramic view of the Bato river delta.",
         "municipality": "BATO",
@@ -27963,7 +27963,7 @@
         "size": 0.15,
         "showAtZoom": 10,
         "id": 187,
-        "image": "/images/mount_pinagkaayonan_lantad.jpg"
+        "image": "/images/mount_pinagkaayonan.jpg"
       },
       "geometry": {
         "type": "Point",
