@@ -2776,13 +2776,13 @@
     ]
   },
   {
-    "input": "Where is Mount Pinagkaayonan (Lantad)?",
-    "output": "Mount Pinagkaayonan (Lantad) is a viewpoints located in Bato.",
-    "title": "Mount Pinagkaayonan (Lantad) Location",
+    "input": "Where is Mount Pinagkaayonan?",
+    "output": "Mount Pinagkaayonan is a viewpoints located in Bato.",
+    "title": "Mount Pinagkaayonan Location",
     "topic": "sightseeing",
     "location": "BATO",
-    "summary_offline": "Mount Pinagkaayonan (Lantad) is a viewpoints located in Bato.",
-    "place_name": "Mount Pinagkaayonan (Lantad)",
+    "summary_offline": "Mount Pinagkaayonan is a viewpoints located in Bato.",
+    "place_name": "Mount Pinagkaayonan",
     "coordinates": {
       "lat": 13.606679398378262,
       "lng": 124.27824218655604

@@ -116,6 +116,8 @@ export default function Contact() {
                 <span>Catanduanes, PH</span>
                 <span className={styles.footDot} />
                 <span>v1.0.21</span>
+                <span className={styles.footDot} />
+                <span>2026</span>
             </footer>
 
         </div>
