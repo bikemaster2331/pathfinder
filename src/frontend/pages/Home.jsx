@@ -14,7 +14,9 @@ const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg
     import: 'default',
 });
 
-import prism from '../assets/images/homeshow/prism/surf.png';
+import abaca from '../assets/images/homeshow/prism/abaca.png';
+import binu from '../assets/images/homeshow/prism/binu.png';
+import surf from '../assets/images/homeshow/prism/surf.png';
 
 const imageEntries = Object.entries(imageModules).sort(([a], [b]) => a.localeCompare(b));
 const IMAGES = imageEntries.map(([, src]) => src);
@@ -214,30 +216,9 @@ const REPO_VERSION = 'v1.0.4';
 
 
 const ReviewsBento = () => {
-    const portraitImage = prism;
-
-
-    const DESTS = [
-        { name: 'Puraran Beach', tag: 'Surf' },
-        { name: 'Binurong Point', tag: 'Trek' },
-        { name: 'Twin Rock Beach', tag: 'Swim' },
-        { name: 'Batalay Cove', tag: 'Dive' },
-        { name: 'Maribina Falls', tag: 'Hike' },
-        { name: 'Bato Church', tag: 'Tour' },
-    ];
-    const [destIdx, setDestIdx] = useState(0);
-    const [fading, setFading] = useState(false);
-
-    useEffect(() => {
-        const t = setInterval(() => {
-            setFading(true);
-            setTimeout(() => {
-                setDestIdx(i => (i + 1) % DESTS.length);
-                setFading(false);
-            }, 340);
-        }, 2600);
-        return () => clearInterval(t);
-    }, []);
+    const portraitImage = surf;
+    const abacaImage = abaca;
+    const binuImage = binu;
 
 
     const [count, setCount] = useState(0);
@@ -254,13 +235,6 @@ const ReviewsBento = () => {
         return () => cancelAnimationFrame(raf);
     }, []);
 
-
-    const [progress, setProgress] = useState(0);
-    useEffect(() => {
-        setProgress(0);
-        const t = setTimeout(() => setProgress(100), 60);
-        return () => clearTimeout(t);
-    }, [destIdx]);
 
     return (
         <div className={styles.bentoGrid}>
@@ -282,25 +256,12 @@ const ReviewsBento = () => {
                         <div className={styles.prismAuroraC} aria-hidden="true" />
                         <div className={styles.prismNoise} aria-hidden="true" />
 
-                        <div className={styles.prismContent}>
-                            <div className={styles.prismBrandTopRow}>
-                                <span className={styles.prismEyebrow}>AI Travel</span>
-                                <span className={styles.prismSpinStar} aria-hidden="true">✦</span>
-                            </div>
-
-                            <div className={styles.prismWordmark}>
-                                <span>EXPLORE</span>
-                            </div>
-
-                            <div className={styles.prismBrandBottom}>
-                                <span className={styles.prismLocLine}>
-                                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                                        <path d="M20 10c0 6-8 13-8 13s-8-7-8-13a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    Catanduanes, PH
-                                </span>
-                            </div>
+                        <div className={styles.prismContent} style={{ height: '100%', padding: 0, position: 'absolute', inset: 0 }}>
+                            <img src={abacaImage} alt="" className={styles.prismPhotoImg} />
+                            <div className={styles.prismPhotoVignette} aria-hidden="true" />
                         </div>
+
+                        {/* Empty text layer / No Wordmark */}
                     </motion.div>
 
                     {/* Card B — Destination stats */}
@@ -349,30 +310,13 @@ const ReviewsBento = () => {
                         <div className={styles.prismAuroraC} aria-hidden="true" />
                         <div className={styles.prismNoise} aria-hidden="true" />
 
+                        <div className={styles.prismContent} style={{ height: '100%', padding: 0, position: 'absolute', inset: 0 }}>
+                            <img src={binuImage} alt="" className={styles.prismPhotoImg} />
+                            <div className={styles.prismPhotoVignette} aria-hidden="true" />
+                        </div>
+
                         <div className={styles.prismContent}>
-                            {/* Footer — cycling destination */}
                             <div className={styles.prismHeroFooter}>
-                                <div className={styles.prismHeroDestRow}>
-                                    <span
-                                        className={styles.prismHeroDestName}
-                                        style={{
-                                            opacity: fading ? 0 : 1,
-                                            transform: fading ? 'translateY(6px)' : 'translateY(0)',
-                                            transition: 'opacity 0.32s ease, transform 0.32s ease',
-                                        }}
-                                    >
-                                        {DESTS[destIdx].name}
-                                    </span>
-                                    <span
-                                        className={styles.prismHeroDestTag}
-                                        style={{
-                                            opacity: fading ? 0 : 1,
-                                            transition: 'opacity 0.32s ease 0.06s',
-                                        }}
-                                    >
-                                        {DESTS[destIdx].tag}
-                                    </span>
-                                </div>
                             </div>
                         </div>
                     </motion.div>
@@ -808,13 +752,17 @@ export default function Home() {
     }, [page]);
 
     const [mockScenarioIdx, setMockScenarioIdx] = useState(0);
+    const [displayScenarioIdx, setDisplayScenarioIdx] = useState(0);
     const [animationStep, setAnimationStep] = useState(0);
 
     useEffect(() => {
         setAnimationStep(0);
         
         const t1 = setTimeout(() => setAnimationStep(1), 2200); 
-        const t2 = setTimeout(() => setAnimationStep(2), 2800); 
+        const t2 = setTimeout(() => {
+            setAnimationStep(2);
+            setDisplayScenarioIdx(mockScenarioIdx);
+        }, 2800); 
         const t3 = setTimeout(() => setAnimationStep(3), 5600); 
         
         const timer = setTimeout(() => {
@@ -1233,45 +1181,53 @@ export default function Home() {
                                     Twin Rock
                                 </motion.div>
 
-                                        <div 
-                                            key="static-map-popup"
-                                            className={styles.guideMapPopup}
-                                        >
-                                            <div className={styles.guideMapPopupImageFrame}>
-                                                <img src={MOCK_SCENARIOS[0].image} alt="Location popup" className={styles.guideMapPopupImage} />
-                                            </div>
-                                            
-                                            <div className={styles.guideMapPopupContent}>
-                                                <div className={styles.guideMapPopupHeader}>
-                                                    <h4 className={styles.guideMapPopupTitle}>
-                                                        {MOCK_SCENARIOS[0].cardName}
-                                                    </h4>
-                                                </div>
+                                        <AnimatePresence mode="wait">
+                                            {animationStep >= 2 && (
+                                                <motion.div 
+                                                    key={`map-popup-${displayScenarioIdx}`}
+                                                    className={styles.guideMapPopup}
+                                                    initial={{ opacity: 0, scale: 0.94, y: 10 }}
+                                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                                    exit={{ opacity: 0, scale: 0.94, y: 10 }}
+                                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                                >
+                                                    <div className={styles.guideMapPopupImageFrame}>
+                                                        <img src={MOCK_SCENARIOS[displayScenarioIdx].image} alt="Location popup" className={styles.guideMapPopupImage} />
+                                                    </div>
+                                                    
+                                                    <div className={styles.guideMapPopupContent}>
+                                                        <div className={styles.guideMapPopupHeader}>
+                                                            <h4 className={styles.guideMapPopupTitle}>
+                                                                {MOCK_SCENARIOS[displayScenarioIdx].cardName}
+                                                            </h4>
+                                                        </div>
 
-                                                <div className={styles.guideMapPopupMeta}>
-                                                    <div className={styles.miniMetaBox}>
-                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                                                        <span>{MOCK_SCENARIOS[0].cardTag.split(' · ')[0]}</span>
-                                                    </div>
-                                                    <div className={styles.miniMetaBox}>
-                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                                        <span>25m trip</span>
-                                                    </div>
-                                                    <div className={styles.miniMetaBox}>
-                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                                                        <span>Popular</span>
-                                                    </div>
-                                                    <div className={styles.miniMetaBox}>
-                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                                                        <span>{MOCK_SCENARIOS[0].cardTag.split(' · ')[1]}</span>
-                                                    </div>
-                                                </div>
+                                                        <div className={styles.guideMapPopupMeta}>
+                                                            <div className={styles.miniMetaBox}>
+                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                                                <span>{MOCK_SCENARIOS[displayScenarioIdx].cardTag.split(' · ')[0]}</span>
+                                                            </div>
+                                                            <div className={styles.miniMetaBox}>
+                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                                                <span>25m trip</span>
+                                                            </div>
+                                                            <div className={styles.miniMetaBox}>
+                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                                                <span>Popular</span>
+                                                            </div>
+                                                            <div className={styles.miniMetaBox}>
+                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                                                                <span>{MOCK_SCENARIOS[displayScenarioIdx].cardTag.split(' · ')[1]}</span>
+                                                            </div>
+                                                        </div>
 
-                                                <button className={styles.guideMapPopupFullAddBtn} disabled tabIndex={-1}>
-                                                    Add Spot
-                                                </button>
-                                            </div>
-                                        </div>
+                                                        <button className={styles.guideMapPopupFullAddBtn} disabled tabIndex={-1}>
+                                                            Add Spot
+                                                        </button>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
 
                                 <motion.div
                                     className={styles.guideChatFloat}
@@ -1544,12 +1500,12 @@ export default function Home() {
                                     <span className={styles.techLabel}>Creators</span>
                                     <div className={styles.creatorsGrid}>
                                         {[
-                                            { name: 'Tan', role: 'Core Dev', accent: '#22d3ee', email: 'tanlanuzga@gmail.com', github: 'https://github.com/bikemaster2331', bio: 'Full-stack architect. Built the AI pipeline, RAG system, frontend, backend, map engine, and itinerary planner.' },
+                                            { name: 'Tan', role: 'Core Dev', accent: '#22d3ee', email: 'tanlanuzga@gmail.com', github: 'https://github.com/bikemaster2331', bio: 'Full-stack architect. Built the AI pipeline, RAG system, UI/UX, backend, map engine, and itinerary planner.' },
                                             { name: 'Roi', role: 'Hardware', accent: '#a78bfa', bio: 'Raspberry Pi deployment, hardware setup, and embedded systems integration.' },
                                             { name: 'Zed', role: 'Full Stack', accent: '#34d399', bio: 'Full-stack development and hardware integration. Bridged software with RPi infrastructure.' },
-                                            { name: 'Pat', role: 'Hardware', accent: '#fb923c', bio: 'Raspberry Pi configuration, networking, and hardware infrastructure.' },
-                                            { name: 'Lee', role: 'Researcher', accent: '#f472b6', bio: 'Destination data sourcing, tourism research, and documentation.' },
-                                        ].map((creator, i) => (
+                                            { name: 'Pat', role: 'Hardware', accent: '#fb923c', bio: 'Raspberry Pi configuration, networking, and hardware infrastructure.', hidden: true },
+                                            { name: 'Lee', role: 'Researcher', accent: '#f472b6', bio: 'Destination data sourcing, tourism research, and documentation.', hidden: true },
+                                        ].filter(c => !c.hidden).map((creator, i) => (
                                             <motion.div
                                                 key={creator.name}
                                                 className={styles.creatorCardWrap}
