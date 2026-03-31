@@ -17,6 +17,7 @@ const imageModules = import.meta.glob('../assets/images/homeshow/*.{png,jpg,jpeg
 import abaca from '../assets/images/homeshow/prism/abaca.png';
 import binu from '../assets/images/homeshow/prism/binu.png';
 import surf from '../assets/images/homeshow/prism/surf.png';
+import tanAvatar from '../assets/images/homeshow/creators/image.png';
 
 const imageEntries = Object.entries(imageModules).sort(([a], [b]) => a.localeCompare(b));
 const IMAGES = imageEntries.map(([, src]) => src);
@@ -257,7 +258,7 @@ const ReviewsBento = () => {
                         <div className={styles.prismNoise} aria-hidden="true" />
 
                         <div className={styles.prismContent} style={{ height: '100%', padding: 0, position: 'absolute', inset: 0 }}>
-                            <img src={abacaImage} alt="" className={styles.prismPhotoImg} />
+                            <img src={abacaImage} alt="" className={styles.prismPhotoImg} draggable="false" />
                             <div className={styles.prismPhotoVignette} aria-hidden="true" />
                         </div>
 
@@ -276,19 +277,13 @@ const ReviewsBento = () => {
                         <div className={styles.prismNoise} aria-hidden="true" />
 
                         <div className={styles.prismContent}>
-                            <div className={styles.prismStatRow}>
-                                <span className={styles.prismStatNum}>{count}+</span>
-                                <span className={styles.prismStatLabel}>Destinations</span>
-                            </div>
-                            <div className={styles.prismStatDivider} />
-                            <div className={styles.prismStatRow}>
-                                <span className={styles.prismStatNum}>12</span>
-                                <span className={styles.prismStatLabel}>Municipalities</span>
-                            </div>
-                            <div className={styles.prismStatDivider} />
-                            <div className={styles.prismStatRow}>
-                                <span className={styles.prismStatNumAlt}>RAG</span>
-                                <span className={styles.prismStatLabel}>AI Pipeline</span>
+                            {/* This fills the "little space" at the top with high-impact data */}
+                            <span className={styles.prismStatMetadata}>Node: Isla // 01</span>
+
+                            {/* Integrated Neural-Node Aesthetic (Removed) */}
+
+                            <div className={styles.prismStatsRow}>
+                                <span className={styles.prismStatNumStats}>CATANDUANES</span>
                             </div>
                         </div>
                     </motion.div>
@@ -311,7 +306,7 @@ const ReviewsBento = () => {
                         <div className={styles.prismNoise} aria-hidden="true" />
 
                         <div className={styles.prismContent} style={{ height: '100%', padding: 0, position: 'absolute', inset: 0 }}>
-                            <img src={binuImage} alt="" className={styles.prismPhotoImg} />
+                            <img src={binuImage} alt="" className={styles.prismPhotoImg} draggable="false" />
                             <div className={styles.prismPhotoVignette} aria-hidden="true" />
                         </div>
 
@@ -331,7 +326,15 @@ const ReviewsBento = () => {
                     >
                         <div className={styles.prismAuroraC} aria-hidden="true" />
                         <div className={styles.prismNoise} aria-hidden="true" />
-                        <div className={styles.prismContent}></div>
+                        <div className={styles.prismContent}>
+                            <div className={styles.prismStatRow}>
+                                <span className={styles.prismStatNumPlayer}>11</span>
+                                <div className={styles.prismStatCol}>
+                                    <span className={styles.prismStatLabelPlayer}>Municipalities</span>
+                                    <span className={styles.prismStatSub}>Our proprietary retrieval-augmented generation pipeline treats each municipality as a distinct knowledge domain.</span>
+                                </div>
+                            </div>
+                        </div>
                     </motion.div>
                 </div>
 
@@ -351,7 +354,7 @@ const ReviewsBento = () => {
                         <div className={styles.prismAuroraC} aria-hidden="true" />
                         <div className={styles.prismNoise} aria-hidden="true" />
                         <div className={styles.prismContent} style={{ height: '100%', padding: 0 }}>
-                            <img src={portraitImage} alt="Catanduanes scenery" className={styles.prismPhotoImg} />
+                            <img src={portraitImage} alt="Catanduanes scenery" className={styles.prismPhotoImg} draggable="false" />
                             <div className={styles.prismPhotoVignette} aria-hidden="true" />
                         </div>
                     </motion.div>
@@ -371,7 +374,7 @@ const ReviewsBento = () => {
                             <span className={styles.prismCtaNum}>{count}+</span>
                             <span className={styles.prismCtaSub}>Destinations</span>
                             <p className={styles.prismCtaCopy}>
-                                Explore the island with AI-powered itineraries.
+                                Explore the island with AI-powered itineraries. Let Pathfinder guide you to the best spots.
                             </p>
                         </div>
                     </motion.div>
@@ -952,7 +955,7 @@ export default function Home() {
                         </motion.div>
 
                         <motion.div variants={fadeInUp} custom={0.6} className={styles.badgesContainer}>
-                            <img src={badges} alt="Badges" className={styles.badgeImage} />
+                            <img src={badges} alt="Badges" className={styles.badgeImage} draggable="false" />
                         </motion.div>
                     </motion.div>
 
@@ -1160,7 +1163,7 @@ export default function Home() {
                                 viewport={{ once: true, amount: 0.2 }}
                                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                <img src={mapScreenshot} alt="Pathfinder map view" className={styles.guideMapImage} />
+                                <img src={mapScreenshot} alt="Pathfinder map view" className={styles.guideMapImage} draggable="false" />
                                 <div className={styles.guideMapVignette} />
                                 <div className={styles.guideMapScanlines} />
 
@@ -1192,7 +1195,7 @@ export default function Home() {
                                                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                                 >
                                                     <div className={styles.guideMapPopupImageFrame}>
-                                                        <img src={MOCK_SCENARIOS[displayScenarioIdx].image} alt="Location popup" className={styles.guideMapPopupImage} />
+                                                        <img src={MOCK_SCENARIOS[displayScenarioIdx].image} alt="Location popup" className={styles.guideMapPopupImage} draggable="false" />
                                                     </div>
                                                     
                                                     <div className={styles.guideMapPopupContent}>
@@ -1500,7 +1503,7 @@ export default function Home() {
                                     <span className={styles.techLabel}>Creators</span>
                                     <div className={styles.creatorsGrid}>
                                         {[
-                                            { name: 'Tan', role: 'Core Dev', accent: '#22d3ee', email: 'tanlanuzga@gmail.com', github: 'https://github.com/bikemaster2331', bio: 'Full-stack architect. Built the AI pipeline, RAG system, UI/UX, backend, map engine, and itinerary planner.' },
+                                            { name: 'Tan', role: 'Core Dev', accent: '#22d3ee', email: 'tanlanuzga@gmail.com', github: 'https://github.com/bikemaster2331', bio: 'Full-stack architect. Built the AI pipeline, RAG system, UI/UX, backend, map engine, and itinerary planner.', avatar: tanAvatar },
                                             { name: 'Roi', role: 'Hardware', accent: '#a78bfa', bio: 'Raspberry Pi deployment, hardware setup, and embedded systems integration.' },
                                             { name: 'Zed', role: 'Full Stack', accent: '#34d399', bio: 'Full-stack development and hardware integration. Bridged software with RPi infrastructure.' },
                                             { name: 'Pat', role: 'Hardware', accent: '#fb923c', bio: 'Raspberry Pi configuration, networking, and hardware infrastructure.', hidden: true },
@@ -1519,10 +1522,14 @@ export default function Home() {
                                                 <div className={`${styles.creatorFlipper} ${activeCreator === i ? styles.creatorFlipped : ''}`}>
                                                     <div className={styles.creatorFront}>
                                                         <div className={styles.creatorAvatar}>
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                                                <circle cx="12" cy="7" r="4" />
-                                                            </svg>
+                                                            {creator.avatar ? (
+                                                                <img src={creator.avatar} alt={creator.name} className={styles.creatorAvatarImg} />
+                                                            ) : (
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                                                    <circle cx="12" cy="7" r="4" />
+                                                                </svg>
+                                                            )}
                                                         </div>
                                                         <span className={styles.creatorName}>{creator.name}</span>
                                                         <span className={styles.creatorRole}>{creator.role}</span>
