@@ -32,6 +32,7 @@ const CREATORS = [
         accent: '#fb923c',
         bio: 'Raspberry Pi configuration, networking, and hardware infrastructure that keeps the system running.',
         tag: 'Infrastructure',
+        hidden: true,
     },
     {
         name: 'Lee',
@@ -39,6 +40,7 @@ const CREATORS = [
         accent: '#f472b6',
         bio: 'Destination data sourcing, tourism research, and documentation.',
         tag: 'Truth',
+        hidden: true,
     },
 ];
 
@@ -60,7 +62,7 @@ export default function About() {
             <section className={styles.opening}>
                 <p className={styles.openingLabel}>Pathfinder · Catanduanes, PH</p>
                 <h1 className={styles.openingTitle}>
-                    Built by five. <br />
+                    Built by three. <br />
                     <em>for everyone.</em>
                 </h1>
                 <p className={styles.openingBody}>
@@ -73,7 +75,7 @@ export default function About() {
             </div>
 
             <ul className={styles.list}>
-                {CREATORS.map((c, i) => (
+                {CREATORS.filter(c => !c.hidden).map((c, i) => (
                     <li
                         key={c.name}
                         className={styles.row}

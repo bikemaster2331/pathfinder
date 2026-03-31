@@ -1977,10 +1977,12 @@ html {
    ================================================================ */
 .prismBrandCard {
     flex: 290 1 0;
-    padding: 26px 22px 22px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    overflow: hidden;
 }
 
 .prismBrandTopRow {
@@ -2153,11 +2155,12 @@ html {
    ================================================================ */
 .prismHeroCard {
     flex: 610 1 0;
-    padding: 20px 18px 18px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    position: relative;
 }
 
 
@@ -3399,15 +3402,15 @@ html {
 
 .creatorsGrid {
     display: grid;
-    grid-template-columns: repeat(5, 0.5fr);
+    grid-template-columns: repeat(3, 1fr);
     width: 100%;
-    gap: 12px;
+    gap: 20px;
 }
 
 .creatorCardWrap {
     perspective: 800px;
     cursor: pointer;
-    height: 176px;
+    height: 190px;
 }
 
 .creatorFlipper {
@@ -3520,7 +3523,7 @@ html {
     font-size: 0.65rem;
     line-height: 1.45;
     color: var(--home-muted);
-    margin: 6px 0 24px;
+    margin: 12px 0 24px;
     text-align: center;
     padding: 0;
 }
@@ -4086,111 +4089,202 @@ html {
 }
 
 /* ── MAP POPUP (Review Box Style) ── */
+/* -- MAIN POPUP CONTAINER -- */
 .guideMapPopup {
     position: absolute;
     top: 24px;
     right: 10%;
     z-index: 100;
-    width: 320px;
-    height: 380px; 
+    width: 300px;
     border-radius: 24px;
-    background: #0d0d11;
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    box-shadow: 
-        0 32px 80px rgba(0, 0, 0, 0.6), 
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 0 0 1px rgba(255, 255, 255, 0.05);
-    padding: 16px;
+    background: rgba(10, 10, 14, 0.88);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.07),
+        0 2px 0 rgba(255, 255, 255, 0.06) inset,
+        0 40px 80px rgba(0, 0, 0, 0.65),
+        0 8px 24px rgba(0, 0, 0, 0.4);
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     overflow: hidden;
-
 }
 
+/* -- IMAGE FRAME -- */
 .guideMapPopupImageFrame {
     width: 100%;
-    height: 160px;
+    height: 162px;
     border-radius: 16px;
     overflow: hidden;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+.guideMapPopupImageFrame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 45%,
+        rgba(10, 10, 14, 0.55) 100%
+    );
+    pointer-events: none;
 }
 
 .guideMapPopupImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.guideMapPopup:hover .guideMapPopupImage {
+    transform: scale(1.04);
+}
+
+/* -- CONTENT SECTION -- */
 .guideMapPopupContent {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+    padding: 2px 6px 6px;
 }
 
+/* -- HEADER -- */
 .guideMapPopupHeader {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .guideMapPopupTitle {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1rem;
-    line-height: 1.1;
-    font-weight: 800;
+    font-size: 0.95rem;
+    font-weight: 700;
     color: #ffffff;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
     margin: 0;
 }
 
+/* -- METADATA HANDLES -- */
 .guideMapPopupMeta {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 6px;
 }
 
 .miniMetaBox {
-    padding: 8px 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 7px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 10px;
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.02em;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.miniMetaBox:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.85);
 }
 
 .miniMetaBox svg {
-    width: 12px;
-    height: 12px;
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
     color: #10b981;
+    opacity: 0.9;
 }
 
+/* -- BUTTON -- */
 .guideMapPopupFullAddBtn {
-    align-self: flex-end;
-    margin-top: auto;
-    padding: 10px 24px;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 100%;
+    margin-top: 2px;
+    padding: 11px 0;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    color: #fff;
-    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.8rem;
     font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
 }
 
-/* Light theme overrides for map popup */
-:global([data-theme='light']) .guideMapPopup {
-    background: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+.guideMapPopupFullAddBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.85);
 }
+
+/* When not disabled */
+.guideMapPopupFullAddBtn:not(:disabled) {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #fff;
+    cursor: pointer;
+    box-shadow:
+        0 0 0 1px rgba(16, 185, 129, 0.2),
+        0 4px 16px rgba(16, 185, 129, 0.28);
+}
+
+.guideMapPopupFullAddBtn:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 0 0 1px rgba(16, 185, 129, 0.3),
+        0 8px 24px rgba(16, 185, 129, 0.36);
+}
+
+.guideMapPopupFullAddBtn:not(:disabled):active {
+    transform: translateY(0);
+}
+
+/* -- LIGHT THEME -- */
+:global([data-theme='light']) .guideMapPopup {
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.06),
+        0 1px 0 rgba(255, 255, 255, 0.9) inset,
+        0 24px 64px rgba(0, 0, 0, 0.12);
+}
+
+:global([data-theme='light']) .guideMapPopupTitle {
+    color: #0b0b0b;
+}
+
+:global([data-theme='light']) .miniMetaBox {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.07);
+    color: rgba(0, 0, 0, 0.55);
+}
+
+:global([data-theme='light']) .miniMetaBox:hover {
+    background: rgba(0, 0, 0, 0.07);
+    color: rgba(0, 0, 0, 0.8);
+}
+
+:global([data-theme='light']) .guideMapPopupFullAddBtn {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.3);
+}
+
+:global([data-theme='light']) .guideMapPopupImageFrame::after {
+    background: linear-gradient(to bottom, transparent 45%, rgba(255, 255, 255, 0.3) 100%);
+}
+
 
 /* ── CHAT WINDOW ── */
 .guideChatFloat {
