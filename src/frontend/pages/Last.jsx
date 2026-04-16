@@ -373,6 +373,17 @@ export default function Last() {
     interactiveWatchdogRetriedRef.current = false;
   }, [pdfData]);
 
+  // Raspberry Pi Chromium frequently hangs on embedded PDF plugins.
+  // Force PDF.js image fallback there to avoid permanent black-screen loaders.
+  useEffect(() => {
+    if (!pdfData) return;
+    if (!isRaspberryPiBrowser) return;
+
+    setUseImageFallbackPreview(true);
+    setInteractiveReady(false);
+    setIsIframeError(false);
+  }, [pdfData, isRaspberryPiBrowser]);
+
   // On history return or app re-focus after visiting external pages,
   // force-restore preview from IndexedDB snapshot and remount the viewer.
   useEffect(() => {
