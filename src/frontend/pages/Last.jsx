@@ -76,16 +76,12 @@ export default function Last() {
   const hasEnsuredSnapshotRef = useRef(false);
   const rawPdfDataRef = useRef(null);
   const wasBackgroundedRef = useRef(false);
+  const cachePromotionAttemptedRef = useRef(false);
 
-  const viewerCropStyle = useMemo(() => {
-    const userAgent = (typeof navigator !== 'undefined' ? navigator.userAgent : '').toLowerCase();
-    const isRaspberryPiBrowser = /aarch64|armv|raspberry|rpi/.test(userAgent);
-
-    return {
-      '--pdf-crop-left': isRaspberryPiBrowser ? '320px' : '300px',
-      '--pdf-crop-top': '60px'
-    };
-  }, []);
+  const viewerCropStyle = useMemo(() => ({
+    '--pdf-crop-left': '0px',
+    '--pdf-crop-top': '0px'
+  }), []);
 
   // Initialize preview source in priority order:
   // 1) server-backed PDF cache id (route state or localStorage),
@@ -515,29 +511,54 @@ export default function Last() {
     };
   }, [isPdfSourceInitialized, rawPdfData]);
 
+  // When /last lands on a blob/data source (usually after upload hiccup),
+  // immediately promote it to the server cache so history navigation remains stable.
   useEffect(() => {
-    if (!pdfData || useImageFallbackPreview || interactiveReady) return undefined;
+    if (!rawPdfData || pdfCacheId) return;
+    if (cachePromotionAttemptedRef.current) return;
 
-    const timeoutId = window.setTimeout(async () => {
-      if (!snapshotRecoveryAttempted) {
-        setSnapshotRecoveryAttempted(true);
-        try {
-          const recoveredSnapshotUrl = await loadPdfBlobSnapshotUrl();
-          if (recoveredSnapshotUrl && recoveredSnapshotUrl !== previewBaseUrl) {
-            setRawPdfData(recoveredSnapshotUrl);
-            return;
-          }
-        } catch (error) {
-          console.warn('Failed to recover PDF snapshot after interactive timeout:', error);
+    const isBlobLikeSource = rawPdfData.startsWith('blob:') || rawPdfData.startsWith('data:application/pdf');
+    if (!isBlobLikeSource) return;
+
+    let cancelled = false;
+    cachePromotionAttemptedRef.current = true;
+
+    const promotePreviewToServerCache = async () => {
+      try {
+        const sourceResponse = await fetch(rawPdfData);
+        if (!sourceResponse.ok) {
+          throw new Error(`Unable to read local PDF source (${sourceResponse.status})`);
+        }
+
+        const blob = await sourceResponse.blob();
+        if (!(blob instanceof Blob)) {
+          throw new Error('Local PDF source did not resolve to a Blob');
+        }
+
+        const uploadedPdf = await uploadPdfBlobToCache(blob);
+        const createdPdfCacheId = String(uploadedPdf?.id || '').trim();
+        if (!createdPdfCacheId || cancelled) return;
+
+        localStorage.setItem(PDF_CACHE_ID_STORAGE_KEY, createdPdfCacheId);
+        setPdfCacheId(createdPdfCacheId);
+        setRawPdfData(buildPdfCacheUrl(createdPdfCacheId));
+        setUseImageFallbackPreview(false);
+        setInteractiveReady(false);
+        setIsIframeError(false);
+        setSnapshotRecoveryAttempted(false);
+      } catch (error) {
+        if (!cancelled) {
+          console.warn('Failed to promote local PDF preview to server cache id:', error);
         }
       }
-      setUseImageFallbackPreview(true);
-    }, 4500);
+    };
+
+    void promotePreviewToServerCache();
 
     return () => {
-      window.clearTimeout(timeoutId);
+      cancelled = true;
     };
-  }, [pdfData, useImageFallbackPreview, interactiveReady, snapshotRecoveryAttempted, previewBaseUrl]);
+  }, [rawPdfData, pdfCacheId]);
 
   // Render PDF pages into images only when interactive preview falls back.
   useEffect(() => {
@@ -723,6 +744,7 @@ export default function Last() {
 
     const activeCacheIdAfterRetry = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || '').trim();
     if (activeCacheIdAfterRetry) {
+      let cacheFetchFailed = false;
       try {
         const refreshedCacheResponse = await fetch(
           buildPdfCacheUrl(activeCacheIdAfterRetry, { appendTimestamp: true }),
@@ -739,9 +761,20 @@ export default function Last() {
               }
             }
           }
+        } else {
+          cacheFetchFailed = true;
         }
       } catch (error) {
+        cacheFetchFailed = true;
         console.warn('Failed to refresh server-backed PDF cache after preview error:', error);
+      }
+
+      if (cacheFetchFailed) {
+        localStorage.removeItem(PDF_CACHE_ID_STORAGE_KEY);
+        setPdfCacheId(null);
+        hasEnsuredSnapshotRef.current = false;
+        setRawPdfData(null);
+        return;
       }
     }
 
@@ -797,8 +830,6 @@ export default function Last() {
               <a
                 key={`fallback-day-${entry.dayNumber}`}
                 href={entry.url}
-                target="_blank"
-                rel="noopener noreferrer"
                 className={styles.dayDirectionsFallbackLink}
                 title={`Open Day ${entry.dayNumber} directions`}
               >

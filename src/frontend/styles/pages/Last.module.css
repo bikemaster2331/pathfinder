@@ -36,9 +36,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100% + var(--pdf-crop-left, 300px));
-    height: calc(100% + var(--pdf-crop-top, 60px));
-    transform: translate(calc(-1 * var(--pdf-crop-left, 300px)), calc(-1 * var(--pdf-crop-top, 60px)));
+    width: 100%;
+    height: 100%;
+    transform: none;
     border: none;
     background-color: #202124;
     display: block;
@@ -272,12 +272,6 @@
 }
 
 @media (max-width: 768px) {
-    .pdfFrame {
-        width: calc(100% + 250px);
-        height: calc(100% + var(--pdf-crop-top, 60px));
-        transform: translate(-250px, calc(-1 * var(--pdf-crop-top, 60px)));
-    }
-
     .dayDirectionsFallback {
         top: 116px;
         max-width: calc(100vw - 24px);
