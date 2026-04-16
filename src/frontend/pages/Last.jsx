@@ -106,7 +106,7 @@ export default function Last() {
 
       if (!cancelled && effectiveCacheId) {
         setPdfCacheId(effectiveCacheId);
-        setRawPdfData(buildPdfCacheUrl(effectiveCacheId, { appendTimestamp: true }));
+        setRawPdfData(buildPdfCacheUrl(effectiveCacheId));
         setFallbackError('');
         setIsPdfSourceInitialized(true);
         return;
@@ -396,7 +396,7 @@ export default function Last() {
 
       if (effectiveCacheId) {
         setPdfCacheId(effectiveCacheId);
-        setRawPdfData(buildPdfCacheUrl(effectiveCacheId, { appendTimestamp: true }));
+        setRawPdfData(buildPdfCacheUrl(effectiveCacheId));
         setFallbackError('');
         setUseImageFallbackPreview(false);
         setInteractiveReady(false);
@@ -680,6 +680,24 @@ export default function Last() {
     setIsIframeError(false);
   };
 
+  const restoreFromIndexedSnapshot = async () => {
+    try {
+      const recoveredSnapshotUrl = await loadPdfBlobSnapshotUrl();
+      if (recoveredSnapshotUrl) {
+        hasEnsuredSnapshotRef.current = true;
+        setRawPdfData(recoveredSnapshotUrl);
+        setUseImageFallbackPreview(false);
+        setInteractiveReady(false);
+        setIsIframeError(false);
+        return true;
+      }
+    } catch (error) {
+      console.warn('Failed to restore PDF snapshot from IndexedDB:', error);
+    }
+
+    return false;
+  };
+
   const handleInteractivePreviewError = async () => {
     setIsIframeError(true);
 
@@ -697,25 +715,38 @@ export default function Last() {
         return;
       }
 
-      try {
-        const recoveredSnapshotUrl = await loadPdfBlobSnapshotUrl();
-        if (recoveredSnapshotUrl && recoveredSnapshotUrl !== previewBaseUrl) {
-          setRawPdfData(recoveredSnapshotUrl);
-          setUseImageFallbackPreview(false);
-          setInteractiveReady(false);
-          setIsIframeError(false);
-          return;
-        }
-      } catch (error) {
-        console.warn('Failed to recover PDF snapshot after interactive error:', error);
+      const restoredFromSnapshot = await restoreFromIndexedSnapshot();
+      if (restoredFromSnapshot) {
+        return;
       }
     }
 
     const activeCacheIdAfterRetry = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || '').trim();
     if (activeCacheIdAfterRetry) {
-      localStorage.removeItem(PDF_CACHE_ID_STORAGE_KEY);
-      setPdfCacheId(null);
-      setRawPdfData(null);
+      try {
+        const refreshedCacheResponse = await fetch(
+          buildPdfCacheUrl(activeCacheIdAfterRetry, { appendTimestamp: true }),
+          { cache: 'no-store' }
+        );
+        if (refreshedCacheResponse.ok) {
+          const refreshedBlob = await refreshedCacheResponse.blob();
+          if (refreshedBlob instanceof Blob) {
+            const persisted = await savePdfBlobSnapshot(refreshedBlob);
+            if (persisted) {
+              const restoredFromSnapshot = await restoreFromIndexedSnapshot();
+              if (restoredFromSnapshot) {
+                return;
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to refresh server-backed PDF cache after preview error:', error);
+      }
+    }
+
+    const restoredFromSnapshot = await restoreFromIndexedSnapshot();
+    if (restoredFromSnapshot) {
       return;
     }
 

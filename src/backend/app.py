@@ -23,7 +23,7 @@ FRONTEND_INDEX = FRONTEND_DIST / "index.html"
 DATASET = BASE_DIR / "dataset" / "dataset.json"
 CONFIG = BASE_DIR / "config" / "config.yaml"
 PDF_CACHE_DIR = BASE_DIR / "pdf_cache"
-PDF_CACHE_TTL_SECONDS = int(os.environ.get("PDF_CACHE_TTL_SECONDS", "21600"))
+PDF_CACHE_TTL_SECONDS = int(os.environ.get("PDF_CACHE_TTL_SECONDS", "86400"))
 
 PDF_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{1,128}$")
 
@@ -230,8 +230,7 @@ def get_pdf_cache_file(pdf_id: str):
         raise HTTPException(status_code=404, detail="PDF cache entry not found")
 
     headers = {
-        "Cache-Control": "no-store, max-age=0, must-revalidate",
-        "Pragma": "no-cache"
+        "Cache-Control": "private, max-age=86400, stale-while-revalidate=600"
     }
     return FileResponse(
         target_path,
