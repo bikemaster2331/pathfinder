@@ -1,10 +1,15 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import styles from '../styles/pages/Last.module.css';
 import { generateItineraryPDF } from '../utils/generatePDF';
 import { generateDayMapSnapshots } from '../utils/dayMapSnapshots';
 import { generateDayGoogleDirectionsLinks } from '../utils/dayDirections';
-import { loadPdfBlobSnapshotUrl, clearPdfBlobSnapshot } from '../utils/pdfSnapshotStore';
+import {
+  loadPdfBlobSnapshotUrl,
+  clearPdfBlobSnapshot,
+  hasPdfBlobSnapshot,
+  savePdfBlobSnapshot
+} from '../utils/pdfSnapshotStore';
 import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
 import { TRAVEL_HUBS } from '../constants/location';
 
@@ -60,6 +65,17 @@ export default function Last() {
   const [interactiveReady, setInteractiveReady] = useState(false);
   const [isPdfSourceInitialized, setIsPdfSourceInitialized] = useState(false);
   const [snapshotRecoveryAttempted, setSnapshotRecoveryAttempted] = useState(false);
+  const hasEnsuredSnapshotRef = useRef(false);
+
+  const viewerCropStyle = useMemo(() => {
+    const userAgent = (typeof navigator !== 'undefined' ? navigator.userAgent : '').toLowerCase();
+    const isRaspberryPiBrowser = /aarch64|armv|raspberry|rpi/.test(userAgent);
+
+    return {
+      '--pdf-crop-left': isRaspberryPiBrowser ? '320px' : '300px',
+      '--pdf-crop-top': '60px'
+    };
+  }, []);
 
   // IndexedDB snapshot is the canonical source for /last preview restoration.
   // Route state blob is treated only as optional bootstrap fallback.
@@ -277,12 +293,22 @@ export default function Last() {
     };
   }, [rawPdfData]);
 
-  // Append toolbar params only for non-blob URLs.
-  // Some Chromium builds on Raspberry Pi fail to render blob PDFs with fragments.
+  // Prefer native viewer chrome suppression via URL fragment when possible.
+  // Some Chromium builds on Raspberry Pi fail to render blob PDFs with fragments,
+  // so Pi uses pure viewport crop masking for blob URLs.
   const pdfData = useMemo(() => {
     if (!previewBaseUrl) return null;
-    if (previewBaseUrl.startsWith('blob:')) return previewBaseUrl;
-    return `${previewBaseUrl}#toolbar=0&navpanes=0&scrollbar=0&view=Fit`;
+    const fragment = '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+
+    if (!previewBaseUrl.startsWith('blob:')) {
+      return `${previewBaseUrl}${fragment}`;
+    }
+
+    const userAgent = (typeof navigator !== 'undefined' ? navigator.userAgent : '').toLowerCase();
+    const isRaspberryPiBrowser = /aarch64|armv|raspberry|rpi/.test(userAgent);
+    if (isRaspberryPiBrowser) return previewBaseUrl;
+
+    return `${previewBaseUrl}${fragment}`;
   }, [previewBaseUrl]);
 
   useEffect(() => {
@@ -293,6 +319,7 @@ export default function Last() {
       setRenderedPages([]);
       setIsRenderingPages(false);
       setSnapshotRecoveryAttempted(false);
+      hasEnsuredSnapshotRef.current = false;
       return;
     }
 
@@ -303,6 +330,62 @@ export default function Last() {
     setIsRenderingPages(false);
     setSnapshotRecoveryAttempted(false);
   }, [pdfData]);
+
+  // Ensure we always keep a durable PDF snapshot in IndexedDB while on /last.
+  // This avoids stale blob-url failures after external navigation.
+  useEffect(() => {
+    if (!isPdfSourceInitialized || !rawPdfData) return;
+    if (hasEnsuredSnapshotRef.current) return;
+
+    let cancelled = false;
+
+    const ensureSnapshot = async () => {
+      try {
+        const alreadyHasSnapshot = await hasPdfBlobSnapshot();
+        if (cancelled || alreadyHasSnapshot) {
+          hasEnsuredSnapshotRef.current = true;
+          return;
+        }
+
+        let snapshotBlob = null;
+
+        if (rawPdfData.startsWith('data:application/pdf')) {
+          const base64Data = rawPdfData.split(',')[1];
+          const byteString = atob(base64Data);
+          const byteNumbers = new Array(byteString.length);
+
+          for (let i = 0; i < byteString.length; i += 1) {
+            byteNumbers[i] = byteString.charCodeAt(i);
+          }
+
+          snapshotBlob = new Blob([new Uint8Array(byteNumbers)], { type: 'application/pdf' });
+        } else {
+          const response = await fetch(rawPdfData);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch PDF source (${response.status})`);
+          }
+          snapshotBlob = await response.blob();
+        }
+
+        if (!cancelled && snapshotBlob instanceof Blob) {
+          const saved = await savePdfBlobSnapshot(snapshotBlob);
+          if (saved) {
+            hasEnsuredSnapshotRef.current = true;
+          }
+        }
+      } catch (error) {
+        if (!cancelled) {
+          console.warn('Failed to ensure durable PDF snapshot from current source:', error);
+        }
+      }
+    };
+
+    ensureSnapshot();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isPdfSourceInitialized, rawPdfData]);
 
   useEffect(() => {
     if (!pdfData || useImageFallbackPreview || interactiveReady) return undefined;
@@ -422,6 +505,7 @@ export default function Last() {
   const handleBackToHome = async () => {
     try {
       await clearPdfBlobSnapshot();
+      hasEnsuredSnapshotRef.current = false;
     } finally {
       navigate('/');
     }
@@ -468,11 +552,17 @@ export default function Last() {
       }
     }
 
+    if (rawPdfData?.startsWith('blob:')) {
+      // Blob URL became stale and snapshot recovery failed; trigger robust regeneration path.
+      setRawPdfData(null);
+      return;
+    }
+
     setUseImageFallbackPreview(true);
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={viewerCropStyle}>
       {/* Floating Controls Overlay */}
       <div className={styles.floatingControls}>
         <button
