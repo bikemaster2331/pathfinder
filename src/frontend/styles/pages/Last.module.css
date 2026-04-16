@@ -36,10 +36,11 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: calc(100% + 280px);
+    height: calc(100% + 58px);
+    transform: translate(-280px, -58px);
     border: none;
-    background-color: #fff;
+    background-color: #202124;
     display: block;
 }
 
@@ -50,7 +51,7 @@
     height: 100%;
     margin: 0 auto;
     overflow: hidden;
-    background: #fff;
+    background: #202124;
 }
 
 .interactiveLoadingHint {
@@ -271,6 +272,12 @@
 }
 
 @media (max-width: 768px) {
+    .pdfFrame {
+        width: calc(100% + 220px);
+        height: calc(100% + 58px);
+        transform: translate(-220px, -58px);
+    }
+
     .dayDirectionsFallback {
         top: 116px;
         max-width: calc(100vw - 24px);
