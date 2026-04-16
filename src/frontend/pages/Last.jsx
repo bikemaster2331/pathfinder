@@ -66,6 +66,8 @@ export default function Last() {
   const [snapshotRecoveryAttempted, setSnapshotRecoveryAttempted] = useState(false);
   const [viewerReloadKey, setViewerReloadKey] = useState(0);
   const hasEnsuredSnapshotRef = useRef(false);
+  const rawPdfDataRef = useRef(null);
+  const wasBackgroundedRef = useRef(false);
 
   const viewerCropStyle = useMemo(() => {
     const userAgent = (typeof navigator !== 'undefined' ? navigator.userAgent : '').toLowerCase();
@@ -84,14 +86,6 @@ export default function Last() {
 
     const initializePdfSource = async () => {
       const routeStatePdf = location.state?.pdfData || null;
-      if (routeStatePdf) {
-        setRawPdfData(routeStatePdf);
-        setFallbackError('');
-        if (!cancelled) {
-          setIsPdfSourceInitialized(true);
-        }
-        return;
-      }
 
       try {
         const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
@@ -104,10 +98,15 @@ export default function Last() {
         }
       } catch (error) {
         console.warn('Failed to initialize PDF source from IndexedDB snapshot:', error);
-      } finally {
-        if (!cancelled) {
-          setIsPdfSourceInitialized(true);
-        }
+      }
+
+      if (!cancelled && routeStatePdf) {
+        setRawPdfData(routeStatePdf);
+        setFallbackError('');
+      }
+
+      if (!cancelled) {
+        setIsPdfSourceInitialized(true);
       }
     };
 
@@ -330,9 +329,11 @@ export default function Last() {
     setSnapshotRecoveryAttempted(false);
   }, [pdfData]);
 
-  // When returning from external pages via browser history,
-  // always reload the preview source from IndexedDB snapshot.
+  // On history return or app re-focus after visiting external pages,
+  // force-restore preview from IndexedDB snapshot and remount the viewer.
   useEffect(() => {
+    if (!isPdfSourceInitialized) return undefined;
+
     const isBackForwardNavigation = () => {
       if (typeof window === 'undefined' || typeof window.performance === 'undefined') return false;
       const navEntries = window.performance.getEntriesByType('navigation');
@@ -340,10 +341,7 @@ export default function Last() {
       return navEntry?.type === 'back_forward';
     };
 
-    const handlePageShow = async (event) => {
-      const isHistoryReturn = Boolean(event?.persisted) || isBackForwardNavigation();
-      if (!isHistoryReturn) return;
-
+    const restoreFromSnapshot = async () => {
       try {
         const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
         if (persistedSnapshotUrl) {
@@ -355,23 +353,53 @@ export default function Last() {
           setIsIframeError(false);
           setSnapshotRecoveryAttempted(false);
           setViewerReloadKey((current) => current + 1);
-          return;
-        }
-
-        hasEnsuredSnapshotRef.current = false;
-        if (rawPdfData?.startsWith('blob:')) {
-          setRawPdfData(null);
+          return true;
         }
       } catch (error) {
-        console.warn('Failed to restore PDF snapshot on history return:', error);
+        console.warn('Failed to restore PDF snapshot after external navigation:', error);
+      }
+
+      hasEnsuredSnapshotRef.current = false;
+      if (String(rawPdfDataRef.current || '').startsWith('blob:')) {
+        setRawPdfData(null);
+      }
+      return false;
+    };
+
+    const handlePageShow = (event) => {
+      const isHistoryReturn = Boolean(event?.persisted) || isBackForwardNavigation();
+      if (!isHistoryReturn) return;
+      void restoreFromSnapshot();
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        wasBackgroundedRef.current = true;
+        return;
+      }
+
+      if (document.visibilityState === 'visible' && wasBackgroundedRef.current) {
+        wasBackgroundedRef.current = false;
+        void restoreFromSnapshot();
       }
     };
 
+    const handleWindowFocus = () => {
+      if (!wasBackgroundedRef.current) return;
+      wasBackgroundedRef.current = false;
+      void restoreFromSnapshot();
+    };
+
     window.addEventListener('pageshow', handlePageShow);
+    window.addEventListener('focus', handleWindowFocus);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     return () => {
       window.removeEventListener('pageshow', handlePageShow);
+      window.removeEventListener('focus', handleWindowFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [rawPdfData]);
+  }, [isPdfSourceInitialized]);
 
   // Ensure we always keep a durable PDF snapshot in IndexedDB while on /last.
   // This avoids stale blob-url failures after external navigation.
@@ -533,6 +561,10 @@ export default function Last() {
       console.warn('No PDF data found in navigation state.');
     }
   }, [rawPdfData, isPdfSourceInitialized]);
+
+  useEffect(() => {
+    rawPdfDataRef.current = rawPdfData;
+  }, [rawPdfData]);
 
   const handleBackToItinerary = () => {
     navigate(-1);
