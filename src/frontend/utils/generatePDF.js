@@ -74,6 +74,22 @@ const ensureSpace = (doc, currentY, needed, pageHeight) => {
     return currentY;
 };
 
+const LAST_PDF_SNAPSHOT_KEY = 'pathfinder:lastGeneratedPdfDataUri';
+
+const persistGeneratedPdfSnapshot = (doc) => {
+    if (typeof window === 'undefined') return;
+
+    try {
+        const dataUri = doc.output('datauristring');
+        if (typeof dataUri === 'string' && dataUri.startsWith('data:application/pdf')) {
+            localStorage.setItem(LAST_PDF_SNAPSHOT_KEY, dataUri);
+        }
+    } catch (error) {
+        // Non-blocking: PDF generation should still complete even if storage is full.
+        console.warn('Failed to persist PDF snapshot for recovery:', error);
+    }
+};
+
 // --- MAIN GENERATOR ---
 export const generateItineraryPDF = ({
     activeHubName,
@@ -82,6 +98,7 @@ export const generateItineraryPDF = ({
     totalDistance, // Total distance of whole trip
     driveData, // Flat array of drive times (matches sequence of spots)
     dayMapSnapshots, // Optional keyed map: { "1": "data:image/jpeg,...", "2": "..." }
+    dayDirectionsLinks, // Optional keyed map: { "1": { hasRoute, url?, reason? }, ... }
     saveFile = true
 }) => {
     const doc = new jsPDF();
@@ -255,13 +272,18 @@ export const generateItineraryPDF = ({
 
             // --- C. DAY MAP SNAPSHOT ---
             const dayMapSnapshot = dayMapSnapshots?.[String(dayNum)] || null;
-            currentY = ensureSpace(doc, currentY, 62, pageHeight);
+            const dayDirectionsEntry = dayDirectionsLinks?.[String(dayNum)] || null;
+            const dayDirectionsUrl = dayDirectionsEntry?.hasRoute && typeof dayDirectionsEntry?.url === 'string'
+                ? dayDirectionsEntry.url
+                : '';
+            currentY = ensureSpace(doc, currentY, 78, pageHeight);
 
             if (dayMapSnapshot) {
                 const imageX = margin;
                 const imageY = currentY;
                 const imageWidth = contentWidth;
                 const imageHeight = 54;
+                const noteY = imageY + imageHeight + 5;
 
                 try {
                     doc.setDrawColor(219, 226, 236);
@@ -275,26 +297,87 @@ export const generateItineraryPDF = ({
                         imageWidth - 1.2,
                         imageHeight - 1.2
                     );
-                    currentY += imageHeight + 8;
+                    if (dayDirectionsUrl) {
+                        doc.link(
+                            imageX + 0.6,
+                            imageY + 0.6,
+                            imageWidth - 1.2,
+                            imageHeight - 1.2,
+                            {
+                                url: dayDirectionsUrl,
+                                newWindow: true
+                            }
+                        );
+                        doc.setFontSize(8);
+                        doc.setFont('helvetica', 'bold');
+                        doc.setTextColor(...colors.primary);
+                        doc.text('Click map image for directions.', margin + 2, noteY);
+                    } else {
+                        doc.setFontSize(8);
+                        doc.setFont('helvetica', 'italic');
+                        doc.setTextColor(...colors.muted);
+                        doc.text('Directions unavailable for this day.', margin + 2, noteY);
+                    }
+                    currentY += imageHeight + 12;
                 } catch {
                     doc.setFillColor(248, 250, 252);
                     doc.setDrawColor(220, 226, 235);
-                    doc.roundedRect(margin, currentY, contentWidth, 16, 2, 2, 'FD');
+                    doc.roundedRect(margin, currentY, contentWidth, 22, 2, 2, 'FD');
                     doc.setFontSize(8.5);
                     doc.setFont('helvetica', 'italic');
                     doc.setTextColor(...colors.muted);
-                    doc.text('Map unavailable for this day.', margin + 6, currentY + 10);
-                    currentY += 20;
+                    doc.text('Map unavailable for this day.', margin + 6, currentY + 9);
+
+                    if (dayDirectionsUrl) {
+                        const linkLabel = 'Open Google Maps directions';
+                        const linkY = currentY + 17;
+                        doc.setFontSize(8.5);
+                        doc.setFont('helvetica', 'bold');
+                        doc.setTextColor(...colors.primary);
+                        const linkWidth = doc.getTextWidth(linkLabel);
+                        doc.text(linkLabel, margin + 6, linkY);
+                        doc.link(margin + 6, linkY - 4, linkWidth, 5, {
+                            url: dayDirectionsUrl,
+                            newWindow: true
+                        });
+                    } else {
+                        doc.setFontSize(8);
+                        doc.setFont('helvetica', 'italic');
+                        doc.setTextColor(...colors.muted);
+                        doc.text('Directions unavailable for this day.', margin + 6, currentY + 17);
+                    }
+
+                    currentY += 26;
                 }
             } else {
                 doc.setFillColor(248, 250, 252);
                 doc.setDrawColor(220, 226, 235);
-                doc.roundedRect(margin, currentY, contentWidth, 16, 2, 2, 'FD');
+                doc.roundedRect(margin, currentY, contentWidth, 22, 2, 2, 'FD');
                 doc.setFontSize(8.5);
                 doc.setFont('helvetica', 'italic');
                 doc.setTextColor(...colors.muted);
-                doc.text('Map unavailable for this day.', margin + 6, currentY + 10);
-                currentY += 20;
+                doc.text('Map unavailable for this day.', margin + 6, currentY + 9);
+
+                if (dayDirectionsUrl) {
+                    const linkLabel = 'Open Google Maps directions';
+                    const linkY = currentY + 17;
+                    doc.setFontSize(8.5);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setTextColor(...colors.primary);
+                    const linkWidth = doc.getTextWidth(linkLabel);
+                    doc.text(linkLabel, margin + 6, linkY);
+                    doc.link(margin + 6, linkY - 4, linkWidth, 5, {
+                        url: dayDirectionsUrl,
+                        newWindow: true
+                    });
+                } else {
+                    doc.setFontSize(8);
+                    doc.setFont('helvetica', 'italic');
+                    doc.setTextColor(...colors.muted);
+                    doc.text('Directions unavailable for this day.', margin + 6, currentY + 17);
+                }
+
+                currentY += 26;
             }
 
             // --- D. SPOT CARDS ---
@@ -708,6 +791,7 @@ export const generateItineraryPDF = ({
     if (saveFile) {
         doc.save(`Itinerary_${activeHubName || 'Trip'}_${Date.now()}.pdf`);
     }
+    persistGeneratedPdfSnapshot(doc);
     const pdfBlob = doc.output('blob');
     return URL.createObjectURL(pdfBlob);
 };

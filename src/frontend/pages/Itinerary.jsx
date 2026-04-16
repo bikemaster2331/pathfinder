@@ -11,6 +11,7 @@ import { optimizeRoute } from '../utils/optimize';
 import { calculateDriveTimes, calculateTimeUsage, calculateTotalRoute, calculateDistance } from '../utils/distance';
 import { generateItineraryPDF } from '../utils/generatePDF';
 import { generateDayMapSnapshots } from '../utils/dayMapSnapshots';
+import { generateDayGoogleDirectionsLinks } from '../utils/dayDirections';
 import CustomModal from '../components/CustomModal';
 import defaultBg from '../assets/images/card/catanduanes.png';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -714,17 +715,25 @@ export default function ItineraryPage() {
         setIsGeneratingPdf(true);
 
         try {
-            let dayMapSnapshots = {};
-
-            try {
-                dayMapSnapshots = await generateDayMapSnapshots({
+            const [dayMapSnapshots, dayDirectionsLinks] = await Promise.all([
+                generateDayMapSnapshots({
                     activeHub,
                     finalItinerary
-                });
-            } catch (mapSnapshotError) {
-                console.warn('Map snapshots failed; continuing PDF generation:', mapSnapshotError);
-                dayMapSnapshots = {};
-            }
+                }).catch((mapSnapshotError) => {
+                    console.warn('Map snapshots failed; continuing PDF generation:', mapSnapshotError);
+                    return {};
+                }),
+                Promise.resolve(
+                    generateDayGoogleDirectionsLinks({
+                        activeHub,
+                        finalItinerary,
+                        travelMode: 'driving'
+                    })
+                ).catch((directionsError) => {
+                    console.warn('Google directions links failed; continuing PDF generation:', directionsError);
+                    return {};
+                })
+            ]);
 
             const pdfData = generateItineraryPDF({
                 activeHubName: activeHub.name,
@@ -732,7 +741,8 @@ export default function ItineraryPage() {
                 addedSpots: finalItinerary,
                 totalDistance: fullTripDistance,
                 driveData: fullTripDriveData,
-                dayMapSnapshots
+                dayMapSnapshots,
+                dayDirectionsLinks
             });
 
             navigate('/last', { state: { pdfData } });
