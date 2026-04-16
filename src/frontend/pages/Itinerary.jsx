@@ -10,6 +10,7 @@ import { TRAVEL_HUBS } from '../constants/location';
 import { optimizeRoute } from '../utils/optimize';
 import { calculateDriveTimes, calculateTimeUsage, calculateTotalRoute, calculateDistance } from '../utils/distance';
 import { generateItineraryPDF } from '../utils/generatePDF';
+import { generateDayMapSnapshots } from '../utils/dayMapSnapshots';
 import CustomModal from '../components/CustomModal';
 import defaultBg from '../assets/images/card/catanduanes.png';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -185,7 +186,8 @@ const PreviewWidget = ({
     handlePreviousDay,
     handleSliceAndNext,
     handleSaveItinerary,
-    setAddedSpots
+    setAddedSpots,
+    isGeneratingPdf
 }) => {
     const [expanded, setExpanded] = useState(isLatest);
     const isNextAction = dayCount > 1 && !isLastDay;
@@ -341,7 +343,17 @@ const PreviewWidget = ({
                         <button
                             className={`${cardStyles.saveButton} ${styles.mapExpandedPrimaryAction}`}
                             onClick={handleGenerate}
-                            style={{ backgroundColor: '#0ea5e9', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', width: 'auto' }}
+                            disabled={isGeneratingPdf}
+                            style={{
+                                backgroundColor: '#0ea5e9',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '6px',
+                                width: 'auto',
+                                opacity: isGeneratingPdf ? 0.65 : 1,
+                                cursor: isGeneratingPdf ? 'not-allowed' : 'pointer'
+                            }}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pickaxe-icon lucide-pickaxe">
                                 <path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999"/>
@@ -349,20 +361,23 @@ const PreviewWidget = ({
                                 <path d="M16.001 11.999a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069"/>
                                 <path d="M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z"/>
                             </svg>
-                            Generate
+                            {isGeneratingPdf ? 'Generating PDF...' : 'Generate'}
                         </button>
 
                         <button
                             className={`${cardStyles.saveButton} ${styles.mapExpandedPrimaryAction}`}
                             onClick={isNextAction ? handleSliceAndNext : handleSaveItinerary}
+                            disabled={isGeneratingPdf}
                             style={{
                                 backgroundColor: isNextAction ? 'transparent' : '#2563EB',
                                 border: isNextAction ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
                                 color: isNextAction ? 'rgba(255, 255, 255, 0.8)' : '#ffffff',
-                                padding: '0 12px'
+                                padding: '0 12px',
+                                opacity: isGeneratingPdf ? 0.65 : 1,
+                                cursor: isGeneratingPdf ? 'not-allowed' : 'pointer'
                             }}
                         >
-                            {isNextAction ? 'Next' : 'Save'}
+                            {isGeneratingPdf && !isNextAction ? 'Generating PDF...' : isNextAction ? 'Next' : 'Save'}
                         </button>
                     </div >
                 </div >
@@ -535,6 +550,7 @@ export default function ItineraryPage() {
     const [isChatVisible, setIsChatVisible] = useState(true);
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
     const [modalConfig, setModalConfig] = useState({ isOpen: false, title: '', message: '', type: 'info' });
+    const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
     const showAlert = (message, title = 'Notice', type = 'info') => {
         setModalConfig({ isOpen: true, title, message, type });
@@ -671,7 +687,9 @@ export default function ItineraryPage() {
         }
     };
 
-    const handleSaveItinerary = () => {
+    const handleSaveItinerary = async () => {
+        if (isGeneratingPdf) return;
+
         const finalItinerary = { ...storedDays, [currentDay]: addedSpots };
 
         const allSpotsFlat = [];
@@ -693,17 +711,37 @@ export default function ItineraryPage() {
         const fullTripDistance = calculateTotalRoute(activeHub, allSpotsFlat);
         const fullTripDriveData = calculateDriveTimes(activeHub, allSpotsFlat);
 
-        const pdfData = generateItineraryPDF({
-            activeHubName: activeHub.name,
-            dateRange,
-            addedSpots: finalItinerary,
-            totalDistance: fullTripDistance,
-            driveData: fullTripDriveData
-        });
+        setIsGeneratingPdf(true);
 
-        setTimeout(() => {
+        try {
+            let dayMapSnapshots = {};
+
+            try {
+                dayMapSnapshots = await generateDayMapSnapshots({
+                    activeHub,
+                    finalItinerary
+                });
+            } catch (mapSnapshotError) {
+                console.warn('Map snapshots failed; continuing PDF generation:', mapSnapshotError);
+                dayMapSnapshots = {};
+            }
+
+            const pdfData = generateItineraryPDF({
+                activeHubName: activeHub.name,
+                dateRange,
+                addedSpots: finalItinerary,
+                totalDistance: fullTripDistance,
+                driveData: fullTripDriveData,
+                dayMapSnapshots
+            });
+
             navigate('/last', { state: { pdfData } });
-        }, 100);
+        } catch (error) {
+            console.error('Failed to generate itinerary PDF:', error);
+            showAlert('Failed to generate PDF. Please try again.', 'PDF Generation Failed', 'error');
+        } finally {
+            setIsGeneratingPdf(false);
+        }
     };
 
     const isSelectedAlreadyAdded = selectedLocation
@@ -977,13 +1015,14 @@ export default function ItineraryPage() {
                             handleSliceAndNext={handleSliceAndNext}
                             handleSaveItinerary={handleSaveItinerary}
                             setAddedSpots={setAddedSpots}
+                            isGeneratingPdf={isGeneratingPdf}
                         />
                     )
                 };
             }
             return msg;
         });
-    }, [chatMessages, addedSpots, activeHub, currentDay, dayCount, isLastDay, handleOptimize, handleGenerate, setSelectedLocation, handleToggleLock, handleMoveSpot, handleRemoveSpot, handlePreviousDay, handleSliceAndNext, handleSaveItinerary, setAddedSpots, styles, cardStyles]);
+    }, [chatMessages, addedSpots, activeHub, currentDay, dayCount, isLastDay, handleOptimize, handleGenerate, setSelectedLocation, handleToggleLock, handleMoveSpot, handleRemoveSpot, handlePreviousDay, handleSliceAndNext, handleSaveItinerary, setAddedSpots, isGeneratingPdf, styles, cardStyles]);
 
     return (
         <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${(!activeHub || !dateRange.start || !dateRange.end || !isChatVisible) ? styles.itineraryNoSidebar : ''}`}>

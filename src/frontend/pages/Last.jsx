@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 import styles from '../styles/pages/Last.module.css';
 import { generateItineraryPDF } from '../utils/generatePDF';
+import { generateDayMapSnapshots } from '../utils/dayMapSnapshots';
 import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
 import { TRAVEL_HUBS } from '../constants/location';
 
@@ -20,70 +21,96 @@ export default function Last() {
   useEffect(() => {
     if (rawPdfData) return;
 
-    try {
-      const itineraryRaw = localStorage.getItem('finalItinerary');
-      const activeHubName = localStorage.getItem('activeHubName');
-      const dateRangeRaw = localStorage.getItem('dateRange');
-      if (!itineraryRaw || !activeHubName) return;
+    let cancelled = false;
 
-      setFallbackError('');
+    const regeneratePdfFallback = async () => {
+      try {
+        const itineraryRaw = localStorage.getItem('finalItinerary');
+        const activeHubName = localStorage.getItem('activeHubName');
+        const dateRangeRaw = localStorage.getItem('dateRange');
+        if (!itineraryRaw || !activeHubName) return;
 
-      const parsedItinerary = JSON.parse(itineraryRaw);
-      const finalItinerary = Array.isArray(parsedItinerary)
-        ? { 1: parsedItinerary }
-        : (parsedItinerary || {});
-      const dateRange = dateRangeRaw ? JSON.parse(dateRangeRaw) : null;
-      const normalizedHubName = String(activeHubName || '').trim();
-      const hubs = Object.values(TRAVEL_HUBS || {});
-      const hub =
-        TRAVEL_HUBS?.[normalizedHubName] ||
-        hubs.find((h) => h?.name === normalizedHubName) ||
-        hubs.find((h) => Array.isArray(h?.coordinates));
-      if (!hub) return;
+        if (!cancelled) {
+          setFallbackError('');
+        }
 
-      const allSpotsFlat = [];
-      Object.keys(finalItinerary)
-        .sort((a, b) => Number(a) - Number(b))
-        .forEach((day) => {
-          const daySpots = Array.isArray(finalItinerary[day]) ? finalItinerary[day] : [];
-          allSpotsFlat.push(...daySpots);
+        const parsedItinerary = JSON.parse(itineraryRaw);
+        const finalItinerary = Array.isArray(parsedItinerary)
+          ? { 1: parsedItinerary }
+          : (parsedItinerary || {});
+        const dateRange = dateRangeRaw ? JSON.parse(dateRangeRaw) : null;
+        const normalizedHubName = String(activeHubName || '').trim();
+        const hubs = Object.values(TRAVEL_HUBS || {});
+        const hub =
+          TRAVEL_HUBS?.[normalizedHubName] ||
+          hubs.find((h) => h?.name === normalizedHubName) ||
+          hubs.find((h) => Array.isArray(h?.coordinates));
+        if (!hub) return;
+
+        const allSpotsFlat = [];
+        Object.keys(finalItinerary)
+          .sort((a, b) => Number(a) - Number(b))
+          .forEach((day) => {
+            const daySpots = Array.isArray(finalItinerary[day]) ? finalItinerary[day] : [];
+            allSpotsFlat.push(...daySpots);
+          });
+
+        if (!allSpotsFlat.length) return;
+
+        const routeReadySpots = allSpotsFlat.filter(
+          (spot) => Array.isArray(spot?.geometry?.coordinates) && spot.geometry.coordinates.length === 2
+        );
+
+        let fullTripDistance = 0;
+        let fullTripDriveData = [];
+        if (routeReadySpots.length > 0) {
+          try {
+            fullTripDistance = calculateTotalRoute(hub, routeReadySpots);
+            fullTripDriveData = calculateDriveTimes(hub, routeReadySpots);
+          } catch (routeError) {
+            console.warn('Route metrics failed; continuing with PDF generation only:', routeError);
+            fullTripDistance = 0;
+            fullTripDriveData = [];
+          }
+        }
+
+        let dayMapSnapshots = {};
+        try {
+          dayMapSnapshots = await generateDayMapSnapshots({
+            activeHub: hub,
+            finalItinerary
+          });
+        } catch (snapshotError) {
+          console.warn('Map snapshots failed in /last fallback regeneration:', snapshotError);
+          dayMapSnapshots = {};
+        }
+
+        const regeneratedPdf = generateItineraryPDF({
+          activeHubName: hub.name || normalizedHubName || 'Trip',
+          dateRange,
+          addedSpots: finalItinerary,
+          totalDistance: fullTripDistance,
+          driveData: fullTripDriveData,
+          dayMapSnapshots,
+          saveFile: false
         });
 
-      if (!allSpotsFlat.length) return;
-
-      const routeReadySpots = allSpotsFlat.filter(
-        (spot) => Array.isArray(spot?.geometry?.coordinates) && spot.geometry.coordinates.length === 2
-      );
-
-      let fullTripDistance = 0;
-      let fullTripDriveData = [];
-      if (routeReadySpots.length > 0) {
-        try {
-          fullTripDistance = calculateTotalRoute(hub, routeReadySpots);
-          fullTripDriveData = calculateDriveTimes(hub, routeReadySpots);
-        } catch (routeError) {
-          console.warn('Route metrics failed; continuing with PDF generation only:', routeError);
-          fullTripDistance = 0;
-          fullTripDriveData = [];
+        if (!cancelled && regeneratedPdf) {
+          setRawPdfData(regeneratedPdf);
         }
+      } catch (error) {
+        if (!cancelled) {
+          setFallbackError(error?.message || String(error));
+        }
+        console.error('Failed to regenerate PDF preview from localStorage:', error);
       }
+    };
 
-      const regeneratedPdf = generateItineraryPDF({
-        activeHubName: hub.name || normalizedHubName || 'Trip',
-        dateRange,
-        addedSpots: finalItinerary,
-        totalDistance: fullTripDistance,
-        driveData: fullTripDriveData,
-        saveFile: false
-      });
+    regeneratePdfFallback();
 
-      if (regeneratedPdf) {
-        setRawPdfData(regeneratedPdf);
-      }
-    } catch (error) {
-      setFallbackError(error?.message || String(error));
-      console.error('Failed to regenerate PDF preview from localStorage:', error);
-    }
+    return () => {
+      cancelled = true;
+    };
   }, [rawPdfData]);
 
   // Normalize preview source:

@@ -81,6 +81,7 @@ export const generateItineraryPDF = ({
     addedSpots, // Can now be an Array (single day) OR Object {1: [], 2: []}
     totalDistance, // Total distance of whole trip
     driveData, // Flat array of drive times (matches sequence of spots)
+    dayMapSnapshots, // Optional keyed map: { "1": "data:image/jpeg,...", "2": "..." }
     saveFile = true
 }) => {
     const doc = new jsPDF();
@@ -102,6 +103,11 @@ export const generateItineraryPDF = ({
         purple: [139, 92, 246],      // Purple for agent insights
         amber: [245, 158, 11],       // Amber
         teal: [20, 184, 166],        // Teal
+    };
+
+    const inferImageFormat = (dataUrl) => {
+        if (typeof dataUrl !== 'string') return 'JPEG';
+        return dataUrl.startsWith('data:image/png') ? 'PNG' : 'JPEG';
     };
 
     // 1. NORMALIZE DATA (Handle Array vs Object safely)
@@ -247,7 +253,51 @@ export const generateItineraryPDF = ({
 
             currentY += 36;
 
-            // --- C. SPOT CARDS ---
+            // --- C. DAY MAP SNAPSHOT ---
+            const dayMapSnapshot = dayMapSnapshots?.[String(dayNum)] || null;
+            currentY = ensureSpace(doc, currentY, 62, pageHeight);
+
+            if (dayMapSnapshot) {
+                const imageX = margin;
+                const imageY = currentY;
+                const imageWidth = contentWidth;
+                const imageHeight = 54;
+
+                try {
+                    doc.setDrawColor(219, 226, 236);
+                    doc.setLineWidth(0.35);
+                    doc.roundedRect(imageX, imageY, imageWidth, imageHeight, 2.5, 2.5, 'S');
+                    doc.addImage(
+                        dayMapSnapshot,
+                        inferImageFormat(dayMapSnapshot),
+                        imageX + 0.6,
+                        imageY + 0.6,
+                        imageWidth - 1.2,
+                        imageHeight - 1.2
+                    );
+                    currentY += imageHeight + 8;
+                } catch {
+                    doc.setFillColor(248, 250, 252);
+                    doc.setDrawColor(220, 226, 235);
+                    doc.roundedRect(margin, currentY, contentWidth, 16, 2, 2, 'FD');
+                    doc.setFontSize(8.5);
+                    doc.setFont('helvetica', 'italic');
+                    doc.setTextColor(...colors.muted);
+                    doc.text('Map unavailable for this day.', margin + 6, currentY + 10);
+                    currentY += 20;
+                }
+            } else {
+                doc.setFillColor(248, 250, 252);
+                doc.setDrawColor(220, 226, 235);
+                doc.roundedRect(margin, currentY, contentWidth, 16, 2, 2, 'FD');
+                doc.setFontSize(8.5);
+                doc.setFont('helvetica', 'italic');
+                doc.setTextColor(...colors.muted);
+                doc.text('Map unavailable for this day.', margin + 6, currentY + 10);
+                currentY += 20;
+            }
+
+            // --- D. SPOT CARDS ---
             let runningTime = new Date(finalStartTime);
             let lastTimeBlock = '';
 
