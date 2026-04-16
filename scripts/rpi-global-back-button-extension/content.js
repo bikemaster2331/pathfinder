@@ -2,6 +2,8 @@
   const BUTTON_ID = '__pathfinder_global_back_button__';
   const STYLE_ID = '__pathfinder_global_back_style__';
   const NAV_STATE_KEY = 'pathfinderNavigationState';
+  const LAST_PATHFINDER_PAGE_KEY = 'pathfinderLastPageUrl';
+  const LAST_PATHFINDER_PDF_PAGE_KEY = 'pathfinderLastPdfPageUrl';
 
   // Used only when there is no previous page info available.
   const DEFAULT_FALLBACK_URL = 'http://localhost:5173/last';
@@ -12,14 +14,18 @@
     '172.27.230.182'
   ]);
 
-  const isPathfinderPage = () => {
-    const hostname = String(window.location.hostname || '').toLowerCase();
+  const isPathfinderHost = (hostname) => {
+    const normalized = String(hostname || '').toLowerCase();
 
-    if (PATHFINDER_HOST_ALLOWLIST.has(hostname)) return true;
-    if (hostname.endsWith('.local')) return true;
-    if (hostname.includes('pathfinder')) return true;
+    if (PATHFINDER_HOST_ALLOWLIST.has(normalized)) return true;
+    if (normalized.endsWith('.local')) return true;
+    if (normalized.includes('pathfinder')) return true;
 
     return false;
+  };
+
+  const isPathfinderPage = () => {
+    return isPathfinderHost(window.location.hostname);
   };
 
   const parseUrl = (value) => {
@@ -49,7 +55,7 @@
     const host = parsed.hostname.replace(/^www\./i, '');
     const path = compactPath(parsed.pathname);
 
-    if (host === 'localhost' || host === '127.0.0.1' || host === '172.27.230.182') {
+    if (isPathfinderHost(host)) {
       if (parsed.pathname.startsWith('/last')) return 'Previous Page (PDF)';
       return `Previous Page (${path})`;
     }
@@ -57,33 +63,37 @@
     return `Previous Page (${host}${path === '/' ? '' : path})`;
   };
 
-  const readNavState = async () => {
+  const readStorage = async (keys) => {
     try {
-      const stored = await chrome.storage.local.get([NAV_STATE_KEY]);
-      const state = stored?.[NAV_STATE_KEY];
-      if (state && typeof state === 'object') return state;
+      return await chrome.storage.local.get(keys);
+    } catch {
+      return {};
+    }
+  };
+
+  const writeStorage = async (value) => {
+    try {
+      await chrome.storage.local.set(value);
     } catch {
       // Ignore storage errors.
     }
+  };
+
+  const readNavState = async () => {
+    const stored = await readStorage([NAV_STATE_KEY]);
+    const state = stored?.[NAV_STATE_KEY];
+    if (state && typeof state === 'object') return state;
+
     return {
       previousUrl: '',
       currentUrl: ''
     };
   };
 
-  const writeNavState = async (state) => {
-    try {
-      await chrome.storage.local.set({ [NAV_STATE_KEY]: state });
-    } catch {
-      // Ignore storage errors.
-    }
-  };
-
   const updateNavStateForCurrentPage = async () => {
     const currentUrl = window.location.href;
     const state = await readNavState();
 
-    // Avoid churn on same URL re-renders.
     if (state.currentUrl === currentUrl) {
       return state;
     }
@@ -93,8 +103,66 @@
       currentUrl
     };
 
-    await writeNavState(nextState);
+    await writeStorage({ [NAV_STATE_KEY]: nextState });
     return nextState;
+  };
+
+  const persistPathfinderHintsIfNeeded = async () => {
+    if (!isPathfinderPage()) return;
+
+    const currentUrl = window.location.href;
+    const currentPath = String(window.location.pathname || '');
+    const payload = {
+      [LAST_PATHFINDER_PAGE_KEY]: currentUrl
+    };
+
+    if (currentPath.startsWith('/last')) {
+      payload[LAST_PATHFINDER_PDF_PAGE_KEY] = currentUrl;
+    }
+
+    await writeStorage(payload);
+  };
+
+  const readHints = async () => {
+    const stored = await readStorage([
+      LAST_PATHFINDER_PAGE_KEY,
+      LAST_PATHFINDER_PDF_PAGE_KEY
+    ]);
+
+    return {
+      lastPathfinderPageUrl: stored?.[LAST_PATHFINDER_PAGE_KEY] || '',
+      lastPdfPageUrl: stored?.[LAST_PATHFINDER_PDF_PAGE_KEY] || ''
+    };
+  };
+
+  const resolveTargetUrl = async (previousUrl) => {
+    const hints = await readHints();
+    const parsedPrevious = parseUrl(previousUrl);
+
+    if (parsedPrevious && previousUrl !== window.location.href) {
+      if (!isPathfinderHost(parsedPrevious.hostname)) {
+        return previousUrl;
+      }
+
+      const previousPath = String(parsedPrevious.pathname || '');
+      if (previousPath && previousPath !== '/') {
+        return previousUrl;
+      }
+    }
+
+    if (typeof hints.lastPdfPageUrl === 'string' && hints.lastPdfPageUrl.startsWith('http')) {
+      return hints.lastPdfPageUrl;
+    }
+
+    if (typeof hints.lastPathfinderPageUrl === 'string' && hints.lastPathfinderPageUrl.startsWith('http')) {
+      return hints.lastPathfinderPageUrl;
+    }
+
+    if (typeof previousUrl === 'string' && previousUrl && previousUrl !== window.location.href) {
+      return previousUrl;
+    }
+
+    return DEFAULT_FALLBACK_URL;
   };
 
   const injectStyle = () => {
@@ -136,20 +204,15 @@
     if (existing) existing.remove();
   };
 
-  const navigateToPrevious = async (previousUrl, button) => {
+  const navigateToTarget = (targetUrl, button) => {
     button.disabled = true;
     button.textContent = 'Returning...';
-
-    if (typeof previousUrl === 'string' && previousUrl && previousUrl !== window.location.href) {
-      window.location.assign(previousUrl);
-      return;
-    }
-
-    window.location.assign(DEFAULT_FALLBACK_URL);
+    window.location.assign(targetUrl);
   };
 
   const renderButton = async () => {
     const state = await updateNavStateForCurrentPage();
+    await persistPathfinderHintsIfNeeded();
 
     if (isPathfinderPage()) {
       removeButton();
@@ -159,13 +222,14 @@
     injectStyle();
 
     const previousUrl = state?.previousUrl || '';
-    const label = previousPageLabel(previousUrl);
+    const targetUrl = await resolveTargetUrl(previousUrl);
+    const label = previousPageLabel(targetUrl);
 
     const existing = document.getElementById(BUTTON_ID);
     if (existing) {
       existing.textContent = label;
       existing.onclick = () => {
-        navigateToPrevious(previousUrl, existing);
+        navigateToTarget(targetUrl, existing);
       };
       return;
     }
@@ -174,7 +238,7 @@
     button.id = BUTTON_ID;
     button.type = 'button';
     button.textContent = label;
-    button.addEventListener('click', () => navigateToPrevious(previousUrl, button));
+    button.addEventListener('click', () => navigateToTarget(targetUrl, button));
 
     if (document.body) {
       document.body.appendChild(button);
