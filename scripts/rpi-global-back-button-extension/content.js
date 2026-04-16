@@ -204,10 +204,8 @@
     if (existing) existing.remove();
   };
 
-  const navigateToTarget = (targetUrl, button) => {
-    button.disabled = true;
-    button.textContent = 'Returning...';
-    window.location.assign(targetUrl);
+  const navigateBack = () => {
+    window.history.back();
   };
 
   const renderButton = async () => {
@@ -221,24 +219,18 @@
 
     injectStyle();
 
-    const previousUrl = state?.previousUrl || '';
-    const targetUrl = await resolveTargetUrl(previousUrl);
-    const label = previousPageLabel(targetUrl);
-
     const existing = document.getElementById(BUTTON_ID);
     if (existing) {
-      existing.textContent = label;
-      existing.onclick = () => {
-        navigateToTarget(targetUrl, existing);
-      };
+      existing.textContent = 'Back';
+      existing.onclick = navigateBack;
       return;
     }
 
     const button = document.createElement('button');
     button.id = BUTTON_ID;
     button.type = 'button';
-    button.textContent = label;
-    button.addEventListener('click', () => navigateToTarget(targetUrl, button));
+    button.textContent = 'Back';
+    button.addEventListener('click', navigateBack);
 
     if (document.body) {
       document.body.appendChild(button);
