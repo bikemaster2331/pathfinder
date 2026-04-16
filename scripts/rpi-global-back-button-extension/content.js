@@ -166,7 +166,8 @@
   };
 
   const injectStyle = () => {
-    if (document.getElementById(STYLE_ID)) return;
+    const existingStyle = document.getElementById(STYLE_ID);
+    if (existingStyle) return;
 
     const style = document.createElement('style');
     style.id = STYLE_ID;
@@ -188,14 +189,12 @@
         color: #ffffff;
         background: rgba(15, 23, 42, 0.92);
         box-shadow: 0 8px 20px rgba(2, 6, 23, 0.45);
-        cursor: pointer;
       }
       #${BUTTON_ID}:hover {
         background: rgba(30, 41, 59, 0.95);
       }
       #${BUTTON_ID}:disabled {
         opacity: 0.84;
-        cursor: wait;
       }
     `;
 
@@ -241,8 +240,41 @@
 
   const rerenderSoon = () => {
     window.setTimeout(() => {
+      injectStyle();
       renderButton();
     }, 0);
+  };
+
+  const setupCursorEnforcement = () => {
+    let rafId = 0;
+    const queueStyleReapply = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        injectStyle();
+      });
+    };
+
+    const observer = new MutationObserver(() => {
+      queueStyleReapply();
+    });
+
+    const observeTarget = document.documentElement || document.body;
+    if (observeTarget) {
+      observer.observe(observeTarget, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+      });
+    }
+
+    window.addEventListener('beforeunload', () => {
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+      observer.disconnect();
+    });
   };
 
   const patchHistory = () => {
@@ -261,6 +293,7 @@
   patchHistory();
   window.addEventListener('popstate', rerenderSoon);
   window.addEventListener('hashchange', rerenderSoon);
+  setupCursorEnforcement();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {

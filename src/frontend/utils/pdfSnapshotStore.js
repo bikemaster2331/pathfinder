@@ -112,3 +112,26 @@ export const loadPdfBlobSnapshotUrl = async () => {
     return null;
   }
 };
+
+export const hasPdfBlobSnapshot = async () => {
+  try {
+    const record = await runReadOnlyTransaction((store) => store.get(LAST_SNAPSHOT_KEY));
+    return Boolean(record?.blob instanceof Blob);
+  } catch (error) {
+    console.warn('Failed to check PDF blob snapshot availability:', error);
+    return false;
+  }
+};
+
+export const clearPdfBlobSnapshot = async () => {
+  try {
+    await runReadWriteTransaction((store) => {
+      store.delete(LAST_SNAPSHOT_KEY);
+      return true;
+    });
+    return true;
+  } catch (error) {
+    console.warn('Failed to clear PDF blob snapshot:', error);
+    return false;
+  }
+};

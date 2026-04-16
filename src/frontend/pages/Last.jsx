@@ -4,7 +4,7 @@ import styles from '../styles/pages/Last.module.css';
 import { generateItineraryPDF } from '../utils/generatePDF';
 import { generateDayMapSnapshots } from '../utils/dayMapSnapshots';
 import { generateDayGoogleDirectionsLinks } from '../utils/dayDirections';
-import { loadPdfBlobSnapshotUrl } from '../utils/pdfSnapshotStore';
+import { loadPdfBlobSnapshotUrl, clearPdfBlobSnapshot } from '../utils/pdfSnapshotStore';
 import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
 import { TRAVEL_HUBS } from '../constants/location';
 
@@ -49,7 +49,7 @@ const readStoredTripContext = () => {
 export default function Last() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [rawPdfData, setRawPdfData] = useState(() => location.state?.pdfData || null);
+  const [rawPdfData, setRawPdfData] = useState(null);
   const [isIframeError, setIsIframeError] = useState(false);
   const [previewBaseUrl, setPreviewBaseUrl] = useState(null);
   const [fallbackError, setFallbackError] = useState('');
@@ -58,6 +58,50 @@ export default function Last() {
   const [dayDirectionsLinks, setDayDirectionsLinks] = useState({});
   const [useImageFallbackPreview, setUseImageFallbackPreview] = useState(false);
   const [interactiveReady, setInteractiveReady] = useState(false);
+  const [isPdfSourceInitialized, setIsPdfSourceInitialized] = useState(false);
+  const [snapshotRecoveryAttempted, setSnapshotRecoveryAttempted] = useState(false);
+
+  // IndexedDB snapshot is the canonical source for /last preview restoration.
+  // Route state blob is treated only as optional bootstrap fallback.
+  useEffect(() => {
+    let cancelled = false;
+
+    const initializePdfSource = async () => {
+      try {
+        const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
+        if (cancelled) return;
+
+        if (persistedSnapshotUrl) {
+          setRawPdfData(persistedSnapshotUrl);
+          setFallbackError('');
+          return;
+        }
+
+        const routeStatePdf = location.state?.pdfData || null;
+        if (routeStatePdf) {
+          setRawPdfData(routeStatePdf);
+          setFallbackError('');
+        }
+      } catch (error) {
+        console.warn('Failed to initialize PDF source from IndexedDB snapshot:', error);
+        const routeStatePdf = location.state?.pdfData || null;
+        if (!cancelled && routeStatePdf) {
+          setRawPdfData(routeStatePdf);
+          setFallbackError('');
+        }
+      } finally {
+        if (!cancelled) {
+          setIsPdfSourceInitialized(true);
+        }
+      }
+    };
+
+    initializePdfSource();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [location.state]);
 
   useEffect(() => {
     try {
@@ -82,6 +126,7 @@ export default function Last() {
   // Fallback: if route state is missing (common in kiosk/reload scenarios),
   // regenerate PDF from saved itinerary info.
   useEffect(() => {
+    if (!isPdfSourceInitialized) return;
     if (rawPdfData) return;
 
     let cancelled = false;
@@ -190,14 +235,13 @@ export default function Last() {
     return () => {
       cancelled = true;
     };
-  }, [rawPdfData]);
+  }, [rawPdfData, isPdfSourceInitialized]);
 
   // Normalize preview source:
   // - keep blob/http URLs as-is
   // - convert large data URI PDFs to blob URLs for better browser compatibility
   useEffect(() => {
     let createdBlobUrl = null;
-    let shouldRevokeRawBlobUrl = false;
 
     if (!rawPdfData) {
       setPreviewBaseUrl(null);
@@ -224,15 +268,11 @@ export default function Last() {
       }
     } else {
       setPreviewBaseUrl(rawPdfData);
-      shouldRevokeRawBlobUrl = rawPdfData.startsWith('blob:');
     }
 
     return () => {
       if (createdBlobUrl) {
         URL.revokeObjectURL(createdBlobUrl);
-      }
-      if (shouldRevokeRawBlobUrl) {
-        URL.revokeObjectURL(rawPdfData);
       }
     };
   }, [rawPdfData]);
@@ -252,6 +292,7 @@ export default function Last() {
       setIsIframeError(false);
       setRenderedPages([]);
       setIsRenderingPages(false);
+      setSnapshotRecoveryAttempted(false);
       return;
     }
 
@@ -260,19 +301,32 @@ export default function Last() {
     setIsIframeError(false);
     setRenderedPages([]);
     setIsRenderingPages(false);
+    setSnapshotRecoveryAttempted(false);
   }, [pdfData]);
 
   useEffect(() => {
     if (!pdfData || useImageFallbackPreview || interactiveReady) return undefined;
 
-    const timeoutId = window.setTimeout(() => {
+    const timeoutId = window.setTimeout(async () => {
+      if (!snapshotRecoveryAttempted) {
+        setSnapshotRecoveryAttempted(true);
+        try {
+          const recoveredSnapshotUrl = await loadPdfBlobSnapshotUrl();
+          if (recoveredSnapshotUrl && recoveredSnapshotUrl !== previewBaseUrl) {
+            setRawPdfData(recoveredSnapshotUrl);
+            return;
+          }
+        } catch (error) {
+          console.warn('Failed to recover PDF snapshot after interactive timeout:', error);
+        }
+      }
       setUseImageFallbackPreview(true);
     }, 4500);
 
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [pdfData, useImageFallbackPreview, interactiveReady]);
+  }, [pdfData, useImageFallbackPreview, interactiveReady, snapshotRecoveryAttempted, previewBaseUrl]);
 
   // Render PDF pages into images only when interactive preview falls back.
   useEffect(() => {
@@ -356,17 +410,21 @@ export default function Last() {
   }, [dayDirectionsLinks]);
 
   useEffect(() => {
-    if (!rawPdfData) {
+    if (isPdfSourceInitialized && !rawPdfData) {
       console.warn('No PDF data found in navigation state.');
     }
-  }, [rawPdfData]);
+  }, [rawPdfData, isPdfSourceInitialized]);
 
   const handleBackToItinerary = () => {
     navigate(-1);
   };
 
-  const handleBackToHome = () => {
-    navigate('/');
+  const handleBackToHome = async () => {
+    try {
+      await clearPdfBlobSnapshot();
+    } finally {
+      navigate('/');
+    }
   };
 
   const handleDownload = () => {
@@ -391,8 +449,25 @@ export default function Last() {
     setIsIframeError(false);
   };
 
-  const handleInteractivePreviewError = () => {
+  const handleInteractivePreviewError = async () => {
     setIsIframeError(true);
+
+    if (!snapshotRecoveryAttempted) {
+      setSnapshotRecoveryAttempted(true);
+      try {
+        const recoveredSnapshotUrl = await loadPdfBlobSnapshotUrl();
+        if (recoveredSnapshotUrl && recoveredSnapshotUrl !== previewBaseUrl) {
+          setRawPdfData(recoveredSnapshotUrl);
+          setUseImageFallbackPreview(false);
+          setInteractiveReady(false);
+          setIsIframeError(false);
+          return;
+        }
+      } catch (error) {
+        console.warn('Failed to recover PDF snapshot after interactive error:', error);
+      }
+    }
+
     setUseImageFallbackPreview(true);
   };
 
