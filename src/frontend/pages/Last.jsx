@@ -7,7 +7,6 @@ import { generateDayGoogleDirectionsLinks } from '../utils/dayDirections';
 import {
   loadPdfBlobSnapshotUrl,
   clearPdfBlobSnapshot,
-  hasPdfBlobSnapshot,
   savePdfBlobSnapshot
 } from '../utils/pdfSnapshotStore';
 import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
@@ -65,6 +64,7 @@ export default function Last() {
   const [interactiveReady, setInteractiveReady] = useState(false);
   const [isPdfSourceInitialized, setIsPdfSourceInitialized] = useState(false);
   const [snapshotRecoveryAttempted, setSnapshotRecoveryAttempted] = useState(false);
+  const [viewerReloadKey, setViewerReloadKey] = useState(0);
   const hasEnsuredSnapshotRef = useRef(false);
 
   const viewerCropStyle = useMemo(() => {
@@ -83,6 +83,16 @@ export default function Last() {
     let cancelled = false;
 
     const initializePdfSource = async () => {
+      const routeStatePdf = location.state?.pdfData || null;
+      if (routeStatePdf) {
+        setRawPdfData(routeStatePdf);
+        setFallbackError('');
+        if (!cancelled) {
+          setIsPdfSourceInitialized(true);
+        }
+        return;
+      }
+
       try {
         const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
         if (cancelled) return;
@@ -92,19 +102,8 @@ export default function Last() {
           setFallbackError('');
           return;
         }
-
-        const routeStatePdf = location.state?.pdfData || null;
-        if (routeStatePdf) {
-          setRawPdfData(routeStatePdf);
-          setFallbackError('');
-        }
       } catch (error) {
         console.warn('Failed to initialize PDF source from IndexedDB snapshot:', error);
-        const routeStatePdf = location.state?.pdfData || null;
-        if (!cancelled && routeStatePdf) {
-          setRawPdfData(routeStatePdf);
-          setFallbackError('');
-        }
       } finally {
         if (!cancelled) {
           setIsPdfSourceInitialized(true);
@@ -331,6 +330,49 @@ export default function Last() {
     setSnapshotRecoveryAttempted(false);
   }, [pdfData]);
 
+  // When returning from external pages via browser history,
+  // always reload the preview source from IndexedDB snapshot.
+  useEffect(() => {
+    const isBackForwardNavigation = () => {
+      if (typeof window === 'undefined' || typeof window.performance === 'undefined') return false;
+      const navEntries = window.performance.getEntriesByType('navigation');
+      const navEntry = Array.isArray(navEntries) && navEntries.length > 0 ? navEntries[0] : null;
+      return navEntry?.type === 'back_forward';
+    };
+
+    const handlePageShow = async (event) => {
+      const isHistoryReturn = Boolean(event?.persisted) || isBackForwardNavigation();
+      if (!isHistoryReturn) return;
+
+      try {
+        const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
+        if (persistedSnapshotUrl) {
+          hasEnsuredSnapshotRef.current = true;
+          setRawPdfData(persistedSnapshotUrl);
+          setFallbackError('');
+          setUseImageFallbackPreview(false);
+          setInteractiveReady(false);
+          setIsIframeError(false);
+          setSnapshotRecoveryAttempted(false);
+          setViewerReloadKey((current) => current + 1);
+          return;
+        }
+
+        hasEnsuredSnapshotRef.current = false;
+        if (rawPdfData?.startsWith('blob:')) {
+          setRawPdfData(null);
+        }
+      } catch (error) {
+        console.warn('Failed to restore PDF snapshot on history return:', error);
+      }
+    };
+
+    window.addEventListener('pageshow', handlePageShow);
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow);
+    };
+  }, [rawPdfData]);
+
   // Ensure we always keep a durable PDF snapshot in IndexedDB while on /last.
   // This avoids stale blob-url failures after external navigation.
   useEffect(() => {
@@ -341,12 +383,6 @@ export default function Last() {
 
     const ensureSnapshot = async () => {
       try {
-        const alreadyHasSnapshot = await hasPdfBlobSnapshot();
-        if (cancelled || alreadyHasSnapshot) {
-          hasEnsuredSnapshotRef.current = true;
-          return;
-        }
-
         let snapshotBlob = null;
 
         if (rawPdfData.startsWith('data:application/pdf')) {
@@ -614,6 +650,7 @@ export default function Last() {
         {!useImageFallbackPreview && pdfData ? (
           <div className={styles.pdfViewportCrop}>
             <object
+              key={`pdf-object-${viewerReloadKey}-${pdfData || 'none'}`}
               data={pdfData}
               type="application/pdf"
               className={styles.pdfFrame}
@@ -622,6 +659,7 @@ export default function Last() {
               onError={handleInteractivePreviewError}
             >
               <embed
+                key={`pdf-embed-${viewerReloadKey}-${pdfData || 'none'}`}
                 src={pdfData}
                 type="application/pdf"
                 className={styles.pdfFrame}
