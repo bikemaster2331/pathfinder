@@ -171,6 +171,9 @@
     const style = document.createElement('style');
     style.id = STYLE_ID;
     style.textContent = `
+      html, body, * {
+        cursor: none !important;
+      }
       #${BUTTON_ID} {
         position: fixed;
         top: 16px;
@@ -211,13 +214,12 @@
   const renderButton = async () => {
     const state = await updateNavStateForCurrentPage();
     await persistPathfinderHintsIfNeeded();
+    injectStyle();
 
     if (isPathfinderPage()) {
       removeButton();
       return;
     }
-
-    injectStyle();
 
     const existing = document.getElementById(BUTTON_ID);
     if (existing) {
