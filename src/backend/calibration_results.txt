@@ -1,0 +1,115 @@
+=================================================================
+  PATHFINDER CALIBRATION REPORT
+=================================================================
+
+── SCORE DISTRIBUTION BY EXPECTED ANSWER ──
+
+  PERFECT answers (46 queries):
+    Avg: 0.8643  |  Min: 0.6131  |  Max: 1.0
+
+  PARTIAL answers (4 queries):
+    Avg: 0.5927  |  Min: 0.4247  |  Max: 0.6682
+
+  NO ANSWER (7 queries):
+    Avg: 0.6459  |  Min: 0.5183  |  Max: 0.7702
+
+── SCORES BY CATEGORY ──
+
+  alias                n=5   avg=0.747   min=0.648   max=0.844
+  browsing             n=10   avg=0.739   min=0.630   max=0.887
+  budget               n=10   avg=0.779   min=0.425   max=0.932
+  edge_no_answer       n=6   avg=0.640   min=0.518   max=0.770
+  general              n=6   avg=0.895   min=0.770   max=0.968
+  logistics            n=6   avg=0.799   min=0.613   max=0.891
+  safety               n=2   avg=0.957   min=0.925   max=0.988
+  specific_place       n=10   avg=0.985   min=0.888   max=1.000
+  transport            n=2   avg=0.984   min=0.983   max=0.985
+
+── THRESHOLD ANALYSIS ──
+
+  Threshold    Perfect ✓    Wrong ✗      Precision
+  ------------------------------------------------
+  0.40         46           11           0.807
+  0.45         46           10           0.821
+  0.50         46           10           0.821
+  0.55         46           9            0.836
+  0.60         46           8            0.852
+  0.65         45           5            0.9
+  0.70         40           1            0.976
+  0.75         39           1            0.975        ◄ recommended
+  0.80         33           0            1.0          ◄ recommended
+  0.85         26           0            1.0
+
+── INDIVIDUAL RESULTS ──
+
+  Score    Exp       Category             Query                                         Top Result
+  ------------------------------------------------------------------------------------------------------------------------
+  1.000    perfect   specific_place       Where is Puraran Beach?                       Puraran Beach Location
+  1.000    perfect   specific_place       Where is Twin Rock Beach Resort?              Twin Rock Resort Location
+  1.000    perfect   specific_place       Where is Maribina Falls?                      Maribina Falls Location
+  1.000    perfect   specific_place       Where is Tuwad-Tuwadan Blue Lagoon?           Tuwad-Tuwadan Blue Lagoon Location
+  1.000    perfect   specific_place       Where is Virac Airport?                       Virac Airport Location
+  1.000    perfect   specific_place       Where is Rhaj Inn?                            Rhaj Inn Location
+  1.000    perfect   specific_place       Where is Nahulugan Falls?                     Nahulugan Falls Overview
+  0.988    perfect   safety               is it safe to swim at puraran beach           Is Puraran Beach Safe for Swimming
+  0.988    perfect   specific_place       Where is E-Crown Hotel and Resort?            E-Crown Hotel Location
+  0.985    perfect   transport            how do i get to catanduanes from manila       Getting to Catanduanes
+  0.983    perfect   transport            how do i get from virac to puraran beach      How to Get to Puraran Beach
+  0.971    perfect   specific_place       Where is Binurong Point located?              Binurong Point Location
+  0.968    perfect   general              is catanduanes safe for tourists              Safety for Tourists
+  0.963    perfect   general              one day itinerary catanduanes                 One Day Itinerary Catanduanes
+  0.945    perfect   general              best time to visit catanduanes                Best Time to Visit Catanduanes
+  0.932    perfect   budget               how much is the ferry from tabaco to virac    Ferry Ticket Price Tabaco to Virac
+  0.925    perfect   safety               emergency numbers catanduanes                 Emergency Contact Numbers Catanduan
+  0.911    perfect   general              what is catanduanes known for                 Catanduanes Overview
+  0.910    perfect   budget               how much is the entrance fee at Binurong Poi  Binurong Point Entrance Fee and Cos
+  0.891    perfect   logistics            is the tap water safe to drink                Is Tap Water Safe in Catanduanes
+  0.888    perfect   specific_place       Where is Nitto Lodge?                         Nitto Lodge Location
+  0.887    perfect   browsing             where to eat cheap in virac                   Cheap Affordable Food in Virac
+  0.873    perfect   browsing             beaches in catanduanes for swimming           Best Beaches for Swimming and Snork
+  0.865    perfect   budget               how much is Twin Rock Beach Resort entrance   Twin Rock Beach Resort Day Tour Fee
+  0.864    perfect   logistics            are there jellyfish in catanduanes beaches    Jellyfish Risk and Season at Catand
+  0.850    perfect   browsing             budget hotels catanduanes                     Best Budget Accommodation Catanduan
+  0.848    perfect   budget               how much is the boat to palumbanes island     Palumbanes Island Boat Rental Costs
+  0.844    perfect   alias                bato church catanduanes                       Bato Church Overview
+  0.840    perfect   budget               cost of visiting tuwad-tuwadan blue lagoon    Tuwad-Tuwadan Blue Lagoon Fees
+  0.838    perfect   logistics            what time is the last ferry from catanduanes  Last Ferry Virac to Tabaco Schedule
+  0.826    perfect   logistics            is there grab in catanduanes                  Is There Grab or Angkas in Catandua
+  0.811    perfect   general              what language do they speak in catanduanes    Local Language
+  0.807    perfect   budget               how much is maribina falls entrance           Maribina Falls Entrance and Cottage
+  0.795    perfect   alias                e-crown hotel virac                           E-Crown Hotel Location
+  0.787    perfect   alias                majestic surf spot catanduanes                Puraran Beach Surfing
+  0.770    perfect   general              things to do in catanduanes                   Family Friendly Activities for Kids
+  0.770    none      edge_no_answer       what is the phone number of twin rock resort  Twin Rock Resort Location ⚠
+  0.769    perfect   budget               price of guided tour binurong point           Binurong Point Fees and Guides
+  0.766    perfect   browsing             tourist spots in baras                        Baras Location
+  0.762    perfect   logistics            is there mobile signal in baras catanduanes   Mobile Signal and Internet in Catan
+  0.712    perfect   budget               how much does it cost to surf at Puraran      Puraran Beach Entrance and Surf Rat
+  0.695    perfect   browsing             hotels in virac                               Getting from Virac Port to Town
+  0.693    perfect   browsing             coffee shops virac                            Virac Public Market Location
+  0.687    none      edge_no_answer       does puraran beach have wifi                  Pacific Surfers WiFi ⚠
+  0.678    none      budget               how much is a stay per night in e-crown hote  E-Crown Hotel Location ⚠
+  0.677    none      edge_no_answer       how much is the room rate at e-crown hotel    E-Crown Hotel Location ⚠
+  0.676    perfect   browsing             resorts in pandan catanduanes                 Tourist Spots and Activities in Pan
+  0.668    partial   browsing             accommodation in bato                         What to Do and See in Bato
+  0.660    perfect   alias                how to go to puraran                          How to Get to Puraran Beach
+  0.653    perfect   browsing             waterfalls near virac                         Best Waterfalls in Catanduanes
+  0.648    partial   alias                fertility island catanduanes                  Catanduanes Location
+  0.638    none      edge_no_answer       is there a doctor at binurong point           Binurong Point Location
+  0.630    partial   browsing             restaurants in gigmoto                        What to Do in Gigmoto
+  0.613    perfect   logistics            what to do if my flight gets cancelled        What to Do If Stranded in Catanduan
+  0.553    none      edge_no_answer       can i bring my pet dog to mamangal beach      Activities at Mamangal Beach
+  0.518    none      edge_no_answer       what is the room number of the manager at lu  The Lumber Amenities
+  0.425    partial   budget               how much is habal-habal hire in virac         Virac Public Market Location
+
+── RECOMMENDATION ──
+
+  Copy this entire file and share it back with Claude.
+  He will analyze it and give you the exact threshold to use.
+
+  Key things he will look for:
+  1. The lowest score in the PERFECT group → your floor
+  2. The highest score in the NO ANSWER group → your ceiling
+  3. The breakpoint where precision drops below 0.80
+
+=================================================================

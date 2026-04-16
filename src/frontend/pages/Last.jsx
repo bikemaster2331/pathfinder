@@ -1,0 +1,327 @@
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState, useMemo } from 'react';
+import styles from '../styles/pages/Last.module.css';
+import { generateItineraryPDF } from '../utils/generatePDF';
+import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
+import { TRAVEL_HUBS } from '../constants/location';
+
+export default function Last() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [rawPdfData, setRawPdfData] = useState(location.state?.pdfData || null);
+  const [isIframeError, setIsIframeError] = useState(false);
+  const [previewBaseUrl, setPreviewBaseUrl] = useState(null);
+  const [fallbackError, setFallbackError] = useState('');
+  const [renderedPages, setRenderedPages] = useState([]);
+  const [isRenderingPages, setIsRenderingPages] = useState(false);
+
+  // Fallback: if route state is missing (common in kiosk/reload scenarios),
+  // regenerate PDF from saved itinerary info.
+  useEffect(() => {
+    if (rawPdfData) return;
+
+    try {
+      const itineraryRaw = localStorage.getItem('finalItinerary');
+      const activeHubName = localStorage.getItem('activeHubName');
+      const dateRangeRaw = localStorage.getItem('dateRange');
+      if (!itineraryRaw || !activeHubName) return;
+
+      setFallbackError('');
+
+      const parsedItinerary = JSON.parse(itineraryRaw);
+      const finalItinerary = Array.isArray(parsedItinerary)
+        ? { 1: parsedItinerary }
+        : (parsedItinerary || {});
+      const dateRange = dateRangeRaw ? JSON.parse(dateRangeRaw) : null;
+      const normalizedHubName = String(activeHubName || '').trim();
+      const hubs = Object.values(TRAVEL_HUBS || {});
+      const hub =
+        TRAVEL_HUBS?.[normalizedHubName] ||
+        hubs.find((h) => h?.name === normalizedHubName) ||
+        hubs.find((h) => Array.isArray(h?.coordinates));
+      if (!hub) return;
+
+      const allSpotsFlat = [];
+      Object.keys(finalItinerary)
+        .sort((a, b) => Number(a) - Number(b))
+        .forEach((day) => {
+          const daySpots = Array.isArray(finalItinerary[day]) ? finalItinerary[day] : [];
+          allSpotsFlat.push(...daySpots);
+        });
+
+      if (!allSpotsFlat.length) return;
+
+      const routeReadySpots = allSpotsFlat.filter(
+        (spot) => Array.isArray(spot?.geometry?.coordinates) && spot.geometry.coordinates.length === 2
+      );
+
+      let fullTripDistance = 0;
+      let fullTripDriveData = [];
+      if (routeReadySpots.length > 0) {
+        try {
+          fullTripDistance = calculateTotalRoute(hub, routeReadySpots);
+          fullTripDriveData = calculateDriveTimes(hub, routeReadySpots);
+        } catch (routeError) {
+          console.warn('Route metrics failed; continuing with PDF generation only:', routeError);
+          fullTripDistance = 0;
+          fullTripDriveData = [];
+        }
+      }
+
+      const regeneratedPdf = generateItineraryPDF({
+        activeHubName: hub.name || normalizedHubName || 'Trip',
+        dateRange,
+        addedSpots: finalItinerary,
+        totalDistance: fullTripDistance,
+        driveData: fullTripDriveData,
+        saveFile: false
+      });
+
+      if (regeneratedPdf) {
+        setRawPdfData(regeneratedPdf);
+      }
+    } catch (error) {
+      setFallbackError(error?.message || String(error));
+      console.error('Failed to regenerate PDF preview from localStorage:', error);
+    }
+  }, [rawPdfData]);
+
+  // Normalize preview source:
+  // - keep blob/http URLs as-is
+  // - convert large data URI PDFs to blob URLs for better browser compatibility
+  useEffect(() => {
+    let createdBlobUrl = null;
+
+    if (!rawPdfData) {
+      setPreviewBaseUrl(null);
+      return undefined;
+    }
+
+    if (rawPdfData.startsWith('data:application/pdf')) {
+      try {
+        const base64Data = rawPdfData.split(',')[1];
+        const byteString = atob(base64Data);
+        const byteNumbers = new Array(byteString.length);
+
+        for (let i = 0; i < byteString.length; i++) {
+          byteNumbers[i] = byteString.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'application/pdf' });
+        createdBlobUrl = URL.createObjectURL(blob);
+        setPreviewBaseUrl(createdBlobUrl);
+      } catch (err) {
+        console.error('Failed to convert data URI to Blob URL:', err);
+        setPreviewBaseUrl(rawPdfData);
+      }
+    } else {
+      setPreviewBaseUrl(rawPdfData);
+    }
+
+    return () => {
+      if (createdBlobUrl) {
+        URL.revokeObjectURL(createdBlobUrl);
+      }
+    };
+  }, [rawPdfData]);
+
+  // Append toolbar params only for non-blob URLs.
+  // Some Chromium builds on Raspberry Pi fail to render blob PDFs with fragments.
+  const pdfData = useMemo(() => {
+    if (!previewBaseUrl) return null;
+    if (previewBaseUrl.startsWith('blob:')) return previewBaseUrl;
+    return `${previewBaseUrl}#toolbar=0&navpanes=0&scrollbar=0&view=Fit`;
+  }, [previewBaseUrl]);
+
+  // Render PDF pages into images so only the paper is visible (no browser PDF chrome).
+  useEffect(() => {
+    let cancelled = false;
+
+    const renderPdfPages = async () => {
+      const source = previewBaseUrl || rawPdfData;
+      if (!source) {
+        setRenderedPages([]);
+        setIsRenderingPages(false);
+        return;
+      }
+
+      setIsRenderingPages(true);
+
+      try {
+        const pdfjs = await import('pdfjs-dist');
+        const workerSrc = (await import('pdfjs-dist/build/pdf.worker.min.mjs?url')).default;
+        pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
+
+        const loadingTask = pdfjs.getDocument(source);
+        const pdf = await loadingTask.promise;
+        const pages = [];
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          if (cancelled) return;
+          const page = await pdf.getPage(pageNumber);
+          const viewport = page.getViewport({ scale: 1.4 });
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d', { alpha: false });
+          if (!context) continue;
+
+          canvas.width = Math.floor(viewport.width);
+          canvas.height = Math.floor(viewport.height);
+
+          await page.render({
+            canvasContext: context,
+            viewport
+          }).promise;
+
+          pages.push(canvas.toDataURL('image/png'));
+        }
+
+        if (!cancelled) {
+          setRenderedPages(pages);
+          setIsIframeError(false);
+        }
+      } catch (error) {
+        console.error('Custom PDF page rendering failed, falling back to embed view:', error);
+        if (!cancelled) {
+          setRenderedPages([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setIsRenderingPages(false);
+        }
+      }
+    };
+
+    renderPdfPages();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [previewBaseUrl, rawPdfData]);
+
+  useEffect(() => {
+    if (!rawPdfData) {
+      console.warn("No PDF data found in navigation state.");
+    }
+  }, [rawPdfData]);
+
+  const handleBackToItinerary = () => {
+    navigate(-1);
+  };
+
+  const handleBackToHome = () => {
+    navigate('/');
+  };
+
+  const handleDownload = () => {
+    const target = previewBaseUrl || rawPdfData;
+    if (!target) return;
+    const link = document.createElement('a');
+    link.href = target;
+    link.download = `Catanduanes_Itinerary_${Date.now()}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleOpenInNewTab = () => {
+    const target = previewBaseUrl || rawPdfData;
+    if (!target) return;
+    window.open(target, '_blank', 'noopener,noreferrer');
+  };
+
+  return (
+    <div className={styles.container}>
+      {/* Floating Controls Overlay */}
+      <div className={styles.floatingControls}>
+        <button
+          className={styles.secondaryButton}
+          onClick={handleBackToItinerary}
+          title="Return to Itinerary Editor"
+        >
+          Back to Itinerary
+        </button>
+        <button
+          className={styles.primaryButton}
+          onClick={handleBackToHome}
+          title="Finish and Return to Home"
+        >
+          Finish & Home
+        </button>
+        {(rawPdfData || previewBaseUrl) && (
+          <button
+            className={styles.downloadButton}
+            onClick={handleDownload}
+            title="Download PDF"
+          >
+            Download PDF
+          </button>
+        )}
+      </div>
+
+      <main className={styles.viewerContainer}>
+        {isRenderingPages ? (
+          <div className={styles.renderingState}>Rendering PDF preview...</div>
+        ) : renderedPages.length > 0 ? (
+          <div className={styles.paperStack}>
+            {renderedPages.map((pageImage, index) => (
+              <img
+                key={`pdf-page-${index + 1}`}
+                src={pageImage}
+                alt={`PDF Page ${index + 1}`}
+                className={styles.paperPage}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        ) : pdfData && !isIframeError ? (
+          <div className={styles.pdfViewportCrop}>
+            <object
+              data={pdfData}
+              type="application/pdf"
+              className={styles.pdfFrame}
+              aria-label="Itinerary PDF Preview"
+            >
+              <embed
+                src={pdfData}
+                type="application/pdf"
+                className={styles.pdfFrame}
+                onError={() => setIsIframeError(true)}
+              />
+            </object>
+          </div>
+        ) : (
+          <div className={styles.emptyState}>
+            <div className={styles.errorIcon}>⚠️</div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '8px', color: 'var(--app-text)' }}>Preview Unavailable</h2>
+              <p style={{ color: 'var(--navbar-muted)', marginBottom: '24px' }}>
+                {rawPdfData
+                  ? "Browser security prevented on-screen preview. Your itinerary has still been saved."
+                  : "We couldn't generate your itinerary preview. Please go back and try again."}
+              </p>
+              {!rawPdfData && fallbackError && (
+                <p style={{ color: '#b91c1c', marginBottom: '18px' }}>
+                  {`Debug: ${fallbackError}`}
+                </p>
+              )}
+              <div style={{ display: 'flex', gap: '12px' }}>
+              {(rawPdfData || previewBaseUrl) && (
+                <>
+                  <button className={styles.downloadButton} onClick={handleDownload}>
+                    Download PDF
+                  </button>
+                  <button className={styles.secondaryButton} onClick={handleOpenInNewTab}>
+                    Open in New Tab
+                  </button>
+                </>
+              )}
+              <button className={styles.secondaryButton} onClick={handleBackToItinerary}>
+                Go Back
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}

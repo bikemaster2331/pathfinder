@@ -1,0 +1,6 @@
+.git
+pathenv
+node_modules
+src/models
+__pycache__
+*.pyc

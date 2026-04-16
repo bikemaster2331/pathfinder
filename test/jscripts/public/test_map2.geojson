@@ -1,0 +1,5866 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Virac Airport",
+        "type": "VIEWPOINTS",
+        "description": "Virac Airport is the main airport located in the capital town of Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 10,
+        "original_activity": "transport"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21184297254652,
+          13.579601473762152
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Puraran Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Puraran Beach is a popular destination famous for surfing.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 11,
+        "original_activity": "surfing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.396877,
+          13.6887766
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Virac Airport",
+        "type": "VIEWPOINTS",
+        "description": "You can reach Virac Airport by tricycle or van from the town center.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 12,
+        "original_activity": "transport"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21184297254652,
+          13.579601473762152
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Binurong Point",
+        "type": "VIEWPOINTS",
+        "description": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 13,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.41449841008455,
+          13.668995411184893
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maribina Falls",
+        "type": "FALLS",
+        "description": "Maribina Falls is a popular attraction in Bato known for its refreshing waters.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 14,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2706945272802,
+          13.601708685295064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mamangal Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Mamangal Beach is known for its wide sandy shoreline and calm, swimming-friendly waters.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 15,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14923064840366,
+          13.555007904907587
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Twin Rock Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Twin Rock Beach Resort is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 16,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21269059659129,
+          13.522663495166062
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Twin Rock Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "The resort offers activities like swimming, ziplining, and various water sports.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 17,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21269059659129,
+          13.522663495166062
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Puraran Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "The top surfing destination in Catanduanes is Puraran Beach in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 18,
+        "original_activity": "surfing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39882862882942,
+          13.691803137745696
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Puraran Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Puraran Beach is located in Baras, Catanduanes. It's a world-class surfing destination known as 'Majestic'.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 19,
+        "original_activity": "surfing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39882862882942,
+          13.691803137745696
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ARDCI Corporate Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "ARDCI Corporate Inn offers comfortable rooms in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 21,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2301155,
+          13.5812552
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ARDCI Corporate Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "ARDCI Corporate Inn offers comfortable rooms in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2301155,
+          13.5812552
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Majestic Puraran Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Majestic Puraran Beach Resort offers surfing, swimming, and beach activities.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 23,
+        "original_activity": "surfing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.396877,
+          13.6887766
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Catanduanes Midtown Inn Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Catanduanes Midtown Inn is near Virac's main establishments.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 26,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.1638091,
+          13.5403305
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nitto Lodge",
+        "type": "HOTELS & RESORTS",
+        "description": "Nitto Lodge is located in Virac town proper near amenities.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 27,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2054489,
+          13.5833005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Renel's Traveller's Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Renel's Traveller's Inn provides both air-conditioned and fan rooms.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 28,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2280368,
+          13.5795156
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bagamanoc Guest House",
+        "type": "HOTELS & RESORTS",
+        "description": "Bagamanoc Guest House is located in the Poblacion area.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 29,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2869733,
+          13.9415567
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Lumber Hotel and Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "The Lumber Hotel and Resort has a pool, restaurant, and event spaces.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 30,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.24844932275295,
+          13.592217696981342
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "E-Crown Hotel and Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "E-Crown Hotel and Resort is in Virac, close to Maribina Falls.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 31,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.25617408469465,
+          13.593886227522459
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "E-Crown Hotel and Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "E-Crown Hotel and Resort has its own restaurant for guests.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 32,
+        "original_activity": "food"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.25617408469465,
+          13.593886227522459
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "E-Crown Hotel and Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "E-Crown Hotel and Resort is a luxury accommodation located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 33,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.25617408469465,
+          13.593886227522459
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rhaj Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Rhaj Inn offers budget-friendly rooms in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 34,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2262818,
+          13.5791058
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Catanduanes Midtown Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Catanduanes Midtown Inn is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 35,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23256205211081,
+          13.582963948330717
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Angel's Pizza",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Angel's Pizza is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 36,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2341718944488,
+          13.583990389845289
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hinagasan Falls",
+        "type": "FALLS",
+        "description": "Hinagasan Falls is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 37,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22421715095876,
+          13.600608583794113
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Museo De Catanduanes",
+        "type": "RELIGIOUS SITES",
+        "description": "Museo De Catanduanes is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 38,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.24017941365666,
+          13.607198646951025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Casa Remedios Bed & Breakfast",
+        "type": "HOTELS & RESORTS",
+        "description": "Casa Remedios Bed & Breakfast is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 39,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21667483492335,
+          13.579229296789006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Anika Food Corner",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Anika Food Corner is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 40,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2287243114437,
+          13.579040247054639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fleur de Lilies Glamping Farm",
+        "type": "HOTELS & RESORTS",
+        "description": "Fleur de Lilies Glamping Farm is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 41,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20319514587996,
+          13.522814980924824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Appleberry",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Appleberry is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 42,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23125085026427,
+          13.578876723518103
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "JM Pension House",
+        "type": "HOTELS & RESORTS",
+        "description": "JM Pension House is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 43,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22474125714392,
+          13.578996725549041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Twin Rock Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Twin Rock Beach Resort is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 44,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20317528575912,
+          13.522906435245654
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jollibee",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Jollibee is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 45,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22824468638174,
+          13.581175578193937
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mcdonald's",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Mcdonald's is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 46,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22830760441924,
+          13.57976473515069
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rhaj Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Rhaj Inn is located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 47,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2262818,
+          13.5791058
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pusgo Island Guest House",
+        "type": "HOTELS & RESORTS",
+        "description": "Pusgo Island Guest House is located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 48,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.32366,
+          13.96996
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pusgo Island Guest House",
+        "type": "VIEWPOINTS",
+        "description": "Pusgo Island Guest House provides access to island activities and tours.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 49,
+        "original_activity": "tours"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.32366,
+          13.96996
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Binurong Point",
+        "type": "VIEWPOINTS",
+        "description": "Binurong Point is a scenic cliffside destination in Baras, offering views of the Pacific Ocean.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 65,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.41449841008455,
+          13.668995411184893
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maribina Falls",
+        "type": "FALLS",
+        "description": "Maribina Falls is a popular attraction in Bato known for its refreshing waters.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 66,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2706945272802,
+          13.601708685295064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mamangal Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Mamangal Beach is known for its wide sandy shoreline and calm, swimming-friendly waters.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 67,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14923064840366,
+          13.555007904907587
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tuwad-Tuwadang Blue Lagoon",
+        "type": "VIEWPOINTS",
+        "description": "Tuwad-Tuwadang Blue Lagoon is a scenic spot located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 69,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12659986379072,
+          14.058643378491052
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nahulugan Falls",
+        "type": "FALLS",
+        "description": "Nahulugan Falls is a waterfall located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 70,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.36779102542982,
+          13.788640961723846
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tres Karas de Kristo/Face of Jesus Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Tres Karas de Kristo (Face of Jesus Beach) is a scenic spot located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 71,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20595165635922,
+          13.518763507546256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Amenia Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Amenia Beach Resort is located in San Andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 89,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13946144298322,
+          13.573293073630248
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Luyang Cave",
+        "type": "VIEWPOINTS",
+        "description": "Luyang Cave is a scenic spot in San Andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 90,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13509013677053,
+          13.60572345866787
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Codon Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "Codon Lighthouse is located in San Andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 91,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.02606030674717,
+          13.662910203798745
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cumagat Beach & Hilltop Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Cumagat Beach & Hilltop Resort is located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 92,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.35022267619804,
+          13.94963098536221
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lolong Point Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "Lolong Point Lighthouse is located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 93,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.35430502227162,
+          13.950358787088991
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tuwad-Tuwadan Blue Lagoon",
+        "type": "VIEWPOINTS",
+        "description": "Tuwad-Tuwadan Blue Lagoon is located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 94,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12664279629792,
+          14.058633006081989
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cagnipa Rolling Hills",
+        "type": "VIEWPOINTS",
+        "description": "Cagnipa Rolling Hills is located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 95,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12870453862769,
+          14.058967828263247
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hiyop Highlands",
+        "type": "VIEWPOINTS",
+        "description": "Hiyop Highlands is located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 96,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.19515607209418,
+          14.069834001868761
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "CJ's Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "CJ's Travellers Inn is located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 97,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3902858484338,
+          13.779610603924185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ba-haw Falls",
+        "type": "FALLS",
+        "description": "Ba-haw Falls is located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 98,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.38320715026808,
+          13.75387978940785
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nahulugan Falls",
+        "type": "FALLS",
+        "description": "Nahulugan Falls is located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 99,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3677373791043,
+          13.788620122365284
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nupa Green Lagoon",
+        "type": "VIEWPOINTS",
+        "description": "Nupa Green Lagoon is a swimming and scenic spot in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 100,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.40409028095019,
+          13.75714325500738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Miguilas Inn and Resto Bar",
+        "type": "HOTELS & RESORTS",
+        "description": "Miguilas Inn and Resto Bar is located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 101,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.1348645200423,
+          13.98755168209128
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Palumbanes Island",
+        "type": "VIEWPOINTS",
+        "description": "Palumbanes Island is located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 102,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.04335345796237,
+          14.024204879590119
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Toytoy Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Toytoy Beach is located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 103,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13075649902726,
+          13.99610361623702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maribina Falls",
+        "type": "FALLS",
+        "description": "Maribina Falls is located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 104,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.27074817719831,
+          13.60160439150023
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bote Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "Bote Lighthouse is located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 105,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.32548666430874,
+          13.55980864586186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sakahon Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Sakahon Beach is located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 106,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.32951300039434,
+          13.561646057470904
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Diocesan Shrine of the Holy Cross",
+        "type": "RELIGIOUS SITES",
+        "description": "The Diocesan Shrine of the Holy Cross is located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 107,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.31519015172765,
+          13.588667855225093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Coast Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "East Coast Beach Resort is located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 108,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.34601783087594,
+          13.645130194241856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Macutal Falls",
+        "type": "FALLS",
+        "description": "Macutal Falls is located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 109,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.36844252512445,
+          13.67996312734602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balacay Point",
+        "type": "VIEWPOINTS",
+        "description": "Balacay Point is a popular scenic spot in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 110,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39530656745467,
+          13.705434883642221
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Binurong Point",
+        "type": "VIEWPOINTS",
+        "description": "Binurong Point is a scenic coastal viewpoint in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 111,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.41446622143107,
+          13.668953711260698
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Majestic Puraran Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Majestic Puraran Beach Resort is located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 112,
+        "original_activity": "surfing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39482668554628,
+          13.689409886846915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nyxx & Match Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Nyxx & Match Café is located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 113,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3689383521126,
+          13.660708793380602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bagamanoc Guest House",
+        "type": "HOTELS & RESORTS",
+        "description": "Bagamanoc Guest House is located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 114,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28692571592231,
+          13.941644487022801
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Boto Ni Korakog (Fertility Island)",
+        "type": "VIEWPOINTS",
+        "description": "Boto Ni Korakog is a scenic viewpoint in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 115,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2875854301705,
+          13.953737014066363
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Paday Falls",
+        "type": "FALLS",
+        "description": "Paday Falls is located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 116,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.27293557115381,
+          13.961655521369819
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "E-Lounge Resto Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "E-Lounge Resto Bar is located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 117,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28853571650649,
+          13.94152743708702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dayhagan Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Dayhagan Beach Resort is located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 118,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.33526422283471,
+          13.972487048309555
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "San Miguel River Park",
+        "type": "HOTELS & RESORTS",
+        "description": "San Miguel River Park is located in San Miguel.",
+        "municipality": "SAN MIGUEL",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 119,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28110917976015,
+          13.705960845800394
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Solong Falls",
+        "type": "FALLS",
+        "description": "Solong Falls is located in San Miguel.",
+        "municipality": "SAN MIGUEL",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 120,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29318572123779,
+          13.654843207001997
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "3s Pares Marias",
+        "type": "RESTAURANTS & CAFES",
+        "description": "3s Pares Marias is located in San Miguel.",
+        "municipality": "SAN MIGUEL",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 121,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29963612327701,
+          13.64262420028011
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cathy's Spring Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Cathy's Spring Resort is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 122,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.26764279047497,
+          13.828328929168835
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Black Alley",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Black Alley is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 123,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30991057127426,
+          13.87440986505987
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Summit View Park",
+        "type": "VIEWPOINTS",
+        "description": "Summit View Park is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 124,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2699644422191,
+          13.79084220997509
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Our Lady of the Assumption Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "Our Lady of the Assumption Parish Church is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 125,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30835694171724,
+          13.870935518647837
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "H20 Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "H20 Resort is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 126,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30744043132205,
+          13.855342610612587
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Isla Bistro Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Isla Bistro Café is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 127,
+        "original_activity": "dining"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30883563610679,
+          13.872557403387635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cogon Hills",
+        "type": "VIEWPOINTS",
+        "description": "Cogon Hills is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 128,
+        "original_activity": "sightseeing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.4067938419412,
+          13.870805941856277
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Manuria Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Manuria Beach Resort is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 129,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.36321167641226,
+          13.89992812418886
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Minaabat Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Minaabat Beach is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 130,
+        "original_activity": "swimming"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.41851218045034,
+          13.854510974160771
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Emerich Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Emerich Inn is located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 131,
+        "original_activity": "accommodation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30975236074532,
+          13.87190788627189
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Baras Location",
+        "type": "VIEWPOINTS",
+        "description": "Baras is a municipality located in the province of Catanduanes, which is an island province in the Bicol Region (Region V) of the Philippines.",
+        "municipality": "CATANDUANES PROVINCE",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 150
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3637075239967,
+          13.699707877194335
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bagamanoc Guest House",
+        "type": "HOTELS & RESORTS",
+        "description": "Bagamanoc Guest House is a hotels and resorts located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 151
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28692571592231,
+          13.941644487022801
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Paday Falls",
+        "type": "FALLS",
+        "description": "Paday Falls is a falls located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 152
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.27293557115381,
+          13.961655521369819
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Boto Ni Korakog (Fertility Island)",
+        "type": "VIEWPOINTS",
+        "description": "Boto Ni Korakog (Fertility Island) is a viewpoint located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 153
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2875854301705,
+          13.953737014066363
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "E-Lounge Resto Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "E-Lounge Resto Bar is a restaurants and cafes located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 154
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28853571650649,
+          13.94152743708702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Palestina Rolling Hills",
+        "type": "VIEWPOINTS",
+        "description": "Palestina Rolling Hills is a viewpoints located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 155
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.328999,
+          13.978003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Villa Felina",
+        "type": "HOTELS & RESORTS",
+        "description": "Villa Felina is a hotels and resorts located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 156
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28616998496803,
+          13.942121489713058
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Emmans Eatery",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Emmans Eatery is a restaurants and cafes located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 157
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28818189474178,
+          13.941215405901008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dayhagan Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Dayhagan Beach Resort is a hotels and resorts located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 158
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.33526422283471,
+          13.972487048309555
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Costa Marina",
+        "type": "HOTELS & RESORTS",
+        "description": "Costa Marina is a hotels and resorts located in Bagamanoc.",
+        "municipality": "BAGAMANOC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 159
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28401107910794,
+          13.954434403876908
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Coast Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "East Coast Beach Resort is a hotels and resorts located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 160
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.34601783087594,
+          13.645130194241856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Macutal Falls",
+        "type": "FALLS",
+        "description": "Macutal Falls is a falls located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 161
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.36844252512445,
+          13.67996312734602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balacay Point",
+        "type": "VIEWPOINTS",
+        "description": "Balacay Point is a viewpoints located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 162
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39530656745467,
+          13.705434883642221
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Alon Stay",
+        "type": "HOTELS & RESORTS",
+        "description": "Alon Stay is a hotels and resorts located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 163
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39327067294845,
+          13.689745330816304
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Abihao Point",
+        "type": "VIEWPOINTS",
+        "description": "Abihao Point is a viewpoints located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 164
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39929844046483,
+          13.6552093470827
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dela Villa's Balacay Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Dela Villa's Balacay Inn is a hotels and resorts located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 165
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.38796879884181,
+          13.703861778807893
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nyxx & Match Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Nyxx & Match Café is a restaurants and cafes located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 166
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3689383521126,
+          13.660708793380602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Binurong Point",
+        "type": "VIEWPOINTS",
+        "description": "Binurong Point is a viewpoints located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 167
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.41446622143107,
+          13.668953711260698
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jo Surf Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Jo Surf Inn is a hotels and resorts located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 168
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39591621513217,
+          13.688157832362895
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "2838 Tea and Cafe",
+        "type": "RESTAURANTS & CAFES",
+        "description": "2838 Tea and Cafe is a restaurants and cafes located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 169
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.37112167616075,
+          13.659533604564466
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stanza De Benedicto",
+        "type": "VIEWPOINTS",
+        "description": "Stanza De Benedicto is a viewpoints located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 170
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.40601723349695,
+          13.682383103603602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Majestic Puraran Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Majestic Puraran Beach Resort is a hotels and resorts located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 171
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39482668554628,
+          13.689409886846915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "TasTea",
+        "type": "RESTAURANTS & CAFES",
+        "description": "TasTea is a restaurants and cafes located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 172
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.37109158385094,
+          13.659490190945245
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Puraran Surf Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Puraran Surf Resort is a hotels and resorts located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 173
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39430347202405,
+          13.689922738086013
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Titaay Surfers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Titaay Surfers Inn is a hotels and resorts located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 174
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39426625732916,
+          13.688946131910923
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "L'Astrolabe",
+        "type": "HOTELS & RESORTS",
+        "description": "L'Astrolabe is a hotels and resorts located in Baras.",
+        "municipality": "BARAS",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 175
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.38856451657799,
+          13.69095675710196
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Villa Andrea Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Villa Andrea Inn is a hotels and resorts located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 176
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.33393918775872,
+          13.626112095688503
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kape't Tagpuan Sa Isla",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Kape't Tagpuan Sa Isla is a restaurants and cafes located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 177
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29981496225444,
+          13.607682886467666
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balongbong Falls",
+        "type": "FALLS",
+        "description": "Balongbong Falls is a falls located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 178
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29485801735287,
+          13.621558812195497
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Batalay Mangrove Eco Park",
+        "type": "VIEWPOINTS",
+        "description": "Batalay Mangrove Eco Park is a viewpoints located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 179
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30880035575444,
+          13.59293699334864
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Diocesan Shrine of the Holy Cross",
+        "type": "RELIGIOUS SITES",
+        "description": "Diocesan Shrine of the Holy Cross is a religious sites located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 180
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.31519015172765,
+          13.588667855225093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Poseidon Cove Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Poseidon Cove Beach Resort is a hotels and resorts located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 181
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.33224886190959,
+          13.563919705786883
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Little Bliss Cafe",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Little Bliss Cafe is a restaurants and cafes located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 182
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29861953643294,
+          13.607170580187129
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maribina Falls",
+        "type": "FALLS",
+        "description": "Maribina Falls is a falls located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 183
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.27074817719831,
+          13.60160439150023
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bote Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "Bote Lighthouse is a viewpoints located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 184
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.32548666430874,
+          13.55980864586186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. John the Baptist  Church",
+        "type": "RELIGIOUS SITES",
+        "description": "St. John the Baptist  Church is a religious sites located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 185
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29703491581695,
+          13.610732662974675
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sakahon Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Sakahon Beach is a hotels and resorts located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 186
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.32951300039434,
+          13.561646057470904
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mount Pinagkaayonan (Lantad)",
+        "type": "VIEWPOINTS",
+        "description": "Mount Pinagkaayonan (Lantad) is a viewpoints located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 187
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.27824218655604,
+          13.606679398378262
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bitaogan Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Bitaogan Beach is a hotels and resorts located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 188
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.31850376558778,
+          13.55833527320848
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cagraray Island",
+        "type": "VIEWPOINTS",
+        "description": "Cagraray Island is a viewpoints located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 189
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3494816783378,
+          13.61714945492485
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Carorian Wonders",
+        "type": "HOTELS & RESORTS",
+        "description": "Carorian Wonders is a hotels and resorts located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 190
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.34231555615987,
+          13.58025643862461
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. Anthony of Padua Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "St. Anthony of Padua Parish Church is a religious sites located in Bato.",
+        "municipality": "BATO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 191
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28389014002626,
+          13.596889143817018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Miguilas Inn and Resto Bar",
+        "type": "HOTELS & RESORTS",
+        "description": "Miguilas Inn and Resto Bar is a hotels and resorts located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 192
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.1348645200423,
+          13.98755168209128
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Natotoo Falls",
+        "type": "FALLS",
+        "description": "Natotoo Falls is a falls located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 193
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15298682487371,
+          13.879262767642187
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mt. Sadab",
+        "type": "VIEWPOINTS",
+        "description": "Mt. Sadab is a viewpoints located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 194
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16179072332014,
+          13.885858386503344
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. John the Baptist Church",
+        "type": "RELIGIOUS SITES",
+        "description": "St. John the Baptist Church is a religious sites located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 195
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13504960530524,
+          13.983298993332824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Coco Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Coco Beach Resort is a hotels and resorts located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 196
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13097456746102,
+          13.981994139846373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Talahid Falls",
+        "type": "FALLS",
+        "description": "Talahid Falls is a falls located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 197
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14030596560987,
+          13.792830659039126
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Palumbanes Island",
+        "type": "VIEWPOINTS",
+        "description": "Palumbanes Island is a viewpoints located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 198
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.04335345796237,
+          14.024204879590119
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Toytoy Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Toytoy Beach is a hotels and resorts located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 199
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13075649902726,
+          13.99610361623702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sugod Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Sugod Beach is a hotels and resorts located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 200
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13127081527215,
+          13.884837183543102
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Minabobo Creek Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Minabobo Creek Resort is a hotels and resorts located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 201
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13486478779596,
+          13.84708042893852
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tignob Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Tignob Beach is a hotels and resorts located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 202
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.02259826506386,
+          14.018106591467156
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bitaog Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Bitaog Beach is a hotels and resorts located in Caramoran.",
+        "municipality": "CARAMORAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 203
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.03736114283674,
+          14.024435372457186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "CJ's Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "CJ's Travellers Inn is a hotels and resorts located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 204
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3902858484338,
+          13.779610603924185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hot Palace",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Hot Palace is a restaurants and cafes located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 205
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39053261163247,
+          13.781121506344725
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ba-haw Falls",
+        "type": "FALLS",
+        "description": "Ba-haw Falls is a falls located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 206
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.38320715026808,
+          13.75387978940785
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bantayaw Point",
+        "type": "VIEWPOINTS",
+        "description": "Bantayaw Point is a viewpoints located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 207
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.40960689786668,
+          13.831429593366844
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "San Pedro Calungsod Parish",
+        "type": "RELIGIOUS SITES",
+        "description": "San Pedro Calungsod Parish is a religious sites located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 208
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39999675568755,
+          13.83394417704535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Melfel Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Melfel Inn is a hotels and resorts located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 209
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39075791718393,
+          13.779120861045081
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gigmoto Inasal",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Gigmoto Inasal is a restaurants and cafes located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 210
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3918824809052,
+          13.78079612966451
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nahulugan Falls",
+        "type": "FALLS",
+        "description": "Nahulugan Falls is a falls located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 211
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3677373791043,
+          13.788620122365284
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nupa Green Lagoon",
+        "type": "VIEWPOINTS",
+        "description": "Nupa Green Lagoon is a viewpoints located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 212
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.40409028095019,
+          13.75714325500738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bestea X E-fren Fries",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Bestea X E-fren Fries is a restaurants and cafes located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 213
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39129813987927,
+          13.779500510605716
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "DON N ' MALYN'S Carinderia",
+        "type": "RESTAURANTS & CAFES",
+        "description": "DON N ' MALYN'S Carinderia is a restaurants and cafes located in Gigmoto.",
+        "municipality": "GIGMOTO",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 214
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.39144035716262,
+          13.780174269134601
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Muraw Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Muraw Beach is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 215
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12930324842857,
+          14.057362637200878
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Andercas",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Andercas is a restaurants and cafes located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 216
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16887783456134,
+          14.045417649184326
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hinik-Hinik Falls",
+        "type": "FALLS",
+        "description": "Hinik-Hinik Falls is a falls located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 217
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.231355,
+          14.019267
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cagnipa Rolling Hills",
+        "type": "VIEWPOINTS",
+        "description": "Cagnipa Rolling Hills is a viewpoints located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 218
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12870453862769,
+          14.058967828263247
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Saint Ignatius of Loyola Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "Saint Ignatius of Loyola Parish Church is a religious sites located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 219
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16878323678067,
+          14.04460992198803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hiyop Highlands",
+        "type": "VIEWPOINTS",
+        "description": "Hiyop Highlands is a viewpoints located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 220
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.19515607209418,
+          14.069834001868761
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tuwad-Tuwadan Blue Lagoon",
+        "type": "HOTELS & RESORTS",
+        "description": "Tuwad-Tuwadan Blue Lagoon is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 221
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12664279629792,
+          14.058633006081989
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bhem's Kitchen",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Bhem's Kitchen is a restaurants and cafes located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 222
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.1691568239435,
+          14.04822784104875
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Linampawan Falls",
+        "type": "FALLS",
+        "description": "Linampawan Falls is a falls located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 223
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.238823,
+          14.014603
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Paraiso ni Honesto",
+        "type": "VIEWPOINTS",
+        "description": "Paraiso ni Honesto is a viewpoints located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 224
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.19383756087414,
+          14.083943574020907
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "La Prisa Campsite",
+        "type": "VIEWPOINTS",
+        "description": "La Prisa Campsite is a viewpoints located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 225
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.24557100979199,
+          14.044124141098605
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sitio Concepcion",
+        "type": "HOTELS & RESORTS",
+        "description": "Sitio Concepcion is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 226
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21957776035022,
+          14.062874048095829
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Catanduanes Halfway Resort Hotel",
+        "type": "HOTELS & RESORTS",
+        "description": "Catanduanes Halfway Resort Hotel is a viewpoints located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 227
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22564617010536,
+          14.067248666931913
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balay Victoria",
+        "type": "HOTELS & RESORTS",
+        "description": "Balay Victoria is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 228
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.17151978571643,
+          14.043967758271375
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maturin Rock Formation",
+        "type": "VIEWPOINTS",
+        "description": "Maturin Rock Formation is a viewpoints located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 229
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28345005313469,
+          14.112195035591208
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Carangyan Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Carangyan Beach Resort is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 230
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15446928280349,
+          14.055886730928483
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pandan Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "Pandan Lighthouse is a viewpoints located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 231
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.17479976209289,
+          14.06538134011241
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North Travel Lodge",
+        "type": "HOTELS & RESORTS",
+        "description": "North Travel Lodge is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 232
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.17084337640102,
+          14.042249909431563
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Yabu-Yabuhan",
+        "type": "VIEWPOINTS",
+        "description": "Yabu-Yabuhan is a viewpoints located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 233
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.17692,
+          14.063824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cagnipa Cove",
+        "type": "HOTELS & RESORTS",
+        "description": "Cagnipa Cove is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 234
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12740634956491,
+          14.060299980132276
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pandan Seashore Park",
+        "type": "HOTELS & RESORTS",
+        "description": "Pandan Seashore Park is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 235
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16753375572294,
+          14.052562896257582
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Campilan Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Campilan Beach is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 236
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.175032,
+          14.06499
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mambang Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Mambang Beach is a hotels and resorts located in Pandan.",
+        "municipality": "PANDAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 237
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16012018656308,
+          14.052390127026989
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cumagat Beach & Hilltop Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Cumagat Beach & Hilltop Resort is a hotels and resorts located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 238
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.35022267619804,
+          13.94963098536221
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Panyero Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Panyero Café is a restaurants and cafes located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 239
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2996761367774,
+          13.907878958291017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lolong Point Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "Lolong Point Lighthouse is a viewpoints located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 240
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.35430502227162,
+          13.950358787088991
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Enerking Garden Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Enerking Garden Resort is a hotels and resorts located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 241
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30081900978871,
+          13.906841559179071
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ernest Eatery",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Ernest Eatery is a restaurants and cafes located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 242
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30351882198518,
+          13.906363558118793
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Banquerohan Bridge",
+        "type": "VIEWPOINTS",
+        "description": "Banquerohan Bridge is a viewpoints located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 243
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30837962465417,
+          13.89438097388749
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Angeles Homestay",
+        "type": "HOTELS & RESORTS",
+        "description": "Angeles Homestay is a hotels and resorts located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 244
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29556399563526,
+          13.907665802542967
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tarahid KTV Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Tarahid KTV Bar is a restaurants and cafes located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 245
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30487585340553,
+          13.91212173717216
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Rezidence",
+        "type": "HOTELS & RESORTS",
+        "description": "The Rezidence is a hotels and resorts located in Panganiban.",
+        "municipality": "PANGANIBAN",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 246
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30441513824577,
+          13.910962045093433
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Amenia Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Amenia Beach Resort is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 247
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13946144298322,
+          13.573293073630248
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Canapino Diner",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Canapino Diner is a restaurants and cafes located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 248
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14044111946026,
+          13.572931099633045
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mount Cagmasoso",
+        "type": "VIEWPOINTS",
+        "description": "Mount Cagmasoso is a viewpoints located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 249
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13286350211467,
+          13.623480169988486
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Our Lady of Sorrows Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "Our Lady of Sorrows Parish Church is a religious sites located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 250
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09348830280368,
+          13.611589791787962
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balin's Seaview Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Balin's Seaview Beach Resort is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 251
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13993686420447,
+          13.572623438011778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liz & Bel Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Liz & Bel Café is a restaurants and cafes located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 252
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09564860978172,
+          13.599281935446907
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Luyang Cave",
+        "type": "VIEWPOINTS",
+        "description": "Luyang Cave is a viewpoints located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 253
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.13509013677053,
+          13.60572345866787
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nicole's Grill Resto Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Nicole's Grill Resto Bar is a restaurants and cafes located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 254
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.142135365605,
+          13.570704014196755
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Codon Lighthouse",
+        "type": "VIEWPOINTS",
+        "description": "Codon Lighthouse is a viewpoints located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 255
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.02606030674717,
+          13.662910203798745
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Casa Dueña Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Casa Dueña Travellers Inn is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 256
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09595898058178,
+          13.599401731389687
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Emmalyn's Paradise Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Emmalyn's Paradise Resort is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 257
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.06048702747073,
+          13.600789202838738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liebe Max Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Liebe Max Beach Resort is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 258
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.08432027699324,
+          13.601924342216595
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liz & Bel Tourist Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Liz & Bel Tourist Inn is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 259
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09568675395776,
+          13.599278991548179
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wuppertaler Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Wuppertaler Travellers Inn is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 260
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.0989190144737,
+          13.598845133261927
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Camping Herold Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Camping Herold Beach is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 261
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.05438592186414,
+          13.599400700827006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kibanggas Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Kibanggas Beach is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 262
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.03760255562867,
+          13.645637469518293
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Monte Cielo",
+        "type": "HOTELS & RESORTS",
+        "description": "Monte Cielo is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 263
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14518862955885,
+          13.566109000530673
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ericsson Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Ericsson Beach is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 264
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.1428227093613,
+          13.569451079584018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bagasbas Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Bagasbas Beach Resort is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 265
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.12497455931305,
+          13.579008198224741
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Talaga Pebble Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Talaga Pebble Beach is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 266
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.09648307885134,
+          13.70849707986902
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blue Horizon Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Blue Horizon Beach is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 267
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14563924065551,
+          13.564625399431703
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "La Playa Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "La Playa Resort is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 268
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14289013881685,
+          13.569200023674027
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mamangal Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Mamangal Beach Resort is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 269
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14885591109632,
+          13.55636633190002
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oliver's Riff Mamangal Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Oliver's Riff Mamangal Beach Resort is a hotels and resorts located in San andres.",
+        "municipality": "SAN ANDRES",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 270
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.14868968279221,
+          13.555835876169589
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "San Miguel River Park",
+        "type": "HOTELS & RESORTS",
+        "description": "San Miguel River Park is a hotels and resorts located in San miguel.",
+        "municipality": "SAN MIGUEL",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 271
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.28110917976015,
+          13.705960845800394
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Solong Falls",
+        "type": "FALLS",
+        "description": "Solong Falls is a falls located in San miguel.",
+        "municipality": "SAN MIGUEL",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 272
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29318572123779,
+          13.654843207001997
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "3s Pares Marias",
+        "type": "RESTAURANTS & CAFES",
+        "description": "3s Pares Marias is a restaurants and cafes located in San miguel.",
+        "municipality": "SAN MIGUEL",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 273
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.29963612327701,
+          13.64262420028011
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cathy's Spring Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Cathy's Spring Resort is a hotels and resorts located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 274
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.26764279047497,
+          13.828328929168835
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Black Alley",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Black Alley is a restaurants and cafes located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 275
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30991057127426,
+          13.87440986505987
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Summit View Park",
+        "type": "VIEWPOINTS",
+        "description": "Summit View Park is a viewpoints located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 276
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2699644422191,
+          13.79084220997509
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Our Lady of the Assumption Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "Our Lady of the Assumption Parish Church is a religious sites located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 277
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30835694171724,
+          13.870935518647837
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "H20 Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "H20 Resort is a hotels and resorts located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 278
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30744043132205,
+          13.855342610612587
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Isla Bistro Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Isla Bistro Café is a restaurants and cafes located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 279
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30883563610679,
+          13.872557403387635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cogon Hills",
+        "type": "VIEWPOINTS",
+        "description": "Cogon Hills is a viewpoints located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 280
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.4067938419412,
+          13.870805941856277
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Our Lady of Mount Carmel Parish Church",
+        "type": "RELIGIOUS SITES",
+        "description": "Our Lady of Mount Carmel Parish Church is a religious sites located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 281
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.37173817132177,
+          13.893931145649418
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Manuria Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Manuria Beach Resort is a hotels and resorts located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 282
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.36321167641226,
+          13.89992812418886
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jac's Eatery",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Jac's Eatery is a restaurants and cafes located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 283
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.31147248971916,
+          13.871750292208265
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Minaabat Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Minaabat Beach is a hotels and resorts located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 284
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.41851218045034,
+          13.854510974160771
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tapsihan sa Ilaya",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Tapsihan sa Ilaya is a restaurants and cafes located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 285
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30876720184392,
+          13.867210183769927
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Emerich Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Emerich Inn is a hotels and resorts located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 286
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30975236074532,
+          13.87190788627189
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sofeca Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Sofeca Travellers Inn is a hotels and resorts located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 287
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.31609046329228,
+          13.872631201214197
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Torres Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Torres Inn is a hotels and resorts located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 288
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.37185679687455,
+          13.894427912854093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Villa Amacepia Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Villa Amacepia Resort is a hotels and resorts located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 289
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.30851490399891,
+          13.866419737445327
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kubo Suzara",
+        "type": "HOTELS & RESORTS",
+        "description": "Kubo Suzara is a hotels and resorts located in Viga.",
+        "municipality": "VIGA",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 290
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.3519918151362,
+          13.887407737570227
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Catanduanes Midtown Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Catanduanes Midtown Inn is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 291
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23256205211081,
+          13.582963948330717
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Angel's Pizza",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Angel's Pizza is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 292
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2341718944488,
+          13.583990389845289
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hinagasan Falls",
+        "type": "FALLS",
+        "description": "Hinagasan Falls is a falls located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 293
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22421715095876,
+          13.600608583794113
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Museo De Catanduanes",
+        "type": "VIEWPOINTS",
+        "description": "Museo De Catanduanes is a photography located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 294
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.24017941365666,
+          13.607198646951025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Casa Remedios Bed & Breakfast",
+        "type": "HOTELS & RESORTS",
+        "description": "Casa Remedios Bed & Breakfast is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 295
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21667483492335,
+          13.579229296789006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Anika Food Corner",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Anika Food Corner is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 296
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2287243114437,
+          13.579040247054639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fleur de Lilies Glamping Farm",
+        "type": "HOTELS & RESORTS",
+        "description": "Fleur de Lilies Glamping Farm is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 297
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20319514587996,
+          13.522814980924824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Appleberry",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Appleberry is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 298
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23125085026427,
+          13.578876723518103
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hamapayo Pension House",
+        "type": "HOTELS & RESORTS",
+        "description": "Hamapayo Pension House is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 299
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2083954979506,
+          13.58891972772742
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ARDCI Cafe",
+        "type": "RESTAURANTS & CAFES",
+        "description": "ARDCI Cafe is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 300
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23009272327565,
+          13.58145932101771
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Happy Island Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Happy Island Inn is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 301
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.26111675211118,
+          13.594221210744385
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blossoms Restaurant",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Blossoms Restaurant is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 302
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23228091542933,
+          13.581741965345147
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "JM Pension House",
+        "type": "HOTELS & RESORTS",
+        "description": "JM Pension House is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 303
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22474125714392,
+          13.578996725549041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blue Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Blue Café is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 304
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22824468638174,
+          13.581175578193937
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Marilima Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Marilima Beach is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 305
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16804587161822,
+          13.538906979988818
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Buddy's Mami House",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Buddy's Mami House is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 306
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21342438651737,
+          13.581306526011169
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Marem Pension House",
+        "type": "HOTELS & RESORTS",
+        "description": "Marem Pension House is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 307
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23616359366518,
+          13.585027658792676
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cafe De Au",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Cafe De Au is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 308
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23238685211084,
+          13.581121990552765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Queen Maricel Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Queen Maricel Inn is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 309
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21637442753692,
+          13.578029967508437
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cafe Norte",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Cafe Norte is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 310
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23851286560539,
+          13.586445787269987
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rakdell Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Rakdell Inn is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 311
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23250090566795,
+          13.583461583441721
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cafe Ubaldita",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Cafe Ubaldita is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 312
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20754195211089,
+          13.58417333027359
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Canapino Diner",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Canapino Diner is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 313
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22841093861653,
+          13.58138852108624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Batag Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Batag Beach Resort is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 314
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16374122931133,
+          13.540203971830607
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Carrie's Pizza, Pasta and More",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Carrie's Pizza, Pasta and More is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 315
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21429182327564,
+          13.58077624646006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sunset Coast Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Sunset Coast Beach Resort is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 316
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15569366555616,
+          13.552637355513973
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cathy's Restaurant and Catering Services",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Cathy's Restaurant and Catering Services is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 317
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23717188404729,
+          13.585544780249219
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "LouCa Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "LouCa Beach Resort is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 318
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15769502783087,
+          13.548539798350518
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "DAKILA' Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "DAKILA' Café is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 319
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22758444046303,
+          13.57920899426178
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Regina's Beachfront Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Regina's Beachfront Resort is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 320
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.16488424391362,
+          13.53976642609727
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Renel's Travellers Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Renel's Travellers Inn is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 321
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22802496911423,
+          13.579801222500484
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fernando's Asian Cuisine",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Fernando's Asian Cuisine is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 322
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2284358008955,
+          13.581024021555177
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rhaj Inn",
+        "type": "HOTELS & RESORTS",
+        "description": "Rhaj Inn is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 323
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22621632327555,
+          13.579034249718445
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fleur De Lilies Glamping Farm",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Fleur De Lilies Glamping Farm is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 324
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20319514587996,
+          13.522814980924824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Twin Rock Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Twin Rock Beach Resort is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 325
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20317528575912,
+          13.522906435245654
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gottsaa Milktea House",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Gottsaa Milktea House is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 326
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21368576560516,
+          13.58163263436696
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tampad Beach Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Tampad Beach Resort is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 327
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2059355539561,
+          13.519176854919204
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jillian's Kitchenette",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Jillian's Kitchenette is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 328
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21364651691626,
+          13.581343446088963
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Villa Toledo Travel Lodge",
+        "type": "HOTELS & RESORTS",
+        "description": "Villa Toledo Travel Lodge is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 329
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2337979614973,
+          13.584315171613417
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jollibee",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Jollibee is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 330
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22824468638174,
+          13.581175578193937
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kasiram Grill and Restaurant",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Kasiram Grill and Restaurant is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 331
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20834340885116,
+          13.584004790641492
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Barefoot Beach",
+        "type": "HOTELS & RESORTS",
+        "description": "Barefoot Beach is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 332
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15447590238682,
+          13.551155461290714
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kemji Garden & Resto",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Kemji Garden & Resto is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 333
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21505708798185,
+          13.58109037731797
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Virac Hometel",
+        "type": "HOTELS & RESORTS",
+        "description": "Virac Hometel is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 334
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22695947921794,
+          13.58179833090802
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mcdonald’s",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Mcdonald’s is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 335
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22830760441924,
+          13.57976473515069
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Island Homestay",
+        "type": "HOTELS & RESORTS",
+        "description": "Island Homestay is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 336
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20375708955693,
+          13.570722658596491
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Monj Bistro",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Monj Bistro is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 337
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23758206645816,
+          13.585892587436463
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Isla Be Back Staycation",
+        "type": "HOTELS & RESORTS",
+        "description": "Isla Be Back Staycation is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 338
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2164396295645,
+          13.585740419849598
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "On D’ Wings - Calatagan",
+        "type": "RESTAURANTS & CAFES",
+        "description": "On D’ Wings - Calatagan is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 339
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20816347114656,
+          13.591323543086718
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Moonwalk Villa Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Moonwalk Villa Resort is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 340
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22011962003668,
+          13.584791411940643
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "One Two Sawa Eatery",
+        "type": "RESTAURANTS & CAFES",
+        "description": "One Two Sawa Eatery is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 341
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2318788097814,
+          13.584357089503174
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kasa Inndustria Mountain Resort",
+        "type": "HOTELS & RESORTS",
+        "description": "Kasa Inndustria Mountain Resort is a hotels and resorts located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 342
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.19121548423095,
+          13.580627725044849
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oyana Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Oyana Café is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 343
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23283705395751,
+          13.581512234467635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Queen Maricel Inn Ramen House",
+        "type": "HOTELS & RESORTS",
+        "description": "Queen Maricel Inn Ramen House is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 344
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21626513676992,
+          13.578005408414093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rojazz Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Rojazz Café is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 345
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23471746745183,
+          13.584380431136946
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Saturday’s Restaurant",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Saturday’s Restaurant is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 346
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2145987011342,
+          13.581020152106651
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sea Breeze 2001",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Sea Breeze 2001 is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 347
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23278613841805,
+          13.581391183012842
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sizzling House",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Sizzling House is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 348
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22861573676987,
+          13.580889392708748
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tandu Coffee",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Tandu Coffee is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 349
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23250602142909,
+          13.582913575755228
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Taller’s Brew",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Taller’s Brew is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 350
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20498736560553,
+          13.595368163992209
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Teaholic",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Teaholic is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 351
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23128159444029,
+          13.57863950521635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Hungry Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "The Hungry Bar is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 352
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23812822997121,
+          13.585363997380046
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Prime Resto Bar",
+        "type": "RESTAURANTS & CAFES",
+        "description": "The Prime Resto Bar is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 353
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23135543325206,
+          13.578715324713569
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Thirstea - Virac Town Center",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Thirstea - Virac Town Center is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 354
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22858500408107,
+          13.580913253521903
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Timo-Tea Milktea &Coffee Hub",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Timo-Tea Milktea &Coffee Hub is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 355
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23222698978235,
+          13.580706648306267
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Twin Bar & Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Twin Bar & Café is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 356
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2299290521109,
+          13.578752378869426
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Virac Hometel",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Virac Hometel is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 357
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22699813697473,
+          13.58185832768708
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ARDCI Skydeck Lounge",
+        "type": "RESTAURANTS & CAFES",
+        "description": "ARDCI Skydeck Lounge is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 358
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22987346487102,
+          13.581368173193223
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Niño Bistro",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Niño Bistro is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 359
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22802865470325,
+          13.579295434170184
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Peymus Resto",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Peymus Resto is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 360
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.22762197909927,
+          13.579402204846764
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Miekoys Pizza",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Miekoys Pizza is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 361
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2394488840288,
+          13.587613305309315
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "On D' Wings - Francia",
+        "type": "RESTAURANTS & CAFES",
+        "description": "On D' Wings - Francia is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 362
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23853542327583,
+          13.586624201844174
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "2838 Tea & Cafe - Francia",
+        "type": "RESTAURANTS & CAFES",
+        "description": "2838 Tea & Cafe - Francia is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 363
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23804189685526,
+          13.585508339157613
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mizuna Restaurant",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Mizuna Restaurant is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 364
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.21335317171304,
+          13.582915375540159
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Haring Manok - Calatagan",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Haring Manok - Calatagan is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 365
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.20860121139492,
+          13.584063653051224
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Haring Manok - Rawis",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Haring Manok - Rawis is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 366
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2376342850281,
+          13.585907954596866
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mayan Café",
+        "type": "RESTAURANTS & CAFES",
+        "description": "Mayan Café is a restaurants and cafes located in Virac.",
+        "municipality": "VIRAC",
+        "size": 0.15,
+        "showAtZoom": 10,
+        "id": 367
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.23418504723898,
+          13.583952428716442
+        ]
+      }
+    }
+  ]
+}

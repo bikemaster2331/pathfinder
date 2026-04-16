@@ -1,0 +1,860 @@
+/* 1. Main Wrapper: No more Grid. Just a relative container. */
+.mapWrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+    .mapWrapper {
+        border-radius: 0;
+    }
+}
+
+/* 2. Map Section: Forces map to be the background wallpaper */
+.mapSection {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.leftRightControls {
+    position: absolute;
+    top: 80px;
+    right: 24px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: transparent;
+}
+
+.collapsibleCard {
+    width: clamp(340px, 50vw, 640px);
+    background-color: var(--itinerary-map-panel-bg);
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
+    border: 1px solid var(--itinerary-map-panel-border);
+    box-shadow: var(--itinerary-map-panel-shadow);
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    display: none;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    height: auto;
+    max-height: 85vh;
+    overflow-y: auto;
+    flex-direction: column;
+    position: relative;
+}
+
+.cardOpen {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+    display: flex;
+    visibility: visible;
+}
+
+.collapsibleHeader {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: var(--itinerary-map-panel-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--itinerary-map-border-strong);
+    box-shadow: 0 4px 10px var(--itinerary-map-shadow);
+    pointer-events: auto;
+    transition: transform 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+.collapsibleChevron {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.collapsibleChevronOpen {
+    transform: rotate(180deg);
+}
+
+.collapsibleHeader:hover {
+    background-color: #e2e8f0;
+    transition: transform 0.1s ease-out, background-color 0.1s ease-out;
+}
+
+:global([data-theme='dark']) .collapsibleHeader:hover {
+    background-color: #0b0b0b;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+:global([data-theme='light']) .collapsibleHeader {
+    background-color: #14532d;
+    border-color: #0f3d22;
+}
+
+:global([data-theme='light']) .collapsibleHeader:hover {
+    background-color: #0f3d22;
+    border-color: #0b2e19;
+}
+
+.toggleIcon {
+    color: var(--itinerary-map-muted);
+    font-size: 0.8rem;
+}
+
+.collapsibleContent {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.collapsibleContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+.collapsibleContent::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.collapsibleContent::-webkit-scrollbar-thumb {
+    background: var(--itinerary-map-slider-track);
+    border-radius: 3px;
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background-color: var(--itinerary-map-border);
+    margin: 0 20px;
+}
+
+@media (max-width: 768px) {
+    .leftRightControls {
+        top: 110px;
+        left: 12px;
+    }
+
+    .collapsibleCard {
+        width: min(92vw, 380px);
+        height: clamp(500px, 72vh, 760px);
+        max-height: 78vh;
+    }
+
+    .collapsibleContent {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .controlsColumnLeft {
+        border-right: none;
+        border-bottom: 1px solid var(--itinerary-map-border);
+    }
+
+    .collapsibleHeader {
+        width: 28px;
+        height: 28px;
+    }
+
+}
+
+/* 5. BOX STYLES (Activities, Budget, Dates) */
+.activitiesMb,
+.journeyMb,
+.budgetMb {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: var(--itinerary-map-text);
+}
+
+/* Overriding background for items inside the collapsible card so they blend in */
+.collapsibleCard .journeyMb,
+.collapsibleCard .budgetMb {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    height: auto;
+}
+
+.budgetMb {
+    width: 100%;
+}
+
+.activitiesMb {
+    width: 100%;
+    height: 80%;
+}
+
+/* Specialized Box Overrides */
+.TripBox,
+.budgetBox {
+    width: 100%;
+    padding: clamp(12px, 1.8vw, 20px);
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.activitiesBox {
+    width: auto;
+    padding: clamp(12px, 1.8vw, 20px);
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.controlsColumnLeft .TripBox,
+.controlsColumnLeft .budgetBox {
+    border-bottom: 1px solid var(--itinerary-map-border);
+}
+
+.controlsColumnLeft .budgetBox {
+    border-bottom: none;
+    margin-top: clamp(16px, 2.2vw, 30px);
+}
+
+.controlsColumnLeft > *:not(:last-child),
+.controlsColumnRight > *:not(:last-child) {
+    border-bottom: 1px solid var(--itinerary-map-border);
+}
+
+.controlsColumnLeft .TripBox {
+    border-bottom: none !important;
+}
+
+.controlsColumnLeft,
+.controlsColumnRight {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.dateRangeTrigger,
+.locField {
+    box-sizing: border-box;
+    height: clamp(38px, 4.4vh, 44px);
+    width: 100%;
+    padding: 0 16px;
+    background-color: var(--itinerary-map-surface);
+    border: 1px solid var(--itinerary-map-input-border);
+    border-radius: 12px;
+    color: var(--itinerary-map-muted);
+    font-size: clamp(13px, 1vw, 14px);
+    font-family: inherit;
+    font-weight: 500;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+/* --- DATE PICKER TRIGGER BUTTON --- */
+.dateRangeTrigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    outline: none;
+}
+
+.locFieldWrap {
+    position: relative;
+}
+
+.locFieldIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--itinerary-map-muted-2);
+    display: inline-flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.locField {
+    padding-left: 38px;
+}
+
+.locFieldOption {
+    color: #ffffff;
+    background-color: #333333;
+}
+
+.dateFieldWrap {
+    margin-top: 10px;
+}
+
+.dateRangeTrigger:hover,
+.locField:hover {
+    background-color: var(--itinerary-map-input-hover-bg);
+    border-color: var(--itinerary-map-border-strong);
+}
+
+.locField:focus,
+.locField:focus-visible,
+.dateRangeTrigger:focus,
+.dateRangeTrigger:focus-visible,
+.dateFieldWrap:focus-within .dateRangeTrigger,
+.locFieldWrap:focus-within .locField {
+    border-width: 2px;
+    border-color: var(--itinerary-map-slider-thumb);
+    box-shadow: 0 0 0 3px var(--itinerary-map-shadow);
+    outline: none;
+}
+
+.calendarIcon {
+    display: flex;
+    align-items: center;
+    color: var(--itinerary-map-muted);
+}
+
+.dateText {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    opacity: 1;
+}
+
+.fieldEmpty {
+    color: var(--itinerary-map-muted);
+}
+
+.fieldFilled {
+    color: var(--itinerary-map-text);
+    background-color: var(--itinerary-map-input-hover-bg);
+}
+
+:global([data-theme='light']) .dateRangeTrigger,
+:global([data-theme='light']) .locField {
+    background-color: #ffffff;
+}
+
+:global([data-theme='light']) .fieldFilled {
+    background-color: #ffffff;
+}
+
+.locHelperText,
+.budgetHelperText,
+.boxHelperText {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--itinerary-map-muted-2);
+    line-height: 1.4;
+    margin-bottom: 20px;
+    text-align: left;
+    font-family: 'HelveticaCustom', 'Manrope', sans-serif;
+}
+
+.tripForecastRow {
+    position: absolute;
+    bottom: clamp(12px, 2.5vh, 20px);
+    left: clamp(12px, 1.6vw, 20px);
+    z-index: 60;
+    width: clamp(280px, 32vw, 420px);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: var(--itinerary-map-panel-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--itinerary-map-panel-border);
+    border-radius: 12px;
+    padding: clamp(12px, 1.5vw, 16px);
+    box-shadow: var(--itinerary-map-panel-shadow);
+    pointer-events: auto;
+}
+
+.tripForecastTitle {
+    margin-bottom: 5px;
+}
+
+.tripForecastTextBox {
+    width: 100%;
+    max-height: 100px;
+    overflow-y: auto;
+    border: none;
+    background: transparent;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.tripForecastText {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--itinerary-map-text);
+    opacity: 0.9;
+    margin: 0;
+}
+
+.tripForecastActions {
+    position: relative;
+    padding: 24px 20px 20px;
+    z-index: 3;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.doneBtn {
+    height: 32px;
+    min-width: 74px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--itinerary-map-border-strong);
+    background: var(--itinerary-map-input-hover-bg);
+    color: var(--itinerary-map-text);
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.doneBtn:hover {
+    background: var(--itinerary-map-input-bg);
+    border-color: var(--itinerary-map-slider-thumb);
+    box-shadow: 0 6px 14px var(--itinerary-map-shadow);
+    transform: translateY(-1px);
+}
+
+.doneBtn:active {
+    transform: scale(0.98);
+}
+
+.doneBtn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+:global([data-theme='light']) .doneBtn:disabled {
+    background: #f3f4f6;
+    border-color: #e5e7eb;
+    color: #9ca3af;
+    box-shadow: none;
+}
+
+:global([data-theme='light']) .doneBtn {
+    background: #ffffff;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+:global([data-theme='light']) .doneBtn:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.15);
+    transform: translateY(-1px);
+}
+
+.typingCursor {
+    display: inline-block;
+    color: var(--itinerary-map-text);
+    font-weight: 400;
+    white-space: pre-wrap;
+    /* Preserves spaces during typing */
+    position: relative;
+}
+
+/* The Blinking Cursor Line */
+.typingCursor::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: var(--itinerary-map-text);
+    /* Matches text color */
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blinkCursor 1s step-end infinite;
+}
+
+.typingActive::after {
+    animation: none;
+    /* Stop blinking while actively typing/erasing for realism */
+    opacity: 1;
+}
+
+@keyframes blinkCursor {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.budgetHelperText {
+    margin-bottom: 30px;
+}
+
+.activitiesBox {
+    width: auto;
+    max-height: 100%;
+    overflow-y: auto;
+    margin: 10px;
+    border: 1px solid var(--itinerary-map-border-strong);
+    border-radius: 12px;
+}
+
+.activitiesBox::-webkit-scrollbar {
+    width: 6px;
+}
+
+.activitiesBox::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.activitiesBox::-webkit-scrollbar-thumb {
+    background: var(--itinerary-map-slider-track);
+    border-radius: 3px;
+}
+
+.activitiesOption {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    width: 100%;
+}
+
+.hiddenCheckbox {
+    display: none;
+}
+
+.activityTile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: clamp(8px, 1vw, 10px) clamp(10px, 1.2vw, 12px);
+    background-color: var(--itinerary-map-input-bg);
+    border: 1px solid var(--itinerary-map-input-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.18s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    color: var(--itinerary-map-text);
+    font-size: clamp(0.76rem, 0.9vw, 0.82rem);
+    user-select: none;
+    min-height: clamp(42px, 5.2vh, 46px);
+    box-sizing: border-box;
+}
+
+.activityTile:hover {
+    background-color: var(--itinerary-map-input-hover-bg);
+    border-color: var(--itinerary-map-border-strong);
+    color: var(--itinerary-map-text);
+    box-shadow: 0 4px 12px var(--itinerary-map-shadow);
+    transform: scale(1.01);
+}
+
+:global([data-theme='dark']) .activityTile {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: rgba(248, 250, 252, 0.9);
+}
+
+.activityTileActive {
+    transform: scale(1.03);
+    background-color: var(--itinerary-map-input-hover-bg);
+    border-color: var(--itinerary-map-border-strong);
+    color: var(--itinerary-map-text);
+    box-shadow: 0 4px 12px var(--itinerary-map-shadow);
+}
+
+.activityTileActive:hover {
+    background-color: var(--itinerary-map-input-hover-bg);
+    border-color: var(--itinerary-map-border-strong);
+    color: var(--itinerary-map-text);
+    box-shadow: 0 4px 12px var(--itinerary-map-shadow);
+    transform: scale(1.07);
+}
+
+:global([data-theme='dark']) .activityTileActive {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #f8fafc;
+    box-shadow:
+        0 8px 16px rgba(15, 23, 42, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 0 8px rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme='dark']) .activityTileActive:hover {
+    background-color: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.36);
+    color: #ffffff;
+    box-shadow:
+        0 10px 18px rgba(15, 23, 42, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 0 10px rgba(255, 255, 255, 0.1);
+    transform: scale(1.07);
+}
+
+.activityTileIcon {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: currentColor;
+    flex-shrink: 0;
+}
+
+.activityTileIcon circle {
+    fill: transparent;
+    stroke: currentColor;
+}
+
+.activityTileActive .activityTileIcon circle {
+    fill: currentColor;
+    stroke: currentColor;
+}
+
+.activityTileActive .activityTileIcon svg {
+    opacity: 0.9;
+}
+
+.activityTileLabel {
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.activityCheckbox {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    accent-color: #007bff;
+}
+
+:global([data-theme='light']) .activityTile {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+:global([data-theme='light']) .activityTile:hover {
+    background: #ffffff;
+    border-color: #9ca3af;
+    color: #111827;
+    transform: scale(1.01);
+}
+
+:global([data-theme='light']) .activityTileActive {
+    background: #ffffff;
+    color: #111827;
+    border-color: #9ca3af;
+}
+
+:global([data-theme='light']) .activityTileActive:hover {
+    background: #ffffff;
+    color: #111827;
+    border-color: #9ca3af;
+    transform: scale(1.05);
+}
+
+/* --- INPUTS & SLIDERS --- */
+.locField {
+    font-family: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+
+/* --- BUDGET SECTION LAYOUT --- */
+.budgetContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+/* The row holding the 3 price boxes */
+.budgetLabelsRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+/* The individual price box (Dimmed by default) */
+.priceBox {
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 0.66rem;
+    color: var(--itinerary-map-muted-2);
+    font-weight: 500;
+    transition: all 0.1s ease;
+    border: 1px solid transparent;
+    background-color: transparent;
+    text-align: center;
+    flex: 1;
+}
+
+/* The ACTIVE price box (Highlighted) */
+.activePriceBox {
+    background-color: var(--itinerary-map-input-hover-bg);
+    color: var(--itinerary-map-text);
+    font-weight: 700;
+    border: 1px solid var(--itinerary-map-border-strong);
+    box-shadow: 0 4px 12px var(--itinerary-map-shadow);
+    transform: scale(1.05);
+}
+
+/* --- CUSTOM RANGE SLIDER --- */
+.customRange {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--itinerary-map-slider-track);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+.customRange::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--itinerary-map-slider-thumb);
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--itinerary-map-shadow);
+    border: 2px solid var(--itinerary-map-text);
+    margin-top: -9px;
+}
+
+.customRange::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--itinerary-map-slider-thumb);
+    cursor: pointer;
+    border: 2px solid var(--itinerary-map-text);
+    box-shadow: 0 0 10px var(--itinerary-map-shadow);
+}
+
+.customRange::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    background: var(--itinerary-map-slider-track);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@keyframes menuSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: translateY(-5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- REACT DATEPICKER DARK MODE OVERRIDES --- */
+:global(.react-datepicker) {
+    background-color: var(--itinerary-map-surface) !important;
+    border: 1px solid var(--itinerary-map-border) !important;
+    color: var(--itinerary-map-text) !important;
+    font-family: inherit !important;
+    box-shadow: 0 4px 20px var(--itinerary-map-shadow);
+    border-radius: 12px !important;
+}
+
+:global(.react-datepicker__header) {
+    background-color: #ef4444 !important;
+    border-bottom: 1px solid var(--itinerary-map-border) !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+    padding-top: 10px !important;
+}
+
+:global(.react-datepicker__current-month),
+:global(.react-datepicker__day-name) {
+    color: var(--itinerary-map-text) !important;
+    font-weight: 600 !important;
+}
+
+:global(.react-datepicker__day) {
+    color: var(--itinerary-map-muted) !important;
+    border-radius: 50% !important;
+}
+
+:global(.react-datepicker__day:hover) {
+    background-color: var(--itinerary-map-surface-subtle) !important;
+}
+
+:global(.react-datepicker__day--selected),
+:global(.react-datepicker__day--in-range) {
+    background-color: #2563EB !important;
+    color: white !important;
+}
+
+:global(.react-datepicker__day--disabled) {
+    color: var(--itinerary-map-muted-2) !important;
+}
+
+:global(.react-datepicker__triangle) {
+    display: none !important;
+}
+
+:global(.react-datepicker-wrapper),
+:global(.react-datepicker__input-container) {
+    display: block !important;
+    width: 100% !important;
+}
+
+/* --- NEW: BLUR OVERLAY --- */
+.blurOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background-color: var(--itinerary-map-overlay);
+    z-index: 25;
+    /* Above Map (0), Below Controls (10) */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden;
+}
+
+.blurOverlayActive {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+}
