@@ -77,6 +77,12 @@ export default function Last() {
   const rawPdfDataRef = useRef(null);
   const wasBackgroundedRef = useRef(false);
   const cachePromotionAttemptedRef = useRef(false);
+  const interactiveWatchdogRetriedRef = useRef(false);
+
+  const isRaspberryPiBrowser = useMemo(() => {
+    const userAgent = (typeof navigator !== 'undefined' ? navigator.userAgent : '').toLowerCase();
+    return /aarch64|armv|raspberry|rpi/.test(userAgent);
+  }, []);
 
   const viewerCropStyle = useMemo(() => ({
     '--pdf-crop-left': '0px',
@@ -336,22 +342,15 @@ export default function Last() {
   }, [rawPdfData]);
 
   // Prefer native viewer chrome suppression via URL fragment when possible.
-  // Some Chromium builds on Raspberry Pi fail to render blob PDFs with fragments,
-  // so Pi uses pure viewport crop masking for blob URLs.
+  // Raspberry Pi Chromium has stability issues with PDF fragments; keep raw URL there.
   const pdfData = useMemo(() => {
     if (!previewBaseUrl) return null;
-    const fragment = '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
-
-    if (!previewBaseUrl.startsWith('blob:')) {
-      return `${previewBaseUrl}${fragment}`;
-    }
-
-    const userAgent = (typeof navigator !== 'undefined' ? navigator.userAgent : '').toLowerCase();
-    const isRaspberryPiBrowser = /aarch64|armv|raspberry|rpi/.test(userAgent);
     if (isRaspberryPiBrowser) return previewBaseUrl;
 
+    const fragment = '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+    if (previewBaseUrl.includes('#')) return previewBaseUrl;
     return `${previewBaseUrl}${fragment}`;
-  }, [previewBaseUrl]);
+  }, [previewBaseUrl, isRaspberryPiBrowser]);
 
   useEffect(() => {
     if (!pdfData) {
@@ -371,6 +370,7 @@ export default function Last() {
     setRenderedPages([]);
     setIsRenderingPages(false);
     setSnapshotRecoveryAttempted(false);
+    interactiveWatchdogRetriedRef.current = false;
   }, [pdfData]);
 
   // On history return or app re-focus after visiting external pages,
@@ -559,6 +559,31 @@ export default function Last() {
       cancelled = true;
     };
   }, [rawPdfData, pdfCacheId]);
+
+  // Safety net for Chromium builds where <object>/<embed> hangs without firing load/error.
+  // Retry the server cache URL once, then fall back to image preview instead of a black screen.
+  useEffect(() => {
+    if (!pdfData || useImageFallbackPreview || interactiveReady) return undefined;
+
+    const timeoutMs = isRaspberryPiBrowser ? 6500 : 9000;
+    const timeoutId = window.setTimeout(() => {
+      if (interactiveReady || useImageFallbackPreview) return;
+
+      const activeCacheId = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || '').trim();
+      if (activeCacheId && !interactiveWatchdogRetriedRef.current) {
+        interactiveWatchdogRetriedRef.current = true;
+        setRawPdfData(buildPdfCacheUrl(activeCacheId, { appendTimestamp: true }));
+        setViewerReloadKey((current) => current + 1);
+        return;
+      }
+
+      setUseImageFallbackPreview(true);
+    }, timeoutMs);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [pdfData, useImageFallbackPreview, interactiveReady, pdfCacheId, isRaspberryPiBrowser]);
 
   // Render PDF pages into images only when interactive preview falls back.
   useEffect(() => {
