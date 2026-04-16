@@ -1,6 +1,9 @@
 import os
+import re
+import time
+import uuid
 import uvicorn
-from fastapi import FastAPI, HTTPException, Response
+from fastapi import FastAPI, HTTPException, Response, UploadFile, File
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -19,10 +22,42 @@ FRONTEND_DIST = PROJECT_ROOT / "dist"
 FRONTEND_INDEX = FRONTEND_DIST / "index.html"
 DATASET = BASE_DIR / "dataset" / "dataset.json"
 CONFIG = BASE_DIR / "config" / "config.yaml"
+PDF_CACHE_DIR = BASE_DIR / "pdf_cache"
+PDF_CACHE_TTL_SECONDS = int(os.environ.get("PDF_CACHE_TTL_SECONDS", "21600"))
+
+PDF_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{1,128}$")
 
 
 pipeline = None
 itinerary_list = []
+
+
+def _cleanup_expired_pdf_cache() -> None:
+    if not PDF_CACHE_DIR.exists():
+        return
+
+    now = time.time()
+    for pdf_path in PDF_CACHE_DIR.glob("*.pdf"):
+        try:
+            age_seconds = now - pdf_path.stat().st_mtime
+            if age_seconds > PDF_CACHE_TTL_SECONDS:
+                pdf_path.unlink(missing_ok=True)
+        except Exception:
+            # Do not block service startup/requests on cleanup issues.
+            continue
+
+
+def _resolve_pdf_cache_path(pdf_id: str) -> Path:
+    normalized_id = str(pdf_id or "").strip()
+    if not PDF_ID_PATTERN.fullmatch(normalized_id):
+        raise HTTPException(status_code=400, detail="Invalid PDF cache id")
+
+    resolved_path = (PDF_CACHE_DIR / f"{normalized_id}.pdf").resolve()
+    try:
+        resolved_path.relative_to(PDF_CACHE_DIR.resolve())
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="Invalid PDF cache path") from exc
+    return resolved_path
 
 
 @asynccontextmanager
@@ -49,6 +84,9 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         print(f"❌ CRITICAL ERROR: Failed to start pipeline: {e}")
         pipeline = None
+
+    PDF_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    _cleanup_expired_pdf_cache()
 
     yield
     print("🛑 Pathfinder API is shutting down...")
@@ -148,6 +186,73 @@ def get_itinerary():
 @app.get("/places")
 def get_all_places():
     return {"places": []}
+
+@app.post("/api/pdf-cache")
+async def create_pdf_cache(file: UploadFile = File(...)):
+    PDF_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    _cleanup_expired_pdf_cache()
+
+    content_type = (file.content_type or "").lower()
+    if content_type and content_type not in {"application/pdf", "application/octet-stream"}:
+        raise HTTPException(status_code=400, detail="Uploaded file must be a PDF")
+
+    pdf_id = uuid.uuid4().hex
+    target_path = _resolve_pdf_cache_path(pdf_id)
+
+    try:
+        total_bytes = 0
+        with target_path.open("wb") as output_file:
+            while True:
+                chunk = await file.read(1024 * 1024)
+                if not chunk:
+                    break
+                total_bytes += len(chunk)
+                output_file.write(chunk)
+
+        if total_bytes == 0:
+            target_path.unlink(missing_ok=True)
+            raise HTTPException(status_code=400, detail="Uploaded PDF is empty")
+
+        return {
+            "id": pdf_id,
+            "url": f"/api/pdf-cache/{pdf_id}.pdf",
+            "size": total_bytes
+        }
+    finally:
+        await file.close()
+
+
+@app.get("/api/pdf-cache/{pdf_id}.pdf")
+def get_pdf_cache_file(pdf_id: str):
+    _cleanup_expired_pdf_cache()
+    target_path = _resolve_pdf_cache_path(pdf_id)
+    if not target_path.exists():
+        raise HTTPException(status_code=404, detail="PDF cache entry not found")
+
+    headers = {
+        "Cache-Control": "no-store, max-age=0, must-revalidate",
+        "Pragma": "no-cache"
+    }
+    return FileResponse(
+        target_path,
+        media_type="application/pdf",
+        filename=f"{pdf_id}.pdf",
+        headers=headers
+    )
+
+
+@app.delete("/api/pdf-cache/{pdf_id}")
+def delete_pdf_cache_file(pdf_id: str):
+    target_path = _resolve_pdf_cache_path(pdf_id)
+    if not target_path.exists():
+        return {"deleted": False, "id": pdf_id}
+
+    try:
+        target_path.unlink(missing_ok=True)
+        return {"deleted": True, "id": pdf_id}
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to delete PDF cache entry: {exc}") from exc
+
 
 @app.post("/ask", response_model=AskResponse)
 async def ask_endpoint(request: AskRequest):

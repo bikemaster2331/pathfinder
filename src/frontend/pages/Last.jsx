@@ -9,8 +9,11 @@ import {
   clearPdfBlobSnapshot,
   savePdfBlobSnapshot
 } from '../utils/pdfSnapshotStore';
+import { buildPdfCacheUrl, deletePdfCacheById, uploadPdfBlobToCache } from '../utils/pdfCacheApi';
 import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
 import { TRAVEL_HUBS } from '../constants/location';
+
+const PDF_CACHE_ID_STORAGE_KEY = 'pathfinderPdfCacheId';
 
 const normalizeStoredItinerary = (parsedItinerary) => (
   Array.isArray(parsedItinerary) ? { 1: parsedItinerary } : (parsedItinerary || {})
@@ -54,6 +57,11 @@ export default function Last() {
   const navigate = useNavigate();
   const location = useLocation();
   const [rawPdfData, setRawPdfData] = useState(null);
+  const [pdfCacheId, setPdfCacheId] = useState(() => {
+    const routeId = String(location.state?.pdfCacheId || '').trim();
+    if (routeId) return routeId;
+    return String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || '').trim() || null;
+  });
   const [isIframeError, setIsIframeError] = useState(false);
   const [previewBaseUrl, setPreviewBaseUrl] = useState(null);
   const [fallbackError, setFallbackError] = useState('');
@@ -79,13 +87,37 @@ export default function Last() {
     };
   }, []);
 
-  // IndexedDB snapshot is the canonical source for /last preview restoration.
-  // Route state blob is treated only as optional bootstrap fallback.
+  // Initialize preview source in priority order:
+  // 1) server-backed PDF cache id (route state or localStorage),
+  // 2) route state pdfData,
+  // 3) IndexedDB snapshot fallback.
   useEffect(() => {
     let cancelled = false;
 
     const initializePdfSource = async () => {
       const routeStatePdf = location.state?.pdfData || null;
+      const routeStateCacheId = String(location.state?.pdfCacheId || '').trim();
+      const storedCacheId = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || '').trim();
+      const effectiveCacheId = routeStateCacheId || storedCacheId;
+
+      if (routeStateCacheId) {
+        localStorage.setItem(PDF_CACHE_ID_STORAGE_KEY, routeStateCacheId);
+      }
+
+      if (!cancelled && effectiveCacheId) {
+        setPdfCacheId(effectiveCacheId);
+        setRawPdfData(buildPdfCacheUrl(effectiveCacheId, { appendTimestamp: true }));
+        setFallbackError('');
+        setIsPdfSourceInitialized(true);
+        return;
+      }
+
+      if (!cancelled && routeStatePdf) {
+        setRawPdfData(routeStatePdf);
+        setFallbackError('');
+        setIsPdfSourceInitialized(true);
+        return;
+      }
 
       try {
         const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
@@ -98,11 +130,6 @@ export default function Last() {
         }
       } catch (error) {
         console.warn('Failed to initialize PDF source from IndexedDB snapshot:', error);
-      }
-
-      if (!cancelled && routeStatePdf) {
-        setRawPdfData(routeStatePdf);
-        setFallbackError('');
       }
 
       if (!cancelled) {
@@ -230,11 +257,32 @@ export default function Last() {
           driveData: fullTripDriveData,
           dayMapSnapshots,
           dayDirectionsLinks: linksForPdf,
-          saveFile: false
+          saveFile: false,
+          includeBlob: true
         });
 
-        if (!cancelled && regeneratedPdf) {
-          setRawPdfData(regeneratedPdf);
+        let pdfData = regeneratedPdf?.pdfData || null;
+        const pdfBlob = regeneratedPdf?.pdfBlob || null;
+        let createdPdfCacheId = null;
+
+        if (pdfBlob instanceof Blob) {
+          try {
+            const uploadedPdf = await uploadPdfBlobToCache(pdfBlob);
+            createdPdfCacheId = uploadedPdf?.id || null;
+            if (uploadedPdf?.url) {
+              pdfData = uploadedPdf.url;
+            }
+          } catch (uploadError) {
+            console.warn('PDF cache upload failed in /last regeneration fallback:', uploadError);
+          }
+        }
+
+        if (!cancelled && pdfData) {
+          if (createdPdfCacheId) {
+            localStorage.setItem(PDF_CACHE_ID_STORAGE_KEY, createdPdfCacheId);
+            setPdfCacheId(createdPdfCacheId);
+          }
+          setRawPdfData(pdfData);
         }
       } catch (error) {
         if (!cancelled) {
@@ -342,6 +390,22 @@ export default function Last() {
     };
 
     const restoreFromSnapshot = async () => {
+      const effectiveCacheId = String(
+        localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || ''
+      ).trim();
+
+      if (effectiveCacheId) {
+        setPdfCacheId(effectiveCacheId);
+        setRawPdfData(buildPdfCacheUrl(effectiveCacheId, { appendTimestamp: true }));
+        setFallbackError('');
+        setUseImageFallbackPreview(false);
+        setInteractiveReady(false);
+        setIsIframeError(false);
+        setSnapshotRecoveryAttempted(false);
+        setViewerReloadKey((current) => current + 1);
+        return true;
+      }
+
       try {
         const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
         if (persistedSnapshotUrl) {
@@ -399,7 +463,7 @@ export default function Last() {
       window.removeEventListener('focus', handleWindowFocus);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [isPdfSourceInitialized]);
+  }, [isPdfSourceInitialized, pdfCacheId]);
 
   // Ensure we always keep a durable PDF snapshot in IndexedDB while on /last.
   // This avoids stale blob-url failures after external navigation.
@@ -566,12 +630,27 @@ export default function Last() {
     rawPdfDataRef.current = rawPdfData;
   }, [rawPdfData]);
 
+  useEffect(() => {
+    const normalizedId = String(pdfCacheId || '').trim();
+    if (normalizedId) {
+      localStorage.setItem(PDF_CACHE_ID_STORAGE_KEY, normalizedId);
+      return;
+    }
+    localStorage.removeItem(PDF_CACHE_ID_STORAGE_KEY);
+  }, [pdfCacheId]);
+
   const handleBackToItinerary = () => {
     navigate(-1);
   };
 
   const handleBackToHome = async () => {
     try {
+      const activeCacheId = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || '').trim();
+      if (activeCacheId) {
+        await deletePdfCacheById(activeCacheId);
+      }
+      localStorage.removeItem(PDF_CACHE_ID_STORAGE_KEY);
+      setPdfCacheId(null);
       await clearPdfBlobSnapshot();
       hasEnsuredSnapshotRef.current = false;
     } finally {
@@ -606,6 +685,18 @@ export default function Last() {
 
     if (!snapshotRecoveryAttempted) {
       setSnapshotRecoveryAttempted(true);
+
+      const activeCacheId = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || '').trim();
+      if (activeCacheId) {
+        setPdfCacheId(activeCacheId);
+        setRawPdfData(buildPdfCacheUrl(activeCacheId, { appendTimestamp: true }));
+        setUseImageFallbackPreview(false);
+        setInteractiveReady(false);
+        setIsIframeError(false);
+        setViewerReloadKey((current) => current + 1);
+        return;
+      }
+
       try {
         const recoveredSnapshotUrl = await loadPdfBlobSnapshotUrl();
         if (recoveredSnapshotUrl && recoveredSnapshotUrl !== previewBaseUrl) {
@@ -618,6 +709,14 @@ export default function Last() {
       } catch (error) {
         console.warn('Failed to recover PDF snapshot after interactive error:', error);
       }
+    }
+
+    const activeCacheIdAfterRetry = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || '').trim();
+    if (activeCacheIdAfterRetry) {
+      localStorage.removeItem(PDF_CACHE_ID_STORAGE_KEY);
+      setPdfCacheId(null);
+      setRawPdfData(null);
+      return;
     }
 
     if (rawPdfData?.startsWith('blob:')) {

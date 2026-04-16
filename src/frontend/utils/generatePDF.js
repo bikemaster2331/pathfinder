@@ -90,7 +90,8 @@ export const generateItineraryPDF = ({
     driveData, // Flat array of drive times (matches sequence of spots)
     dayMapSnapshots, // Optional keyed map: { "1": "data:image/jpeg,...", "2": "..." }
     dayDirectionsLinks, // Optional keyed map: { "1": { hasRoute, url?, reason? }, ... }
-    saveFile = true
+    saveFile = true,
+    includeBlob = false
 }) => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -782,8 +783,18 @@ export const generateItineraryPDF = ({
     const pdfBlob = doc.output('blob');
     persistGeneratedPdfSnapshot(pdfBlob);
 
+    const previewUrl = URL.createObjectURL(pdfBlob);
+
     if (saveFile) {
         doc.save(`Itinerary_${activeHubName || 'Trip'}_${Date.now()}.pdf`);
     }
-    return URL.createObjectURL(pdfBlob);
+
+    if (includeBlob) {
+        return {
+            pdfBlob,
+            pdfData: previewUrl
+        };
+    }
+
+    return previewUrl;
 };

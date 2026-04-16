@@ -2,6 +2,7 @@
 torch==2.6.0+cpu
 fastapi
 uvicorn
+python-multipart
 python-dotenv
 pydantic
 requests

@@ -12,6 +12,7 @@ import { calculateDriveTimes, calculateTimeUsage, calculateTotalRoute, calculate
 import { generateItineraryPDF } from '../utils/generatePDF';
 import { generateDayMapSnapshots } from '../utils/dayMapSnapshots';
 import { generateDayGoogleDirectionsLinks } from '../utils/dayDirections';
+import { uploadPdfBlobToCache, deletePdfCacheById } from '../utils/pdfCacheApi';
 import CustomModal from '../components/CustomModal';
 import defaultBg from '../assets/images/card/catanduanes.png';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -735,17 +736,46 @@ export default function ItineraryPage() {
                 })
             ]);
 
-            const pdfData = generateItineraryPDF({
+            const generatedPdf = generateItineraryPDF({
                 activeHubName: activeHub.name,
                 dateRange,
                 addedSpots: finalItinerary,
                 totalDistance: fullTripDistance,
                 driveData: fullTripDriveData,
                 dayMapSnapshots,
-                dayDirectionsLinks
+                dayDirectionsLinks,
+                saveFile: false,
+                includeBlob: true
             });
 
-            navigate('/last', { state: { pdfData } });
+            let pdfData = generatedPdf?.pdfData || null;
+            const pdfBlob = generatedPdf?.pdfBlob || null;
+            let pdfCacheId = null;
+
+            const previousPdfCacheId = localStorage.getItem('pathfinderPdfCacheId');
+            if (previousPdfCacheId) {
+                void deletePdfCacheById(previousPdfCacheId);
+            }
+
+            if (pdfBlob instanceof Blob) {
+                try {
+                    const uploadedPdf = await uploadPdfBlobToCache(pdfBlob);
+                    pdfCacheId = uploadedPdf?.id || null;
+                    if (uploadedPdf?.url) {
+                        pdfData = uploadedPdf.url;
+                    }
+                } catch (uploadError) {
+                    console.warn('Server-side PDF cache upload failed; using local preview fallback:', uploadError);
+                }
+            }
+
+            if (pdfCacheId) {
+                localStorage.setItem('pathfinderPdfCacheId', pdfCacheId);
+            } else {
+                localStorage.removeItem('pathfinderPdfCacheId');
+            }
+
+            navigate('/last', { state: { pdfData, pdfCacheId } });
         } catch (error) {
             console.error('Failed to generate itinerary PDF:', error);
             showAlert('Failed to generate PDF. Please try again.', 'PDF Generation Failed', 'error');
