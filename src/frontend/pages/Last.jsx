@@ -4,6 +4,7 @@ import styles from '../styles/pages/Last.module.css';
 import { generateItineraryPDF } from '../utils/generatePDF';
 import { generateDayMapSnapshots } from '../utils/dayMapSnapshots';
 import { generateDayGoogleDirectionsLinks } from '../utils/dayDirections';
+import { loadPdfBlobSnapshotUrl } from '../utils/pdfSnapshotStore';
 import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
 import { TRAVEL_HUBS } from '../constants/location';
 
@@ -45,33 +46,10 @@ const readStoredTripContext = () => {
   };
 };
 
-const LAST_PDF_SNAPSHOT_KEY = 'pathfinder:lastGeneratedPdfDataUri';
-
-const readPersistedPdfSnapshot = () => {
-  try {
-    const value = localStorage.getItem(LAST_PDF_SNAPSHOT_KEY);
-    return (typeof value === 'string' && value.startsWith('data:application/pdf')) ? value : null;
-  } catch {
-    return null;
-  }
-};
-
-const persistPdfSnapshotIfDataUri = (value) => {
-  if (typeof value !== 'string' || !value.startsWith('data:application/pdf')) return;
-
-  try {
-    localStorage.setItem(LAST_PDF_SNAPSHOT_KEY, value);
-  } catch (error) {
-    console.warn('Failed to persist /last PDF snapshot:', error);
-  }
-};
-
 export default function Last() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [rawPdfData, setRawPdfData] = useState(
-    () => location.state?.pdfData || readPersistedPdfSnapshot() || null
-  );
+  const [rawPdfData, setRawPdfData] = useState(() => location.state?.pdfData || null);
   const [isIframeError, setIsIframeError] = useState(false);
   const [previewBaseUrl, setPreviewBaseUrl] = useState(null);
   const [fallbackError, setFallbackError] = useState('');
@@ -101,10 +79,6 @@ export default function Last() {
     }
   }, []);
 
-  useEffect(() => {
-    persistPdfSnapshotIfDataUri(rawPdfData);
-  }, [rawPdfData]);
-
   // Fallback: if route state is missing (common in kiosk/reload scenarios),
   // regenerate PDF from saved itinerary info.
   useEffect(() => {
@@ -114,15 +88,15 @@ export default function Last() {
 
     const regeneratePdfFallback = async () => {
       try {
-        const context = readStoredTripContext();
-        if (!context) {
-          const persistedSnapshot = readPersistedPdfSnapshot();
-          if (!cancelled && persistedSnapshot) {
-            setRawPdfData(persistedSnapshot);
-            setFallbackError('');
-          }
+        const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
+        if (!cancelled && persistedSnapshotUrl) {
+          setRawPdfData(persistedSnapshotUrl);
+          setFallbackError('');
           return;
         }
+
+        const context = readStoredTripContext();
+        if (!context) return;
 
         if (!cancelled) {
           setFallbackError('');
@@ -143,13 +117,7 @@ export default function Last() {
             allSpotsFlat.push(...daySpots);
           });
 
-        if (!allSpotsFlat.length) {
-          const persistedSnapshot = readPersistedPdfSnapshot();
-          if (!cancelled && persistedSnapshot) {
-            setRawPdfData(persistedSnapshot);
-          }
-          return;
-        }
+        if (!allSpotsFlat.length) return;
 
         const routeReadySpots = allSpotsFlat.filter(
           (spot) => Array.isArray(spot?.geometry?.coordinates) && spot.geometry.coordinates.length === 2
@@ -210,12 +178,8 @@ export default function Last() {
           setRawPdfData(regeneratedPdf);
         }
       } catch (error) {
-        const persistedSnapshot = readPersistedPdfSnapshot();
-        if (!cancelled && persistedSnapshot) {
-          setRawPdfData(persistedSnapshot);
-        }
         if (!cancelled) {
-          setFallbackError(persistedSnapshot ? '' : (error?.message || String(error)));
+          setFallbackError(error?.message || String(error));
         }
         console.error('Failed to regenerate PDF preview from localStorage:', error);
       }
@@ -233,6 +197,7 @@ export default function Last() {
   // - convert large data URI PDFs to blob URLs for better browser compatibility
   useEffect(() => {
     let createdBlobUrl = null;
+    let shouldRevokeRawBlobUrl = false;
 
     if (!rawPdfData) {
       setPreviewBaseUrl(null);
@@ -259,11 +224,15 @@ export default function Last() {
       }
     } else {
       setPreviewBaseUrl(rawPdfData);
+      shouldRevokeRawBlobUrl = rawPdfData.startsWith('blob:');
     }
 
     return () => {
       if (createdBlobUrl) {
         URL.revokeObjectURL(createdBlobUrl);
+      }
+      if (shouldRevokeRawBlobUrl) {
+        URL.revokeObjectURL(rawPdfData);
       }
     };
   }, [rawPdfData]);

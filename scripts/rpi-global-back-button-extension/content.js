@@ -1,9 +1,10 @@
 ﻿(() => {
   const BUTTON_ID = '__pathfinder_global_back_button__';
   const STYLE_ID = '__pathfinder_global_back_style__';
+  const NAV_STATE_KEY = 'pathfinderNavigationState';
 
-  // Update this if your kiosk app runs on a different origin.
-  const DEFAULT_RETURN_URL = 'http://localhost:5173/last';
+  // Used only when there is no previous page info available.
+  const DEFAULT_FALLBACK_URL = 'http://localhost:5173/last';
 
   const PATHFINDER_HOST_ALLOWLIST = new Set([
     'localhost',
@@ -21,18 +22,79 @@
     return false;
   };
 
-  const getReturnUrl = async () => {
+  const parseUrl = (value) => {
     try {
-      const stored = await chrome.storage.local.get(['lastPathfinderUrl']);
-      const candidate = stored?.lastPathfinderUrl;
-      if (typeof candidate === 'string' && candidate.startsWith('http')) {
-        return candidate;
-      }
+      return new URL(value);
     } catch {
-      // Ignore storage failures and use default URL.
+      return null;
+    }
+  };
+
+  const compactPath = (pathname) => {
+    const path = String(pathname || '/');
+    if (!path || path === '/') return '/';
+
+    const segments = path.split('/').filter(Boolean);
+    if (segments.length <= 2) {
+      return `/${segments.join('/')}`;
     }
 
-    return DEFAULT_RETURN_URL;
+    return `/${segments[0]}/.../${segments[segments.length - 1]}`;
+  };
+
+  const previousPageLabel = (url) => {
+    const parsed = parseUrl(url);
+    if (!parsed) return 'Previous Page';
+
+    const host = parsed.hostname.replace(/^www\./i, '');
+    const path = compactPath(parsed.pathname);
+
+    if (host === 'localhost' || host === '127.0.0.1' || host === '172.27.230.182') {
+      if (parsed.pathname.startsWith('/last')) return 'Previous Page (PDF)';
+      return `Previous Page (${path})`;
+    }
+
+    return `Previous Page (${host}${path === '/' ? '' : path})`;
+  };
+
+  const readNavState = async () => {
+    try {
+      const stored = await chrome.storage.local.get([NAV_STATE_KEY]);
+      const state = stored?.[NAV_STATE_KEY];
+      if (state && typeof state === 'object') return state;
+    } catch {
+      // Ignore storage errors.
+    }
+    return {
+      previousUrl: '',
+      currentUrl: ''
+    };
+  };
+
+  const writeNavState = async (state) => {
+    try {
+      await chrome.storage.local.set({ [NAV_STATE_KEY]: state });
+    } catch {
+      // Ignore storage errors.
+    }
+  };
+
+  const updateNavStateForCurrentPage = async () => {
+    const currentUrl = window.location.href;
+    const state = await readNavState();
+
+    // Avoid churn on same URL re-renders.
+    if (state.currentUrl === currentUrl) {
+      return state;
+    }
+
+    const nextState = {
+      previousUrl: state.currentUrl || state.previousUrl || '',
+      currentUrl
+    };
+
+    await writeNavState(nextState);
+    return nextState;
   };
 
   const injectStyle = () => {
@@ -60,6 +122,10 @@
       #${BUTTON_ID}:hover {
         background: rgba(30, 41, 59, 0.95);
       }
+      #${BUTTON_ID}:disabled {
+        opacity: 0.84;
+        cursor: wait;
+      }
     `;
 
     document.documentElement.appendChild(style);
@@ -67,42 +133,52 @@
 
   const removeButton = () => {
     const existing = document.getElementById(BUTTON_ID);
-    if (existing) {
-      existing.remove();
+    if (existing) existing.remove();
+  };
+
+  const navigateToPrevious = async (previousUrl, button) => {
+    button.disabled = true;
+    button.textContent = 'Returning...';
+
+    if (typeof previousUrl === 'string' && previousUrl && previousUrl !== window.location.href) {
+      window.location.assign(previousUrl);
+      return;
     }
+
+    window.location.assign(DEFAULT_FALLBACK_URL);
   };
 
   const renderButton = async () => {
+    const state = await updateNavStateForCurrentPage();
+
     if (isPathfinderPage()) {
       removeButton();
-      try {
-        await chrome.storage.local.set({ lastPathfinderUrl: window.location.href });
-      } catch {
-        // Ignore storage errors.
-      }
       return;
     }
 
     injectStyle();
 
-    if (document.getElementById(BUTTON_ID)) return;
+    const previousUrl = state?.previousUrl || '';
+    const label = previousPageLabel(previousUrl);
+
+    const existing = document.getElementById(BUTTON_ID);
+    if (existing) {
+      existing.textContent = label;
+      existing.onclick = () => {
+        navigateToPrevious(previousUrl, existing);
+      };
+      return;
+    }
 
     const button = document.createElement('button');
     button.id = BUTTON_ID;
     button.type = 'button';
-    button.textContent = 'Back to PDF';
+    button.textContent = label;
+    button.addEventListener('click', () => navigateToPrevious(previousUrl, button));
 
-    button.addEventListener('click', async () => {
-      if (window.history.length > 1) {
-        window.history.back();
-        return;
-      }
-
-      const returnUrl = await getReturnUrl();
-      window.location.assign(returnUrl);
-    });
-
-    document.body.appendChild(button);
+    if (document.body) {
+      document.body.appendChild(button);
+    }
   };
 
   const rerenderSoon = () => {

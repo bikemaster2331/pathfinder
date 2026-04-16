@@ -1,4 +1,5 @@
 import { jsPDF } from 'jspdf';
+import { savePdfBlobSnapshot } from './pdfSnapshotStore';
 
 // --- NEW HELPER: Scanned Line ---
 const drawTechnicalLines = (doc, y, pageWidth) => {
@@ -74,20 +75,10 @@ const ensureSpace = (doc, currentY, needed, pageHeight) => {
     return currentY;
 };
 
-const LAST_PDF_SNAPSHOT_KEY = 'pathfinder:lastGeneratedPdfDataUri';
-
-const persistGeneratedPdfSnapshot = (doc) => {
-    if (typeof window === 'undefined') return;
-
-    try {
-        const dataUri = doc.output('datauristring');
-        if (typeof dataUri === 'string' && dataUri.startsWith('data:application/pdf')) {
-            localStorage.setItem(LAST_PDF_SNAPSHOT_KEY, dataUri);
-        }
-    } catch (error) {
-        // Non-blocking: PDF generation should still complete even if storage is full.
-        console.warn('Failed to persist PDF snapshot for recovery:', error);
-    }
+const persistGeneratedPdfSnapshot = (pdfBlob) => {
+    if (!(pdfBlob instanceof Blob)) return;
+    // Fire-and-forget persistence so PDF generation remains synchronous.
+    void savePdfBlobSnapshot(pdfBlob);
 };
 
 // --- MAIN GENERATOR ---
@@ -788,10 +779,11 @@ export const generateItineraryPDF = ({
 
     // Save a file immediately when requested, then return a Blob URL for in-app preview.
     // Blob URLs are more reliable than large data URIs on constrained browsers/devices.
+    const pdfBlob = doc.output('blob');
+    persistGeneratedPdfSnapshot(pdfBlob);
+
     if (saveFile) {
         doc.save(`Itinerary_${activeHubName || 'Trip'}_${Date.now()}.pdf`);
     }
-    persistGeneratedPdfSnapshot(doc);
-    const pdfBlob = doc.output('blob');
     return URL.createObjectURL(pdfBlob);
 };
