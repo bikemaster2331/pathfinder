@@ -83,6 +83,8 @@ export default function Last() {
   const [viewerReloadKey, setViewerReloadKey] = useState(0);
   const hasEnsuredSnapshotRef = useRef(false);
   const rawPdfDataRef = useRef(null);
+  const interactiveReadyRef = useRef(false);
+  const useImageFallbackPreviewRef = useRef(false);
   const wasBackgroundedRef = useRef(false);
   const cachePromotionAttemptedRef = useRef(false);
   const interactiveWatchdogRetriedRef = useRef(false);
@@ -437,34 +439,65 @@ export default function Last() {
       const effectiveCacheId = String(
         localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || ''
       ).trim();
-
-      if (effectiveCacheId) {
-        setPdfCacheId(effectiveCacheId);
-        setRawPdfData(buildPdfCacheUrl(effectiveCacheId));
-        setFallbackError('');
-        setUseImageFallbackPreview(forceImageFallbackPreview);
-        setInteractiveReady(false);
-        setIsIframeError(false);
-        setSnapshotRecoveryAttempted(false);
-        setViewerReloadKey((current) => current + 1);
-        return true;
-      }
+      const normalizePreviewUrl = (value) => (
+        String(value || '')
+          .trim()
+          .replace(/([?&])t=\d+/g, '$1')
+          .replace(/[?&]$/, '')
+          .replace(/#.*$/, '')
+      );
+      const currentSource = normalizePreviewUrl(rawPdfDataRef.current);
+      const isViewerHealthy = Boolean(
+        interactiveReadyRef.current || useImageFallbackPreviewRef.current
+      );
 
       try {
         const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
         if (persistedSnapshotUrl) {
+          const normalizedSnapshotSource = normalizePreviewUrl(persistedSnapshotUrl);
+          if (isViewerHealthy && currentSource && currentSource === normalizedSnapshotSource) {
+            if (effectiveCacheId) {
+              setPdfCacheId(effectiveCacheId);
+            }
+            return true;
+          }
+
           hasEnsuredSnapshotRef.current = true;
+          if (effectiveCacheId) {
+            setPdfCacheId(effectiveCacheId);
+          }
           setRawPdfData(persistedSnapshotUrl);
           setFallbackError('');
           setUseImageFallbackPreview(forceImageFallbackPreview);
           setInteractiveReady(false);
           setIsIframeError(false);
           setSnapshotRecoveryAttempted(false);
-          setViewerReloadKey((current) => current + 1);
           return true;
         }
       } catch (error) {
         console.warn('Failed to restore PDF snapshot after external navigation:', error);
+      }
+
+      if (effectiveCacheId) {
+        const cacheUrl = buildPdfCacheUrl(effectiveCacheId);
+        const normalizedCacheSource = normalizePreviewUrl(cacheUrl);
+        if (isViewerHealthy && currentSource && currentSource === normalizedCacheSource) {
+          setPdfCacheId(effectiveCacheId);
+          return true;
+        }
+
+        setPdfCacheId(effectiveCacheId);
+        setRawPdfData(cacheUrl);
+        setFallbackError('');
+        setUseImageFallbackPreview(forceImageFallbackPreview);
+        setInteractiveReady(false);
+        setIsIframeError(false);
+        setSnapshotRecoveryAttempted(false);
+
+        if (!isViewerHealthy && currentSource && currentSource === normalizedCacheSource) {
+          setViewerReloadKey((current) => current + 1);
+        }
+        return true;
       }
 
       hasEnsuredSnapshotRef.current = false;
@@ -774,6 +807,14 @@ export default function Last() {
   }, [rawPdfData]);
 
   useEffect(() => {
+    interactiveReadyRef.current = interactiveReady;
+  }, [interactiveReady]);
+
+  useEffect(() => {
+    useImageFallbackPreviewRef.current = useImageFallbackPreview;
+  }, [useImageFallbackPreview]);
+
+  useEffect(() => {
     const normalizedId = String(pdfCacheId || '').trim();
     if (normalizedId) {
       localStorage.setItem(PDF_CACHE_ID_STORAGE_KEY, normalizedId);
@@ -998,11 +1039,6 @@ export default function Last() {
                 onError={handleInteractivePreviewError}
               />
             </object>
-            {!interactiveReady && (
-              <div className={styles.interactiveLoadingHint}>
-                Loading interactive preview...
-              </div>
-            )}
           </div>
         ) : useImageFallbackPreview ? (
           renderedPages.length > 0 ? (
