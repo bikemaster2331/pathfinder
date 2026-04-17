@@ -90,6 +90,28 @@
     box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
 }
 
+.paperPageLayer {
+    position: relative;
+    width: 100%;
+}
+
+.pageLinkOverlay {
+    position: absolute;
+    display: block;
+    border: 1px solid transparent;
+    background: transparent;
+}
+
+.pageLinkOverlay:hover {
+    border-color: rgba(37, 99, 235, 0.45);
+    background: rgba(59, 130, 246, 0.08);
+}
+
+.pageLinkOverlay:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 1px;
+}
+
 .renderingState {
     width: 100%;
     display: flex;

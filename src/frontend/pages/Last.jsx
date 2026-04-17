@@ -14,6 +14,12 @@ import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
 import { TRAVEL_HUBS } from '../constants/location';
 
 const PDF_CACHE_ID_STORAGE_KEY = 'pathfinderPdfCacheId';
+const PREFERRED_PREVIEW_MODE_STORAGE_KEY = 'pathfinderPreferImagePdfPreview';
+
+const readPdfCacheIdFromSearch = (search = '') => {
+  const params = new URLSearchParams(String(search || ''));
+  return String(params.get('pdf') || '').trim();
+};
 
 const normalizeStoredItinerary = (parsedItinerary) => (
   Array.isArray(parsedItinerary) ? { 1: parsedItinerary } : (parsedItinerary || {})
@@ -60,8 +66,13 @@ export default function Last() {
   const [pdfCacheId, setPdfCacheId] = useState(() => {
     const routeId = String(location.state?.pdfCacheId || '').trim();
     if (routeId) return routeId;
+    const searchId = readPdfCacheIdFromSearch(location.search);
+    if (searchId) return searchId;
     return String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || '').trim() || null;
   });
+  const [preferImageFallbackPreview, setPreferImageFallbackPreview] = useState(() => (
+    localStorage.getItem(PREFERRED_PREVIEW_MODE_STORAGE_KEY) === '1'
+  ));
   const [isIframeError, setIsIframeError] = useState(false);
   const [previewBaseUrl, setPreviewBaseUrl] = useState(null);
   const [fallbackError, setFallbackError] = useState('');
@@ -89,6 +100,11 @@ export default function Last() {
     return /raspberry|rpi|aarch64|armv|arm64|linux arm/.test(fingerprint);
   }, []);
 
+  const forceImageFallbackPreview = useMemo(
+    () => isRaspberryPiBrowser || preferImageFallbackPreview,
+    [isRaspberryPiBrowser, preferImageFallbackPreview]
+  );
+
   const viewerCropStyle = useMemo(() => ({
     '--pdf-crop-left': '0px',
     '--pdf-crop-top': '0px'
@@ -104,8 +120,9 @@ export default function Last() {
     const initializePdfSource = async () => {
       const routeStatePdf = location.state?.pdfData || null;
       const routeStateCacheId = String(location.state?.pdfCacheId || '').trim();
+      const searchCacheId = readPdfCacheIdFromSearch(location.search);
       const storedCacheId = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || '').trim();
-      const effectiveCacheId = routeStateCacheId || storedCacheId;
+      const effectiveCacheId = routeStateCacheId || searchCacheId || storedCacheId;
 
       if (routeStateCacheId) {
         localStorage.setItem(PDF_CACHE_ID_STORAGE_KEY, routeStateCacheId);
@@ -149,7 +166,7 @@ export default function Last() {
     return () => {
       cancelled = true;
     };
-  }, [location.state]);
+  }, [location.state, location.search]);
 
   useEffect(() => {
     try {
@@ -387,13 +404,13 @@ export default function Last() {
       return;
     }
 
-    setUseImageFallbackPreview(false);
+    setUseImageFallbackPreview(forceImageFallbackPreview);
     setInteractiveReady(false);
     setIsIframeError(false);
     setRenderedPages([]);
     setIsRenderingPages(false);
     setSnapshotRecoveryAttempted(false);
-  }, [pdfData]);
+  }, [pdfData, forceImageFallbackPreview]);
 
   useEffect(() => {
     if (!pdfData) return;
@@ -402,16 +419,11 @@ export default function Last() {
     interactiveWatchdogRetriedRef.current = false;
   }, [pdfData, interactiveWatchdogSourceKey]);
 
-  // Raspberry Pi Chromium frequently hangs on embedded PDF plugins.
-  // Force PDF.js image fallback there to avoid permanent black-screen loaders.
   useEffect(() => {
-    if (!pdfData) return;
     if (!isRaspberryPiBrowser) return;
-
-    setUseImageFallbackPreview(true);
-    setInteractiveReady(false);
-    setIsIframeError(false);
-  }, [pdfData, isRaspberryPiBrowser]);
+    if (preferImageFallbackPreview) return;
+    setPreferImageFallbackPreview(true);
+  }, [isRaspberryPiBrowser, preferImageFallbackPreview]);
 
   // On history return or app re-focus after visiting external pages,
   // force-restore preview from IndexedDB snapshot and remount the viewer.
@@ -434,7 +446,7 @@ export default function Last() {
         setPdfCacheId(effectiveCacheId);
         setRawPdfData(buildPdfCacheUrl(effectiveCacheId));
         setFallbackError('');
-        setUseImageFallbackPreview(false);
+        setUseImageFallbackPreview(forceImageFallbackPreview);
         setInteractiveReady(false);
         setIsIframeError(false);
         setSnapshotRecoveryAttempted(false);
@@ -448,7 +460,7 @@ export default function Last() {
           hasEnsuredSnapshotRef.current = true;
           setRawPdfData(persistedSnapshotUrl);
           setFallbackError('');
-          setUseImageFallbackPreview(false);
+          setUseImageFallbackPreview(forceImageFallbackPreview);
           setInteractiveReady(false);
           setIsIframeError(false);
           setSnapshotRecoveryAttempted(false);
@@ -499,7 +511,7 @@ export default function Last() {
       window.removeEventListener('focus', handleWindowFocus);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [isPdfSourceInitialized, pdfCacheId]);
+  }, [isPdfSourceInitialized, pdfCacheId, forceImageFallbackPreview]);
 
   // Ensure we always keep a durable PDF snapshot in IndexedDB while on /last.
   // This avoids stale blob-url failures after external navigation.
@@ -582,7 +594,7 @@ export default function Last() {
         localStorage.setItem(PDF_CACHE_ID_STORAGE_KEY, createdPdfCacheId);
         setPdfCacheId(createdPdfCacheId);
         setRawPdfData(buildPdfCacheUrl(createdPdfCacheId));
-        setUseImageFallbackPreview(false);
+        setUseImageFallbackPreview(forceImageFallbackPreview);
         setInteractiveReady(false);
         setIsIframeError(false);
         setSnapshotRecoveryAttempted(false);
@@ -598,7 +610,7 @@ export default function Last() {
     return () => {
       cancelled = true;
     };
-  }, [rawPdfData, pdfCacheId]);
+  }, [rawPdfData, pdfCacheId, forceImageFallbackPreview]);
 
   // Safety net for Chromium builds where <object>/<embed> hangs without firing load/error.
   // Retry the server cache URL once, then fall back to image preview instead of a black screen.
@@ -617,6 +629,7 @@ export default function Last() {
         return;
       }
 
+      setPreferImageFallbackPreview(true);
       setUseImageFallbackPreview(true);
     }, timeoutMs);
 
@@ -629,10 +642,12 @@ export default function Last() {
     interactiveReady,
     pdfCacheId,
     isRaspberryPiBrowser,
-    interactiveWatchdogSourceKey
+    interactiveWatchdogSourceKey,
+    viewerReloadKey
   ]);
 
   // Render PDF pages into images only when interactive preview falls back.
+  // We also preserve external link annotations so directions can still be opened.
   useEffect(() => {
     if (!useImageFallbackPreview) return undefined;
 
@@ -673,7 +688,41 @@ export default function Last() {
             viewport
           }).promise;
 
-          pages.push(canvas.toDataURL('image/png'));
+          const annotations = await page.getAnnotations({ intent: 'display' });
+          const links = [];
+
+          if (Array.isArray(annotations)) {
+            annotations.forEach((annotation) => {
+              const href = String(annotation?.url || annotation?.unsafeUrl || '').trim();
+              if (!href) return;
+              if (!/^https?:\/\//i.test(href) && !/^mailto:/i.test(href) && !/^tel:/i.test(href)) return;
+              if (!Array.isArray(annotation?.rect) || annotation.rect.length < 4) return;
+
+              const mappedRect = viewport.convertToViewportRectangle(annotation.rect);
+              if (!Array.isArray(mappedRect) || mappedRect.length < 4) return;
+
+              const left = Math.max(0, Math.min(mappedRect[0], mappedRect[2]));
+              const top = Math.max(0, Math.min(mappedRect[1], mappedRect[3]));
+              const width = Math.abs(mappedRect[0] - mappedRect[2]);
+              const height = Math.abs(mappedRect[1] - mappedRect[3]);
+              if (width < 2 || height < 2) return;
+
+              links.push({
+                href,
+                left,
+                top,
+                width,
+                height
+              });
+            });
+          }
+
+          pages.push({
+            imageSrc: canvas.toDataURL('image/png'),
+            width: canvas.width,
+            height: canvas.height,
+            links
+          });
         }
 
         if (!cancelled) {
@@ -727,10 +776,33 @@ export default function Last() {
     const normalizedId = String(pdfCacheId || '').trim();
     if (normalizedId) {
       localStorage.setItem(PDF_CACHE_ID_STORAGE_KEY, normalizedId);
+    } else {
+      localStorage.removeItem(PDF_CACHE_ID_STORAGE_KEY);
+    }
+
+    if (typeof window === 'undefined') return;
+
+    const currentUrl = new URL(window.location.href);
+    const currentParam = String(currentUrl.searchParams.get('pdf') || '').trim();
+    if (normalizedId && currentParam !== normalizedId) {
+      currentUrl.searchParams.set('pdf', normalizedId);
+      window.history.replaceState(window.history.state, '', `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`);
       return;
     }
-    localStorage.removeItem(PDF_CACHE_ID_STORAGE_KEY);
+
+    if (!normalizedId && currentParam) {
+      currentUrl.searchParams.delete('pdf');
+      window.history.replaceState(window.history.state, '', `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`);
+    }
   }, [pdfCacheId]);
+
+  useEffect(() => {
+    if (preferImageFallbackPreview) {
+      localStorage.setItem(PREFERRED_PREVIEW_MODE_STORAGE_KEY, '1');
+      return;
+    }
+    localStorage.removeItem(PREFERRED_PREVIEW_MODE_STORAGE_KEY);
+  }, [preferImageFallbackPreview]);
 
   const handleBackToItinerary = () => {
     navigate(-1);
@@ -779,7 +851,7 @@ export default function Last() {
       if (recoveredSnapshotUrl) {
         hasEnsuredSnapshotRef.current = true;
         setRawPdfData(recoveredSnapshotUrl);
-        setUseImageFallbackPreview(false);
+        setUseImageFallbackPreview(forceImageFallbackPreview);
         setInteractiveReady(false);
         setIsIframeError(false);
         return true;
@@ -801,7 +873,7 @@ export default function Last() {
       if (activeCacheId) {
         setPdfCacheId(activeCacheId);
         setRawPdfData(buildPdfCacheUrl(activeCacheId, { appendTimestamp: true }));
-        setUseImageFallbackPreview(false);
+        setUseImageFallbackPreview(forceImageFallbackPreview);
         setInteractiveReady(false);
         setIsIframeError(false);
         setViewerReloadKey((current) => current + 1);
@@ -861,6 +933,7 @@ export default function Last() {
       return;
     }
 
+    setPreferImageFallbackPreview(true);
     setUseImageFallbackPreview(true);
   };
 
@@ -893,7 +966,7 @@ export default function Last() {
         )}
       </div>
 
-      {useImageFallbackPreview && dayDirectionEntries.some((entry) => entry.hasRoute) && (
+      {dayDirectionEntries.some((entry) => entry.hasRoute) && (
         <div className={styles.dayDirectionsFallback}>
           <span className={styles.dayDirectionsFallbackLabel}>Directions:</span>
           {dayDirectionEntries
@@ -945,14 +1018,32 @@ export default function Last() {
             <div className={styles.renderingState}>Rendering PDF preview...</div>
           ) : renderedPages.length > 0 ? (
             <div className={styles.paperStack}>
-              {renderedPages.map((pageImage, index) => (
-                <img
-                  key={`pdf-page-${index + 1}`}
-                  src={pageImage}
-                  alt={`PDF Page ${index + 1}`}
-                  className={styles.paperPage}
-                  loading="lazy"
-                />
+              {renderedPages.map((page, index) => (
+                <div key={`pdf-page-${index + 1}`} className={styles.paperPageLayer}>
+                  <img
+                    src={page.imageSrc}
+                    alt={`PDF Page ${index + 1}`}
+                    className={styles.paperPage}
+                    loading="lazy"
+                  />
+                  {Array.isArray(page.links) && page.links.map((link, linkIndex) => (
+                    <a
+                      key={`pdf-page-${index + 1}-link-${linkIndex + 1}`}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.pageLinkOverlay}
+                      style={{
+                        left: `${(link.left / Math.max(page.width || 0, 1)) * 100}%`,
+                        top: `${(link.top / Math.max(page.height || 0, 1)) * 100}%`,
+                        width: `${(link.width / Math.max(page.width || 0, 1)) * 100}%`,
+                        height: `${(link.height / Math.max(page.height || 0, 1)) * 100}%`
+                      }}
+                      title={`Open PDF link on page ${index + 1}`}
+                      aria-label={`Open PDF link on page ${index + 1}`}
+                    />
+                  ))}
+                </div>
               ))}
             </div>
           ) : (
