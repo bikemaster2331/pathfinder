@@ -9,11 +9,22 @@ import {
   clearPdfBlobSnapshot,
   savePdfBlobSnapshot
 } from '../utils/pdfSnapshotStore';
-import { buildPdfCacheUrl, deletePdfCacheById, uploadPdfBlobToCache } from '../utils/pdfCacheApi';
+import {
+  buildPdfCacheUrl,
+  deletePdfCacheById,
+  finishPathfinderSession,
+  uploadPdfBlobToCache
+} from '../utils/pdfCacheApi';
 import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
 import { TRAVEL_HUBS } from '../constants/location';
 
 const PDF_CACHE_ID_STORAGE_KEY = 'pathfinderPdfCacheId';
+const ITINERARY_SESSION_STORAGE_PREFIX = 'itinerary_';
+const ITINERARY_LOCAL_STORAGE_KEYS_TO_CLEAR = [
+  'finalItinerary',
+  'activeHubName',
+  'dateRange'
+];
 
 const readPdfCacheIdFromSearch = (search = '') => {
   const params = new URLSearchParams(String(search || ''));
@@ -58,6 +69,26 @@ const readStoredTripContext = () => {
   };
 };
 
+const clearClientTripState = () => {
+  ITINERARY_LOCAL_STORAGE_KEYS_TO_CLEAR.forEach((key) => {
+    try {
+      localStorage.removeItem(key);
+    } catch {
+      // Ignore storage access issues on kiosk browsers.
+    }
+  });
+
+  try {
+    Object.keys(sessionStorage).forEach((key) => {
+      if (String(key).startsWith(ITINERARY_SESSION_STORAGE_PREFIX)) {
+        sessionStorage.removeItem(key);
+      }
+    });
+  } catch {
+    // Ignore storage access issues on kiosk browsers.
+  }
+};
+
 export default function Last() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -82,6 +113,8 @@ export default function Last() {
   const [isPdfSourceInitialized, setIsPdfSourceInitialized] = useState(false);
   const [snapshotRecoveryAttempted, setSnapshotRecoveryAttempted] = useState(false);
   const [viewerReloadKey, setViewerReloadKey] = useState(0);
+  const [isFinishConfirmationOpen, setIsFinishConfirmationOpen] = useState(false);
+  const [isFinishingSession, setIsFinishingSession] = useState(false);
   const hasEnsuredSnapshotRef = useRef(false);
   const rawPdfDataRef = useRef(null);
   const interactiveReadyRef = useRef(false);
@@ -856,17 +889,40 @@ export default function Last() {
   };
 
   const handleBackToHome = async () => {
+    setIsFinishConfirmationOpen(true);
+  };
+
+  const handleCancelFinishHome = () => {
+    if (isFinishingSession) return;
+    setIsFinishConfirmationOpen(false);
+  };
+
+  const handleConfirmFinishHome = async () => {
+    if (isFinishingSession) return;
+    setIsFinishingSession(true);
+
     try {
       const activeCacheId = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || '').trim();
       if (activeCacheId) {
         await deletePdfCacheById(activeCacheId);
       }
+
+      try {
+        await finishPathfinderSession({ pdfCacheId: activeCacheId });
+      } catch (sessionError) {
+        console.warn('Session cleanup API failed during Finish & Home:', sessionError);
+      }
+
       localStorage.removeItem(PDF_CACHE_ID_STORAGE_KEY);
       setPdfCacheId(null);
       await clearPdfBlobSnapshot();
       hasEnsuredSnapshotRef.current = false;
+      setRawPdfData(null);
+      clearClientTripState();
     } finally {
-      navigate('/');
+      setIsFinishingSession(false);
+      setIsFinishConfirmationOpen(false);
+      navigate('/', { replace: true });
     }
   };
 
@@ -1137,6 +1193,43 @@ export default function Last() {
           </div>
         )}
       </main>
+
+      {isFinishConfirmationOpen && (
+        <div
+          className={styles.finishConfirmOverlay}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="finish-home-title"
+        >
+          <div className={styles.finishConfirmCard}>
+            <h2 id="finish-home-title" className={styles.finishConfirmTitle}>
+              Back to Home?
+            </h2>
+            <p className={styles.finishConfirmMessage}>
+              This will delete the current PDF from Downloads and clear itinerary details,
+              selected activities, and trip data for the next user.
+            </p>
+            <div className={styles.finishConfirmActions}>
+              <button
+                className={styles.finishCancelButton}
+                type="button"
+                onClick={handleCancelFinishHome}
+                disabled={isFinishingSession}
+              >
+                Cancel
+              </button>
+              <button
+                className={styles.finishConfirmButton}
+                type="button"
+                onClick={handleConfirmFinishHome}
+                disabled={isFinishingSession}
+              >
+                {isFinishingSession ? 'Resetting...' : 'Yes, Back to Home'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

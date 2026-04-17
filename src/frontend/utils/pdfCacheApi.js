@@ -81,3 +81,25 @@ export const deletePdfCacheById = async (pdfCacheId) => {
     return false;
   }
 };
+
+export const finishPathfinderSession = async ({ pdfCacheId } = {}) => {
+  const finishUrl = `${getApiBaseUrl()}/api/session/finish`;
+  const payload = {
+    pdf_cache_id: String(pdfCacheId || '').trim() || null
+  };
+
+  const response = await fetch(finishUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    const detail = await response.text().catch(() => '');
+    throw new Error(`Failed to finish Pathfinder session (${response.status}): ${detail}`);
+  }
+
+  return response.json().catch(() => ({}));
+};

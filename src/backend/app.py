@@ -26,6 +26,11 @@ PDF_CACHE_DIR = BASE_DIR / "pdf_cache"
 PDF_CACHE_TTL_SECONDS = int(os.environ.get("PDF_CACHE_TTL_SECONDS", "86400"))
 
 PDF_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{1,128}$")
+PATHFINDER_DOWNLOAD_PREFIXES = ("Catanduanes_Itinerary_", "Itinerary_")
+DEFAULT_DOWNLOAD_DIRECTORIES = (
+    Path.home() / "Downloads",
+    Path("/home/pi/Downloads"),
+)
 
 
 pipeline = None
@@ -58,6 +63,68 @@ def _resolve_pdf_cache_path(pdf_id: str) -> Path:
     except ValueError as exc:
         raise HTTPException(status_code=400, detail="Invalid PDF cache path") from exc
     return resolved_path
+
+
+def _resolve_download_directories() -> list[Path]:
+    configured_dirs = str(os.environ.get("PATHFINDER_DOWNLOADS_DIRS", "")).strip()
+    candidates: list[Path] = []
+
+    if configured_dirs:
+        for raw_dir in configured_dirs.split(os.pathsep):
+            normalized = raw_dir.strip()
+            if normalized:
+                candidates.append(Path(normalized).expanduser())
+
+    candidates.extend(DEFAULT_DOWNLOAD_DIRECTORIES)
+
+    deduped_dirs: list[Path] = []
+    seen_dirs = set()
+    for directory in candidates:
+        try:
+            key = str(directory.resolve(strict=False))
+        except Exception:
+            key = str(directory)
+
+        if key in seen_dirs:
+            continue
+        seen_dirs.add(key)
+        deduped_dirs.append(directory)
+
+    return deduped_dirs
+
+
+def _delete_generated_downloaded_pdfs() -> list[str]:
+    deleted_paths: list[str] = []
+
+    for download_dir in _resolve_download_directories():
+        if not download_dir.exists() or not download_dir.is_dir():
+            continue
+
+        try:
+            resolved_dir = download_dir.resolve(strict=True)
+        except Exception:
+            continue
+
+        for pdf_path in download_dir.glob("*.pdf"):
+            if not pdf_path.is_file():
+                continue
+
+            if not pdf_path.name.startswith(PATHFINDER_DOWNLOAD_PREFIXES):
+                continue
+
+            try:
+                resolved_pdf = pdf_path.resolve(strict=True)
+                resolved_pdf.relative_to(resolved_dir)
+            except Exception:
+                continue
+
+            try:
+                pdf_path.unlink(missing_ok=True)
+                deleted_paths.append(str(pdf_path))
+            except Exception:
+                continue
+
+    return deleted_paths
 
 
 @asynccontextmanager
@@ -120,6 +187,8 @@ class AskResponse(BaseModel):
 class ItineraryItem(BaseModel):
     place_name: str
 
+class FinishSessionRequest(BaseModel):
+    pdf_cache_id: str | None = None
 
 
 @app.get("/")
@@ -251,6 +320,29 @@ def delete_pdf_cache_file(pdf_id: str):
         return {"deleted": True, "id": pdf_id}
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Failed to delete PDF cache entry: {exc}") from exc
+
+
+@app.post("/api/session/finish")
+def finish_session(request: FinishSessionRequest | None = None):
+    deleted_pdf_cache = False
+    active_pdf_cache_id = str(request.pdf_cache_id if request else "").strip()
+
+    if active_pdf_cache_id:
+        target_path = _resolve_pdf_cache_path(active_pdf_cache_id)
+        if target_path.exists():
+            target_path.unlink(missing_ok=True)
+            deleted_pdf_cache = True
+
+    deleted_downloads = _delete_generated_downloaded_pdfs()
+    itinerary_list.clear()
+
+    return {
+        "ok": True,
+        "deleted_pdf_cache": deleted_pdf_cache,
+        "deleted_downloads_count": len(deleted_downloads),
+        "deleted_download_paths": deleted_downloads,
+        "cleared_itinerary": True
+    }
 
 
 @app.post("/ask", response_model=AskResponse)

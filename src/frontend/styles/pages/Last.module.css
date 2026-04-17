@@ -382,6 +382,109 @@
     color: #ef4444;
 }
 
+.finishConfirmOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 140;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(2, 6, 23, 0.56);
+    backdrop-filter: blur(5px);
+}
+
+.finishConfirmCard {
+    width: min(520px, 100%);
+    background: rgba(248, 250, 252, 0.98);
+    border: 1px solid rgba(203, 213, 225, 0.9);
+    border-radius: 18px;
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.35);
+    padding: 24px 22px 20px;
+}
+
+.finishConfirmTitle {
+    margin: 0 0 12px;
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.finishConfirmMessage {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #334155;
+}
+
+.finishConfirmActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.finishCancelButton,
+.finishConfirmButton {
+    border: none;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.finishCancelButton {
+    background: rgba(148, 163, 184, 0.2);
+    color: #0f172a;
+}
+
+.finishCancelButton:hover:not(:disabled) {
+    background: rgba(148, 163, 184, 0.35);
+    transform: translateY(-1px);
+}
+
+.finishConfirmButton {
+    background: #1d4ed8;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(29, 78, 216, 0.36);
+}
+
+.finishConfirmButton:hover:not(:disabled) {
+    background: #1e40af;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(30, 64, 175, 0.4);
+}
+
+.finishCancelButton:disabled,
+.finishConfirmButton:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+:global([data-theme='dark']) .finishConfirmCard {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: rgba(148, 163, 184, 0.35);
+}
+
+:global([data-theme='dark']) .finishConfirmTitle {
+    color: #e2e8f0;
+}
+
+:global([data-theme='dark']) .finishConfirmMessage {
+    color: #cbd5e1;
+}
+
+:global([data-theme='dark']) .finishCancelButton {
+    background: rgba(148, 163, 184, 0.22);
+    color: #e2e8f0;
+}
+
+:global([data-theme='dark']) .finishCancelButton:hover:not(:disabled) {
+    background: rgba(148, 163, 184, 0.34);
+}
+
 @media (max-width: 768px) {
     .dayDirectionsFallback {
         top: 116px;

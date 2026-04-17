@@ -4,6 +4,7 @@
   const NAV_STATE_KEY = 'pathfinderNavigationState';
   const LAST_PATHFINDER_PAGE_KEY = 'pathfinderLastPageUrl';
   const LAST_PATHFINDER_PDF_PAGE_KEY = 'pathfinderLastPdfPageUrl';
+  const PATHFINDER_LOADING_TOKEN = 'pathfinder is loading';
 
   // Used only when there is no previous page info available.
   const DEFAULT_FALLBACK_URL = 'http://localhost:5173/last';
@@ -26,6 +27,21 @@
 
   const isPathfinderPage = () => {
     return isPathfinderHost(window.location.hostname);
+  };
+
+  const isPathfinderLoadingScreen = () => {
+    const pageTitle = String(document.title || '').toLowerCase();
+    if (pageTitle.includes(PATHFINDER_LOADING_TOKEN)) {
+      return true;
+    }
+
+    const bodyText = String(document.body?.innerText || '').toLowerCase();
+    return bodyText.includes(PATHFINDER_LOADING_TOKEN);
+  };
+
+  const isKioskBootstrapPage = () => {
+    const protocol = String(window.location.protocol || '').toLowerCase();
+    return protocol === 'about:' || protocol === 'data:' || protocol === 'chrome-error:';
   };
 
   const parseUrl = (value) => {
@@ -172,7 +188,7 @@
     const style = document.createElement('style');
     style.id = STYLE_ID;
     style.textContent = `
-      html, body, * {
+      html, body, *, *::before, *::after, iframe, canvas, svg {
         cursor: none !important;
       }
       #${BUTTON_ID} {
@@ -199,6 +215,11 @@
     `;
 
     document.documentElement.appendChild(style);
+
+    document.documentElement.style.setProperty('cursor', 'none', 'important');
+    if (document.body) {
+      document.body.style.setProperty('cursor', 'none', 'important');
+    }
   };
 
   const removeButton = () => {
@@ -215,7 +236,7 @@
     await persistPathfinderHintsIfNeeded();
     injectStyle();
 
-    if (isPathfinderPage()) {
+    if (isPathfinderPage() || isPathfinderLoadingScreen() || isKioskBootstrapPage()) {
       removeButton();
       return;
     }
@@ -252,6 +273,7 @@
       rafId = window.requestAnimationFrame(() => {
         rafId = 0;
         injectStyle();
+        renderButton();
       });
     };
 
