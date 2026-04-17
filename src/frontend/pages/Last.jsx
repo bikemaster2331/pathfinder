@@ -782,20 +782,6 @@ export default function Last() {
     };
   }, [useImageFallbackPreview, previewBaseUrl, rawPdfData, isRaspberryPiBrowser]);
 
-  const dayDirectionEntries = useMemo(() => {
-    return Object.keys(dayDirectionsLinks || {})
-      .sort((a, b) => Number(a) - Number(b))
-      .map((dayNumber) => {
-        const entry = dayDirectionsLinks?.[dayNumber] || {};
-        return {
-          dayNumber,
-          hasRoute: Boolean(entry?.hasRoute && entry?.url),
-          url: entry?.url || '',
-          reason: entry?.reason || ''
-        };
-      });
-  }, [dayDirectionsLinks]);
-
   useEffect(() => {
     if (isPdfSourceInitialized && !rawPdfData) {
       console.warn('No PDF data found in navigation state.');
@@ -999,24 +985,6 @@ export default function Last() {
           </button>
         )}
       </div>
-
-      {dayDirectionEntries.some((entry) => entry.hasRoute) && (
-        <div className={styles.dayDirectionsFallback}>
-          <span className={styles.dayDirectionsFallbackLabel}>Directions:</span>
-          {dayDirectionEntries
-            .filter((entry) => entry.hasRoute)
-            .map((entry) => (
-              <a
-                key={`fallback-day-${entry.dayNumber}`}
-                href={entry.url}
-                className={styles.dayDirectionsFallbackLink}
-                title={`Open Day ${entry.dayNumber} directions`}
-              >
-                Day {entry.dayNumber}
-              </a>
-            ))}
-        </div>
-      )}
 
       <main className={styles.viewerContainer}>
         {!useImageFallbackPreview && pdfData ? (
