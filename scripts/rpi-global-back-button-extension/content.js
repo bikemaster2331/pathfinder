@@ -4,7 +4,13 @@
   const NAV_STATE_KEY = 'pathfinderNavigationState';
   const LAST_PATHFINDER_PAGE_KEY = 'pathfinderLastPageUrl';
   const LAST_PATHFINDER_PDF_PAGE_KEY = 'pathfinderLastPdfPageUrl';
-  const PATHFINDER_LOADING_TOKEN = 'pathfinder is loading';
+  const PATHFINDER_LOADING_TOKENS = [
+    'pathfinder is loading',
+    'pathfinder is starting',
+    'pathfinder starting',
+    'starting pathfinder',
+    'pipeline initializing'
+  ];
 
   // Used only when there is no previous page info available.
   const DEFAULT_FALLBACK_URL = 'http://localhost:5173/last';
@@ -30,13 +36,20 @@
   };
 
   const isPathfinderLoadingScreen = () => {
+    const includesLoadingToken = (input) => PATHFINDER_LOADING_TOKENS.some(
+      (token) => String(input || '').toLowerCase().includes(token)
+    );
+
     const pageTitle = String(document.title || '').toLowerCase();
-    if (pageTitle.includes(PATHFINDER_LOADING_TOKEN)) {
-      return true;
-    }
+    if (includesLoadingToken(pageTitle)) return true;
 
     const bodyText = String(document.body?.innerText || '').toLowerCase();
-    return bodyText.includes(PATHFINDER_LOADING_TOKEN);
+    if (includesLoadingToken(bodyText)) return true;
+
+    const pathname = String(window.location.pathname || '').toLowerCase();
+    if (pathname.includes('loading') || pathname.includes('starting')) return true;
+
+    return false;
   };
 
   const isKioskBootstrapPage = () => {

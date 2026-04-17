@@ -6,7 +6,7 @@ This extension adds a **Back to PDF** button on pages that are not part of Pathf
 - If a PDF map link sends the current tab to Google Maps, the user can tap **Back to PDF** to return.
 - The button appears globally on non-Pathfinder pages.
 - Cursor is forced hidden on every page (including Google Maps).
-- The button is suppressed on Pathfinder pages and on the **"Pathfinder is loading"** splash screen.
+- The button is suppressed on Pathfinder pages and on startup splash screens such as **"Pathfinder is loading"** and **"Pathfinder is starting"**.
 
 ## Files
 - `manifest.json`
