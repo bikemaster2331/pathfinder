@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
+import { useEffect } from 'react';
 
 // Components
 import SharedNavbar from './components/navbar';
@@ -29,6 +30,15 @@ const PageTransition = ({ children }) => {
 
 function AnimatedRoutes() {
     const location = useLocation();
+    useEffect(() => {
+        document.body.setAttribute('data-pathfinder-route', location.pathname || '/');
+        document.body.setAttribute('data-pathfinder-app', '1');
+
+        return () => {
+            document.body.removeAttribute('data-pathfinder-route');
+            document.body.removeAttribute('data-pathfinder-app');
+        };
+    }, [location.pathname]);
 
     return (
         <>

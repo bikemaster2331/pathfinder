@@ -10,6 +10,13 @@ body,
     cursor: none !important;
 }
 
+body[data-pathfinder-app='1'] #__pathfinder_global_back_button__ {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 :root {
     --scrollbar-width: 0px;
     --color-white: #ffffff;

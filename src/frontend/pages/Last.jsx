@@ -1,8 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, useMemo, useRef } from 'react';
 import styles from '../styles/pages/Last.module.css';
-import { generateItineraryPDF } from '../utils/generatePDF';
-import { generateDayMapSnapshots } from '../utils/dayMapSnapshots';
 import { generateDayGoogleDirectionsLinks } from '../utils/dayDirections';
 import {
   loadPdfBlobSnapshotUrl,
@@ -15,7 +13,6 @@ import {
   finishPathfinderSession,
   uploadPdfBlobToCache
 } from '../utils/pdfCacheApi';
-import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
 import { TRAVEL_HUBS } from '../constants/location';
 
 const PDF_CACHE_ID_STORAGE_KEY = 'pathfinderPdfCacheId';
@@ -233,141 +230,52 @@ export default function Last() {
     }
   }, []);
 
-  // Fallback: if route state is missing (common in kiosk/reload scenarios),
-  // regenerate PDF from saved itinerary info.
+  // Recovery-only fallback:
+  // If state/cache was lost, try restoring from existing cache sources only.
+  // We intentionally avoid auto-regenerating here to keep return-to-PDF seamless.
   useEffect(() => {
     if (!isPdfSourceInitialized) return;
     if (rawPdfData) return;
-    if (pdfInitSourceType !== 'missing') return;
-
-    const normalizedCachedPdfId = String(
-      localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || ''
-    ).trim();
-    if (normalizedCachedPdfId) return;
+    if (pdfInitSourceType !== 'missing' && pdfInitSourceType !== 'pending') return;
 
     let cancelled = false;
 
-    const regeneratePdfFallback = async () => {
+    const recoverCachedPdfSource = async () => {
       try {
+        const normalizedCachedPdfId = String(
+          localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || ''
+        ).trim();
+        if (normalizedCachedPdfId) {
+          if (!cancelled) {
+            setPdfCacheId(normalizedCachedPdfId);
+            setRawPdfData(buildPdfCacheUrl(normalizedCachedPdfId));
+            setFallbackError('');
+            setPdfInitSourceType('cache-id');
+          }
+          return;
+        }
+
         const persistedSnapshotUrl = await loadPdfBlobSnapshotUrl();
         if (!cancelled && persistedSnapshotUrl) {
           setRawPdfData(persistedSnapshotUrl);
           setFallbackError('');
+          setPdfInitSourceType('indexeddb-snapshot');
           return;
         }
-
-        const context = readStoredTripContext();
-        if (!context) return;
-
         if (!cancelled) {
-          setFallbackError('');
-        }
-
-        const {
-          finalItinerary,
-          dateRange,
-          hub,
-          normalizedHubName
-        } = context;
-
-        const allSpotsFlat = [];
-        Object.keys(finalItinerary)
-          .sort((a, b) => Number(a) - Number(b))
-          .forEach((day) => {
-            const daySpots = Array.isArray(finalItinerary[day]) ? finalItinerary[day] : [];
-            allSpotsFlat.push(...daySpots);
-          });
-
-        if (!allSpotsFlat.length) return;
-
-        const routeReadySpots = allSpotsFlat.filter(
-          (spot) => Array.isArray(spot?.geometry?.coordinates) && spot.geometry.coordinates.length === 2
-        );
-
-        let fullTripDistance = 0;
-        let fullTripDriveData = [];
-        if (routeReadySpots.length > 0) {
-          try {
-            fullTripDistance = calculateTotalRoute(hub, routeReadySpots);
-            fullTripDriveData = calculateDriveTimes(hub, routeReadySpots);
-          } catch (routeError) {
-            console.warn('Route metrics failed; continuing with PDF generation only:', routeError);
-            fullTripDistance = 0;
-            fullTripDriveData = [];
-          }
-        }
-
-        let dayMapSnapshots = {};
-        try {
-          dayMapSnapshots = await generateDayMapSnapshots({
-            activeHub: hub,
-            finalItinerary
-          });
-        } catch (snapshotError) {
-          console.warn('Map snapshots failed in /last fallback regeneration:', snapshotError);
-          dayMapSnapshots = {};
-        }
-
-        let linksForPdf = {};
-        try {
-          linksForPdf = generateDayGoogleDirectionsLinks({
-            activeHub: hub,
-            finalItinerary,
-            travelMode: 'driving'
-          });
-        } catch (directionsError) {
-          console.warn('Day directions failed in /last fallback regeneration:', directionsError);
-          linksForPdf = {};
-        }
-
-        if (!cancelled) {
-          setDayDirectionsLinks(linksForPdf || {});
-        }
-
-        const regeneratedPdf = generateItineraryPDF({
-          activeHubName: hub.name || normalizedHubName || 'Trip',
-          dateRange,
-          addedSpots: finalItinerary,
-          totalDistance: fullTripDistance,
-          driveData: fullTripDriveData,
-          dayMapSnapshots,
-          dayDirectionsLinks: linksForPdf,
-          saveFile: false,
-          includeBlob: true
-        });
-
-        let pdfData = regeneratedPdf?.pdfData || null;
-        const pdfBlob = regeneratedPdf?.pdfBlob || null;
-        let createdPdfCacheId = null;
-
-        if (pdfBlob instanceof Blob) {
-          try {
-            const uploadedPdf = await uploadPdfBlobToCache(pdfBlob);
-            createdPdfCacheId = uploadedPdf?.id || null;
-            if (uploadedPdf?.url) {
-              pdfData = uploadedPdf.url;
-            }
-          } catch (uploadError) {
-            console.warn('PDF cache upload failed in /last regeneration fallback:', uploadError);
-          }
-        }
-
-        if (!cancelled && pdfData) {
-          if (createdPdfCacheId) {
-            localStorage.setItem(PDF_CACHE_ID_STORAGE_KEY, createdPdfCacheId);
-            setPdfCacheId(createdPdfCacheId);
-          }
-          setRawPdfData(pdfData);
+          setFallbackError('Cached PDF source not found. Please regenerate from the itinerary page.');
+          setPdfInitSourceType('missing');
         }
       } catch (error) {
         if (!cancelled) {
           setFallbackError(error?.message || String(error));
+          setPdfInitSourceType('missing');
         }
-        console.error('Failed to regenerate PDF preview from localStorage:', error);
+        console.error('Failed to recover cached PDF source for /last preview:', error);
       }
     };
 
-    regeneratePdfFallback();
+    recoverCachedPdfSource();
 
     return () => {
       cancelled = true;
