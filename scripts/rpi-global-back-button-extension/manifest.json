@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Pathfinder Global Back Button",
   "description": "Shows a back-to-PDF button on non-Pathfinder pages for kiosk navigation.",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "permissions": ["storage"],
   "host_permissions": ["<all_urls>"],
   "content_scripts": [

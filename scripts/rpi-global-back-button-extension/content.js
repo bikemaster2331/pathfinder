@@ -283,6 +283,9 @@
       html, body, *, *::before, *::after, iframe, canvas, svg {
         cursor: none !important;
       }
+      [style*="cursor"] {
+        cursor: none !important;
+      }
       #${BUTTON_ID} {
         position: fixed;
         top: 16px;
@@ -311,6 +314,15 @@
     document.documentElement.style.setProperty('cursor', 'none', 'important');
     if (document.body) {
       document.body.style.setProperty('cursor', 'none', 'important');
+    }
+  };
+
+  const enforceCursorInline = (target) => {
+    if (!(target instanceof Element)) return;
+    try {
+      target.style.setProperty('cursor', 'none', 'important');
+    } catch {
+      // Ignore elements that reject inline style writes.
     }
   };
 
@@ -396,10 +408,23 @@
       });
     }
 
+    const handlePointerMovement = (event) => {
+      enforceCursorInline(document.documentElement);
+      if (document.body) enforceCursorInline(document.body);
+      enforceCursorInline(event?.target);
+    };
+
+    document.addEventListener('pointermove', handlePointerMovement, true);
+    document.addEventListener('mousemove', handlePointerMovement, true);
+    document.addEventListener('mouseover', handlePointerMovement, true);
+
     window.addEventListener('beforeunload', () => {
       if (rafId) {
         window.cancelAnimationFrame(rafId);
       }
+      document.removeEventListener('pointermove', handlePointerMovement, true);
+      document.removeEventListener('mousemove', handlePointerMovement, true);
+      document.removeEventListener('mouseover', handlePointerMovement, true);
       observer.disconnect();
     });
   };

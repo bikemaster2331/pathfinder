@@ -885,7 +885,7 @@ export default function Last() {
   }, [pdfCacheId]);
 
   const handleBackToItinerary = () => {
-    navigate(-1);
+    navigate('/itinerary');
   };
 
   const handleBackToHome = async () => {
