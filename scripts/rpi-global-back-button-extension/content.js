@@ -35,6 +35,48 @@
     return isPathfinderHost(window.location.hostname);
   };
 
+  const isPathfinderApiPath = (pathname, port) => {
+    const normalizedPath = String(pathname || '/').toLowerCase();
+    const normalizedPort = String(port || '');
+
+    if (normalizedPath === '/api' || normalizedPath.startsWith('/api/')) return true;
+    if (normalizedPath === '/health') return true;
+    if (normalizedPath === '/openapi.json') return true;
+    if (normalizedPath === '/itinerary_add') return true;
+    if (normalizedPath === '/docs' || normalizedPath.startsWith('/docs/')) return true;
+    if (normalizedPath === '/redoc' || normalizedPath.startsWith('/redoc/')) return true;
+    if (normalizedPath === '/admin' || normalizedPath.startsWith('/admin/')) return true;
+    if (normalizedPath.endsWith('.pdf')) return true;
+
+    // Backend API route collision: /itinerary is JSON on :8000 in this project.
+    if (normalizedPath === '/itinerary' && normalizedPort === '8000') return true;
+
+    return false;
+  };
+
+  const isPathfinderAppPath = (pathname, port) => {
+    const normalizedPath = String(pathname || '/').toLowerCase();
+    if (isPathfinderApiPath(normalizedPath, port)) return false;
+    if (normalizedPath === '/') return true;
+    if (normalizedPath.startsWith('/last')) return true;
+    if (normalizedPath.startsWith('/itinerary')) return true;
+    if (normalizedPath.startsWith('/creators')) return true;
+    if (normalizedPath.startsWith('/about')) return true;
+    if (normalizedPath.startsWith('/contact')) return true;
+    return false;
+  };
+
+  const isPathfinderAppUrl = (value) => {
+    const parsed = parseUrl(value);
+    if (!parsed) return false;
+    if (!isPathfinderHost(parsed.hostname)) return false;
+    return isPathfinderAppPath(parsed.pathname, parsed.port);
+  };
+
+  const isPathfinderAppPage = () => {
+    return isPathfinderAppUrl(window.location.href);
+  };
+
   const isPathfinderLoadingScreen = () => {
     const includesLoadingToken = (input) => PATHFINDER_LOADING_TOKENS.some(
       (token) => String(input || '').toLowerCase().includes(token)
@@ -137,7 +179,7 @@
   };
 
   const persistPathfinderHintsIfNeeded = async () => {
-    if (!isPathfinderPage()) return;
+    if (!isPathfinderAppPage()) return;
 
     const currentUrl = window.location.href;
     const currentPath = String(window.location.pathname || '');
@@ -166,29 +208,20 @@
 
   const resolveTargetUrl = async (previousUrl) => {
     const hints = await readHints();
-    const parsedPrevious = parseUrl(previousUrl);
+    const candidates = [
+      hints.lastPdfPageUrl,
+      previousUrl,
+      hints.lastPathfinderPageUrl,
+      DEFAULT_FALLBACK_URL
+    ];
 
-    if (parsedPrevious && previousUrl !== window.location.href) {
-      if (!isPathfinderHost(parsedPrevious.hostname)) {
-        return previousUrl;
+    for (const candidate of candidates) {
+      const normalized = String(candidate || '').trim();
+      if (!normalized) continue;
+      if (normalized === window.location.href) continue;
+      if (isPathfinderAppUrl(normalized)) {
+        return normalized;
       }
-
-      const previousPath = String(parsedPrevious.pathname || '');
-      if (previousPath && previousPath !== '/') {
-        return previousUrl;
-      }
-    }
-
-    if (typeof hints.lastPdfPageUrl === 'string' && hints.lastPdfPageUrl.startsWith('http')) {
-      return hints.lastPdfPageUrl;
-    }
-
-    if (typeof hints.lastPathfinderPageUrl === 'string' && hints.lastPathfinderPageUrl.startsWith('http')) {
-      return hints.lastPathfinderPageUrl;
-    }
-
-    if (typeof previousUrl === 'string' && previousUrl && previousUrl !== window.location.href) {
-      return previousUrl;
     }
 
     return DEFAULT_FALLBACK_URL;
@@ -240,7 +273,14 @@
     if (existing) existing.remove();
   };
 
-  const navigateBack = () => {
+  const navigateBack = async () => {
+    const state = await readNavState();
+    const targetUrl = await resolveTargetUrl(state?.previousUrl || '');
+    if (targetUrl && targetUrl !== window.location.href) {
+      window.location.assign(targetUrl);
+      return;
+    }
+
     window.history.back();
   };
 
@@ -249,7 +289,7 @@
     await persistPathfinderHintsIfNeeded();
     injectStyle();
 
-    if (isPathfinderPage() || isPathfinderLoadingScreen() || isKioskBootstrapPage()) {
+    if (isPathfinderAppPage() || isPathfinderLoadingScreen() || isKioskBootstrapPage()) {
       removeButton();
       return;
     }
@@ -257,7 +297,7 @@
     const existing = document.getElementById(BUTTON_ID);
     if (existing) {
       existing.textContent = 'Back';
-      existing.onclick = navigateBack;
+      existing.onclick = () => { void navigateBack(); };
       return;
     }
 
@@ -265,7 +305,7 @@
     button.id = BUTTON_ID;
     button.type = 'button';
     button.textContent = 'Back';
-    button.addEventListener('click', navigateBack);
+    button.onclick = () => { void navigateBack(); };
 
     if (document.body) {
       document.body.appendChild(button);

@@ -7,6 +7,7 @@ This extension adds a **Back to PDF** button on pages that are not part of Pathf
 - The button appears globally on non-Pathfinder pages.
 - Cursor is forced hidden on every page (including Google Maps).
 - The button is suppressed on Pathfinder pages and on startup splash screens such as **"Pathfinder is loading"** and **"Pathfinder is starting"**.
+- Back action now resolves to the last known `/last?...pdf=...` app page instead of raw browser history to avoid JSON endpoint dead-ends.
 
 ## Files
 - `manifest.json`
