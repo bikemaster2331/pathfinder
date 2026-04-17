@@ -14,7 +14,6 @@ import { calculateDriveTimes, calculateTotalRoute } from '../utils/distance';
 import { TRAVEL_HUBS } from '../constants/location';
 
 const PDF_CACHE_ID_STORAGE_KEY = 'pathfinderPdfCacheId';
-const PREFERRED_PREVIEW_MODE_STORAGE_KEY = 'pathfinderPreferImagePdfPreview';
 
 const readPdfCacheIdFromSearch = (search = '') => {
   const params = new URLSearchParams(String(search || ''));
@@ -70,9 +69,7 @@ export default function Last() {
     if (searchId) return searchId;
     return String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || '').trim() || null;
   });
-  const [preferImageFallbackPreview, setPreferImageFallbackPreview] = useState(() => (
-    localStorage.getItem(PREFERRED_PREVIEW_MODE_STORAGE_KEY) === '1'
-  ));
+  const [preferImageFallbackPreview, setPreferImageFallbackPreview] = useState(false);
   const [isIframeError, setIsIframeError] = useState(false);
   const [previewBaseUrl, setPreviewBaseUrl] = useState(null);
   const [fallbackError, setFallbackError] = useState('');
@@ -101,8 +98,8 @@ export default function Last() {
   }, []);
 
   const forceImageFallbackPreview = useMemo(
-    () => isRaspberryPiBrowser || preferImageFallbackPreview,
-    [isRaspberryPiBrowser, preferImageFallbackPreview]
+    () => preferImageFallbackPreview,
+    [preferImageFallbackPreview]
   );
 
   const viewerCropStyle = useMemo(() => ({
@@ -420,10 +417,9 @@ export default function Last() {
   }, [pdfData, interactiveWatchdogSourceKey]);
 
   useEffect(() => {
-    if (!isRaspberryPiBrowser) return;
-    if (preferImageFallbackPreview) return;
-    setPreferImageFallbackPreview(true);
-  }, [isRaspberryPiBrowser, preferImageFallbackPreview]);
+    if (!interactiveWatchdogSourceKey) return;
+    setPreferImageFallbackPreview(false);
+  }, [interactiveWatchdogSourceKey]);
 
   // On history return or app re-focus after visiting external pages,
   // force-restore preview from IndexedDB snapshot and remount the viewer.
@@ -617,7 +613,7 @@ export default function Last() {
   useEffect(() => {
     if (!pdfData || useImageFallbackPreview || interactiveReady) return undefined;
 
-    const timeoutMs = isRaspberryPiBrowser ? 6500 : 9000;
+    const timeoutMs = isRaspberryPiBrowser ? 2800 : 6000;
     const timeoutId = window.setTimeout(() => {
       if (interactiveReady || useImageFallbackPreview) return;
 
@@ -662,6 +658,7 @@ export default function Last() {
       }
 
       setIsRenderingPages(true);
+      setRenderedPages([]);
 
       try {
         const pdfjs = await import('pdfjs-dist');
@@ -671,11 +668,12 @@ export default function Last() {
         const loadingTask = pdfjs.getDocument(source);
         const pdf = await loadingTask.promise;
         const pages = [];
+        const renderScale = isRaspberryPiBrowser ? 0.92 : 1.2;
 
         for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
           if (cancelled) return;
           const page = await pdf.getPage(pageNumber);
-          const viewport = page.getViewport({ scale: 1.4 });
+          const viewport = page.getViewport({ scale: renderScale });
           const canvas = document.createElement('canvas');
           const context = canvas.getContext('2d', { alpha: false });
           if (!context) continue;
@@ -723,10 +721,13 @@ export default function Last() {
             height: canvas.height,
             links
           });
+
+          if (!cancelled) {
+            setRenderedPages([...pages]);
+          }
         }
 
         if (!cancelled) {
-          setRenderedPages(pages);
           setIsIframeError(false);
         }
       } catch (error) {
@@ -746,7 +747,7 @@ export default function Last() {
     return () => {
       cancelled = true;
     };
-  }, [useImageFallbackPreview, previewBaseUrl, rawPdfData]);
+  }, [useImageFallbackPreview, previewBaseUrl, rawPdfData, isRaspberryPiBrowser]);
 
   const dayDirectionEntries = useMemo(() => {
     return Object.keys(dayDirectionsLinks || {})
@@ -795,14 +796,6 @@ export default function Last() {
       window.history.replaceState(window.history.state, '', `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`);
     }
   }, [pdfCacheId]);
-
-  useEffect(() => {
-    if (preferImageFallbackPreview) {
-      localStorage.setItem(PREFERRED_PREVIEW_MODE_STORAGE_KEY, '1');
-      return;
-    }
-    localStorage.removeItem(PREFERRED_PREVIEW_MODE_STORAGE_KEY);
-  }, [preferImageFallbackPreview]);
 
   const handleBackToItinerary = () => {
     navigate(-1);
@@ -975,8 +968,6 @@ export default function Last() {
               <a
                 key={`fallback-day-${entry.dayNumber}`}
                 href={entry.url}
-                target="_blank"
-                rel="noopener noreferrer"
                 className={styles.dayDirectionsFallbackLink}
                 title={`Open Day ${entry.dayNumber} directions`}
               >
@@ -1014,9 +1005,7 @@ export default function Last() {
             )}
           </div>
         ) : useImageFallbackPreview ? (
-          isRenderingPages ? (
-            <div className={styles.renderingState}>Rendering PDF preview...</div>
-          ) : renderedPages.length > 0 ? (
+          renderedPages.length > 0 ? (
             <div className={styles.paperStack}>
               {renderedPages.map((page, index) => (
                 <div key={`pdf-page-${index + 1}`} className={styles.paperPageLayer}>
@@ -1030,8 +1019,6 @@ export default function Last() {
                     <a
                       key={`pdf-page-${index + 1}-link-${linkIndex + 1}`}
                       href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className={styles.pageLinkOverlay}
                       style={{
                         left: `${(link.left / Math.max(page.width || 0, 1)) * 100}%`,
@@ -1045,7 +1032,12 @@ export default function Last() {
                   ))}
                 </div>
               ))}
+              {isRenderingPages && (
+                <div className={styles.renderingState}>Loading remaining pages...</div>
+              )}
             </div>
+          ) : isRenderingPages ? (
+            <div className={styles.renderingState}>Rendering PDF preview...</div>
           ) : (
             <div className={styles.emptyState}>
               <div className={styles.errorIcon}>⚠️</div>
