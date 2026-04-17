@@ -78,10 +78,15 @@ export default function Last() {
   const wasBackgroundedRef = useRef(false);
   const cachePromotionAttemptedRef = useRef(false);
   const interactiveWatchdogRetriedRef = useRef(false);
+  const interactiveWatchdogSourceKeyRef = useRef('');
 
   const isRaspberryPiBrowser = useMemo(() => {
-    const userAgent = (typeof navigator !== 'undefined' ? navigator.userAgent : '').toLowerCase();
-    return /aarch64|armv|raspberry|rpi/.test(userAgent);
+    if (typeof navigator === 'undefined') return false;
+    const userAgent = String(navigator.userAgent || '').toLowerCase();
+    const platform = String(navigator.platform || '').toLowerCase();
+    const userAgentDataPlatform = String(navigator.userAgentData?.platform || '').toLowerCase();
+    const fingerprint = `${userAgent} ${platform} ${userAgentDataPlatform}`;
+    return /raspberry|rpi|aarch64|armv|arm64|linux arm/.test(fingerprint);
   }, []);
 
   const viewerCropStyle = useMemo(() => ({
@@ -352,6 +357,22 @@ export default function Last() {
     return `${previewBaseUrl}${fragment}`;
   }, [previewBaseUrl, isRaspberryPiBrowser]);
 
+  // Keep watchdog retries keyed to the logical PDF source, not cache-busted reload URLs.
+  const interactiveWatchdogSourceKey = useMemo(() => {
+    const normalizedCacheId = String(pdfCacheId || '').trim();
+    if (normalizedCacheId) {
+      return `cache:${normalizedCacheId}`;
+    }
+
+    const source = String(previewBaseUrl || rawPdfData || '').trim();
+    if (!source) return '';
+
+    return source
+      .replace(/([?&])t=\d+/g, '$1')
+      .replace(/[?&]$/, '')
+      .replace(/#.*$/, '');
+  }, [pdfCacheId, previewBaseUrl, rawPdfData]);
+
   useEffect(() => {
     if (!pdfData) {
       setUseImageFallbackPreview(false);
@@ -361,6 +382,8 @@ export default function Last() {
       setIsRenderingPages(false);
       setSnapshotRecoveryAttempted(false);
       hasEnsuredSnapshotRef.current = false;
+      interactiveWatchdogRetriedRef.current = false;
+      interactiveWatchdogSourceKeyRef.current = '';
       return;
     }
 
@@ -370,8 +393,14 @@ export default function Last() {
     setRenderedPages([]);
     setIsRenderingPages(false);
     setSnapshotRecoveryAttempted(false);
-    interactiveWatchdogRetriedRef.current = false;
   }, [pdfData]);
+
+  useEffect(() => {
+    if (!pdfData) return;
+    if (interactiveWatchdogSourceKeyRef.current === interactiveWatchdogSourceKey) return;
+    interactiveWatchdogSourceKeyRef.current = interactiveWatchdogSourceKey;
+    interactiveWatchdogRetriedRef.current = false;
+  }, [pdfData, interactiveWatchdogSourceKey]);
 
   // Raspberry Pi Chromium frequently hangs on embedded PDF plugins.
   // Force PDF.js image fallback there to avoid permanent black-screen loaders.
@@ -594,7 +623,14 @@ export default function Last() {
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [pdfData, useImageFallbackPreview, interactiveReady, pdfCacheId, isRaspberryPiBrowser]);
+  }, [
+    pdfData,
+    useImageFallbackPreview,
+    interactiveReady,
+    pdfCacheId,
+    isRaspberryPiBrowser,
+    interactiveWatchdogSourceKey
+  ]);
 
   // Render PDF pages into images only when interactive preview falls back.
   useEffect(() => {
@@ -866,6 +902,8 @@ export default function Last() {
               <a
                 key={`fallback-day-${entry.dayNumber}`}
                 href={entry.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={styles.dayDirectionsFallbackLink}
                 title={`Open Day ${entry.dayNumber} directions`}
               >
