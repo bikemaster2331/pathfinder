@@ -52,6 +52,14 @@
     margin: 0 auto;
     overflow: hidden;
     background: #dbe3ef;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.pdfViewportCrop::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
 }
 
 .interactiveLoadingHint {
@@ -153,6 +161,14 @@
     flex-direction: column;
     align-items: center;
     gap: 24px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.paperStack::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
 }
 
 .paperPage {
