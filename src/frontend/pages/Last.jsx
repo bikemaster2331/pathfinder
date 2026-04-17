@@ -78,6 +78,7 @@ export default function Last() {
   const [dayDirectionsLinks, setDayDirectionsLinks] = useState({});
   const [useImageFallbackPreview, setUseImageFallbackPreview] = useState(false);
   const [interactiveReady, setInteractiveReady] = useState(false);
+  const [previewLoadingMessageIndex, setPreviewLoadingMessageIndex] = useState(0);
   const [isPdfSourceInitialized, setIsPdfSourceInitialized] = useState(false);
   const [snapshotRecoveryAttempted, setSnapshotRecoveryAttempted] = useState(false);
   const [viewerReloadKey, setViewerReloadKey] = useState(0);
@@ -108,6 +109,12 @@ export default function Last() {
     '--pdf-crop-left': '0px',
     '--pdf-crop-top': '0px'
   }), []);
+
+  const previewLoadingMessages = useMemo(() => ([
+    'Generating PDF itinerary...',
+    'Creating directions...',
+    'Preparing interactive preview...'
+  ]), []);
 
   // Initialize preview source in priority order:
   // 1) server-backed PDF cache id (route state or localStorage),
@@ -422,6 +429,26 @@ export default function Last() {
     if (!interactiveWatchdogSourceKey) return;
     setPreferImageFallbackPreview(false);
   }, [interactiveWatchdogSourceKey]);
+
+  useEffect(() => {
+    if (!pdfData || useImageFallbackPreview || interactiveReady) {
+      setPreviewLoadingMessageIndex(0);
+      return;
+    }
+
+    setPreviewLoadingMessageIndex(0);
+    const transitionOne = window.setTimeout(() => {
+      setPreviewLoadingMessageIndex(1);
+    }, 1000);
+    const transitionTwo = window.setTimeout(() => {
+      setPreviewLoadingMessageIndex(2);
+    }, 2300);
+
+    return () => {
+      window.clearTimeout(transitionOne);
+      window.clearTimeout(transitionTwo);
+    };
+  }, [pdfData, useImageFallbackPreview, interactiveReady, viewerReloadKey]);
 
   // On history return or app re-focus after visiting external pages,
   // force-restore preview from IndexedDB snapshot and remount the viewer.
@@ -1007,6 +1034,21 @@ export default function Last() {
                 onError={handleInteractivePreviewError}
               />
             </object>
+            {!interactiveReady && (
+              <div className={styles.previewLoadingOverlay} role="status" aria-live="polite">
+                <div className={styles.previewLoadingCard}>
+                  <span className={styles.previewLoadingSpinner} aria-hidden="true" />
+                  <p
+                    key={`preview-loading-message-${previewLoadingMessageIndex}`}
+                    className={styles.previewLoadingMessage}
+                  >
+                    {previewLoadingMessages[
+                      Math.min(previewLoadingMessageIndex, previewLoadingMessages.length - 1)
+                    ]}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         ) : useImageFallbackPreview ? (
           renderedPages.length > 0 ? (
