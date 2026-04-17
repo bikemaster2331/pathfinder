@@ -4,6 +4,7 @@
   const NAV_STATE_KEY = 'pathfinderNavigationState';
   const LAST_PATHFINDER_PAGE_KEY = 'pathfinderLastPageUrl';
   const LAST_PATHFINDER_PDF_PAGE_KEY = 'pathfinderLastPdfPageUrl';
+  const LAST_PATHFINDER_PDF_CACHE_ID_KEY = 'pathfinderLastPdfCacheId';
   const PATHFINDER_LOADING_TOKENS = [
     'pathfinder is loading',
     'pathfinder is starting',
@@ -21,18 +22,24 @@
     '172.27.230.182'
   ]);
 
-  const isPathfinderHost = (hostname) => {
+  const PRIVATE_IPV4_PATTERN = /^(10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3})$/;
+  const PATHFINDER_PORT_ALLOWLIST = new Set(['5173', '4173', '8000']);
+
+  const isPathfinderHost = (hostname, port = '') => {
     const normalized = String(hostname || '').toLowerCase();
+    const normalizedPort = String(port || '');
 
     if (PATHFINDER_HOST_ALLOWLIST.has(normalized)) return true;
     if (normalized.endsWith('.local')) return true;
     if (normalized.includes('pathfinder')) return true;
+    if (PRIVATE_IPV4_PATTERN.test(normalized)) return true;
+    if (PATHFINDER_PORT_ALLOWLIST.has(normalizedPort)) return true;
 
     return false;
   };
 
   const isPathfinderPage = () => {
-    return isPathfinderHost(window.location.hostname);
+    return isPathfinderHost(window.location.hostname, window.location.port);
   };
 
   const isPathfinderApiPath = (pathname, port) => {
@@ -69,7 +76,7 @@
   const isPathfinderAppUrl = (value) => {
     const parsed = parseUrl(value);
     if (!parsed) return false;
-    if (!isPathfinderHost(parsed.hostname)) return false;
+    if (!isPathfinderHost(parsed.hostname, parsed.port)) return false;
     return isPathfinderAppPath(parsed.pathname, parsed.port);
   };
 
@@ -183,12 +190,27 @@
 
     const currentUrl = window.location.href;
     const currentPath = String(window.location.pathname || '');
+    const currentParams = new URLSearchParams(String(window.location.search || ''));
+    const currentPdfCacheIdParam = String(currentParams.get('pdf') || '').trim();
     const payload = {
       [LAST_PATHFINDER_PAGE_KEY]: currentUrl
     };
 
     if (currentPath.startsWith('/last')) {
       payload[LAST_PATHFINDER_PDF_PAGE_KEY] = currentUrl;
+
+      if (currentPdfCacheIdParam) {
+        payload[LAST_PATHFINDER_PDF_CACHE_ID_KEY] = currentPdfCacheIdParam;
+      } else {
+        try {
+          const localPdfCacheId = String(window.localStorage.getItem('pathfinderPdfCacheId') || '').trim();
+          if (localPdfCacheId) {
+            payload[LAST_PATHFINDER_PDF_CACHE_ID_KEY] = localPdfCacheId;
+          }
+        } catch {
+          // Ignore localStorage access issues.
+        }
+      }
     }
 
     await writeStorage(payload);
@@ -197,21 +219,45 @@
   const readHints = async () => {
     const stored = await readStorage([
       LAST_PATHFINDER_PAGE_KEY,
-      LAST_PATHFINDER_PDF_PAGE_KEY
+      LAST_PATHFINDER_PDF_PAGE_KEY,
+      LAST_PATHFINDER_PDF_CACHE_ID_KEY
     ]);
 
     return {
       lastPathfinderPageUrl: stored?.[LAST_PATHFINDER_PAGE_KEY] || '',
-      lastPdfPageUrl: stored?.[LAST_PATHFINDER_PDF_PAGE_KEY] || ''
+      lastPdfPageUrl: stored?.[LAST_PATHFINDER_PDF_PAGE_KEY] || '',
+      lastPdfCacheId: stored?.[LAST_PATHFINDER_PDF_CACHE_ID_KEY] || ''
     };
+  };
+
+  const withPdfParamIfLastRoute = (candidateUrl, pdfCacheId) => {
+    const normalizedCandidate = String(candidateUrl || '').trim();
+    const normalizedCacheId = String(pdfCacheId || '').trim();
+    if (!normalizedCandidate || !normalizedCacheId) return normalizedCandidate;
+
+    const parsed = parseUrl(normalizedCandidate);
+    if (!parsed) return normalizedCandidate;
+    if (!String(parsed.pathname || '').startsWith('/last')) return normalizedCandidate;
+    if (String(parsed.searchParams.get('pdf') || '').trim()) return normalizedCandidate;
+
+    parsed.searchParams.set('pdf', normalizedCacheId);
+    return parsed.toString();
   };
 
   const resolveTargetUrl = async (previousUrl) => {
     const hints = await readHints();
+    const normalizedLastPdfCacheId = String(hints.lastPdfCacheId || '').trim();
+    const fallbackUrlWithPdfParam = withPdfParamIfLastRoute(
+      DEFAULT_FALLBACK_URL,
+      normalizedLastPdfCacheId
+    );
+
     const candidates = [
-      hints.lastPdfPageUrl,
+      withPdfParamIfLastRoute(hints.lastPdfPageUrl, normalizedLastPdfCacheId),
+      withPdfParamIfLastRoute(previousUrl, normalizedLastPdfCacheId),
+      withPdfParamIfLastRoute(hints.lastPathfinderPageUrl, normalizedLastPdfCacheId),
+      fallbackUrlWithPdfParam,
       previousUrl,
-      hints.lastPathfinderPageUrl,
       DEFAULT_FALLBACK_URL
     ];
 
@@ -275,7 +321,13 @@
 
   const navigateBack = async () => {
     const state = await readNavState();
-    const targetUrl = await resolveTargetUrl(state?.previousUrl || '');
+    const previousUrl = String(state?.previousUrl || '').trim();
+    if (isPathfinderAppUrl(previousUrl)) {
+      window.history.back();
+      return;
+    }
+
+    const targetUrl = await resolveTargetUrl(previousUrl);
     if (targetUrl && targetUrl !== window.location.href) {
       window.location.assign(targetUrl);
       return;
