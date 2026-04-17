@@ -84,6 +84,46 @@
     return isPathfinderAppUrl(window.location.href);
   };
 
+  const hasPathfinderStorageSignals = () => {
+    try {
+      const localSignals = [
+        'pathfinderPdfCacheId',
+        'finalItinerary',
+        'activeHubName',
+        'dateRange'
+      ];
+
+      if (localSignals.some((key) => String(window.localStorage.getItem(key) || '').trim())) {
+        return true;
+      }
+
+      return Object.keys(window.sessionStorage || {}).some((key) => (
+        String(key || '').startsWith('itinerary_')
+      ));
+    } catch {
+      return false;
+    }
+  };
+
+  const isLikelyPathfinderAppPage = () => {
+    if (isPathfinderAppPage()) return true;
+
+    const pathname = String(window.location.pathname || '').toLowerCase();
+    const looksLikeKnownAppPath = [
+      '/last',
+      '/itinerary',
+      '/creators',
+      '/about',
+      '/contact'
+    ].some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+
+    if (!looksLikeKnownAppPath) return false;
+    if (hasPathfinderStorageSignals()) return true;
+
+    const title = String(document.title || '').toLowerCase();
+    return title.includes('pathfinder');
+  };
+
   const isPathfinderLoadingScreen = () => {
     const includesLoadingToken = (input) => PATHFINDER_LOADING_TOKENS.some(
       (token) => String(input || '').toLowerCase().includes(token)
@@ -186,7 +226,7 @@
   };
 
   const persistPathfinderHintsIfNeeded = async () => {
-    if (!isPathfinderAppPage()) return;
+    if (!isLikelyPathfinderAppPage()) return;
 
     const currentUrl = window.location.href;
     const currentPath = String(window.location.pathname || '');
@@ -275,41 +315,41 @@
 
   const injectStyle = () => {
     const existingStyle = document.getElementById(STYLE_ID);
-    if (existingStyle) return;
+    if (!existingStyle) {
+      const style = document.createElement('style');
+      style.id = STYLE_ID;
+      style.textContent = `
+        html, body, *, *::before, *::after, iframe, canvas, svg {
+          cursor: none !important;
+        }
+        [style*="cursor"] {
+          cursor: none !important;
+        }
+        #${BUTTON_ID} {
+          position: fixed;
+          top: 16px;
+          left: 16px;
+          z-index: 2147483647;
+          border: none;
+          border-radius: 12px;
+          padding: 10px 14px;
+          font-size: 14px;
+          font-weight: 700;
+          font-family: Arial, sans-serif;
+          color: #ffffff;
+          background: rgba(15, 23, 42, 0.92);
+          box-shadow: 0 8px 20px rgba(2, 6, 23, 0.45);
+        }
+        #${BUTTON_ID}:hover {
+          background: rgba(30, 41, 59, 0.95);
+        }
+        #${BUTTON_ID}:disabled {
+          opacity: 0.84;
+        }
+      `;
 
-    const style = document.createElement('style');
-    style.id = STYLE_ID;
-    style.textContent = `
-      html, body, *, *::before, *::after, iframe, canvas, svg {
-        cursor: none !important;
-      }
-      [style*="cursor"] {
-        cursor: none !important;
-      }
-      #${BUTTON_ID} {
-        position: fixed;
-        top: 16px;
-        left: 16px;
-        z-index: 2147483647;
-        border: none;
-        border-radius: 12px;
-        padding: 10px 14px;
-        font-size: 14px;
-        font-weight: 700;
-        font-family: Arial, sans-serif;
-        color: #ffffff;
-        background: rgba(15, 23, 42, 0.92);
-        box-shadow: 0 8px 20px rgba(2, 6, 23, 0.45);
-      }
-      #${BUTTON_ID}:hover {
-        background: rgba(30, 41, 59, 0.95);
-      }
-      #${BUTTON_ID}:disabled {
-        opacity: 0.84;
-      }
-    `;
-
-    document.documentElement.appendChild(style);
+      document.documentElement.appendChild(style);
+    }
 
     document.documentElement.style.setProperty('cursor', 'none', 'important');
     if (document.body) {
@@ -353,7 +393,7 @@
     await persistPathfinderHintsIfNeeded();
     injectStyle();
 
-    if (isPathfinderAppPage() || isPathfinderLoadingScreen() || isKioskBootstrapPage()) {
+    if (isLikelyPathfinderAppPage() || isPathfinderLoadingScreen() || isKioskBootstrapPage()) {
       removeButton();
       return;
     }

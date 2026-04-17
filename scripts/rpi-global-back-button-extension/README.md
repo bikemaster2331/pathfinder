@@ -10,6 +10,7 @@ This extension adds a **Back to PDF** button on pages that are not part of Pathf
 - The button is suppressed on Pathfinder pages and on startup splash screens such as **"Pathfinder is loading"** and **"Pathfinder is starting"**.
 - Back action now resolves to the last known `/last?...pdf=...` app page instead of raw browser history to avoid JSON endpoint dead-ends.
 - Seamless return path is preserved: if browser history already points to `/last`, it uses native `history.back()` first to avoid unnecessary PDF reload/regeneration.
+- App-page detection now also uses Pathfinder storage/title signals, so the global back button stays hidden on in-app routes like `/itinerary` across Pi host/IP variations.
 
 ## Files
 - `manifest.json`

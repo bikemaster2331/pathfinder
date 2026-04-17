@@ -111,6 +111,7 @@ export default function Last() {
   const [interactiveReady, setInteractiveReady] = useState(false);
   const [previewLoadingMessageIndex, setPreviewLoadingMessageIndex] = useState(0);
   const [isPdfSourceInitialized, setIsPdfSourceInitialized] = useState(false);
+  const [pdfInitSourceType, setPdfInitSourceType] = useState('pending');
   const [snapshotRecoveryAttempted, setSnapshotRecoveryAttempted] = useState(false);
   const [viewerReloadKey, setViewerReloadKey] = useState(0);
   const [isFinishConfirmationOpen, setIsFinishConfirmationOpen] = useState(false);
@@ -171,6 +172,7 @@ export default function Last() {
         setPdfCacheId(effectiveCacheId);
         setRawPdfData(buildPdfCacheUrl(effectiveCacheId));
         setFallbackError('');
+        setPdfInitSourceType('cache-id');
         setIsPdfSourceInitialized(true);
         return;
       }
@@ -178,6 +180,7 @@ export default function Last() {
       if (!cancelled && routeStatePdf) {
         setRawPdfData(routeStatePdf);
         setFallbackError('');
+        setPdfInitSourceType('route-state');
         setIsPdfSourceInitialized(true);
         return;
       }
@@ -189,6 +192,8 @@ export default function Last() {
         if (persistedSnapshotUrl) {
           setRawPdfData(persistedSnapshotUrl);
           setFallbackError('');
+          setPdfInitSourceType('indexeddb-snapshot');
+          setIsPdfSourceInitialized(true);
           return;
         }
       } catch (error) {
@@ -196,6 +201,7 @@ export default function Last() {
       }
 
       if (!cancelled) {
+        setPdfInitSourceType('missing');
         setIsPdfSourceInitialized(true);
       }
     };
@@ -232,6 +238,12 @@ export default function Last() {
   useEffect(() => {
     if (!isPdfSourceInitialized) return;
     if (rawPdfData) return;
+    if (pdfInitSourceType !== 'missing') return;
+
+    const normalizedCachedPdfId = String(
+      localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || ''
+    ).trim();
+    if (normalizedCachedPdfId) return;
 
     let cancelled = false;
 
@@ -360,7 +372,7 @@ export default function Last() {
     return () => {
       cancelled = true;
     };
-  }, [rawPdfData, isPdfSourceInitialized]);
+  }, [rawPdfData, isPdfSourceInitialized, pdfInitSourceType, pdfCacheId]);
 
   // Normalize preview source:
   // - keep blob/http URLs as-is
@@ -562,6 +574,7 @@ export default function Last() {
 
       hasEnsuredSnapshotRef.current = false;
       if (String(rawPdfDataRef.current || '').startsWith('blob:')) {
+        setPdfInitSourceType('missing');
         setRawPdfData(null);
       }
       return false;
@@ -1020,6 +1033,7 @@ export default function Last() {
         localStorage.removeItem(PDF_CACHE_ID_STORAGE_KEY);
         setPdfCacheId(null);
         hasEnsuredSnapshotRef.current = false;
+        setPdfInitSourceType('missing');
         setRawPdfData(null);
         return;
       }
@@ -1032,6 +1046,7 @@ export default function Last() {
 
     if (rawPdfData?.startsWith('blob:')) {
       // Blob URL became stale and snapshot recovery failed; trigger robust regeneration path.
+      setPdfInitSourceType('missing');
       setRawPdfData(null);
       return;
     }
