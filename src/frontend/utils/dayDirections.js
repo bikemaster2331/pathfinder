@@ -14,6 +14,13 @@ const normalizeItineraryDays = (finalItinerary) => {
     return finalItinerary || {};
 };
 
+const normalizeDayMeta = (dayMeta) => {
+    if (!dayMeta || typeof dayMeta !== 'object') {
+        return {};
+    }
+    return dayMeta;
+};
+
 const getSpotCoordinates = (spot) => {
     if (isValidCoordinate(spot?.geometry?.coordinates)) {
         return [Number(spot.geometry.coordinates[0]), Number(spot.geometry.coordinates[1])];
@@ -26,11 +33,21 @@ const getSpotCoordinates = (spot) => {
 
 const toGoogleLatLng = (coords) => `${Number(coords[1])},${Number(coords[0])}`;
 
-const buildDayDirectionsUrl = ({ hubCoordinates, dayStopCoordinates, travelMode = 'driving' }) => {
-    if (!isValidCoordinate(hubCoordinates)) {
+const resolveDayStartCoordinates = ({ dayMetaEntry, hubCoordinates }) => {
+    if (isValidCoordinate(dayMetaEntry?.startCoordinates)) {
+        return dayMetaEntry.startCoordinates;
+    }
+    if (isValidCoordinate(hubCoordinates)) {
+        return hubCoordinates;
+    }
+    return null;
+};
+
+const buildDayDirectionsUrl = ({ startCoordinates, dayStopCoordinates, travelMode = 'driving' }) => {
+    if (!isValidCoordinate(startCoordinates)) {
         return {
             hasRoute: false,
-            reason: 'Hub coordinates unavailable'
+            reason: 'Start coordinates unavailable'
         };
     }
 
@@ -49,7 +66,7 @@ const buildDayDirectionsUrl = ({ hubCoordinates, dayStopCoordinates, travelMode 
         };
     }
 
-    const origin = toGoogleLatLng(hubCoordinates);
+    const origin = toGoogleLatLng(startCoordinates);
     const destination = toGoogleLatLng(destinationCoords);
     const waypointsCoords = dayStopCoordinates.slice(0, -1).filter(isValidCoordinate);
     const waypoints = waypointsCoords.map(toGoogleLatLng).join('|');
@@ -73,9 +90,11 @@ const buildDayDirectionsUrl = ({ hubCoordinates, dayStopCoordinates, travelMode 
 export const generateDayGoogleDirectionsLinks = ({
     activeHub,
     finalItinerary,
+    dayMeta,
     travelMode = 'driving'
 } = {}) => {
     const itineraryDays = normalizeItineraryDays(finalItinerary);
+    const dayMetaByDay = normalizeDayMeta(dayMeta);
     const dayNumbers = Object.keys(itineraryDays).sort((a, b) => Number(a) - Number(b));
     if (dayNumbers.length === 0) return {};
 
@@ -88,8 +107,14 @@ export const generateDayGoogleDirectionsLinks = ({
             .map(getSpotCoordinates)
             .filter(isValidCoordinate);
 
+        const dayMetaEntry = dayMetaByDay?.[dayNumber] || dayMetaByDay?.[Number(dayNumber)] || null;
+        const dayStartCoordinates = resolveDayStartCoordinates({
+            dayMetaEntry,
+            hubCoordinates
+        });
+
         const dayRoute = buildDayDirectionsUrl({
-            hubCoordinates,
+            startCoordinates: dayStartCoordinates,
             dayStopCoordinates,
             travelMode
         });

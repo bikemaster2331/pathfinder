@@ -20,7 +20,8 @@ const ITINERARY_SESSION_STORAGE_PREFIX = 'itinerary_';
 const ITINERARY_LOCAL_STORAGE_KEYS_TO_CLEAR = [
   'finalItinerary',
   'activeHubName',
-  'dateRange'
+  'dateRange',
+  'finalDayMeta'
 ];
 
 const readPdfCacheIdFromSearch = (search = '') => {
@@ -50,16 +51,19 @@ const readStoredTripContext = () => {
   const itineraryRaw = localStorage.getItem('finalItinerary');
   const activeHubName = localStorage.getItem('activeHubName');
   const dateRangeRaw = localStorage.getItem('dateRange');
+  const dayMetaRaw = localStorage.getItem('finalDayMeta');
   if (!itineraryRaw || !activeHubName) return null;
 
   const parsedItinerary = JSON.parse(itineraryRaw);
   const finalItinerary = normalizeStoredItinerary(parsedItinerary);
   const dateRange = dateRangeRaw ? JSON.parse(dateRangeRaw) : null;
+  const finalDayMeta = dayMetaRaw ? JSON.parse(dayMetaRaw) : {};
   const { hub, normalizedHubName } = resolveStoredHub(activeHubName);
   if (!hub) return null;
 
   return {
     finalItinerary,
+    finalDayMeta,
     dateRange,
     hub,
     normalizedHubName
@@ -221,6 +225,7 @@ export default function Last() {
       const links = generateDayGoogleDirectionsLinks({
         activeHub: context.hub,
         finalItinerary: context.finalItinerary,
+        dayMeta: context.finalDayMeta,
         travelMode: 'driving'
       });
       setDayDirectionsLinks(links || {});

@@ -22,12 +22,29 @@ const normalizeItineraryDays = (finalItinerary) => {
     return finalItinerary || {};
 };
 
+const normalizeDayMeta = (dayMeta) => {
+    if (!dayMeta || typeof dayMeta !== 'object') {
+        return {};
+    }
+    return dayMeta;
+};
+
 const getSpotCoordinates = (spot) => {
     if (isValidCoordinate(spot?.geometry?.coordinates)) {
         return [Number(spot.geometry.coordinates[0]), Number(spot.geometry.coordinates[1])];
     }
     if (isValidCoordinate(spot?.coordinates)) {
         return [Number(spot.coordinates[0]), Number(spot.coordinates[1])];
+    }
+    return null;
+};
+
+const resolveDayStartCoordinates = ({ dayMetaEntry, hubCoordinates }) => {
+    if (isValidCoordinate(dayMetaEntry?.startCoordinates)) {
+        return dayMetaEntry.startCoordinates;
+    }
+    if (isValidCoordinate(hubCoordinates)) {
+        return hubCoordinates;
     }
     return null;
 };
@@ -109,9 +126,9 @@ const waitForMapIdle = (map) => new Promise((resolve) => {
     }
 });
 
-const buildDayRouteCoordinates = (hubCoordinates, dayStopCoordinates) => {
+const buildDayRouteCoordinates = (startCoordinates, dayStopCoordinates) => {
     const routeCoordinates = [];
-    const orderedPoints = [hubCoordinates, ...dayStopCoordinates].filter(isValidCoordinate);
+    const orderedPoints = [startCoordinates, ...dayStopCoordinates].filter(isValidCoordinate);
 
     if (orderedPoints.length < 2) {
         return routeCoordinates;
@@ -233,7 +250,7 @@ const addMapContextLayers = (map, theme, contextData) => {
     });
 };
 
-const addSnapshotDayLayers = ({ map, theme, hubCoordinates, dayStopCoordinates, routeCoordinates }) => {
+const addSnapshotDayLayers = ({ map, theme, startCoordinates, dayStopCoordinates, routeCoordinates }) => {
     if (routeCoordinates.length >= 2) {
         map.addSource('snapshot-day-route', {
             type: 'geojson',
@@ -283,10 +300,10 @@ const addSnapshotDayLayers = ({ map, theme, hubCoordinates, dayStopCoordinates, 
             type: 'Feature',
             geometry: {
                 type: 'Point',
-                coordinates: hubCoordinates
+                coordinates: startCoordinates
             },
             properties: {
-                pointType: 'hub'
+                pointType: 'start'
             }
         },
         ...dayStopCoordinates.map((coordinates, index) => ({
@@ -328,7 +345,7 @@ const addSnapshotDayLayers = ({ map, theme, hubCoordinates, dayStopCoordinates, 
         id: 'snapshot-day-hub-halo',
         type: 'circle',
         source: 'snapshot-day-points',
-        filter: ['==', ['get', 'pointType'], 'hub'],
+        filter: ['==', ['get', 'pointType'], 'start'],
         paint: {
             'circle-radius': 15,
             'circle-color': '#048aa1',
@@ -340,7 +357,7 @@ const addSnapshotDayLayers = ({ map, theme, hubCoordinates, dayStopCoordinates, 
         id: 'snapshot-day-hub',
         type: 'circle',
         source: 'snapshot-day-points',
-        filter: ['==', ['get', 'pointType'], 'hub'],
+        filter: ['==', ['get', 'pointType'], 'start'],
         paint: {
             'circle-radius': 7,
             'circle-color': '#ffffff',
@@ -350,8 +367,8 @@ const addSnapshotDayLayers = ({ map, theme, hubCoordinates, dayStopCoordinates, 
     });
 };
 
-const fitSnapshotBounds = (map, hubCoordinates, dayStopCoordinates, routeCoordinates) => {
-    const allCoordinates = [hubCoordinates, ...dayStopCoordinates, ...routeCoordinates].filter(isValidCoordinate);
+const fitSnapshotBounds = (map, startCoordinates, dayStopCoordinates, routeCoordinates) => {
+    const allCoordinates = [startCoordinates, ...dayStopCoordinates, ...routeCoordinates].filter(isValidCoordinate);
     if (allCoordinates.length === 0) return;
 
     if (allCoordinates.length === 1) {
@@ -371,7 +388,7 @@ const fitSnapshotBounds = (map, hubCoordinates, dayStopCoordinates, routeCoordin
     });
 };
 
-const captureDaySnapshot = async ({ dayStopCoordinates, hubCoordinates, routeCoordinates, contextData }) => {
+const captureDaySnapshot = async ({ dayStopCoordinates, startCoordinates, routeCoordinates, contextData }) => {
     const theme = readMapTheme();
     const mapContainer = createHiddenMapContainer();
     let map = null;
@@ -392,7 +409,7 @@ const captureDaySnapshot = async ({ dayStopCoordinates, hubCoordinates, routeCoo
                     }
                 ]
             },
-            center: hubCoordinates,
+            center: startCoordinates,
             zoom: 10,
             attributionControl: false,
             preserveDrawingBuffer: true,
@@ -404,11 +421,11 @@ const captureDaySnapshot = async ({ dayStopCoordinates, hubCoordinates, routeCoo
         addSnapshotDayLayers({
             map,
             theme,
-            hubCoordinates,
+            startCoordinates,
             dayStopCoordinates,
             routeCoordinates
         });
-        fitSnapshotBounds(map, hubCoordinates, dayStopCoordinates, routeCoordinates);
+        fitSnapshotBounds(map, startCoordinates, dayStopCoordinates, routeCoordinates);
         await waitForMapIdle(map);
 
         return map.getCanvas().toDataURL('image/jpeg', SNAPSHOT_QUALITY);
@@ -425,6 +442,7 @@ const captureDaySnapshot = async ({ dayStopCoordinates, hubCoordinates, routeCoo
 export const generateDayMapSnapshots = async ({
     activeHub,
     finalItinerary,
+    dayMeta,
     mapFeatureData
 } = {}) => {
     if (typeof window === 'undefined' || typeof document === 'undefined') {
@@ -437,6 +455,7 @@ export const generateDayMapSnapshots = async ({
     }
 
     const itineraryDays = normalizeItineraryDays(finalItinerary);
+    const dayMetaByDay = normalizeDayMeta(dayMeta);
     const dayNumbers = Object.keys(itineraryDays).sort((a, b) => Number(a) - Number(b));
     if (dayNumbers.length === 0) {
         return {};
@@ -455,12 +474,19 @@ export const generateDayMapSnapshots = async ({
 
         if (dayStopCoordinates.length === 0) continue;
 
-        const routeCoordinates = buildDayRouteCoordinates(hubCoordinates, dayStopCoordinates);
+        const dayMetaEntry = dayMetaByDay?.[dayNumber] || dayMetaByDay?.[Number(dayNumber)] || null;
+        const dayStartCoordinates = resolveDayStartCoordinates({
+            dayMetaEntry,
+            hubCoordinates
+        });
+        if (!isValidCoordinate(dayStartCoordinates)) continue;
+
+        const routeCoordinates = buildDayRouteCoordinates(dayStartCoordinates, dayStopCoordinates);
 
         try {
             const snapshotDataUrl = await captureDaySnapshot({
                 dayStopCoordinates,
-                hubCoordinates,
+                startCoordinates: dayStartCoordinates,
                 routeCoordinates,
                 contextData
             });

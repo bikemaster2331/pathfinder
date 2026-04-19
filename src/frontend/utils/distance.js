@@ -1,5 +1,23 @@
 import * as turf from '@turf/turf';
 
+const isValidCoordinates = (coordinates) => {
+    return (
+        Array.isArray(coordinates) &&
+        coordinates.length >= 2 &&
+        typeof coordinates[0] === 'number' &&
+        typeof coordinates[1] === 'number' &&
+        !isNaN(coordinates[0]) &&
+        !isNaN(coordinates[1])
+    );
+};
+
+const resolveStartCoordinates = (hub, options = {}) => {
+    if (isValidCoordinates(options.startCoordinates)) {
+        return options.startCoordinates;
+    }
+    return isValidCoordinates(hub?.coordinates) ? hub.coordinates : null;
+};
+
 // 1. Basic Distance Calc (Used by everything else)
 export const calculateDistance = (coord1, coord2) => {
     if (!coord1 || !coord2) return 0;
@@ -82,14 +100,24 @@ export const evaluateTripFeasibility = (hub, spots, endHour = 17) => {
     }
 };
 
-export const calculateTimeUsage = (hub, spots) => {
-    if (!hub || !spots || spots.length === 0) {
+export const calculateTimeUsage = (hub, spots, options = {}) => {
+    if (!spots || spots.length === 0) {
         return { totalUsed: 0, driveTime: 0, visitTime: 0 };
     }
 
+    const startCoordinates = resolveStartCoordinates(hub, options);
+    if (!startCoordinates) {
+        return { totalUsed: 0, driveTime: 0, visitTime: 0 };
+    }
+
+    const includeReturnLeg = options.includeReturnLeg !== false;
+    const returnCoordinates = isValidCoordinates(options.returnCoordinates)
+        ? options.returnCoordinates
+        : (isValidCoordinates(hub?.coordinates) ? hub.coordinates : startCoordinates);
+
     let totalDrive = 0;
     let totalVisit = 0;
-    let currentCoords = hub.coordinates;
+    let currentCoords = startCoordinates;
 
     spots.forEach(spot => {
         // 1. Visit Time
@@ -104,10 +132,12 @@ export const calculateTimeUsage = (hub, spots) => {
         currentCoords = spot.geometry.coordinates;
     });
 
-    // 3. Drive Home (Return to Hub) - The hidden cost
-    const distHome = calculateDistance(currentCoords, hub.coordinates);
-    const driveHome = Math.round((distHome / 40) * 60);
-    totalDrive += driveHome;
+    // 3. Optional return leg (defaults to legacy behavior)
+    if (includeReturnLeg && returnCoordinates) {
+        const distHome = calculateDistance(currentCoords, returnCoordinates);
+        const driveHome = Math.round((distHome / 40) * 60);
+        totalDrive += driveHome;
+    }
 
     return {
         totalUsed: totalDrive + totalVisit,
@@ -117,10 +147,13 @@ export const calculateTimeUsage = (hub, spots) => {
 };
 
 // 4. Drive Time Helper (Used for the UI list)
-export const calculateDriveTimes = (hub, spots) => {
-    if (!hub || !spots || spots.length === 0) return [];
+export const calculateDriveTimes = (hub, spots, options = {}) => {
+    if (!spots || spots.length === 0) return [];
+
+    const startCoordinates = resolveStartCoordinates(hub, options);
+    if (!startCoordinates) return [];
     
-    let currentCoords = hub.coordinates;
+    let currentCoords = startCoordinates;
     
     return spots.map(spot => {
         const dist = calculateDistance(currentCoords, spot.geometry.coordinates);

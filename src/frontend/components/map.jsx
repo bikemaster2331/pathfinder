@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import { useEffect, useRef, useState, useMemo, forwardRef, useImperativeHandle } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import * as turf from '@turf/turf';
@@ -48,6 +48,13 @@ const RESET_TRIGGER_BOUNDS = {
 };
 
 const HUB_COLOR = '#048aa1';
+
+const isValidCoordinate = (coords) => (
+    Array.isArray(coords) &&
+    coords.length >= 2 &&
+    Number.isFinite(Number(coords[0])) &&
+    Number.isFinite(Number(coords[1]))
+);
 
 const ACTIVITY_MAPPING = {
     Water: ['beach', 'swimming', 'falls'],
@@ -132,6 +139,8 @@ const Map = forwardRef((props, ref) => {
         mapData,
         selectedHub,
         addedSpots,
+        routeStartCoordinates,
+        routeStartLabel,
         budgetFilter,
         isMenuOpen,
         onToggleMenu,
@@ -149,6 +158,17 @@ const Map = forwardRef((props, ref) => {
     const resizeRafRef = useRef(null);
     const resizePendingRef = useRef(false);
     const resizeAfterIdleRef = useRef(false);
+    const resolvedRouteStartCoordinates = useMemo(() => (
+        isValidCoordinate(routeStartCoordinates)
+            ? [Number(routeStartCoordinates[0]), Number(routeStartCoordinates[1])]
+            : (isValidCoordinate(selectedHub?.coordinates)
+                ? [Number(selectedHub.coordinates[0]), Number(selectedHub.coordinates[1])]
+                : null)
+    ), [routeStartCoordinates, selectedHub]);
+    const resolvedRouteStartLabel = useMemo(
+        () => String(routeStartLabel || selectedHub?.name || 'Start'),
+        [routeStartLabel, selectedHub]
+    );
 
     const openTimedPopup = (lngLat, html, options = {}) => {
         if (!map.current) return;
@@ -313,7 +333,7 @@ const Map = forwardRef((props, ref) => {
     }, [selectedActivities, budgetFilter, isLoaded]);
 
     useEffect(() => {
-        if (!isLoaded || !map.current || !selectedHub) return;
+        if (!isLoaded || !map.current || !resolvedRouteStartCoordinates) return;
 
         const sourceId = 'hub-data';
 
@@ -326,7 +346,7 @@ const Map = forwardRef((props, ref) => {
             }
 
             map.current.flyTo({
-                center: selectedHub.coordinates,
+                center: resolvedRouteStartCoordinates,
                 zoom: 11,
                 speed: 1.2,
                 curve: 1
@@ -338,13 +358,13 @@ const Map = forwardRef((props, ref) => {
             type: 'FeatureCollection',
             features: [{
                 type: 'Feature',
-                geometry: { type: 'Point', coordinates: selectedHub.coordinates },
-                properties: { name: selectedHub.name }
+                geometry: { type: 'Point', coordinates: resolvedRouteStartCoordinates },
+                properties: { name: resolvedRouteStartLabel }
             }]
         };
 
         if (map.current.getSource(sourceId)) {
-            const currentHubKey = `${selectedHub.name}_${selectedHub.coordinates[0]}_${selectedHub.coordinates[1]}`;
+            const currentHubKey = `${resolvedRouteStartLabel}_${resolvedRouteStartCoordinates[0]}_${resolvedRouteStartCoordinates[1]}`;
             if (lastHubRef.current === currentHubKey) return;
             map.current.getSource(sourceId).setData(data);
             lastHubRef.current = currentHubKey;
@@ -382,20 +402,20 @@ const Map = forwardRef((props, ref) => {
                 }
             });
 
-            lastHubRef.current = `${selectedHub.name}_${selectedHub.coordinates[0]}_${selectedHub.coordinates[1]}`;
+            lastHubRef.current = `${resolvedRouteStartLabel}_${resolvedRouteStartCoordinates[0]}_${resolvedRouteStartCoordinates[1]}`;
         }
 
 
         if (!isInitialTripboxCompleted) {
             map.current.flyTo({
-                center: selectedHub.coordinates,
+                center: resolvedRouteStartCoordinates,
                 zoom: 11,
                 speed: 1.2,
                 curve: 1
             });
         }
 
-    }, [selectedHub, isLoaded, isInitialTripboxCompleted]);
+    }, [resolvedRouteStartCoordinates, resolvedRouteStartLabel, isLoaded, isInitialTripboxCompleted]);
 
     useEffect(() => {
         if (!isLoaded || !map.current) return;
@@ -418,8 +438,8 @@ const Map = forwardRef((props, ref) => {
         const updateSolidRoute = () => {
             const stops = [];
 
-            if (selectedHub?.coordinates) {
-                stops.push(selectedHub.coordinates);
+            if (resolvedRouteStartCoordinates) {
+                stops.push(resolvedRouteStartCoordinates);
             }
 
             if (addedSpots?.length > 0) {
@@ -485,8 +505,8 @@ const Map = forwardRef((props, ref) => {
             const isAdded = target && addedSpots.some(s => s.name === target.name);
             let previewCoords = [];
 
-            if (selectedHub?.coordinates && target?.geometry?.coordinates && !isAdded) {
-                const segment = getVisualRoute(selectedHub.coordinates, target.geometry.coordinates);
+            if (resolvedRouteStartCoordinates && target?.geometry?.coordinates && !isAdded) {
+                const segment = getVisualRoute(resolvedRouteStartCoordinates, target.geometry.coordinates);
                 if (segment?.geometry?.coordinates) previewCoords = segment.geometry.coordinates;
             }
 
@@ -540,7 +560,7 @@ const Map = forwardRef((props, ref) => {
 
         return () => clearTimeout(timer);
 
-    }, [selectedHub, addedSpots, isLoaded, selectedLocation]);
+    }, [resolvedRouteStartCoordinates, addedSpots, isLoaded, selectedLocation]);
 
     useEffect(() => {
         if (map.current) return;

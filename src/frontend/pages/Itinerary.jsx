@@ -41,6 +41,128 @@ const BUDGET_CONFIG = {
     3: { filterValues: ["low", "medium", "high"] }
 };
 
+const STAY_CATEGORIES = new Set(['accommodation', 'beach_resort']);
+
+const isValidCoordinatePair = (coords) => {
+    if (!Array.isArray(coords) || coords.length < 2) return false;
+    const lng = Number(coords[0]);
+    const lat = Number(coords[1]);
+    return Number.isFinite(lng) && Number.isFinite(lat);
+};
+
+const getSpotCoordinates = (spot) => {
+    if (isValidCoordinatePair(spot?.geometry?.coordinates)) {
+        return [Number(spot.geometry.coordinates[0]), Number(spot.geometry.coordinates[1])];
+    }
+    if (isValidCoordinatePair(spot?.coordinates)) {
+        return [Number(spot.coordinates[0]), Number(spot.coordinates[1])];
+    }
+    return null;
+};
+
+const getDayMetaEntry = (dayMeta, dayNumber) => {
+    if (!dayMeta || typeof dayMeta !== 'object') return null;
+    return dayMeta?.[dayNumber] || dayMeta?.[Number(dayNumber)] || null;
+};
+
+const getSortedDayNumbers = (finalItinerary) => {
+    return Object.keys(finalItinerary || {}).sort((a, b) => Number(a) - Number(b));
+};
+
+const buildFinalDayMeta = ({ activeHub, finalItinerary, existingDayMeta }) => {
+    const dayNumbers = getSortedDayNumbers(finalItinerary);
+    if (!isValidCoordinatePair(activeHub?.coordinates) || dayNumbers.length === 0) {
+        return existingDayMeta || {};
+    }
+
+    const nextDayMeta = {};
+    let previousOvernightCoordinates = activeHub.coordinates;
+    let previousOvernightLabel = activeHub.name || 'Selected hub';
+
+    dayNumbers.forEach((dayNumber, dayIndex) => {
+        const daySpots = Array.isArray(finalItinerary?.[dayNumber]) ? finalItinerary[dayNumber] : [];
+        const existingEntry = getDayMetaEntry(existingDayMeta, dayNumber);
+        const isFirstDay = dayIndex === 0;
+
+        const dayStartCoordinates = isFirstDay
+            ? (isValidCoordinatePair(existingEntry?.startCoordinates) ? existingEntry.startCoordinates : activeHub.coordinates)
+            : (isValidCoordinatePair(previousOvernightCoordinates) ? previousOvernightCoordinates : activeHub.coordinates);
+
+        const dayStartLabel = isFirstDay
+            ? (existingEntry?.startLabel || activeHub.name || 'Selected hub')
+            : (previousOvernightLabel || existingEntry?.startLabel || `End of Day ${Number(dayNumber) - 1}`);
+
+        const overnightSpot = [...daySpots]
+            .reverse()
+            .find((spot) => STAY_CATEGORIES.has(String(spot?.category || '').toLowerCase().trim()));
+        const fallbackLastSpot = daySpots[daySpots.length - 1];
+        const overnightAnchor = overnightSpot || fallbackLastSpot || null;
+        const overnightCoordinates = getSpotCoordinates(overnightAnchor) || dayStartCoordinates;
+        const overnightLabel = overnightAnchor?.name || dayStartLabel;
+        const endCoordinates = getSpotCoordinates(fallbackLastSpot) || dayStartCoordinates;
+
+        nextDayMeta[dayNumber] = {
+            startCoordinates: dayStartCoordinates,
+            startLabel: dayStartLabel,
+            overnightCoordinates,
+            overnightLabel,
+            endCoordinates
+        };
+
+        previousOvernightCoordinates = overnightCoordinates;
+        previousOvernightLabel = overnightLabel;
+    });
+
+    return nextDayMeta;
+};
+
+const buildFlattenedDriveDataByDay = ({ activeHub, finalItinerary, dayMeta }) => {
+    const dayNumbers = getSortedDayNumbers(finalItinerary);
+    const flattened = [];
+
+    dayNumbers.forEach((dayNumber) => {
+        const daySpots = Array.isArray(finalItinerary?.[dayNumber]) ? finalItinerary[dayNumber] : [];
+        if (daySpots.length === 0) return;
+
+        const dayEntry = getDayMetaEntry(dayMeta, dayNumber);
+        const dayStartCoordinates = isValidCoordinatePair(dayEntry?.startCoordinates)
+            ? dayEntry.startCoordinates
+            : activeHub?.coordinates;
+
+        flattened.push(...calculateDriveTimes(activeHub, daySpots, {
+            startCoordinates: dayStartCoordinates
+        }));
+    });
+
+    return flattened;
+};
+
+const calculateTotalDistanceByDay = ({ activeHub, finalItinerary, dayMeta }) => {
+    const dayNumbers = getSortedDayNumbers(finalItinerary);
+    let totalDistance = 0;
+
+    dayNumbers.forEach((dayNumber) => {
+        const daySpots = Array.isArray(finalItinerary?.[dayNumber]) ? finalItinerary[dayNumber] : [];
+        if (daySpots.length === 0) return;
+
+        const dayEntry = getDayMetaEntry(dayMeta, dayNumber);
+        let currentCoordinates = isValidCoordinatePair(dayEntry?.startCoordinates)
+            ? dayEntry.startCoordinates
+            : activeHub?.coordinates;
+
+        if (!isValidCoordinatePair(currentCoordinates)) return;
+
+        daySpots.forEach((spot) => {
+            const spotCoordinates = getSpotCoordinates(spot);
+            if (!isValidCoordinatePair(spotCoordinates)) return;
+            totalDistance += calculateDistance(currentCoordinates, spotCoordinates);
+            currentCoordinates = spotCoordinates;
+        });
+    });
+
+    return parseFloat(totalDistance.toFixed(1));
+};
+
 // --- DRAGGABLE SPOT ITEM ---
 const SortableSpotItem = ({ spot, index, totalCount, cardStyles, setSelectedLocation, handleRemoveSpot }) => {
     const {
@@ -176,6 +298,7 @@ const PreviewWidget = ({
     styles,
     cardStyles,
     activeHub,
+    dayMeta,
     currentDay,
     dayCount,
     isLastDay,
@@ -193,6 +316,8 @@ const PreviewWidget = ({
 }) => {
     const [expanded, setExpanded] = useState(isLatest);
     const isNextAction = dayCount > 1 && !isLastDay;
+    const currentDayMeta = dayMeta?.[currentDay] || null;
+    const dayStartCoordinates = currentDayMeta?.startCoordinates || activeHub?.coordinates || null;
 
     // Auto-collapse older widgets when a new one is added to the chat
     useEffect(() => {
@@ -200,9 +325,9 @@ const PreviewWidget = ({
     }, [isLatest]);
 
     const driveData = useMemo(() => {
-        if (!activeHub) return [];
-        return calculateDriveTimes(activeHub, spots);
-    }, [activeHub, spots]);
+        if (!activeHub || !dayStartCoordinates) return [];
+        return calculateDriveTimes(activeHub, spots, { startCoordinates: dayStartCoordinates });
+    }, [activeHub, spots, dayStartCoordinates]);
 
     const totalDistance = useMemo(() => {
         if (!activeHub || !spots || spots.length === 0) return 0;
@@ -221,7 +346,10 @@ const PreviewWidget = ({
         }
 
         const DAILY_CAPACITY = 540;
-        const usage = calculateTimeUsage(activeHub, spots);
+        const usage = calculateTimeUsage(activeHub, spots, {
+            startCoordinates: dayStartCoordinates,
+            includeReturnLeg: false,
+        });
         const usedAmount = Number(usage?.totalUsed) || 0;
         const remaining = DAILY_CAPACITY - usedAmount;
 
@@ -247,7 +375,7 @@ const PreviewWidget = ({
         }
 
         return { used: usedAmount, remaining, percent, color, label, subtext };
-    }, [activeHub, spots]);
+    }, [activeHub, spots, dayStartCoordinates]);
 
     return (
         <aside
@@ -439,6 +567,12 @@ export default function ItineraryPage() {
             return saved ? JSON.parse(saved) : {};
         } catch { return {}; }
     });
+    const [storedDayMeta, setStoredDayMeta] = useState(() => {
+        try {
+            const saved = sessionStorage.getItem('itinerary_storedDayMeta');
+            return saved ? JSON.parse(saved) : {};
+        } catch { return {}; }
+    });
     const [currentDay, setCurrentDay] = useState(() => {
         try {
             const saved = sessionStorage.getItem('itinerary_currentDay');
@@ -505,6 +639,12 @@ export default function ItineraryPage() {
     }, [storedDays]);
 
     useEffect(() => {
+        try {
+            sessionStorage.setItem('itinerary_storedDayMeta', JSON.stringify(storedDayMeta));
+        } catch { /* storage full */ }
+    }, [storedDayMeta]);
+
+    useEffect(() => {
         sessionStorage.setItem('itinerary_currentDay', currentDay.toString());
     }, [currentDay]);
 
@@ -557,6 +697,12 @@ export default function ItineraryPage() {
     const showAlert = (message, title = 'Notice', type = 'info') => {
         setModalConfig({ isOpen: true, title, message, type });
     };
+
+    const currentDayStartCoordinates = useMemo(() => {
+        const dayMeta = storedDayMeta?.[currentDay];
+        if (dayMeta?.startCoordinates) return dayMeta.startCoordinates;
+        return activeHub?.coordinates || null;
+    }, [storedDayMeta, currentDay, activeHub]);
 
     const nextMobilePanel = mobilePanel === 'review' ? 'preview' : 'review';
     const mobilePanelToggleLabel = nextMobilePanel === 'preview' ? 'Show preview' : 'Show review';
@@ -617,7 +763,9 @@ export default function ItineraryPage() {
 
     const handleOptimize = () => {
         if (!activeHub || !addedSpots || addedSpots.length < 2) return;
-        const newOrder = optimizeRoute(activeHub, addedSpots);
+        const newOrder = optimizeRoute(activeHub, addedSpots, {
+            startCoordinates: currentDayStartCoordinates || activeHub.coordinates,
+        });
         setAddedSpots(newOrder);
     };
 
@@ -629,12 +777,16 @@ export default function ItineraryPage() {
             selectedActivities,
             allSpots,
         });
-        if (Object.keys(result).length === 0) {
+        const generatedDays = result?.days || {};
+        const generatedMeta = result?.dayMeta || {};
+
+        if (Object.keys(generatedDays).length === 0) {
             showAlert("No spots match your current filters. Try expanding your budget or activities.", "No Matches Found", "warning");
             return;
         }
-        setStoredDays(result);
-        setAddedSpots(result[1] || []);
+        setStoredDays(generatedDays);
+        setStoredDayMeta(generatedMeta);
+        setAddedSpots(generatedDays[1] || []);
         setCurrentDay(1);
     };
 
@@ -693,6 +845,11 @@ export default function ItineraryPage() {
         if (isGeneratingPdf) return;
 
         const finalItinerary = { ...storedDays, [currentDay]: addedSpots };
+        const finalDayMeta = buildFinalDayMeta({
+            activeHub,
+            finalItinerary,
+            existingDayMeta: storedDayMeta
+        });
 
         const allSpotsFlat = [];
         Object.keys(finalItinerary)
@@ -709,17 +866,28 @@ export default function ItineraryPage() {
         localStorage.setItem('finalItinerary', JSON.stringify(finalItinerary));
         localStorage.setItem('activeHubName', activeHub.name);
         localStorage.setItem('dateRange', JSON.stringify(dateRange || null));
+        localStorage.setItem('finalDayMeta', JSON.stringify(finalDayMeta));
 
-        const fullTripDistance = calculateTotalRoute(activeHub, allSpotsFlat);
-        const fullTripDriveData = calculateDriveTimes(activeHub, allSpotsFlat);
+        const fullTripDistance = calculateTotalDistanceByDay({
+            activeHub,
+            finalItinerary,
+            dayMeta: finalDayMeta
+        });
+        const fullTripDriveData = buildFlattenedDriveDataByDay({
+            activeHub,
+            finalItinerary,
+            dayMeta: finalDayMeta
+        });
 
         setIsGeneratingPdf(true);
+        setStoredDayMeta(finalDayMeta);
 
         try {
             const [dayMapSnapshots, dayDirectionsLinks] = await Promise.all([
                 generateDayMapSnapshots({
                     activeHub,
-                    finalItinerary
+                    finalItinerary,
+                    dayMeta: finalDayMeta
                 }).catch((mapSnapshotError) => {
                     console.warn('Map snapshots failed; continuing PDF generation:', mapSnapshotError);
                     return {};
@@ -728,6 +896,7 @@ export default function ItineraryPage() {
                     generateDayGoogleDirectionsLinks({
                         activeHub,
                         finalItinerary,
+                        dayMeta: finalDayMeta,
                         travelMode: 'driving'
                     })
                 ).catch((directionsError) => {
@@ -744,6 +913,7 @@ export default function ItineraryPage() {
                 driveData: fullTripDriveData,
                 dayMapSnapshots,
                 dayDirectionsLinks,
+                dayMeta: finalDayMeta,
                 saveFile: false,
                 includeBlob: true
             });
@@ -1001,6 +1171,7 @@ export default function ItineraryPage() {
         if (dayCount < currentDay) {
             setCurrentDay(1);
             setStoredDays({});
+            setStoredDayMeta({});
             setAddedSpots([]);
         }
     }, [dayCount, currentDay]);
@@ -1042,6 +1213,7 @@ export default function ItineraryPage() {
                             styles={styles}
                             cardStyles={cardStyles}
                             activeHub={activeHub}
+                            dayMeta={storedDayMeta}
                             currentDay={currentDay}
                             dayCount={dayCount}
                             isLastDay={isLastDay}
@@ -1062,7 +1234,7 @@ export default function ItineraryPage() {
             }
             return msg;
         });
-    }, [chatMessages, addedSpots, activeHub, currentDay, dayCount, isLastDay, handleOptimize, handleGenerate, setSelectedLocation, handleToggleLock, handleMoveSpot, handleRemoveSpot, handlePreviousDay, handleSliceAndNext, handleSaveItinerary, setAddedSpots, isGeneratingPdf, styles, cardStyles]);
+    }, [chatMessages, addedSpots, activeHub, storedDayMeta, currentDay, dayCount, isLastDay, handleOptimize, handleGenerate, setSelectedLocation, handleToggleLock, handleMoveSpot, handleRemoveSpot, handlePreviousDay, handleSliceAndNext, handleSaveItinerary, setAddedSpots, isGeneratingPdf, styles, cardStyles]);
 
     return (
         <div className={`${styles.itineraryContainer} ${isMapFullscreen ? styles.itineraryContainerFullscreen : ''} ${(!activeHub || !dateRange.start || !dateRange.end || !isChatVisible) ? styles.itineraryNoSidebar : ''}`}>
@@ -1137,6 +1309,8 @@ export default function ItineraryPage() {
                     mapData={allSpots}
                     selectedHub={activeHub}
                     addedSpots={addedSpots}
+                    dayStartCoordinates={currentDayStartCoordinates}
+                    dayStartLabel={(storedDayMeta?.[currentDay]?.startLabel || activeHub?.name || 'Hub')}
                     budgetFilter={budgetFilter}
                     budget={budget}
                     setBudget={setBudget}

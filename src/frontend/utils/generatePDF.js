@@ -90,6 +90,7 @@ export const generateItineraryPDF = ({
     driveData, // Flat array of drive times (matches sequence of spots)
     dayMapSnapshots, // Optional keyed map: { "1": "data:image/jpeg,...", "2": "..." }
     dayDirectionsLinks, // Optional keyed map: { "1": { hasRoute, url?, reason? }, ... }
+    dayMeta, // Optional keyed metadata map with day start labels/coordinates
     saveFile = true,
     includeBlob = false
 }) => {
@@ -126,6 +127,7 @@ export const generateItineraryPDF = ({
     } else {
         itineraryDays = addedSpots || {};
     }
+    const normalizedDayMeta = (dayMeta && typeof dayMeta === 'object') ? dayMeta : {};
 
     let globalSpotIndex = 0;
 
@@ -201,6 +203,8 @@ export const generateItineraryPDF = ({
         .forEach((dayNum, dayIndex) => { // Added dayIndex here
             const spotsForDay = itineraryDays[dayNum];
             if (!spotsForDay || spotsForDay.length === 0) return;
+            const dayMetaEntry = normalizedDayMeta?.[dayNum] || normalizedDayMeta?.[Number(dayNum)] || null;
+            const dayStartLabel = String(dayMetaEntry?.startLabel || activeHubName || 'Hub').toUpperCase();
 
             // ── Only start a new page if it is Day 2 or later ──
             if (dayIndex > 0) {
@@ -395,6 +399,15 @@ export const generateItineraryPDF = ({
                 }
 
                 // ── Transit connector ──
+                if (i === 0) {
+                    currentY = ensureSpace(doc, currentY, 14, pageHeight);
+                    doc.setFontSize(9);
+                    doc.setFont('courier', 'bold');
+                    doc.setTextColor(...colors.muted);
+                    doc.text(`-> START FROM ${dayStartLabel}`, margin + 20, currentY);
+                    currentY += 8;
+                }
+
                 if (driveTime > 0) {
                     currentY = ensureSpace(doc, currentY, 14, pageHeight);
                     const transportMode = getTransportMode(driveTime);
@@ -405,13 +418,6 @@ export const generateItineraryPDF = ({
                         `-> ${driveTime} MIN DRIVE${transportMode ? ' // ' + transportMode.toUpperCase() : ''}`,
                         margin + 20, currentY
                     );
-                    currentY += 8;
-                } else if (i === 0) {
-                    currentY = ensureSpace(doc, currentY, 14, pageHeight);
-                    doc.setFontSize(9);
-                    doc.setFont('courier', 'bold');
-                    doc.setTextColor(...colors.muted);
-                    doc.text(`-> START FROM ${activeHubName?.toUpperCase() || 'HUB'}`, margin + 20, currentY);
                     currentY += 8;
                 }
 

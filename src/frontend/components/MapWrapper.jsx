@@ -178,6 +178,8 @@ const MapWrapper = forwardRef((props, ref) => {
         mapData,
         selectedHub,
         addedSpots,
+        dayStartCoordinates,
+        dayStartLabel,
         budgetFilter,
         budget,
         setBudget,
@@ -376,6 +378,8 @@ const MapWrapper = forwardRef((props, ref) => {
                     onMarkerClick={onMarkerClick}
                     selectedHub={selectedHub}
                     addedSpots={addedSpots}
+                    routeStartCoordinates={dayStartCoordinates}
+                    routeStartLabel={dayStartLabel}
                     budgetFilter={budgetFilter}
                     isMapFullscreen={isMapFullscreen}
                     onToggleMapFullscreen={onToggleMapFullscreen}
