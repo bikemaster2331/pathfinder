@@ -16,6 +16,7 @@ import {
 import { TRAVEL_HUBS } from '../constants/location';
 
 const PDF_CACHE_ID_STORAGE_KEY = 'pathfinderPdfCacheId';
+const FORCE_IMAGE_PREVIEW = true;
 const ITINERARY_SESSION_STORAGE_PREFIX = 'itinerary_';
 const ITINERARY_LOCAL_STORAGE_KEYS_TO_CLEAR = [
   'finalItinerary',
@@ -136,9 +137,10 @@ export default function Last() {
   }, []);
 
   const forceImageFallbackPreview = useMemo(
-    () => (isRaspberryPiBrowser || preferImageFallbackPreview),
+    () => (FORCE_IMAGE_PREVIEW || isRaspberryPiBrowser || preferImageFallbackPreview),
     [isRaspberryPiBrowser, preferImageFallbackPreview]
   );
+  const isImageFallbackPreview = forceImageFallbackPreview || useImageFallbackPreview;
 
   const viewerCropStyle = useMemo(() => ({
     '--pdf-crop-left': '0px',
@@ -389,7 +391,7 @@ export default function Last() {
   }, [interactiveWatchdogSourceKey]);
 
   useEffect(() => {
-    if (!pdfData || useImageFallbackPreview || interactiveReady) {
+    if (!pdfData || isImageFallbackPreview || interactiveReady) {
       setPreviewLoadingMessageIndex(0);
       return;
     }
@@ -406,7 +408,7 @@ export default function Last() {
       window.clearTimeout(transitionOne);
       window.clearTimeout(transitionTwo);
     };
-  }, [pdfData, useImageFallbackPreview, interactiveReady, viewerReloadKey]);
+  }, [pdfData, isImageFallbackPreview, interactiveReady, viewerReloadKey]);
 
   // On history return or app re-focus after visiting external pages,
   // force-restore preview from IndexedDB snapshot and remount the viewer.
@@ -433,7 +435,7 @@ export default function Last() {
       );
       const currentSource = normalizePreviewUrl(rawPdfDataRef.current);
       const isViewerHealthy = Boolean(
-        interactiveReadyRef.current || useImageFallbackPreviewRef.current
+        interactiveReadyRef.current || useImageFallbackPreviewRef.current || forceImageFallbackPreview
       );
 
       try {
@@ -630,11 +632,11 @@ export default function Last() {
   // Safety net for Chromium builds where <object>/<embed> hangs without firing load/error.
   // Retry the server cache URL once, then fall back to image preview instead of a black screen.
   useEffect(() => {
-    if (!pdfData || useImageFallbackPreview || interactiveReady) return undefined;
+    if (!pdfData || isImageFallbackPreview || interactiveReady) return undefined;
 
     const timeoutMs = isRaspberryPiBrowser ? 2800 : 6000;
     const timeoutId = window.setTimeout(() => {
-      if (interactiveReady || useImageFallbackPreview) return;
+      if (interactiveReady || isImageFallbackPreview) return;
 
       const activeCacheId = String(localStorage.getItem(PDF_CACHE_ID_STORAGE_KEY) || pdfCacheId || '').trim();
       if (activeCacheId && !interactiveWatchdogRetriedRef.current) {
@@ -653,7 +655,7 @@ export default function Last() {
     };
   }, [
     pdfData,
-    useImageFallbackPreview,
+    isImageFallbackPreview,
     interactiveReady,
     pdfCacheId,
     isRaspberryPiBrowser,
@@ -664,7 +666,7 @@ export default function Last() {
   // Render PDF pages into images only when interactive preview falls back.
   // We also preserve external link annotations so directions can still be opened.
   useEffect(() => {
-    if (!useImageFallbackPreview) return undefined;
+    if (!isImageFallbackPreview) return undefined;
 
     let cancelled = false;
 
@@ -766,7 +768,7 @@ export default function Last() {
     return () => {
       cancelled = true;
     };
-  }, [useImageFallbackPreview, previewBaseUrl, rawPdfData, isRaspberryPiBrowser]);
+  }, [isImageFallbackPreview, previewBaseUrl, rawPdfData, isRaspberryPiBrowser]);
 
   useEffect(() => {
     if (isPdfSourceInitialized && !rawPdfData) {
@@ -783,8 +785,8 @@ export default function Last() {
   }, [interactiveReady]);
 
   useEffect(() => {
-    useImageFallbackPreviewRef.current = useImageFallbackPreview;
-  }, [useImageFallbackPreview]);
+    useImageFallbackPreviewRef.current = isImageFallbackPreview;
+  }, [isImageFallbackPreview]);
 
   useEffect(() => {
     const normalizedId = String(pdfCacheId || '').trim();
@@ -863,10 +865,19 @@ export default function Last() {
     document.body.removeChild(link);
   };
 
-  const handleOpenInNewTab = () => {
-    const target = previewBaseUrl || rawPdfData;
+  const openInNewTab = (targetUrl) => {
+    const target = String(targetUrl || '').trim();
     if (!target) return;
     window.open(target, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleOpenInNewTab = () => {
+    openInNewTab(previewBaseUrl || rawPdfData);
+  };
+
+  const handleOverlayLinkClick = (event, targetUrl) => {
+    event.preventDefault();
+    openInNewTab(targetUrl);
   };
 
   const handleInteractivePreviewLoaded = () => {
@@ -998,7 +1009,7 @@ export default function Last() {
       </div>
 
       <main className={styles.viewerContainer}>
-        {!useImageFallbackPreview && pdfData ? (
+        {!isImageFallbackPreview && pdfData ? (
           <div className={styles.pdfViewportCrop}>
             <object
               key={`pdf-object-${viewerReloadKey}-${pdfData || 'none'}`}
@@ -1034,7 +1045,7 @@ export default function Last() {
               </div>
             )}
           </div>
-        ) : useImageFallbackPreview ? (
+        ) : isImageFallbackPreview ? (
           renderedPages.length > 0 ? (
             <div className={styles.paperStack}>
               {renderedPages.map((page, index) => (
@@ -1051,6 +1062,7 @@ export default function Last() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(event) => handleOverlayLinkClick(event, link.href)}
                       className={styles.pageLinkOverlay}
                       style={{
                         left: `${(link.left / Math.max(page.width || 0, 1)) * 100}%`,
