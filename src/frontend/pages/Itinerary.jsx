@@ -13,6 +13,7 @@ import { generateItineraryPDF } from '../utils/generatePDF';
 import { generateDayMapSnapshots } from '../utils/dayMapSnapshots';
 import { generateDayGoogleDirectionsLinks } from '../utils/dayDirections';
 import { uploadPdfBlobToCache, deletePdfCacheById } from '../utils/pdfCacheApi';
+import { savePdfBlobSnapshot } from '../utils/pdfSnapshotStore';
 import CustomModal from '../components/CustomModal';
 import defaultBg from '../assets/images/card/catanduanes.png';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -921,6 +922,11 @@ export default function ItineraryPage() {
             let pdfData = generatedPdf?.pdfData || null;
             const pdfBlob = generatedPdf?.pdfBlob || null;
             let pdfCacheId = null;
+
+            if (pdfBlob instanceof Blob) {
+                // Persist a durable local snapshot before any navigation/external link handling.
+                await savePdfBlobSnapshot(pdfBlob);
+            }
 
             const previousPdfCacheId = localStorage.getItem('pathfinderPdfCacheId');
             if (previousPdfCacheId) {

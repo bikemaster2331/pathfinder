@@ -136,8 +136,8 @@ export default function Last() {
   }, []);
 
   const forceImageFallbackPreview = useMemo(
-    () => preferImageFallbackPreview,
-    [preferImageFallbackPreview]
+    () => (isRaspberryPiBrowser || preferImageFallbackPreview),
+    [isRaspberryPiBrowser, preferImageFallbackPreview]
   );
 
   const viewerCropStyle = useMemo(() => ({
@@ -1049,6 +1049,8 @@ export default function Last() {
                     <a
                       key={`pdf-page-${index + 1}-link-${linkIndex + 1}`}
                       href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className={styles.pageLinkOverlay}
                       style={{
                         left: `${(link.left / Math.max(page.width || 0, 1)) * 100}%`,

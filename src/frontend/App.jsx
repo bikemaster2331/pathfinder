@@ -14,6 +14,35 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Last from './pages/Last';
 
+const CURSOR_LOCK_STYLE_ID = 'pathfinder-cursor-lock-style';
+const CURSOR_LOCK_CSS = `
+html,
+body,
+#root,
+#root * {
+    cursor: none !important;
+}
+`;
+
+const enforceTouchCursorLock = () => {
+    if (typeof document === 'undefined') return;
+
+    let styleTag = document.getElementById(CURSOR_LOCK_STYLE_ID);
+    if (!styleTag) {
+        styleTag = document.createElement('style');
+        styleTag.id = CURSOR_LOCK_STYLE_ID;
+        styleTag.textContent = CURSOR_LOCK_CSS;
+        document.head.appendChild(styleTag);
+    }
+
+    document.documentElement.style.setProperty('cursor', 'none', 'important');
+    document.body.style.setProperty('cursor', 'none', 'important');
+    const root = document.getElementById('root');
+    if (root) {
+        root.style.setProperty('cursor', 'none', 'important');
+    }
+};
+
 const PageTransition = ({ children }) => {
     return (
         <motion.div
@@ -91,6 +120,27 @@ function AnimatedRoutes() {
 }
 
 function App() {
+    useEffect(() => {
+        if (typeof window === 'undefined' || typeof document === 'undefined') return undefined;
+
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                enforceTouchCursorLock();
+            }
+        };
+
+        enforceTouchCursorLock();
+        window.addEventListener('focus', enforceTouchCursorLock);
+        window.addEventListener('pageshow', enforceTouchCursorLock);
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            window.removeEventListener('focus', enforceTouchCursorLock);
+            window.removeEventListener('pageshow', enforceTouchCursorLock);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, []);
+
     return (
         <>
             <Router>
