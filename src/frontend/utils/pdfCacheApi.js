@@ -103,3 +103,31 @@ export const finishPathfinderSession = async ({ pdfCacheId } = {}) => {
 
   return response.json().catch(() => ({}));
 };
+
+export const createPdfShareSession = async (pdfCacheId) => {
+  const normalizedId = encodeURIComponent(String(pdfCacheId || '').trim());
+  if (!normalizedId) {
+    throw new Error('Cannot create PDF share session: missing cache id');
+  }
+
+  const shareUrl = `${getApiBaseUrl()}${PDF_CACHE_ROUTE}/${normalizedId}/share`;
+  const response = await fetch(shareUrl, {
+    method: 'POST'
+  });
+
+  if (!response.ok) {
+    const detail = await response.text().catch(() => '');
+    throw new Error(`Failed to create PDF share session (${response.status}): ${detail}`);
+  }
+
+  const payload = await response.json().catch(() => ({}));
+  return {
+    shareId: String(payload?.share_id || '').trim(),
+    shareUrl: toAbsoluteUrl(payload?.share_url || ''),
+    downloadUrl: toAbsoluteUrl(payload?.download_url || ''),
+    alternateShareUrls: Array.isArray(payload?.alternate_share_urls)
+      ? payload.alternate_share_urls.map((entry) => toAbsoluteUrl(entry)).filter(Boolean)
+      : [],
+    policy: String(payload?.policy || '').trim() || 'session_until_finish'
+  };
+};

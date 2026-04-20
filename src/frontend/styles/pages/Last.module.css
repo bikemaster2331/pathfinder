@@ -244,6 +244,131 @@
     pointer-events: auto;
 }
 
+.sharePanel {
+    position: absolute;
+    top: 78px;
+    left: 24px;
+    z-index: 100;
+    width: 240px;
+    padding: 10px 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.38);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+    pointer-events: auto;
+}
+
+.sharePanelTitle {
+    margin: 0 0 6px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #334155;
+}
+
+.sharePanelText {
+    margin: 0;
+    font-size: 0.74rem;
+    line-height: 1.35;
+    color: #475569;
+}
+
+.sharePanelError {
+    margin: 0;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    color: #b91c1c;
+}
+
+.sharePanelBody {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.shareQrImage {
+    width: 118px;
+    height: 118px;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    background: #ffffff;
+}
+
+.sharePrimaryLink {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.7rem;
+    line-height: 1.25;
+    color: #1d4ed8;
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+.sharePrimaryLink:hover {
+    color: #1e40af;
+}
+
+.sharePolicyText {
+    margin: 0;
+    font-size: 0.66rem;
+    line-height: 1.3;
+    color: #64748b;
+}
+
+.shareAlternateLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.shareAlternateLabel {
+    margin: 0;
+    font-size: 0.62rem;
+    line-height: 1.2;
+    color: #64748b;
+}
+
+.shareAlternateLink {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.64rem;
+    line-height: 1.2;
+    color: #2563eb;
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+.shareAlternateLink:hover {
+    color: #1e40af;
+}
+
+:global([data-theme='dark']) .sharePanel {
+    background: rgba(15, 23, 42, 0.92);
+    border-color: rgba(148, 163, 184, 0.42);
+}
+
+:global([data-theme='dark']) .sharePanelTitle {
+    color: #e2e8f0;
+}
+
+:global([data-theme='dark']) .sharePanelText {
+    color: #cbd5e1;
+}
+
+:global([data-theme='dark']) .sharePolicyText,
+:global([data-theme='dark']) .shareAlternateLabel {
+    color: #94a3b8;
+}
+
+:global([data-theme='dark']) .sharePrimaryLink,
+:global([data-theme='dark']) .shareAlternateLink {
+    color: #93c5fd;
+}
+
+:global([data-theme='dark']) .sharePrimaryLink:hover,
+:global([data-theme='dark']) .shareAlternateLink:hover {
+    color: #bfdbfe;
+}
+
 .dayDirectionsFallback {
     position: absolute;
     top: 74px;
@@ -488,6 +613,11 @@
 @media (max-width: 768px) {
     .dayDirectionsFallback {
         top: 116px;
+        max-width: calc(100vw - 24px);
+    }
+
+    .sharePanel {
+        top: 128px;
         max-width: calc(100vw - 24px);
     }
 }

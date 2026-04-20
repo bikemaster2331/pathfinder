@@ -28,6 +28,25 @@ chmod +x scripts/rpi-global-back-button-extension/setup-rpi-kiosk-autostart.sh
 
 This installs cursor-hiding dependencies (`unclutter-xfixes` with fallback) and adds kiosk launch to LXDE autostart.
 
+### Wireless PDF Retrieval (Kiosk to Phone, Offline-Capable)
+
+Pathfinder now supports a seamless **Send to phone** flow on `/last`:
+
+- A QR code and short link are shown beside the PDF controls.
+- The link stays active until the user taps **Finish & Home**.
+- Retrieval works on local network and can fall back to Pi hotspot access.
+
+Optional environment variables for deployment:
+
+- `PATHFINDER_SHARE_BASE_URL`
+  - Forces the primary share URL base (for example: `http://192.168.1.20:8000`).
+- `PATHFINDER_HOTSPOT_HOST`
+  - Fallback hotspot host/IP for alternate links (default: `192.168.4.1`).
+
+Notes:
+- This repository patch handles **application-level sharing** only.
+- Hotspot service provisioning (hostapd/dnsmasq/system setup) remains deployment-specific.
+
 ### Initial Configuration
 
 You might need to perform initial configuration for API keys, map data sources, and device settings. For example:

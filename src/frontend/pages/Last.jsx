@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, useMemo, useRef } from 'react';
+import QRCode from 'qrcode';
 import styles from '../styles/pages/Last.module.css';
 import { generateDayGoogleDirectionsLinks } from '../utils/dayDirections';
 import {
@@ -9,6 +10,7 @@ import {
 } from '../utils/pdfSnapshotStore';
 import {
   buildPdfCacheUrl,
+  createPdfShareSession,
   deletePdfCacheById,
   finishPathfinderSession,
   uploadPdfBlobToCache
@@ -26,6 +28,7 @@ const ITINERARY_LOCAL_STORAGE_KEYS_TO_CLEAR = [
   'selectedActivities',
   'itineraryBudget'
 ];
+const MAX_ALTERNATE_SHARE_LINKS = 2;
 
 const readPdfCacheIdFromSearch = (search = '') => {
   const params = new URLSearchParams(String(search || ''));
@@ -101,6 +104,17 @@ const safeJsonParse = (rawValue, fallbackValue = null) => {
   }
 };
 
+const formatShareUrlForDisplay = (rawUrl = '') => {
+  const normalized = String(rawUrl || '').trim();
+  if (!normalized) return '';
+  try {
+    const parsed = new URL(normalized);
+    return `${parsed.host}${parsed.pathname}`;
+  } catch {
+    return normalized;
+  }
+};
+
 export default function Last() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -128,6 +142,15 @@ export default function Last() {
   const [viewerReloadKey, setViewerReloadKey] = useState(0);
   const [isFinishConfirmationOpen, setIsFinishConfirmationOpen] = useState(false);
   const [isFinishingSession, setIsFinishingSession] = useState(false);
+  const [shareSession, setShareSession] = useState({
+    status: 'idle',
+    shareUrl: '',
+    downloadUrl: '',
+    alternateShareUrls: [],
+    policy: '',
+    qrDataUrl: '',
+    error: ''
+  });
   const hasEnsuredSnapshotRef = useRef(false);
   const rawPdfDataRef = useRef(null);
   const interactiveReadyRef = useRef(false);
@@ -822,6 +845,95 @@ export default function Last() {
     }
   }, [pdfCacheId]);
 
+  useEffect(() => {
+    let cancelled = false;
+    const hasPdfSource = Boolean(rawPdfData || previewBaseUrl);
+    const normalizedCacheId = String(pdfCacheId || '').trim();
+
+    if (!hasPdfSource) {
+      setShareSession({
+        status: 'idle',
+        shareUrl: '',
+        downloadUrl: '',
+        alternateShareUrls: [],
+        policy: '',
+        qrDataUrl: '',
+        error: ''
+      });
+      return undefined;
+    }
+
+    if (!normalizedCacheId) {
+      setShareSession((current) => ({
+        ...current,
+        status: 'preparing',
+        error: ''
+      }));
+      return undefined;
+    }
+
+    const prepareShareSession = async () => {
+      setShareSession((current) => ({
+        ...current,
+        status: 'loading',
+        error: ''
+      }));
+
+      try {
+        const payload = await createPdfShareSession(normalizedCacheId);
+        const normalizedShareUrl = String(payload?.shareUrl || '').trim();
+
+        let qrDataUrl = '';
+        if (normalizedShareUrl) {
+          try {
+            qrDataUrl = await QRCode.toDataURL(normalizedShareUrl, {
+              errorCorrectionLevel: 'M',
+              margin: 1,
+              width: 184
+            });
+          } catch (qrError) {
+            console.warn('Failed to generate QR image for PDF share URL:', qrError);
+          }
+        }
+
+        if (cancelled) return;
+        setShareSession({
+          status: 'ready',
+          shareUrl: normalizedShareUrl,
+          downloadUrl: String(payload?.downloadUrl || '').trim(),
+          alternateShareUrls: Array.isArray(payload?.alternateShareUrls)
+            ? payload.alternateShareUrls.slice(0, MAX_ALTERNATE_SHARE_LINKS)
+            : [],
+          policy: String(payload?.policy || '').trim(),
+          qrDataUrl,
+          error: ''
+        });
+      } catch (error) {
+        if (cancelled) return;
+        setShareSession({
+          status: 'error',
+          shareUrl: '',
+          downloadUrl: '',
+          alternateShareUrls: [],
+          policy: '',
+          qrDataUrl: '',
+          error: error?.message || 'Failed to prepare wireless transfer link.'
+        });
+      }
+    };
+
+    void prepareShareSession();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [pdfCacheId, rawPdfData, previewBaseUrl]);
+
+  const shareLinkDisplay = useMemo(
+    () => formatShareUrlForDisplay(shareSession.shareUrl),
+    [shareSession.shareUrl]
+  );
+
   const restoreItinerarySessionForEditor = () => {
     try {
       const itineraryRaw = localStorage.getItem('finalItinerary');
@@ -1095,6 +1207,57 @@ export default function Last() {
           </button>
         )}
       </div>
+      {(rawPdfData || previewBaseUrl) && (
+        <div className={styles.sharePanel} role="status" aria-live="polite">
+          <p className={styles.sharePanelTitle}>Send to phone</p>
+          {shareSession.status === 'preparing' || shareSession.status === 'loading' ? (
+            <p className={styles.sharePanelText}>Preparing transfer link...</p>
+          ) : null}
+          {shareSession.status === 'error' ? (
+            <p className={styles.sharePanelError}>{shareSession.error || 'Transfer link unavailable right now.'}</p>
+          ) : null}
+          {shareSession.status === 'ready' ? (
+            <div className={styles.sharePanelBody}>
+              {shareSession.qrDataUrl && (
+                <img
+                  src={shareSession.qrDataUrl}
+                  alt="QR code for itinerary PDF transfer link"
+                  className={styles.shareQrImage}
+                />
+              )}
+              <a
+                href={shareSession.shareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.sharePrimaryLink}
+                title={shareSession.shareUrl}
+              >
+                {shareLinkDisplay || shareSession.shareUrl}
+              </a>
+              {shareSession.policy === 'session_until_finish' && (
+                <p className={styles.sharePolicyText}>Link stays active until you tap Finish &amp; Home.</p>
+              )}
+              {Array.isArray(shareSession.alternateShareUrls) && shareSession.alternateShareUrls.length > 0 && (
+                <div className={styles.shareAlternateLinks}>
+                  <p className={styles.shareAlternateLabel}>Fallback links:</p>
+                  {shareSession.alternateShareUrls.map((alternateUrl, index) => (
+                    <a
+                      key={`share-alternate-link-${index + 1}`}
+                      href={alternateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.shareAlternateLink}
+                      title={alternateUrl}
+                    >
+                      {formatShareUrlForDisplay(alternateUrl) || alternateUrl}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : null}
+        </div>
+      )}
 
       <main className={styles.viewerContainer}>
         {!isImageFallbackPreview && pdfData ? (

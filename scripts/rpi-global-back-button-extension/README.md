@@ -47,3 +47,7 @@ chromium-browser \
 - Allowed Pathfinder hosts are in `PATHFINDER_HOST_ALLOWLIST`.
 - The setup script installs `unclutter-xfixes` (fallback: `unclutter`) for OS-level cursor hiding.
 - The kiosk launcher starts Chromium with touch-centric cursor flags and enables global cursor hiding before opening the app.
+- The `/last` page now includes a QR + short-link **Send to phone** panel for wireless PDF retrieval.
+- For reliable phone access, configure backend env vars if needed:
+  - `PATHFINDER_SHARE_BASE_URL` (optional primary share base URL)
+  - `PATHFINDER_HOTSPOT_HOST` (optional hotspot fallback host, default `192.168.4.1`)
