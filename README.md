@@ -16,6 +16,18 @@ npm start
 
 Running the above commands will start the Pathfinder server and web interface. Access it from your browser or connect to your IoT map board.
 
+### Raspberry Pi Kiosk Cursor Hiding (System-Wide)
+
+For touchscreen kiosk deployments where cursor must stay hidden even on external sites (for example, Google Maps), run:
+
+```shell
+chmod +x scripts/rpi-global-back-button-extension/start-kiosk-with-back-button.sh
+chmod +x scripts/rpi-global-back-button-extension/setup-rpi-kiosk-autostart.sh
+./scripts/rpi-global-back-button-extension/setup-rpi-kiosk-autostart.sh
+```
+
+This installs cursor-hiding dependencies (`unclutter-xfixes` with fallback) and adds kiosk launch to LXDE autostart.
+
 ### Initial Configuration
 
 You might need to perform initial configuration for API keys, map data sources, and device settings. For example:

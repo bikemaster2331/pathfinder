@@ -18,7 +18,21 @@ This extension adds a **Back to PDF** button on pages that are not part of Pathf
 
 ## Install on Raspberry Pi Chromium
 1. Copy this folder to the Pi.
-2. Launch Chromium with the extension flags:
+2. Make launcher scripts executable:
+
+```bash
+chmod +x /home/pi/pathfinder-main/scripts/rpi-global-back-button-extension/start-kiosk-with-back-button.sh
+chmod +x /home/pi/pathfinder-main/scripts/rpi-global-back-button-extension/setup-rpi-kiosk-autostart.sh
+```
+
+3. Run the setup script once to install cursor-hiding dependencies and register kiosk startup in LXDE autostart:
+
+```bash
+/home/pi/pathfinder-main/scripts/rpi-global-back-button-extension/setup-rpi-kiosk-autostart.sh
+```
+
+4. Reboot the Pi (or log out/in), then launch normally through autostart.
+5. Manual launch (optional) with the extension flags:
 
 ```bash
 chromium-browser \
@@ -31,5 +45,5 @@ chromium-browser \
 - Default return URL is `http://localhost:5173/last`.
 - You can edit `DEFAULT_RETURN_URL` in `content.js` if your app runs elsewhere.
 - Allowed Pathfinder hosts are in `PATHFINDER_HOST_ALLOWLIST`.
-- Optional but recommended on Raspberry Pi kiosk: install `unclutter` so the OS cursor stays hidden.
-- The kiosk launcher starts Chromium with touch-centric cursor flags and runs `unclutter -idle 0 -root -grab` when available.
+- The setup script installs `unclutter-xfixes` (fallback: `unclutter`) for OS-level cursor hiding.
+- The kiosk launcher starts Chromium with touch-centric cursor flags and enables global cursor hiding before opening the app.
