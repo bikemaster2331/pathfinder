@@ -3,20 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap');
 
-html,
-body,
-#root,
-#root * {
-    cursor: none !important;
-}
-
-body[data-pathfinder-app='1'] #__pathfinder_global_back_button__ {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
-
 :root {
     --scrollbar-width: 0px;
     --color-white: #ffffff;

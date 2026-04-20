@@ -16,7 +16,6 @@ import {
 import { TRAVEL_HUBS } from '../constants/location';
 
 const PDF_CACHE_ID_STORAGE_KEY = 'pathfinderPdfCacheId';
-const FORCE_IMAGE_PREVIEW = true;
 const ITINERARY_SESSION_STORAGE_PREFIX = 'itinerary_';
 const ITINERARY_LOCAL_STORAGE_KEYS_TO_CLEAR = [
   'finalItinerary',
@@ -147,7 +146,7 @@ export default function Last() {
   }, []);
 
   const forceImageFallbackPreview = useMemo(
-    () => (FORCE_IMAGE_PREVIEW || isRaspberryPiBrowser || preferImageFallbackPreview),
+    () => (isRaspberryPiBrowser || preferImageFallbackPreview),
     [isRaspberryPiBrowser, preferImageFallbackPreview]
   );
   const isImageFallbackPreview = forceImageFallbackPreview || useImageFallbackPreview;
