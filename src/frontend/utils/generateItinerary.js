@@ -1,4 +1,4 @@
-import { calculateDistance, calculateTimeUsage } from './distance';
+import { calculateDistance, calculateTimeUsage, estimateDriveMinutes } from './distance';
 import { optimizeRoute } from './optimize';
 
 // Itinerary generation logic for day-by-day trip planning.
@@ -265,15 +265,38 @@ const SLOT_PLAN = [
     { name: 'evening', minutes: 120 },
 ];
 const STAY_CATEGORIES = new Set(['accommodation', 'beach_resort']);
+const CATEGORY_VISIT_FALLBACK = {
+    accommodation: 45,
+    beach_resort: 60,
+    food: 75,
+    beach: 120,
+    swimming: 90,
+    hike: 110,
+    falls: 95,
+    nature: 90,
+    viewpoint: 70,
+    religious: 45,
+    history: 55,
+    culture: 60,
+    indoor: 60,
+    shopping: 50,
+    transport: 20,
+};
 
 const getVisitMinutes = (spot) => {
     const raw = Number(spot?.visit_time_minutes);
-    return Number.isFinite(raw) && raw > 0 ? raw : 60;
+    if (Number.isFinite(raw) && raw > 0) {
+        return Math.max(15, Math.min(240, Math.round(raw)));
+    }
+
+    const category = String(spot?.category || '').toLowerCase().trim();
+    const fallback = CATEGORY_VISIT_FALLBACK[category] ?? 60;
+    return fallback;
 };
 
 const getDriveMinutesBetween = (fromCoordinates, toCoordinates) => {
     const km = calculateDistance(fromCoordinates, toCoordinates);
-    return Math.round((km / 40) * 60);
+    return estimateDriveMinutes(km);
 };
 
 const estimateIncrementMinutes = (fromCoordinates, spot) => {

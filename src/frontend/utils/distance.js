@@ -18,6 +18,32 @@ const resolveStartCoordinates = (hub, options = {}) => {
     return isValidCoordinates(hub?.coordinates) ? hub.coordinates : null;
 };
 
+export const estimateDriveMinutes = (distanceKm) => {
+    const km = Number(distanceKm);
+    if (!Number.isFinite(km) || km <= 0) return 0;
+
+    let averageSpeedKmh = 40;
+    let transferBufferMinutes = 4;
+
+    // Short inter-town legs are typically slower due to turns and traffic.
+    if (km < 3) {
+        averageSpeedKmh = 22;
+        transferBufferMinutes = 4;
+    } else if (km < 8) {
+        averageSpeedKmh = 30;
+        transferBufferMinutes = 5;
+    } else if (km < 20) {
+        averageSpeedKmh = 38;
+        transferBufferMinutes = 7;
+    } else {
+        averageSpeedKmh = 46;
+        transferBufferMinutes = 10;
+    }
+
+    const rawMinutes = (km / averageSpeedKmh) * 60 + transferBufferMinutes;
+    return Math.max(3, Math.ceil(rawMinutes));
+};
+
 // 1. Basic Distance Calc (Used by everything else)
 export const calculateDistance = (coord1, coord2) => {
     if (!coord1 || !coord2) return 0;
@@ -56,7 +82,7 @@ export const evaluateTripFeasibility = (hub, spots, endHour = 17) => {
     // 1. Subtract Drive Home (Last Spot -> Hub)
     let lastSpot = spots[spots.length - 1];
     let distToHome = calculateDistance(lastSpot.geometry.coordinates, hub.coordinates);
-    let driveHomeMins = Math.round((distToHome / 40) * 60); 
+    let driveHomeMins = estimateDriveMinutes(distToHome);
     currentTime.setMinutes(currentTime.getMinutes() - driveHomeMins);
 
     // 2. Loop Backwards to find Hub Departure Time
@@ -70,7 +96,7 @@ export const evaluateTripFeasibility = (hub, spots, endHour = 17) => {
         // Subtract Drive from Previous
         let prevCoords = (i === 0) ? hub.coordinates : spots[i - 1].geometry.coordinates;
         const dist = calculateDistance(prevCoords, spot.geometry.coordinates);
-        const driveMinutes = Math.round((dist / 40) * 60);
+        const driveMinutes = estimateDriveMinutes(dist);
 
         currentTime.setMinutes(currentTime.getMinutes() - driveMinutes);
     }
@@ -126,7 +152,7 @@ export const calculateTimeUsage = (hub, spots, options = {}) => {
 
         // 2. Drive from Previous
         const dist = calculateDistance(currentCoords, spot.geometry.coordinates);
-        const driveMins = Math.round((dist / 40) * 60); // 40km/h
+        const driveMins = estimateDriveMinutes(dist);
         totalDrive += driveMins;
 
         currentCoords = spot.geometry.coordinates;
@@ -135,7 +161,7 @@ export const calculateTimeUsage = (hub, spots, options = {}) => {
     // 3. Optional return leg (defaults to legacy behavior)
     if (includeReturnLeg && returnCoordinates) {
         const distHome = calculateDistance(currentCoords, returnCoordinates);
-        const driveHome = Math.round((distHome / 40) * 60);
+        const driveHome = estimateDriveMinutes(distHome);
         totalDrive += driveHome;
     }
 
@@ -157,7 +183,7 @@ export const calculateDriveTimes = (hub, spots, options = {}) => {
     
     return spots.map(spot => {
         const dist = calculateDistance(currentCoords, spot.geometry.coordinates);
-        const driveMinutes = Math.round((dist / 40) * 60);
+        const driveMinutes = estimateDriveMinutes(dist);
         currentCoords = spot.geometry.coordinates;
         return { driveTime: driveMinutes };
     });

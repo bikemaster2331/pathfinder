@@ -66,6 +66,67 @@ const getBestTimeLabel = (bestTime) => {
     }
 };
 
+const CATEGORY_VISIT_FALLBACK = {
+    accommodation: 45,
+    beach_resort: 60,
+    food: 75,
+    beach: 120,
+    swimming: 90,
+    hike: 110,
+    falls: 95,
+    nature: 90,
+    viewpoint: 70,
+    religious: 45,
+    history: 55,
+    culture: 60,
+    indoor: 60,
+    shopping: 50,
+    transport: 20,
+};
+
+const normalizeDaypartTag = (bestTimeOfDay) => {
+    const raw = String(bestTimeOfDay || '').toLowerCase().trim();
+    if (!raw || raw === 'any') return 'any';
+    if (raw.includes('night') || raw.includes('evening') || raw.includes('dinner') || raw.includes('sunset')) return 'evening';
+    if (raw.includes('afternoon')) return 'afternoon';
+    if (raw.includes('midday') || raw.includes('noon') || raw.includes('lunch')) return 'midday';
+    if (raw.includes('morning') || raw.includes('sunrise') || raw.includes('breakfast')) return 'morning';
+    return 'any';
+};
+
+const resolveVisitMinutes = (spot) => {
+    const raw = Number(spot?.visit_time_minutes);
+    if (Number.isFinite(raw) && raw > 0) {
+        return Math.max(15, Math.min(240, Math.round(raw)));
+    }
+
+    const category = String(spot?.category || '').toLowerCase().trim();
+    return CATEGORY_VISIT_FALLBACK[category] ?? 60;
+};
+
+const getPreferredStartTime = (spotsForDay, comfortStartTemplate) => {
+    const preferred = new Date(comfortStartTemplate);
+    const firstTagged = (Array.isArray(spotsForDay) ? spotsForDay : [])
+        .map((spot) => normalizeDaypartTag(spot?.best_time_of_day))
+        .find((tag) => tag !== 'any') || 'morning';
+
+    if (firstTagged === 'midday') {
+        preferred.setHours(9, 30, 0, 0);
+        return preferred;
+    }
+    if (firstTagged === 'afternoon') {
+        preferred.setHours(10, 30, 0, 0);
+        return preferred;
+    }
+    if (firstTagged === 'evening') {
+        preferred.setHours(13, 30, 0, 0);
+        return preferred;
+    }
+
+    preferred.setHours(8, 0, 0, 0);
+    return preferred;
+};
+
 // --- HELPER: Safe page break check ---
 const ensureSpace = (doc, currentY, needed, pageHeight) => {
     if (currentY + needed > pageHeight - 20) {
@@ -221,27 +282,26 @@ export const generateItineraryPDF = ({
             let dayTripMinutes = 0;
             spotsForDay.forEach((spot, localIndex) => {
                 const actualDriveTime = driveData?.[globalSpotIndex + localIndex]?.driveTime || 0;
-                dayTripMinutes += (spot.visit_time_minutes || 60);
+                dayTripMinutes += resolveVisitMinutes(spot);
                 dayTripMinutes += actualDriveTime;
             });
 
             const requiredStartTime = addMinutes(HARD_END_TIME, -dayTripMinutes);
-            let finalStartTime = COMFORT_START_TIME;
-            let scheduleNote = "Relaxed Pace - User can start as early as 8:00 AM!";
+            const preferredStartTime = getPreferredStartTime(spotsForDay, COMFORT_START_TIME);
+            let finalStartTime = requiredStartTime > preferredStartTime
+                ? requiredStartTime
+                : preferredStartTime;
+            let scheduleNote = `Balanced Pace - Start around ${formatTime(preferredStartTime)}.`;
             let noteColor = colors.accent;
 
             const requiredHour = requiredStartTime.getHours() + (requiredStartTime.getMinutes() / 60);
 
-            if (requiredHour >= 8) {
-                finalStartTime = COMFORT_START_TIME;
-            } else if (requiredHour >= 6) {
-                finalStartTime = requiredStartTime;
-                scheduleNote = `Tight Schedule - Start at ${formatTime(requiredStartTime)}`;
-                noteColor = colors.warning;
-            } else {
-                finalStartTime = requiredStartTime;
+            if (requiredHour < 6) {
                 scheduleNote = `Early Start Required - ${formatTime(requiredStartTime)}`;
                 noteColor = colors.danger;
+            } else if (requiredStartTime > preferredStartTime) {
+                scheduleNote = `Tight Schedule - Start at ${formatTime(requiredStartTime)}`;
+                noteColor = colors.warning;
             }
 
             // --- B. DAY HEADER ---
@@ -381,8 +441,8 @@ export const generateItineraryPDF = ({
             let lastTimeBlock = '';
 
             spotsForDay.forEach((spot, i) => {
-                const driveTime = driveData?.[globalSpotIndex]?.driveTime || 0;
-                const visitTime = spot.visit_time_minutes || 60;
+                const driveTime = driveData?.[globalSpotIndex + i]?.driveTime || 0;
+                const visitTime = resolveVisitMinutes(spot);
                 const arrivalTime = addMinutes(runningTime, driveTime);
                 const departureTime = addMinutes(arrivalTime, visitTime);
                 const timeBlock = getTimeBlock(arrivalTime);
@@ -520,7 +580,8 @@ export const generateItineraryPDF = ({
 
                     const insightParts = [];
                     if (spot.opening_hours) insightParts.push(`Open: ${spot.opening_hours}`);
-                    if (spot.visit_time_minutes) insightParts.push(`Stay: ${spot.visit_time_minutes}m`);
+                    const hasExplicitVisitTime = Number.isFinite(Number(spot?.visit_time_minutes)) && Number(spot.visit_time_minutes) > 0;
+                    insightParts.push(`Stay: ${visitTime}m${hasExplicitVisitTime ? '' : ' (est)'}`);
                     if (spot.best_time_of_day && spot.best_time_of_day !== 'any') {
                         insightParts.push(`Best: ${spot.best_time_of_day}`);
                     }
@@ -546,9 +607,9 @@ export const generateItineraryPDF = ({
 
                 // Increment
                 runningTime = departureTime;
-                globalSpotIndex++;
                 currentY += cardHeight + 4;
             });
+            globalSpotIndex += spotsForDay.length;
 
             // Day end marker
             currentY = ensureSpace(doc, currentY, 14, pageHeight);
