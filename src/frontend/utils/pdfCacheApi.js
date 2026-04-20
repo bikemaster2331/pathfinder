@@ -128,6 +128,8 @@ export const createPdfShareSession = async (pdfCacheId) => {
     alternateShareUrls: Array.isArray(payload?.alternate_share_urls)
       ? payload.alternate_share_urls.map((entry) => toAbsoluteUrl(entry)).filter(Boolean)
       : [],
-    policy: String(payload?.policy || '').trim() || 'session_until_finish'
+    policy: String(payload?.policy || '').trim() || 'session_until_finish',
+    wifiQrString: String(payload?.wifi_qr_string || '').trim(),
+    wifiSsid: String(payload?.wifi_ssid || '').trim()
   };
 };

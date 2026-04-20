@@ -149,6 +149,8 @@ export default function Last() {
     alternateShareUrls: [],
     policy: '',
     qrDataUrl: '',
+    wifiQrDataUrl: '',
+    wifiSsid: '',
     error: ''
   });
   const hasEnsuredSnapshotRef = useRef(false);
@@ -858,6 +860,8 @@ export default function Last() {
         alternateShareUrls: [],
         policy: '',
         qrDataUrl: '',
+        wifiQrDataUrl: '',
+        wifiSsid: '',
         error: ''
       });
       return undefined;
@@ -896,6 +900,20 @@ export default function Last() {
           }
         }
 
+        let wifiQrDataUrl = '';
+        const wifiQrString = String(payload?.wifiQrString || '').trim();
+        if (wifiQrString) {
+          try {
+            wifiQrDataUrl = await QRCode.toDataURL(wifiQrString, {
+              errorCorrectionLevel: 'M',
+              margin: 1,
+              width: 184
+            });
+          } catch (wifiQrError) {
+            console.warn('Failed to generate WiFi QR image:', wifiQrError);
+          }
+        }
+
         if (cancelled) return;
         setShareSession({
           status: 'ready',
@@ -906,6 +924,8 @@ export default function Last() {
             : [],
           policy: String(payload?.policy || '').trim(),
           qrDataUrl,
+          wifiQrDataUrl,
+          wifiSsid: String(payload?.wifiSsid || '').trim(),
           error: ''
         });
       } catch (error) {
@@ -917,6 +937,8 @@ export default function Last() {
           alternateShareUrls: [],
           policy: '',
           qrDataUrl: '',
+          wifiQrDataUrl: '',
+          wifiSsid: '',
           error: error?.message || 'Failed to prepare wireless transfer link.'
         });
       }
@@ -1218,6 +1240,29 @@ export default function Last() {
           ) : null}
           {shareSession.status === 'ready' ? (
             <div className={styles.sharePanelBody}>
+              {shareSession.wifiQrDataUrl ? (
+                <>
+                  <div className={styles.shareStep}>
+                    <span className={styles.shareStepBadge}>1</span>
+                    <span className={styles.shareStepLabel}>Connect to Wi-Fi</span>
+                  </div>
+                  <img
+                    src={shareSession.wifiQrDataUrl}
+                    alt={`QR code to connect to ${shareSession.wifiSsid || 'Pathfinder'} Wi-Fi`}
+                    className={styles.shareQrImage}
+                  />
+                  {shareSession.wifiSsid && (
+                    <p className={styles.shareWifiSsid}>
+                      Network: <strong>{shareSession.wifiSsid}</strong>
+                    </p>
+                  )}
+                  <div className={styles.shareStepDivider} />
+                  <div className={styles.shareStep}>
+                    <span className={styles.shareStepBadge}>2</span>
+                    <span className={styles.shareStepLabel}>Get your itinerary</span>
+                  </div>
+                </>
+              ) : null}
               {shareSession.qrDataUrl && (
                 <img
                   src={shareSession.qrDataUrl}

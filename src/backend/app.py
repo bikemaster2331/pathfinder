@@ -29,6 +29,8 @@ CONFIG = BASE_DIR / "config" / "config.yaml"
 PDF_CACHE_DIR = BASE_DIR / "pdf_cache"
 PDF_CACHE_TTL_SECONDS = int(os.environ.get("PDF_CACHE_TTL_SECONDS", "86400"))
 PATHFINDER_HOTSPOT_HOST = str(os.environ.get("PATHFINDER_HOTSPOT_HOST", "192.168.4.1")).strip()
+PATHFINDER_HOTSPOT_SSID = str(os.environ.get("PATHFINDER_HOTSPOT_SSID", "Pathfinder")).strip()
+PATHFINDER_HOTSPOT_PASSWORD = str(os.environ.get("PATHFINDER_HOTSPOT_PASSWORD", "")).strip()
 PATHFINDER_SHARE_POLICY = "session_until_finish"
 DEFAULT_BACKEND_PORT = 8000
 
@@ -274,6 +276,19 @@ def _get_or_create_pdf_share_id(pdf_id: str) -> str:
     return share_id
 
 
+def _build_wifi_qr_string() -> str:
+    if not PATHFINDER_HOTSPOT_SSID:
+        return ""
+
+    auth_type = "WPA" if PATHFINDER_HOTSPOT_PASSWORD else "nopass"
+    escaped_ssid = PATHFINDER_HOTSPOT_SSID.replace("\\", "\\\\").replace('"', '\\"').replace(";", "\\;")
+    escaped_password = PATHFINDER_HOTSPOT_PASSWORD.replace("\\", "\\\\").replace('"', '\\"').replace(";", "\\;")
+
+    if PATHFINDER_HOTSPOT_PASSWORD:
+        return f"WIFI:T:{auth_type};S:{escaped_ssid};P:{escaped_password};;"
+    return f"WIFI:T:{auth_type};S:{escaped_ssid};;"
+
+
 def _build_pdf_share_payload(request: Request, share_id: str) -> dict:
     base_urls = _resolve_share_base_urls(request)
     primary_base_url = base_urls[0]
@@ -286,7 +301,9 @@ def _build_pdf_share_payload(request: Request, share_id: str) -> dict:
         "share_url": f"{primary_base_url}{share_path}",
         "download_url": f"{primary_base_url}{download_path}",
         "alternate_share_urls": alternate_share_urls,
-        "policy": PATHFINDER_SHARE_POLICY
+        "policy": PATHFINDER_SHARE_POLICY,
+        "wifi_qr_string": _build_wifi_qr_string(),
+        "wifi_ssid": PATHFINDER_HOTSPOT_SSID
     }
 
 
