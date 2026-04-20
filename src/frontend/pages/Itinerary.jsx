@@ -594,7 +594,14 @@ export default function ItineraryPage() {
         };
     });
 
-    const [budget, setBudget] = useState(50);
+    const [budget, setBudget] = useState(() => {
+        const saved = sessionStorage.getItem('itinerary_budget');
+        const parsedBudget = Number(saved);
+        if (Number.isFinite(parsedBudget)) {
+            return Math.min(100, Math.max(0, parsedBudget));
+        }
+        return 50;
+    });
     const [destination, setDestination] = useState(() => {
         const saved = sessionStorage.getItem('itinerary_destination');
         return saved ? saved : '';
@@ -661,6 +668,10 @@ export default function ItineraryPage() {
     useEffect(() => {
         sessionStorage.setItem('itinerary_selectedActivities', JSON.stringify(selectedActivities));
     }, [selectedActivities]);
+
+    useEffect(() => {
+        sessionStorage.setItem('itinerary_budget', String(budget));
+    }, [budget]);
 
     // Chat State Lifted to Parent
     const [chatMessages, setChatMessages] = useState(() => {
@@ -868,6 +879,8 @@ export default function ItineraryPage() {
         localStorage.setItem('activeHubName', activeHub.name);
         localStorage.setItem('dateRange', JSON.stringify(dateRange || null));
         localStorage.setItem('finalDayMeta', JSON.stringify(finalDayMeta));
+        localStorage.setItem('selectedActivities', JSON.stringify(selectedActivities || {}));
+        localStorage.setItem('itineraryBudget', String(budget));
 
         const fullTripDistance = calculateTotalDistanceByDay({
             activeHub,

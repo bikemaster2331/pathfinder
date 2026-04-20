@@ -22,7 +22,9 @@ const ITINERARY_LOCAL_STORAGE_KEYS_TO_CLEAR = [
   'finalItinerary',
   'activeHubName',
   'dateRange',
-  'finalDayMeta'
+  'finalDayMeta',
+  'selectedActivities',
+  'itineraryBudget'
 ];
 
 const readPdfCacheIdFromSearch = (search = '') => {
@@ -88,6 +90,14 @@ const clearClientTripState = () => {
     });
   } catch {
     // Ignore storage access issues on kiosk browsers.
+  }
+};
+
+const safeJsonParse = (rawValue, fallbackValue = null) => {
+  try {
+    return JSON.parse(rawValue);
+  } catch {
+    return fallbackValue;
   }
 };
 
@@ -812,7 +822,85 @@ export default function Last() {
     }
   }, [pdfCacheId]);
 
+  const restoreItinerarySessionForEditor = () => {
+    try {
+      const itineraryRaw = localStorage.getItem('finalItinerary');
+      const activeHubName = String(localStorage.getItem('activeHubName') || '').trim();
+      const dateRangeRaw = localStorage.getItem('dateRange');
+      const dayMetaRaw = localStorage.getItem('finalDayMeta');
+      const selectedActivitiesRaw = localStorage.getItem('selectedActivities');
+      const itineraryBudgetRaw = localStorage.getItem('itineraryBudget');
+
+      if (itineraryRaw) {
+        const parsedItinerary = safeJsonParse(itineraryRaw, {});
+        const normalizedItinerary = normalizeStoredItinerary(parsedItinerary);
+        const dayKeys = Object.keys(normalizedItinerary || {}).sort((a, b) => Number(a) - Number(b));
+        const storedCurrentDay = Number.parseInt(
+          String(sessionStorage.getItem('itinerary_currentDay') || ''),
+          10
+        );
+        const fallbackDay = dayKeys.length > 0 ? Number(dayKeys[0]) : 1;
+        const hasStoredCurrentDay = Number.isFinite(storedCurrentDay) && Array.isArray(normalizedItinerary?.[storedCurrentDay]);
+        const restoredCurrentDay = hasStoredCurrentDay ? storedCurrentDay : fallbackDay;
+        const restoredSpots = Array.isArray(normalizedItinerary?.[restoredCurrentDay])
+          ? normalizedItinerary[restoredCurrentDay]
+          : [];
+
+        sessionStorage.setItem('itinerary_storedDays', JSON.stringify(normalizedItinerary));
+        sessionStorage.setItem('itinerary_currentDay', String(restoredCurrentDay));
+        sessionStorage.setItem('itinerary_addedSpots', JSON.stringify(restoredSpots));
+      }
+
+      if (dayMetaRaw) {
+        const parsedDayMeta = safeJsonParse(dayMetaRaw, {});
+        if (parsedDayMeta && typeof parsedDayMeta === 'object') {
+          sessionStorage.setItem('itinerary_storedDayMeta', JSON.stringify(parsedDayMeta));
+        }
+      }
+
+      if (activeHubName) {
+        const { hub } = resolveStoredHub(activeHubName);
+        if (hub) {
+          sessionStorage.setItem('itinerary_activeHub', JSON.stringify(hub));
+          sessionStorage.setItem('itinerary_destination', hub.name || activeHubName);
+        } else {
+          sessionStorage.setItem('itinerary_destination', activeHubName);
+        }
+      }
+
+      if (dateRangeRaw) {
+        const parsedDateRange = safeJsonParse(dateRangeRaw, {});
+        if (parsedDateRange && typeof parsedDateRange === 'object') {
+          const normalizedDateRange = {
+            start: String(parsedDateRange?.start || ''),
+            end: String(parsedDateRange?.end || '')
+          };
+          sessionStorage.setItem('itinerary_dateRange', JSON.stringify(normalizedDateRange));
+        }
+      }
+
+      if (selectedActivitiesRaw) {
+        const parsedSelectedActivities = safeJsonParse(selectedActivitiesRaw, {});
+        if (parsedSelectedActivities && typeof parsedSelectedActivities === 'object') {
+          sessionStorage.setItem('itinerary_selectedActivities', JSON.stringify(parsedSelectedActivities));
+        }
+      }
+
+      const parsedBudget = Number(itineraryBudgetRaw);
+      if (Number.isFinite(parsedBudget)) {
+        const normalizedBudget = Math.min(100, Math.max(0, parsedBudget));
+        sessionStorage.setItem('itinerary_budget', String(normalizedBudget));
+      }
+
+      sessionStorage.setItem('itinerary_tripboxDone', 'true');
+      sessionStorage.setItem('itinerary_last_activity', String(Date.now()));
+    } catch (error) {
+      console.warn('Failed to restore itinerary session before returning to editor:', error);
+    }
+  };
+
   const handleBackToItinerary = () => {
+    restoreItinerarySessionForEditor();
     navigate('/itinerary');
   };
 
