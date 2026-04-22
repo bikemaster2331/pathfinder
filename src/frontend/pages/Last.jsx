@@ -1240,29 +1240,6 @@ export default function Last() {
           ) : null}
           {shareSession.status === 'ready' ? (
             <div className={styles.sharePanelBody}>
-              {shareSession.wifiQrDataUrl ? (
-                <>
-                  <div className={styles.shareStep}>
-                    <span className={styles.shareStepBadge}>1</span>
-                    <span className={styles.shareStepLabel}>Connect to Wi-Fi</span>
-                  </div>
-                  <img
-                    src={shareSession.wifiQrDataUrl}
-                    alt={`QR code to connect to ${shareSession.wifiSsid || 'Pathfinder'} Wi-Fi`}
-                    className={styles.shareQrImage}
-                  />
-                  {shareSession.wifiSsid && (
-                    <p className={styles.shareWifiSsid}>
-                      Network: <strong>{shareSession.wifiSsid}</strong>
-                    </p>
-                  )}
-                  <div className={styles.shareStepDivider} />
-                  <div className={styles.shareStep}>
-                    <span className={styles.shareStepBadge}>2</span>
-                    <span className={styles.shareStepLabel}>Get your itinerary</span>
-                  </div>
-                </>
-              ) : null}
               {shareSession.qrDataUrl && (
                 <img
                   src={shareSession.qrDataUrl}
