@@ -43,6 +43,7 @@ const ChatBot = forwardRef(({
     const keyboardRef = useRef(null);
     const recognitionRef = useRef(null);
     const modalContainerRef = useRef(null);
+    const submitLockRef = useRef(false);
 
     // Focus the modal container so it can catch physical keystrokes
     useEffect(() => {
@@ -54,6 +55,7 @@ const ChatBot = forwardRef(({
     // Handle physical keyboard typing when modal is active
     const handleGlobalKeyDown = (e) => {
         if (!showKeyboard) return;
+        if (e.defaultPrevented) return;
 
         // Don't capture if user is holding Ctrl/Cmd (shortcuts)
         if (e.ctrlKey || e.metaKey || e.altKey) return;
@@ -255,8 +257,9 @@ const ChatBot = forwardRef(({
     };
 
     const submitMessage = async (userMessage) => {
-        if (!userMessage || loading || !setMessages) return;
+        if (!userMessage || loading || !setMessages || submitLockRef.current) return;
 
+        submitLockRef.current = true;
         setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
         setLoading(true);
 
@@ -301,6 +304,7 @@ const ChatBot = forwardRef(({
             setMessages(prev => [...prev, { role: 'assistant', content: errorMsg, isError: true }]);
         } finally {
             setLoading(false);
+            submitLockRef.current = false;
         }
     };
 
